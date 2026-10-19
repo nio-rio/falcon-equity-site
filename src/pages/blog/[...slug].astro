@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
+import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { categorySlug, formatDate, getPublishedPosts, readingTime, type Post } from '@/lib/blog';
 import { articleSchema, breadcrumbSchema } from '@/lib/schema';
@@ -85,9 +86,9 @@ const ogImage = cover?.src;
       </div>
     </header>
 
-    {
-      cover && (
-        <div class="container-site max-w-5xl">
+    <div class="container-site max-w-5xl">
+      {
+        cover ? (
           <Image
             src={cover}
             alt={coverAlt}
@@ -96,9 +97,15 @@ const ogImage = cover?.src;
             class="mt-10 aspect-[16/9] w-full object-cover"
             priority
           />
-        </div>
-      )
-    }
+        ) : (
+          <ImageSlot
+            class="mt-10"
+            intent={coverAlt || 'editorial photograph for this article'}
+            ratio="16 / 9"
+          />
+        )
+      }
+    </div>
 
     <div class="container-site max-w-3xl py-12 sm:py-16">
       <div

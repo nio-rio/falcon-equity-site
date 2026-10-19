@@ -6,7 +6,7 @@ author: Falcon Equity Group
 excerpt: 'A machine should clear its own payment before you sign for it. One division tells you whether it will: monthly payment divided by the added monthly gross margin it produces.'
 description: 'How to calculate equipment financing break-even, what to include in the added margin, and the questions to ask before you finance a machine or vehicle.'
 coverAlt: 'A piece of industrial equipment with a break-even chart beside it, representing equipment financing payback analysis.'
-draft: true
+draft: false
 ---
 
 Before financing equipment, work out whether the machine can pay for itself. Divide the monthly payment by the additional monthly gross margin the equipment produces. Under 1.0, the asset covers its own payment from the first full month of operation. Over 1.0, you are subsidising it from cash flow — which may still be right, but you should know you are choosing it.

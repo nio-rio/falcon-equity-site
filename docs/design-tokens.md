@@ -1,6 +1,6 @@
 # Design tokens (Goldman Sachs, measured 19 Oct 2026)
 
-Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Falcon maps these values 1:1 except typeface (At Gambit + Inter) and color (white / ink / `#5b21b6` / tint `#F8F6FC`).
+Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Falcon maps these values 1:1 except typeface (At Gambit + Inter) and color (white / ink / `#5b21b6` / tint `#F7F7FA`).
 
 ## Type
 
@@ -8,9 +8,10 @@ Goldman uses **GS Serif** (hero and section titles, weight 300–400) and **GS S
 
 | Role | 1440 / 1024 | 768 | 390 | Weight | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Hero h1 | 80px / 80px | 50px / 50px | 36px / 36px | 300 | Bottom-left over the photo on desktop; stacked below the photo on 390 |
-| Section h2 | 60px / 60px | 50px / 50px | 36px / 36px | 400 | e.g. “The Firm in Action” |
-| Card / h4 | 26px / 32px | 22px / 26px | 20px / 24px | 500 | |
+| Inner-page H1 | 100px / 100px | 60px / 60px | 44px / 44px | 300 | GS Serif, line-height 1. Measured on `/insights`, `/what-we-do`, `/careers`. Falcon uses `clamp(44px, 8.83vw + 9.55px, 100px)` for every page H1, including the home hero. |
+| Home overlay title | 80px / 80px | 50px / 50px | — | 300 | Live Goldman home currently uses an H2 for the photo overlay (“The Outlook for Global Inflation”). Falcon home keeps an H1 at the inner-page scale above. |
+| Section h2 | 56px cap in Falcon (`clamp(32px … 56px)`) | ~46px | 32px | 400 | Steps clearly under H1 at every width (was matching H1 1:1). |
+| Card / h3 | 26px / 32px | 22px / 26px | 20px / 24px | 500 | Service-card titles stay 1.5× this scale in component CSS. |
 | Eyebrow | 12px / 16px, +1px tracking | 14px / 18px, +1px | 10px / 14px, +1px | 400 | Uppercase. Color `rgba(0,0,0,0.6)` |
 | Body | 18px / 28px | 16px / 24px | 16px / 24px | 400 | Color `rgba(0,0,0,0.8)` |
 | Small / footer | 16px | 16px | 16px | 400 | |
@@ -30,7 +31,7 @@ Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicod
 | Nav position | sticky, in flow (not overlay) | same | same | same |
 | Nav background | `rgb(114, 151, 197)` | same | same | same |
 
-Falcon nav stays **white with black text** (site rule). Goldman’s dusty-blue bar and the pale panel `rgb(247, 247, 250)` map to a very light lilac at the same luminance: tint `#F8F6FC`.
+Falcon nav stays **white with black text** (site rule). Goldman’s pale panel `rgb(247, 247, 250)` is the secondary background: tint `#F7F7FA`.
 
 Section interiors are whitespace-led rather than padded boxes. Falcon uses `64px` vertical padding on small screens and `80px` from 768 up.
 
@@ -60,10 +61,10 @@ No min/max height constraints beyond those intrinsic heights. One primary CTA in
 | White page, `rgba(0,0,0,0.95)` type | `#ffffff` / `#0a0a0a` |
 | Body `rgba(0,0,0,0.8)` | `#333333` |
 | Muted `rgba(0,0,0,0.6)` | `#666666` |
-| Nav `rgb(114,151,197)` and panel `rgb(247, 247, 250)` | `#F8F6FC` |
+| Pale panel `rgb(247, 247, 250)` | `#F7F7FA` |
 | Links / selected UI | `#5b21b6` (`#4c1d95` hover) |
 
-Contrast (`#F8F6FC`): ink ~18:1 AAA; `#5b21b6` 7.8:1 AA; `#666` 5.0:1 AA.
+Contrast (`#F7F7FA`): ink ~19:1 AAA; `#5b21b6` 7.8:1 AA; `#666` 5.0:1 AA.
 
 ## Cards, lists, teasers
 

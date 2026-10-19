@@ -11,7 +11,7 @@ const { service } = Astro.props;
 
 <article class="service-card group relative">
   <h3 class="flex items-start gap-3">
-    <Icon name={service.icon} size={32} class="mt-1.5 shrink-0 text-accent" />
+    <Icon name={service.icon} size={32} class="mt-1.5 shrink-0 text-ink" />
     <a href={`/services/${service.slug}`} class="service-card-link">
       {service.name}
     </a>
@@ -36,7 +36,7 @@ const { service } = Astro.props;
     {
       service.requirements.map((r) => (
         <li class="flex items-start gap-2 text-[15px] text-ink">
-          <Icon name="check" size={16} class="mt-1 shrink-0 text-accent" />
+          <Icon name="check" size={16} class="mt-1 shrink-0 text-muted" />
           {r}
         </li>
       ))
@@ -60,7 +60,7 @@ const { service } = Astro.props;
   }
 
   .service-card:hover {
-    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-tint));
+    background: color-mix(in srgb, var(--color-ink) 4%, var(--color-tint));
   }
 
   .service-card h3 {
@@ -93,11 +93,6 @@ const { service } = Astro.props;
     position: absolute;
     inset: 0;
     z-index: 1;
-  }
-
-  .service-card:hover .service-card-link {
-    text-decoration: underline;
-    text-underline-offset: 4px;
   }
 
   .service-card-link:focus {

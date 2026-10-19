@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ImageSlot from './ImageSlot.astro';
 import type { Post } from '@/lib/blog';
 
 interface Props {
@@ -12,7 +13,7 @@ const { title, category, cover, coverAlt, draft } = post.data;
 
 <article class="group relative">
   {
-    cover && (
+    cover ? (
       <Image
         src={cover}
         alt={coverAlt}
@@ -20,6 +21,8 @@ const { title, category, cover, coverAlt, draft } = post.data;
         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
         class="aspect-[16/9] w-full object-cover"
       />
+    ) : (
+      <ImageSlot intent={coverAlt || 'editorial photograph for this article'} ratio="16 / 9" />
     )
   }
   <p class="eyebrow mt-4">{category}{draft && ' · Draft'}</p>

@@ -7,7 +7,7 @@ excerpt: 'Both put capital in your account fast. But they work very differently.
 description: 'Merchant cash advance or business term loan? Compare speed, requirements, repayment and best uses to choose the right funding for your business.'
 cover: ../../assets/blog/mca-vs-term-loan.jpg
 coverAlt: 'Two overlapping circles representing a comparison between a merchant cash advance and a business term loan.'
-draft: true
+draft: false
 ---
 
 When you need capital, two of the most common options are a **merchant cash advance (MCA)** and a **business term loan**. Both can fund quickly. Both can help you grow. But they are built for different situations, and choosing the wrong one can cost you.

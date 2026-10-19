@@ -7,7 +7,7 @@ excerpt: 'Fast funding starts with a ready file. Use this checklist to gather wh
 description: 'A practical checklist of the documents and details you need to get business funding in as little as 24–48 hours.'
 cover: ../../assets/blog/funding-checklist.jpg
 coverAlt: 'Illustration of a checklist with four checked boxes.'
-draft: true
+draft: false
 ---
 
 The fastest funding is rarely about luck. It is about having your file **ready before you apply**. When underwriters get everything they need on day one, there is no back-and-forth, and qualified businesses can be funded in as little as **24–48 hours**.

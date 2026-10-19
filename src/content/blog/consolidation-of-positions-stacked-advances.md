@@ -7,7 +7,7 @@ excerpt: 'Juggling two, three or four daily payments? Here is how consolidating 
 description: 'How consolidating stacked merchant cash advances into one position can lower your daily payment, free up cash flow and simplify your books.'
 cover: ../../assets/blog/consolidation-of-positions.jpg
 coverAlt: 'Illustration of stacked cards merging into one, representing consolidated business funding positions.'
-draft: true
+draft: false
 ---
 
 If your business has taken more than one merchant cash advance or short-term loan, you already know the feeling: every morning, several payments leave your account before the first customer walks in. In the funding world this is called **stacking**, and each open advance is a **position**.

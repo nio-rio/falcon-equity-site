@@ -6,7 +6,7 @@ author: Falcon Equity Group
 excerpt: 'A factor rate is not an interest rate. Here is the arithmetic that turns a quote like 1.30 into a number you can compare against any other offer on the table.'
 description: 'How to read a merchant cash advance factor rate, convert it into an annualized rate, and the questions to ask in writing before you sign.'
 coverAlt: 'A calculator, a printed quote and a pen on a desk, representing how a factor rate is converted into an annualized cost.'
-draft: true
+draft: false
 ---
 
 A factor rate tells you how much you will repay in total, not how much the money costs per year. Multiply the advance by the factor rate to get the payback amount. To compare that against a loan, convert the total into an annualized rate using the repayment term. Done properly, the comparison is uncomfortable — and useful.
