@@ -8,11 +8,13 @@ import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
 import Testimonials from '@/components/Testimonials.astro';
-import { SERVICES } from '@/data/services';
+import { getHomeServices } from '@/data/services';
 import { CLIENT_STORIES, HOW_IT_WORKS } from '@/data/content';
 import { PRIMARY_PHONE } from '@/data/site';
 import Icon from '@/components/Icon.astro';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
+
+const homeServices = getHomeServices();
 ---
 
 <BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
@@ -47,14 +49,14 @@ import heroFalcon from '@/assets/images/hero-falcon.jpg';
 
   <StatsBar />
 
-  <section class="section bg-white" aria-labelledby="services-heading" id="services">
+  <section class="section bg-tint" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <SectionHeading id="services-heading" title="Our services" />
-      <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="bento-grid mt-12">
         {
-          SERVICES.map((s) => (
-            <li class="flex">
-              <ServiceCard service={s} />
+          homeServices.map((s) => (
+            <li class={`bento-cell bento-cell--${s.area}`}>
+              <ServiceCard href={s.href} name={s.name} teaser={s.teaser} featured={s.featured} />
             </li>
           ))
         }
@@ -62,7 +64,7 @@ import heroFalcon from '@/assets/images/hero-falcon.jpg';
     </div>
   </section>
 
-  <section class="section bg-tint" aria-labelledby="how-heading">
+  <section class="section bg-white" aria-labelledby="how-heading">
     <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
       <div class="lg:col-span-5">
         <ImageSlot intent="specialist reviewing a file at a desk, warm light" ratio="4 / 5" />
@@ -97,3 +99,72 @@ import heroFalcon from '@/assets/images/hero-falcon.jpg';
 
   <CtaBand />
 </BaseLayout>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bento-cell {
+    display: flex;
+    min-width: 0;
+  }
+
+  .bento-cell :global(.bento-card) {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .bento-cell--f1,
+    .bento-cell--f2 {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-areas:
+        'f1 f1 a'
+        'b c d'
+        'e f2 f2'
+        'g g g';
+    }
+
+    .bento-cell--f1 {
+      grid-area: f1;
+    }
+    .bento-cell--a {
+      grid-area: a;
+    }
+    .bento-cell--b {
+      grid-area: b;
+    }
+    .bento-cell--c {
+      grid-area: c;
+    }
+    .bento-cell--d {
+      grid-area: d;
+    }
+    .bento-cell--e {
+      grid-area: e;
+    }
+    .bento-cell--f2 {
+      grid-area: f2;
+    }
+    .bento-cell--g {
+      grid-area: g;
+    }
+  }
+</style>
+

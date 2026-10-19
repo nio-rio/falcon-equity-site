@@ -21,6 +21,12 @@ export type Service = {
   shortName: string;
   icon: IconName;
   summary: string;
+  /**
+   * Home bento featured flag. `1` = top 2-col card (featured-1.jpg on the right).
+   * `2` = lower 2-col card (featured-2.jpg). Leave unset for a standard white card.
+   * Swap these values between products to change which two are featured.
+   */
+  featured?: 1 | 2;
   headline: string;
   intro: string;
   whoFor: string;
@@ -142,6 +148,7 @@ export const SERVICES: Service[] = [
     icon: 'wallet',
     summary:
       'Flexible, revolving working capital. Draw what you need, when you need it, and pay interest only on the amount you use.',
+    featured: 2,
     headline: 'Capital on standby, ready when you strike.',
     intro:
       'A business line of credit gives you a revolving pool of funds. Draw on it to cover payroll, inventory or an unexpected opportunity, repay, and draw again. You only pay interest on what you borrow.',
@@ -212,6 +219,7 @@ export const SERVICES: Service[] = [
     icon: 'zap',
     summary:
       'Fast working capital based on your future sales, also used as a working capital bridge. $5K to $5M with same-day funding.',
+    featured: 1,
     headline: 'Speed is your edge. We bring the capital.',
     intro:
       'A merchant cash advance provides a lump sum in exchange for a portion of your future receivables. Approval focuses on your revenue and bank activity, which makes it one of the fastest ways to fund a business.',
@@ -578,3 +586,71 @@ export const SERVICES: Service[] = [
 ];
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
+
+export type HomeServiceArea = 'f1' | 'a' | 'b' | 'c' | 'd' | 'e' | 'g' | 'f2';
+
+export type HomeServiceCard = {
+  href: string;
+  name: string;
+  teaser: string;
+  featured?: 1 | 2;
+  area: HomeServiceArea;
+};
+
+/**
+ * Eighth home-grid card. Credit Repair is a resource, not one of the seven
+ * /services products, so it stays out of `SERVICES` (and the /services 2-col
+ * grid) while still appearing on the home bento — 8 cards, no empty cells.
+ */
+export const HOME_EXTRA_SERVICES: Omit<HomeServiceCard, 'area' | 'featured'>[] = [
+  {
+    href: '/resources/credit-repair-loan-prep',
+    name: 'Credit Repair & Loan Prep',
+    teaser: 'Improve business and personal credit and get your file loan-ready.',
+  },
+];
+
+/** One-line home descriptions, shortened from each product summary. */
+const HOME_TEASERS: Record<string, string> = {
+  'collateral-asset-loans':
+    'Real-estate and collateral-secured loans that put the assets you already own to work.',
+  'business-line-of-credit':
+    'Flexible revolving capital. Draw what you need and pay interest only on what you use.',
+  'merchant-cash-advance': 'Fast working capital based on your future sales, from $5K to $5M.',
+  'business-term-loan': 'Structured loans from $5K to $20M, from same-day short-term to 30-year terms.',
+  'invoice-factoring-tool': 'Turn unpaid B2B invoices into cash today instead of waiting on net-60.',
+  'consolidation-of-positions':
+    'Combine stacked advances into one position and save 30%–50% on daily or weekly payments.',
+  'decentralized-business-financing':
+    'Crypto onboarding and custodial services for businesses holding digital assets.',
+};
+
+const toHomeCard = (service: Service, featured?: 1 | 2): Omit<HomeServiceCard, 'area'> => ({
+  href: `/services/${service.slug}`,
+  name: service.name,
+  teaser: HOME_TEASERS[service.slug] ?? service.summary,
+  featured,
+});
+
+/**
+ * Home bento order (3-col desktop):
+ * row 1 = featured 1 (2 cols) + small; row 2 = 3 small; row 3 = small + featured 2 (2 cols);
+ * row 4 = Credit Repair spanning 3 cols so the eighth card fills the grid.
+ */
+export const getHomeServices = (): HomeServiceCard[] => {
+  const slot1 =
+    SERVICES.find((s) => s.featured === 1) ?? getService('merchant-cash-advance')!;
+  const slot2 =
+    SERVICES.find((s) => s.featured === 2) ?? getService('business-line-of-credit')!;
+  const rest = SERVICES.filter((s) => s.slug !== slot1.slug && s.slug !== slot2.slug);
+
+  const cards: Omit<HomeServiceCard, 'area'>[] = [
+    toHomeCard(slot1, 1),
+    ...rest.map((s) => toHomeCard(s)),
+    ...HOME_EXTRA_SERVICES,
+    toHomeCard(slot2, 2),
+  ];
+
+  const areas: HomeServiceArea[] = ['f1', 'a', 'b', 'c', 'd', 'e', 'g', 'f2'];
+  return cards.map((card, i) => ({ ...card, area: areas[i] ?? 'g' }));
+};
