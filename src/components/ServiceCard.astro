@@ -18,8 +18,6 @@ const featuredSrc =
   class:list={[
     'bento-card',
     featured && 'bento-card--featured',
-    featured === 1 && 'bento-card--photo',
-    featured === 2 && 'bento-card--graphic',
   ]}
 >
   <div class="bento-card-copy">
@@ -33,8 +31,7 @@ const featuredSrc =
   {
     featuredSrc && (
       <div class="bento-card-media">
-        {/* Placeholder for Ling to replace: public/images/featured-1.jpg and featured-2.jpg */}
-        <img src={featuredSrc} alt="" width="960" height="720" />
+        <img src={featuredSrc} alt="" width="1600" height="900" />
       </div>
     )
   }
@@ -149,19 +146,27 @@ const featuredSrc =
     overflow: hidden;
   }
 
+  .bento-card-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, var(--color-featured) 0%, rgb(68 56 105 / 0) 40%);
+  }
+
   .bento-card-media img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  .bento-card--photo .bento-card-media img {
-    object-position: 70% 50%;
-  }
-
-  .bento-card--graphic .bento-card-media img {
     object-position: right center;
+  }
+
+  @media (min-width: 640px) {
+    .bento-card-media::before {
+      background: linear-gradient(to right, var(--color-featured) 0%, rgb(68 56 105 / 0) 40%);
+    }
   }
 </style>
