@@ -8,7 +8,7 @@ export const FLIGHT_PATH = ['Apply', 'Review', 'Approved', 'Funded'] as const;
  */
 export const WHY_FALCON = [
   { icon: 'zap', title: 'Same-day approvals', body: 'Decisions move fast so you can act while the opportunity is still on the table.' },
-  { icon: 'timer', title: 'Funded in 24–48h', body: 'Approved and signed? Funds can land in as little as 24–48 hours.' },
+  { icon: 'timer', title: 'Funded in 24-48h', body: 'Approved and signed? Funds can land in as little as 24-48 hours.' },
   { icon: 'layers', title: 'Consolidation specialists', body: `Clients save ${CONSOLIDATION_SAVINGS} on average on daily or weekly payments.` },
   { icon: 'users', title: 'A dedicated specialist', body: 'One point of contact who knows your file and guides every step.' },
   { icon: 'target', title: 'Tailored solutions', body: 'Seven funding products, matched to your goals instead of forced into one box.' },

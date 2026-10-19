@@ -5,7 +5,6 @@ import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import Icon from '@/components/Icon.astro';
 import { categorySlug, formatDate, getPublishedPosts, readingTime, type Post } from '@/lib/blog';
 import { articleSchema, breadcrumbSchema } from '@/lib/schema';
 
@@ -55,29 +54,29 @@ const ogImage = cover?.src;
   ]}
 >
   <article>
-    <header class="on-dark bg-brand-dark text-white">
+    <header class="border-b border-line bg-white">
       <div class="container-site max-w-4xl py-14 sm:py-20">
-        <nav aria-label="Breadcrumb" class="text-sm text-lilac-200">
+        <nav aria-label="Breadcrumb" class="text-sm text-muted">
           <ol class="flex flex-wrap items-center gap-2">
-            <li><a href="/" class="hover:text-white hover:underline">Home</a></li>
+            <li><a href="/" class="hover:text-ink hover:underline">Home</a></li>
             <li aria-hidden="true">/</li>
-            <li><a href="/blog" class="hover:text-white hover:underline">Blog</a></li>
+            <li><a href="/blog" class="hover:text-ink hover:underline">Blog</a></li>
             <li aria-hidden="true">/</li>
             <li>
-              <a href={`/blog/category/${categorySlug(category)}`} class="hover:text-white hover:underline">{category}</a>
+              <a href={`/blog/category/${categorySlug(category)}`} class="hover:text-ink hover:underline">{category}</a>
             </li>
           </ol>
         </nav>
         {
           draft && (
-            <p class="mt-6 inline-block rounded-full bg-lilac-deep px-3 py-1 text-sm font-semibold text-brand-dark">
+            <p class="mt-6 text-sm font-semibold text-accent">
               Draft: awaiting Dwight’s approval. Not visible in production.
             </p>
           )
         }
         <h1 class="mt-6 text-4xl leading-tight font-semibold sm:text-5xl">{title}</h1>
-        <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-lilac-200">
-          <span>By <span class="font-semibold text-white">{author}</span></span>
+        <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted">
+          <span>By <span class="font-semibold text-ink">{author}</span></span>
           <span aria-hidden="true">·</span>
           <time datetime={date.toISOString()}>{formatDate(date)}</time>
           <span aria-hidden="true">·</span>
@@ -103,22 +102,22 @@ const ogImage = cover?.src;
 
     <div class="container-site max-w-3xl py-12 sm:py-16">
       <div
-        class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-brand prose-a:text-brand prose-a:decoration-lilac-deep prose-a:decoration-2 prose-a:underline-offset-4 hover:prose-a:decoration-brand prose-strong:text-ink prose-table:text-base prose-th:text-brand"
+        class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-brand prose-a:text-brand prose-a:decoration-accent prose-a:decoration-2 prose-a:underline-offset-4 hover:prose-a:decoration-brand prose-strong:text-ink prose-table:text-base prose-th:text-brand"
       >
         <Content />
       </div>
 
-      <aside class="on-dark mt-14 rounded-3xl bg-brand p-8 text-white" aria-label="Get funded">
+      <aside class="mt-14 border-t border-line pt-8" aria-label="Get funded">
         <p class="font-display text-2xl font-semibold">Ready to make your move?</p>
-        <p class="mt-2 text-lilac-200">Apply in minutes and a Falcon specialist will lay out your options.</p>
-        <a href="/apply" class="btn-accent mt-6">Start your application <Icon name="arrow-right" size={18} /></a>
+        <p class="mt-2 text-muted">Apply in minutes and a Falcon specialist will lay out your options.</p>
+        <a href="/apply" class="btn-primary mt-6">Start your application</a>
       </aside>
     </div>
   </article>
 
   {
     related.length > 0 && (
-      <section class="bg-lilac py-16" aria-labelledby="related-heading">
+      <section class="bg-white py-16" aria-labelledby="related-heading">
         <div class="container-site">
           <h2 id="related-heading" class="text-3xl font-semibold text-brand">
             Related articles

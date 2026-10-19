@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Icon from '@/components/Icon.astro';
 import { APPLICATION_DOCS } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -10,9 +9,9 @@ const crumbs = [
   { name: 'Apply', path: '/apply' },
 ];
 const reassurance = [
-  { icon: 'timer', text: 'Takes just a few minutes' },
-  { icon: 'users', text: 'A dedicated specialist reviews your file' },
-  { icon: 'zap', text: 'Funding in as little as 24–48 hours once approved' },
+  'Takes just a few minutes',
+  'A dedicated specialist reviews your file',
+  'Funding in as little as 24-48 hours once approved',
 ];
 ---
 
@@ -21,25 +20,19 @@ const reassurance = [
   description="Apply online for business funding with Falcon Equity Group. One short application, a dedicated specialist and funding in as little as 24–48 hours."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <section class="on-dark bg-brand-dark text-white">
-    <div class="container-site py-14 sm:py-16">
-      <p class="eyebrow text-lilac-deep">Apply</p>
+  <section class="border-b border-line bg-white">
+    <div class="container-site py-16 sm:py-20">
+      <p class="eyebrow">Apply</p>
       <h1 class="mt-3 text-4xl font-semibold sm:text-5xl">Apply today. Strike while the opportunity is open.</h1>
-      <ul class="mt-6 flex flex-col gap-3 text-lilac-200 sm:flex-row sm:flex-wrap sm:gap-x-8">
-        {
-          reassurance.map((r) => (
-            <li class="flex items-center gap-2">
-              <Icon name={r.icon} size={18} class="text-lilac-deep" /> {r.text}
-            </li>
-          ))
-        }
+      <ul class="mt-6 flex flex-col gap-2 text-muted sm:flex-row sm:flex-wrap sm:gap-x-8">
+        {reassurance.map((text) => <li>{text}</li>)}
       </ul>
     </div>
   </section>
 
-  <section class="bg-lilac py-12 sm:py-16" aria-labelledby="form-heading">
-    <div class="container-site grid gap-8 lg:grid-cols-12">
-      <div class="rounded-3xl border border-lilac-200 bg-white p-3 sm:p-6 lg:col-span-8">
+  <section class="bg-white py-12 sm:py-16" aria-labelledby="form-heading">
+    <div class="container-site grid gap-10 lg:grid-cols-12">
+      <div class="border border-line p-3 sm:p-6 lg:col-span-8">
         <h2 id="form-heading" class="sr-only">Funding application form</h2>
         <div class="jotform-embed min-h-[40rem]">
           <script type="text/javascript" src="https://form.jotform.com/jsform/252856411020144" is:inline></script>
@@ -51,41 +44,28 @@ const reassurance = [
           </p>
         </noscript>
       </div>
-      <aside class="space-y-6 lg:col-span-4" aria-label="Help with your application">
-        <div class="card">
-          <h2 class="text-xl font-semibold text-brand">Have these ready</h2>
+      <aside class="space-y-8 lg:col-span-4" aria-label="Help with your application">
+        <div>
+          <h2 class="text-xl font-semibold">Have these ready</h2>
           <ul class="mt-4 space-y-3 text-[15px]">
-            {
-              APPLICATION_DOCS.map((item) => (
-                <li class="flex gap-2">
-                  <Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> {item}
-                </li>
-              ))
-            }
+            {APPLICATION_DOCS.map((item) => <li class="border-t border-line pt-3">{item}</li>)}
           </ul>
           <p class="mt-4 text-sm text-muted">
             The application also asks about bankruptcy and tax liens, ownership percentage, co-borrowers, and any prior advances
             (lender, amount, date and remaining balance).
           </p>
         </div>
-        <div class="on-dark rounded-3xl bg-brand p-6 text-white sm:p-8">
+        <div class="border-t border-line pt-6">
           <h2 class="text-xl font-semibold">Questions? Call us.</h2>
-          <ul class="mt-4 space-y-3">
+          <ul class="mt-4 space-y-2 text-[15px]">
             <li>
-              <a href={SITE.phones.direct.href} class="flex items-center gap-2 hover:underline">
-                <Icon name="phone" size={18} class="text-lilac-deep" /> Direct: {SITE.phones.direct.display}
-              </a>
+              <a href={SITE.phones.direct.href} class="hover:text-accent">Direct: {SITE.phones.direct.display}</a>
             </li>
             <li>
-              <a href={SITE.phones.office.href} class="flex items-center gap-2 hover:underline">
-                <Icon name="phone" size={18} class="text-lilac-deep" /> Office: {SITE.phones.office.display}
-              </a>
+              <a href={SITE.phones.office.href} class="hover:text-accent">Office: {SITE.phones.office.display}</a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} class="flex items-center gap-2 break-all hover:underline">
-                <Icon name="mail" size={18} class="shrink-0 text-lilac-deep" />
-                {SITE.email}
-              </a>
+              <a href={`mailto:${SITE.email}`} class="break-all hover:text-accent">{SITE.email}</a>
             </li>
           </ul>
         </div>

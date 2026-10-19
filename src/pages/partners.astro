@@ -48,11 +48,8 @@ const audiences = [
       <ul class="mt-10 grid gap-6 md:grid-cols-3">
         {
           audiences.map((a) => (
-            <li class="card">
-              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lilac text-brand">
-                <Icon name={a.icon} />
-              </span>
-              <h3 class="mt-5 text-xl font-semibold text-brand">{a.title}</h3>
+            <li class="border-t border-line pt-6">
+              <h3 class="text-xl font-semibold">{a.title}</h3>
               <p class="mt-2 leading-relaxed text-muted">{a.body}</p>
             </li>
           ))
@@ -61,10 +58,10 @@ const audiences = [
     </div>
   </section>
 
-  <section class="bg-lilac py-20" aria-labelledby="featured-heading">
+  <section class="bg-white py-20" aria-labelledby="featured-heading">
     <div class="container-site">
       <SectionHeading id="featured-heading" eyebrow="Featured partner" title="Cardiff" />
-      <div class="card mt-10 grid gap-8 md:grid-cols-12 md:items-center">
+      <div class="mt-10 grid gap-8 border-t border-line pt-10 md:grid-cols-12 md:items-center">
         <div class="flex items-center justify-center rounded-2xl bg-white p-8 md:col-span-4">
           <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />
         </div>
@@ -84,17 +81,17 @@ const audiences = [
     </div>
   </section>
 
-  <section class="on-dark bg-brand py-20 text-white" aria-labelledby="partner-cta-heading">
-    <div class="container-site flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+  <section class="border-t border-line bg-white py-20" aria-labelledby="partner-cta-heading">
+    <div class="container-site flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div class="max-w-2xl">
         <h2 id="partner-cta-heading" class="text-3xl font-semibold sm:text-4xl">Interested in partnering with Falcon?</h2>
-        <p class="mt-4 text-lg text-lilac-200">
-          Email us with a little about your business and the clients you serve, and we’ll be in touch.
+        <p class="mt-4 text-lg text-muted">
+          Email us with a little about your business and the clients you serve, and we will be in touch.
         </p>
       </div>
       <div class="flex flex-col gap-3 sm:flex-row">
-        <a href={`mailto:${SITE.email}?subject=Partnership%20inquiry`} class="btn-accent"><Icon name="mail" size={18} /> Email us</a>
-        <a href={SITE.phones.office.href} class="btn-outline-light"><Icon name="phone" size={18} /> {SITE.phones.office.display}</a>
+        <a href={`mailto:${SITE.email}?subject=Partnership%20inquiry`} class="btn-primary">Email us</a>
+        <a href={SITE.phones.office.href} class="btn-outline-dark">{SITE.phones.office.display}</a>
       </div>
     </div>
   </section>

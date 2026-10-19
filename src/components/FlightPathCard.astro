@@ -7,13 +7,13 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
 ---
 
 <figure
-  class="flight-card relative w-full max-w-sm rounded-3xl border border-white/15 bg-brand-darker/80 p-6 text-white shadow-2xl backdrop-blur-md"
+  class="flight-card relative w-full max-w-sm rounded-3xl border border-white/15 bg-ink/80 p-6 text-white shadow-2xl backdrop-blur-md"
   aria-labelledby="flight-caption"
 >
   <div class="flex items-center justify-between">
-    <p class="eyebrow text-lilac-deep">Your flight path</p>
+    <p class="eyebrow text-accent">Your flight path</p>
     <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs">
-      <span class="pulse-dot h-2 w-2 rounded-full bg-lilac-deep" aria-hidden="true"></span> Live
+      <span class="pulse-dot h-2 w-2 rounded-full bg-accent" aria-hidden="true"></span> Live
     </span>
   </div>
   <figcaption id="flight-caption" class="sr-only">
@@ -21,7 +21,7 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
   </figcaption>
   <div class="relative mt-5" aria-hidden="true">
   <span class="absolute top-4 bottom-4 left-[19px] w-0.5 bg-white/10"></span>
-  <span class="track absolute top-4 left-[19px] w-0.5 bg-lilac-deep"></span>
+  <span class="track absolute top-4 left-[19px] w-0.5 bg-accent"></span>
   <ol class="relative space-y-4">
     {
       FLIGHT_PATH.map((step, i) => (
@@ -31,9 +31,9 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
           </span>
           <span class="flex-1">
             <span class="block font-semibold">{step}</span>
-            <span class="block text-xs text-lilac-200">{notes[i]}</span>
+            <span class="block text-xs text-muted">{notes[i]}</span>
           </span>
-          <span class="check text-lilac-deep">
+          <span class="check text-accent">
             <Icon name="check" size={18} strokeWidth={2.5} />
           </span>
         </li>
@@ -42,7 +42,7 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
   </ol>
   </div>
   <div class="mt-6 rounded-2xl bg-white/5 p-4">
-    <p class="text-xs text-lilac-200">Typical time to funding</p>
+    <p class="text-xs text-muted">Typical time to funding</p>
     <p class="mt-1 font-display text-2xl font-semibold">24–48 hours</p>
   </div>
 </figure>
@@ -87,8 +87,8 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
     }
     6%,
     70% {
-      background: var(--color-lilac-deep);
-      color: var(--color-brand-dark);
+      background: var(--color-accent);
+      color: white;
       border-color: transparent;
     }
     85%,
@@ -124,8 +124,8 @@ const notes = ['Application received', 'Specialist reviewing', 'Offer ready to s
     }
     .step .dot {
       animation: none;
-      background: var(--color-lilac-deep);
-      color: var(--color-brand-dark);
+      background: var(--color-accent);
+      color: white;
     }
     .step .check {
       animation: none;

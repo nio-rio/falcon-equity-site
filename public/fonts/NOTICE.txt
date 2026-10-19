@@ -1,0 +1,6 @@
+At Gambit trial webfonts (Light, Regular, Semibold, Bold).
+
+These files are for preview only. The trial glyph set is limited to A–Z,
+a–z, 0–9, space, and ! , - . : ; ?. Missing characters fall back to Manrope.
+
+TODO: buy the At Gambit webfont license before launch.

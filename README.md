@@ -78,7 +78,7 @@ The fraud disclosure lives in the footer on every page. A licensing/disclosure p
 
 ## Type
 
-Headings use **Manrope** (weights 600, 700, 800, tight letter-spacing on large sizes) via `@fontsource/manrope`. Body text uses **Inter** via `@fontsource-variable/inter`. Do not ship At Gambit trial files.
+Headings use **At Gambit** (trial webfont, weights 300/400/600/700, self-hosted as woff2 in `public/fonts`, `font-display: swap`). The trial file only has A–Z, a–z, 0–9, space, and `! , - . : ; ?`. Missing characters (`$ % & ' " + / ( )`, en-dashes, apostrophes) fall back to **Manrope**. Body text uses **Inter** via `@fontsource-variable/inter`.
 
 ## Logo
 
@@ -167,7 +167,7 @@ Items that still need a human before launch. None of these block the preview.
 - [ ] **Dwight:** approve the three draft blog posts (`draft: true` in `src/content/blog/`). They are visible in `npm run dev` only and never in production builds.
 - [ ] **Dwight / Ling:** review Privacy Policy and Terms & Conditions (ported from the current site; last privacy update October 21, 2025).
 - [ ] **Ling:** confirm photo credits in [CREDITS.md](./CREDITS.md). Hero is Frank Cone on Pexels; swap if a preferred falcon image is chosen.
-- [ ] **Ling:** license At Gambit as a webfont if we want it; swap it in for Manrope later. Trial files must not be shipped.
+- [ ] **Ling:** buy the At Gambit webfont license before launch. The files in `public/fonts` are trial-only (71 glyphs). Replace them with the licensed webfont and keep the `'At Gambit', 'Manrope', sans-serif` fallback stack.
 - [ ] **Ling:** add a Contact Jotform later if one is created. The Contact page currently has details plus a CTA to `/apply`.
 - [ ] **Ling:** connect Netlify or Vercel for preview deploys, then point falconequity.ai DNS only after approval. No production deploy from this PR.
 - [ ] **Future blog topics** (after the three seed posts):

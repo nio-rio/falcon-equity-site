@@ -5,7 +5,6 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import Icon from '@/components/Icon.astro';
 import { DEPARTMENTS, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -37,8 +36,8 @@ const founderSchema = {
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-white py-20" aria-labelledby="story-heading">
-    <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
+  <section class="bg-white py-24" aria-labelledby="story-heading">
+    <div class="container-site grid gap-16 lg:grid-cols-12">
       <div class="lg:col-span-6">
         <SectionHeading id="story-heading" eyebrow="Our story" title="Funding businesses from the heart of Manhattan." />
         <div class="mt-6 space-y-5 text-lg leading-relaxed text-muted">
@@ -55,41 +54,40 @@ const founderSchema = {
         </div>
       </div>
       <div class="lg:col-span-6">
-        <ul class="grid gap-4 sm:grid-cols-2">
+        <ul class="grid gap-10 sm:grid-cols-2">
           {
             VALUES.map((v) => (
-              <li class="rounded-3xl bg-lilac p-6">
-                <Icon name={v.icon} class="text-brand" size={28} />
-                <h3 class="mt-4 text-xl font-semibold text-brand">{v.name}</h3>
+              <li class="border-t border-line pt-5">
+                <h3 class="text-xl font-semibold">{v.name}</h3>
                 <p class="mt-2 text-[15px] leading-relaxed text-muted">{v.body}</p>
               </li>
             ))
           }
         </ul>
-        <p class="mt-5 text-center font-display text-lg text-brand italic">Falcon vision. Falcon speed. Falcon precision.</p>
+        <p class="mt-10 font-display text-lg">Falcon vision. Falcon speed. Falcon precision.</p>
       </div>
     </div>
   </section>
 
   <StatsBar />
 
-  <section class="bg-lilac py-20" aria-labelledby="founder-heading">
+  <section class="border-t border-line bg-white py-24" aria-labelledby="founder-heading">
     <div class="container-site">
       <SectionHeading id="founder-heading" eyebrow="Leadership" title="Meet our founder." />
-      <article class="card mt-10 grid overflow-hidden p-0! sm:p-0! md:grid-cols-12 md:items-stretch">
-        <div class="bg-lilac md:col-span-4">
+      <article class="mt-12 grid gap-10 md:grid-cols-12 md:items-center">
+        <div class="md:col-span-4">
           <Image
             src={dwight}
             alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
             widths={[360, 562]}
             sizes="(min-width: 768px) 33vw, 100vw"
             loading="eager"
-            class="block aspect-[3/4] h-full w-full object-cover object-top"
+            class="block aspect-[3/4] w-full object-cover object-top"
           />
         </div>
-        <div class="p-8 md:col-span-8 md:flex md:flex-col md:items-start md:justify-center md:p-10 lg:p-12">
-          <h3 class="text-3xl font-semibold text-brand">{SITE.founder.name}</h3>
-          <p class="mt-1 font-semibold text-brand-light">{SITE.founder.title}</p>
+        <div class="md:col-span-8 md:pl-4">
+          <h3 class="text-3xl font-semibold">{SITE.founder.name}</h3>
+          <p class="mt-1 font-semibold text-muted">{SITE.founder.title}</p>
           <div class="mt-6 space-y-4 text-lg leading-relaxed text-muted">
             <p>
               Dwight Holly founded Falcon Equity Group to give business owners what they rarely get from traditional lenders:
@@ -106,7 +104,7 @@ const founderSchema = {
     </div>
   </section>
 
-  <section class="bg-white py-20" aria-labelledby="team-heading">
+  <section class="border-t border-line bg-white py-24" aria-labelledby="team-heading">
     <div class="container-site">
       <SectionHeading
         id="team-heading"
@@ -114,14 +112,11 @@ const founderSchema = {
         title="Specialists behind every file."
         lead="Your application is handled by focused teams, each built around one part of getting you funded."
       />
-      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ul class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         {
           DEPARTMENTS.map((d) => (
-            <li class="card">
-              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-lilac-deep">
-                <Icon name={d.icon} />
-              </span>
-              <h3 class="mt-5 text-xl font-semibold text-brand">{d.name}</h3>
+            <li class="border-t border-line pt-6">
+              <h3 class="text-xl font-semibold">{d.name}</h3>
               <p class="mt-2 text-[15px] leading-relaxed text-muted">{d.body}</p>
             </li>
           ))

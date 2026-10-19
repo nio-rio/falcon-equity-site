@@ -36,8 +36,8 @@ const isDigital = service.slug === 'decentralized-business-financing';
 >
   <PageHero eyebrow={service.name} title={service.headline} lead={service.intro} breadcrumbs={crumbs}>
     <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-      <a href="/apply" class="btn-accent">Apply Now <Icon name="arrow-right" size={18} /></a>
-      <a href={PRIMARY_PHONE.href} class="btn-outline-light"><Icon name="phone" size={18} /> {PRIMARY_PHONE.display}</a>
+      <a href="/apply" class="btn-primary">Apply Now</a>
+      <a href={PRIMARY_PHONE.href} class="btn-outline-dark">{PRIMARY_PHONE.display}</a>
     </div>
   </PageHero>
 
@@ -46,23 +46,23 @@ const isDigital = service.slug === 'decentralized-business-financing';
       <div class="lg:col-span-7">
         <SectionHeading id="details-heading" eyebrow="At a glance" title={`${service.name} details`} />
         <dl class="mt-8 grid gap-4 sm:grid-cols-2">
-          <div class="rounded-2xl bg-lilac p-6 sm:col-span-2">
+          <div class="border-t border-line pt-5 sm:col-span-2">
             <dt class="text-sm text-muted">Amounts</dt>
-            <dd class="mt-1 font-display text-2xl font-bold tracking-tight text-brand">{service.amounts}</dd>
+            <dd class="mt-1 font-display text-2xl font-semibold tracking-tight">{service.amounts}</dd>
           </div>
-          <div class:list={['rounded-2xl bg-lilac p-6', !service.speed && 'sm:col-span-2']}>
+          <div class:list={['border-t border-line pt-5', !service.speed && 'sm:col-span-2']}>
             <dt class="text-sm text-muted">Terms</dt>
-            <dd class="mt-1 font-display text-2xl font-bold tracking-tight text-brand">{service.terms}</dd>
+            <dd class="mt-1 font-display text-2xl font-semibold tracking-tight">{service.terms}</dd>
           </div>
           {
             service.speed && (
-              <div class="rounded-2xl bg-lilac p-6">
+              <div class="border-t border-line pt-5">
                 <dt class="text-sm text-muted">Speed</dt>
-                <dd class="mt-1 font-display text-xl font-bold tracking-tight text-brand">{service.speed}</dd>
+                <dd class="mt-1 font-display text-xl font-semibold tracking-tight">{service.speed}</dd>
               </div>
             )
           }
-          <div class="rounded-2xl border border-lilac-200 p-6 sm:col-span-2">
+          <div class="border-t border-line pt-5 sm:col-span-2">
             <dt class="text-sm text-muted">Who it’s for</dt>
             <dd class="mt-1 text-lg font-semibold text-ink">{service.whoFor}</dd>
           </div>
@@ -71,10 +71,10 @@ const isDigital = service.slug === 'decentralized-business-financing';
           service.options && service.options.length > 1 && (
             <>
               <h3 id="options-heading" class="mt-12 text-2xl font-bold text-brand">Options</h3>
-              <div class="mt-5 overflow-x-auto rounded-2xl border border-lilac-200" role="region" aria-labelledby="options-heading" tabindex="0">
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-line" role="region" aria-labelledby="options-heading" tabindex="0">
                 <table class="w-full min-w-[32rem] text-left text-[15px]">
                   <caption class="sr-only">{service.name} options with amounts, speed and terms</caption>
-                  <thead class="bg-lilac text-brand">
+                  <thead class="bg-white text-brand">
                     <tr>
                       <th scope="col" class="px-5 py-3 font-semibold">Option</th>
                       <th scope="col" class="px-5 py-3 font-semibold">Amounts</th>
@@ -82,7 +82,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
                       <th scope="col" class="px-5 py-3 font-semibold">Terms</th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-lilac-200">
+                  <tbody class="divide-y divide-line">
                     {service.options.map((o) => (
                       <tr>
                         <th scope="row" class="px-5 py-3 font-semibold text-ink">{o.name}</th>
@@ -103,7 +103,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
           {
             service.idealUses.map((u) => (
               <li class="flex items-start gap-3">
-                <span class="mt-0.5 rounded-full bg-lilac p-1 text-brand">
+                <span class="mt-0.5 rounded-full bg-white p-1 text-brand">
                   <Icon name="check" size={16} strokeWidth={2.5} />
                 </span>
                 <span class="text-ink">{u}</span>
@@ -113,22 +113,19 @@ const isDigital = service.slug === 'decentralized-business-financing';
         </ul>
       </div>
       <aside class="lg:col-span-5" aria-labelledby="requirements-heading">
-        <div class="on-dark sticky top-28 rounded-3xl bg-brand p-8 text-white">
+        <div class="sticky top-28 border-t border-line pt-8">
           <h3 id="requirements-heading" class="text-2xl font-semibold">Requirements</h3>
           <ul class="mt-6 space-y-4">
             {
               service.requirements.map((r) => (
-                <li class="flex items-start gap-3">
-                  <Icon name="badge-check" class="mt-0.5 shrink-0 text-lilac-deep" />
-                  <span>{r}</span>
-                </li>
+                <li class="border-t border-line pt-3 text-muted">{r}</li>
               ))
             }
           </ul>
-          <p class="mt-6 text-sm text-lilac-200">
+          <p class="mt-6 text-sm text-muted">
             Requirements are typical. Every file is reviewed individually, and approval is not guaranteed.
           </p>
-          <a href="/apply" class="btn-accent mt-8 w-full">Start your application</a>
+          <a href="/apply" class="btn-primary mt-8">Start your application</a>
         </div>
       </aside>
     </div>
@@ -136,7 +133,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
 
   {
     isConsolidation && (
-      <section class="bg-lilac py-20" aria-labelledby="example-heading">
+      <section class="bg-white py-20" aria-labelledby="example-heading">
         <div class="container-site">
           <SectionHeading
             id="example-heading"
@@ -152,17 +149,17 @@ const isDigital = service.slug === 'decentralized-business-financing';
     )
   }
 
-  <section class:list={['py-20', isConsolidation ? 'bg-white' : 'bg-lilac']} aria-labelledby="steps-heading">
+  <section class:list={['py-20', isConsolidation ? 'bg-white' : 'bg-white']} aria-labelledby="steps-heading">
     <div class="container-site">
       <SectionHeading id="steps-heading" eyebrow="How it works" title="Three moves to your next win." />
       <ol class="mt-10 grid gap-6 md:grid-cols-3">
         {
           service.steps.map((step, i) => (
-            <li class="card">
-              <span class="font-display text-4xl font-semibold text-brand-light" aria-hidden="true">
+            <li>
+              <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent" aria-hidden="true">
                 0{i + 1}
               </span>
-              <h3 class="mt-3 text-xl font-semibold text-brand">
+              <h3 class="mt-3 text-xl font-semibold">
                 <span class="sr-only">Step {i + 1}: </span>
                 {step.title}
               </h3>
@@ -185,7 +182,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
     </div>
   </section>
 
-  <section class="bg-lilac py-20" aria-labelledby="more-heading">
+  <section class="bg-white py-20" aria-labelledby="more-heading">
     <div class="container-site">
       <SectionHeading id="more-heading" eyebrow="Explore more" title="Other ways to fund your win." />
       <ul class="mt-10 grid gap-6 md:grid-cols-3">

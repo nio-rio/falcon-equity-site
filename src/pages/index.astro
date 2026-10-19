@@ -1,8 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Icon from '@/components/Icon.astro';
-import FlightPathCard from '@/components/FlightPathCard.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
@@ -23,48 +21,29 @@ const homeFaqs = FAQS.slice(0, 6);
   schema={[faqSchema(homeFaqs)]}
 >
   <!-- 1. Hero -->
-  <section class="on-dark relative isolate overflow-hidden bg-brand-darker text-white" aria-labelledby="hero-heading">
-    <div class="absolute inset-y-0 right-0 -z-10 w-full lg:w-[58%]">
-      <Image
-        src={heroFalcon}
-        alt="A peregrine falcon launching from a branch with its wings spread wide"
-        widths={[640, 960, 1280, 1600]}
-        sizes="(min-width: 1024px) 58vw, 100vw"
-        class="hero-img h-full w-full object-cover object-[60%_35%]"
-        priority
-      />
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-brand-darker via-brand-darker/75 to-brand/30 mix-blend-normal lg:via-brand-darker/40"
-        aria-hidden="true"
-      >
-      </div>
-      <div class="absolute inset-0 bg-brand/20 mix-blend-multiply" aria-hidden="true"></div>
-      <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-darker to-transparent" aria-hidden="true"></div>
-    </div>
-
-    <div class="container-site grid items-center gap-12 pt-16 pb-20 sm:pt-24 lg:grid-cols-12 lg:pt-28 lg:pb-28">
-      <div class="lg:col-span-7">
-        <p class="eyebrow animate-rise text-lilac-deep">Fast business funding · New York City</p>
-        <h1 id="hero-heading" class="animate-rise mt-4 text-5xl leading-[1.02] font-extrabold sm:text-7xl">
-          Capital for businesses that <em class="text-lilac-deep not-italic">play to win.</em>
+  <section class="on-dark relative h-svh min-h-[36rem] overflow-hidden text-white" aria-labelledby="hero-heading">
+    <Image
+      src={heroFalcon}
+      alt="A peregrine falcon launching from a branch with its wings spread wide"
+      widths={[640, 960, 1280, 1920, 2400]}
+      sizes="100vw"
+      class="absolute inset-0 h-full w-full object-cover object-[60%_30%]"
+      priority
+    />
+    <div class="absolute inset-0 bg-black/55" aria-hidden="true"></div>
+    <div class="relative flex h-full items-end">
+      <div class="container-site w-full pb-16 pt-24 sm:pb-20 lg:pb-24">
+        <p class="eyebrow text-white/70">Fast business funding · New York City</p>
+        <h1 id="hero-heading" class="mt-4 max-w-3xl text-4xl leading-[1.05] font-semibold text-white sm:text-6xl lg:text-7xl">
+          Capital for businesses that play to win.
         </h1>
-        <p class="animate-rise mt-6 max-w-xl text-lg leading-relaxed text-lilac-200 sm:text-xl [animation-delay:120ms]">
-          See the opportunity. Strike first. Funding from $5,000 to $20,000,000, often in as little as 24–48 hours.
+        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+          Funding from $5,000 to $20,000,000, often in as little as 24-48 hours.
         </p>
-        <div class="animate-rise mt-9 flex flex-col gap-3 sm:flex-row [animation-delay:200ms]">
-          <a href="/apply" class="btn-accent px-8! py-4! text-lg!">Apply Now <Icon name="arrow-right" size={20} /></a>
-          <a href={PRIMARY_PHONE.href} class="btn-outline-light px-8! py-4! text-lg!">
-            <Icon name="phone" size={20} /> {PRIMARY_PHONE.display}
-          </a>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="/apply" class="btn-on-dark">Apply Now</a>
+          <a href={PRIMARY_PHONE.href} class="btn-outline-light">{PRIMARY_PHONE.display}</a>
         </div>
-        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-lilac-200">
-          <li class="flex items-center gap-2"><Icon name="check" size={16} class="text-lilac-deep" /> Same-day approvals</li>
-          <li class="flex items-center gap-2"><Icon name="check" size={16} class="text-lilac-deep" /> Seven funding products</li>
-          <li class="flex items-center gap-2"><Icon name="check" size={16} class="text-lilac-deep" /> Dedicated specialist</li>
-        </ul>
-      </div>
-      <div class="animate-dive flex justify-center lg:col-span-5 lg:justify-end [animation-delay:250ms]">
-        <FlightPathCard />
       </div>
     </div>
   </section>
@@ -73,7 +52,7 @@ const homeFaqs = FAQS.slice(0, 6);
   <StatsBar />
 
   <!-- 3. Why Falcon -->
-  <section class="bg-white py-20 sm:py-24" aria-labelledby="why-heading">
+  <section class="bg-white py-24 sm:py-28" aria-labelledby="why-heading">
     <div class="container-site">
       <SectionHeading
         id="why-heading"
@@ -81,13 +60,12 @@ const homeFaqs = FAQS.slice(0, 6);
         title="Built for speed. Engineered to win."
         lead="The falcon is the fastest hunter on earth. It sees the opportunity first and strikes with precision. That is how we fund."
       />
-      <ul class="mt-12 grid gap-px overflow-hidden rounded-3xl border border-lilac-200 bg-lilac-200 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-16 grid gap-x-12 gap-y-12 border-t border-line pt-12 sm:grid-cols-2 lg:grid-cols-3">
         {
           WHY_FALCON.map((w) => (
-            <li class="bg-white p-7">
-              <Icon name={w.icon} class="text-brand" size={28} />
-              <h3 class="mt-4 font-sans text-lg font-semibold text-ink">{w.title}</h3>
-              <p class="mt-2 text-[15px] leading-relaxed text-muted">{w.body}</p>
+            <li>
+              <h3 class="text-xl font-semibold">{w.title}</h3>
+              <p class="mt-3 text-[15px] leading-relaxed text-muted">{w.body}</p>
             </li>
           ))
         }
@@ -96,17 +74,17 @@ const homeFaqs = FAQS.slice(0, 6);
   </section>
 
   <!-- 4. How it works -->
-  <section class="bg-lilac py-20 sm:py-24" aria-labelledby="how-heading">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="how-heading">
     <div class="container-site">
-      <SectionHeading id="how-heading" eyebrow="How it works" title="Three moves to your next win." align="center" />
-      <ol class="mt-14 grid gap-6 md:grid-cols-3">
+      <SectionHeading id="how-heading" eyebrow="How it works" title="Three moves to your next win." />
+      <ol class="mt-16 grid gap-12 md:grid-cols-3">
         {
           HOW_IT_WORKS.map((step, i) => (
-            <li class="card relative">
-              <span class="font-display text-5xl font-semibold text-brand-light" aria-hidden="true">
+            <li>
+              <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent" aria-hidden="true">
                 0{i + 1}
               </span>
-              <h3 class="mt-3 text-2xl font-semibold text-brand">
+              <h3 class="mt-4 text-2xl font-semibold">
                 <span class="sr-only">Step {i + 1}: </span>
                 {step.title}
               </h3>
@@ -115,59 +93,48 @@ const homeFaqs = FAQS.slice(0, 6);
           ))
         }
       </ol>
-      <div class="mt-10 text-center">
-        <a href="/apply" class="btn-primary">Start your application <Icon name="arrow-right" size={18} /></a>
+      <div class="mt-12">
+        <a href="/apply" class="btn-primary">Start your application</a>
       </div>
     </div>
   </section>
 
   <!-- 5. Do you qualify -->
-  <section class="bg-white py-20 sm:py-24" aria-labelledby="qualify-heading">
-    <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="qualify-heading">
+    <div class="container-site grid gap-16 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <SectionHeading
           id="qualify-heading"
           eyebrow="Do you qualify?"
-          title="Ready to win? Here’s what it takes."
+          title="Ready to win? Here is what it takes."
           lead="Most Falcon products start with these four basics. Requirements vary by product, and every file gets a real review."
         />
-        <a href="/apply" class="btn-primary mt-8">Check in 60 seconds <Icon name="arrow-right" size={18} /></a>
+        <a href="/apply" class="btn-primary mt-10">Check in 60 seconds</a>
       </div>
-      <ul class="grid gap-5 sm:grid-cols-2 lg:col-span-8">
+      <dl class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-8">
         {
           QUALIFY.map((q) => (
-            <li class="card">
-              <div class="flex items-center justify-between">
-                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-lilac text-brand">
-                  <Icon name={q.icon} />
-                </span>
-                <span class="rounded-full bg-brand px-3 py-1 text-sm font-semibold text-white">{q.value}</span>
-              </div>
-              <h3 class="mt-5 font-sans text-lg font-semibold text-ink">{q.title}</h3>
-              <p class="mt-1.5 text-[15px] text-muted">{q.body}</p>
-            </li>
+            <div class="border-t border-line pt-6">
+              <dt class="text-lg font-semibold">{q.title}</dt>
+              <dd class="mt-2 font-display text-2xl font-semibold text-accent">{q.value}</dd>
+              <dd class="mt-2 text-[15px] text-muted">{q.body}</dd>
+            </div>
           ))
         }
-      </ul>
+      </dl>
     </div>
   </section>
 
   <!-- 6. When should you apply -->
-  <section class="on-dark bg-brand-dark py-20 text-white sm:py-24" aria-labelledby="when-heading">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="when-heading">
     <div class="container-site">
-      <SectionHeading
-        id="when-heading"
-        eyebrow="When should you apply?"
-        title="Win the next move. We’ll fund it."
-        tone="dark"
-      />
-      <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading id="when-heading" eyebrow="When should you apply?" title="Win the next move. We will fund it." />
+      <ul class="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
         {
           WHEN_TO_APPLY.map((w) => (
-            <li class="rounded-3xl border border-white/10 bg-white/5 p-7">
-              <Icon name={w.icon} class="text-lilac-deep" size={28} />
-              <h3 class="mt-5 text-xl font-semibold">{w.title}</h3>
-              <p class="mt-2 text-[15px] leading-relaxed text-lilac-200">{w.body}</p>
+            <li class="border-t border-line pt-6">
+              <h3 class="text-xl font-semibold">{w.title}</h3>
+              <p class="mt-3 text-[15px] leading-relaxed text-muted">{w.body}</p>
             </li>
           ))
         }
@@ -176,7 +143,7 @@ const homeFaqs = FAQS.slice(0, 6);
   </section>
 
   <!-- 7. Funding options -->
-  <section class="bg-lilac py-20 sm:py-24" aria-labelledby="services-heading" id="services">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <SectionHeading
@@ -187,10 +154,10 @@ const homeFaqs = FAQS.slice(0, 6);
         />
         <a href="/services" class="btn-outline-dark shrink-0">Compare all options</a>
       </div>
-      <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-4 grid gap-x-12 md:grid-cols-2 lg:grid-cols-3">
         {
-          SERVICES.map((s, i) => (
-            <li class:list={[i === SERVICES.length - 1 && 'lg:col-span-3 lg:[&>article]:max-w-none']}>
+          SERVICES.map((s) => (
+            <li>
               <ServiceCard service={s} />
             </li>
           ))
@@ -200,7 +167,7 @@ const homeFaqs = FAQS.slice(0, 6);
   </section>
 
   <!-- 8. Industries -->
-  <section class="bg-white py-20 sm:py-24" aria-labelledby="industries-heading">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="industries-heading">
     <div class="container-site">
       <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <SectionHeading
@@ -211,15 +178,10 @@ const homeFaqs = FAQS.slice(0, 6);
         />
         <a href="/industries" class="btn-outline-dark shrink-0">Explore industries</a>
       </div>
-      <ul class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <ul class="mt-16 grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-4">
         {
           INDUSTRIES.map((ind) => (
-            <li class="flex items-center gap-3 rounded-2xl border border-lilac-200 p-4 sm:p-5">
-              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-lilac text-brand">
-                <Icon name={ind.icon} size={20} />
-              </span>
-              <span class="text-[15px] leading-snug font-semibold text-ink">{ind.name}</span>
-            </li>
+            <li class="border-b border-line py-5 pr-6 text-[15px] font-semibold">{ind.name}</li>
           ))
         }
       </ul>
@@ -227,7 +189,7 @@ const homeFaqs = FAQS.slice(0, 6);
   </section>
 
   <!-- 9. Client stories -->
-  <section class="bg-lilac py-20 sm:py-24" aria-labelledby="stories-heading">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="stories-heading">
     <div class="container-site">
       <SectionHeading
         id="stories-heading"
@@ -235,16 +197,14 @@ const homeFaqs = FAQS.slice(0, 6);
         title="Situations owners bring to Falcon."
         lead="These are anonymized, generic situations. They are not real client stories, and they do not describe outcomes."
       />
-      <ul class="mt-12 grid gap-6 lg:grid-cols-3">
+      <ul class="mt-16 grid gap-12 lg:grid-cols-3">
         {
           CLIENT_STORIES.map((s) => (
-            <li class="card flex flex-col">
-              <p class="inline-flex w-fit items-center gap-1.5 rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-brand">
-                Illustrative example
-              </p>
-              <h3 class="mt-4 text-xl leading-snug font-semibold text-brand">{s.title}</h3>
-              <p class="mt-3 flex-1 leading-relaxed text-muted">{s.body}</p>
-              <p class="mt-6 border-t border-lilac-200 pt-4 text-sm text-muted">
+            <li class="border-t border-line pt-6">
+              <p class="eyebrow">Illustrative example</p>
+              <h3 class="mt-4 text-xl leading-snug font-semibold">{s.title}</h3>
+              <p class="mt-3 leading-relaxed text-muted">{s.body}</p>
+              <p class="mt-6 text-sm text-muted">
                 {s.industry} · <span class="font-semibold text-ink">{s.product}</span>
               </p>
             </li>
@@ -255,7 +215,7 @@ const homeFaqs = FAQS.slice(0, 6);
   </section>
 
   <!-- 10. FAQ -->
-  <section class="bg-white py-20 sm:py-24" aria-labelledby="faq-heading">
+  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="faq-heading">
     <div class="container-site grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <SectionHeading id="faq-heading" eyebrow="FAQ" title="Straight answers, fast." />
@@ -270,21 +230,3 @@ const homeFaqs = FAQS.slice(0, 6);
   <!-- 11. Final CTA -->
   <CtaBand />
 </BaseLayout>
-
-<style>
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-img {
-      animation: hero-in 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-    @keyframes hero-in {
-      from {
-        transform: scale(1.08) translateY(-12px);
-        opacity: 0.4;
-      }
-      to {
-        transform: none;
-        opacity: 1;
-      }
-    }
-  }
-</style>

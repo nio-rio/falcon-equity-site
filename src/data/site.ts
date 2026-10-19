@@ -39,7 +39,7 @@ export const STATS = [
   { value: '$100M+', label: 'Funding deployed' },
   { value: '15', label: 'Years of experience' },
   { value: '300+', label: 'Businesses helped' },
-  { value: '24–48h', label: 'Average funding time' },
+  { value: '24-48h', label: 'Average funding time' },
   { value: '98%', label: 'Approval for qualified applicants' },
 ] as const;
 

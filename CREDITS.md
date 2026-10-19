@@ -36,6 +36,7 @@ Created by `scripts/generate-images.mjs` from brand colors, the official logo an
 
 ## Fonts & icons
 
-- [Manrope](https://fonts.google.com/specimen/Manrope) by Mikhail Sharanda: SIL Open Font License 1.1, via `@fontsource/manrope` (weights 600, 700, 800). Used for headings. A licensed At Gambit webfont can be swapped in later; trial files must not be shipped.
+- **At Gambit** (trial): Light/Regular/Semibold/Bold woff2 in `public/fonts`. Used for headings. Trial glyph set is A–Z, a–z, 0–9, space, and `! , - . : ; ?`. Buy the webfont license before launch.
+- [Manrope](https://fonts.google.com/specimen/Manrope) by Mikhail Sharanda: SIL Open Font License 1.1, via `@fontsource/manrope` (weights 600, 700). Fallback for heading characters At Gambit does not include.
 - [Inter](https://rsms.me/inter/) by Rasmus Andersson: SIL Open Font License 1.1, via `@fontsource-variable/inter`. Used for body text.
 - [Lucide](https://lucide.dev) icons: ISC License, via `@lucide/astro`

@@ -5,6 +5,11 @@ import { SERVICES } from '@/data/services';
 import { PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 
+interface Props {
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
 const path = cleanPath(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
@@ -15,57 +20,54 @@ const simpleLinks = [
   { label: 'Contact', href: '/contact' },
 ];
 const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources');
+const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-medium tracking-wide';
 ---
 
-<header class="on-light sticky top-0 z-50 border-b border-lilac-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
-  <div class="container-site flex h-18 items-center justify-between gap-6">
-    <a href="/" class="shrink-0 text-brand" aria-label="Falcon Equity Group home">
-      <Logo class="h-6 w-auto sm:h-7" />
+<header
+  class="site-header sticky top-0 z-50 border-b"
+  data-overlay={overlay ? 'true' : 'false'}
+  data-header
+>
+  <div class="container-site flex h-16 items-center justify-between gap-6">
+    <a href="/" class="header-logo shrink-0" aria-label="Falcon Equity Group home">
+      <Logo class="h-5 w-auto sm:h-6" />
     </a>
 
     <nav aria-label="Main" class="hidden lg:block">
-      <ul class="flex items-center gap-1 text-[15px] font-medium text-ink">
+      <ul class="flex items-center text-[13px] font-medium">
         <li class="relative" data-dropdown>
           <button
             type="button"
-            class:list={[
-              'inline-flex items-center gap-1 rounded-full px-3 py-2 hover:bg-lilac',
-              isActive('/services') && 'text-brand underline decoration-lilac-deep decoration-2 underline-offset-8',
-            ]}
+            class:list={[navLink, isActive('/services') && 'is-active']}
             aria-expanded="false"
             aria-controls="menu-services"
             data-dropdown-trigger
           >
-            Services <Icon name="chevron-down" size={16} class="transition-transform" />
+            Services <Icon name="chevron-down" size={14} class="transition-transform" />
           </button>
           <div
             id="menu-services"
-            class="absolute top-full left-0 mt-2 hidden w-[34rem] rounded-2xl border border-lilac-200 bg-white p-3 shadow-xl"
+            class="absolute top-full left-0 mt-0 hidden w-[32rem] border border-line bg-white p-2 text-ink"
             data-dropdown-menu
           >
-            <ul class="grid grid-cols-2 gap-1">
+            <ul class="grid grid-cols-2">
               {
                 SERVICES.map((s) => (
                   <li>
                     <a
                       href={`/services/${s.slug}`}
-                      class="flex items-start gap-3 rounded-xl p-3 hover:bg-lilac"
+                      class="block px-3 py-2.5 hover:bg-ink/5"
                       aria-current={isActive(`/services/${s.slug}`) ? 'page' : undefined}
                     >
-                      <span class="mt-0.5 rounded-lg bg-lilac p-1.5 text-brand">
-                        <Icon name={s.icon} size={18} />
-                      </span>
-                      <span>
-                        <span class="block text-sm font-semibold text-ink">{s.name}</span>
-                        <span class="block text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
-                      </span>
+                      <span class="block text-sm font-semibold text-ink">{s.name}</span>
+                      <span class="block text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
                     </a>
                   </li>
                 ))
               }
             </ul>
-            <a href="/services" class="mt-2 block rounded-xl bg-lilac px-4 py-3 text-sm font-semibold text-brand hover:bg-lilac-200">
-              Compare all funding options →
+            <a href="/services" class="mt-1 block border-t border-line px-3 py-3 text-sm font-semibold text-accent">
+              Compare all funding options
             </a>
           </div>
         </li>
@@ -74,7 +76,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
             <li>
               <a
                 href={l.href}
-                class="rounded-full px-3 py-2 hover:bg-lilac"
+                class:list={[navLink, isActive(l.href) && 'is-active']}
                 aria-current={isActive(l.href) ? 'page' : undefined}
               >
                 {l.label}
@@ -85,19 +87,16 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
         <li class="relative" data-dropdown>
           <button
             type="button"
-            class:list={[
-              'inline-flex items-center gap-1 rounded-full px-3 py-2 hover:bg-lilac',
-              resourcesActive && 'text-brand underline decoration-lilac-deep decoration-2 underline-offset-8',
-            ]}
+            class:list={[navLink, resourcesActive && 'is-active']}
             aria-expanded="false"
             aria-controls="menu-resources"
             data-dropdown-trigger
           >
-            Resources <Icon name="chevron-down" size={16} class="transition-transform" />
+            Resources <Icon name="chevron-down" size={14} class="transition-transform" />
           </button>
           <div
             id="menu-resources"
-            class="absolute top-full left-0 mt-2 hidden w-72 rounded-2xl border border-lilac-200 bg-white p-2 shadow-xl"
+            class="absolute top-full left-0 mt-0 hidden w-72 border border-line bg-white p-2 text-ink"
             data-dropdown-menu
           >
             <ul>
@@ -106,7 +105,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
                   <li>
                     <a
                       href={l.href}
-                      class="block rounded-xl px-3 py-2.5 hover:bg-lilac"
+                      class="block px-3 py-2.5 hover:bg-ink/5"
                       aria-current={isActive(l.href) ? 'page' : undefined}
                     >
                       <span class="block text-sm font-semibold text-ink">{l.label}</span>
@@ -123,7 +122,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
             <li>
               <a
                 href={l.href}
-                class="rounded-full px-3 py-2 hover:bg-lilac"
+                class:list={[navLink, isActive(l.href) && 'is-active']}
                 aria-current={isActive(l.href) ? 'page' : undefined}
               >
                 {l.label}
@@ -134,60 +133,59 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
       </ul>
     </nav>
 
-    <div class="hidden items-center gap-3 lg:flex">
-      <a href={PRIMARY_PHONE.href} class="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline">
-        <Icon name="phone" size={16} />
-        <span><span class="sr-only">Call </span>{PRIMARY_PHONE.display}</span>
+    <div class="hidden items-center gap-5 lg:flex">
+      <a href={PRIMARY_PHONE.href} class="header-phone text-[13px] font-medium tracking-wide hover:underline">
+        <span class="sr-only">Call </span>{PRIMARY_PHONE.display}
       </a>
-      <a href="/apply" class="btn-primary px-5! py-2.5! text-sm!">Apply Now</a>
+      <a href="/apply" class="header-cta">Apply Now</a>
     </div>
 
     <button
       type="button"
-      class="inline-flex items-center justify-center rounded-full p-2 text-brand hover:bg-lilac lg:hidden"
+      class="header-toggle inline-flex items-center justify-center p-2 lg:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       data-mobile-toggle
     >
       <span class="sr-only" data-mobile-label>Open menu</span>
-      <span data-icon-open><Icon name="menu" size={26} /></span>
-      <span data-icon-close class="hidden"><Icon name="x" size={26} /></span>
+      <span data-icon-open><Icon name="menu" size={24} /></span>
+      <span data-icon-close class="hidden"><Icon name="x" size={24} /></span>
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-lilac-200 bg-white lg:hidden">
+  <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-white text-ink lg:hidden">
     <div class="container-site py-6">
-      <p class="eyebrow text-muted">Services</p>
+      <p class="eyebrow">Services</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
-        <li><a href="/services" class="block rounded-xl px-3 py-2.5 font-semibold text-brand hover:bg-lilac">All funding options</a></li>
+        <li><a href="/services" class="block py-2.5 font-semibold text-accent">All funding options</a></li>
         {
           SERVICES.map((s) => (
             <li>
-              <a href={`/services/${s.slug}`} class="block rounded-xl px-3 py-2.5 hover:bg-lilac">
+              <a href={`/services/${s.slug}`} class="block py-2.5">
                 {s.name}
               </a>
             </li>
           ))
         }
       </ul>
-      <p class="eyebrow mt-6 text-muted">Resources</p>
+      <p class="eyebrow mt-6">Resources</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
         {
           RESOURCE_LINKS.map((l) => (
             <li>
-              <a href={l.href} class="block rounded-xl px-3 py-2.5 hover:bg-lilac">
+              <a href={l.href} class="block py-2.5">
                 {l.label}
               </a>
             </li>
           ))
         }
       </ul>
-      <p class="eyebrow mt-6 text-muted">Company</p>
+      <p class="eyebrow mt-6">Company</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
         {
           simpleLinks.map((l) => (
             <li>
-              <a href={l.href} class="block rounded-xl px-3 py-2.5 hover:bg-lilac">
+              <a href={l.href} class="block py-2.5">
                 {l.label}
               </a>
             </li>
@@ -196,13 +194,80 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
       </ul>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row">
         <a href="/apply" class="btn-primary">Apply Now</a>
-        <a href={PRIMARY_PHONE.href} class="btn-outline-dark"><Icon name="phone" size={18} /> {PRIMARY_PHONE.display}</a>
+        <a href={PRIMARY_PHONE.href} class="btn-outline-dark">{PRIMARY_PHONE.display}</a>
       </div>
     </div>
   </nav>
 </header>
 
+<style>
+  .site-header {
+    background: #fff;
+    border-color: var(--color-line);
+    color: var(--color-ink);
+  }
+
+  .header-logo,
+  .header-phone,
+  .header-toggle {
+    color: inherit;
+  }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .header-cta:hover {
+    background: var(--color-accent-hover);
+  }
+
+  .site-header a.is-active,
+  .site-header button.is-active {
+    color: var(--color-accent);
+  }
+
+  .site-header[data-overlay='true']:not(.is-solid) {
+    background: transparent;
+    border-color: rgb(255 255 255 / 0.2);
+    color: #fff;
+  }
+
+  .site-header[data-overlay='true']:not(.is-solid) .header-cta {
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .site-header[data-overlay='true']:not(.is-solid) a.is-active,
+  .site-header[data-overlay='true']:not(.is-solid) button.is-active {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.4em;
+  }
+</style>
+
 <script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const overlay = header?.dataset.overlay === 'true';
+
+  const setSolid = (solid: boolean) => {
+    header?.classList.toggle('is-solid', solid);
+  };
+
+  if (overlay && header) {
+    const onScroll = () => setSolid(window.scrollY > 40 || header.classList.contains('is-open'));
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]');
 
   const closeAll = (except?: HTMLElement) => {
@@ -255,6 +320,8 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
       mobileMenu.classList.toggle('hidden', !open);
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
       toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+      header?.classList.toggle('is-open', open);
+      if (overlay) setSolid(open || window.scrollY > 40);
       const label = toggle.querySelector('[data-mobile-label]');
       if (label) label.textContent = open ? 'Close menu' : 'Open menu';
     };

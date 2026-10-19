@@ -12,7 +12,7 @@ interface Props {
 const { posts, categories, activeCategory } = Astro.props;
 ---
 
-<section class="bg-lilac py-16 sm:py-20" aria-labelledby="posts-heading">
+<section class="bg-white py-16 sm:py-20" aria-labelledby="posts-heading">
   <div class="container-site">
     <h2 id="posts-heading" class="sr-only">{activeCategory ? `${activeCategory} articles` : 'Latest articles'}</h2>
     {

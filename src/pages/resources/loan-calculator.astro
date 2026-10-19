@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import Icon from '@/components/Icon.astro';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
@@ -39,7 +38,7 @@ const calculatorSchema = {
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-lilac py-16 sm:py-20" aria-labelledby="calc-heading">
+  <section class="bg-white py-16 sm:py-20" aria-labelledby="calc-heading">
     <div class="container-site">
       <h2 id="calc-heading" class="sr-only">Calculator</h2>
       <form class="grid gap-6 lg:grid-cols-12" data-calculator novalidate>
@@ -52,7 +51,7 @@ const calculatorSchema = {
                   <label for={`${f.id}-range`} class="text-lg font-semibold text-brand">
                     {f.label}
                   </label>
-                  <div class="flex items-center gap-1 rounded-xl border border-lilac-200 bg-lilac px-3 py-1.5 focus-within:border-brand">
+                  <div class="flex items-center gap-1 rounded-xl border border-line bg-white px-3 py-1.5 focus-within:border-brand">
                     {f.prefix && <span class="text-muted" aria-hidden="true">{f.prefix}</span>}
                     <input
                       id={`${f.id}-input`}
@@ -88,34 +87,34 @@ const calculatorSchema = {
           }
         </fieldset>
 
-        <div class="on-dark flex flex-col rounded-3xl bg-brand p-8 text-white lg:col-span-5">
+        <div class="flex flex-col border-t border-line pt-8 lg:col-span-5 lg:border-t-0 lg:border-l lg:pl-10 lg:pt-0">
           <div aria-live="polite" aria-atomic="true">
-            <p class="text-lilac-200">Estimated monthly payment</p>
+            <p class="text-muted">Estimated monthly payment</p>
             <p class="mt-1 font-display text-5xl font-semibold sm:text-6xl">
               <output data-out="monthly" for="amount-range term-range apr-range">$0</output>
-              <span class="text-xl font-normal text-lilac-200">/ mo</span>
+              <span class="text-xl font-normal text-muted">/ mo</span>
             </p>
-            <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+            <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-line pt-6">
               <div>
-                <dt class="text-sm text-lilac-200">Total repayment</dt>
+                <dt class="text-sm text-muted">Total repayment</dt>
                 <dd class="mt-1 text-2xl font-semibold"><output data-out="total">$0</output></dd>
               </div>
               <div>
-                <dt class="text-sm text-lilac-200">Total interest</dt>
+                <dt class="text-sm text-muted">Total interest</dt>
                 <dd class="mt-1 text-2xl font-semibold"><output data-out="interest">$0</output></dd>
               </div>
             </dl>
           </div>
-          <div class="mt-8 h-3 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
-            <div class="h-full rounded-full bg-lilac-deep transition-[width]" data-bar style="width: 80%"></div>
+          <div class="mt-8 h-px bg-line" aria-hidden="true">
+            <div class="h-px bg-accent transition-[width]" data-bar style="width: 80%"></div>
           </div>
-          <p class="mt-2 flex justify-between text-xs text-lilac-200" aria-hidden="true">
+          <p class="mt-2 flex justify-between text-xs text-muted" aria-hidden="true">
             <span>Principal</span><span>Interest</span>
           </p>
           <div class="mt-auto pt-8">
-            <a href="/apply" class="btn-accent w-full">Get my real offer <Icon name="arrow-right" size={18} /></a>
+            <a href="/apply" class="btn-primary">Get my real offer</a>
           </div>
-          <p class="mt-4 text-xs text-lilac-200">
+          <p class="mt-4 text-xs text-muted">
             Estimates only, using a standard amortization formula with monthly payments. Merchant cash advances and factoring are
             priced differently. Final terms are based on underwriting.
           </p>
@@ -154,7 +153,7 @@ const calculatorSchema = {
       to right,
       var(--color-brand) 0%,
       var(--color-brand) var(--fill, 50%),
-      var(--color-lilac-200) var(--fill, 50%)
+      var(--color-line) var(--fill, 50%)
     );
     cursor: pointer;
   }

@@ -4,7 +4,6 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import Icon from '@/components/Icon.astro';
 import { ADDITIONAL_OPTIONS, SERVICES } from '@/data/services';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -14,10 +13,10 @@ const crumbs = [
 ];
 
 const process = [
-  { icon: 'file-text', title: 'Apply', body: 'Complete one short online application in minutes.' },
-  { icon: 'eye', title: 'Review', body: 'A specialist reviews your file and confirms what fits.' },
-  { icon: 'badge-check', title: 'Approve', body: 'Choose your offer and sign your agreement.' },
-  { icon: 'zap', title: 'Fund', body: 'Receive funds in as little as 24–48 hours.' },
+  { title: 'Apply', body: 'Complete one short online application in minutes.' },
+  { title: 'Review', body: 'A specialist reviews your file and confirms what fits.' },
+  { title: 'Approve', body: 'Choose your offer and sign your agreement.' },
+  { title: 'Fund', body: 'Receive funds in as little as 24-48 hours.' },
 ];
 ---
 
@@ -33,13 +32,13 @@ const process = [
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-lilac py-20" aria-labelledby="options-heading">
+  <section class="bg-white py-24" aria-labelledby="options-heading">
     <div class="container-site">
       <h2 id="options-heading" class="sr-only">Funding options</h2>
-      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="grid gap-x-12 md:grid-cols-2 lg:grid-cols-3">
         {
-          SERVICES.map((s, i) => (
-            <li class:list={[i === SERVICES.length - 1 && 'lg:col-span-3']}>
+          SERVICES.map((s) => (
+            <li>
               <ServiceCard service={s} />
             </li>
           ))
@@ -48,13 +47,13 @@ const process = [
     </div>
   </section>
 
-  <section class="bg-white py-20" aria-labelledby="compare-heading">
+  <section class="border-t border-line bg-white py-24" aria-labelledby="compare-heading">
     <div class="container-site">
       <SectionHeading id="compare-heading" eyebrow="Compare" title="Side by side." />
-      <div class="mt-10 overflow-x-auto rounded-3xl border border-lilac-200" role="region" aria-labelledby="compare-heading" tabindex="0">
+      <div class="mt-10 overflow-x-auto border border-line" role="region" aria-labelledby="compare-heading" tabindex="0">
         <table class="w-full min-w-[52rem] text-left text-[15px]">
           <caption class="sr-only">Comparison of amounts, terms and requirements for each Falcon funding product</caption>
-          <thead class="bg-lilac text-brand">
+          <thead class="border-b border-line text-ink">
             <tr>
               <th scope="col" class="px-6 py-4 font-semibold">Product</th>
               <th scope="col" class="px-6 py-4 font-semibold">Amounts</th>
@@ -63,7 +62,7 @@ const process = [
               <th scope="col" class="px-6 py-4 font-semibold">Key requirements</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-lilac-200">
+          <tbody class="divide-y divide-line">
             {
               SERVICES.map((s) => (
                 <tr>
@@ -81,7 +80,7 @@ const process = [
             }
             {
               ADDITIONAL_OPTIONS.map((o) => (
-                <tr class="bg-lilac/50">
+                <tr>
                   <th scope="row" class="px-6 py-4 font-semibold">{o.name}</th>
                   <td class="px-6 py-4">{o.amounts}</td>
                   <td class="px-6 py-4">{o.terms}</td>
@@ -98,16 +97,14 @@ const process = [
         Approval is not guaranteed.
       </p>
 
-      <aside class="card mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between" aria-labelledby="sba-heading">
-        <div>
-          <p class="eyebrow text-brand-light">Additional option</p>
-          <h3 id="sba-heading" class="mt-2 text-2xl font-bold text-brand">SBA loans</h3>
-          <p class="mt-2 max-w-2xl text-muted">
-            Government-backed SBA loans for established businesses that want long terms. Ask your specialist whether your file is a
-            fit.
-          </p>
-        </div>
-        <dl class="grid shrink-0 grid-cols-3 gap-6 text-sm">
+      <aside class="mt-12 border-t border-line pt-10" aria-labelledby="sba-heading">
+        <p class="eyebrow">Additional option</p>
+        <h3 id="sba-heading" class="mt-2 text-2xl font-semibold">SBA loans</h3>
+        <p class="mt-2 max-w-2xl text-muted">
+          Government-backed SBA loans for established businesses that want long terms. Ask your specialist whether your file is a
+          fit.
+        </p>
+        <dl class="mt-6 grid max-w-xl grid-cols-3 gap-6 text-sm">
           {
             ADDITIONAL_OPTIONS.filter((o) => o.name === 'SBA loans').map((o) => (
               <>
@@ -122,32 +119,26 @@ const process = [
     </div>
   </section>
 
-  <section id="process" class="on-dark bg-brand-dark py-20 text-white" aria-labelledby="process-heading">
+  <section id="process" class="border-t border-line bg-white py-24" aria-labelledby="process-heading">
     <div class="container-site">
       <SectionHeading
         id="process-heading"
         eyebrow="Our process"
-        title="Apply → Review → Approve → Fund."
+        title="Apply, review, approve, fund."
         lead="The same fast, transparent process for every product."
-        tone="dark"
       />
-      <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
         {
           process.map((p, i) => (
-            <li class="relative rounded-3xl border border-white/10 bg-white/5 p-7">
-              <div class="flex items-center justify-between">
-                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lilac-deep text-brand-dark">
-                  <Icon name={p.icon} />
-                </span>
-                <span class="font-display text-4xl font-semibold text-lilac-deep" aria-hidden="true">
-                  {i + 1}
-                </span>
-              </div>
-              <h3 class="mt-5 text-xl font-semibold">
+            <li>
+              <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent" aria-hidden="true">
+                0{i + 1}
+              </span>
+              <h3 class="mt-4 text-xl font-semibold">
                 <span class="sr-only">Step {i + 1}: </span>
                 {p.title}
               </h3>
-              <p class="mt-2 text-[15px] text-lilac-200">{p.body}</p>
+              <p class="mt-2 text-[15px] text-muted">{p.body}</p>
             </li>
           ))
         }
