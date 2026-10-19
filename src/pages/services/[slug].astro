@@ -7,7 +7,6 @@ import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
 import ConsolidationExample from '@/components/ConsolidationExample.astro';
-import ExploreList from '@/components/ExploreList.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import StatementBand from '@/components/StatementBand.astro';
@@ -54,11 +53,6 @@ const accordionItems =
         a: [o.amounts, o.speed, o.terms].filter(Boolean).join('. '),
       }))
     : service.faqs;
-const explore = SERVICES.filter((s) => s.slug !== service.slug).map((s) => ({
-  href: `/services/${s.slug}`,
-  title: s.name,
-  meta: s.rangeLine,
-}));
 ---
 
 <BaseLayout
@@ -157,8 +151,6 @@ const explore = SERVICES.filter((s) => s.slug !== service.slug).map((s) => ({
       </section>
     )
   }
-
-  <ExploreList heading="Explore more" headingId="explore-services" items={explore} />
 
   <CtaBand />
 </BaseLayout>

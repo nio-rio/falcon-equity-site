@@ -98,6 +98,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 10. **BXCI landing rhythm.** Hero title + lead + image → stat row → black statement band (image left, list right) → accordion → feature + image → 3-column principles → related cards → quote only if real copy exists.
 11. **Eyebrows.** Default: uppercase tracked label + short rule to the **right**. When the heading is centered: rule **above** the label (`.eyebrow--center`).
 12. **FAQ accordion.** Full-width rows, thin rules. Closed: muted title + outline circle chevron. Open: ink title + filled black circle (chevron rotates). Height animates with `grid-template-rows`.
+13. **Credit strategies accordion.** Same rows as FAQ, but **black** rules and a **plain chevron** when closed. Open state matches FAQ (filled black circle). Panel copy is ~50% width, then square bullets, amount/term line, and two circle-arrow links.
 
 ## Components mapped
 
@@ -113,6 +114,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 | Founder quote | `QuoteSplit` on About |
 | Performance CHART/TABLE | `ChartTable` |
 | BXCI product/business landing | `PageHero`, `HeroStats`, `WhatWeDo` (industries), `StatementBand` (services), `FaqList`, `FeatureSplit`, `Principles` |
+| BXCI Credit strategies accordion | `ProductStrategies` on all 12 industry pages (plain closed chevron, filled circle open) |
 | BXCI “What we do” | `WhatWeDo` on all 12 industry pages (needs list, no accordion) |
 | Tech-and-innovations section header | `.section-head` + `.section-body` + `.section-cta` |
 | WHAT WE DO ——— eyebrow | `Eyebrow` (black on light, white on dark; 48px rule) |

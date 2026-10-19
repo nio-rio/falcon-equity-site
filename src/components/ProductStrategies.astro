@@ -1,0 +1,80 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import Icon from './Icon.astro';
+import ArrowCta from './ArrowCta.astro';
+import type { StrategyItem } from '@/lib/productStrategies';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  items: readonly StrategyItem[];
+}
+
+const {
+  id = 'products-intro-heading',
+  eyebrow = 'Best-fit products',
+  title = 'Which Falcon product matches the job.',
+  items,
+} = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="section bg-white" aria-labelledby={id}>
+      <div class="container-site">
+        <div class="bx-grid">
+          <div class="section-head bx-span-4 bx-lg-span-10">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h2 id={id}>{title}</h2>
+          </div>
+          <div class="bx-full">
+            <div class="bx-accordion bx-accordion--strategies" data-accordion>
+              {items.map((item, i) => (
+                <div class="bx-acc-item">
+                  <h3>
+                    <button
+                      type="button"
+                      class="bx-acc-trigger"
+                      aria-expanded="false"
+                      aria-controls={`${id}-panel-${i}`}
+                      id={`${id}-trigger-${i}`}
+                      data-acc-trigger
+                    >
+                      <span>{item.name}</span>
+                      <span class="bx-acc-icon" aria-hidden="true">
+                        <Icon name="chevron-down" size={16} />
+                      </span>
+                    </button>
+                  </h3>
+                  <div class="bx-acc-panel" id={`${id}-panel-${i}`} role="region" aria-labelledby={`${id}-trigger-${i}`}>
+                    <div class="bx-acc-panel-inner">
+                      <p>{item.body}</p>
+                      {item.bullets.length > 0 && (
+                        <ul>
+                          {item.bullets.map((bullet) => (
+                            <li>{bullet}</li>
+                          ))}
+                        </ul>
+                      )}
+                      <p class="bx-acc-figures">{item.figures}</p>
+                      <div class="bx-acc-ctas">
+                        <ArrowCta href={item.href} label="Learn more" />
+                        <ArrowCta href={item.applyHref} label="Apply" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { bindAccordions } from '@/scripts/accordion';
+  bindAccordions();
+</script>

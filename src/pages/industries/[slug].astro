@@ -1,24 +1,22 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import FaqList from '@/components/FaqList.astro';
 import PostCard from '@/components/PostCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
-import ExploreList from '@/components/ExploreList.astro';
-import ArrowCta from '@/components/ArrowCta.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import WhatWeDo from '@/components/WhatWeDo.astro';
 import Principles from '@/components/Principles.astro';
-import FeatureSplit from '@/components/FeatureSplit.astro';
+import ProductStrategies from '@/components/ProductStrategies.astro';
 import HeroStats from '@/components/HeroStats.astro';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS, type Industry } from '@/data/industries';
 import { SERVICES } from '@/data/services';
 import { STATS } from '@/data/site';
 import { getPublishedPosts } from '@/lib/blog';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import { strategiesForIndustry } from '@/lib/productStrategies';
 
 export const getStaticPaths = (async () => {
   const posts = await getPublishedPosts();
@@ -52,25 +50,8 @@ const crumbs = [
   { name: industry.name, path: `/industries/${industry.slug}` },
 ];
 const placeholders = INDUSTRY_PLACEHOLDERS[industry.slug];
-const products = industry.products.map((item) => {
-  const service = SERVICES.find((s) => s.slug === item.slug);
-  if (!service) throw new Error(`Unknown service slug on industry page: ${item.slug}`);
-  const amounts = service.spec?.amounts ?? service.amounts;
-  const terms = service.spec?.terms ?? service.terms;
-  return {
-    name: service.name,
-    href: `/services/${service.slug}`,
-    figures: `${amounts}, ${terms}`,
-    copy: item.copy,
-    image: service.image,
-  };
-});
+const products = strategiesForIndustry(industry, SERVICES);
 const principles = industry.useCases.slice(0, 3).map((item) => ({ title: item.title, body: item.body }));
-const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((item) => ({
-  href: `/industries/${item.slug}`,
-  title: item.name,
-  meta: item.uses[0],
-}));
 ---
 
 <BaseLayout
@@ -113,49 +94,7 @@ const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((it
     imageAlt={placeholders.needs.alt}
   />
 
-  <FeatureSplit
-    id="products-intro-heading"
-    eyebrow="Best-fit products"
-    title="Which Falcon product matches the job."
-    intent={placeholders.setting.intent}
-  >
-    <p class="section-lead">
-      Model payments with the <a href="/resources/loan-calculator" class="link">loan calculator</a>, or
-      <a href="/apply" class="link">apply</a> to talk with a specialist.
-    </p>
-  </FeatureSplit>
-
-  <section class="section bg-white" aria-labelledby="products-intro-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        {
-          products.map((product) => (
-            <div class="bx-span-4 bx-lg-span-4">
-              <a href={product.href} class="group block">
-                <div class="media-zoom">
-                  <Image
-                    src={product.image}
-                    alt=""
-                    widths={[480, 800]}
-                    sizes="(min-width: 1024px) 33vw, 100vw"
-                    class="aspect-[16/9] w-full object-cover"
-                  />
-                </div>
-                <h3 class="mt-5">
-                  <span class="link-draw">{product.name}</span>
-                </h3>
-              </a>
-              <p class="mt-3 text-sm font-medium text-ink">{product.figures}</p>
-              <p class="mt-3 text-ink-soft">{product.copy}</p>
-              <p class="mt-5">
-                <ArrowCta href={product.href} label="Learn more" />
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <ProductStrategies items={products} />
 
   <Principles
     id="use-cases-heading"
@@ -197,8 +136,6 @@ const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((it
       </section>
     )
   }
-
-  <ExploreList heading="Explore more industries" headingId="explore-industries" items={explore} />
 
   <CtaBand />
 </BaseLayout>

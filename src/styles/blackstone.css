@@ -684,6 +684,91 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   line-height: 1.6;
 }
 
+/* BXCI Credit strategies: black rules, plain closed chevron, filled circle when open. */
+.bx-accordion--strategies {
+  border-top-color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item {
+  border-bottom-color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item h3 {
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+}
+
+.bx-accordion--strategies .bx-acc-trigger {
+  color: var(--color-ink);
+  padding-block: var(--bx-space-24);
+}
+
+@media (min-width: 768px) {
+  .bx-accordion--strategies .bx-acc-trigger {
+    padding-block: var(--bx-space-32);
+  }
+}
+
+.bx-accordion--strategies .bx-acc-icon {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item.is-open .bx-acc-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #0a0a0a;
+  border-radius: 50%;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner > p,
+.bx-accordion--strategies .bx-acc-panel-inner > ul,
+.bx-accordion--strategies .bx-acc-figures {
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .bx-accordion--strategies .bx-acc-panel-inner > p,
+  .bx-accordion--strategies .bx-acc-panel-inner > ul,
+  .bx-accordion--strategies .bx-acc-figures {
+    max-width: 50%;
+  }
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner ul {
+  margin: 0 0 1.5rem;
+  padding-left: 1.125em;
+  list-style: square;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner li + li {
+  margin-top: 0.75rem;
+}
+
+.bx-accordion--strategies .bx-acc-figures {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bx-space-24) var(--bx-space-40);
+  margin-top: var(--bx-space-40);
+  padding-bottom: var(--bx-space-32);
+}
+
 /* BXCI “What we do”: black band, 10-col statement, portrait left (1–6), list right (8–12). */
 .what-we-do {
   background: #0a0a0a;
