@@ -1,12 +1,29 @@
 ---
 title: 'What your bank statements say before anyone reads your application'
 date: 2026-10-19
-category: How-To
+updated: 2026-10-19
+category: Getting Approved
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'Underwriters read statements before the application. Three things decide most of the conversation: whether deposits arrive consistently, whether payments bounce, and whether you hold a balance.'
 description: 'What underwriters look for in six months of business bank statements, what weak statements look like, and how to present your file honestly and clearly.'
 cover: ../../assets/blog/what-your-bank-statements-say.jpg
 coverAlt: ''
+takeaways:
+  - 'Underwriters read six months of statements before they read the application.'
+  - 'Three lines decide most files: deposit consistency, returned payments, and ending balances.'
+  - 'Disclose every account that takes deposits and every open position. Both show up in the statements.'
+  - 'Do not move money around to improve the picture, and do not send edited PDFs.'
+  - 'Weak statements may change the amount or the product. They are not always a reason to stop.'
+faq:
+  - q: 'Why six months of statements?'
+    a: 'That window shows whether deposits arrive on a rhythm, whether payments bounce, and whether a balance remains after everything has cleared. An application describes the business; the statements show what it actually did.'
+  - q: 'Do a few returned payments kill a file?'
+    a: 'A handful over six months is normal for many businesses and usually explainable. A cluster in one month, or anything near the application date, needs an explanation before it becomes a question.'
+  - q: 'Should I leave out a second account?'
+    a: 'No. Every business account that receives deposits is part of revenue. Leaving one out looks like a gap. Download complete PDFs from the bank rather than screenshots.'
+  - q: 'What if the statements are weak?'
+    a: 'Weak statements are a reason to change the ask or the product, not necessarily a reason to stop. Applying repeatedly with the same statements and expecting a different answer does not work. Gather the file and start an application if you want it reviewed.'
 draft: false
 ---
 
@@ -78,6 +95,6 @@ Weak statements are a reason to change the ask or the product, not necessarily a
 
 ## Get Funding Today
 
-If you want your file reviewed before you apply, gather six months of statements and [start an application](/apply). You can also see the full range of [funding products](/services). Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If you want your file reviewed before you apply, gather six months of statements and [start an application](/apply). You can also see the full range of [funding products](/services) or size a payment with the [loan calculator](/resources/loan-calculator). Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Underwriting criteria vary by product and file. All funding is subject to approval, and approval is not guaranteed.*

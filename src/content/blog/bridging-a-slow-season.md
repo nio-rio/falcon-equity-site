@@ -1,12 +1,31 @@
 ---
 title: 'Bridging a slow season without burning your savings'
 date: 2026-10-19
-category: Working Capital
+updated: 2026-10-19
+category: Cash Flow & Debt
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'A slow season is a timing problem, not a profitability problem. Here is how to size the gap in dollars, fund it properly, and keep your reserves for real emergencies.'
 description: 'How seasonal businesses can forecast a slow-season cash gap, choose funding that matches how revenue returns, and avoid the mistakes that turn a dip into a crisis.'
 cover: ../../assets/blog/bridging-a-slow-season.jpg
 coverAlt: ''
+takeaways:
+  - 'A slow season is usually a timing problem. Size the gap from a 13-week cash forecast, not a round number.'
+  - 'Fund the trough. Too little leads to a second position; too much means paying for money you hold rather than use.'
+  - 'Match repayment to when revenue returns. Daily collection in a slow season takes cash when you have the least of it.'
+  - 'Start the conversation two to three months before the gap, while the balance still looks healthy.'
+  - 'Falcon Business Line of Credit typically runs $10,000 – $500,000 as a revolving facility.'
+faq:
+  - q: 'How do I size a slow-season gap?'
+    a: 'List weekly inflows and outflows for the next quarter and run a cumulative balance. The lowest point, plus a buffer for a late customer, is the funding requirement — not the annual revenue shortfall.'
+  - q: 'What product fits a seasonal trough?'
+    a: 'A revolving line of credit can cover payroll between deposits and be drawn as needed. Falcon Business Line of Credit typically runs $10,000 – $500,000. Ask when the first payment comes out, whether collection is weekly or daily, and whether the payment is fixed or a percentage of receipts.'
+  - q: 'Why is a merchant cash advance a poor fit in a slow month?'
+    a: 'The total cost of an MCA is often higher than a loan, and daily remittances hit the account on the days you have the least cash. Taking one at the worst moment in the year, when the balance is already thin, is when underwriting looks least favourably on a file.'
+  - q: 'What if I already have several daily payments?'
+    a: 'Do not stack another advance to cover the first payment. Ask about Consolidation of Positions, which typically runs $10,000 – $2,000,000 with 6 – 36 month terms. Falcon clients save 30%–50% on average on daily or weekly payments; your file decides the number.'
+  - q: 'When should I apply?'
+    a: 'Two to three months before the gap. Applications look strongest with a healthy balance and no recent overdrafts. Bring twelve months of bank statements and a short note covering season dates, why revenue returns, and how you funded the previous year.'
 draft: false
 ---
 
@@ -72,6 +91,6 @@ Twelve months of bank statements showing the pattern, and a plain explanation of
 
 ## Get Funding Today
 
-If your slow season is eight to twelve weeks out, now is the right time to look at options. [Start an application](/apply) or review [business line of credit](/services/business-line-of-credit) as a starting point. Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If your slow season is eight to twelve weeks out, now is the right time to look at options. [Start an application](/apply) or review [business line of credit](/services/business-line-of-credit) as a starting point. If several advances are already hitting the account, ask about [Consolidation of Positions](/services/consolidation-of-positions). Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Funding timelines are estimates and depend on underwriting and how quickly documents are provided. All funding is subject to approval, and approval is not guaranteed.*

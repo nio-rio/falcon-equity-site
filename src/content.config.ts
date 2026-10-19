@@ -1,15 +1,9 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { BLOG_CATEGORIES } from './data/blog';
 
-export const BLOG_CATEGORIES = [
-  'Working Capital',
-  'How-To',
-  'Consolidation',
-  'Equipment',
-  'Factoring',
-  'Digital Assets',
-] as const;
+export { BLOG_CATEGORIES } from './data/blog';
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
@@ -17,13 +11,17 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       date: z.coerce.date(),
-      updated: z.coerce.date().optional(),
+      updated: z.coerce.date(),
       category: z.enum(BLOG_CATEGORIES),
+      // TODO(Dwight): author byline + “Reviewed by” pending Dwight’s approval. Do not invent personas.
       author: z.string().default('Falcon Equity Group'),
+      byline: z.string().default('Falcon Equity Group'),
       excerpt: z.string(),
       cover: image().optional(),
       coverAlt: z.string().default(''),
       description: z.string().max(170),
+      takeaways: z.array(z.string()).min(3).max(5),
+      faq: z.array(z.object({ q: z.string(), a: z.string() })).min(3).max(5),
       draft: z.boolean().default(false),
     }),
 });

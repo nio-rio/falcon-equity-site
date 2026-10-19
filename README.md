@@ -92,12 +92,19 @@ Posts are Markdown files in `src/content/blog/`. Frontmatter:
 ---
 title: 'Post title'
 date: 2026-10-19
-category: Consolidation   # Working Capital | How-To | Consolidation | Equipment | Factoring | Digital Assets
+updated: 2026-10-19
+category: Getting Approved   # Getting Approved | Compare Options | Costs & Rates | Cash Flow & Debt
 author: Falcon Equity Group
+byline: Falcon Equity Group   # TODO(Dwight): author byline + “Reviewed by”
 excerpt: 'One or two sentences for RSS. Blog cards show category and title only.'
 description: 'SEO meta description, max 170 characters.'
 cover: ../../assets/blog/my-cover.jpg   # optional
 coverAlt: 'Describe the image for screen readers.'
+takeaways:
+  - 'Three to five bullets drawn only from this post.'
+faq:
+  - q: 'A question answered in the post?'
+    a: 'The answer, using only this post and Falcon’s live figures. No invented stats.'
 draft: true             # true = visible in `npm run dev` only, never in production builds
 ---
 ```

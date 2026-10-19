@@ -46,6 +46,8 @@ const { service } = Astro.props;
     gap: 1.5rem;
     padding-block: 2.5rem;
     background: none;
+    width: 100%;
+    min-width: 0;
   }
 
   .service-row-top {
@@ -112,5 +114,10 @@ const { service } = Astro.props;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin: 0;
+  }
+
+  .service-row :global(.service-row-spec) {
+    width: 100%;
+    min-width: 0;
   }
 </style>

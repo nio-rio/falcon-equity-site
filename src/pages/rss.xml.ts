@@ -7,7 +7,7 @@ export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
   return rss({
     title: 'Falcon Equity Group Blog',
-    description: 'Practical guides on business funding, working capital and consolidation from Falcon Equity Group.',
+    description: 'Practical guides on getting approved, comparing funding options, costs, and cash flow from Falcon Equity Group.',
     site: context.site ?? SITE.url,
     items: posts.map((post) => ({
       title: post.data.title,

@@ -1,12 +1,31 @@
 ---
 title: 'How to read a factor rate (and convert it to an APR yourself)'
 date: 2026-10-19
-category: How-To
+updated: 2026-10-19
+category: Costs & Rates
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'A factor rate is not an interest rate. Here is the arithmetic that turns a quote like 1.30 into a number you can compare against any other offer on the table.'
 description: 'How to read a merchant cash advance factor rate, convert it into an annualized rate, and the questions to ask in writing before you sign.'
 cover: ../../assets/blog/how-to-read-a-factor-rate.jpg
 coverAlt: ''
+takeaways:
+  - 'A factor rate is total payback, not an interest rate. Multiply the advance by the factor to get the dollars you repay.'
+  - 'The same factor over a short term is much more expensive on an annualized basis than the same factor over a longer term.'
+  - 'Convert every offer with the same formula, then compare total dollars, not the headline decimal.'
+  - 'Get total repayment, term, payment frequency, early-payoff terms, and every fee in writing before you sign.'
+  - 'A merchant cash advance is a purchase of future receivables. The total cost is often higher than a loan.'
+faq:
+  - q: 'What is a factor rate?'
+    a: 'A factor rate tells you how much you will repay in total, not how much the money costs per year. Multiply the advance by the factor. A $50,000 advance at 1.30 means $65,000 total repayment. The cost is fixed at signing; it does not accrue like interest.'
+  - q: 'How do I convert a factor rate to an annualized rate?'
+    a: 'Find the cost (advance × (factor − 1)), divide by the advance, then multiply by 365 ÷ days in the term. The same 1.30 factor is about 61% annualized over 6 months and 30% over 12 months. This is a simplified comparison, not a regulated APR disclosure.'
+  - q: 'Why can a lower factor cost more?'
+    a: 'Term length. A 1.25 factor collected over 4 months can be nearly twice as expensive per year as a 1.40 factor collected over 12 months. A short, low-factor quote is not automatically cheaper.'
+  - q: 'Is a merchant cash advance a loan?'
+    a: 'No. It is a purchase of future receivables. Falcon merchant cash advances typically run $5,000 – $5,000,000 with 3 – 18 month terms. The total cost is often higher than a term loan, and daily or weekly remittances hit cash flow. Compare it against a term loan or line of credit using the same annualized math.'
+  - q: 'What should I get in writing before I sign?'
+    a: 'Total repayment in dollars, the factor and the term used to derive the payment, payment amount and frequency, whether the payment is fixed or moves with revenue, early-payoff terms, every fee, what the product legally is, and what happens if revenue falls.'
 draft: false
 ---
 
@@ -72,7 +91,7 @@ Before you sign anything, get answers to these in the offer documents, not on a 
 
 - Recalculate the total repayment from the factor yourself. If your number differs from theirs, stop and ask why.
 - Annualize every offer using the same formula, over the term each funder actually quoted.
-- Compare against the alternatives you already have: a line of credit, a term loan, a supplier payment plan.
+- Compare against the alternatives you already have: a [line of credit](/services/business-line-of-credit), a [term loan](/services/business-term-loan), a supplier payment plan.
 - Check that the payment fits your worst month, not your average one.
 - Confirm the amount you are taking matches the use. Extra capital is not free capital.
 
@@ -82,6 +101,6 @@ A factor rate is a useful, honest number once you know what it measures. It meas
 
 ## Get Funding Today
 
-If you want a straight answer on what a specific amount would cost you, [start an application](/apply). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If you want a straight answer on what a specific amount would cost you, [start an application](/apply). You can also review [merchant cash advance](/services/merchant-cash-advance) terms or size a payment with the [loan calculator](/resources/loan-calculator). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Figures shown are illustrative examples, not offers or quotes. All funding is subject to approval, and approval is not guaranteed.*

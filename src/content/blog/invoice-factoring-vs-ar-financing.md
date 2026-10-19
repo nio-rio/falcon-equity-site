@@ -1,12 +1,28 @@
 ---
 title: 'Invoice factoring vs. AR financing: paid on day 3 instead of day 60'
 date: 2026-10-19
-category: Factoring
+updated: 2026-10-19
+category: Compare Options
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'Both turn unpaid invoices into cash, but they solve different problems. Here is how factoring and receivables financing differ, and how to pick the one that fits your book.'
 description: 'A plain comparison of invoice factoring and accounts receivable financing: how each works, what lenders look at, and which fits a business waiting 45–60 days to get paid.'
 cover: ../../assets/blog/invoice-factoring-vs-ar-financing.jpg
 coverAlt: ''
+takeaways:
+  - 'Factoring sells specific invoices. AR financing borrows against the whole ledger as a line you draw from.'
+  - 'Factoring underwriting leans on the customer’s credit, which can help a younger business with strong clients.'
+  - 'Falcon invoice factoring typically runs $10,000 – $3,000,000 as an ongoing facility.'
+  - 'Neither product fixes a job priced below cost. They bridge the gap between delivery and payment.'
+faq:
+  - q: 'Is invoice factoring a loan?'
+    a: 'No. Factoring is the sale of receivables at a discount. Approval leans heavily on the creditworthiness of your customers. Falcon’s Invoice Factoring Tool typically runs $10,000 – $3,000,000 as an ongoing facility.'
+  - q: 'How is AR financing different?'
+    a: 'Receivables financing is closer to a line of credit secured by your ledger. You keep the invoices and draw against a borrowing base. Factoring funds specific invoices, often faster to the first advance, with more administration per invoice.'
+  - q: 'Which invoices qualify?'
+    a: 'Outstanding B2B invoices from creditworthy commercial customers. You will typically need an aging report, copies of the invoices, proof of delivery, and six months of business bank statements.'
+  - q: 'Can my customer be told the invoice was assigned?'
+    a: 'Some programs require notice and some do not. Some customer contracts prohibit assignment. Check the contract before you sign with a funder.'
 draft: false
 ---
 
@@ -81,6 +97,6 @@ The aging report is the file. If invoices are disputed, partially delivered, or 
 
 ## Get Funding Today
 
-If your receivables are the reason cash is tight, [start an application](/apply) and ask specifically about [invoice factoring](/services/invoice-factoring-tool). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If your receivables are the reason cash is tight, [start an application](/apply) and ask specifically about [invoice factoring](/services/invoice-factoring-tool). See the [compare table on Services](/services#compare-heading) for how factoring sits next to other products. Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Product features and availability vary by file. All funding is subject to approval, and approval is not guaranteed.*

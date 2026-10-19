@@ -1,12 +1,28 @@
 ---
 title: 'Your 24–48 hour funding checklist'
 date: 2026-10-19
-category: How-To
+updated: 2026-10-19
+category: Getting Approved
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'Fast funding starts with a ready file. Use this checklist to gather what underwriters need so nothing slows you down.'
 description: 'A practical checklist of the documents and details you need to get business funding in as little as 24–48 hours.'
 cover: ../../assets/blog/24-48-hour-funding-checklist.jpg
 coverAlt: ''
+takeaways:
+  - 'A complete file on day one is what makes 24–48 hour funding possible after approval.'
+  - 'Six months of business bank statements, as complete PDFs, are the most important item for most products.'
+  - 'Disclose every open advance or loan. Undisclosed positions slow the file down.'
+  - 'Missing statement pages, mismatched business names, and slow replies are the usual delays.'
+faq:
+  - q: 'How fast can I get funded?'
+    a: 'Qualified businesses can be funded in as little as 24–48 hours after approval when the file is complete on day one. Timing depends on underwriting and how quickly documents are provided. Approval is not guaranteed.'
+  - q: 'What documents do underwriters ask for first?'
+    a: 'Business basics, owner identification, six months of complete bank-statement PDFs, a debt schedule of open positions, and product-specific items such as an equipment quote or an invoice aging report.'
+  - q: 'Do I have to list existing advances?'
+    a: 'Yes. Undisclosed open positions are a common delay. If you have several daily or weekly payments, ask about Consolidation of Positions. Falcon clients save 30%–50% on average on those payments.'
+  - q: 'What usually slows a file down?'
+    a: 'Missing statement pages, mismatched business names across documents, undisclosed open positions, and waiting days to answer a request.'
 draft: false
 ---
 
@@ -56,9 +72,9 @@ Have several open positions? Ask about [Consolidation of Positions](/services/co
 
 Depending on what you apply for, you may also need:
 
-- **Collateral & Asset Loans:** an equipment quote or invoice, or details about the asset
-- **Invoice Factoring:** an accounts receivable aging report and copies of the invoices
-- **Business Term Loan:** recent business tax returns may be requested for larger amounts
+- **[Collateral & Asset Loans](/services/collateral-asset-loans):** an equipment quote or invoice, or details about the asset
+- **[Invoice Factoring](/services/invoice-factoring-tool):** an accounts receivable aging report and copies of the invoices
+- **[Business Term Loan](/services/business-term-loan):** recent business tax returns may be requested for larger amounts
 
 ## 6. Know your numbers
 

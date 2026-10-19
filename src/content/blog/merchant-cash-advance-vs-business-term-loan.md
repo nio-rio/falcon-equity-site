@@ -1,16 +1,32 @@
 ---
 title: 'Merchant Cash Advance vs. Business Term Loan: which wins for your business?'
 date: 2026-10-19
-category: Working Capital
+updated: 2026-10-19
+category: Compare Options
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'Both put capital in your account fast. But they work very differently. Here is a plain-English comparison to help you pick the right one.'
 description: 'Merchant cash advance or business term loan? Compare speed, requirements, repayment and best uses to choose the right funding for your business.'
 cover: ../../assets/blog/merchant-cash-advance-vs-business-term-loan.jpg
 coverAlt: ''
+takeaways:
+  - 'An MCA is a purchase of future receivables, not a loan. A term loan is a lump sum with a set repayment schedule.'
+  - 'MCA amounts run $5,000 – $5,000,000 with 3 – 18 month terms. Term loans run $10,000 – $2,000,000 with 6 – 36 month terms.'
+  - 'The total cost of an MCA is often higher than a term loan, so it fits short-term uses that can generate a return.'
+  - 'Term loans ask more of the file: typically 6+ months in business, $15K+ monthly revenue, and a 550+ credit score.'
+faq:
+  - q: 'Is a merchant cash advance a loan?'
+    a: 'No. An MCA is a purchase of future receivables. You remit an agreed share of sales, often daily or weekly, until the purchased amount is delivered. A term loan is a lump sum repaid on a set schedule.'
+  - q: 'What amounts and terms does Falcon quote?'
+    a: 'Merchant cash advances typically run $5,000 – $5,000,000 with 3 – 18 month terms and same-day funding after approval. Business term loans typically run $10,000 – $2,000,000 with 6 – 36 month terms. Final figures depend on underwriting.'
+  - q: 'Why is an MCA often more expensive?'
+    a: 'The total cost of an MCA is often higher than a traditional loan. Frequent remittances also hit daily cash flow. It is a better fit for a short-term use that can pay for itself quickly, not for a multi-year investment.'
+  - q: 'When should I pick a term loan instead?'
+    a: 'When you are making a planned investment, want predictable payments, and meet typical requirements: 6+ months in business, $15K+ monthly revenue, and a 550+ credit score. If needs come and go, a Business Line of Credit can sit in the middle.'
 draft: false
 ---
 
-When you need capital, two of the most common options are a **merchant cash advance (MCA)** and a **business term loan**. Both can fund quickly. Both can help you grow. But they are built for different situations, and choosing the wrong one can cost you.
+When you need capital, two of the most common options are a **[merchant cash advance (MCA)](/services/merchant-cash-advance)** and a **[business term loan](/services/business-term-loan)**. Both can fund quickly. Both can help you grow. But they are built for different situations, and choosing the wrong one can cost you.
 
 Here is a side-by-side look.
 
@@ -19,8 +35,8 @@ Here is a side-by-side look.
 | | Merchant Cash Advance | Business Term Loan |
 | --- | --- | --- |
 | **What it is** | A purchase of your future receivables | A loan with a set repayment schedule |
-| **Typical amounts** | $5,000 – $5,000,000 | Term loan $25,000 – $20,000,000; short-term $5,000 – $5,000,000 |
-| **Typical terms** | 3 months – 2 years | Term loan 5 – 30 years; short-term 3 months – 2 years |
+| **Typical amounts** | $5,000 – $5,000,000 | $10,000 – $2,000,000 |
+| **Typical terms** | 3 – 18 months | 6 – 36 months |
 | **Typical speed** | Same day | About 2 days (term) · same day (short-term) |
 | **Time in business** | 3+ months | 6+ months |
 | **Monthly revenue** | $10K+ | $15K+ |

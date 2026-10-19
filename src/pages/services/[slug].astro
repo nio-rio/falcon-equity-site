@@ -52,7 +52,7 @@ const useCases = service.useCases.slice(0, 3).map((c) => ({ ...c, product: servi
       </div>
       {
         service.spec && (
-          <div class="lg:col-span-12">
+          <div class="min-w-0 w-full lg:col-span-12">
             <ServiceSpec spec={service.spec} />
           </div>
         )

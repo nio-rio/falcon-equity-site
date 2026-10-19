@@ -83,13 +83,20 @@ export const articleSchema = (post: {
   image?: string;
 }) => ({
   '@context': 'https://schema.org',
-  '@type': 'Article',
+  '@type': ['BlogPosting', 'Article'],
   headline: post.title,
   description: post.description,
-  mainEntityOfPage: `${SITE.url}/blog/${post.slug}`,
+  image: post.image
+    ? { '@type': 'ImageObject', url: new URL(post.image, SITE.url).href }
+    : undefined,
   datePublished: post.date.toISOString(),
   dateModified: (post.updated ?? post.date).toISOString(),
-  author: { '@type': post.author === SITE.name ? 'Organization' : 'Person', name: post.author },
-  publisher: { '@id': orgId, '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/apple-touch-icon.png` } },
-  ...(post.image ? { image: new URL(post.image, SITE.url).href } : {}),
+  author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  publisher: {
+    '@id': orgId,
+    '@type': 'Organization',
+    name: SITE.name,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/apple-touch-icon.png` },
+  },
+  mainEntityOfPage: `${SITE.url}/blog/${post.slug}`,
 });

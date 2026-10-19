@@ -4,7 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import BlogIndex from '@/components/BlogIndex.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { getPublishedPosts } from '@/lib/blog';
-import { BLOG_CATEGORIES } from '@/content.config';
+import { BLOG_CATEGORIES } from '@/data/blog';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const posts = await getPublishedPosts();
@@ -18,10 +18,10 @@ const crumbs = [
 
 <BaseLayout
   title="Blog"
-  description="Guides on working capital, merchant cash advances, consolidation, factoring and getting funded."
+  description="Guides on getting approved, comparing funding options, costs and rates, and managing cash flow and debt."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <PageHero title="Blog" lead="Short guides on working capital, consolidation and getting funded.">
+  <PageHero title="Blog" lead="Short guides on getting approved, comparing options, costs, and cash flow.">
     <BlogIndex posts={posts} categories={categories} filterable />
   </PageHero>
   <CtaBand />

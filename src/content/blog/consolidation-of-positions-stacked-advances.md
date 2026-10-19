@@ -1,12 +1,31 @@
 ---
 title: 'Consolidation of Positions: how stacked advances can cost you less'
 date: 2026-10-19
-category: Consolidation
+updated: 2026-10-19
+category: Cash Flow & Debt
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'Juggling two, three or four daily payments? Here is how consolidating stacked advances into one position works, what it can save, and when it makes sense.'
 description: 'How consolidating stacked merchant cash advances into one position can lower your daily payment, free up cash flow and simplify your books.'
 cover: ../../assets/blog/consolidation-of-positions-stacked-advances.jpg
 coverAlt: ''
+takeaways:
+  - 'Stacking means several daily or weekly remittances leaving the account before the first customer walks in.'
+  - 'Consolidation combines open positions into one new position with a single payment.'
+  - 'Falcon clients save 30%–50% on average on their current payments. Your file decides the number.'
+  - 'A lower daily payment can mean a longer repayment period, so look at total cost as well as the daily number.'
+  - 'Typical files look for 6+ months in business, $15K+ monthly revenue, and a 550+ credit score.'
+faq:
+  - q: 'What is stacking?'
+    a: 'Stacking is holding more than one merchant cash advance or short-term loan at once. Each open advance is a position, and each adds its own daily or weekly remittance. Together they can squeeze the cash flow you need to run the business.'
+  - q: 'What does consolidation actually do?'
+    a: 'It combines open positions into one new position with a single payment. Falcon Consolidation of Positions typically runs $10,000 – $2,000,000 with 6 – 36 month terms. Clients save 30%–50% on average on their current payments. Approval is not guaranteed.'
+  - q: 'Does a lower daily payment always cost less overall?'
+    a: 'Not necessarily. A lower daily payment can also mean a longer repayment period. Always compare the new total payback with what you owe today, not only the daily number.'
+  - q: 'When is consolidation worth a conversation?'
+    a: 'If you have two or more open positions and the combined payment is straining cash flow, if you are considering another advance just to cover existing payments, or if revenue is steady but the money never stays in the account.'
+  - q: 'What do I need to get started?'
+    a: 'Recent business bank statements, a list of each open position (funder, current balance, payment amount and frequency), time in business, monthly revenue, and industry. Most consolidation files look for 6+ months in business, $15K+ monthly revenue, and a 550+ credit score, although every file is reviewed individually.'
 draft: false
 ---
 
@@ -74,6 +93,6 @@ A Falcon consolidation specialist will walk through every one of these with you 
 
 Stacked advances are common, and they are fixable. Consolidating them into one position can lower your payment, simplify your finances and give your cash flow room to breathe, so you can get back to playing offense.
 
-**Ready to see what your numbers could look like?** [Start your application](/apply) or call us at [+1 (917) 245-5277](tel:+19172455277).
+**Ready to see what your numbers could look like?** Read [Consolidation of Positions](/services/consolidation-of-positions), then [start your application](/apply) or call us at [+1 (917) 245-5277](tel:+19172455277). If new advances are still covering old ones, start with how a [merchant cash advance](/services/merchant-cash-advance) is structured.
 
 *This article is for general information only and is not financial, legal or tax advice. All funding is subject to underwriting and approval. Approval is not guaranteed.*

@@ -1,12 +1,31 @@
 ---
 title: 'Equipment financing that pays for itself: run the break-even first'
 date: 2026-10-19
-category: Equipment
+updated: 2026-10-19
+category: Costs & Rates
 author: Falcon Equity Group
+byline: Falcon Equity Group
 excerpt: 'A machine should clear its own payment before you sign for it. One division tells you whether it will: monthly payment divided by the added monthly gross margin it produces.'
 description: 'How to calculate equipment financing break-even, what to include in the added margin, and the questions to ask before you finance a machine or vehicle.'
 cover: ../../assets/blog/equipment-financing-break-even.jpg
 coverAlt: ''
+takeaways:
+  - 'Coverage ratio is monthly payment divided by added monthly gross margin. Under 1.0, the asset covers its own payment.'
+  - 'Count incremental margin and genuine savings, not revenue you would have earned without the machine.'
+  - 'Add delivery, install, training, maintenance, insurance, and site work to first-year cost before you run the ratio.'
+  - 'Match the term to the useful life. Stretching past that leaves you paying for worn equipment.'
+  - 'Falcon collateral and asset loans typically run $10,000 – $1,000,000 with terms of 12 – 60 months.'
+faq:
+  - q: 'How do I know if equipment will pay for itself?'
+    a: 'Divide the monthly payment by the additional monthly gross margin the equipment produces. Below 1.0, it covers its own payment. At 1.0 it breaks even. Above 1.0, the shortfall comes from existing cash flow.'
+  - q: 'What counts as added margin?'
+    a: 'Incremental revenue you would turn away without the machine, minus direct costs of that work, plus savings such as lower outsource costs or less overtime. Do not count revenue from customers who would have bought anyway, or 100% utilisation in month one.'
+  - q: 'What amounts and terms does Falcon quote for equipment?'
+    a: 'Collateral & Asset Loans typically run $10,000 – $1,000,000 with 12 – 60 month terms. Equipment financing is typically funded in about 2 days. You will need an equipment quote or invoice, 6+ months in business, and an active business. Final figures depend on underwriting.'
+  - q: 'Is the monthly payment the full cost?'
+    a: 'No. Add delivery, installation, training, maintenance, consumables, insurance, site work, and downtime. A machine that covers its payment but not its consumables is not paying for itself.'
+  - q: 'Loan or lease — does it matter?'
+    a: 'Yes. Ask who holds title during the term, the end-of-term options ($1 buyout, fixed purchase, or fair market value), whether you can add equipment later, early-payoff terms, and the total cost over the full term in dollars.'
 draft: false
 ---
 
@@ -98,6 +117,6 @@ Financing should end before the asset stops earning. Stretching a six-year machi
 
 ## Get Funding Today
 
-If you have a quote in hand, [start an application](/apply) and ask about [collateral and asset loans](/services/collateral-asset-loans). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If you have a quote in hand, [start an application](/apply) and ask about [collateral and asset loans](/services/collateral-asset-loans). You can also size a payment with the [loan calculator](/resources/loan-calculator). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Figures shown are illustrative examples, not offers or quotes. All funding is subject to approval, and approval is not guaranteed.*

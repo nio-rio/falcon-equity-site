@@ -22,7 +22,7 @@ const { spec, class: className } = Astro.props;
     <dt>Terms</dt>
     <dd>{spec.terms}</dd>
   </div>
-  <div>
+  <div class="service-spec-req">
     <dt>Requirements</dt>
     <dd>
       <ul>
@@ -37,14 +37,36 @@ const { spec, class: className } = Astro.props;
 <style>
   .service-spec {
     display: grid;
-    gap: 1.5rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
     margin: 0;
+    width: 100%;
+    min-width: 0;
   }
 
-  @media (min-width: 768px) {
+  .service-spec > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .service-spec {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 2rem;
+    }
+
+    .service-spec-req {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
     .service-spec {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.5rem 2rem;
+    }
+
+    .service-spec-req {
+      grid-column: auto;
     }
   }
 
@@ -57,6 +79,8 @@ const { spec, class: className } = Astro.props;
   .service-spec dd {
     margin: 0.5rem 0 0;
     color: var(--color-ink);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .service-spec ul {
@@ -65,5 +89,10 @@ const { spec, class: className } = Astro.props;
     list-style: none;
     display: grid;
     gap: 0.25rem;
+  }
+
+  .service-spec li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 </style>
