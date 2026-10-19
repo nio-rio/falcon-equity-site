@@ -1,18 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceBlock from '@/components/ServiceBlock.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { ADDITIONAL_OPTIONS, SERVICES } from '@/data/services';
+import { SERVICES } from '@/data/services';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/services' },
 ];
-
-const sba = ADDITIONAL_OPTIONS.find((o) => o.name === 'SBA loans');
 ---
 
 <BaseLayout
@@ -22,16 +19,16 @@ const sba = ADDITIONAL_OPTIONS.find((o) => o.name === 'SBA loans');
 >
   <PageHero
     title="Services"
-    lead="Seven products, plus SBA loans by referral. Figures below are typical. Rates are quoted individually. Approval is not guaranteed."
+    lead="Seven products. Figures below are typical. Rates are quoted individually. Approval is not guaranteed."
   />
 
   <section class="section bg-white" aria-labelledby="options-heading">
     <div class="container-site">
       <h2 id="options-heading" class="sr-only">Funding options</h2>
-      <ul class="flex max-w-4xl flex-col gap-6">
+      <ul class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
           SERVICES.map((s) => (
-            <li>
+            <li class="flex">
               <ServiceBlock service={s} />
             </li>
           ))
@@ -39,35 +36,6 @@ const sba = ADDITIONAL_OPTIONS.find((o) => o.name === 'SBA loans');
       </ul>
     </div>
   </section>
-
-  {
-    sba && (
-      <section class="section bg-tint" aria-labelledby="sba-heading">
-        <div class="container-site max-w-3xl">
-          <SectionHeading
-            id="sba-heading"
-            eyebrow="Additional option"
-            title="SBA loans"
-            lead="Government-backed loans for established businesses that want longer terms. Ask a specialist whether the file is a fit."
-          />
-          <dl class="mt-10 grid grid-cols-3 gap-8 text-sm">
-            <div>
-              <dt class="text-muted">Amounts</dt>
-              <dd class="mt-1 font-medium text-ink">{sba.amounts}</dd>
-            </div>
-            <div>
-              <dt class="text-muted">Speed</dt>
-              <dd class="mt-1 font-medium text-ink">{sba.speed}</dd>
-            </div>
-            <div>
-              <dt class="text-muted">Terms</dt>
-              <dd class="mt-1 font-medium text-ink">{sba.terms}</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-    )
-  }
 
   <CtaBand />
 </BaseLayout>

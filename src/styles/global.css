@@ -236,7 +236,7 @@
   }
 
   .tile-card {
-    background: #fff;
+    background: var(--color-tint);
     padding: 2rem;
   }
 

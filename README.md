@@ -53,7 +53,7 @@ src/
 | Route | Notes |
 | --- | --- |
 | `/` | Home: hero, stats, seven products, process, illustrative examples, CTA |
-| `/services` | Seven products plus SBA loans by referral |
+| `/services` | Seven products |
 | `/services/collateral-asset-loans` | Collateral & Asset Loans |
 | `/services/business-line-of-credit` | Business Line of Credit |
 | `/services/merchant-cash-advance` | Merchant Cash Advance |

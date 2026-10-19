@@ -394,8 +394,3 @@ export const SERVICES: Service[] = [
 ];
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
-
-/** Shown on the services index only; it has no dedicated page. */
-export const ADDITIONAL_OPTIONS: ServiceOption[] = [
-  { name: 'SBA loans', amounts: '$5,000 – $5,000,000', speed: 'About 2 weeks', terms: '5 – 30 years' },
-];

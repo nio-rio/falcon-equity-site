@@ -18,9 +18,9 @@ const programs = [
       { name: 'Business Funding Prep', body: 'Business and personal credit monitoring, disputes and tradeline strategy.' },
       { name: 'Credit Ready Business', body: 'Repair, vendor tradelines and PAYDEX score growth.' },
       { name: 'Startup Capital Prep', body: 'New LLC or S-Corp formation with personal credit improvement.' },
-      { name: 'SBA & Term Loan Prep', body: 'FICO SBSS improvement and underwriting prep for SBA 7(a) and bank term loans.' },
+      { name: 'Term Loan Prep', body: 'FICO SBSS improvement and underwriting prep for bank term loans.' },
       { name: 'MBE, Veteran & WOSB Prep', body: 'Certification plus a credit preparation package.' },
-      { name: 'Federal Contracting Prep', body: 'SAM registration, including 8(a) guidance.' },
+      { name: 'Federal Contracting Prep', body: 'SAM registration and small-business certification guidance.' },
     ],
   },
   {
@@ -62,7 +62,7 @@ const steps = [
 
   {
     programs.map((p, gi) => (
-      <section class="section bg-tint" aria-labelledby={`program-${gi}`}>
+      <section class:list={['section', gi === 0 ? 'bg-white' : 'bg-tint']} aria-labelledby={`program-${gi}`}>
         <div class="container-site">
           <SectionHeading id={`program-${gi}`} title={p.group} lead={p.lead} />
           <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">

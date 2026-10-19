@@ -80,7 +80,7 @@ export const CLIENT_STORIES = [
 export const FAQS = [
   {
     q: 'How fast can I get funded?',
-    a: 'Many products fund the same day or within about 24–48 hours of approval and a signed agreement. Longer-term products, such as real estate and SBA loans, typically take about two weeks. Timing depends on the product and how quickly documents are provided.',
+    a: 'Many products fund the same day or within about 24–48 hours of approval and a signed agreement. Longer-term products, such as real estate loans, typically take about two weeks. Timing depends on the product and how quickly documents are provided.',
   },
   {
     q: 'Is approval guaranteed?',
@@ -129,7 +129,7 @@ export const TEAM_ROLES = [
   'Underwriter',
   'Client Success Lead',
   'Client Success Manager',
-  'SBA Specialist',
+  'Placement Specialist',
   'Operations Analyst',
   'Operations Manager',
   'ISO Relationship Manager',

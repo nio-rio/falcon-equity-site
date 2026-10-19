@@ -8,7 +8,8 @@ Goldman uses **GS Serif** (hero and section titles, weight 300–400) and **GS S
 
 | Role | 1440 / 1024 | 768 | 390 | Weight | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Inner-page H1 | 100px / 100px | 60px / 60px | 44px / 44px | 300 | GS Serif, line-height 1. Measured on `/insights`, `/what-we-do`, `/careers`. Falcon uses `clamp(44px, 8.83vw + 9.55px, 100px)` for every page H1, including the home hero. |
+| Inner-page H1 | 100px / 100px | 60px / 60px | 44px / 44px | 300 | GS Serif, line-height 1. Measured on `/insights`, `/what-we-do`, `/careers`. Falcon page H1s (home hero, inner pages, `/blog` index) use `clamp(44px, 8.83vw + 9.55px, 100px)`. |
+| Article H1 | 60px / 60px | 50px / 50px | 36px / 36px | 400 | GS Sans Condensed, line-height 1. Measured on `/insights/the-markets/how-higher-rates-and-ai-issuance-are-affecting-credit-markets`. Falcon blog post H1s use `clamp(36px, 3.79vw + 21.24px, 60px)`. |
 | Home overlay title | 80px / 80px | 50px / 50px | — | 300 | Live Goldman home currently uses an H2 for the photo overlay (“The Outlook for Global Inflation”). Falcon home keeps an H1 at the inner-page scale above. |
 | Section h2 | 56px cap in Falcon (`clamp(32px … 56px)`) | ~46px | 32px | 400 | Steps clearly under H1 at every width (was matching H1 1:1). |
 | Card / h3 | 26px / 32px | 22px / 26px | 20px / 24px | 500 | Service-card titles stay 1.5× this scale in component CSS. |

@@ -65,7 +65,7 @@ It depends on the move you are making.
 
 **Choose a merchant cash advance if:**
 
-- You need capital **fast** for a specific, short-term opportunity.
+- You need funding **fast** for a specific, short-term opportunity.
 - Your business is **newer** or your credit is still being built.
 - The use of funds will **pay for itself quickly**, such as inventory that sells in weeks.
 
