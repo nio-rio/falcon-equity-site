@@ -154,7 +154,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
         <Icon name="phone" size={16} />
         <span class="sr-only">Call </span>{PRIMARY_PHONE.display}
       </a>
-      <a href="/apply" class="header-cta">Get Funding Today</a>
+      <a href="/apply" class="btn-primary">Get Funding Today</a>
     </div>
 
     <button
@@ -241,23 +241,6 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     color: inherit;
   }
 
-  .header-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 9px 14px;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    background: var(--color-accent);
-    color: #fff;
-  }
-
-  .header-cta:hover {
-    background: var(--color-accent-hover);
-  }
-
   .site-header a.is-active,
   .site-header button.is-active {
     color: var(--color-accent);
@@ -268,8 +251,13 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     background: var(--color-tint);
   }
 
-  .header-cta:hover {
+  .site-header nav :global(a.btn-primary:hover) {
     background: var(--color-accent-hover);
+    color: #fff;
+  }
+
+  .site-header nav :global(a.btn-outline-dark:hover) {
+    background: var(--color-ink);
     color: #fff;
   }
 

@@ -9,12 +9,6 @@ const crumbs = [
   { name: 'Loan Calculator', path: '/resources/loan-calculator' },
 ];
 
-const fields = [
-  { id: 'amount', label: 'Loan amount', min: 5000, max: 1000000, step: 5000, value: 100000, prefix: '$', suffix: '', minLabel: '$5K', maxLabel: '$1M' },
-  { id: 'term', label: 'Term', min: 3, max: 120, step: 1, value: 24, prefix: '', suffix: 'months', minLabel: '3 mo', maxLabel: '120 mo' },
-  { id: 'apr', label: 'Estimated APR', min: 5, max: 60, step: 0.5, value: 18, prefix: '', suffix: '%', minLabel: '5%', maxLabel: '60%' },
-];
-
 const calculatorSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
@@ -28,190 +22,250 @@ const calculatorSchema = {
 
 <BaseLayout
   title="Business Loan Calculator"
-  description="Estimate monthly payments, total repayment and total interest for a business loan. Free amortization calculator from Falcon Equity Group."
+  description="Estimate monthly payments and total cost for business loans. Calculate financing options based on revenue, credit, and product type with Falcon Equity Group."
   schema={[breadcrumbSchema(crumbs), calculatorSchema]}
 >
   <PageHero
-    title="Loan calculator"
-    lead="Estimate monthly payment and total cost. Offers depend on revenue, credit and product."
-  />
-
-  <section class="section bg-white" aria-labelledby="calc-heading">
-    <div class="container-site">
-      <h2 id="calc-heading" class="sr-only">Calculator</h2>
-      <form class="grid gap-6 lg:grid-cols-12" data-calculator novalidate>
-        <fieldset class="space-y-10 lg:col-span-7">
-          <legend class="sr-only">Loan details</legend>
-          {
-            fields.map((f) => (
-              <div>
-                <div class="flex items-center justify-between gap-4">
-                  <label for={`${f.id}-range`} class="font-medium text-ink">
-                    {f.label}
-                  </label>
-                  <div class="flex items-center gap-1 border border-line bg-white px-3 py-1.5 focus-within:border-accent">
-                    {f.prefix && <span class="text-muted" aria-hidden="true">{f.prefix}</span>}
-                    <input
-                      id={`${f.id}-input`}
-                      type="number"
-                      inputmode="decimal"
-                      min={f.min}
-                      max={f.max}
-                      step={f.step}
-                      value={f.value}
-                      aria-label={`${f.label}${f.suffix ? ` in ${f.suffix === '%' ? 'percent' : f.suffix}` : ' in dollars'}`}
-                      class="w-28 bg-transparent text-right font-semibold text-ink focus:outline-none"
-                      data-input={f.id}
-                    />
-                    {f.suffix && <span class="text-muted" aria-hidden="true">{f.suffix}</span>}
-                  </div>
-                </div>
-                <input
-                  id={`${f.id}-range`}
-                  type="range"
-                  min={f.min}
-                  max={f.max}
-                  step={f.step}
-                  value={f.value}
-                  class="range mt-4 w-full"
-                  data-range={f.id}
-                />
-                <div class="mt-1 flex justify-between text-sm text-muted" aria-hidden="true">
-                  <span>{f.minLabel}</span>
-                  <span>{f.maxLabel}</span>
-                </div>
-              </div>
-            ))
-          }
-        </fieldset>
-
-        <div class="flex flex-col bg-tint p-8 lg:col-span-5">
-          <div aria-live="polite" aria-atomic="true">
-            <p class="text-muted">Estimated monthly payment</p>
-            <p class="mt-1 font-display text-5xl font-light sm:text-6xl">
-              <output data-out="monthly" for="amount-range term-range apr-range">$0</output>
-              <span class="text-xl font-normal text-muted">/ mo</span>
-            </p>
-            <dl class="mt-8 grid grid-cols-2 gap-4">
-              <div>
-                <dt class="text-sm text-muted">Total repayment</dt>
-                <dd class="mt-1 text-2xl font-semibold"><output data-out="total">$0</output></dd>
-              </div>
-              <div>
-                <dt class="text-sm text-muted">Total interest</dt>
-                <dd class="mt-1 text-2xl font-semibold"><output data-out="interest">$0</output></dd>
-              </div>
-            </dl>
+    title="Business Loan Calculator"
+    lead="Estimate monthly payments and total cost. Actual offers depend on revenue, credit, and product type."
+  >
+    <div class="lc-wrap" id="loan-calc">
+      <div class="lc-grid">
+        <div class="lc-inputs">
+          <div class="lc-field">
+            <div class="lc-row">
+              <label class="lc-label" for="lc-amount">Loan Amount</label>
+              <span class="lc-value" id="lc-amount-out"></span>
+            </div>
+            <input class="lc-range" type="range" id="lc-amount" min="5000" max="1000000" step="1000" value="100000" />
+            <div class="lc-minmax"><span>$5K</span><span>$1M</span></div>
           </div>
-          <div class="mt-8 h-px bg-line" aria-hidden="true">
-            <div class="h-px bg-accent transition-[width]" data-bar style="width: 80%"></div>
+          <div class="lc-field">
+            <div class="lc-row">
+              <label class="lc-label" for="lc-term">Term</label>
+              <span class="lc-value" id="lc-term-out"></span>
+            </div>
+            <input class="lc-range" type="range" id="lc-term" min="3" max="120" step="1" value="24" />
+            <div class="lc-minmax"><span>3 mo</span><span>120 mo</span></div>
           </div>
-          <p class="mt-2 flex justify-between text-xs text-muted" aria-hidden="true">
-            <span>Principal</span><span>Interest</span>
-          </p>
-          <div class="mt-auto pt-8">
-            <a href="/apply" class="btn-primary">Get Funding Today</a>
+          <div class="lc-field">
+            <div class="lc-row">
+              <label class="lc-label" for="lc-apr">Estimated APR</label>
+              <span class="lc-value" id="lc-apr-out"></span>
+            </div>
+            <input class="lc-range" type="range" id="lc-apr" min="5" max="60" step="0.5" value="18" />
+            <div class="lc-minmax"><span>5%</span><span>60%</span></div>
           </div>
-          <p class="mt-4 text-xs text-muted">
-            Estimates only, using a standard amortization formula with monthly payments. Merchant cash advances and factoring are
-            priced differently. Final terms are based on underwriting.
-          </p>
         </div>
-      </form>
-    </div>
-  </section>
 
-  <section class="section bg-white" aria-labelledby="calc-help-heading">
-    <div class="container-site max-w-3xl">
-      <h2 id="calc-help-heading">How this calculator works</h2>
-      <div class="prose prose-lg mt-6 max-w-none prose-strong:text-ink">
-        <p>
-          The calculator uses a standard amortizing loan formula. Your estimated monthly payment is
-          <strong>P × r ÷ (1 − (1 + r)<sup>−n</sup>)</strong>, where <em>P</em> is the loan amount, <em>r</em> is the monthly rate
-          (APR ÷ 12) and <em>n</em> is the number of months.
-        </p>
-        <p>
-          Use it to compare scenarios for a <a href="/services/business-term-loan">Business Term Loan</a> or
-          <a href="/services/collateral-asset-loans">Collateral &amp; Asset Loan</a>. For stacked advances, see how
-          <a href="/services/consolidation-of-positions">Consolidation of Positions</a> can lower daily payments.
-        </p>
+        <div class="lc-results" aria-live="polite">
+          <p class="lc-res-label">Estimated Monthly Payment</p>
+          <p class="lc-payment"><span id="lc-payment">$0</span><span class="lc-per">/ mo</span></p>
+          <div class="lc-split">
+            <div>
+              <p class="lc-res-label">Total Repayment</p>
+              <p class="lc-small" id="lc-total">$0</p>
+            </div>
+            <div>
+              <p class="lc-res-label">Total Interest</p>
+              <p class="lc-small" id="lc-interest">$0</p>
+            </div>
+          </div>
+          <div class="lc-cta-space"></div>
+          <a class="btn-primary lc-btn" href="/apply">Get Funding Today</a>
+          <p class="lc-note">Estimates only. Final terms based on underwriting.</p>
+        </div>
       </div>
     </div>
-  </section>
+  </PageHero>
 
   <CtaBand />
 </BaseLayout>
 
 <style>
-  .range {
+  .lc-wrap {
+    margin-top: 3rem;
+  }
+
+  .lc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .lc-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .lc-inputs {
+    padding: 28px;
+    background: #fff;
+  }
+
+  .lc-field + .lc-field {
+    margin-top: 28px;
+  }
+
+  .lc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    gap: 1rem;
+  }
+
+  .lc-label,
+  .lc-value {
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .lc-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lc-minmax {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--color-muted);
+    margin-top: 8px;
+  }
+
+  .lc-range {
     appearance: none;
-    height: 2px;
+    width: 100%;
+    height: 6px;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
     background: linear-gradient(
       to right,
-      var(--color-accent) 0%,
-      var(--color-accent) var(--fill, 50%),
-      var(--color-line) var(--fill, 50%)
+      var(--color-ink) 0%,
+      var(--color-ink) var(--fill, 0%),
+      var(--color-line) var(--fill, 0%),
+      var(--color-line) 100%
     );
-    cursor: pointer;
   }
-  .range::-webkit-slider-thumb {
+
+  .lc-range::-webkit-slider-thumb {
     appearance: none;
-    width: 14px;
-    height: 14px;
-    background: var(--color-accent);
-    border: 0;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 3px solid var(--color-ink);
   }
-  .range::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    background: var(--color-accent);
-    border: 0;
+
+  .lc-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 3px solid var(--color-ink);
+  }
+
+  .lc-results {
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    background: var(--color-featured);
+    color: #fff;
+  }
+
+  .lc-res-label {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .lc-payment {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(44px, 6vw, 60px);
+    line-height: 1;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lc-per {
+    margin-left: 6px;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .lc-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+  }
+
+  .lc-small {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.2;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lc-cta-space {
+    flex: 1;
+    min-height: 28px;
+  }
+
+  .lc-btn {
+    width: 100%;
+  }
+
+  .lc-note {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 12px;
+    color: rgb(255 255 255 / 0.8);
   }
 </style>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>('[data-calculator]');
-  if (form) {
-    const ids = ['amount', 'term', 'apr'] as const;
-    const range = (id: string) => form.querySelector<HTMLInputElement>(`[data-range="${id}"]`)!;
-    const input = (id: string) => form.querySelector<HTMLInputElement>(`[data-input="${id}"]`)!;
-    const out = (id: string) => form.querySelector<HTMLOutputElement>(`[data-out="${id}"]`)!;
-    const bar = form.querySelector<HTMLElement>('[data-bar]');
+  const root = document.getElementById('loan-calc');
+  if (root) {
+    const amount = root.querySelector<HTMLInputElement>('#lc-amount')!;
+    const term = root.querySelector<HTMLInputElement>('#lc-term')!;
+    const apr = root.querySelector<HTMLInputElement>('#lc-apr')!;
     const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
-    const clamp = (v: number, el: HTMLInputElement) => Math.min(Number(el.max), Math.max(Number(el.min), v));
-
-    const paint = (el: HTMLInputElement) => {
-      const pct = ((Number(el.value) - Number(el.min)) / (Number(el.max) - Number(el.min))) * 100;
-      el.style.setProperty('--fill', `${pct}%`);
+    const fill = (el: HTMLInputElement) => {
+      el.style.setProperty('--fill', `${((Number(el.value) - Number(el.min)) / (Number(el.max) - Number(el.min))) * 100}%`);
     };
 
-    const calculate = () => {
-      const P = Number(range('amount').value);
-      const n = Number(range('term').value);
-      const r = Number(range('apr').value) / 100 / 12;
+    const calc = () => {
+      const P = Number(amount.value);
+      const n = Number(term.value);
+      const r = Number(apr.value) / 100 / 12;
       const monthly = r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
       const total = monthly * n;
-      out('monthly').textContent = usd.format(monthly);
-      out('total').textContent = usd.format(total);
-      out('interest').textContent = usd.format(total - P);
-      if (bar) bar.style.width = `${(P / total) * 100}%`;
-      ids.forEach((id) => paint(range(id)));
+      root.querySelector('#lc-amount-out')!.textContent = usd.format(P);
+      root.querySelector('#lc-term-out')!.textContent = `${n} months`;
+      root.querySelector('#lc-apr-out')!.textContent = `${Number(apr.value).toFixed(1)}%`;
+      root.querySelector('#lc-payment')!.textContent = usd.format(monthly);
+      root.querySelector('#lc-total')!.textContent = usd.format(total);
+      root.querySelector('#lc-interest')!.textContent = usd.format(total - P);
+      [amount, term, apr].forEach(fill);
     };
 
-    ids.forEach((id) => {
-      range(id).addEventListener('input', () => {
-        input(id).value = range(id).value;
-        calculate();
-      });
-      input(id).addEventListener('change', () => {
-        const v = clamp(Number(input(id).value) || Number(range(id).min), range(id));
-        input(id).value = String(v);
-        range(id).value = String(v);
-        calculate();
-      });
-    });
-    form.addEventListener('submit', (e) => e.preventDefault());
-    calculate();
+    [amount, term, apr].forEach((el) => el.addEventListener('input', calc));
+    calc();
   }
 </script>
