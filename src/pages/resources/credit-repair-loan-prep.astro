@@ -68,19 +68,21 @@ const steps = [
       <section class="section bg-white" aria-labelledby={`program-${gi}`}>
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-span-4 bx-lg-span-12">
+            <div class="section-head bx-span-4 bx-lg-span-10">
               <Eyebrow>{p.group.startsWith('Business') ? 'Business' : 'Personal'}</Eyebrow>
-              <h2 id={`program-${gi}`} class="mt-4">
-                {p.group}
-              </h2>
-              <p class="section-lead mt-5">{p.lead}</p>
+              <h2 id={`program-${gi}`}>{p.group}</h2>
             </div>
-            {p.items.map((item) => (
-              <div class="tile-card bx-span-4 bx-lg-span-4">
-                <h3>{item.name}</h3>
-                <p class="mt-3 text-ink-soft">{item.body}</p>
+            <p class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{p.lead}</p>
+            <div class="bx-full">
+              <div class="bx-grid">
+                {p.items.map((item) => (
+                  <div class="tile-card bx-span-4 bx-lg-span-4">
+                    <h3>{item.name}</h3>
+                    <p class="mt-3 text-ink-soft">{item.body}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -90,11 +92,11 @@ const steps = [
   <section class="section bg-white" aria-labelledby="why-program-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-5">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>Why</Eyebrow>
-          <h2 id="why-program-heading" class="mt-4">Why clients choose this program</h2>
+          <h2 id="why-program-heading">Why clients choose this program</h2>
         </div>
-        <ul class="bx-span-4 bx-lg-span-6 bx-lg-start-7 space-y-3">
+        <ul class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7 space-y-3">
           {
             reasons.map((r) => (
               <li class="text-ink-soft">{r}</li>
@@ -108,9 +110,9 @@ const steps = [
   <section class="section bg-white" aria-labelledby="how-program-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3 text-center">
+        <div class="section-head bx-span-4 bx-lg-span-8 bx-lg-start-3 text-center">
           <Eyebrow align="center">Process</Eyebrow>
-          <h2 id="how-program-heading" class="mt-4">How it works</h2>
+          <h2 id="how-program-heading">How it works</h2>
         </div>
         <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3">
           <div class="mt-8">

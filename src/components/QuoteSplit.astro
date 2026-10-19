@@ -13,21 +13,23 @@ interface Props {
 const { quote, name, role, image, imageAlt } = Astro.props;
 ---
 
-<figure class="quote-split">
-  <div class="quote-split-photo">
+<figure class="quote-split bx-grid">
+  <div class="quote-split-photo bx-span-4 bx-lg-span-4">
     <Image
       src={image}
       alt={imageAlt}
       widths={[640, 960, 1280]}
-      sizes="(min-width: 768px) 42vw, 100vw"
+      sizes="(min-width: 1024px) 32vw, 100vw"
       loading="eager"
     />
   </div>
-  <blockquote>
-    <p class="quote-split-text">{quote}</p>
-  </blockquote>
-  <figcaption class="quote-split-attr">
-    <span class="quote-split-name">{name}</span>
-    <span class="quote-split-role">{role}</span>
-  </figcaption>
+  <div class="quote-split-copy bx-span-4 bx-lg-span-7 bx-lg-start-6">
+    <blockquote>
+      <p class="quote-split-text">{quote}</p>
+    </blockquote>
+    <figcaption class="quote-split-attr">
+      <span class="quote-split-name">{name}</span>
+      <span class="quote-split-role">{role}</span>
+    </figcaption>
+  </div>
 </figure>

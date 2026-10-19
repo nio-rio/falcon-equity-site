@@ -10,11 +10,13 @@ import ImageSlot from '@/components/ImageSlot.astro';
 import ExploreList from '@/components/ExploreList.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import StatementBand from '@/components/StatementBand.astro';
+import WhatWeDo from '@/components/WhatWeDo.astro';
 import Principles from '@/components/Principles.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
+import HeroStats from '@/components/HeroStats.astro';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS, type Industry } from '@/data/industries';
 import { SERVICES } from '@/data/services';
+import { STATS } from '@/data/site';
 import { getPublishedPosts } from '@/lib/blog';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 
@@ -63,9 +65,7 @@ const products = industry.products.map((item) => {
     image: service.image,
   };
 });
-const bandItems = industry.uses.map((title) => ({ title }));
 const principles = industry.useCases.slice(0, 3).map((item) => ({ title: item.title, body: item.body }));
-const accordionItems = industry.needs.map((need) => ({ q: need.title, a: need.body }));
 const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((item) => ({
   href: `/industries/${item.slug}`,
   title: item.name,
@@ -94,24 +94,24 @@ const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((it
     </div>
   </PageHero>
 
-  <StatementBand
-    items={bandItems}
-    intent={placeholders.needs.intent}
+  <HeroStats
+    featured={{ label: STATS[0].label, value: STATS[0].value, marker: '1' }}
+    side={[
+      { label: STATS[1].label, value: STATS[1].value },
+      { label: STATS[3].label, value: STATS[3].value },
+    ]}
+    note="Figures are typical. Approval is not guaranteed."
+    footnotes={['Company-wide figures. Subject to approval.']}
   />
 
-  <section class="section bg-white" aria-labelledby="needs-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-4">
-          <Eyebrow>Common funding needs</Eyebrow>
-          <h2 id="needs-heading" class="mt-4">Where capital usually goes first.</h2>
-        </div>
-        <div class="bx-span-4 bx-lg-span-8">
-          <FaqList faqs={accordionItems} idPrefix={`${industry.slug}-needs`} />
-        </div>
-      </div>
-    </div>
-  </section>
+  <WhatWeDo
+    id="needs-heading"
+    eyebrow="Common funding needs"
+    title="Where capital usually goes first."
+    items={industry.needs}
+    intent={placeholders.needs.intent}
+    imageAlt={placeholders.needs.alt}
+  />
 
   <FeatureSplit
     id="products-intro-heading"
@@ -167,11 +167,11 @@ const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((it
   <section class="section bg-white" aria-labelledby="industry-faq-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-4">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>FAQ</Eyebrow>
-          <h2 id="industry-faq-heading" class="mt-4">{`${industry.name} questions`}</h2>
+          <h2 id="industry-faq-heading">{`${industry.name} questions`}</h2>
         </div>
-        <div class="bx-span-4 bx-lg-span-8">
+        <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
           <FaqList faqs={industry.faqs} idPrefix={`${industry.slug}-faq`} />
         </div>
       </div>
@@ -183,9 +183,9 @@ const explore = INDUSTRIES.filter((item) => item.slug !== industry.slug).map((it
       <section class="section bg-tint" aria-labelledby="related-heading">
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-full">
+            <div class="section-head bx-span-4 bx-lg-span-10">
               <Eyebrow>Related</Eyebrow>
-              <h2 id="related-heading" class="mt-4">Related articles</h2>
+              <h2 id="related-heading">Related articles</h2>
             </div>
             {related.map((post) => (
               <div class="bx-span-4 bx-lg-span-4">

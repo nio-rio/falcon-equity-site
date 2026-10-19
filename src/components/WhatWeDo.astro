@@ -1,0 +1,54 @@
+---
+import ImageSlot from './ImageSlot.astro';
+import Eyebrow from './Eyebrow.astro';
+
+export type WhatWeDoItem = {
+  title: string;
+  body: string;
+};
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  items: readonly WhatWeDoItem[];
+  intent: string;
+  imageAlt?: string;
+}
+
+const {
+  id = 'needs-heading',
+  eyebrow = 'Common funding needs',
+  title,
+  items,
+  intent,
+  imageAlt,
+} = Astro.props;
+const shown = items.slice(0, 4);
+---
+
+{
+  shown.length > 0 && (
+    <section class="what-we-do on-dark" aria-labelledby={id}>
+      <div class="container-site">
+        <div class="bx-grid">
+          <div class="section-head bx-span-4 bx-lg-span-10">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h2 id={id}>{title}</h2>
+          </div>
+          <div class="what-we-do-media bx-span-4 bx-lg-span-6">
+            <ImageSlot labeled intent={intent} alt={imageAlt} ratio="3 / 4" />
+          </div>
+          <ul class="what-we-do-list bx-span-4 bx-lg-span-5 bx-lg-start-8">
+            {shown.map((item) => (
+              <li>
+                <h3 class="what-we-do-item-title">{item.title}</h3>
+                <p class="what-we-do-item-body">{item.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}

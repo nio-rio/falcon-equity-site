@@ -14,6 +14,7 @@ import StatementBand from '@/components/StatementBand.astro';
 import Principles from '@/components/Principles.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
 import ServiceSpec from '@/components/ServiceSpec.astro';
+import HeroStats from '@/components/HeroStats.astro';
 import { SERVICES, type Service } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 
@@ -31,10 +32,12 @@ const crumbs = [
 ];
 const isConsolidation = service.slug === 'consolidation-of-positions';
 const useCases = service.useCases.slice(0, 3).map((c) => ({ ...c, product: service.name }));
-const stats = [
-  { label: 'Typical amounts', value: service.spec?.amounts ?? service.amounts },
-  { label: 'Terms', value: service.spec?.terms ?? service.terms },
-  { label: 'Funding speed', value: service.speed ?? 'Ask your specialist' },
+const amountValue = service.spec?.amounts ?? service.amounts;
+const termValue = service.spec?.terms ?? service.terms;
+const showHeroStats = /[\d$]/.test(amountValue) && !/tailored/i.test(amountValue);
+const heroSide = [
+  { label: 'Terms', value: termValue },
+  ...(service.speed ? [{ label: 'Funding speed', value: service.speed }] : []),
 ];
 const bandItems = (service.options && service.options.length > 1
   ? service.options.map((o) => ({
@@ -76,33 +79,29 @@ const explore = SERVICES.filter((s) => s.slug !== service.slug).map((s) => ({
     </div>
   </PageHero>
 
-  <section class="section bg-white" aria-label="Typical figures">
-    <div class="container-site">
-      <dl class="bx-grid">
-        {
-          stats.map((stat) => (
-            <div class="stat-cell bx-span-2 bx-md-span-2 bx-lg-span-4">
-              <dd>{stat.value}</dd>
-              <dt>{stat.label}</dt>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </section>
+  {
+    showHeroStats && (
+      <HeroStats
+        featured={{ label: 'Typical amounts', value: amountValue, marker: '1' }}
+        side={heroSide}
+        note="Figures are typical. Rates are quoted individually. Approval is not guaranteed."
+        footnotes={['Published amount range for this product. Subject to approval.']}
+      />
+    )
+  }
 
   <StatementBand image={service.image} items={bandItems} />
 
   <section class="section bg-white" aria-labelledby="service-acc-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-4">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>{service.options && service.options.length > 1 ? 'Options' : 'FAQ'}</Eyebrow>
-          <h2 id="service-acc-heading" class="mt-4">
+          <h2 id="service-acc-heading">
             {service.options && service.options.length > 1 ? `${service.shortName} options` : `${service.shortName} questions`}
           </h2>
         </div>
-        <div class="bx-span-4 bx-lg-span-8">
+        <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
           <FaqList faqs={accordionItems} idPrefix={`${service.slug}-acc`} />
         </div>
       </div>
@@ -123,14 +122,14 @@ const explore = SERVICES.filter((s) => s.slug !== service.slug).map((s) => ({
       <section class="section bg-white" aria-labelledby="example-heading">
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-full">
+            <div class="section-head bx-span-4 bx-lg-span-10">
               <Eyebrow>Illustration</Eyebrow>
-              <h2 id="example-heading" class="mt-4">What consolidation can look like.</h2>
-              <p class="section-lead mt-5">
-                Falcon clients save 30-50% on average on daily or weekly payments. The figures below are hypothetical.
-              </p>
+              <h2 id="example-heading">What consolidation can look like.</h2>
             </div>
-            <div class="bx-span-4 bx-lg-span-12">
+            <p class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+              Falcon clients save 30-50% on average on daily or weekly payments. The figures below are hypothetical.
+            </p>
+            <div class="bx-full">
               <ConsolidationExample />
             </div>
           </div>
@@ -146,11 +145,11 @@ const explore = SERVICES.filter((s) => s.slug !== service.slug).map((s) => ({
       <section class="section bg-white" aria-labelledby="service-faq-heading">
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-span-4 bx-lg-span-4">
+            <div class="section-head bx-span-4 bx-lg-span-10">
               <Eyebrow>FAQ</Eyebrow>
-              <h2 id="service-faq-heading" class="mt-4">{`${service.shortName} questions`}</h2>
+              <h2 id="service-faq-heading">{`${service.shortName} questions`}</h2>
             </div>
-            <div class="bx-span-4 bx-lg-span-8">
+            <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
               <FaqList faqs={service.faqs} idPrefix={`${service.slug}-faq`} />
             </div>
           </div>

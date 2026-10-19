@@ -27,9 +27,9 @@ const crumbs = [
   <section class="section bg-white" aria-labelledby="contact-details-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-full">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>Contact</Eyebrow>
-          <h2 id="contact-details-heading" class="mt-4">Details</h2>
+          <h2 id="contact-details-heading">Details</h2>
         </div>
         <div class="bx-span-4 bx-lg-span-12">
           <ContactPoints />
@@ -44,18 +44,22 @@ const crumbs = [
         <div class="bx-span-4 bx-lg-span-6">
           <ImageSlot intent="map of Lower Manhattan around 11 Broadway" ratio="16 / 9" />
         </div>
-        <div class="bx-span-4 bx-lg-span-5 bx-lg-start-8">
-          <Eyebrow>Application</Eyebrow>
-          <h2 id="contact-apply-heading" class="mt-4">Apply</h2>
-          <p class="section-lead mt-5">
-            One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
-          </p>
-          <a href="/apply" class="btn-primary mt-6">Get Funding Today</a>
-          <p class="mt-6">
-            <ContactLine icon="phone" href={SITE.phones.direct.href}>
-              {SITE.phones.direct.display}
-            </ContactLine>
-          </p>
+        <div class="section-stack bx-span-4 bx-lg-span-5 bx-lg-start-8">
+          <div class="section-head">
+            <Eyebrow>Application</Eyebrow>
+            <h2 id="contact-apply-heading">Apply</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
+            </p>
+            <a href="/apply" class="btn-primary mt-6">Get Funding Today</a>
+            <p class="mt-6">
+              <ContactLine icon="phone" href={SITE.phones.direct.href}>
+                {SITE.phones.direct.display}
+              </ContactLine>
+            </p>
+          </div>
         </div>
       </div>
     </div>

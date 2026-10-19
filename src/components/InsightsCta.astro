@@ -29,10 +29,14 @@ const {
 <section class="insights-cta on-dark" id="insights-cta" aria-labelledby="insights-cta-heading">
   <div class="container-site">
     <div class="bx-grid">
-      <div class="insights-cta-copy bx-span-4 bx-lg-span-6">
-        <Eyebrow class="text-white/70">{eyebrow}</Eyebrow>
-        <h2 id="insights-cta-heading">{title}</h2>
-        <ArrowCta href={href} label={ctaLabel} tone="light" />
+      <div class="insights-cta-copy section-stack bx-span-4 bx-lg-span-6">
+        <div class="section-head">
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2 id="insights-cta-heading">{title}</h2>
+        </div>
+        <div class="section-cta">
+          <ArrowCta href={href} label={ctaLabel} tone="light" />
+        </div>
       </div>
       <div class="insights-cta-media bx-span-4 bx-lg-span-6">
         {

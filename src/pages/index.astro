@@ -18,8 +18,8 @@ const homeServices = getHomeServices();
     <div class="container-site">
       <div class="bx-grid home-hero-top">
         <h1 id="hero-heading" class="bx-span-4 bx-lg-span-7">
-          Fuel success
-          <span class="home-hero-line2">with fast funding</span>
+          <span class="home-hero-line1">Fuel success with</span>
+          <span class="home-hero-line2">fast funding</span>
         </h1>
         <p class="home-hero-aside bx-span-4 bx-lg-span-4 bx-lg-start-9">We move at your pace.</p>
       </div>
@@ -34,10 +34,14 @@ const homeServices = getHomeServices();
         />
       </div>
       <div class="bx-grid home-hero-below">
-        <h2 class="bx-span-4 bx-lg-span-6">Apply to get same-day funding</h2>
-        <div class="home-hero-below-copy bx-span-4 bx-lg-span-5 bx-lg-start-8">
+        <div class="section-head bx-span-4 bx-lg-span-10">
+          <h2>Apply to get same-day funding</h2>
+        </div>
+        <div class="section-body home-hero-below-copy bx-span-4 bx-lg-span-6 bx-lg-start-7">
           <p>One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.</p>
-          <ArrowCta href="/apply" label="Learn more" tone="light" />
+          <div class="section-cta">
+            <ArrowCta href="/apply" label="Learn more" tone="light" />
+          </div>
         </div>
       </div>
     </div>
@@ -48,27 +52,29 @@ const homeServices = getHomeServices();
   <section class="section bg-tint" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-5">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>Services</Eyebrow>
-          <h2 id="services-heading" class="mt-4">How we can bring you victory.</h2>
+          <h2 id="services-heading">How we can bring you victory.</h2>
         </div>
-        <ul class="explore-list bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          {
-            homeServices.map((s) => (
-              <li>
-                <a class="explore-row" href={s.href}>
-                  <span class="explore-row-copy">
-                    <span class="explore-row-title">{s.name}</span>
-                    <span class="explore-row-meta">{s.rangeLine}</span>
-                  </span>
-                  <CircleArrow />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-        <div class="bx-span-4 bx-lg-span-4 bx-lg-start-2">
-          <ArrowCta href="/services" label="Learn more" />
+        <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          <ul class="explore-list">
+            {
+              homeServices.map((s) => (
+                <li>
+                  <a class="explore-row" href={s.href}>
+                    <span class="explore-row-copy">
+                      <span class="explore-row-title">{s.name}</span>
+                      <span class="explore-row-meta">{s.rangeLine}</span>
+                    </span>
+                    <CircleArrow />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="section-cta">
+            <ArrowCta href="/services" label="Learn more" />
+          </div>
         </div>
       </div>
     </div>
@@ -79,9 +85,9 @@ const homeServices = getHomeServices();
   <section class="section bg-tint" aria-labelledby="process-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-full">
+        <div class="section-head bx-span-4 bx-lg-span-10">
           <Eyebrow>Process</Eyebrow>
-          <h2 id="process-heading" class="mt-4">How you get approved.</h2>
+          <h2 id="process-heading">How you get approved.</h2>
         </div>
         {
           STANDARD_STEPS.map((step, i) => (

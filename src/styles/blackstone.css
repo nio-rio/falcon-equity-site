@@ -2,13 +2,51 @@
    Do not put .afterabsolute rules here. Leave .bg-cta and .btn-outline-dark in global.css. */
 
 :root {
-  --bx-max: 1280px;
+  /* From blackstone-v2 CSS (Wayback 20260925104209 /_static bundle). */
+  --bx-fs-12: 0.75rem;
+  --bx-fs-14: 0.875rem;
+  --bx-fs-16: 1rem;
+  --bx-fs-18: 1.125rem;
+  --bx-fs-20: 1.25rem;
+  --bx-fs-24: 1.5rem;
+  --bx-fs-32: 2rem;
+  --bx-fs-36: 2.25rem;
+  --bx-fs-40: 2.5rem;
+  --bx-fs-48: 3rem;
+  --bx-fs-56: 3.5rem;
+  --bx-fs-64: 4rem;
+  --bx-fs-72: 4.5rem;
+  --bx-fs-80: 5rem;
+  --bx-fs-96: 6rem;
+  --bx-fs-176: 11rem;
+  --bx-space-8: 0.5rem;
+  --bx-space-12: 0.75rem;
+  --bx-space-16: 1rem;
+  --bx-space-24: 1.5rem;
+  --bx-space-32: 2rem;
+  --bx-space-40: 2.5rem;
+  --bx-space-48: 3rem;
+  --bx-space-56: 3.5rem;
+  --bx-space-64: 4rem;
+  --bx-space-80: 5rem;
+  --bx-space-88: 5.5rem;
+  --bx-space-112: 7rem;
+  --bx-space-120: 7.5rem;
+  --bx-rule: 0.0625rem;
+  --bx-ease: 0.3s ease;
+  --bx-max: 20.5rem;
   --bx-columns: 4;
   --bx-gutter: 16px;
-  --bx-margin: 20px;
+  --bx-margin: 15px;
   --bx-section: 4rem;
   --bx-bp-md: 768px;
   --bx-bp-lg: 1024px;
+}
+
+@media (min-width: 26em) {
+  :root {
+    --bx-max: 23rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -17,6 +55,7 @@
     --bx-gutter: 24px;
     --bx-margin: 40px;
     --bx-section: 5.5rem;
+    --bx-max: 43rem;
   }
 }
 
@@ -25,12 +64,27 @@
     --bx-columns: 12;
     --bx-gutter: 24px;
     --bx-section: 7.5rem;
+    /* Fluid until 90em. Blackstone’s 43rem cap is for 8-col layouts below 80em. */
+    --bx-max: 71rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --bx-max: 71rem;
   }
 }
 
 @media (min-width: 1440px) {
   :root {
     --bx-margin: 80px;
+    --bx-max: 79rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --bx-max: 103rem;
   }
 }
 
@@ -56,12 +110,12 @@ html {
   display: grid;
   grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
   column-gap: var(--bx-gutter);
-  row-gap: 1.75rem;
+  row-gap: var(--bx-space-40);
 }
 
 @media (min-width: 1024px) {
   .bx-grid {
-    row-gap: 2.5rem;
+    row-gap: var(--bx-space-48);
   }
 }
 
@@ -155,14 +209,15 @@ html {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0;
 }
 
 .eyebrow--line::after {
   content: '';
   display: block;
-  width: 2.25rem;
-  height: 1px;
+  width: var(--bx-space-48);
+  height: 2px;
+  margin-left: var(--bx-space-16);
   background: currentColor;
   flex: none;
 }
@@ -171,7 +226,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.85rem;
+  gap: var(--bx-space-16);
 }
 
 .eyebrow--center::after {
@@ -181,15 +236,46 @@ html {
 .eyebrow--center::before {
   content: '';
   display: block;
-  width: 2.25rem;
-  height: 1px;
+  width: var(--bx-space-48);
+  height: 2px;
   background: currentColor;
 }
 
+.on-dark .eyebrow,
+.site-footer .eyebrow {
+  color: inherit;
+}
+
+/* Tech-and-innovations section header: 10-col H2, 40px eyebrow-to-H2, 48px H2-to-body
+   (desktop row-gap). Body starts ~col 7, spans ~6. Circle-arrow 40px below body. */
+.section-head h2 {
+  margin: 0;
+}
+
+.section-head .eyebrow + h2 {
+  margin-top: var(--bx-space-40);
+}
+
+.section-body,
 .section-lead {
-  font-size: inherit;
-  line-height: 1.55;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
   color: var(--color-ink-soft);
+}
+
+.on-dark .section-body,
+.on-dark .section-lead {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.section-cta {
+  margin-top: var(--bx-space-40);
+}
+
+/* Same-column header + body (feature splits, dark CTAs) still need the 48px H2-to-body gap. */
+.section-stack > .section-head + .section-body,
+.section-stack > .section-head + .section-cta {
+  margin-top: var(--bx-space-48);
 }
 
 .link,
@@ -364,8 +450,12 @@ a:focus-visible .link-draw,
 .home-hero h1 {
   font-weight: 300;
   max-width: none;
+  /* Span-7 at 1024 is ~541px; clamp so “Fuel success with” stays one line. */
+  font-size: clamp(2rem, 0.9rem + 4.2vw, 4.25rem);
+  line-height: 1.05;
 }
 
+.home-hero-line1,
 .home-hero-line2 {
   display: block;
 }
@@ -398,9 +488,6 @@ a:focus-visible .link-draw,
 }
 
 .home-hero-below h2 {
-  font-weight: 400;
-  font-size: clamp(1.75rem, 2vw + 1rem, 2.75rem);
-  line-height: 1.1;
   color: #fff;
 }
 
@@ -408,7 +495,6 @@ a:focus-visible .link-draw,
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
 }
 
 .home-hero-below-copy p {
@@ -419,10 +505,6 @@ a:focus-visible .link-draw,
 @media (min-width: 768px) {
   .home-hero {
     padding-block: 4rem 5.5rem;
-  }
-
-  .home-hero-line2 {
-    padding-left: 12.5%;
   }
 
   .home-hero-media {
@@ -438,6 +520,11 @@ a:focus-visible .link-draw,
 @media (min-width: 1024px) {
   .home-hero {
     padding-block: 5rem 7.5rem;
+  }
+
+  .home-hero-line1,
+  .home-hero-line2 {
+    white-space: nowrap;
   }
 
   .home-hero-line2 {
@@ -597,6 +684,74 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   line-height: 1.6;
 }
 
+/* BXCI “What we do”: black band, 10-col statement, portrait left (1–6), list right (8–12). */
+.what-we-do {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.what-we-do .container-site {
+  padding-block: var(--bx-section);
+}
+
+.what-we-do h2 {
+  color: #fff;
+}
+
+.what-we-do .bx-grid {
+  row-gap: var(--bx-space-80);
+}
+
+.what-we-do-media {
+  min-height: 20rem;
+  background: #111;
+  align-self: start;
+}
+
+.what-we-do-media .image-slot,
+.what-we-do-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .what-we-do-media,
+  .what-we-do-media .image-slot,
+  .what-we-do-media figure {
+    min-height: 36rem;
+  }
+}
+
+.what-we-do-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-56);
+  align-self: start;
+}
+
+.what-we-do-item-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #fff;
+}
+
+.what-we-do-item-body {
+  margin: 0.75rem 0 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.88);
+}
+
 .statement-band {
   background: #0a0a0a;
   color: #fff;
@@ -652,10 +807,6 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   }
 }
 
-.principles-statement {
-  max-width: 22ch;
-}
-
 .insights-cta {
   background: #0a0a0a;
   color: #fff;
@@ -665,13 +816,12 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 0;
   padding-block: 5.5rem;
 }
 
 .insights-cta-copy h2 {
   color: #fff;
-  max-width: 12ch;
 }
 
 .insights-cta-media {
@@ -704,30 +854,11 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   }
 }
 
-.quote-split {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  grid-template-areas:
-    'photo'
-    'quote'
-    'attr';
-}
-
+/* BREIT quote: portrait in its own column, large sans quote, name+title bottom-right.
+   BX .bx-quote-block__inner at 80em: image 4 of 16, content 10 of 16 → 4 + start-6 span-7 on 12. */
 .quote-split-photo {
-  grid-area: photo;
   background: var(--color-tint);
   min-height: 18rem;
-}
-
-.quote-split blockquote {
-  grid-area: quote;
-  margin: 0;
-}
-
-.quote-split-attr {
-  grid-area: attr;
-  text-align: right;
 }
 
 .quote-split-photo img {
@@ -738,45 +869,54 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   object-position: center top;
 }
 
+.quote-split-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bx-space-40);
+  min-height: 100%;
+}
+
+.quote-split blockquote {
+  margin: 0;
+}
+
 .quote-split-text {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-weight: 300;
-  font-size: clamp(1.65rem, 2.4vw + 0.6rem, 3rem);
-  line-height: 1.15;
+  font-size: clamp(1.5rem, 1.6vw + 1rem, 2.5rem);
+  line-height: 1.3;
   color: var(--color-ink);
 }
 
+.quote-split-attr {
+  text-align: right;
+  margin-top: auto;
+}
+
 .quote-split-name {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  line-height: 1.2;
-  font-weight: 400;
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-ink);
 }
 
 .quote-split-role {
   display: block;
-  margin-top: 0.35rem;
-  font-size: 0.95rem;
+  margin-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-weight: 400;
   color: var(--color-muted);
 }
 
 @media (min-width: 768px) {
-  .quote-split {
-    grid-template-columns: 0.9fr 1.1fr;
-    grid-template-areas:
-      'photo quote'
-      'photo attr';
-    gap: 1.25rem 4rem;
-    align-items: stretch;
-  }
-
   .quote-split-photo {
     min-height: 28rem;
-  }
-
-  .quote-split blockquote {
-    align-self: end;
   }
 }
 
@@ -1028,6 +1168,95 @@ a:focus-visible .media-zoom .image-slot {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 1rem;
+}
+
+/* BXCI featured stats: one huge left figure, two stacked right with a hairline under each. */
+.hero-stats {
+  padding-block: var(--bx-space-64);
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-48);
+}
+
+@media (min-width: 1024px) {
+  .hero-stats-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: var(--bx-gutter);
+    align-items: start;
+  }
+}
+
+.hero-stats-label {
+  margin: 0;
+  font-size: var(--bx-fs-14);
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+
+.hero-stats-label sup {
+  font-size: 0.7em;
+  margin-left: 0.15em;
+}
+
+.hero-stats-value {
+  margin: var(--bx-space-12) 0 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 6vw + 1rem, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+.hero-stats-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-32);
+}
+
+.hero-stats-field {
+  padding-bottom: var(--bx-space-24);
+  border-bottom: var(--bx-rule) solid var(--color-ink);
+}
+
+.hero-stats-mid {
+  margin: var(--bx-space-8) 0 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 2.4vw + 1rem, 3.5rem);
+  line-height: 1.05;
+  color: #000;
+}
+
+.hero-stats-note {
+  margin: var(--bx-space-40) 0 0;
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+
+.hero-stats-notes {
+  margin: var(--bx-space-16) 0 0;
+  padding-left: 1.25rem;
+  font-size: var(--bx-fs-12);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-32);
+}
+
+@media (min-width: 768px) {
+  .footer-cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--bx-gutter);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -22,11 +22,9 @@ const col = items.length > 3 ? 'bx-lg-span-3' : 'bx-lg-span-4';
     <section class="section bg-white" aria-labelledby={id}>
       <div class="container-site">
         <div class="bx-grid">
-          <div class="bx-full">
+          <div class="section-head bx-span-4 bx-lg-span-10">
             {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-            <h2 id={id} class:list={['principles-statement', eyebrow && 'mt-4']}>
-              {title}
-            </h2>
+            <h2 id={id}>{title}</h2>
           </div>
           {items.map((item) => (
             <div class:list={['bx-span-4', col]}>

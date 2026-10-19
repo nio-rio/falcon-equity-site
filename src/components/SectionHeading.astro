@@ -13,8 +13,8 @@ interface Props {
 const { id, eyebrow, title, lead, align = 'left', class: className } = Astro.props;
 ---
 
-<div class:list={[align === 'center' && 'text-center', className]}>
+<div class:list={['section-head', align === 'center' && 'text-center', className]}>
   {eyebrow && <Eyebrow align={align}>{eyebrow}</Eyebrow>}
-  <h2 id={id} class:list={[eyebrow && 'mt-4']}>{title}</h2>
-  {lead && <p class:list={['section-lead', 'mt-5']}>{lead}</p>}
+  <h2 id={id}>{title}</h2>
+  {lead && <p class="section-lead section-cta">{lead}</p>}
 </div>

@@ -1,0 +1,58 @@
+---
+export type HeroStat = {
+  label: string;
+  value: string;
+  marker?: string;
+};
+
+interface Props {
+  featured: HeroStat;
+  side: HeroStat[];
+  note?: string;
+  footnotes?: string[];
+}
+
+const { featured, side, note, footnotes = [] } = Astro.props;
+---
+
+<section class="hero-stats" aria-label="Published figures">
+  <div class="container-site">
+    <div class="hero-stats-grid">
+      <div class="hero-stats-main">
+        <p class="hero-stats-label">
+          {featured.label}
+          {featured.marker && <sup>{featured.marker}</sup>}
+        </p>
+        <p class="hero-stats-value">{featured.value}</p>
+      </div>
+      {
+        side.length > 0 && (
+          <div class="hero-stats-side">
+            {side.map((stat) => (
+              <div class="hero-stats-field">
+                <p class="hero-stats-label">{stat.label}</p>
+                <p class="hero-stats-mid">{stat.value}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+    {
+      note && (
+        <p class="hero-stats-note">
+          <span class="font-medium text-ink">Note:</span> {note}
+        </p>
+      )
+    }
+    {
+      footnotes.length > 0 && (
+        <ol class="hero-stats-notes">
+          {footnotes.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      )
+    }
+  </div>
+</section>

@@ -45,23 +45,23 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
       </div>
 
       <nav class="bx-span-4 bx-lg-span-7 bx-lg-start-6" aria-label="Footer">
-        <div class="bx-grid">
-          <div class="bx-span-4 bx-md-span-2 bx-lg-span-4">
-            <Eyebrow class="text-white/50">Funding options</Eyebrow>
+        <div class="footer-cols">
+          <div>
+            <Eyebrow>Funding options</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
               <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
             </ul>
           </div>
-          <div class="bx-span-4 bx-md-span-3 bx-lg-span-4">
-            <Eyebrow class="text-white/50">Resources</Eyebrow>
+          <div>
+            <Eyebrow>Resources</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
               <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
             </ul>
           </div>
-          <div class="bx-span-4 bx-md-span-3 bx-lg-span-4">
-            <Eyebrow class="text-white/50">Company</Eyebrow>
+          <div>
+            <Eyebrow>Company</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
             </ul>

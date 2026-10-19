@@ -66,16 +66,16 @@
 @utility bx-start-12 { grid-column-start: 12; }
 
 @theme {
-  --color-ink: #0a0a0a;
-  --color-ink-soft: #333333;
-  --color-muted: #666666;
-  --color-line: #e5e5e5;
+  --color-ink: #000000;
+  --color-ink-soft: #202020;
+  --color-muted: #515256;
+  --color-line: #d5d8df;
   --color-accent: #5b21b6;
   --color-accent-hover: #4c1d95;
   --color-brand: #5b21b6;
   --color-brand-dark: #4c1d95;
   --color-brand-light: #666666;
-  --color-tint: #f7f7fa;
+  --color-tint: #f4f5f7;
   /* Goldman Subscribe to Briefings rgb(114,151,197) → hue rotated to lilac, same S/L. */
   --color-cta: #a072c5;
   /* Live falconequity.ai card purple #332a4e (H 255 S 30% L 23.5%) +8 L. */
@@ -97,12 +97,7 @@
     line-height: 24px;
   }
 
-  @media (min-width: 1024px) {
-    body {
-      font-size: 18px;
-      line-height: 28px;
-    }
-  }
+  /* Blackstone body is --fs-16 / 16px. Do not bump to 18px. */
 
   h1,
   h2,
@@ -113,16 +108,31 @@
     text-wrap: balance;
   }
 
-  /* Goldman inner H1: 44 / 60 / 100 at 390 / 768 / 1024+. H2 and H3 step down. */
+  /* H1 stays large for page heroes. Home hero overrides clamp so line 1 fits. */
   h1 {
     font-weight: 300;
     font-size: clamp(2.75rem, 8.83vw + 0.6rem, 6.25rem);
     line-height: 1;
   }
+  /* Blackstone .bx-headers-one__title: --fw-light, --fs-32 / 40 / 48 at 0 / 48em / 90em.
+     Tech-and-innovations screenshot ~44–48px desktop, 1.25 line-height, #000/#111. */
   h2 {
-    font-weight: 400;
-    font-size: clamp(2rem, 3.79vw + 1.08rem, 3.5rem);
-    line-height: 1.05;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 1.25;
+    color: #000;
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    h2 {
+      font-size: 3rem;
+    }
   }
   h3 {
     font-weight: 500;
@@ -171,20 +181,15 @@
     min-width: 0;
   }
 
+  /* Tech-and-innovations eyebrow: ~12–13px, uppercase, slight tracking, black (not grey).
+     Bundle token is --fs-14 / .08em; screenshot reads 12–13px. */
   .eyebrow {
-    font-size: 10px;
-    line-height: 14px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
     font-weight: 400;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-muted);
-  }
-
-  @media (min-width: 768px) {
-    .eyebrow {
-      font-size: 12px;
-      line-height: 16px;
-    }
+    color: #000;
   }
 
   .btn-primary,

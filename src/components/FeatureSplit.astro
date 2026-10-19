@@ -43,10 +43,12 @@ const {
           )
         }
       </div>
-      <div class:list={['bx-span-4 bx-lg-span-5', !reverse && 'bx-lg-start-8']}>
-        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 id={id} class:list={[eyebrow && 'mt-4']}>{title}</h2>
-        <div class="mt-5">
+      <div class:list={['section-stack bx-span-4 bx-lg-span-5', !reverse && 'bx-lg-start-8']}>
+        <div class="section-head">
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <h2 id={id}>{title}</h2>
+        </div>
+        <div class="section-body">
           <slot />
         </div>
       </div>
