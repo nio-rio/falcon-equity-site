@@ -3,11 +3,22 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import ImageSlot from '@/components/ImageSlot.astro';
 import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import ConsolidationExample from '@/components/ConsolidationExample.astro';
 import { SERVICES, type Service } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+
+const SERVICE_PHOTO: Record<string, string> = {
+  'collateral-asset-loans': 'commercial equipment on a warehouse floor, daylight',
+  'business-line-of-credit': 'small-business office with open ledgers, warm light',
+  'merchant-cash-advance': 'busy retail counter with a card terminal, warm light',
+  'business-term-loan': 'storefront interior after opening, morning light',
+  'invoice-factoring-tool': 'shipping dock with packed pallets, daylight',
+  'consolidation-of-positions': 'desk with stacked statements, even light',
+  'decentralized-business-financing': 'quiet office workstation with two screens, cool light',
+};
 
 export const getStaticPaths = (() => SERVICES.map((service) => ({ params: { slug: service.slug }, props: { service } }))) satisfies GetStaticPaths;
 
@@ -30,18 +41,23 @@ const isDigital = service.slug === 'decentralized-business-financing';
   description={service.seoDescription}
   schema={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(service.faqs)]}
 >
-  <PageHero title={service.name} lead={service.intro} breadcrumbs={crumbs} />
+  <PageHero title={service.name} lead={service.intro} />
 
   <section class="section bg-white" aria-labelledby="details-heading">
     <div class="container-site grid gap-16 lg:grid-cols-12">
       <div class="lg:col-span-7">
+        <ImageSlot
+          intent={SERVICE_PHOTO[service.slug] ?? 'empty commercial interior, daylight'}
+          ratio="16 / 9"
+          class="mb-10"
+        />
         <SectionHeading id="details-heading" eyebrow="At a glance" title={service.headline} />
-        <dl class="mt-10 grid gap-8 sm:grid-cols-2">
-          <div class="sm:col-span-2">
+        <dl class="mt-10 flex flex-col items-start gap-8">
+          <div>
             <dt class="text-sm text-muted">Amounts</dt>
             <dd class="mt-1 font-medium text-ink">{service.amounts}</dd>
           </div>
-          <div class:list={[!service.speed && 'sm:col-span-2']}>
+          <div>
             <dt class="text-sm text-muted">Terms</dt>
             <dd class="mt-1 font-medium text-ink">{service.terms}</dd>
           </div>
@@ -53,7 +69,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
               </div>
             )
           }
-          <div class="sm:col-span-2">
+          <div>
             <dt class="text-sm text-muted">Who it is for</dt>
             <dd class="mt-1 text-ink">{service.whoFor}</dd>
           </div>
