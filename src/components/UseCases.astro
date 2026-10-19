@@ -16,6 +16,7 @@ interface Props {
 }
 
 const { headingId = 'use-cases-heading', cases } = Astro.props;
+const shown = cases.slice(0, 3);
 ---
 
 <section class="section bg-white" aria-labelledby={headingId}>
@@ -26,9 +27,9 @@ const { headingId = 'use-cases-heading', cases } = Astro.props;
       title="Situations owners bring to Falcon."
       lead="Generic situations. Not real clients or results."
     />
-    <ul class="mt-12 grid gap-10 lg:grid-cols-3">
+    <ul class="mt-12 grid gap-10 md:grid-cols-3">
       {
-        cases.map((s) => (
+        shown.map((s) => (
           <li>
             <ImageSlot intent={s.intent} ratio="16 / 9" />
             <h3 class="mt-6">{s.title}</h3>

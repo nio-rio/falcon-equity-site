@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 export type IconName =
   | 'landmark'
   | 'wallet'
@@ -6,6 +8,16 @@ export type IconName =
   | 'file-text'
   | 'layers'
   | 'bitcoin';
+
+const SERVICE_IMAGES = import.meta.glob<{ default: ImageMetadata }>('../assets/services/*.jpg', {
+  eager: true,
+});
+
+const serviceImage = (slug: string): ImageMetadata => {
+  const hit = SERVICE_IMAGES[`../assets/services/${slug}.jpg`];
+  if (!hit) throw new Error(`Missing service image for ${slug}`);
+  return hit.default;
+};
 
 export type ServiceOption = {
   name: string;
@@ -27,6 +39,8 @@ export type Service = {
    * Swap these values between products to change which two are featured.
    */
   featured?: 1 | 2;
+  /** Mercury-style 16:9 graphic for /services rows and the service page hero. */
+  image: ImageMetadata;
   headline: string;
   intro: string;
   whoFor: string;
@@ -88,6 +102,7 @@ export const SERVICES: Service[] = [
     name: 'Collateral & Asset Loans',
     shortName: 'Collateral & Asset',
     icon: 'landmark',
+    image: serviceImage('collateral-asset-loans'),
     summary:
       'Real-estate and collateral-secured business loans that put the assets you already own to work for growth and expansion.',
     headline: 'Put your assets to work.',
@@ -130,12 +145,6 @@ export const SERVICES: Service[] = [
         body: 'Equipment and vehicle financing keeps operating cash in the business while the assets go to work.',
         intent: 'parked work vans in a yard, daylight, empty of people',
       },
-      {
-        industry: 'Construction',
-        title: 'Upgrading technology and site infrastructure.',
-        body: 'A collateral loan converts equipment you already own, or new kit you are buying, into working capital.',
-        intent: 'staged construction equipment, late afternoon, empty of people',
-      },
     ],
     steps: standardSteps('capital'),
     faqs: [
@@ -165,6 +174,7 @@ export const SERVICES: Service[] = [
     name: 'Business Line of Credit',
     shortName: 'Line of Credit',
     icon: 'wallet',
+    image: serviceImage('business-line-of-credit'),
     summary:
       'Flexible, revolving working capital. Draw what you need, when you need it, and pay interest only on the amount you use.',
     featured: 2,
@@ -207,12 +217,6 @@ export const SERVICES: Service[] = [
         body: 'Keep a line on standby and draw during slow stretches, then repay when covers fill.',
         intent: 'empty dining room before open, morning light',
       },
-      {
-        industry: 'Auto Services',
-        title: 'An unexpected repair bill landed.',
-        body: 'The line is there as a cushion so an unplanned cost does not drain the operating account.',
-        intent: 'service bay with a lift, daylight, empty of people',
-      },
     ],
     steps: standardSteps('working capital'),
     faqs: [
@@ -238,6 +242,7 @@ export const SERVICES: Service[] = [
     name: 'Merchant Cash Advance',
     shortName: 'Cash Advance',
     icon: 'zap',
+    image: serviceImage('merchant-cash-advance'),
     summary:
       'Fast working capital based on your future sales, also used as a working capital bridge. $5K to $5M with same-day funding.',
     featured: 1,
@@ -279,12 +284,6 @@ export const SERVICES: Service[] = [
         body: 'Revenue-based capital can fund the campaign while approval looks at bank activity more than a credit score.',
         intent: 'empty cafe counter with a card terminal, warm light',
       },
-      {
-        industry: 'Auto Services',
-        title: 'Equipment broke and work is backing up.',
-        body: 'Same-day funding after approval can cover an urgent repair or replacement.',
-        intent: 'open hood in an empty bay, daylight',
-      },
     ],
     steps: standardSteps('working capital'),
     faqs: [
@@ -310,6 +309,7 @@ export const SERVICES: Service[] = [
     name: 'Business Term Loan',
     shortName: 'Term Loan',
     icon: 'calendar-clock',
+    image: serviceImage('business-term-loan'),
     summary:
       'Long-term loans from $25K to $20M with 5–30 year terms, plus short-term loans from $5K to $5M funded the same day.',
     headline: 'Structured capital for your next big move.',
@@ -351,12 +351,6 @@ export const SERVICES: Service[] = [
         body: 'Structured capital can cover payroll for new staff while revenue catches up.',
         intent: 'empty clinic waiting room, even light',
       },
-      {
-        industry: 'Manufacturing',
-        title: 'A large, planned purchase.',
-        body: 'Short-term loans cover faster, smaller needs; term loans fit bigger investments on a predictable schedule.',
-        intent: 'crate of new parts on a warehouse floor, daylight',
-      },
     ],
     steps: standardSteps('capital'),
     faqs: [
@@ -386,6 +380,7 @@ export const SERVICES: Service[] = [
     name: 'Invoice Factoring Tool',
     shortName: 'Invoice Factoring',
     icon: 'file-text',
+    image: serviceImage('invoice-factoring-tool'),
     summary:
       'An underwritten transaction in which your business sells its receivables at a discount in exchange for cash today.',
     headline: 'Stop waiting on net-60. Get paid today.',
@@ -427,12 +422,6 @@ export const SERVICES: Service[] = [
         body: 'An ongoing AR facility smooths cash flow as receivables turn over.',
         intent: 'packed goods waiting on a dock, daylight, empty of people',
       },
-      {
-        industry: 'Transportation',
-        title: 'Growth without taking on a new loan.',
-        body: 'Factoring is a sale of receivables at a discount, not a loan, so approval leans on customer credit.',
-        intent: 'empty loading bay, morning light',
-      },
     ],
     steps: standardSteps('funding'),
     faqs: [
@@ -458,6 +447,7 @@ export const SERVICES: Service[] = [
     name: 'Consolidation of Positions',
     shortName: 'Consolidation',
     icon: 'layers',
+    image: serviceImage('consolidation-of-positions'),
     summary:
       'Combine stacked advances into one position and save 30%–50% on your current daily or weekly payments, with immediate access to working capital.',
     headline: 'Consolidate. Save 30\u2060–\u206050%. Breathe again.',
@@ -494,12 +484,6 @@ export const SERVICES: Service[] = [
         title: 'Daily remittances leaving no room to operate.',
         body: 'Falcon clients save 30%–50% on average on daily or weekly payments; actual savings depend on the file.',
         intent: 'empty restaurant pass, morning light',
-      },
-      {
-        industry: 'Auto Services',
-        title: 'Getting off the stacking treadmill.',
-        body: 'List each open position. A specialist models one lower payment instead of another stack.',
-        intent: 'service counter with a closed ledger, daylight, empty of people',
       },
     ],
     steps: [
@@ -539,6 +523,7 @@ export const SERVICES: Service[] = [
     name: 'Decentralized Business Financing',
     shortName: 'Digital Assets',
     icon: 'bitcoin',
+    image: serviceImage('decentralized-business-financing'),
     summary:
       'Next-generation digital asset solutions for modern businesses, including crypto onboarding and crypto custodial services.',
     headline: 'Next-generation capital for modern businesses.',
@@ -574,12 +559,6 @@ export const SERVICES: Service[] = [
         title: 'Treasury planning that includes digital assets.',
         body: 'A consultation maps onboarding and custody to the business and its risk tolerance.',
         intent: 'conference table with a closed notebook, daylight, empty of people',
-      },
-      {
-        industry: 'E-commerce',
-        title: 'Understanding the risks before committing.',
-        body: 'Digital asset values can be volatile. We discuss those risks before any decision.',
-        intent: 'packed shipping table, daylight, empty of people',
       },
     ],
     steps: [

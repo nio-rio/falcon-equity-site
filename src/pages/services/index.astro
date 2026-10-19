@@ -26,10 +26,10 @@ const crumbs = [
   <section class="section bg-white" aria-labelledby="options-heading">
     <div class="container-site">
       <SectionHeading id="options-heading" eyebrow="Options" title="Funding options" />
-      <ul class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <ul class="service-list mt-12 flex flex-col">
         {
           SERVICES.map((s) => (
-            <li class="flex">
+            <li>
               <ServiceBlock service={s} />
             </li>
           ))
@@ -80,6 +80,10 @@ const crumbs = [
 </BaseLayout>
 
 <style>
+  .service-list > li + li {
+    border-top: 1px solid var(--color-line);
+  }
+
   .service-table {
     font-size: inherit;
     line-height: 1.55;
