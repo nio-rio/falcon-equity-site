@@ -1,0 +1,46 @@
+---
+export type TableCell = string | { href: string; text: string };
+
+interface Props {
+  caption?: string;
+  labelledBy?: string;
+  headers: string[];
+  rows: TableCell[][];
+  class?: string;
+}
+
+const { caption, labelledBy, headers, rows, class: className } = Astro.props;
+---
+
+<div class:list={['r-table-wrap', className]} role="region" aria-labelledby={labelledBy}>
+  <table class="r-table">
+    {caption && <caption class="sr-only">{caption}</caption>}
+    <thead>
+      <tr>
+        {
+          headers.map((header) => (
+            <th scope="col">
+              {header ? header : <span class="sr-only">Details</span>}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            {row.map((cell, i) => {
+              const Tag = i === 0 ? 'th' : 'td';
+              const label = i > 0 ? headers[i]?.trim() : '';
+              return (
+                <Tag scope={i === 0 ? 'row' : undefined} data-label={label || undefined}>
+                  {typeof cell === 'string' ? cell : <a class="link" href={cell.href}>{cell.text}</a>}
+                </Tag>
+              );
+            })}
+          </tr>
+        ))}
+    </tbody>
+  </table>
+</div>

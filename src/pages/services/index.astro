@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceBlock from '@/components/ServiceBlock.astro';
+import ResponsiveTable from '@/components/ResponsiveTable.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { SERVICES, rangeAmount } from '@/data/services';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -41,37 +42,20 @@ const crumbs = [
   <section class="section bg-tint" aria-labelledby="compare-heading">
     <div class="container-site">
       <SectionHeading id="compare-heading" eyebrow="Compare" title="Compare options" />
-      <div class="mt-12 overflow-x-auto" role="region" aria-labelledby="compare-heading" tabindex="0">
-        <table class="service-table w-full min-w-[52rem] text-left">
-          <caption class="sr-only">Compare Falcon’s seven funding products by amount, term, speed and typical use</caption>
-          <thead class="text-ink">
-            <tr>
-              <th scope="col" class="font-medium">Product</th>
-              <th scope="col" class="font-medium">Amount range</th>
-              <th scope="col" class="font-medium">Term</th>
-              <th scope="col" class="font-medium">Funding speed</th>
-              <th scope="col" class="font-medium">Best for</th>
-              <th scope="col" class="font-medium"><span class="sr-only">Link</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              SERVICES.map((s) => (
-                <tr>
-                  <th scope="row" class="font-medium text-ink">{s.name}</th>
-                  <td>{rangeAmount(s)}</td>
-                  <td>{s.terms}</td>
-                  <td>{s.speed ?? '—'}</td>
-                  <td>{s.bestFor}</td>
-                  <td>
-                    <a href={`/services/${s.slug}`} class="link">Learn more</a>
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
+      <ResponsiveTable
+        class="mt-12"
+        labelledBy="compare-heading"
+        caption="Compare Falcon’s seven funding products by amount, term, speed and typical use"
+        headers={['Product', 'Amount range', 'Term', 'Funding speed', 'Best for', '']}
+        rows={SERVICES.map((s) => [
+          s.name,
+          rangeAmount(s),
+          s.terms,
+          s.speed ?? '—',
+          s.bestFor,
+          { href: `/services/${s.slug}`, text: 'Learn more' },
+        ])}
+      />
       <p class="mt-3 text-sm text-muted">Figures are typical. Rates are quoted individually. Approval is not guaranteed.</p>
     </div>
   </section>
@@ -88,18 +72,5 @@ const crumbs = [
 
   .service-list > li + li {
     border-top: 1px solid var(--color-line);
-  }
-
-  .service-table {
-    font-size: inherit;
-    line-height: 1.55;
-    border-collapse: collapse;
-  }
-
-  .service-table th,
-  .service-table td {
-    border: 1px solid var(--color-line);
-    padding: 0.75rem 1rem;
-    vertical-align: top;
   }
 </style>
