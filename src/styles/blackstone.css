@@ -55,17 +55,17 @@ html {
   min-width: 0;
 }
 
-.bx-span-1 { grid-column: span 1; }
-.bx-span-2 { grid-column: span 2; }
-.bx-span-3 { grid-column: span 3; }
-.bx-span-4 { grid-column: span 4; }
-.bx-span-5 { grid-column: span 5; }
-.bx-span-6 { grid-column: span 6; }
-.bx-span-7 { grid-column: span 7; }
-.bx-span-8 { grid-column: span 8; }
-.bx-span-9 { grid-column: span 9; }
-.bx-span-10 { grid-column: span 10; }
-.bx-span-11 { grid-column: span 11; }
+.bx-span-1 { grid-column-end: span 1; }
+.bx-span-2 { grid-column-end: span 2; }
+.bx-span-3 { grid-column-end: span 3; }
+.bx-span-4 { grid-column-end: span 4; }
+.bx-span-5 { grid-column-end: span 5; }
+.bx-span-6 { grid-column-end: span 6; }
+.bx-span-7 { grid-column-end: span 7; }
+.bx-span-8 { grid-column-end: span 8; }
+.bx-span-9 { grid-column-end: span 9; }
+.bx-span-10 { grid-column-end: span 10; }
+.bx-span-11 { grid-column-end: span 11; }
 .bx-span-12,
 .bx-full { grid-column: 1 / -1; }
 
@@ -75,13 +75,13 @@ html {
 .bx-start-4 { grid-column-start: 4; }
 
 @media (min-width: 768px) {
-  .md\:bx-span-1 { grid-column: span 1; }
-  .md\:bx-span-2 { grid-column: span 2; }
-  .md\:bx-span-3 { grid-column: span 3; }
-  .md\:bx-span-4 { grid-column: span 4; }
-  .md\:bx-span-5 { grid-column: span 5; }
-  .md\:bx-span-6 { grid-column: span 6; }
-  .md\:bx-span-7 { grid-column: span 7; }
+  .md\:bx-span-1 { grid-column-end: span 1; }
+  .md\:bx-span-2 { grid-column-end: span 2; }
+  .md\:bx-span-3 { grid-column-end: span 3; }
+  .md\:bx-span-4 { grid-column-end: span 4; }
+  .md\:bx-span-5 { grid-column-end: span 5; }
+  .md\:bx-span-6 { grid-column-end: span 6; }
+  .md\:bx-span-7 { grid-column-end: span 7; }
   .md\:bx-span-8,
   .md\:bx-full { grid-column: 1 / -1; }
   .md\:bx-start-1 { grid-column-start: 1; }
@@ -95,17 +95,17 @@ html {
 }
 
 @media (min-width: 1024px) {
-  .lg\:bx-span-1 { grid-column: span 1; }
-  .lg\:bx-span-2 { grid-column: span 2; }
-  .lg\:bx-span-3 { grid-column: span 3; }
-  .lg\:bx-span-4 { grid-column: span 4; }
-  .lg\:bx-span-5 { grid-column: span 5; }
-  .lg\:bx-span-6 { grid-column: span 6; }
-  .lg\:bx-span-7 { grid-column: span 7; }
-  .lg\:bx-span-8 { grid-column: span 8; }
-  .lg\:bx-span-9 { grid-column: span 9; }
-  .lg\:bx-span-10 { grid-column: span 10; }
-  .lg\:bx-span-11 { grid-column: span 11; }
+  .lg\:bx-span-1 { grid-column-end: span 1; }
+  .lg\:bx-span-2 { grid-column-end: span 2; }
+  .lg\:bx-span-3 { grid-column-end: span 3; }
+  .lg\:bx-span-4 { grid-column-end: span 4; }
+  .lg\:bx-span-5 { grid-column-end: span 5; }
+  .lg\:bx-span-6 { grid-column-end: span 6; }
+  .lg\:bx-span-7 { grid-column-end: span 7; }
+  .lg\:bx-span-8 { grid-column-end: span 8; }
+  .lg\:bx-span-9 { grid-column-end: span 9; }
+  .lg\:bx-span-10 { grid-column-end: span 10; }
+  .lg\:bx-span-11 { grid-column-end: span 11; }
   .lg\:bx-span-12,
   .lg\:bx-full { grid-column: 1 / -1; }
   .lg\:bx-start-1 { grid-column-start: 1; }
@@ -543,8 +543,8 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
 }
 
 .bx-acc-item.is-open .bx-acc-icon {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
+  background-color: #0a0a0a;
+  border-color: #0a0a0a;
   color: #fff;
   transform: rotate(180deg);
 }

@@ -29,7 +29,7 @@ Implemented as `--bx-*` tokens and `.bx-grid` / `.bx-span-*` / `.bx-start-*` uti
 - Article column: start 3, span 8
 - Home H1 second line indented ~one column of the 7-col title (`.home-hero-line2`)
 
-On a 4-column mobile grid, spans ≥4 fill the row and `lg:bx-start-*` is ignored, so offsets collapse cleanly.
+On a 4-column mobile grid, spans ≥4 fill the row and `lg:bx-start-*` is ignored, so offsets collapse cleanly. Span utilities set `grid-column-end` so they compose with `bx-start-*`.
 
 **Usage.**
 
