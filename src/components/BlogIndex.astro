@@ -7,53 +7,133 @@ interface Props {
   posts: Post[];
   categories: string[];
   activeCategory?: string;
+  filterable?: boolean;
 }
 
-const { posts, categories, activeCategory } = Astro.props;
+const { posts, categories, activeCategory, filterable = false } = Astro.props;
+const chipClass = 'blog-chip text-base';
 ---
 
-{
-  categories.length > 0 && (
-    <nav aria-label="Blog categories" class="mt-12">
-      <ul class="flex flex-wrap gap-x-8 gap-y-2 text-base">
-        <li>
-          <a
-            href="/blog"
-            class:list={[!activeCategory ? 'text-accent' : 'text-ink-soft hover:text-ink']}
-            aria-current={!activeCategory ? 'page' : undefined}
-          >
-            All
-          </a>
-        </li>
-        {categories.map((c) => (
+<div data-blog-index={filterable ? '' : undefined}>
+  {
+    categories.length > 0 && (
+      <nav aria-label="Blog categories" class="mt-12">
+        <ul class="flex flex-wrap gap-x-8 gap-y-2">
           <li>
-            <a
-              href={`/blog/category/${categorySlug(c)}`}
-              class:list={[activeCategory === c ? 'text-accent' : 'text-ink-soft hover:text-ink']}
-              aria-current={activeCategory === c ? 'page' : undefined}
-            >
-              {c}
-            </a>
+            {
+              filterable ? (
+                <button type="button" class={chipClass} data-blog-filter="" aria-pressed="true">
+                  All
+                </button>
+              ) : (
+                <a
+                  href="/blog"
+                  class:list={[chipClass, !activeCategory ? 'is-active' : undefined]}
+                  aria-current={!activeCategory ? 'page' : undefined}
+                >
+                  All
+                </a>
+              )
+            }
+          </li>
+          {categories.map((c) => {
+            const slug = categorySlug(c);
+            const isActive = activeCategory === c;
+            return (
+              <li>
+                {filterable ? (
+                  <button type="button" class={chipClass} data-blog-filter={slug} aria-pressed="false">
+                    {c}
+                  </button>
+                ) : (
+                  <a
+                    href={`/blog/category/${slug}`}
+                    class:list={[chipClass, isActive && 'is-active']}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {c}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    )
+  }
+
+  {
+    posts.length > 0 ? (
+      <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'grid gap-8 md:grid-cols-2 lg:grid-cols-3']} data-blog-grid>
+        {posts.map((post) => (
+          <li data-blog-category={categorySlug(post.data.category)}>
+            <PostCard post={post} />
           </li>
         ))}
       </ul>
-    </nav>
-  )
-}
+    ) : (
+      <p class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'max-w-2xl text-ink-soft']}>
+        New articles are on the way. Until then, use the <a href="/resources/loan-calculator" class="link">loan calculator</a> or
+        the <a href="/faq" class="link">FAQ</a>.
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .blog-chip {
+    color: var(--color-ink-soft);
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .blog-chip:hover {
+    color: var(--color-ink);
+  }
+
+  .blog-chip.is-active,
+  .blog-chip[aria-pressed='true'] {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+</style>
 
 {
-  posts.length > 0 ? (
-    <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'grid gap-8 md:grid-cols-2 lg:grid-cols-3']}>
-      {posts.map((post) => (
-        <li>
-          <PostCard post={post} />
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'max-w-2xl text-ink-soft']}>
-      New articles are on the way. Until then, use the <a href="/resources/loan-calculator" class="link">loan calculator</a> or
-      the <a href="/faq" class="link">FAQ</a>.
-    </p>
+  filterable && (
+    <script>
+      const root = document.querySelector('[data-blog-index]');
+      if (root) {
+        const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-blog-filter]')];
+        const cards = [...root.querySelectorAll<HTMLElement>('[data-blog-category]')];
+        const slugs = new Set(chips.map((c) => c.dataset.blogFilter).filter(Boolean));
+
+        const apply = (slug: string, syncUrl: boolean) => {
+          const next = slugs.has(slug) ? slug : '';
+          chips.forEach((chip) => {
+            const on = (chip.dataset.blogFilter ?? '') === next;
+            chip.setAttribute('aria-pressed', String(on));
+            chip.classList.toggle('is-active', on);
+          });
+          cards.forEach((card) => {
+            card.hidden = Boolean(next) && card.dataset.blogCategory !== next;
+          });
+          if (syncUrl) {
+            const url = new URL(window.location.href);
+            if (next) url.searchParams.set('category', next);
+            else url.searchParams.delete('category');
+            history.replaceState(null, '', url);
+          }
+        };
+
+        chips.forEach((chip) => {
+          chip.addEventListener('click', () => apply(chip.dataset.blogFilter ?? '', true));
+        });
+
+        apply(new URLSearchParams(window.location.search).get('category') ?? '', false);
+      }
+    </script>
   )
 }

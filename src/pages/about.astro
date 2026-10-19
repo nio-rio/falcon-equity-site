@@ -29,12 +29,9 @@ const founderSchema = {
   description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the teams behind each file."
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
-  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
-
-  <section class="quote-band" aria-label="Founder">
-    <div class="quote-copy">
-      <p class="eyebrow">Founder</p>
-      <div class="quote-copy-main">
+  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner.">
+    <div class="quote-band mt-12" aria-label="Founder">
+      <div class="quote-copy">
         <blockquote>
           <p class="founder-quote">
             “Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the
@@ -42,25 +39,24 @@ const founderSchema = {
           </p>
         </blockquote>
         {/* Dwight should confirm the attribution before launch. */}
-        <p class="quote-attr">{SITE.founder.name}, {SITE.founder.title}</p>
+      </div>
+      <div class="quote-photo">
+        <Image
+          src={dwight}
+          alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="eager"
+          class="quote-photo-img"
+        />
+        <div class="quote-photo-scrim" aria-hidden="true"></div>
+        <div class="quote-photo-meta">
+          <p class="quote-photo-name">{SITE.founder.name}</p>
+          <p class="quote-photo-title">{SITE.founder.title}</p>
+        </div>
       </div>
     </div>
-    <div class="quote-photo">
-      <Image
-        src={dwight}
-        alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
-        widths={[640, 960, 1280]}
-        sizes="(min-width: 768px) 50vw, 100vw"
-        loading="eager"
-        class="quote-photo-img"
-      />
-      <div class="quote-photo-scrim" aria-hidden="true"></div>
-      <div class="quote-photo-meta">
-        <p class="quote-photo-name">{SITE.founder.name}</p>
-        <p class="quote-photo-title">{SITE.founder.title}</p>
-      </div>
-    </div>
-  </section>
+  </PageHero>
 
   <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
@@ -109,15 +105,9 @@ const founderSchema = {
   .quote-copy {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 3rem;
-    min-height: 22rem;
+    justify-content: flex-end;
     padding: 2rem 1.5rem 2.5rem;
     background: var(--color-tint);
-  }
-
-  .quote-copy-main {
-    max-width: 36rem;
   }
 
   .quote-copy blockquote {
@@ -132,27 +122,15 @@ const founderSchema = {
     color: var(--color-ink);
   }
 
-  .quote-attr {
-    margin-top: 1.5rem;
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: var(--color-ink-soft);
-  }
-
   .quote-photo {
     position: relative;
-    min-height: 22rem;
-    overflow: hidden;
     background: #0a0a0a;
   }
 
   .quote-photo-img {
-    position: absolute;
-    inset: 0;
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 20%;
+    height: auto;
   }
 
   .quote-photo-scrim {
@@ -188,12 +166,7 @@ const founderSchema = {
   @media (min-width: 768px) {
     .quote-band {
       grid-template-columns: 1fr 1fr;
-      min-height: 36rem;
-    }
-
-    .quote-copy,
-    .quote-photo {
-      min-height: 36rem;
+      align-items: stretch;
     }
 
     .quote-copy {
