@@ -26,6 +26,58 @@ export type ServiceOption = {
   terms?: string;
 };
 
+/** Live falconequity.ai home-page spec block. */
+export type ServiceSpec = {
+  whoFor: string;
+  amounts: string;
+  terms: string;
+  requirements: string[];
+};
+
+const rangeFromSpec = (spec: ServiceSpec) => `${spec.amounts} · ${spec.terms}`;
+
+const COLLATERAL_SPEC: ServiceSpec = {
+  whoFor: 'Businesses purchasing machinery, vehicles, technology, or other equipment.',
+  amounts: '$10,000 – $1,000,000',
+  terms: '12 – 60 months',
+  requirements: ['Equipment quote or invoice', '6+ months in business', 'Active business'],
+};
+
+const LOC_SPEC: ServiceSpec = {
+  whoFor: 'Businesses needing flexible, on-demand access to working capital.',
+  amounts: '$10,000 – $500,000',
+  terms: 'Revolving',
+  requirements: ['6+ months in business', '$10K+ monthly revenue', 'Active bank account'],
+};
+
+const MCA_SPEC: ServiceSpec = {
+  whoFor: 'Businesses with $10K+ monthly revenue and 3+ months in operation.',
+  amounts: '$5,000 – $5,000,000',
+  terms: '3 – 18 months',
+  requirements: ['3+ months in business', '$10K+ monthly revenue', 'Active business bank account'],
+};
+
+const TERM_SPEC: ServiceSpec = {
+  whoFor: 'Established businesses seeking structured financing for growth or operations.',
+  amounts: '$10,000 – $2,000,000',
+  terms: '6 – 36 months',
+  requirements: ['6+ months in business', '$15K+ monthly revenue', '550+ credit score'],
+};
+
+const FACTORING_SPEC: ServiceSpec = {
+  whoFor: 'B2B businesses with outstanding invoices from creditworthy clients.',
+  amounts: '$10,000 – $3,000,000',
+  terms: 'Ongoing facility',
+  requirements: ['B2B invoices', 'Creditworthy customers', '3+ months in business'],
+};
+
+const CONSOLIDATION_SPEC: ServiceSpec = {
+  whoFor: 'Established businesses seeking structured financing for growth or operations.',
+  amounts: '$10,000 – $2,000,000',
+  terms: '6 – 36 months',
+  requirements: ['6+ months in business', '$15K+ monthly revenue', '550+ credit score'],
+};
+
 export type Service = {
   slug: string;
   /** Names must match the current site exactly (Oct 18 decision). */
@@ -45,15 +97,20 @@ export type Service = {
   intro: string;
   whoFor: string;
   /**
-   * Amounts, speed and terms come from Falcon's product one-pager (Oct 19); requirements from the current site.
+   * Live falconequity.ai home-page spec (Who / Amounts / Terms / Requirements).
+   * Omitted when the live site has no spec (Decentralized Business Financing).
+   */
+  spec?: ServiceSpec;
+  /**
+   * Amounts, speed and terms. Spec products use the live home-page figures.
    * TODO(Dwight): confirm interest rates and factor rates before any are published. None are shown today.
    */
   amounts: string;
   /** Compact range for menus; falls back to `amounts`. */
   amountsShort?: string;
   /**
-   * Compact amount + term line for home and /services cards.
-   * Built only from `amounts` / `amountsShort` / `terms` — no new figures.
+   * Compact amount + term line for home bento and the /services compare table.
+   * Spec products: `{spec.amounts} · {spec.terms}`.
    */
   rangeLine: string;
   /** Short “Best for” phrase for the /services compare table, from whoFor or idealUses. */
@@ -108,18 +165,18 @@ export const SERVICES: Service[] = [
     headline: 'Put your assets to work.',
     intro:
       'Your property, equipment and other business assets carry value. A collateral-secured loan converts that value into working capital, so you can grow without waiting on months of retained earnings.',
-    whoFor: 'Businesses purchasing machinery, vehicles, technology, or other equipment.',
-    amounts: 'Up to 100% of equipment value · Real estate $150K – $20M',
-    amountsShort: 'Equipment & real estate to $20M',
-    rangeLine: 'Up to 100% of equipment · $150K – $20M · 1 – 30 years',
+    whoFor: COLLATERAL_SPEC.whoFor,
+    spec: COLLATERAL_SPEC,
+    amounts: COLLATERAL_SPEC.amounts,
+    rangeLine: rangeFromSpec(COLLATERAL_SPEC),
     bestFor: 'Buying or upgrading equipment',
-    terms: '1 – 30 years',
+    terms: COLLATERAL_SPEC.terms,
     speed: 'About 2 days (equipment) · about 2 weeks (real estate)',
     options: [
-      { name: 'Equipment financing', amounts: 'Up to 100% of equipment value', speed: 'About 2 days', terms: '1 – 8 years' },
-      { name: 'Real estate loans', amounts: '$150,000 – $20,000,000', speed: 'About 2 weeks', terms: '1 – 30 years' },
+      { name: 'Equipment financing', amounts: COLLATERAL_SPEC.amounts, speed: 'About 2 days', terms: COLLATERAL_SPEC.terms },
+      { name: 'Real estate loans', amounts: COLLATERAL_SPEC.amounts, speed: 'About 2 weeks', terms: COLLATERAL_SPEC.terms },
     ],
-    requirements: ['Equipment quote or invoice', '6+ months in business', 'Active business'],
+    requirements: COLLATERAL_SPEC.requirements,
     idealUses: [
       'Buying or upgrading equipment and vehicles',
       'Expanding into a new location',
@@ -158,7 +215,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: 'How long are the terms?',
-        a: 'Equipment financing typically runs 1 to 8 years. Real estate loans can run 1 to 30 years. Final terms depend on the asset and your business profile.',
+        a: 'Terms typically run 12 to 60 months. Final terms depend on the asset and your business profile.',
       },
       {
         q: 'How fast is funding?',
@@ -167,7 +224,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Collateral & Asset Loans',
     seoDescription:
-      'Equipment financing up to 100% of value with 1–8 year terms, and real estate loans from $150K to $20M with 1–30 year terms.',
+      'Collateral and asset loans from $10,000 to $1,000,000 with 12 – 60 month terms.',
   },
   {
     slug: 'business-line-of-credit',
@@ -181,17 +238,18 @@ export const SERVICES: Service[] = [
     headline: 'Capital on standby, ready when you strike.',
     intro:
       'A business line of credit gives you a revolving pool of funds. Draw on it to cover payroll, inventory or an unexpected opportunity, repay, and draw again. You only pay interest on what you borrow.',
-    whoFor: 'Businesses needing flexible, on-demand access to working capital.',
-    amounts: '$5,000 – $10,000,000',
-    rangeLine: '$5K – $10M · 6 months – 2 years',
+    whoFor: LOC_SPEC.whoFor,
+    spec: LOC_SPEC,
+    amounts: LOC_SPEC.amounts,
+    rangeLine: rangeFromSpec(LOC_SPEC),
     bestFor: 'Smoothing out uneven cash flow',
-    terms: '6 months – 2 years',
+    terms: LOC_SPEC.terms,
     speed: 'Same-day funding',
     options: [
-      { name: 'Unsecured line of credit', amounts: '$5,000 – $250,000', speed: 'Same day', terms: '6 months – 2 years' },
-      { name: 'Secured line of credit', amounts: '$100,000 – $10,000,000', speed: 'Same day', terms: '6 months – 2 years' },
+      { name: 'Unsecured line of credit', amounts: LOC_SPEC.amounts, speed: 'Same day', terms: LOC_SPEC.terms },
+      { name: 'Secured line of credit', amounts: LOC_SPEC.amounts, speed: 'Same day', terms: LOC_SPEC.terms },
     ],
-    requirements: ['6+ months in business', '$10K+ monthly revenue', 'Active bank account'],
+    requirements: LOC_SPEC.requirements,
     idealUses: [
       'Smoothing out uneven cash flow',
       'Covering payroll between receivables',
@@ -235,7 +293,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Business Line of Credit',
     seoDescription:
-      'Business lines of credit: unsecured from $5K to $250K, secured from $100K to $10M, with same-day funding and 6-month to 2-year terms.',
+      'Business lines of credit from $10,000 to $500,000, revolving, with same-day funding.',
   },
   {
     slug: 'merchant-cash-advance',
@@ -249,16 +307,17 @@ export const SERVICES: Service[] = [
     headline: 'Speed is your edge. We bring the capital.',
     intro:
       'A merchant cash advance provides a lump sum in exchange for a portion of your future receivables. Approval focuses on your revenue and bank activity, which makes it one of the fastest ways to fund a business.',
-    whoFor: 'Businesses with $10K+ monthly revenue and 3+ months in operation.',
-    amounts: '$5,000 – $5,000,000',
-    rangeLine: '$5K – $5M · 3 months – 2 years',
+    whoFor: MCA_SPEC.whoFor,
+    spec: MCA_SPEC,
+    amounts: MCA_SPEC.amounts,
+    rangeLine: rangeFromSpec(MCA_SPEC),
     bestFor: 'Time-sensitive inventory',
-    terms: '3 months – 2 years',
+    terms: MCA_SPEC.terms,
     speed: 'Same-day funding',
     options: [
-      { name: 'Merchant cash advance / working capital bridge', amounts: '$5,000 – $5,000,000', speed: 'Same day', terms: '3 months – 2 years' },
+      { name: 'Merchant cash advance / working capital bridge', amounts: MCA_SPEC.amounts, speed: 'Same day', terms: MCA_SPEC.terms },
     ],
-    requirements: ['3+ months in business', '$10K+ monthly revenue', 'Active business bank account'],
+    requirements: MCA_SPEC.requirements,
     idealUses: [
       'Seizing a time-sensitive inventory deal',
       'Bridging a slow season',
@@ -302,7 +361,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Merchant Cash Advance',
     seoDescription:
-      'Merchant cash advances and working capital bridges from $5,000 to $5,000,000, with same-day funding and 3-month to 2-year terms.',
+      'Merchant cash advances and working capital bridges from $5,000 to $5,000,000, with same-day funding and 3 – 18 month terms.',
   },
   {
     slug: 'business-term-loan',
@@ -311,21 +370,22 @@ export const SERVICES: Service[] = [
     icon: 'calendar-clock',
     image: serviceImage('business-term-loan'),
     summary:
-      'Long-term loans from $25K to $20M with 5–30 year terms, plus short-term loans from $5K to $5M funded the same day.',
+      'Structured loans from $10,000 to $2,000,000 with 6 – 36 month terms for growth and operations.',
     headline: 'Structured capital for your next big move.',
     intro:
-      'A business term loan delivers a lump sum with a predictable repayment schedule. Long terms of 5 to 30 years suit established businesses planning an expansion, a remodel or another major investment, while short-term loans cover faster, smaller needs.',
-    whoFor: 'Established businesses seeking structured financing for growth or operations.',
-    amounts: '$5,000 – $20,000,000',
-    rangeLine: '$5K – $20M · 3 months – 30 years',
+      'A business term loan delivers a lump sum with a predictable repayment schedule, suited to established businesses planning an expansion, a remodel or another major investment.',
+    whoFor: TERM_SPEC.whoFor,
+    spec: TERM_SPEC,
+    amounts: TERM_SPEC.amounts,
+    rangeLine: rangeFromSpec(TERM_SPEC),
     bestFor: 'Opening a new location',
-    terms: '3 months – 30 years',
+    terms: TERM_SPEC.terms,
     speed: 'About 2 days (term) · same day (short-term)',
     options: [
-      { name: 'Business term loan', amounts: '$25,000 – $20,000,000', speed: 'About 2 days', terms: '5 – 30 years' },
-      { name: 'Short-term loan', amounts: '$5,000 – $5,000,000', speed: 'Same day', terms: '3 months – 2 years' },
+      { name: 'Business term loan', amounts: TERM_SPEC.amounts, speed: 'About 2 days', terms: TERM_SPEC.terms },
+      { name: 'Short-term loan', amounts: TERM_SPEC.amounts, speed: 'Same day', terms: TERM_SPEC.terms },
     ],
-    requirements: ['6+ months in business', '$15K+ monthly revenue', '550+ credit score'],
+    requirements: TERM_SPEC.requirements,
     idealUses: [
       'Opening a new location',
       'Remodeling or upgrading a facility',
@@ -342,7 +402,7 @@ export const SERVICES: Service[] = [
       {
         industry: 'Hospitality',
         title: 'A remodel before the next season.',
-        body: 'Longer terms of 5 to 30 years suit a facility upgrade that should be paid over years, not weeks.',
+        body: 'A set repayment schedule over 6 to 36 months suits a facility upgrade that should be paid over time, not weeks.',
         intent: 'stripped dining room mid-remodel, daylight, empty of people',
       },
       {
@@ -356,7 +416,7 @@ export const SERVICES: Service[] = [
     faqs: [
       {
         q: 'What is the difference between a term loan and a short-term loan?',
-        a: 'A business term loan ($25K–$20M) runs 5 to 30 years and is typically funded in about 2 days. A short-term loan ($5K–$5M) runs 3 months to 2 years and can fund the same day.',
+        a: 'Term loans typically run $10,000 – $2,000,000 with 6 – 36 month terms. Funding is often about 2 days after approval; some files fund the same day. Final terms depend on underwriting.',
       },
       {
         q: 'What rate will I get?',
@@ -373,7 +433,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Business Term Loan',
     seoDescription:
-      'Business term loans from $25K to $20M with 5–30 year terms, and short-term loans from $5K to $5M with same-day funding.',
+      'Business term loans from $10,000 to $2,000,000 with 6 – 36 month terms.',
   },
   {
     slug: 'invoice-factoring-tool',
@@ -386,17 +446,17 @@ export const SERVICES: Service[] = [
     headline: 'Stop waiting on net-60. Get paid today.',
     intro:
       'Invoice factoring turns unpaid B2B invoices into immediate cash. Instead of waiting 30, 60 or 90 days for customers to pay, you sell those receivables at a discount and put the money to work now.',
-    whoFor: 'B2B businesses with outstanding invoices from creditworthy clients.',
-    amounts: 'Up to 100% of invoice value · AR factoring $100K – $10M',
-    amountsShort: 'Up to 100% of invoice value',
-    rangeLine: 'Up to 100% of invoice value · Ongoing facility',
+    whoFor: FACTORING_SPEC.whoFor,
+    spec: FACTORING_SPEC,
+    amounts: FACTORING_SPEC.amounts,
+    rangeLine: rangeFromSpec(FACTORING_SPEC),
     bestFor: 'Outstanding B2B invoices',
-    terms: 'Ongoing facility',
+    terms: FACTORING_SPEC.terms,
     options: [
-      { name: 'Invoice financing', amounts: 'Up to 100% of the invoice' },
-      { name: 'Accounts receivable (AR) factoring', amounts: '$100,000 – $10,000,000', terms: 'Ongoing facility' },
+      { name: 'Invoice financing', amounts: FACTORING_SPEC.amounts, terms: FACTORING_SPEC.terms },
+      { name: 'Accounts receivable (AR) factoring', amounts: FACTORING_SPEC.amounts, terms: FACTORING_SPEC.terms },
     ],
-    requirements: ['B2B invoices', 'Creditworthy customers', '3+ months in business'],
+    requirements: FACTORING_SPEC.requirements,
     idealUses: [
       'Covering payroll while invoices are outstanding',
       'Taking on larger contracts',
@@ -440,7 +500,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Invoice Factoring',
     seoDescription:
-      'Invoice financing up to 100% of the invoice and AR factoring from $100K to $10M. Turn outstanding B2B invoices into cash.',
+      'Invoice factoring from $10,000 to $3,000,000 as an ongoing facility. Turn outstanding B2B invoices into cash.',
   },
   {
     slug: 'consolidation-of-positions',
@@ -453,13 +513,13 @@ export const SERVICES: Service[] = [
     headline: 'Consolidate. Save 30\u2060–\u206050%. Breathe again.',
     intro:
       'Multiple stacked advances can drain your daily cash flow. Consolidation of Positions combines them into a single, more manageable position. Falcon clients save 30%–50% on average on their daily or weekly payments and gain working capital in the process.',
-    whoFor:
-      'Established businesses carrying multiple advances or loans that want one lower, more manageable payment.',
-    amounts: '$10,000 – $2,000,000',
-    rangeLine: '$10K – $2M · 6 – 36 months',
+    whoFor: CONSOLIDATION_SPEC.whoFor,
+    spec: CONSOLIDATION_SPEC,
+    amounts: CONSOLIDATION_SPEC.amounts,
+    rangeLine: rangeFromSpec(CONSOLIDATION_SPEC),
     bestFor: 'Replacing several daily payments',
-    terms: '6 – 36 months',
-    requirements: ['6+ months in business', '$15K+ monthly revenue', '550+ credit score'],
+    terms: CONSOLIDATION_SPEC.terms,
+    requirements: CONSOLIDATION_SPEC.requirements,
     idealUses: [
       'Replacing several daily payments with one',
       'Lowering total daily or weekly remittances',
@@ -529,6 +589,7 @@ export const SERVICES: Service[] = [
     headline: 'Next-generation capital for modern businesses.',
     intro:
       'Digital assets are becoming part of how modern businesses hold value and move money. Falcon helps you bring them into your financial strategy with guided onboarding and secure custodial services.',
+    // TODO: confirm with Dwight — live falconequity.ai has no spec (Who / Amounts / Terms / Requirements) for Decentralized Business Financing. Omit the spec block until data exists; do not invent copy.
     whoFor: 'Businesses exploring or already holding digital assets that want expert, secure guidance.',
     amounts: 'Tailored to your business',
     rangeLine: 'Tailored to your business · Consultative',
@@ -620,8 +681,8 @@ const HOME_TEASERS: Record<string, string> = {
     'Real-estate and collateral-secured loans that put the assets you already own to work.',
   'business-line-of-credit':
     'Flexible revolving capital. Draw what you need and pay interest only on what you use.',
-  'merchant-cash-advance': 'Fast working capital based on your future sales, from $5K to $5M.',
-  'business-term-loan': 'Structured loans from $5K to $20M, from same-day short-term to 30-year terms.',
+  'merchant-cash-advance': 'Fast working capital based on your future sales, from $5,000 to $5,000,000.',
+  'business-term-loan': 'Structured loans from $10,000 to $2,000,000 with 6 – 36 month terms.',
   'invoice-factoring-tool': 'Turn unpaid B2B invoices into cash today instead of waiting on net-60.',
   'consolidation-of-positions':
     'Combine stacked advances into one position and save 30%–50% on daily or weekly payments.',

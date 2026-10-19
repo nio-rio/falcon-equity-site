@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceSpec from '@/components/ServiceSpec.astro';
 import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
@@ -48,9 +49,18 @@ const useCases = service.useCases.slice(0, 3).map((c) => ({ ...c, product: servi
         />
         <p class="eyebrow">Overview</p>
         <h2 id="details-heading" class="service-deck mt-3">{service.intro}</h2>
+      </div>
+      {
+        service.spec && (
+          <div class="lg:col-span-12">
+            <ServiceSpec spec={service.spec} />
+          </div>
+        )
+      }
+      <div class="lg:col-span-7">
         {
           service.options && service.options.length > 1 && (
-            <div class="mt-12 overflow-x-auto" role="region" aria-labelledby="options-heading" tabindex="0">
+            <div class="overflow-x-auto" role="region" aria-labelledby="options-heading" tabindex="0">
               <h3 id="options-heading">Options</h3>
               <table class="service-table mt-6 w-full min-w-[32rem] text-left">
                 <caption class="sr-only">{service.name} options with amounts, speed and terms</caption>
@@ -77,7 +87,7 @@ const useCases = service.useCases.slice(0, 3).map((c) => ({ ...c, product: servi
             </div>
           )
         }
-        <h3 class="mt-12">Typical use</h3>
+        <h3 class:list={[service.options && service.options.length > 1 && 'mt-12']}>Typical use</h3>
         <ul class="typical-use mt-5">
           {typicalUse.map((u) => <li>{u}</li>)}
         </ul>

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ServiceSpec from './ServiceSpec.astro';
 import type { Service } from '@/data/services';
 
 interface Props {
@@ -10,24 +11,32 @@ const { service } = Astro.props;
 ---
 
 <article class="service-row">
-  <div class="service-row-media">
-    <Image
-      src={service.image}
-      alt=""
-      widths={[480, 720, 960]}
-      sizes="(min-width: 768px) 22.5rem, 100vw"
-      class="h-full w-full object-cover"
-    />
+  <div class="service-row-top">
+    <div class="service-row-media">
+      <Image
+        src={service.image}
+        alt=""
+        widths={[480, 720, 960]}
+        sizes="(min-width: 768px) 22.5rem, 100vw"
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <div class="service-row-copy">
+      <h3>{service.name}</h3>
+      <p class="mt-3 text-ink-soft">{service.summary}</p>
+    </div>
   </div>
-  <div class="service-row-copy">
-    <h3>{service.name}</h3>
-    <p class="mt-3 text-ink-soft">{service.summary}</p>
-    <p class="mt-3 text-[16px] leading-6 text-muted">{service.rangeLine}</p>
-    <p class="service-row-actions mt-6">
-      <a class="btn-outline-dark" href={`/services/${service.slug}`}>Learn more</a>
-      <a class="btn-primary" href="/apply">Apply now</a>
-    </p>
-  </div>
+  {
+    service.spec ? (
+      <ServiceSpec spec={service.spec} class="service-row-spec" />
+    ) : (
+      <p class="service-row-range">{service.rangeLine}</p>
+    )
+  }
+  <p class="service-row-actions">
+    <a class="btn-outline-dark" href={`/services/${service.slug}`}>Learn more</a>
+    <a class="btn-primary" href="/apply">Apply now</a>
+  </p>
 </article>
 
 <style>
@@ -39,8 +48,14 @@ const { service } = Astro.props;
     background: none;
   }
 
+  .service-row-top {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
   @media (min-width: 768px) {
-    .service-row {
+    .service-row-top {
       flex-direction: row;
       align-items: center;
       gap: 3rem;
@@ -85,9 +100,17 @@ const { service } = Astro.props;
     }
   }
 
+  .service-row-range {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+
   .service-row-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+    margin: 0;
   }
 </style>

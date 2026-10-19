@@ -1,0 +1,69 @@
+---
+import type { ServiceSpec as Spec } from '@/data/services';
+
+interface Props {
+  spec: Spec;
+  class?: string;
+}
+
+const { spec, class: className } = Astro.props;
+---
+
+<dl class:list={['service-spec', className]}>
+  <div>
+    <dt>Who it's for</dt>
+    <dd>{spec.whoFor}</dd>
+  </div>
+  <div>
+    <dt>Amounts</dt>
+    <dd>{spec.amounts}</dd>
+  </div>
+  <div>
+    <dt>Terms</dt>
+    <dd>{spec.terms}</dd>
+  </div>
+  <div>
+    <dt>Requirements</dt>
+    <dd>
+      <ul>
+        {spec.requirements.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </dd>
+  </div>
+</dl>
+
+<style>
+  .service-spec {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .service-spec {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem 2rem;
+    }
+  }
+
+  .service-spec dt {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: var(--color-muted);
+  }
+
+  .service-spec dd {
+    margin: 0.5rem 0 0;
+    color: var(--color-ink);
+  }
+
+  .service-spec ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.25rem;
+  }
+</style>
