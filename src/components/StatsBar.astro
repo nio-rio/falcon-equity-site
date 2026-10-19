@@ -17,9 +17,9 @@ const dark = tone === 'dark';
     <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
       {
         STATS.map((s) => (
-          <div class:list={['flex flex-col-reverse border-l-2 pl-4', dark ? 'border-lilac-deep/50' : 'border-brand/30']}>
+          <div class:list={['flex flex-col-reverse justify-end border-l-2 pl-4', dark ? 'border-lilac-deep/50' : 'border-brand/30']}>
             <dt class:list={['mt-1 text-sm leading-snug', dark ? 'text-lilac-200' : 'text-muted']}>{s.label}</dt>
-            <dd class:list={['font-serif text-3xl font-semibold sm:text-4xl', dark ? 'text-lilac-deep' : 'text-brand']}>
+            <dd class:list={['font-display text-3xl font-extrabold tracking-tight sm:text-4xl', dark ? 'text-lilac-deep' : 'text-brand']}>
               {s.value}
             </dd>
           </div>

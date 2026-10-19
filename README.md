@@ -43,8 +43,8 @@ src/
 ### Where to edit content
 
 - **Phone numbers, email, address, social, partner link:** `src/data/site.ts`
-- **Published stats** (98% approval for qualified applicants, 98% satisfaction, $100M+, 15 years, 24–48h): `STATS` in `src/data/site.ts`. Every page reads from here, so numbers stay consistent.
-- **Services** (names, amounts, terms, requirements, FAQs): `src/data/services.ts`
+- **Published stats** ($100M+ deployed, 15 years, 300+ businesses helped, 24–48h funding, 98% approval for qualified applicants): `STATS` in `src/data/site.ts`. Every page reads from here. Do **not** add a customer-satisfaction figure.
+- **Services** (names, amounts, speed, terms, requirements, FAQs): `src/data/services.ts`. Interest rates and factor rates are not published.
 - **Industries:** `src/data/industries.ts`
 - **Home page sections, FAQ, illustrative client stories, departments:** `src/data/content.ts`
 
@@ -74,7 +74,15 @@ src/
 | `/rss.xml`, `/sitemap-index.xml`, `/robots.txt` | Feeds and crawl files |
 | `404` | Custom not-found page |
 
-The fraud disclosure lives in the footer on every page.
+The fraud disclosure lives in the footer on every page. A licensing/disclosure placeholder sits under it until Dwight provides the official copy.
+
+## Type
+
+Headings use **Manrope** (weights 600, 700, 800, tight letter-spacing on large sizes) via `@fontsource/manrope`. Body text uses **Inter** via `@fontsource-variable/inter`. Do not ship At Gambit trial files.
+
+## Logo
+
+The official lockup is `src/assets/brand/falcon-logo-full.svg` (159×22). `src/components/Logo.astro` inlines it, swaps the fill to `currentColor`, and keeps the native proportions so it works on the light header and the dark footer.
 
 ## Blog
 
@@ -148,6 +156,30 @@ The output is plain static files in `dist/`, so either free tier works. **Do not
 3. Update DNS at the registrar as the host instructs, and wait for HTTPS to provision.
 4. Submit `https://falconequity.ai/sitemap-index.xml` in Google Search Console.
 5. Keep Webflow running until the new site is verified, then decide on cancelling it.
+
+## TODO checklist
+
+Items that still need a human before launch. None of these block the preview.
+
+- [ ] **Dwight:** swap the illustrative client stories on Home for real stories, with written permission. No names, photos or star ratings until then.
+- [ ] **Dwight:** confirm interest rates and factor rates. None are published on the site today (`src/data/services.ts`).
+- [ ] **Dwight:** provide licensing / NMLS / state-disclosure copy for the footer placeholder.
+- [ ] **Dwight:** approve the three draft blog posts (`draft: true` in `src/content/blog/`). They are visible in `npm run dev` only and never in production builds.
+- [ ] **Dwight / Ling:** review Privacy Policy and Terms & Conditions (ported from the current site; last privacy update October 21, 2025).
+- [ ] **Ling:** confirm photo credits in [CREDITS.md](./CREDITS.md). Hero is Frank Cone on Pexels; swap if a preferred falcon image is chosen.
+- [ ] **Ling:** license At Gambit as a webfont if we want it; swap it in for Manrope later. Trial files must not be shipped.
+- [ ] **Ling:** add a Contact Jotform later if one is created. The Contact page currently has details plus a CTA to `/apply`.
+- [ ] **Ling:** connect Netlify or Vercel for preview deploys, then point falconequity.ai DNS only after approval. No production deploy from this PR.
+- [ ] **Future blog topics** (after the three seed posts):
+  - MCA vs line of credit (12-month cost)
+  - How to read a factor rate and convert it to APR
+  - Bridging a slow season
+  - Invoice factoring vs AR financing
+  - What your bank statements tell underwriters
+  - How to tell if you're over-leveraged on stacked advances
+  - Equipment financing break-even
+  - Term loan vs short-term loan
+  - Crypto-backed business financing and digital asset custody
 
 ## Credits
 

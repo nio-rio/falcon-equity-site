@@ -34,13 +34,13 @@ export const SITE = {
   },
 } as const;
 
-/** Approved for publication in the Oct 18 decisions. Keep every page in sync from here. */
+/** Confirmed by Ling. Keep every page in sync from here; do not publish a customer-satisfaction figure. */
 export const STATS = [
   { value: '$100M+', label: 'Funding deployed' },
   { value: '15', label: 'Years of experience' },
+  { value: '300+', label: 'Businesses helped' },
   { value: '24–48h', label: 'Average funding time' },
-  { value: '98%', label: 'Approval rate for qualified applicants' },
-  { value: '98%', label: 'Customer satisfaction' },
+  { value: '98%', label: 'Approval for qualified applicants' },
 ] as const;
 
 export const CONSOLIDATION_SAVINGS = '30–50%';

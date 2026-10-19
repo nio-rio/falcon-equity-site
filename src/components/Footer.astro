@@ -12,7 +12,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
   <h2 id="footer-heading" class="sr-only">Site footer</h2>
   <div class="container-site grid gap-12 py-16 lg:grid-cols-12">
     <div class="lg:col-span-4">
-      <a href="/" class="text-white" aria-label="Falcon Equity Group home"><Logo /></a>
+      <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-8 w-auto" /></a>
       <p class="mt-5 max-w-sm text-sm leading-relaxed">
         Fast, strategic business funding from New York City. Falcon vision. Falcon speed. Falcon precision.
       </p>
@@ -97,6 +97,14 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
           All funding is subject to underwriting review and approval; approval is not guaranteed. Rates, terms and amounts vary by
           product and business profile. Statistics such as approval rate refer to qualified applicants. Merchant cash advances and
           invoice factoring are purchases of receivables, not loans.
+        </p>
+      </section>
+
+      {/* TODO(Dwight): replace this placeholder with Falcon's official licensing / NMLS / state-disclosure copy. */}
+      <section aria-labelledby="licensing-disclosure" class="mt-4 rounded-2xl border border-dashed border-white/20 bg-white/5 p-5 text-xs leading-relaxed sm:p-6">
+        <h3 id="licensing-disclosure" class="font-sans text-sm font-semibold text-white">Licensing &amp; disclosures</h3>
+        <p class="mt-2 text-lilac-200">
+          Licensing, NMLS and state-specific disclosure language will appear here. Pending copy from Dwight Holly.
         </p>
       </section>
 

@@ -20,7 +20,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
 <header class="on-light sticky top-0 z-50 border-b border-lilac-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
   <div class="container-site flex h-18 items-center justify-between gap-6">
     <a href="/" class="shrink-0 text-brand" aria-label="Falcon Equity Group home">
-      <Logo />
+      <Logo class="h-6 w-auto sm:h-7" />
     </a>
 
     <nav aria-label="Main" class="hidden lg:block">
@@ -57,7 +57,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
                       </span>
                       <span>
                         <span class="block text-sm font-semibold text-ink">{s.name}</span>
-                        <span class="block text-xs text-muted">{s.amounts}</span>
+                        <span class="block text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
                       </span>
                     </a>
                   </li>

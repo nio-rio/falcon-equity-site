@@ -17,25 +17,25 @@ Avoid images marked **Unsplash+** or **Getty Images**; those require a paid lice
 
 ## Falcon Equity Group's own assets
 
-Copied from the current falconequity.ai (Webflow) site:
-
 | File | Description |
 | --- | --- |
-| Inline SVG in `src/components/Logo.astro` | Logo mark (viewBox `0 0 41 40`), copied from the current site navbar |
-| `public/favicon.png` | Favicon |
-| `public/apple-touch-icon.png` | Webclip / touch icon |
-| `src/assets/images/dwight-holly.webp` | Portrait of Dwight Holly, Founder & CFO |
+| `src/assets/brand/falcon-logo-full.svg` | Official full logo lockup (mark + wordmark, viewBox `0 0 159 22`). Used inline in the header and footer. |
+| `public/brand/falcon-logo-dark.png` | Official dark lockup PNG, kept for print or email use |
+| `public/brand/falcon-logo-white.png` | Official white lockup PNG, kept for dark backgrounds |
+| `public/favicon.png` | Favicon, from the current falconequity.ai Webflow site |
+| `public/apple-touch-icon.png` | Webclip / touch icon, from the current site |
+| `src/assets/images/dwight-holly.webp` | Portrait of Dwight Holly, Founder & CFO, from the current site |
 | `public/images/partners/cardiff-logo.png` | Cardiff partner logo, used with the Cardiff partner link |
 
 ## Generated assets
 
-Created by `scripts/generate-images.mjs` from brand colors, the logo mark and the hero photo above:
+Created by `scripts/generate-images.mjs` from brand colors, the official logo and the hero photo above:
 
 - `public/og-default.jpg` (default social sharing image)
 - `src/assets/blog/*.jpg` (blog cover images)
 
 ## Fonts & icons
 
-- [Fraunces](https://fonts.google.com/specimen/Fraunces) by Undercase Type: SIL Open Font License 1.1, via `@fontsource-variable/fraunces`. Free substitute for At Gambit until a web license is confirmed.
-- [Inter](https://rsms.me/inter/) by Rasmus Andersson: SIL Open Font License 1.1, via `@fontsource-variable/inter`
+- [Manrope](https://fonts.google.com/specimen/Manrope) by Mikhail Sharanda: SIL Open Font License 1.1, via `@fontsource/manrope` (weights 600, 700, 800). Used for headings. A licensed At Gambit webfont can be swapped in later; trial files must not be shipped.
+- [Inter](https://rsms.me/inter/) by Rasmus Andersson: SIL Open Font License 1.1, via `@fontsource-variable/inter`. Used for body text.
 - [Lucide](https://lucide.dev) icons: ISC License, via `@lucide/astro`

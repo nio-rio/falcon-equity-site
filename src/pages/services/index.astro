@@ -5,7 +5,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Icon from '@/components/Icon.astro';
-import { SERVICES } from '@/data/services';
+import { ADDITIONAL_OPTIONS, SERVICES } from '@/data/services';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
@@ -52,13 +52,14 @@ const process = [
     <div class="container-site">
       <SectionHeading id="compare-heading" eyebrow="Compare" title="Side by side." />
       <div class="mt-10 overflow-x-auto rounded-3xl border border-lilac-200" role="region" aria-labelledby="compare-heading" tabindex="0">
-        <table class="w-full min-w-[44rem] text-left text-[15px]">
+        <table class="w-full min-w-[52rem] text-left text-[15px]">
           <caption class="sr-only">Comparison of amounts, terms and requirements for each Falcon funding product</caption>
           <thead class="bg-lilac text-brand">
             <tr>
               <th scope="col" class="px-6 py-4 font-semibold">Product</th>
               <th scope="col" class="px-6 py-4 font-semibold">Amounts</th>
               <th scope="col" class="px-6 py-4 font-semibold">Terms</th>
+              <th scope="col" class="px-6 py-4 font-semibold">Speed</th>
               <th scope="col" class="px-6 py-4 font-semibold">Key requirements</th>
             </tr>
           </thead>
@@ -73,14 +74,51 @@ const process = [
                   </th>
                   <td class="px-6 py-4">{s.amounts}</td>
                   <td class="px-6 py-4">{s.terms}</td>
+                  <td class="px-6 py-4">{s.speed ?? '—'}</td>
                   <td class="px-6 py-4 text-muted">{s.requirements.join(' · ')}</td>
+                </tr>
+              ))
+            }
+            {
+              ADDITIONAL_OPTIONS.map((o) => (
+                <tr class="bg-lilac/50">
+                  <th scope="row" class="px-6 py-4 font-semibold">{o.name}</th>
+                  <td class="px-6 py-4">{o.amounts}</td>
+                  <td class="px-6 py-4">{o.terms}</td>
+                  <td class="px-6 py-4">{o.speed}</td>
+                  <td class="px-6 py-4 text-muted">Ask your specialist</td>
                 </tr>
               ))
             }
           </tbody>
         </table>
       </div>
-      <p class="mt-4 text-sm text-muted">Ranges are typical. Final amounts and terms depend on underwriting. Approval is not guaranteed.</p>
+      <p class="mt-4 text-sm text-muted">
+        Ranges and speeds are typical. Rates are quoted individually, and final amounts and terms depend on underwriting.
+        Approval is not guaranteed.
+      </p>
+
+      <aside class="card mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between" aria-labelledby="sba-heading">
+        <div>
+          <p class="eyebrow text-brand-light">Additional option</p>
+          <h3 id="sba-heading" class="mt-2 text-2xl font-bold text-brand">SBA loans</h3>
+          <p class="mt-2 max-w-2xl text-muted">
+            Government-backed SBA loans for established businesses that want long terms. Ask your specialist whether your file is a
+            fit.
+          </p>
+        </div>
+        <dl class="grid shrink-0 grid-cols-3 gap-6 text-sm">
+          {
+            ADDITIONAL_OPTIONS.filter((o) => o.name === 'SBA loans').map((o) => (
+              <>
+                <div><dt class="text-muted">Amounts</dt><dd class="mt-0.5 font-semibold text-ink">{o.amounts}</dd></div>
+                <div><dt class="text-muted">Speed</dt><dd class="mt-0.5 font-semibold text-ink">{o.speed}</dd></div>
+                <div><dt class="text-muted">Terms</dt><dd class="mt-0.5 font-semibold text-ink">{o.terms}</dd></div>
+              </>
+            ))
+          }
+        </dl>
+      </aside>
     </div>
   </section>
 
@@ -101,7 +139,7 @@ const process = [
                 <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lilac-deep text-brand-dark">
                   <Icon name={p.icon} />
                 </span>
-                <span class="font-serif text-4xl font-semibold text-white/20" aria-hidden="true">
+                <span class="font-display text-4xl font-semibold text-lilac-deep" aria-hidden="true">
                   {i + 1}
                 </span>
               </div>

@@ -1,7 +1,7 @@
 // Generates the default OG image and the seed blog covers from brand colors.
 // Run with: node scripts/generate-images.mjs
 import sharp from 'sharp';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 
 const BRAND = '#332a4e';
 const DARK = '#1a1529';
@@ -12,6 +12,11 @@ const MARK = `
   <path d="M39.3284 25.4951L15.0049 1.17157C14.2548 0.421427 13.2373 0 12.1765 0H0.5V13.3333H9.83333C12.0425 13.3333 13.8333 15.1242 13.8333 17.3333V26.6667H23.1667C25.3758 26.6667 27.1667 28.4575 27.1667 30.6667V40H40.5V28.3235C40.5 27.2627 40.0786 26.2452 39.3284 25.4951Z"/>
   <path d="M27.1667 0H36.5C38.7092 0 40.5 1.79086 40.5 4V13.3333H27.1667V0Z"/>
   <path d="M0.5 26.6667H9.83334C12.0425 26.6667 13.8333 28.4575 13.8333 30.6667V40H0.5V26.6667Z"/>`;
+
+const LOGO_INNER = (await readFile('src/assets/brand/falcon-logo-full.svg', 'utf8'))
+  .replace(/^[\s\S]*?<svg[^>]*>/, '')
+  .replace(/<\/svg>\s*$/, '')
+  .replace(/fill="#332A4E"/gi, 'fill="currentColor"');
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
@@ -30,10 +35,9 @@ async function ogDefault() {
       </linearGradient>
     </defs>
     <rect x="640" y="0" width="200" height="${H}" fill="url(#fade)"/>
-    <g transform="translate(72,72) scale(1.4)" fill="${LILAC_DEEP}">${MARK}</g>
-    <text x="140" y="112" font-family="Georgia, serif" font-size="30" font-weight="700" fill="white">Falcon Equity Group</text>
-    <text x="72" y="300" font-family="Georgia, serif" font-size="64" font-weight="700" fill="white">Capital for businesses</text>
-    <text x="72" y="376" font-family="Georgia, serif" font-size="64" font-weight="700" fill="white">that play to win.</text>
+    <g transform="translate(72,72) scale(2.2)" color="white">${LOGO_INNER}</g>
+    <text x="72" y="300" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="62" font-weight="800" letter-spacing="-1.5" fill="white">Capital for businesses</text>
+    <text x="72" y="376" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="62" font-weight="800" letter-spacing="-1.5" fill="white">that play to win.</text>
     <text x="72" y="460" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="${LILAC_DEEP}">Funding in as little as 24–48 hours</text>
     <text x="72" y="560" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="${LILAC}">falconequity.ai</text>
   </svg>`);
@@ -72,7 +76,7 @@ async function cover(file, label, lines, variant) {
     ${shapes[variant]}
     <g transform="translate(110,110) scale(1.6)" fill="${LILAC_DEEP}">${MARK}</g>
     <text x="110" y="330" font-family="Helvetica, Arial, sans-serif" font-size="30" letter-spacing="5" fill="${LILAC_DEEP}">${escape(label.toUpperCase())}</text>
-    ${lines.map((l, i) => `<text x="110" y="${430 + i * 92}" font-family="Georgia, serif" font-size="78" font-weight="700" fill="white">${escape(l)}</text>`).join('')}
+    ${lines.map((l, i) => `<text x="110" y="${430 + i * 92}" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="white">${escape(l)}</text>`).join('')}
   </svg>`);
   await sharp(svg).jpeg({ quality: 82, mozjpeg: true }).toFile(file);
 }

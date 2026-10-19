@@ -27,12 +27,16 @@ Use this checklist to get ready.
 - [ ] **Full name, home address and date of birth** for each owner with 20%+ ownership
 - [ ] **Ownership percentage** for each owner
 - [ ] A valid **government-issued photo ID**
+- [ ] A **voided check** from the business bank account
+- [ ] A **debt schedule** of any open advances or loans (lender, amount, date, remaining balance)
+- [ ] **Ownership percentage** for each owner, plus co-borrower details if anyone else is on the file
+- [ ] Answers on **bankruptcy and tax liens**, if applicable
 
 ## 3. Bank statements
 
 This is the single most important item for most products.
 
-- [ ] Your **last 3–4 months** of business bank statements (complete PDFs, every page)
+- [ ] Your **last 6 months** of business bank statements (complete PDFs, every page)
 - [ ] The **current month-to-date** activity, if requested
 - [ ] Statements for **every business account** that receives deposits
 

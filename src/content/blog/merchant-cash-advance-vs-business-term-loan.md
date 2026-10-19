@@ -18,9 +18,10 @@ Here is a side-by-side look.
 
 | | Merchant Cash Advance | Business Term Loan |
 | --- | --- | --- |
-| **What it is** | A purchase of your future receivables | A loan with a fixed rate and schedule |
-| **Typical amounts** | $5,000 – $5,000,000 | $10,000 – $2,000,000 |
-| **Typical terms** | 3 – 18 months | 6 – 36 months |
+| **What it is** | A purchase of your future receivables | A loan with a set repayment schedule |
+| **Typical amounts** | $5,000 – $5,000,000 | Term loan $25,000 – $20,000,000; short-term $5,000 – $5,000,000 |
+| **Typical terms** | 3 months – 2 years | Term loan 5 – 30 years; short-term 3 months – 2 years |
+| **Typical speed** | Same day | About 2 days (term) · same day (short-term) |
 | **Time in business** | 3+ months | 6+ months |
 | **Monthly revenue** | $10K+ | $15K+ |
 | **Credit** | Weighed less heavily | 550+ typically |
@@ -45,12 +46,12 @@ An MCA is **not a loan**. A funder purchases a portion of your future sales at a
 
 ## How a business term loan works
 
-A term loan gives you a **lump sum** that you repay over a set period at a **fixed rate**. Payments are predictable, which makes planning easier.
+A term loan gives you a **lump sum** that you repay over a set period. Payments are predictable, which makes planning easier.
 
 **Where a term loan wins:**
 
 - **Longer runway.** Terms up to 36 months spread out the cost of bigger investments.
-- **Predictability.** A fixed rate and set schedule make budgeting simple.
+- **Predictability.** A set schedule makes budgeting simpler than a daily remittance.
 - **Planned growth.** Ideal for expansion, a new location or a facility remodel.
 
 **What to watch:**

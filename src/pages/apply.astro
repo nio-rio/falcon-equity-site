@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/Icon.astro';
+import { APPLICATION_DOCS } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -54,11 +55,18 @@ const reassurance = [
         <div class="card">
           <h2 class="text-xl font-semibold text-brand">Have these ready</h2>
           <ul class="mt-4 space-y-3 text-[15px]">
-            <li class="flex gap-2"><Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> Basic business and owner details</li>
-            <li class="flex gap-2"><Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> Recent business bank statements</li>
-            <li class="flex gap-2"><Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> How much you need and what it’s for</li>
-            <li class="flex gap-2"><Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> Details of any open advances or loans</li>
+            {
+              APPLICATION_DOCS.map((item) => (
+                <li class="flex gap-2">
+                  <Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" /> {item}
+                </li>
+              ))
+            }
           </ul>
+          <p class="mt-4 text-sm text-muted">
+            The application also asks about bankruptcy and tax liens, ownership percentage, co-borrowers, and any prior advances
+            (lender, amount, date and remaining balance).
+          </p>
         </div>
         <div class="on-dark rounded-3xl bg-brand p-6 text-white sm:p-8">
           <h2 class="text-xl font-semibold">Questions? Call us.</h2>

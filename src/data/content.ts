@@ -34,7 +34,15 @@ export const QUALIFY = [
   { icon: 'calendar-clock', title: 'Time in business', value: '3+ months', body: 'Most products start at 3–6 months of operating history.' },
   { icon: 'trending-up', title: 'Monthly revenue', value: '$10K+', body: 'Consistent deposits show you can support a payment.' },
   { icon: 'gauge', title: 'Credit', value: '550+ for loans', body: 'Revenue-based products weigh credit less heavily.' },
-  { icon: 'file-text', title: 'Bank statements', value: 'Recent months', body: 'An active business bank account with recent statements.' },
+  { icon: 'file-text', title: 'Bank statements', value: '6 months', body: 'Complete PDFs of the last six months from your business bank account.' },
+] as const;
+
+/** Documents requested with the current Jotform application. Keep apply + FAQ in sync. */
+export const APPLICATION_DOCS = [
+  '6 months of business bank statements (complete PDFs)',
+  'A government-issued photo ID',
+  'A voided check from the business account',
+  'A debt schedule of any open advances or loans',
 ] as const;
 
 export const WHEN_TO_APPLY = [
@@ -50,29 +58,29 @@ export const WHEN_TO_APPLY = [
  */
 export const CLIENT_STORIES = [
   {
-    industry: 'Restaurants & Food Service',
-    product: 'Merchant Cash Advance',
-    title: 'A Brooklyn restaurant owner needed a new kitchen line before the holidays.',
-    body: 'Their walk-in cooler and range were failing weeks before their busiest season. A merchant cash advance can provide equipment capital quickly, with remittances tied to sales, so the kitchen stays open through peak weeks.',
+    industry: 'Auto Services',
+    product: 'Business Term Loan',
+    title: 'An auto parts retailer looking for expansion capital.',
+    body: 'A shop considering a second location, extra inventory or new diagnostic equipment might look at a term loan or a line of credit. This is an illustrative situation, not a client result.',
   },
   {
-    industry: 'Transportation & Logistics',
+    industry: 'Agriculture',
     product: 'Consolidation of Positions',
-    title: 'A New Jersey trucking company was juggling three daily payments.',
-    body: 'Stacked advances were eating into fuel and maintenance money. Consolidating them into one position can lower the combined daily payment and free up cash to keep the fleet on the road.',
+    title: 'A Southwest agricultural services company with an existing advance, looking to expand.',
+    body: 'When an open advance is already on the books, the next conversation is often whether to add capital, consolidate the current position, or both. This is an illustrative situation, not a client result.',
   },
   {
-    industry: 'Professional Services',
-    product: 'Invoice Factoring Tool',
-    title: 'A marketing agency landed a large client that paid on net-60 terms.',
-    body: 'Payroll was due long before the invoices would be paid. Factoring those B2B invoices can turn them into cash today, so the team can staff the account without waiting two months.',
+    industry: 'Landscaping',
+    product: 'Merchant Cash Advance',
+    title: 'A landscaping company bridging a slow season.',
+    body: 'Payroll, equipment leases and insurance do not pause when the calendar does. A working capital bridge is one option owners weigh before peak season returns. This is an illustrative situation, not a client result.',
   },
 ] as const;
 
 export const FAQS = [
   {
     q: 'How fast can I get funded?',
-    a: 'Many qualified businesses receive funds within 24–48 hours of approval and a signed agreement. Timing depends on the product and how quickly documents are provided.',
+    a: 'Many products fund the same day or within about 24–48 hours of approval and a signed agreement. Longer-term products, such as real estate and SBA loans, typically take about two weeks. Timing depends on the product and how quickly documents are provided.',
   },
   {
     q: 'Is approval guaranteed?',
@@ -80,7 +88,15 @@ export const FAQS = [
   },
   {
     q: 'What do I need to apply?',
-    a: 'Basic business and owner information, plus recent business bank statements. Some products ask for more, such as an equipment quote or a list of open invoices.',
+    a: 'Have ready: 6 months of business bank statements (complete PDFs), a government-issued photo ID, a voided check from the business account, and a debt schedule of any open advances or loans. Some products also ask for an equipment quote or a list of open invoices.',
+  },
+  {
+    q: 'What else does the application ask?',
+    a: 'The application also asks about bankruptcy and tax liens; any prior advances (lender, amount, date and remaining balance); ownership percentage; and whether there are co-borrowers. Answer these fully so underwriting can review your file without delay.',
+  },
+  {
+    q: 'Why do you need a voided check and a debt schedule?',
+    a: 'A voided check confirms the business account that would receive funds. A debt schedule lists each open advance or loan so we can see current payments and, if needed, look at consolidation.',
   },
   {
     q: 'Will applying affect my credit?',
@@ -92,11 +108,11 @@ export const FAQS = [
   },
   {
     q: 'How much can I get?',
-    a: 'Amounts range from $5,000 up to $5,000,000 depending on the product, your revenue and time in business.',
+    a: 'Amounts start at $5,000. Depending on the product, files can go up to $10 million (secured lines and AR factoring) or $20 million (term loans and real estate). Final amounts depend on underwriting.',
   },
   {
     q: 'Can you help if I already have advances open?',
-    a: `Yes. Consolidation of Positions combines stacked advances into one position. Falcon clients save ${CONSOLIDATION_SAVINGS} on average on daily or weekly payments.`,
+    a: `Yes. Consolidation of Positions combines stacked advances into one position. Falcon clients save ${CONSOLIDATION_SAVINGS} on average on daily or weekly payments. List each lender, amount, date and remaining balance on your application.`,
   },
   {
     q: 'Do you work with startups?',

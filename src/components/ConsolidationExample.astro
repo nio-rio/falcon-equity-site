@@ -32,7 +32,7 @@ const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', curren
           }
           <tr class="border-t border-lilac-200">
             <th scope="row" class="pt-3 text-left font-semibold">Total daily payment</th>
-            <td class="pt-3 text-right font-serif text-2xl font-semibold text-brand">{usd(before)}</td>
+            <td class="pt-3 text-right font-display text-2xl font-semibold text-brand">{usd(before)}</td>
           </tr>
         </tbody>
       </table>
@@ -40,10 +40,10 @@ const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', curren
     <div class="on-dark rounded-2xl bg-brand p-5 text-white">
       <p class="eyebrow text-lilac-deep">After: 1 position</p>
       <p class="mt-3 text-[15px] text-lilac-200">New consolidated daily payment</p>
-      <p class="font-serif text-4xl font-semibold">{usd(after)} <span class="text-lg font-normal text-lilac-200">/ day</span></p>
+      <p class="font-display text-4xl font-semibold">{usd(after)} <span class="text-lg font-normal text-lilac-200">/ day</span></p>
       <div class="mt-5 rounded-xl bg-white/10 p-4">
         <p class="text-sm text-lilac-200">Daily savings</p>
-        <p class="font-serif text-2xl font-semibold text-lilac-deep">{usd(saved)} / day · {pct}% less</p>
+        <p class="font-display text-2xl font-semibold text-lilac-deep">{usd(saved)} / day · {pct}% less</p>
       </div>
     </div>
   </div>
