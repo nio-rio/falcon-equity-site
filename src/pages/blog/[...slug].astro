@@ -6,7 +6,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import FaqList from '@/components/FaqList.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import InsightsCta from '@/components/InsightsCta.astro';
 import { formatDate, getPublishedPosts, readingTime, type Post } from '@/lib/blog';
 import { articleSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
 
@@ -137,7 +137,7 @@ const schema = [
               <ol>
                 {toc.map((heading) => (
                   <li>
-                    <a href={`#${heading.slug}`}>{heading.text}</a>
+                    <a class="link" href={`#${heading.slug}`}>{heading.text}</a>
                   </li>
                 ))}
               </ol>
@@ -181,7 +181,7 @@ const schema = [
     )
   }
 
-  <CtaBand />
+  <InsightsCta eyebrow="Apply for funding" title="Get funding today" ctaLabel="Apply" />
 </BaseLayout>
 
 <style>
@@ -230,12 +230,5 @@ const schema = [
 
   .post-toc a {
     color: var(--color-ink-soft);
-    text-decoration: none;
-  }
-
-  .post-toc a:hover,
-  .post-toc a:focus-visible {
-    color: inherit;
-    text-decoration: underline;
   }
 </style>

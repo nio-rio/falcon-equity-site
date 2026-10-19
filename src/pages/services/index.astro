@@ -3,15 +3,22 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceBlock from '@/components/ServiceBlock.astro';
-import ResponsiveTable from '@/components/ResponsiveTable.astro';
+import ChartTable from '@/components/ChartTable.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { SERVICES, rangeAmount } from '@/data/services';
+import { parseUsdMax } from '@/lib/money';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/services' },
 ];
+
+const chartSeries = SERVICES.flatMap((s) => {
+  const value = parseUsdMax(s.amounts);
+  if (value == null) return [];
+  return [{ label: s.shortName, value, display: s.amounts }];
+});
 ---
 
 <BaseLayout
@@ -39,10 +46,10 @@ const crumbs = [
     </div>
   </section>
 
-  <section class="section bg-tint" aria-labelledby="compare-heading">
+  <section class="section bg-white" aria-labelledby="compare-heading">
     <div class="container-site">
       <SectionHeading id="compare-heading" eyebrow="Compare" title="Compare options" />
-      <ResponsiveTable
+      <ChartTable
         class="mt-12"
         labelledBy="compare-heading"
         caption="Compare Falcon’s seven funding products by amount, term, speed and typical use"
@@ -55,6 +62,11 @@ const crumbs = [
           s.bestFor,
           { href: `/services/${s.slug}`, text: 'Learn more' },
         ])}
+        chart={{
+          title: 'Typical maximum amounts',
+          note: 'Bars show the top of each published amount range. Digital asset financing is tailored and is not plotted. Figures are typical. Rates are quoted individually. Approval is not guaranteed.',
+          series: chartSeries,
+        }}
       />
       <p class="mt-3 text-sm text-muted">Figures are typical. Rates are quoted individually. Approval is not guaranteed.</p>
     </div>

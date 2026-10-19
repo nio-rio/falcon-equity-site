@@ -8,13 +8,15 @@ interface Props {
   categories: string[];
   activeCategory?: string;
   filterable?: boolean;
+  paginate?: boolean;
 }
 
-const { posts, categories, activeCategory, filterable = false } = Astro.props;
+const { posts, categories, activeCategory, filterable = false, paginate = true } = Astro.props;
 const chipClass = 'blog-chip text-base';
+const pageSize = 9;
 ---
 
-<div data-blog-index={filterable ? '' : undefined}>
+<div data-blog-index data-filterable={filterable ? '' : undefined} data-page-size={paginate ? String(pageSize) : undefined}>
   {
     categories.length > 0 && (
       <nav aria-label="Blog categories" class="mt-12">
@@ -64,7 +66,7 @@ const chipClass = 'blog-chip text-base';
 
   {
     posts.length > 0 ? (
-      <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'grid gap-8 md:grid-cols-2 lg:grid-cols-3']} data-blog-grid>
+      <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'grid gap-10 md:grid-cols-2 lg:grid-cols-3']} data-blog-grid>
         {posts.map((post) => (
           <li data-blog-category={categorySlug(post.data.category)}>
             <PostCard post={post} />
@@ -76,6 +78,17 @@ const chipClass = 'blog-chip text-base';
         New articles are on the way. Until then, use the <a href="/resources/loan-calculator" class="link">loan calculator</a> or
         the <a href="/faq" class="link">FAQ</a>.
       </p>
+    )
+  }
+
+  {
+    paginate && posts.length > pageSize && (
+      <nav class="blog-pager" data-blog-pager hidden aria-label="Blog pages">
+        <ol class="blog-pages" data-blog-pages></ol>
+        <button type="button" class="blog-load-more link-draw" data-blog-more>
+          Load more
+        </button>
+      </nav>
     )
   }
 </div>
@@ -101,39 +114,89 @@ const chipClass = 'blog-chip text-base';
   }
 </style>
 
-{
-  filterable && (
-    <script>
-      const root = document.querySelector('[data-blog-index]');
-      if (root) {
-        const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-blog-filter]')];
-        const cards = [...root.querySelectorAll<HTMLElement>('[data-blog-category]')];
-        const slugs = new Set(chips.map((c) => c.dataset.blogFilter).filter(Boolean));
+<script>
+  document.querySelectorAll<HTMLElement>('[data-blog-index]').forEach((root) => {
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-blog-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-blog-category]')];
+    const slugs = new Set(chips.map((c) => c.dataset.blogFilter).filter(Boolean));
+    const pager = root.querySelector<HTMLElement>('[data-blog-pager]');
+    const pagesEl = root.querySelector<HTMLOListElement>('[data-blog-pages]');
+    const more = root.querySelector<HTMLButtonElement>('[data-blog-more]');
+    const filterable = root.hasAttribute('data-filterable');
+    const pageSize = Number(root.dataset.pageSize || 0);
+    let filter = '';
+    let page = 1;
 
-        const apply = (slug: string, syncUrl: boolean) => {
-          const next = slugs.has(slug) ? slug : '';
-          chips.forEach((chip) => {
-            const on = (chip.dataset.blogFilter ?? '') === next;
-            chip.setAttribute('aria-pressed', String(on));
-            chip.classList.toggle('is-active', on);
+    const matching = () => cards.filter((card) => !filter || card.dataset.blogCategory === filter);
+
+    const apply = (syncUrl: boolean) => {
+      const list = matching();
+      const pages = pageSize > 0 ? Math.max(1, Math.ceil(list.length / pageSize)) : 1;
+      if (page > pages) page = pages;
+      const start = pageSize > 0 ? (page - 1) * pageSize : 0;
+      const end = pageSize > 0 ? start + pageSize : list.length;
+
+      cards.forEach((card) => {
+        card.hidden = true;
+      });
+      list.forEach((card, i) => {
+        card.hidden = i < start || i >= end;
+      });
+
+      chips.forEach((chip) => {
+        const on = (chip.dataset.blogFilter ?? '') === filter;
+        chip.setAttribute('aria-pressed', String(on));
+        chip.classList.toggle('is-active', on);
+      });
+
+      if (pager && pagesEl && pageSize > 0 && list.length > pageSize) {
+        pager.hidden = false;
+        pagesEl.replaceChildren();
+        for (let i = 1; i <= pages; i += 1) {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'blog-page';
+          btn.textContent = String(i);
+          if (i === page) btn.setAttribute('aria-current', 'page');
+          btn.addEventListener('click', () => {
+            page = i;
+            apply(true);
+            root.querySelector('[data-blog-grid]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
-          cards.forEach((card) => {
-            card.hidden = Boolean(next) && card.dataset.blogCategory !== next;
-          });
-          if (syncUrl) {
-            const url = new URL(window.location.href);
-            if (next) url.searchParams.set('category', next);
-            else url.searchParams.delete('category');
-            history.replaceState(null, '', url);
-          }
-        };
-
-        chips.forEach((chip) => {
-          chip.addEventListener('click', () => apply(chip.dataset.blogFilter ?? '', true));
-        });
-
-        apply(new URLSearchParams(window.location.search).get('category') ?? '', false);
+          li.append(btn);
+          pagesEl.append(li);
+        }
+        if (more) more.hidden = page >= pages;
+      } else if (pager) {
+        pager.hidden = true;
       }
-    </script>
-  )
-}
+
+      if (syncUrl && filterable) {
+        const url = new URL(window.location.href);
+        if (filter) url.searchParams.set('category', filter);
+        else url.searchParams.delete('category');
+        history.replaceState(null, '', url);
+      }
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        filter = slugs.has(chip.dataset.blogFilter ?? '') ? (chip.dataset.blogFilter ?? '') : '';
+        page = 1;
+        apply(true);
+      });
+    });
+
+    more?.addEventListener('click', () => {
+      page += 1;
+      apply(false);
+    });
+
+    if (filterable) {
+      filter = new URLSearchParams(window.location.search).get('category') ?? '';
+      if (filter && !slugs.has(filter)) filter = '';
+    }
+    apply(false);
+  });
+</script>

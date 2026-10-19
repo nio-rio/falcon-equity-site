@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import ServiceSpec from './ServiceSpec.astro';
+import ArrowCta from './ArrowCta.astro';
 import type { Service } from '@/data/services';
 
 interface Props {
@@ -12,7 +13,7 @@ const { service } = Astro.props;
 
 <article class="service-row">
   <div class="service-row-top">
-    <div class="service-row-media">
+    <div class="service-row-media media-zoom">
       <Image
         src={service.image}
         alt=""
@@ -34,7 +35,7 @@ const { service } = Astro.props;
     )
   }
   <p class="service-row-actions">
-    <a class="btn-outline-dark" href={`/services/${service.slug}`}>Learn more</a>
+    <ArrowCta href={`/services/${service.slug}`} label="Learn more" />
     <a class="btn-primary" href="/apply">Apply now</a>
   </p>
 </article>
@@ -112,7 +113,8 @@ const { service } = Astro.props;
   .service-row-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1.25rem 1.75rem;
     margin: 0;
   }
 

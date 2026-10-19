@@ -1,0 +1,17 @@
+---
+import CircleArrow from './CircleArrow.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  tone?: 'dark' | 'light';
+  class?: string;
+}
+
+const { href, label, tone = 'dark', class: className } = Astro.props;
+---
+
+<a href={href} class:list={['arrow-cta', tone === 'light' && 'arrow-cta--on-dark', className]}>
+  <span class="arrow-cta-label link-draw">{label}</span>
+  <CircleArrow />
+</a>

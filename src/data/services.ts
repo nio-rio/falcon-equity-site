@@ -671,6 +671,7 @@ export type HomeServiceCard = {
   name: string;
   teaser: string;
   rangeLine: string;
+  image: ImageMetadata;
   featured?: 1 | 2;
   area: HomeServiceArea;
 };
@@ -695,6 +696,7 @@ const toHomeCard = (service: Service, featured?: 1 | 2): Omit<HomeServiceCard, '
   name: service.name,
   teaser: HOME_TEASERS[service.slug] ?? service.summary,
   rangeLine: service.rangeLine,
+  image: service.image,
   featured,
 });
 

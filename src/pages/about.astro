@@ -1,9 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
+import QuoteSplit from '@/components/QuoteSplit.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
@@ -30,33 +31,24 @@ const founderSchema = {
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
   <PageHero title="About" lead="We’re more than a funding provider. We’re your partner.">
-    <div class="quote-band mt-12" aria-label="Founder">
-      <div class="quote-copy">
-        <blockquote>
-          <p class="founder-quote">
-            “Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the
-            complex financial landscape to ensure your wealth works for you.”
-          </p>
-        </blockquote>
-        {/* Dwight should confirm the attribution before launch. */}
-      </div>
-      <div class="quote-photo">
-        <Image
-          src={dwight}
-          alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
-          widths={[640, 960, 1280]}
-          sizes="(min-width: 768px) 50vw, 100vw"
-          loading="eager"
-          class="quote-photo-img"
-        />
-        <div class="quote-photo-scrim" aria-hidden="true"></div>
-        <div class="quote-photo-meta">
-          <p class="quote-photo-name">{SITE.founder.name}</p>
-          <p class="quote-photo-title">{SITE.founder.title}</p>
-        </div>
-      </div>
+    <div class="mt-12 md:mt-16">
+      <QuoteSplit
+        quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
+        name={SITE.founder.name}
+        role={SITE.founder.title}
+        image={dwight}
+        imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+      />
+      {/* Dwight should confirm the attribution before launch. */}
     </div>
   </PageHero>
+
+  <section class="section bg-white" aria-labelledby="people-cta-heading">
+    <div class="container-site">
+      <h2 id="people-cta-heading" class="sr-only">Our people</h2>
+      <ArrowCta href="#people-heading" label="Learn more about our people" />
+    </div>
+  </section>
 
   <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
@@ -95,98 +87,3 @@ const founderSchema = {
 
   <CtaBand />
 </BaseLayout>
-
-<style>
-  .quote-band {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .quote-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem 1.5rem 2.5rem;
-    background: var(--color-tint);
-  }
-
-  .quote-copy blockquote {
-    margin: 0;
-  }
-
-  .founder-quote {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(1.5rem, 2vw + 0.9rem, 2.25rem);
-    line-height: 1.2;
-    color: var(--color-ink);
-  }
-
-  .quote-photo {
-    position: relative;
-    background: #0a0a0a;
-  }
-
-  .quote-photo-img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .quote-photo-scrim {
-    position: absolute;
-    inset: auto 0 0;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
-    pointer-events: none;
-  }
-
-  .quote-photo-meta {
-    position: absolute;
-    left: 1.5rem;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    color: #fff;
-  }
-
-  .quote-photo-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    line-height: 1.15;
-    font-weight: 400;
-  }
-
-  .quote-photo-title {
-    margin-top: 0.35rem;
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: rgb(255 255 255 / 0.9);
-  }
-
-  @media (min-width: 768px) {
-    .quote-band {
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-    }
-
-    .quote-copy {
-      padding: 2.5rem 3rem 3rem;
-    }
-
-    .quote-photo-meta {
-      left: 2rem;
-      right: 2rem;
-      bottom: 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .quote-copy {
-      padding: 3rem 4rem 3.5rem;
-    }
-
-    .founder-quote {
-      font-size: clamp(1.75rem, 1.4vw + 1rem, 2.375rem);
-    }
-  }
-</style>

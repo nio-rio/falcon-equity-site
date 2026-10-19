@@ -1,5 +1,5 @@
 ---
-import ResponsiveTable from './ResponsiveTable.astro';
+import ChartTable from './ChartTable.astro';
 
 const positions = [
   { name: 'Position A', daily: 450 },
@@ -15,25 +15,26 @@ const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', curren
 
 <figure aria-labelledby="consolidation-example-title">
   <h3 id="consolidation-example-title">Hypothetical daily payments</h3>
-  <div class="mt-8 grid gap-10 md:grid-cols-2">
-    <div>
-      <h4>Three positions</h4>
-      <ResponsiveTable
-        class="mt-3"
-        labelledBy="consolidation-example-title"
-        caption="Daily payments before consolidation"
-        headers={['Position', 'Daily payment']}
-        rows={[
-          ...positions.map((p) => [p.name, `${usd(p.daily)} / day`]),
-          ['Total', `${usd(before)} / day`],
-        ]}
-      />
-    </div>
-    <div>
-      <h4>One position</h4>
-      <p class="mt-3 font-display text-4xl font-light">{usd(after)} <span class="text-lg font-normal text-muted">/ day</span></p>
-      <p class="mt-4 text-ink-soft">{usd(saved)} / day less ({pct}%).</p>
-    </div>
+  <div class="mt-8">
+    <ChartTable
+      labelledBy="consolidation-example-title"
+      caption="Daily payments before and after a hypothetical consolidation"
+      headers={['Position', 'Daily payment']}
+      rows={[
+        ...positions.map((p) => [p.name, `${usd(p.daily)} / day`]),
+        ['Three-position total', `${usd(before)} / day`],
+        ['One position', `${usd(after)} / day`],
+        ['Difference', `${usd(saved)} / day less (${pct}%)`],
+      ]}
+      chart={{
+        title: 'Hypothetical daily payments',
+        note: 'Illustration only. Not an offer or a client result.',
+        series: [
+          ...positions.map((p) => ({ label: p.name, value: p.daily, display: `${usd(p.daily)} / day` })),
+          { label: 'One position', value: after, display: `${usd(after)} / day` },
+        ],
+      }}
+    />
   </div>
   <figcaption class="mt-5 text-sm text-muted">
     Illustration only. Not an offer or a client result. A lower daily payment may extend the term; review total cost before you sign.

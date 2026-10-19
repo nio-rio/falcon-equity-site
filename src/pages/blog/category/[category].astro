@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import BlogIndex from '@/components/BlogIndex.astro';
 import BlogCategoryIntro from '@/components/BlogCategoryIntro.astro';
-import CtaBand from '@/components/CtaBand.astro';
+import InsightsCta from '@/components/InsightsCta.astro';
 import { categorySlug, getPublishedPosts, type Post } from '@/lib/blog';
 import { BLOG_CATEGORIES, BLOG_CATEGORY_DESCRIPTION, type BlogCategory } from '@/data/blog';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -49,5 +49,9 @@ const thin = posts.length < 2;
     </div>
     <BlogIndex posts={posts} categories={categories} activeCategory={category} />
   </PageHero>
-  <CtaBand />
+  <InsightsCta
+    eyebrow="Apply for funding"
+    title="Get funding today"
+    ctaLabel="Apply"
+  />
 </BaseLayout>

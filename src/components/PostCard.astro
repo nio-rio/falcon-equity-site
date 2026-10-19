@@ -12,7 +12,7 @@ const { title, category, cover, coverAlt, draft } = post.data;
 ---
 
 <article class="post-card group relative">
-  <div class="post-card-media">
+  <div class="post-card-media media-zoom">
     {
       cover ? (
         <Image
@@ -29,7 +29,9 @@ const { title, category, cover, coverAlt, draft } = post.data;
   </div>
   <p class="post-card-cat eyebrow">{category}{draft && ' · Draft'}</p>
   <h3 class="post-card-title">
-    <a href={`/blog/${post.id}`} class="after:absolute after:inset-0">{title}</a>
+    <a href={`/blog/${post.id}`} class="after:absolute after:inset-0">
+      <span class="link-draw">{title}</span>
+    </a>
   </h3>
 </article>
 
@@ -38,16 +40,9 @@ const { title, category, cover, coverAlt, draft } = post.data;
     display: flex;
     flex-direction: column;
     background: transparent;
-    transition: background-color 200ms ease;
-  }
-
-  .post-card:hover,
-  .post-card:has(a:focus-visible) {
-    background: #eeedf3;
   }
 
   .post-card-media {
-    overflow: hidden;
     aspect-ratio: 16 / 9;
   }
 
@@ -59,32 +54,13 @@ const { title, category, cover, coverAlt, draft } = post.data;
     margin-top: 0.75rem;
   }
 
-  .post-card-media :global(img),
-  .post-card-media :global(.image-slot) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .post-card h3 a {
     color: inherit;
-    text-decoration: none;
-  }
-
-  .post-card:hover h3 a,
-  .post-card:has(a:focus-visible) h3 a {
     text-decoration: none;
   }
 
   .post-card:has(a:focus-visible) {
     outline: 2px solid var(--color-accent);
     outline-offset: 6px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .post-card {
-      transition: none;
-    }
   }
 </style>

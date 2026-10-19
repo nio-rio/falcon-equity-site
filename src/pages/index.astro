@@ -56,7 +56,7 @@ const homeServices = getHomeServices();
         {
           homeServices.map((s) => (
             <li class={`bento-cell bento-cell--${s.area}`}>
-              <ServiceCard href={s.href} name={s.name} teaser={s.teaser} rangeLine={s.rangeLine} featured={s.featured} />
+              <ServiceCard href={s.href} name={s.name} teaser={s.teaser} rangeLine={s.rangeLine} image={s.image} featured={s.featured} />
             </li>
           ))
         }

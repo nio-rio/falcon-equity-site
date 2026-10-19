@@ -31,7 +31,9 @@ const shown = cases.slice(0, 3);
       {
         shown.map((s) => (
           <li>
-            <ImageSlot intent={s.intent} ratio="16 / 9" />
+            <div class="media-zoom">
+              <ImageSlot intent={s.intent} ratio="16 / 9" />
+            </div>
             <h3 class="mt-6">{s.title}</h3>
             <p class="mt-3 text-ink-soft">{s.body}</p>
             <p class="mt-4 text-sm text-muted">
