@@ -3,38 +3,13 @@ interface Props {
   eyebrow?: string;
   title: string;
   lead?: string;
-  breadcrumbs?: { name: string; path: string }[];
 }
 
-const { eyebrow, title, lead, breadcrumbs } = Astro.props;
+const { eyebrow, title, lead } = Astro.props;
 ---
 
 <section class="bg-white">
   <div class="container-site py-12 md:py-16 lg:py-20">
-    {
-      breadcrumbs && breadcrumbs.length > 1 && (
-        <nav aria-label="Breadcrumb" class="mb-8 text-sm text-muted">
-          <ol class="flex flex-wrap items-center gap-2">
-            {breadcrumbs.map((b, i) => (
-              <li class="flex items-center gap-2">
-                {i < breadcrumbs.length - 1 ? (
-                  <>
-                    <a href={b.path} class="hover:text-ink hover:underline">
-                      {b.name}
-                    </a>
-                    <span aria-hidden="true">/</span>
-                  </>
-                ) : (
-                  <span aria-current="page" class="text-ink">
-                    {b.name}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )
-    }
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1 class:list={['max-w-4xl', eyebrow && 'mt-3']}>{title}</h1>
     {lead && <p class="mt-6 max-w-2xl text-ink-soft">{lead}</p>}

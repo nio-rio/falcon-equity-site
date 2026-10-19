@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
-import ServiceBlock from '@/components/ServiceBlock.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { SERVICES } from '@/data/services';
@@ -54,11 +54,11 @@ const storyImages = [
   <section class="section bg-white" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <SectionHeading id="services-heading" title="Our services" />
-      <ul class="mt-12 flex max-w-4xl flex-col gap-6">
+      <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
           SERVICES.map((s) => (
             <li>
-              <ServiceBlock service={s} />
+              <ServiceCard service={s} />
             </li>
           ))
         }

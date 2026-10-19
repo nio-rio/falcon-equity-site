@@ -26,19 +26,21 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
 
     <nav aria-label="Main" class="hidden lg:block">
       <ul class="flex items-center text-[13px] font-medium">
-        <li class="relative" data-dropdown>
-          <button
-            type="button"
+        <li class="nav-dropdown relative" data-dropdown>
+          <a
+            href="/services"
             class:list={[navLink, isActive('/services') && 'is-active']}
+            aria-current={path === '/services' ? 'page' : undefined}
+            aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-services"
             data-dropdown-trigger
           >
             Services <Icon name="chevron-down" size={14} class="transition-transform" />
-          </button>
+          </a>
           <div
             id="menu-services"
-            class="absolute top-full left-0 mt-0 hidden w-[32rem] bg-white p-2 text-ink shadow-md"
+            class="nav-dropdown-menu absolute top-full left-0 z-10 w-[32rem] bg-white p-2 text-ink shadow-md"
             data-dropdown-menu
           >
             <ul class="grid grid-cols-2">
@@ -75,7 +77,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
             </li>
           ))
         }
-        <li class="relative" data-dropdown>
+        <li class="nav-dropdown relative" data-dropdown>
           <button
             type="button"
             class:list={[navLink, resourcesActive && 'is-active']}
@@ -87,7 +89,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
           </button>
           <div
             id="menu-resources"
-            class="absolute top-full left-0 mt-0 hidden w-72 bg-white p-2 text-ink shadow-md"
+            class="nav-dropdown-menu absolute top-full left-0 z-10 w-72 bg-white p-2 text-ink shadow-md"
             data-dropdown-menu
           >
             <ul>
@@ -235,46 +237,99 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     background: var(--color-accent-hover);
     color: #fff;
   }
+
+  .nav-dropdown-menu {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-dropdown:hover > .nav-dropdown-menu {
+      display: block;
+    }
+
+    .nav-dropdown:hover [data-dropdown-trigger] svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .nav-dropdown:focus-within > .nav-dropdown-menu,
+  .nav-dropdown.is-open > .nav-dropdown-menu {
+    display: block;
+  }
+
+  .nav-dropdown:focus-within [data-dropdown-trigger] svg,
+  .nav-dropdown.is-open [data-dropdown-trigger] svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown.is-escaped > .nav-dropdown-menu {
+    display: none;
+  }
 </style>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
   const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]');
 
+  const setOpen = (dd: HTMLElement, open: boolean) => {
+    const trigger = dd.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    dd.classList.toggle('is-open', open);
+    trigger?.setAttribute('aria-expanded', String(open));
+  };
+
   const closeAll = (except?: HTMLElement) => {
     dropdowns.forEach((dd) => {
-      if (dd === except) return;
-      const trigger = dd.querySelector<HTMLButtonElement>('[data-dropdown-trigger]');
-      const menu = dd.querySelector<HTMLElement>('[data-dropdown-menu]');
-      trigger?.setAttribute('aria-expanded', 'false');
-      trigger?.querySelector('svg')?.classList.remove('rotate-180');
-      menu?.classList.add('hidden');
+      if (dd !== except) setOpen(dd, false);
     });
   };
 
   dropdowns.forEach((dd) => {
-    const trigger = dd.querySelector<HTMLButtonElement>('[data-dropdown-trigger]');
+    const trigger = dd.querySelector<HTMLElement>('[data-dropdown-trigger]');
     const menu = dd.querySelector<HTMLElement>('[data-dropdown-menu]');
     if (!trigger || !menu) return;
 
-    trigger.addEventListener('click', () => {
-      const open = trigger.getAttribute('aria-expanded') === 'true';
+    dd.addEventListener('mouseenter', () => {
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        dd.classList.remove('is-escaped');
+        closeAll(dd);
+        setOpen(dd, true);
+      }
+    });
+    dd.addEventListener('mouseleave', () => {
+      dd.classList.remove('is-escaped');
+      setOpen(dd, false);
+    });
+
+    trigger.addEventListener('click', (e) => {
+      if (trigger.tagName === 'A') return;
+      e.preventDefault();
+      dd.classList.remove('is-escaped');
+      const open = trigger.getAttribute('aria-expanded') !== 'true';
       closeAll(dd);
-      trigger.setAttribute('aria-expanded', String(!open));
-      trigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
-      menu.classList.toggle('hidden', open);
+      setOpen(dd, open);
     });
 
     dd.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
+      if (e.key === 'Escape' && (dd.classList.contains('is-open') || dd.contains(document.activeElement))) {
+        e.preventDefault();
+        dd.classList.add('is-escaped');
         closeAll();
         trigger.focus();
       }
     });
 
+    dd.addEventListener('focusin', () => {
+      if (dd.classList.contains('is-escaped')) return;
+      closeAll(dd);
+      setOpen(dd, true);
+    });
+
     dd.addEventListener('focusout', (e) => {
       const next = e.relatedTarget as Node | null;
-      if (next && !dd.contains(next)) closeAll();
+      if (!next || !dd.contains(next)) {
+        dd.classList.remove('is-escaped');
+        setOpen(dd, false);
+      }
     });
   });
 
