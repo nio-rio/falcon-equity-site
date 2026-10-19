@@ -242,21 +242,13 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     display: none;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .nav-dropdown:hover > .nav-dropdown-menu {
-      display: block;
-    }
-
-    .nav-dropdown:hover [data-dropdown-trigger] svg {
-      transform: rotate(180deg);
-    }
-  }
-
+  .nav-dropdown:hover > .nav-dropdown-menu,
   .nav-dropdown:focus-within > .nav-dropdown-menu,
   .nav-dropdown.is-open > .nav-dropdown-menu {
     display: block;
   }
 
+  .nav-dropdown:hover [data-dropdown-trigger] svg,
   .nav-dropdown:focus-within [data-dropdown-trigger] svg,
   .nav-dropdown.is-open [data-dropdown-trigger] svg {
     transform: rotate(180deg);
@@ -289,11 +281,9 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     if (!trigger || !menu) return;
 
     dd.addEventListener('mouseenter', () => {
-      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        dd.classList.remove('is-escaped');
-        closeAll(dd);
-        setOpen(dd, true);
-      }
+      dd.classList.remove('is-escaped');
+      closeAll(dd);
+      setOpen(dd, true);
     });
     dd.addEventListener('mouseleave', () => {
       dd.classList.remove('is-escaped');
