@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
 import Icon from '@/components/Icon.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { INDUSTRIES } from '@/data/industries';
@@ -24,8 +25,8 @@ const crumbs = [
 
   <section class="section bg-white" aria-labelledby="industries-list-heading">
     <div class="container-site">
-      <h2 id="industries-list-heading" class="sr-only">Industries we serve</h2>
-      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <SectionHeading id="industries-list-heading" eyebrow="Industries" title="Industries we serve" />
+      <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
           INDUSTRIES.map((ind) => (
             <li class="tile-card">

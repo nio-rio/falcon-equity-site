@@ -33,11 +33,12 @@ const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.val
 >
   <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
 
-  <section class="section bg-white" aria-labelledby="purpose-quote">
+  <section class="section bg-white" aria-labelledby="founder-heading">
     <div class="container-site max-w-4xl">
-      <figure>
+      <SectionHeading id="founder-heading" eyebrow="Founder" title="From the founder." />
+      <figure class="mt-8">
         <blockquote>
-          <p id="purpose-quote" class="founder-quote">
+          <p class="founder-quote">
             <!-- Dwight to write and approve -->
             “[Founder statement to come.]”
           </p>
@@ -83,7 +84,7 @@ const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.val
 
   <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
-      <SectionHeading id="people-heading" eyebrow="People" title="The people of Falcon." />
+      <SectionHeading id="people-heading" eyebrow="Our people" title="The people of Falcon." />
       <ul class="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {
           TEAM_ROLES.map((title) => (
@@ -102,7 +103,7 @@ const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.val
 
   <section class="section bg-white" aria-labelledby="values-heading">
     <div class="container-site">
-      <SectionHeading id="values-heading" title="Our values" />
+      <SectionHeading id="values-heading" eyebrow="Values" title="Our values" />
       <ul class="mt-12 grid gap-10 sm:grid-cols-2">
         {
           VALUES.map((v) => (

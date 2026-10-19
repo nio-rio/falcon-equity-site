@@ -25,8 +25,8 @@ const crumbs = [
 
   <section class="section bg-white" aria-labelledby="options-heading">
     <div class="container-site">
-      <h2 id="options-heading" class="sr-only">Funding options</h2>
-      <ul class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <SectionHeading id="options-heading" eyebrow="Options" title="Funding options" />
+      <ul class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
           SERVICES.map((s) => (
             <li class="flex">
@@ -40,7 +40,7 @@ const crumbs = [
 
   <section class="section bg-tint" aria-labelledby="compare-heading">
     <div class="container-site">
-      <SectionHeading id="compare-heading" title="Compare options" />
+      <SectionHeading id="compare-heading" eyebrow="Compare" title="Compare options" />
       <div class="mt-12 overflow-x-auto" role="region" aria-labelledby="compare-heading" tabindex="0">
         <table class="service-table w-full min-w-[52rem] text-left">
           <caption class="sr-only">Compare Falcon’s seven funding products by amount, term, speed and typical use</caption>

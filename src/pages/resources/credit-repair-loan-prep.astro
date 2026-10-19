@@ -67,7 +67,12 @@ const steps = [
     programs.map((p, gi) => (
       <section class="section bg-white" aria-labelledby={`program-${gi}`}>
         <div class="container-site">
-          <SectionHeading id={`program-${gi}`} title={p.group} lead={p.lead} />
+          <SectionHeading
+            id={`program-${gi}`}
+            eyebrow={p.group.startsWith('Business') ? 'Business' : 'Personal'}
+            title={p.group}
+            lead={p.lead}
+          />
           <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {p.items.map((item) => (
               <li class="tile-card">
@@ -83,7 +88,7 @@ const steps = [
 
   <section class="section bg-white" aria-labelledby="why-program-heading">
     <div class="container-site">
-      <SectionHeading id="why-program-heading" title="Why clients choose this program" />
+      <SectionHeading id="why-program-heading" eyebrow="Why" title="Why clients choose this program" />
       <ul class="mt-8 max-w-3xl space-y-3">
         {
           reasons.map((r) => (
@@ -96,7 +101,7 @@ const steps = [
 
   <section class="section bg-white" aria-labelledby="how-program-heading">
     <div class="container-site">
-      <h2 id="how-program-heading" class="text-center">How it works</h2>
+      <SectionHeading id="how-program-heading" eyebrow="Process" title="How it works" align="center" />
       <div class="mt-12">
         <StepTimeline steps={steps} />
       </div>

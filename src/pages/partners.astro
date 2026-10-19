@@ -43,8 +43,8 @@ const audiences = [
 
   <section class="section bg-white" aria-labelledby="who-heading">
     <div class="container-site">
-      <h2 id="who-heading" class="sr-only">Who we partner with</h2>
-      <ul class="grid gap-6 md:grid-cols-3">
+      <SectionHeading id="who-heading" eyebrow="Partners" title="Who we partner with" />
+      <ul class="mt-12 grid gap-6 md:grid-cols-3">
         {
           audiences.map((a) => (
             <li class="tile-card">
@@ -65,7 +65,7 @@ const audiences = [
       </div>
       <div class="md:col-span-7">
         <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />
-        <SectionHeading id="featured-heading" eyebrow="Featured partner" title="Cardiff" />
+        <SectionHeading id="featured-heading" eyebrow="Featured" title="Cardiff" />
         <p class="mt-4 text-ink-soft">
           Cardiff expands the options available to business owners. Their products are subject to Cardiff’s terms and approval.
         </p>
