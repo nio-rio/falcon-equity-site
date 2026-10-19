@@ -3,6 +3,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import UseCases from '@/components/UseCases.astro';
+import StepTimeline from '@/components/StepTimeline.astro';
+import { CREDIT_PREP_USE_CASES } from '@/data/content';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
@@ -43,10 +46,10 @@ const reasons = [
 ];
 
 const steps = [
-  { title: 'Consultation', body: 'A free review of personal and business credit.' },
-  { title: 'Plan', body: 'A roadmap aimed at the financing you need.' },
-  { title: 'Repair', body: 'Disputes, tradelines and FICO SBSS work.' },
-  { title: 'Fund', body: 'When the file is ready, we place it with a lender.' },
+  { title: 'Consultation', body: 'A free 1-on-1 review of your personal and business credit.' },
+  { title: 'Custom Plan', body: 'A roadmap aimed at the financing you need.' },
+  { title: 'Active Repair', body: 'Disputes, tradelines and FICO SBSS work.' },
+  { title: 'Get Funded', body: 'When the file is ready, we place it with a lender.' },
 ];
 ---
 
@@ -57,12 +60,12 @@ const steps = [
 >
   <PageHero
     title="Credit Repair & Loan Prep"
-    lead="Credit work for owners who need a stronger file before they apply."
+    lead="Improve your credit standing and obtain the financing that's right for you."
   />
 
   {
     programs.map((p, gi) => (
-      <section class:list={['section', gi === 0 ? 'bg-white' : 'bg-tint']} aria-labelledby={`program-${gi}`}>
+      <section class="section bg-white" aria-labelledby={`program-${gi}`}>
         <div class="container-site">
           <SectionHeading id={`program-${gi}`} title={p.group} lead={p.lead} />
           <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -79,32 +82,28 @@ const steps = [
   }
 
   <section class="section bg-white" aria-labelledby="why-program-heading">
-    <div class="container-site grid gap-12 lg:grid-cols-2">
-      <div>
-        <SectionHeading id="why-program-heading" title="What is included" />
-        <ul class="mt-8 space-y-3">
-          {
-            reasons.map((r) => (
-              <li class="text-ink-soft">{r}</li>
-            ))
-          }
-        </ul>
-      </div>
-      <div>
-        <h2>How it works</h2>
-        <ol class="mt-8 space-y-6">
-          {
-            steps.map((s) => (
-              <li>
-                <h3>{s.title}</h3>
-                <p class="mt-1 text-ink-soft">{s.body}</p>
-              </li>
-            ))
-          }
-        </ol>
+    <div class="container-site">
+      <SectionHeading id="why-program-heading" title="Why clients choose this program" />
+      <ul class="mt-8 max-w-3xl space-y-3">
+        {
+          reasons.map((r) => (
+            <li class="text-ink-soft">{r}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-white" aria-labelledby="how-program-heading">
+    <div class="container-site">
+      <h2 id="how-program-heading" class="text-center">How it works</h2>
+      <div class="mt-12">
+        <StepTimeline steps={steps} />
       </div>
     </div>
   </section>
+
+  <UseCases cases={CREDIT_PREP_USE_CASES} />
 
   <CtaBand title="Credit consultation" body="A free call to review the file and the financing you need." ctaLabel="Apply" />
 </BaseLayout>

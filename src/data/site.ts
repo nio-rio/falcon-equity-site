@@ -31,6 +31,8 @@ export const SITE = {
   founder: {
     name: 'Dwight Holly',
     title: 'Founder & CFO',
+    /** From the live falconequity.ai About page. Do not invent additional bio. */
+    bio: 'Elite expertise in business funding',
   },
 } as const;
 
@@ -50,7 +52,7 @@ export const PRIMARY_PHONE = SITE.phones.direct;
 export type NavLink = { label: string; href: string; description?: string };
 
 export const RESOURCE_LINKS: NavLink[] = [
-  { label: 'The Falcon Brief (Blog)', href: '/blog', description: 'Practical funding guides' },
+  { label: 'Blog', href: '/blog', description: 'Practical funding guides' },
   { label: 'Loan Calculator', href: '/resources/loan-calculator', description: 'Estimate payments in seconds' },
   {
     label: 'Credit Repair & Loan Prep',
@@ -58,6 +60,11 @@ export const RESOURCE_LINKS: NavLink[] = [
     description: 'Get your file loan-ready',
   },
   { label: 'FAQ', href: '/faq', description: 'Straight answers' },
+];
+
+export const FIRM_LINKS: NavLink[] = [
+  { label: 'About', href: '/about' },
+  { label: 'Partners', href: '/partners' },
 ];
 
 export const COMPANY_LINKS: NavLink[] = [

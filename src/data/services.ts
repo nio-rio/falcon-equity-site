@@ -36,6 +36,8 @@ export type Service = {
   options?: ServiceOption[];
   requirements: string[];
   idealUses: string[];
+  /** Illustrative situations only. No names, quotes, dollar results or new claims. */
+  useCases: { title: string; body: string; industry: string; intent: string }[];
   steps: { title: string; body: string }[];
   faqs: { q: string; a: string }[];
   seoTitle: string;
@@ -83,6 +85,32 @@ export const SERVICES: Service[] = [
       'Expanding into a new location',
       'Unlocking equity in commercial real estate',
       'Financing technology and infrastructure',
+    ],
+    useCases: [
+      {
+        industry: 'Manufacturing',
+        title: 'A machine failed before a large order.',
+        body: 'Equipment financing can replace it, typically up to 100% of the equipment value, without waiting on retained earnings.',
+        intent: 'idle machine on a warehouse floor, daylight, empty of people',
+      },
+      {
+        industry: 'Retail',
+        title: 'Opening a second location.',
+        body: 'A collateral-secured loan can put commercial real estate to work for the expansion.',
+        intent: 'empty storefront interior, morning light',
+      },
+      {
+        industry: 'Transportation',
+        title: 'The fleet needs new vehicles.',
+        body: 'Equipment and vehicle financing keeps operating cash in the business while the assets go to work.',
+        intent: 'parked work vans in a yard, daylight, empty of people',
+      },
+      {
+        industry: 'Construction',
+        title: 'Upgrading technology and site infrastructure.',
+        body: 'A collateral loan converts equipment you already own, or new kit you are buying, into working capital.',
+        intent: 'staged construction equipment, late afternoon, empty of people',
+      },
     ],
     steps: standardSteps('capital'),
     faqs: [
@@ -132,6 +160,32 @@ export const SERVICES: Service[] = [
       'Restocking inventory quickly',
       'Keeping a cushion for unexpected costs',
     ],
+    useCases: [
+      {
+        industry: 'Professional Services',
+        title: 'Payroll is due before invoices land.',
+        body: 'Draw on the line to cover payroll, repay when receivables come in, and draw again.',
+        intent: 'office desk with an open ledger, warm light, empty of people',
+      },
+      {
+        industry: 'Retail',
+        title: 'Inventory needs restocking this week.',
+        body: 'A revolving line lets you draw what you need for stock and pay interest only on the amount used.',
+        intent: 'stockroom shelves, daylight, empty of people',
+      },
+      {
+        industry: 'Hospitality',
+        title: 'Cash flow is uneven across the year.',
+        body: 'Keep a line on standby and draw during slow stretches, then repay when covers fill.',
+        intent: 'empty dining room before open, morning light',
+      },
+      {
+        industry: 'Auto Services',
+        title: 'An unexpected repair bill landed.',
+        body: 'The line is there as a cushion so an unplanned cost does not drain the operating account.',
+        intent: 'service bay with a lift, daylight, empty of people',
+      },
+    ],
     steps: standardSteps('working capital'),
     faqs: [
       {
@@ -174,6 +228,32 @@ export const SERVICES: Service[] = [
       'Bridging a slow season',
       'Funding a marketing push',
       'Covering urgent repairs or replacements',
+    ],
+    useCases: [
+      {
+        industry: 'Retail',
+        title: 'A supplier discount will not wait on a bank.',
+        body: 'An advance based on future sales can fund a time-sensitive inventory buy, often the same day after approval.',
+        intent: 'packed cartons in a stockroom, daylight, empty of people',
+      },
+      {
+        industry: 'Landscaping',
+        title: 'A slow season still has payroll and rent.',
+        body: 'A working-capital bridge covers the off-season until peak work returns.',
+        intent: 'parked mowers in a yard, morning, empty of people',
+      },
+      {
+        industry: 'Hospitality',
+        title: 'A marketing push before a busy stretch.',
+        body: 'Revenue-based capital can fund the campaign while approval looks at bank activity more than a credit score.',
+        intent: 'empty cafe counter with a card terminal, warm light',
+      },
+      {
+        industry: 'Auto Services',
+        title: 'Equipment broke and work is backing up.',
+        body: 'Same-day funding after approval can cover an urgent repair or replacement.',
+        intent: 'open hood in an empty bay, daylight',
+      },
     ],
     steps: standardSteps('working capital'),
     faqs: [
@@ -218,6 +298,32 @@ export const SERVICES: Service[] = [
       'Remodeling or upgrading a facility',
       'Hiring ahead of growth',
       'Large, planned purchases',
+    ],
+    useCases: [
+      {
+        industry: 'Retail',
+        title: 'Opening a new location.',
+        body: 'A term loan delivers a lump sum with a set repayment schedule for a planned expansion.',
+        intent: 'empty shop interior after opening, morning light',
+      },
+      {
+        industry: 'Hospitality',
+        title: 'A remodel before the next season.',
+        body: 'Longer terms of 5 to 30 years suit a facility upgrade that should be paid over years, not weeks.',
+        intent: 'stripped dining room mid-remodel, daylight, empty of people',
+      },
+      {
+        industry: 'Healthcare',
+        title: 'Hiring ahead of demand.',
+        body: 'Structured capital can cover payroll for new staff while revenue catches up.',
+        intent: 'empty clinic waiting room, even light',
+      },
+      {
+        industry: 'Manufacturing',
+        title: 'A large, planned purchase.',
+        body: 'Short-term loans cover faster, smaller needs; term loans fit bigger investments on a predictable schedule.',
+        intent: 'crate of new parts on a warehouse floor, daylight',
+      },
     ],
     steps: standardSteps('capital'),
     faqs: [
@@ -267,6 +373,32 @@ export const SERVICES: Service[] = [
       'Smoothing cash flow from slow-paying clients',
       'Funding growth without new debt',
     ],
+    useCases: [
+      {
+        industry: 'Professional Services',
+        title: 'Payroll is due and invoices sit at net-60.',
+        body: 'Selling those B2B receivables turns the outstanding invoices into cash today.',
+        intent: 'stacked invoices on a desk, even light, empty of people',
+      },
+      {
+        industry: 'Construction',
+        title: 'A larger contract than cash on hand allows.',
+        body: 'Factoring can fund materials and labor against invoices from creditworthy customers.',
+        intent: 'shipping dock with packed pallets, daylight, empty of people',
+      },
+      {
+        industry: 'Manufacturing',
+        title: 'Clients pay slowly, vendors do not.',
+        body: 'An ongoing AR facility smooths cash flow as receivables turn over.',
+        intent: 'packed goods waiting on a dock, daylight, empty of people',
+      },
+      {
+        industry: 'Transportation',
+        title: 'Growth without taking on a new loan.',
+        body: 'Factoring is a sale of receivables at a discount, not a loan, so approval leans on customer credit.',
+        intent: 'empty loading bay, morning light',
+      },
+    ],
     steps: standardSteps('funding'),
     faqs: [
       {
@@ -306,6 +438,32 @@ export const SERVICES: Service[] = [
       'Lowering total daily or weekly remittances',
       'Freeing up cash flow for operations',
       'Getting off the stacking treadmill',
+    ],
+    useCases: [
+      {
+        industry: 'Retail',
+        title: 'Several daily payments hitting at once.',
+        body: 'Consolidation combines stacked advances into one position so the account is not drained every morning.',
+        intent: 'desk with stacked statements, even light, empty of people',
+      },
+      {
+        industry: 'Agriculture',
+        title: 'An existing advance and a need to expand.',
+        body: 'A single position can replace stacking and still leave working capital for the next season.',
+        intent: 'open agricultural yard, late afternoon, empty of people',
+      },
+      {
+        industry: 'Hospitality',
+        title: 'Daily remittances leaving no room to operate.',
+        body: 'Falcon clients save 30%–50% on average on daily or weekly payments; actual savings depend on the file.',
+        intent: 'empty restaurant pass, morning light',
+      },
+      {
+        industry: 'Auto Services',
+        title: 'Getting off the stacking treadmill.',
+        body: 'List each open position. A specialist models one lower payment instead of another stack.',
+        intent: 'service counter with a closed ledger, daylight, empty of people',
+      },
     ],
     steps: [
       {
@@ -358,6 +516,32 @@ export const SERVICES: Service[] = [
       'Crypto custodial services: secure management and protection of digital assets',
       'Planning treasury strategy that includes digital assets',
       'Understanding risks before you commit',
+    ],
+    useCases: [
+      {
+        industry: 'Professional Services',
+        title: 'Bringing digital assets onto the books.',
+        body: 'Crypto onboarding is guided integration into the financial strategy, from setup to day-to-day handling.',
+        intent: 'quiet office workstation with two dark screens, cool light',
+      },
+      {
+        industry: 'Retail',
+        title: 'The business already holds crypto.',
+        body: 'Custodial services cover secure management and protection of those digital assets.',
+        intent: 'empty back office with a closed laptop, even light',
+      },
+      {
+        industry: 'Real Estate',
+        title: 'Treasury planning that includes digital assets.',
+        body: 'A consultation maps onboarding and custody to the business and its risk tolerance.',
+        intent: 'conference table with a closed notebook, daylight, empty of people',
+      },
+      {
+        industry: 'E-commerce',
+        title: 'Understanding the risks before committing.',
+        body: 'Digital asset values can be volatile. We discuss those risks before any decision.',
+        intent: 'packed shipping table, daylight, empty of people',
+      },
     ],
     steps: [
       {

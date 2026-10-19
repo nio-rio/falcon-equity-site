@@ -6,6 +6,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import UseCases from '@/components/UseCases.astro';
 import ConsolidationExample from '@/components/ConsolidationExample.astro';
 import { SERVICES, type Service } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
@@ -33,7 +34,8 @@ const crumbs = [
   { name: service.name, path: `/services/${service.slug}` },
 ];
 const isConsolidation = service.slug === 'consolidation-of-positions';
-const isDigital = service.slug === 'decentralized-business-financing';
+const typicalUse = service.idealUses.slice(0, 4);
+const useCases = service.useCases.map((c) => ({ ...c, product: service.name }));
 ---
 
 <BaseLayout
@@ -41,7 +43,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
   description={service.seoDescription}
   schema={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(service.faqs)]}
 >
-  <PageHero title={service.name} lead={service.intro} />
+  <PageHero title={service.name} />
 
   <section class="section bg-white" aria-labelledby="details-heading">
     <div class="container-site grid gap-16 lg:grid-cols-12">
@@ -51,50 +53,28 @@ const isDigital = service.slug === 'decentralized-business-financing';
           ratio="16 / 9"
           class="mb-10"
         />
-        <SectionHeading id="details-heading" eyebrow="At a glance" title={service.headline} />
-        <dl class="mt-10 flex flex-col items-start gap-8">
-          <div>
-            <dt class="text-sm text-muted">Amounts</dt>
-            <dd class="mt-1 font-medium text-ink">{service.amounts}</dd>
-          </div>
-          <div>
-            <dt class="text-sm text-muted">Terms</dt>
-            <dd class="mt-1 font-medium text-ink">{service.terms}</dd>
-          </div>
-          {
-            service.speed && (
-              <div>
-                <dt class="text-sm text-muted">Speed</dt>
-                <dd class="mt-1 font-medium text-ink">{service.speed}</dd>
-              </div>
-            )
-          }
-          <div>
-            <dt class="text-sm text-muted">Who it is for</dt>
-            <dd class="mt-1 text-ink">{service.whoFor}</dd>
-          </div>
-        </dl>
+        <h2 id="details-heading" class="service-deck">{service.intro}</h2>
         {
           service.options && service.options.length > 1 && (
             <div class="mt-12 overflow-x-auto" role="region" aria-labelledby="options-heading" tabindex="0">
               <h3 id="options-heading">Options</h3>
-              <table class="mt-6 w-full min-w-[32rem] text-left text-[15px]">
+              <table class="service-table mt-6 w-full min-w-[32rem] text-left">
                 <caption class="sr-only">{service.name} options with amounts, speed and terms</caption>
                 <thead class="text-ink">
                   <tr>
-                    <th scope="col" class="py-3 pr-5 font-medium">Option</th>
-                    <th scope="col" class="py-3 pr-5 font-medium">Amounts</th>
-                    <th scope="col" class="py-3 pr-5 font-medium">Speed</th>
-                    <th scope="col" class="py-3 font-medium">Terms</th>
+                    <th scope="col" class="font-medium">Option</th>
+                    <th scope="col" class="font-medium">Amounts</th>
+                    <th scope="col" class="font-medium">Speed</th>
+                    <th scope="col" class="font-medium">Terms</th>
                   </tr>
                 </thead>
                 <tbody>
                   {service.options.map((o) => (
                     <tr>
-                      <th scope="row" class="py-3 pr-5 font-medium text-ink">{o.name}</th>
-                      <td class="py-3 pr-5">{o.amounts}</td>
-                      <td class="py-3 pr-5">{o.speed ?? 'Ask your specialist'}</td>
-                      <td class="py-3">{o.terms ?? 'Ask your specialist'}</td>
+                      <th scope="row" class="font-medium text-ink">{o.name}</th>
+                      <td>{o.amounts}</td>
+                      <td>{o.speed ?? 'Ask your specialist'}</td>
+                      <td>{o.terms ?? 'Ask your specialist'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -103,13 +83,9 @@ const isDigital = service.slug === 'decentralized-business-financing';
             </div>
           )
         }
-        <h3 class="mt-12">{isDigital ? 'What we offer' : 'Typical uses'}</h3>
-        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
-          {
-            service.idealUses.map((u) => (
-              <li class="text-ink">{u}</li>
-            ))
-          }
+        <h3 class="mt-12">Typical use</h3>
+        <ul class="typical-use mt-5">
+          {typicalUse.map((u) => <li>{u}</li>)}
         </ul>
       </div>
       <aside class="lg:col-span-5" aria-labelledby="requirements-heading">
@@ -132,7 +108,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
 
   {
     isConsolidation && (
-      <section class="section bg-tint" aria-labelledby="example-heading">
+      <section class="section bg-white" aria-labelledby="example-heading">
         <div class="container-site">
           <SectionHeading
             id="example-heading"
@@ -148,6 +124,8 @@ const isDigital = service.slug === 'decentralized-business-financing';
     )
   }
 
+  <UseCases cases={useCases} />
+
   <section class="section bg-white" aria-labelledby="service-faq-heading">
     <div class="container-site grid gap-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
@@ -161,3 +139,38 @@ const isDigital = service.slug === 'decentralized-business-financing';
 
   <CtaBand />
 </BaseLayout>
+
+<style>
+  .service-deck {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: inherit;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+    letter-spacing: normal;
+  }
+
+  .typical-use {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+    font-size: inherit;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+
+  .service-table {
+    font-size: inherit;
+    line-height: 1.55;
+    border-collapse: collapse;
+  }
+
+  .service-table th,
+  .service-table td {
+    border: 1px solid var(--color-line);
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+  }
+</style>

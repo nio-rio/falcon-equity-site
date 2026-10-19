@@ -1,0 +1,24 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { TESTIMONIALS } from '@/data/content';
+---
+
+<section class="section bg-tint" aria-labelledby="testimonials-heading">
+  <div class="container-site">
+    <SectionHeading id="testimonials-heading" title="Testimonials" />
+    <ul class="mt-12 grid gap-10 lg:grid-cols-3">
+      {
+        TESTIMONIALS.map((t) => (
+          <li>
+            <blockquote>
+              <p class="font-display text-[1.375rem] font-light leading-snug text-ink">{t.quote}</p>
+            </blockquote>
+            <p class="mt-6 font-medium text-ink">{t.amount}</p>
+            <p class="mt-2 text-ink">{t.business}</p>
+            <p class="mt-1 text-sm text-muted">{t.owner}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

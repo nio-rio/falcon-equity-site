@@ -2,19 +2,18 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { SERVICES } from '@/data/services';
-import { PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
+import { FIRM_LINKS, PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 
 const path = cleanPath(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
-const simpleLinks = [
+const extraLinks = [
   { label: 'Industries', href: '/industries' },
-  { label: 'About', href: '/about' },
-  { label: 'Partners', href: '/partners' },
   { label: 'Contact', href: '/contact' },
 ];
 const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources');
+const firmActive = FIRM_LINKS.some((l) => isActive(l.href));
 const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal';
 ---
 
@@ -64,19 +63,47 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
             </a>
           </div>
         </li>
-        {
-          simpleLinks.slice(0, 1).map((l) => (
-            <li>
-              <a
-                href={l.href}
-                class:list={[navLink, isActive(l.href) && 'is-active']}
-                aria-current={isActive(l.href) ? 'page' : undefined}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))
-        }
+        <li>
+          <a
+            href="/industries"
+            class:list={[navLink, isActive('/industries') && 'is-active']}
+            aria-current={isActive('/industries') ? 'page' : undefined}
+          >
+            Industries
+          </a>
+        </li>
+        <li class="nav-dropdown relative" data-dropdown>
+          <button
+            type="button"
+            class:list={[navLink, firmActive && 'is-active']}
+            aria-expanded="false"
+            aria-controls="menu-firm"
+            data-dropdown-trigger
+          >
+            Our Firm <Icon name="chevron-down" size={14} class="transition-transform" />
+          </button>
+          <div
+            id="menu-firm"
+            class="nav-dropdown-menu absolute top-full left-0 z-10 w-72 bg-white p-2 text-ink shadow-md"
+            data-dropdown-menu
+          >
+            <ul>
+              {
+                FIRM_LINKS.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      class="block px-3 py-2.5 hover:bg-ink/5"
+                      aria-current={isActive(l.href) ? 'page' : undefined}
+                    >
+                      <span class="block text-sm font-semibold text-ink">{l.label}</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
         <li class="nav-dropdown relative" data-dropdown>
           <button
             type="button"
@@ -110,19 +137,15 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
             </ul>
           </div>
         </li>
-        {
-          simpleLinks.slice(1).map((l) => (
-            <li>
-              <a
-                href={l.href}
-                class:list={[navLink, isActive(l.href) && 'is-active']}
-                aria-current={isActive(l.href) ? 'page' : undefined}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))
-        }
+        <li>
+          <a
+            href="/contact"
+            class:list={[navLink, isActive('/contact') && 'is-active']}
+            aria-current={isActive('/contact') ? 'page' : undefined}
+          >
+            Contact
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -162,6 +185,18 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
           ))
         }
       </ul>
+      <p class="eyebrow mt-6">Our Firm</p>
+      <ul class="mt-2 grid gap-1 sm:grid-cols-2">
+        {
+          FIRM_LINKS.map((l) => (
+            <li>
+              <a href={l.href} class="block py-2.5">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
       <p class="eyebrow mt-6">Resources</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
         {
@@ -177,7 +212,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
       <p class="eyebrow mt-6">Company</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
         {
-          simpleLinks.map((l) => (
+          extraLinks.map((l) => (
             <li>
               <a href={l.href} class="block py-2.5">
                 {l.label}

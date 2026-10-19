@@ -7,7 +7,7 @@ interface Props {
 const { faqs } = Astro.props;
 ---
 
-<div class="space-y-8">
+<div class="faq-list">
   {
     faqs.map((f) => (
       <details class="group [&_summary::-webkit-details-marker]:hidden">
@@ -20,3 +20,14 @@ const { faqs } = Astro.props;
     ))
   }
 </div>
+
+<style>
+  .faq-list details {
+    border-bottom: 1px solid var(--color-line);
+    padding-block: 1.25rem;
+  }
+
+  .faq-list details:first-child {
+    border-top: 1px solid var(--color-line);
+  }
+</style>

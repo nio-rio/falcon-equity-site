@@ -14,11 +14,11 @@ const {
 } = Astro.props;
 ---
 
-<section class="bg-tint py-16 md:py-20" aria-labelledby="cta-heading">
+<section class="bg-cta py-16 md:py-20 text-ink" aria-labelledby="cta-heading">
   <div class="container-site flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
     <div class="max-w-2xl">
       <h2 id="cta-heading">{title}</h2>
-      <p class="mt-4 text-ink-soft">{body}</p>
+      <p class="mt-4 text-ink">{body}</p>
     </div>
     <div class="flex flex-col gap-3 sm:flex-row">
       <a href="/apply" class="btn-primary">{ctaLabel}</a>

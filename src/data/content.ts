@@ -62,18 +62,77 @@ export const CLIENT_STORIES = [
     product: 'Business Term Loan',
     title: 'An auto parts retailer looking for expansion capital.',
     body: 'A second location, extra inventory or new equipment might point to a term loan or a line of credit.',
+    intent: 'auto parts counter, daylight, empty of people',
   },
   {
     industry: 'Agriculture',
     product: 'Consolidation of Positions',
     title: 'A Southwest agricultural services company with an existing advance, looking to expand.',
     body: 'With an advance already open, the next step is often new capital, consolidation, or both.',
+    intent: 'open agricultural yard, late afternoon',
   },
   {
     industry: 'Landscaping',
     product: 'Merchant Cash Advance',
     title: 'A landscaping company bridging a slow season.',
     body: 'Payroll, leases and insurance still run in the off-season. A working-capital bridge is one option before peak season.',
+    intent: 'landscaping equipment in a yard, morning',
+  },
+] as const;
+
+/**
+ * PLACEHOLDERS. Replace with real, consented client testimonials before production.
+ * Do not invent names, businesses, quotes, or amounts.
+ */
+export const TESTIMONIALS = [
+  {
+    quote: '[Client quote — 1–2 sentences about their funding experience]',
+    amount: '$[Amount] funded',
+    business: '[Business name]',
+    owner: '[Owner name], [Title]',
+  },
+  {
+    quote: '[Client quote — 1–2 sentences about their funding experience]',
+    amount: '$[Amount] funded',
+    business: '[Business name]',
+    owner: '[Owner name], [Title]',
+  },
+  {
+    quote: '[Client quote — 1–2 sentences about their funding experience]',
+    amount: '$[Amount] funded',
+    business: '[Business name]',
+    owner: '[Owner name], [Title]',
+  },
+] as const;
+
+export const CREDIT_PREP_USE_CASES = [
+  {
+    industry: 'Retail',
+    product: 'Credit Repair & Loan Prep',
+    title: 'A file that is not yet ready for a term loan.',
+    body: 'Term Loan Prep works FICO SBSS and underwriting documents before the application goes in.',
+    intent: 'closed loan file and statements on a desk, even light',
+  },
+  {
+    industry: 'Professional Services',
+    product: 'Credit Repair & Loan Prep',
+    title: 'A new LLC that needs personal credit work first.',
+    body: 'Startup Capital Prep pairs formation with personal credit improvement so a first facility is even possible.',
+    intent: 'empty office with formation paperwork on a table, daylight',
+  },
+  {
+    industry: 'Hospitality',
+    product: 'Credit Repair & Loan Prep',
+    title: 'Personal credit standing in the way of a mortgage.',
+    body: 'Mortgage & Loan Prep includes certified FICO work aimed at a stronger personal file.',
+    intent: 'quiet dining room before open, morning light',
+  },
+  {
+    industry: 'Construction',
+    product: 'Credit Repair & Loan Prep',
+    title: 'Vendor tradelines and PAYDEX before applying.',
+    body: 'Credit Ready Business focuses on repair, vendor tradelines and PAYDEX score growth.',
+    intent: 'jobsite materials staged, daylight, empty of people',
   },
 ] as const;
 

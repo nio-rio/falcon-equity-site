@@ -6,7 +6,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
-import { SITE } from '@/data/site';
+import { SITE, STATS } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import dwight from '@/assets/images/dwight-holly.webp';
 
@@ -22,6 +22,8 @@ const founderSchema = {
   jobTitle: SITE.founder.title,
   worksFor: { '@id': `${SITE.url}/#organization` },
 };
+
+const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.value));
 ---
 
 <BaseLayout
@@ -29,47 +31,29 @@ const founderSchema = {
   description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the teams behind each file."
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
-  <PageHero
-    title="About"
-    lead="11 Broadway, Lower Manhattan. 15 years. $100M+ deployed. 300+ businesses funded."
-  />
+  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
 
-  <section class="section bg-white" aria-labelledby="story-heading">
-    <div class="container-site grid gap-16 lg:grid-cols-12 lg:items-center">
-      <div class="lg:col-span-6">
-        <SectionHeading id="story-heading" eyebrow="The firm" title="From Lower Manhattan." />
-        <div class="mt-6 space-y-5 text-ink-soft">
-          <p>
-            For 15 years Falcon has funded businesses from 11 Broadway. More than $100M deployed. 300+ businesses helped.
+  <section class="section bg-white" aria-labelledby="purpose-quote">
+    <div class="container-site max-w-4xl">
+      <figure>
+        <blockquote>
+          <p id="purpose-quote" class="founder-quote">
+            <!-- Dwight to write and approve -->
+            “[Founder statement to come.]”
           </p>
-          <p>
-            Named for the peregrine falcon: see the file clearly, decide, follow through. A specialist stays with the
-            relationship after funds land.
-          </p>
-        </div>
-      </div>
-      <div class="lg:col-span-6">
-        <ImageSlot intent="11 Broadway entrance, Lower Manhattan, daylight" ratio="4 / 3" />
-      </div>
-    </div>
-    <div class="container-site mt-16">
-      <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          VALUES.map((v) => (
-            <li>
-              <h3>{v.name}</h3>
-              <p class="mt-2 text-ink-soft">{v.body}</p>
-            </li>
-          ))
-        }
-      </ul>
+        </blockquote>
+        <figcaption class="mt-8 text-ink-soft">
+          {SITE.founder.name}, {SITE.founder.title}
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="section bg-tint" aria-labelledby="founder-heading">
+  <section class="section bg-white" aria-labelledby="leadership-heading">
     <div class="container-site">
-      <SectionHeading id="founder-heading" eyebrow="Leadership" title="Dwight Holly, Founder and CFO." />
-      <article class="mt-12 grid gap-10 md:grid-cols-12 md:items-center">
+      <SectionHeading id="leadership-heading" eyebrow="Leadership" title={SITE.founder.name} />
+      <p class="mt-3 text-ink-soft">{SITE.founder.title}</p>
+      <article class="mt-12 grid gap-10 md:grid-cols-12 md:items-start">
         <div class="md:col-span-4">
           <Image
             src={dwight}
@@ -81,23 +65,25 @@ const founderSchema = {
           />
         </div>
         <div class="md:col-span-8 md:pl-4">
-          <div class="space-y-4 text-ink-soft">
-            <p>
-              Dwight Holly founded Falcon to give owners what traditional lenders often do not: speed, clarity and someone who
-              understands how businesses run.
-            </p>
-            <p>
-              Under his leadership the firm has 15 years in business funding and has deployed more than $100M, from working capital to consolidation.
-            </p>
-          </div>
+          <p class="text-ink-soft">{SITE.founder.bio}</p>
+          <ul class="mt-10 grid gap-8 sm:grid-cols-3">
+            {
+              founderStats.map((s) => (
+                <li>
+                  <p class="font-display text-4xl font-light text-ink">{s.value}</p>
+                  <p class="mt-2 text-sm text-muted">{s.label}</p>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="section bg-white" aria-labelledby="team-heading">
+  <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
-      <SectionHeading id="team-heading" eyebrow="The team" title="People on the file." />
+      <SectionHeading id="people-heading" eyebrow="People" title="The people of Falcon." />
       <ul class="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {
           TEAM_ROLES.map((title) => (
@@ -114,5 +100,30 @@ const founderSchema = {
     </div>
   </section>
 
+  <section class="section bg-white" aria-labelledby="values-heading">
+    <div class="container-site">
+      <SectionHeading id="values-heading" title="Our values" />
+      <ul class="mt-12 grid gap-10 sm:grid-cols-2">
+        {
+          VALUES.map((v) => (
+            <li>
+              <h3>{v.name}</h3>
+              <p class="mt-3 text-ink-soft">{v.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
   <CtaBand />
 </BaseLayout>
+
+<style>
+  .founder-quote {
+    font-weight: 300;
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem);
+    line-height: 1.15;
+    color: var(--color-ink);
+  }
+</style>

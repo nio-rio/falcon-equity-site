@@ -25,12 +25,8 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
     <div class="container-site max-w-4xl">
       <h2 id="general-faq-heading">General</h2>
       <div class="mt-8"><FaqList faqs={FAQS} /></div>
-    </div>
-  </section>
 
-  <section class="section bg-tint" aria-labelledby="product-faq-heading">
-    <div class="container-site max-w-4xl">
-      <h2 id="product-faq-heading">By product</h2>
+      <h2 id="product-faq-heading" class="mt-16">By product</h2>
       <div class="mt-8 space-y-12">
         {
           productFaqs.map(({ service, faqs }) => (
