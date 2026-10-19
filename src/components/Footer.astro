@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import ContactLine from './ContactLine.astro';
+import Eyebrow from './Eyebrow.astro';
 import { SERVICES } from '@/data/services';
 import { COMPANY_LINKS, LEGAL_LINKS, RESOURCE_LINKS, SITE } from '@/data/site';
 
@@ -10,66 +11,70 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
 
 <footer class="site-footer bg-ink text-white/70" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Site footer</h2>
-  <div class="container-site grid gap-12 py-16 lg:grid-cols-12">
-    <div class="lg:col-span-4">
-      <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-[1.8rem] w-auto" /></a>
-      <p class="mt-5 max-w-sm text-sm leading-relaxed">
-        Business funding from New York City. Seven products, from working capital to consolidation.
-      </p>
-      <address class="mt-6 flex flex-col space-y-3 text-sm not-italic">
-        <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="hover:text-white">
-          {SITE.email}
-        </ContactLine>
-        {
-          phones.map((p) => (
-            <ContactLine icon="phone" href={p.href} class="hover:text-white">
-              {p.label}: {p.display}
-            </ContactLine>
-          ))
-        }
-        <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="hover:text-white" external>
-          {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
-          <span class="sr-only"> (opens Google Maps in a new tab)</span>
-        </ContactLine>
-      </address>
-      <a
-        href={SITE.social.x}
-        class="mt-6 inline-block text-sm text-white hover:text-white/80"
-        rel="noopener me"
-        target="_blank"
-      >
-        Follow {SITE.social.xHandle}<span class="sr-only"> on X (opens in a new tab)</span>
-      </a>
-    </div>
+  <div class="container-site py-16">
+    <div class="bx-grid">
+      <div class="bx-span-4 lg:bx-span-4">
+        <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-[1.8rem] w-auto" /></a>
+        <p class="mt-5 max-w-sm text-sm leading-relaxed">
+          Business funding from New York City. Seven products, from working capital to consolidation.
+        </p>
+        <address class="mt-6 flex flex-col space-y-3 text-sm not-italic">
+          <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="hover:text-white">
+            {SITE.email}
+          </ContactLine>
+          {
+            phones.map((p) => (
+              <ContactLine icon="phone" href={p.href} class="hover:text-white">
+                {p.label}: {p.display}
+              </ContactLine>
+            ))
+          }
+          <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="hover:text-white" external>
+            {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+            <span class="sr-only"> (opens Google Maps in a new tab)</span>
+          </ContactLine>
+        </address>
+        <a
+          href={SITE.social.x}
+          class="mt-6 inline-block text-sm text-white hover:text-white/80"
+          rel="noopener me"
+          target="_blank"
+        >
+          Follow {SITE.social.xHandle}<span class="sr-only"> on X (opens in a new tab)</span>
+        </a>
+      </div>
 
-    <nav class="grid gap-10 sm:grid-cols-3 lg:col-span-8" aria-label="Footer">
-      <div>
-        <h3 class="eyebrow text-white/50">Funding options</h3>
-        <ul class="mt-4 space-y-2.5 text-sm">
-          {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
-          <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="eyebrow text-white/50">Resources</h3>
-        <ul class="mt-4 space-y-2.5 text-sm">
-          {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
-          <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="eyebrow text-white/50">Company</h3>
-        <ul class="mt-4 space-y-2.5 text-sm">
-          {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
-        </ul>
-      </div>
-    </nav>
+      <nav class="bx-span-4 lg:bx-span-7 lg:bx-start-6" aria-label="Footer">
+        <div class="bx-grid">
+          <div class="bx-span-4 md:bx-span-2 lg:bx-span-4">
+            <Eyebrow class="text-white/50">Funding options</Eyebrow>
+            <ul class="mt-4 space-y-2.5 text-sm">
+              {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
+              <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
+            </ul>
+          </div>
+          <div class="bx-span-4 md:bx-span-3 lg:bx-span-4">
+            <Eyebrow class="text-white/50">Resources</Eyebrow>
+            <ul class="mt-4 space-y-2.5 text-sm">
+              {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+              <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
+            </ul>
+          </div>
+          <div class="bx-span-4 md:bx-span-3 lg:bx-span-4">
+            <Eyebrow class="text-white/50">Company</Eyebrow>
+            <ul class="mt-4 space-y-2.5 text-sm">
+              {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
   </div>
 
   <div class="container-site py-8 text-xs">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p>© {year} {SITE.name}. All rights reserved.</p>
-      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+    <div class="bx-grid items-center">
+      <p class="bx-span-4 lg:bx-span-6">© {year} {SITE.name}. All rights reserved.</p>
+      <ul class="bx-span-4 lg:bx-span-6 flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
         {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
       </ul>
     </div>

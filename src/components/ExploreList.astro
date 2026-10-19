@@ -1,6 +1,6 @@
 ---
 import CircleArrow from './CircleArrow.astro';
-import SectionHeading from './SectionHeading.astro';
+import Eyebrow from './Eyebrow.astro';
 
 export type ExploreItem = {
   href: string;
@@ -29,20 +29,27 @@ const {
   items.length > 0 && (
     <section class:list={['section bg-white', className]} aria-labelledby={headingId}>
       <div class="container-site">
-        <SectionHeading id={headingId} eyebrow={eyebrow} title={heading} />
-        <ul class="explore-list mt-12">
-          {items.map((item) => (
-            <li>
-              <a class="explore-row" href={item.href}>
-                <span class="explore-row-copy">
-                  <span class="explore-row-title">{item.title}</span>
-                  {item.meta && <span class="explore-row-meta">{item.meta}</span>}
-                </span>
-                <CircleArrow />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div class="bx-grid">
+          <div class="bx-span-4 lg:bx-span-6">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h2 id={headingId} class="mt-4">
+              {heading}
+            </h2>
+          </div>
+          <ul class="explore-list bx-span-4 lg:bx-span-12">
+            {items.map((item) => (
+              <li>
+                <a class="explore-row" href={item.href}>
+                  <span class="explore-row-copy">
+                    <span class="explore-row-title">{item.title}</span>
+                    {item.meta && <span class="explore-row-meta">{item.meta}</span>}
+                  </span>
+                  <CircleArrow />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

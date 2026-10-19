@@ -1,0 +1,41 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+export type PrincipleItem = {
+  title: string;
+  body?: string;
+};
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  items: readonly PrincipleItem[];
+}
+
+const { id = 'principles-heading', eyebrow, title, items } = Astro.props;
+const col = items.length > 3 ? 'lg:bx-span-3' : 'lg:bx-span-4';
+---
+
+{
+  items.length > 0 && (
+    <section class="section bg-white" aria-labelledby={id}>
+      <div class="container-site">
+        <div class="bx-grid">
+          <div class="bx-span-4 lg:bx-span-10">
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            <h2 id={id} class:list={['principles-statement', eyebrow && 'mt-4']}>
+              {title}
+            </h2>
+          </div>
+          {items.map((item) => (
+            <div class:list={['bx-span-4', col]}>
+              <h3>{item.title}</h3>
+              {item.body && <p class="section-lead mt-3">{item.body}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

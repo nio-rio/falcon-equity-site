@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import QuoteSplit from '@/components/QuoteSplit.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Principles from '@/components/Principles.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -23,6 +24,8 @@ const founderSchema = {
   jobTitle: SITE.founder.title,
   worksFor: { '@id': `${SITE.url}/#organization` },
 };
+
+const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
 ---
 
 <BaseLayout
@@ -31,7 +34,7 @@ const founderSchema = {
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
   <PageHero title="About" lead="We’re more than a funding provider. We’re your partner.">
-    <div class="mt-12 md:mt-16">
+    <div class="page-hero-media">
       <QuoteSplit
         quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
         name={SITE.founder.name}
@@ -45,45 +48,38 @@ const founderSchema = {
 
   <section class="section bg-white" aria-labelledby="people-cta-heading">
     <div class="container-site">
-      <h2 id="people-cta-heading" class="sr-only">Our people</h2>
-      <ArrowCta href="#people-heading" label="Learn more about our people" />
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-6">
+          <h2 id="people-cta-heading" class="sr-only">Our people</h2>
+          <ArrowCta href="#people-heading" label="Learn more about our people" />
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
-      <SectionHeading id="people-heading" eyebrow="Our people" title="The people of Falcon." />
-      <ul class="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-6">
+          <Eyebrow>Our people</Eyebrow>
+          <h2 id="people-heading" class="mt-4">The people of Falcon.</h2>
+        </div>
         {
           TEAM_ROLES.map((title) => (
-            <li>
+            <div class="bx-span-2 md:bx-span-2 lg:bx-span-3">
               <ImageSlot intent="staff headshot, even studio light" ratio="3 / 4" />
               <p class="mt-4 min-h-[1.5em] font-medium text-ink">
                 <Fragment set:html="<!-- real staff name -->" />
               </p>
               <p class="mt-1 text-sm text-muted">{title}</p>
-            </li>
+            </div>
           ))
         }
-      </ul>
+      </div>
     </div>
   </section>
 
-  <section class="section bg-white" aria-labelledby="values-heading">
-    <div class="container-site">
-      <SectionHeading id="values-heading" eyebrow="Values" title="Our values" />
-      <ul class="mt-12 grid gap-10 sm:grid-cols-2">
-        {
-          VALUES.map((v) => (
-            <li>
-              <h3>{v.name}</h3>
-              <p class="mt-3 text-ink-soft">{v.body}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  <Principles id="values-heading" eyebrow="Values" title="Our values" items={values} />
 
   <CtaBand />
 </BaseLayout>

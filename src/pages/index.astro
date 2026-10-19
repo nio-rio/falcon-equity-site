@@ -2,13 +2,12 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatsBar from '@/components/StatsBar.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
-import ServiceCard from '@/components/ServiceCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Testimonials from '@/components/Testimonials.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
 import { getHomeServices, STANDARD_STEPS } from '@/data/services';
-import { PRIMARY_PHONE } from '@/data/site';
-import Icon from '@/components/Icon.astro';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
 
 const homeServices = getHomeServices();
@@ -16,32 +15,29 @@ const homeServices = getHomeServices();
 
 <BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
   <section class="home-hero on-dark" aria-labelledby="hero-heading">
-    <div class="home-hero-media">
-      <Image
-        src={heroFalcon}
-        alt="A peregrine falcon launching from a branch with its wings spread wide"
-        widths={[640, 960, 1280, 1920, 2400]}
-        sizes="100vw"
-        class="absolute inset-0 h-full w-full object-cover object-[60%_30%]"
-        priority
-      />
-      <div
-        class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.6),rgba(0,0,0,0.2))]"
-        aria-hidden="true"
-      ></div>
-    </div>
-    <div class="home-hero-copy">
-      <div class="container-site">
-        <h1 id="hero-heading">Fuel success with fast funding</h1>
-        <p class="lead">
-          We move at your pace. One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
-        </p>
-        <div class="mt-6">
-          <a href="/apply" class="btn-on-dark">Apply to get same-day funding</a>
-          <a href={PRIMARY_PHONE.href} class="ml-5 inline-flex items-center gap-2 text-base text-white/90 underline-offset-4 hover:underline">
-            <Icon name="phone" size={16} />
-            {PRIMARY_PHONE.display}
-          </a>
+    <div class="container-site">
+      <div class="bx-grid home-hero-top">
+        <h1 id="hero-heading" class="bx-span-4 lg:bx-span-7">
+          Fuel success
+          <span class="home-hero-line2">with fast funding</span>
+        </h1>
+        <p class="home-hero-aside bx-span-4 lg:bx-span-4 lg:bx-start-9">We move at your pace.</p>
+      </div>
+      <div class="home-hero-media bx-full">
+        <Image
+          src={heroFalcon}
+          alt="A peregrine falcon launching from a branch with its wings spread wide"
+          widths={[640, 960, 1280, 1920, 2400]}
+          sizes="100vw"
+          class="h-full w-full object-cover object-[60%_30%]"
+          priority
+        />
+      </div>
+      <div class="bx-grid home-hero-below">
+        <h2 class="bx-span-4 lg:bx-span-6">Apply to get same-day funding</h2>
+        <div class="home-hero-below-copy bx-span-4 lg:bx-span-5 lg:bx-start-8">
+          <p>One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.</p>
+          <ArrowCta href="/apply" label="Learn more" tone="light" />
         </div>
       </div>
     </div>
@@ -51,16 +47,30 @@ const homeServices = getHomeServices();
 
   <section class="section bg-tint" aria-labelledby="services-heading" id="services">
     <div class="container-site">
-      <SectionHeading id="services-heading" eyebrow="Services" title="How we can bring you victory." />
-      <ul class="bento-grid">
-        {
-          homeServices.map((s) => (
-            <li class={`bento-cell bento-cell--${s.area}`}>
-              <ServiceCard href={s.href} name={s.name} teaser={s.teaser} rangeLine={s.rangeLine} image={s.image} featured={s.featured} />
-            </li>
-          ))
-        }
-      </ul>
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-5">
+          <Eyebrow>Services</Eyebrow>
+          <h2 id="services-heading" class="mt-4">How we can bring you victory.</h2>
+        </div>
+        <ul class="explore-list bx-span-4 lg:bx-span-6 lg:bx-start-7">
+          {
+            homeServices.map((s) => (
+              <li>
+                <a class="explore-row" href={s.href}>
+                  <span class="explore-row-copy">
+                    <span class="explore-row-title">{s.name}</span>
+                    <span class="explore-row-meta">{s.rangeLine}</span>
+                  </span>
+                  <CircleArrow />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="bx-span-4 lg:bx-span-4 lg:bx-start-2">
+          <ArrowCta href="/services" label="Learn more" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -68,18 +78,21 @@ const homeServices = getHomeServices();
 
   <section class="section bg-tint" aria-labelledby="process-heading">
     <div class="container-site">
-      <SectionHeading id="process-heading" eyebrow="Process" title="How you get approved." />
-      <ol class="process-grid">
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-6">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading" class="mt-4">How you get approved.</h2>
+        </div>
         {
           STANDARD_STEPS.map((step, i) => (
-            <li class="process-card">
+            <div class="bx-span-4 lg:bx-span-4">
               <p class="process-num">{String(i + 1).padStart(2, '0')}</p>
               <h3 class="mt-4">{step.title}</h3>
               <p class="mt-3 text-ink-soft">{step.body}</p>
-            </li>
+            </div>
           ))
         }
-      </ol>
+      </div>
     </div>
   </section>
 
@@ -87,88 +100,6 @@ const homeServices = getHomeServices();
 </BaseLayout>
 
 <style>
-  .bento-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    list-style: none;
-    margin: 3rem 0 0;
-    padding: 0;
-  }
-
-  .bento-cell {
-    display: flex;
-    min-width: 0;
-  }
-
-  .bento-cell :global(.bento-card) {
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    .bento-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .bento-cell--f1,
-    .bento-cell--f2 {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .bento-grid {
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-areas:
-        'f1 f1 a'
-        'b c d'
-        'e f2 f2';
-    }
-
-    .bento-cell--f1 {
-      grid-area: f1;
-    }
-    .bento-cell--a {
-      grid-area: a;
-    }
-    .bento-cell--b {
-      grid-area: b;
-    }
-    .bento-cell--c {
-      grid-area: c;
-    }
-    .bento-cell--d {
-      grid-area: d;
-    }
-    .bento-cell--e {
-      grid-area: e;
-    }
-    .bento-cell--f2 {
-      grid-area: f2;
-    }
-  }
-
-  .process-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    list-style: none;
-    margin-top: 3rem;
-    padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    .process-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .process-card {
-    background: #fff;
-    padding: 2rem;
-  }
-
   .process-num {
     font-family: var(--font-display);
     font-size: 1.5rem;
@@ -177,4 +108,3 @@ const homeServices = getHomeServices();
     color: var(--color-muted);
   }
 </style>
-

@@ -139,31 +139,7 @@
   .container-site {
     margin-inline: auto;
     width: 100%;
-    max-width: 1440px;
     min-width: 0;
-    padding-inline: 16px;
-  }
-
-  @media (min-width: 768px) {
-    .container-site {
-      padding-inline: 32px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container-site {
-      padding-inline: 40px;
-    }
-  }
-
-  .section {
-    padding-block: 64px;
-  }
-
-  @media (min-width: 768px) {
-    .section {
-      padding-block: 80px;
-    }
   }
 
   .eyebrow {
@@ -288,68 +264,6 @@
     --tw-prose-td-borders: transparent;
   }
 
-  /* Home masthead — measured from goldmansachs.com */
-  .home-hero {
-    position: relative;
-    background: #0a0a0a;
-    color: #fff;
-  }
-
-  .home-hero-media {
-    position: relative;
-    height: 16rem;
-    overflow: hidden;
-  }
-
-  .home-hero-copy {
-    padding: 32px 0 40px;
-  }
-
-  .home-hero h1 {
-    font-weight: 300;
-    color: #fff;
-    max-width: 18ch;
-  }
-
-  .home-hero .lead {
-    margin-top: 16px;
-    max-width: 36rem;
-    font-size: 16px;
-    line-height: 24px;
-    color: #fff;
-  }
-
-  @media (min-width: 768px) {
-    .home-hero-media {
-      height: 500px;
-    }
-
-    .home-hero-copy {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      padding: 0;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .home-hero-media {
-      height: 576px;
-    }
-
-    .home-hero .lead {
-      font-size: 16px;
-      line-height: 24px;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .home-hero-media {
-      height: calc(100svh - 4.25rem);
-      min-height: 36rem;
-    }
-  }
 }
 
 .afterabsolute{

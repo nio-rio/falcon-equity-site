@@ -1,17 +1,20 @@
 ---
+import Eyebrow from './Eyebrow.astro';
+
 interface Props {
   id?: string;
   eyebrow?: string;
   title: string;
   lead?: string;
   align?: 'left' | 'center';
+  class?: string;
 }
 
-const { id, eyebrow, title, lead, align = 'left' } = Astro.props;
+const { id, eyebrow, title, lead, align = 'left', class: className } = Astro.props;
 ---
 
-<div class:list={['max-w-3xl', align === 'center' && 'mx-auto text-center']}>
-  {eyebrow && <p class:list={['eyebrow', align === 'center' && 'mx-auto']}>{eyebrow}</p>}
-  <h2 id={id} class:list={[eyebrow && 'mt-3']}>{title}</h2>
-  {lead && <p class="mt-4 text-ink-soft">{lead}</p>}
+<div class:list={[align === 'center' && 'text-center', className]}>
+  {eyebrow && <Eyebrow align={align}>{eyebrow}</Eyebrow>}
+  <h2 id={id} class:list={[eyebrow && 'mt-4']}>{title}</h2>
+  {lead && <p class:list={['section-lead', 'mt-5']}>{lead}</p>}
 </div>

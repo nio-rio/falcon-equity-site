@@ -20,10 +20,14 @@ const crumbs = [
 <BaseLayout title={title} description={description} schema={[breadcrumbSchema(crumbs)]}>
   <PageHero title={title} lead={lastUpdated && `Last updated: ${lastUpdated}`} />
   <section class="bg-white py-16 sm:py-20">
-    <div
-      class="container-site prose prose-lg max-w-3xl prose-headings:font-display prose-headings:text-ink prose-a:text-inherit prose-strong:text-ink"
-    >
-      <slot />
+    <div class="container-site">
+      <div class="bx-grid">
+        <div
+          class="bx-span-4 lg:bx-span-8 lg:bx-start-3 prose prose-lg max-w-none prose-headings:font-display prose-headings:text-ink prose-a:text-inherit prose-strong:text-ink"
+        >
+          <slot />
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

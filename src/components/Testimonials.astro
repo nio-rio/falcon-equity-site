@@ -1,15 +1,18 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import Eyebrow from './Eyebrow.astro';
 import { TESTIMONIALS } from '@/data/content';
 ---
 
 <section class="section bg-white" aria-labelledby="testimonials-heading">
   <div class="container-site">
-    <SectionHeading id="testimonials-heading" eyebrow="Testimonials" title="When our customers succeed, so do we." />
-    <ul class="mt-12 grid gap-10 lg:grid-cols-3">
+    <div class="bx-grid">
+      <div class="bx-span-4 lg:bx-span-6">
+        <Eyebrow>Testimonials</Eyebrow>
+        <h2 id="testimonials-heading" class="mt-4">When our customers succeed, so do we.</h2>
+      </div>
       {
         TESTIMONIALS.map((t) => (
-          <li>
+          <div class="bx-span-4 lg:bx-span-4">
             <blockquote>
               <p class="font-display text-[1.375rem] font-light leading-snug text-ink">{t.quote}</p>
             </blockquote>
@@ -18,9 +21,9 @@ import { TESTIMONIALS } from '@/data/content';
             <p class="mt-1 text-sm text-muted">{t.owner}</p>
             <p class="mt-1 text-sm text-muted">{t.industry}</p>
             <p class="mt-1 text-sm text-muted">Product: {t.product}</p>
-          </li>
+          </div>
         ))
       }
-    </ul>
+    </div>
   </div>
 </section>

@@ -22,7 +22,9 @@ const crumbs = [
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero title="Blog" lead="Short guides on getting approved, comparing options, costs, and cash flow.">
-    <BlogIndex posts={posts} categories={categories} filterable />
+    <div class="page-hero-media">
+      <BlogIndex posts={posts} categories={categories} filterable />
+    </div>
   </PageHero>
   <InsightsCta
     eyebrow="Apply for funding"

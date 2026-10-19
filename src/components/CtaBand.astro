@@ -14,15 +14,17 @@ const {
 } = Astro.props;
 ---
 
-<section class="bg-cta py-16 md:py-20 text-ink" aria-labelledby="cta-heading">
-  <div class="container-site flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
-    <div class="max-w-2xl">
-      <h2 id="cta-heading">{title}</h2>
-      <p class="mt-4 text-ink">{body}</p>
-    </div>
-    <div class="flex flex-col gap-3 sm:flex-row">
-      <a href="/apply" class="btn-primary">{ctaLabel}</a>
-      <a href={PRIMARY_PHONE.href} class="btn-outline-dark">{PRIMARY_PHONE.display}</a>
+<section class="bg-cta text-ink" aria-labelledby="cta-heading">
+  <div class="container-site section">
+    <div class="bx-grid items-end">
+      <div class="bx-span-4 lg:bx-span-6">
+        <h2 id="cta-heading">{title}</h2>
+        <p class="mt-5 text-ink">{body}</p>
+      </div>
+      <div class="cta-band-actions bx-span-4 lg:bx-span-5 lg:bx-start-8">
+        <a href="/apply" class="btn-primary">{ctaLabel}</a>
+        <a href={PRIMARY_PHONE.href} class="btn-outline-dark">{PRIMARY_PHONE.display}</a>
+      </div>
     </div>
   </div>
 </section>

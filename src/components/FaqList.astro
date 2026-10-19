@@ -1,10 +1,14 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   faqs: readonly { q: string; a: string }[];
   headingLevel?: 'h3' | 'h2';
+  idPrefix?: string;
 }
 
-const { faqs } = Astro.props;
+const { faqs, headingLevel = 'h3', idPrefix = 'faq' } = Astro.props;
+const Heading = headingLevel;
 
 const escapeHtml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -16,27 +20,45 @@ const answerHtml = (text: string) =>
   );
 ---
 
-<div class="faq-list">
+<div class="bx-accordion" data-accordion>
   {
-    faqs.map((f) => (
-      <details class="group [&_summary::-webkit-details-marker]:hidden">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-left text-lg font-semibold text-ink">
-          <span>{f.q}</span>
-          <span class="shrink-0 text-muted transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-        </summary>
-        <p class="mt-3 max-w-3xl leading-relaxed text-muted" set:html={answerHtml(f.a)} />
-      </details>
+    faqs.map((f, i) => (
+      <div class="bx-acc-item">
+        <Heading>
+          <button
+            type="button"
+            class="bx-acc-trigger"
+            aria-expanded="false"
+            aria-controls={`${idPrefix}-panel-${i}`}
+            id={`${idPrefix}-trigger-${i}`}
+            data-acc-trigger
+          >
+            <span>{f.q}</span>
+            <span class="bx-acc-icon" aria-hidden="true">
+              <Icon name="chevron-down" size={16} />
+            </span>
+          </button>
+        </Heading>
+        <div class="bx-acc-panel" id={`${idPrefix}-panel-${i}`} role="region" aria-labelledby={`${idPrefix}-trigger-${i}`}>
+          <div class="bx-acc-panel-inner">
+            <p set:html={answerHtml(f.a)} />
+          </div>
+        </div>
+      </div>
     ))
   }
 </div>
 
-<style>
-  .faq-list details {
-    border-bottom: 1px solid var(--color-line);
-    padding-block: 1.25rem;
-  }
-
-  .faq-list details:first-child {
-    border-top: 1px solid var(--color-line);
-  }
-</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-accordion]').forEach((root) => {
+    root.querySelectorAll<HTMLButtonElement>('[data-acc-trigger]').forEach((btn) => {
+      const item = btn.closest('.bx-acc-item');
+      if (!item) return;
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(open));
+        item.classList.toggle('is-open', open);
+      });
+    });
+  });
+</script>

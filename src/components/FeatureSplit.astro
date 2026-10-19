@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ImageSlot from './ImageSlot.astro';
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  intent?: string;
+  reverse?: boolean;
+}
+
+const {
+  id = 'feature-heading',
+  eyebrow,
+  title,
+  image,
+  imageAlt = '',
+  intent = 'workspace table and documents, even daylight, empty of people',
+  reverse = false,
+} = Astro.props;
+---
+
+<section class="section bg-white" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid items-center">
+      <div class:list={['bx-span-4 lg:bx-span-6', reverse && 'lg:bx-start-7']}>
+        {
+          image ? (
+            <Image
+              src={image}
+              alt={imageAlt}
+              widths={[720, 1100, 1600]}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              class="aspect-[16/9] w-full object-cover"
+            />
+          ) : (
+            <ImageSlot labeled intent={intent} ratio="16 / 9" />
+          )
+        }
+      </div>
+      <div class:list={['bx-span-4 lg:bx-span-5', !reverse && 'lg:bx-start-8']}>
+        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+        <h2 id={id} class:list={[eyebrow && 'mt-4']}>{title}</h2>
+        <div class="mt-5">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

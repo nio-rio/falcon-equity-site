@@ -1,5 +1,5 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import Eyebrow from './Eyebrow.astro';
 import ImageSlot from './ImageSlot.astro';
 
 export type UseCase = {
@@ -19,29 +19,32 @@ const { headingId = 'use-cases-heading', cases } = Astro.props;
 const shown = cases.slice(0, 3);
 ---
 
-<section class="section bg-white" aria-labelledby={headingId}>
-  <div class="container-site">
-    <SectionHeading
-      id={headingId}
-      eyebrow="Use cases"
-      title="Situations owners bring to Falcon."
-      lead="Generic situations. Not real clients or results."
-    />
-    <ul class="mt-12 grid gap-10 md:grid-cols-3">
-      {
-        shown.map((s) => (
-          <li>
-            <div class="media-zoom">
-              <ImageSlot intent={s.intent} ratio="16 / 9" />
+{
+  shown.length > 0 && (
+    <section class="section bg-white" aria-labelledby={headingId}>
+      <div class="container-site">
+        <div class="bx-grid">
+          <div class="bx-span-4 lg:bx-span-6">
+            <Eyebrow>Use cases</Eyebrow>
+            <h2 id={headingId} class="mt-4">
+              Situations owners bring to Falcon.
+            </h2>
+            <p class="section-lead mt-5">Generic situations. Not real clients or results.</p>
+          </div>
+          {shown.map((s) => (
+            <div class="bx-span-4 lg:bx-span-4">
+              <div class="media-zoom">
+                <ImageSlot intent={s.intent} ratio="16 / 9" />
+              </div>
+              <h3 class="mt-6">{s.title}</h3>
+              <p class="mt-3 text-ink-soft">{s.body}</p>
+              <p class="mt-4 text-sm text-muted">
+                {s.industry} · <span class="text-ink">{s.product}</span>
+              </p>
             </div>
-            <h3 class="mt-6">{s.title}</h3>
-            <p class="mt-3 text-ink-soft">{s.body}</p>
-            <p class="mt-4 text-sm text-muted">
-              {s.industry} · <span class="text-ink">{s.product}</span>
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</section>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

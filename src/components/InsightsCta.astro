@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import ArrowCta from './ArrowCta.astro';
+import Eyebrow from './Eyebrow.astro';
 import ImageSlot from './ImageSlot.astro';
 
 interface Props {
@@ -26,26 +27,28 @@ const {
 ---
 
 <section class="insights-cta on-dark" id="insights-cta" aria-labelledby="insights-cta-heading">
-  <div class="container-site insights-cta-grid">
-    <div class="insights-cta-copy">
-      <p class="eyebrow eyebrow--line text-white/70">{eyebrow}</p>
-      <h2 id="insights-cta-heading">{title}</h2>
-      <ArrowCta href={href} label={ctaLabel} tone="light" />
-    </div>
-    <div class="insights-cta-media">
-      {
-        image ? (
-          <Image
-            src={image}
-            alt={imageAlt ?? ''}
-            widths={[720, 1100]}
-            sizes="(min-width: 900px) 42vw, 100vw"
-            class="h-full w-full object-cover"
-          />
-        ) : (
-          <ImageSlot labeled intent={intent} ratio="3 / 4" />
-        )
-      }
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="insights-cta-copy bx-span-4 lg:bx-span-6">
+        <Eyebrow class="text-white/70">{eyebrow}</Eyebrow>
+        <h2 id="insights-cta-heading">{title}</h2>
+        <ArrowCta href={href} label={ctaLabel} tone="light" />
+      </div>
+      <div class="insights-cta-media bx-span-4 lg:bx-span-6">
+        {
+          image ? (
+            <Image
+              src={image}
+              alt={imageAlt ?? ''}
+              widths={[720, 1100]}
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              class="h-full w-full object-cover"
+            />
+          ) : (
+            <ImageSlot labeled intent={intent} ratio="3 / 4" />
+          )
+        }
+      </div>
     </div>
   </div>
 </section>

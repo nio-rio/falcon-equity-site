@@ -4,14 +4,12 @@ import { STATS } from '@/data/site';
 
 <section aria-label="Falcon Equity Group by the numbers" class="bg-tint">
   <div class="container-site py-12 md:py-16">
-    <dl class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+    <dl class="bx-grid">
       {
         STATS.map((s) => (
-          <div>
-            <dd class="font-display text-[32px] leading-8 font-light tracking-normal text-ink md:text-5xl md:leading-none">
-              {s.value}
-            </dd>
-            <dt class="mt-2 text-sm text-muted">{s.label}</dt>
+          <div class="stat-cell bx-span-2 lg:bx-span-2">
+            <dd>{s.value}</dd>
+            <dt>{s.label}</dt>
           </div>
         ))
       }

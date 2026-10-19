@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
 import StepTimeline from '@/components/StepTimeline.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
 import { CREDIT_PREP_USE_CASES } from '@/data/content';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -67,20 +67,21 @@ const steps = [
     programs.map((p, gi) => (
       <section class="section bg-white" aria-labelledby={`program-${gi}`}>
         <div class="container-site">
-          <SectionHeading
-            id={`program-${gi}`}
-            eyebrow={p.group.startsWith('Business') ? 'Business' : 'Personal'}
-            title={p.group}
-            lead={p.lead}
-          />
-          <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div class="bx-grid">
+            <div class="bx-span-4 lg:bx-span-12">
+              <Eyebrow>{p.group.startsWith('Business') ? 'Business' : 'Personal'}</Eyebrow>
+              <h2 id={`program-${gi}`} class="mt-4">
+                {p.group}
+              </h2>
+              <p class="section-lead mt-5">{p.lead}</p>
+            </div>
             {p.items.map((item) => (
-              <li class="tile-card">
+              <div class="tile-card bx-span-4 lg:bx-span-4">
                 <h3>{item.name}</h3>
                 <p class="mt-3 text-ink-soft">{item.body}</p>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
     ))
@@ -88,22 +89,34 @@ const steps = [
 
   <section class="section bg-white" aria-labelledby="why-program-heading">
     <div class="container-site">
-      <SectionHeading id="why-program-heading" eyebrow="Why" title="Why clients choose this program" />
-      <ul class="mt-8 max-w-3xl space-y-3">
-        {
-          reasons.map((r) => (
-            <li class="text-ink-soft">{r}</li>
-          ))
-        }
-      </ul>
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-5">
+          <Eyebrow>Why</Eyebrow>
+          <h2 id="why-program-heading" class="mt-4">Why clients choose this program</h2>
+        </div>
+        <ul class="bx-span-4 lg:bx-span-6 lg:bx-start-7 space-y-3">
+          {
+            reasons.map((r) => (
+              <li class="text-ink-soft">{r}</li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </section>
 
   <section class="section bg-white" aria-labelledby="how-program-heading">
     <div class="container-site">
-      <SectionHeading id="how-program-heading" eyebrow="Process" title="How it works" align="center" />
-      <div class="mt-12">
-        <StepTimeline steps={steps} />
+      <div class="bx-grid">
+        <div class="bx-span-4 lg:bx-span-8 lg:bx-start-3 text-center">
+          <Eyebrow align="center">Process</Eyebrow>
+          <h2 id="how-program-heading" class="mt-4">How it works</h2>
+        </div>
+        <div class="bx-span-4 lg:bx-span-8 lg:bx-start-3">
+          <div class="mt-8">
+            <StepTimeline steps={steps} />
+          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -44,10 +44,14 @@ const thin = posts.length < 2;
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero title={category}>
-    <div class="category-intro mt-6 max-w-3xl space-y-4 text-ink-soft">
-      <BlogCategoryIntro category={category} />
+    <div class="category-intro page-hero-media bx-grid">
+      <div class="category-intro-copy bx-span-4 lg:bx-span-8 lg:bx-start-2 space-y-4 text-ink-soft">
+        <BlogCategoryIntro category={category} />
+      </div>
     </div>
-    <BlogIndex posts={posts} categories={categories} activeCategory={category} />
+    <div class="page-hero-media">
+      <BlogIndex posts={posts} categories={categories} activeCategory={category} />
+    </div>
   </PageHero>
   <InsightsCta
     eyebrow="Apply for funding"
