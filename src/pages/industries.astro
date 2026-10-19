@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
 import Icon from '@/components/Icon.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { INDUSTRIES } from '@/data/industries';
@@ -21,24 +20,19 @@ const crumbs = [
   <PageHero
     title="Industries"
     lead="We fund businesses across these twelve sectors, and others with steady revenue."
-  />
-
-  <section class="section bg-white" aria-labelledby="industries-list-heading">
-    <div class="container-site">
-      <SectionHeading id="industries-list-heading" eyebrow="Industries" title="Industries we serve" />
-      <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {
-          INDUSTRIES.map((ind) => (
-            <li class="tile-card">
-              <Icon name={ind.icon} size={28} class="text-ink" />
-              <h3 class="mt-5">{ind.name}</h3>
-              <p class="mt-3 text-ink-soft">{ind.uses.join(', ')}.</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  >
+    <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        INDUSTRIES.map((ind) => (
+          <li class="tile-card">
+            <Icon name={ind.icon} size={28} class="text-ink" />
+            <h3 class="mt-5">{ind.name}</h3>
+            <p class="mt-3 text-ink-soft">{ind.uses.join(', ')}.</p>
+          </li>
+        ))
+      }
+    </ul>
+  </PageHero>
 
   <CtaBand />
 </BaseLayout>
