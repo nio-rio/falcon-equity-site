@@ -13,7 +13,7 @@ interface Props {
 
 const { posts, categories, activeCategory, filterable = false, paginate = true } = Astro.props;
 const chipClass = 'blog-chip text-base';
-const pageSize = 9;
+const pageSize = 6;
 ---
 
 <div data-blog-index data-filterable={filterable ? '' : undefined} data-page-size={paginate ? String(pageSize) : undefined}>

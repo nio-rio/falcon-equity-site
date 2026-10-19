@@ -25,7 +25,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="insights-cta on-dark" aria-labelledby="insights-cta-heading">
+<section class="insights-cta on-dark" id="insights-cta" aria-labelledby="insights-cta-heading">
   <div class="container-site insights-cta-grid">
     <div class="insights-cta-copy">
       <p class="eyebrow eyebrow--line text-white/70">{eyebrow}</p>
@@ -43,7 +43,7 @@ const {
             class="h-full w-full object-cover"
           />
         ) : (
-          <ImageSlot labeled intent={intent} ratio="4 / 5" />
+          <ImageSlot labeled intent={intent} ratio="3 / 4" />
         )
       }
     </div>

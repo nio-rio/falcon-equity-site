@@ -1,6 +1,10 @@
 /* Blackstone / BREIT motion and chrome. Loaded after global.css.
    Do not put .afterabsolute rules here. Leave .bg-cta and .btn-outline-dark in global.css. */
 
+html {
+  scroll-padding-top: 5rem;
+}
+
 .section {
   padding-block: 5rem;
 }
@@ -151,6 +155,7 @@ a:focus-visible .link-draw,
 }
 
 .explore-row-title {
+  display: block;
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2.25rem);
   line-height: 1.15;
@@ -158,6 +163,7 @@ a:focus-visible .link-draw,
 }
 
 .explore-row-meta {
+  display: block;
   margin-top: 0.4rem;
   font-size: 0.95rem;
   color: inherit;
@@ -177,9 +183,9 @@ a:focus-visible .link-draw,
 .insights-cta-copy {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2rem;
-  padding-block: 4rem;
+  padding-block: 5.5rem;
 }
 
 .insights-cta-copy h2 {
@@ -193,11 +199,14 @@ a:focus-visible .link-draw,
 }
 
 .insights-cta-media img,
-.insights-cta-media .image-slot {
+.insights-cta-media .image-slot,
+.insights-cta-media figure {
   display: block;
   width: 100%;
   height: 100%;
+  min-height: 22rem;
   object-fit: cover;
+  aspect-ratio: auto !important;
 }
 
 @media (min-width: 900px) {
