@@ -1,0 +1,224 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Loan Calculator', path: '/resources/loan-calculator' },
+];
+
+const fields = [
+  { id: 'amount', label: 'Loan amount', min: 5000, max: 1000000, step: 5000, value: 100000, prefix: '$', suffix: '', minLabel: '$5K', maxLabel: '$1M' },
+  { id: 'term', label: 'Term', min: 3, max: 120, step: 1, value: 24, prefix: '', suffix: 'months', minLabel: '3 mo', maxLabel: '120 mo' },
+  { id: 'apr', label: 'Estimated APR', min: 5, max: 60, step: 0.5, value: 18, prefix: '', suffix: '%', minLabel: '5%', maxLabel: '60%' },
+];
+
+const calculatorSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Business Loan Calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  url: 'https://falconequity.ai/resources/loan-calculator',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Business Loan Calculator"
+  description="Estimate monthly payments, total repayment and total interest for a business loan. Free amortization calculator from Falcon Equity Group."
+  schema={[breadcrumbSchema(crumbs), calculatorSchema]}
+>
+  <PageHero
+    eyebrow="Resources"
+    title="Business loan calculator"
+    lead="Estimate your monthly payment and total cost in seconds. Actual offers depend on revenue, credit and product type."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="bg-lilac py-16 sm:py-20" aria-labelledby="calc-heading">
+    <div class="container-site">
+      <h2 id="calc-heading" class="sr-only">Calculator</h2>
+      <form class="grid gap-6 lg:grid-cols-12" data-calculator novalidate>
+        <fieldset class="card space-y-10 lg:col-span-7">
+          <legend class="sr-only">Loan details</legend>
+          {
+            fields.map((f) => (
+              <div>
+                <div class="flex items-center justify-between gap-4">
+                  <label for={`${f.id}-range`} class="text-lg font-semibold text-brand">
+                    {f.label}
+                  </label>
+                  <div class="flex items-center gap-1 rounded-xl border border-lilac-200 bg-lilac px-3 py-1.5 focus-within:border-brand">
+                    {f.prefix && <span class="text-muted" aria-hidden="true">{f.prefix}</span>}
+                    <input
+                      id={`${f.id}-input`}
+                      type="number"
+                      inputmode="decimal"
+                      min={f.min}
+                      max={f.max}
+                      step={f.step}
+                      value={f.value}
+                      aria-label={`${f.label}${f.suffix ? ` in ${f.suffix === '%' ? 'percent' : f.suffix}` : ' in dollars'}`}
+                      class="w-28 bg-transparent text-right font-semibold text-ink focus:outline-none"
+                      data-input={f.id}
+                    />
+                    {f.suffix && <span class="text-muted" aria-hidden="true">{f.suffix}</span>}
+                  </div>
+                </div>
+                <input
+                  id={`${f.id}-range`}
+                  type="range"
+                  min={f.min}
+                  max={f.max}
+                  step={f.step}
+                  value={f.value}
+                  class="range mt-4 w-full"
+                  data-range={f.id}
+                />
+                <div class="mt-1 flex justify-between text-sm text-muted" aria-hidden="true">
+                  <span>{f.minLabel}</span>
+                  <span>{f.maxLabel}</span>
+                </div>
+              </div>
+            ))
+          }
+        </fieldset>
+
+        <div class="on-dark flex flex-col rounded-3xl bg-brand p-8 text-white lg:col-span-5">
+          <div aria-live="polite" aria-atomic="true">
+            <p class="text-lilac-200">Estimated monthly payment</p>
+            <p class="mt-1 font-serif text-5xl font-semibold sm:text-6xl">
+              <output data-out="monthly" for="amount-range term-range apr-range">$0</output>
+              <span class="text-xl font-normal text-lilac-200">/ mo</span>
+            </p>
+            <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+              <div>
+                <dt class="text-sm text-lilac-200">Total repayment</dt>
+                <dd class="mt-1 text-2xl font-semibold"><output data-out="total">$0</output></dd>
+              </div>
+              <div>
+                <dt class="text-sm text-lilac-200">Total interest</dt>
+                <dd class="mt-1 text-2xl font-semibold"><output data-out="interest">$0</output></dd>
+              </div>
+            </dl>
+          </div>
+          <div class="mt-8 h-3 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+            <div class="h-full rounded-full bg-lilac-deep transition-[width]" data-bar style="width: 80%"></div>
+          </div>
+          <p class="mt-2 flex justify-between text-xs text-lilac-200" aria-hidden="true">
+            <span>Principal</span><span>Interest</span>
+          </p>
+          <div class="mt-auto pt-8">
+            <a href="/apply" class="btn-accent w-full">Get my real offer <Icon name="arrow-right" size={18} /></a>
+          </div>
+          <p class="mt-4 text-xs text-lilac-200">
+            Estimates only, using a standard amortization formula with monthly payments. Merchant cash advances and factoring are
+            priced differently. Final terms are based on underwriting.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="bg-white py-16" aria-labelledby="calc-help-heading">
+    <div class="container-site max-w-3xl">
+      <h2 id="calc-help-heading" class="text-3xl font-semibold text-brand">How this calculator works</h2>
+      <div class="prose prose-lg mt-6 max-w-none prose-strong:text-ink">
+        <p>
+          The calculator uses a standard amortizing loan formula. Your estimated monthly payment is
+          <strong>P × r ÷ (1 − (1 + r)<sup>−n</sup>)</strong>, where <em>P</em> is the loan amount, <em>r</em> is the monthly rate
+          (APR ÷ 12) and <em>n</em> is the number of months.
+        </p>
+        <p>
+          Use it to compare scenarios for a <a href="/services/business-term-loan">Business Term Loan</a> or
+          <a href="/services/collateral-asset-loans">Collateral &amp; Asset Loan</a>. For stacked advances, see how
+          <a href="/services/consolidation-of-positions">Consolidation of Positions</a> can lower daily payments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .range {
+    appearance: none;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--color-brand) 0%,
+      var(--color-brand) var(--fill, 50%),
+      var(--color-lilac-200) var(--fill, 50%)
+    );
+    cursor: pointer;
+  }
+  .range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    background: white;
+    border: 3px solid var(--color-brand);
+    box-shadow: 0 2px 6px rgb(36 29 56 / 0.25);
+  }
+  .range::-moz-range-thumb {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    background: white;
+    border: 3px solid var(--color-brand);
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-calculator]');
+  if (form) {
+    const ids = ['amount', 'term', 'apr'] as const;
+    const range = (id: string) => form.querySelector<HTMLInputElement>(`[data-range="${id}"]`)!;
+    const input = (id: string) => form.querySelector<HTMLInputElement>(`[data-input="${id}"]`)!;
+    const out = (id: string) => form.querySelector<HTMLOutputElement>(`[data-out="${id}"]`)!;
+    const bar = form.querySelector<HTMLElement>('[data-bar]');
+    const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+    const clamp = (v: number, el: HTMLInputElement) => Math.min(Number(el.max), Math.max(Number(el.min), v));
+
+    const paint = (el: HTMLInputElement) => {
+      const pct = ((Number(el.value) - Number(el.min)) / (Number(el.max) - Number(el.min))) * 100;
+      el.style.setProperty('--fill', `${pct}%`);
+    };
+
+    const calculate = () => {
+      const P = Number(range('amount').value);
+      const n = Number(range('term').value);
+      const r = Number(range('apr').value) / 100 / 12;
+      const monthly = r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
+      const total = monthly * n;
+      out('monthly').textContent = usd.format(monthly);
+      out('total').textContent = usd.format(total);
+      out('interest').textContent = usd.format(total - P);
+      if (bar) bar.style.width = `${(P / total) * 100}%`;
+      ids.forEach((id) => paint(range(id)));
+    };
+
+    ids.forEach((id) => {
+      range(id).addEventListener('input', () => {
+        input(id).value = range(id).value;
+        calculate();
+      });
+      input(id).addEventListener('change', () => {
+        const v = clamp(Number(input(id).value) || Number(range(id).min), range(id));
+        input(id).value = String(v);
+        range(id).value = String(v);
+        calculate();
+      });
+    });
+    form.addEventListener('submit', (e) => e.preventDefault());
+    calculate();
+  }
+</script>

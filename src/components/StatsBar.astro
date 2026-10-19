@@ -1,0 +1,30 @@
+---
+import { STATS } from '@/data/site';
+
+interface Props {
+  tone?: 'dark' | 'light';
+}
+
+const { tone = 'dark' } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<section
+  aria-label="Falcon Equity Group by the numbers"
+  class:list={[dark ? 'on-dark bg-brand-darker text-white' : 'bg-lilac text-brand']}
+>
+  <div class="container-site py-10 sm:py-12">
+    <dl class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        STATS.map((s) => (
+          <div class:list={['flex flex-col-reverse border-l-2 pl-4', dark ? 'border-lilac-deep/50' : 'border-brand/30']}>
+            <dt class:list={['mt-1 text-sm leading-snug', dark ? 'text-lilac-200' : 'text-muted']}>{s.label}</dt>
+            <dd class:list={['font-serif text-3xl font-semibold sm:text-4xl', dark ? 'text-lilac-deep' : 'text-brand']}>
+              {s.value}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

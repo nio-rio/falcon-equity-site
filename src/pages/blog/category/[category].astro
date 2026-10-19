@@ -1,0 +1,42 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import BlogIndex from '@/components/BlogIndex.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { categorySlug, getPublishedPosts, type Post } from '@/lib/blog';
+import { BLOG_CATEGORIES } from '@/content.config';
+import { breadcrumbSchema } from '@/lib/schema';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  const used = BLOG_CATEGORIES.filter((c) => posts.some((p) => p.data.category === c));
+  return used.map((category) => ({
+    params: { category: categorySlug(category) },
+    props: { category, posts: posts.filter((p) => p.data.category === category), categories: used },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  category: string;
+  posts: Post[];
+  categories: string[];
+}
+
+const { category, posts, categories } = Astro.props;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: category, path: `/blog/category/${categorySlug(category)}` },
+];
+---
+
+<BaseLayout
+  title={`${category} Articles`}
+  description={`${category} guides from The Falcon Brief, the Falcon Equity Group business funding blog.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero eyebrow="The Falcon Brief" title={category} breadcrumbs={crumbs} />
+  <BlogIndex posts={posts} categories={categories} activeCategory={category} />
+  <CtaBand />
+</BaseLayout>

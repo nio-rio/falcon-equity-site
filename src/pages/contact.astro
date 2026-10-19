@@ -1,0 +1,96 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Icon from '@/components/Icon.astro';
+import { SITE } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Contact', path: '/contact' },
+];
+const phones = [
+  { ...SITE.phones.office, icon: 'phone', note: 'Main office line' },
+  { ...SITE.phones.direct, icon: 'phone', note: 'Speak with a funding specialist' },
+  { ...SITE.phones.fax, icon: 'printer', note: 'Send documents by fax' },
+];
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Contact Falcon Equity Group at 11 Broadway Suite 615, New York, NY. Call +1 (917) 645-3826 or email information@falconequity.ai."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Let’s talk about your next move."
+    lead="Questions about a product, your file or a document request? Reach our New York team directly, or start your application and a specialist will reach out."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="bg-lilac py-20" aria-labelledby="contact-details-heading">
+    <div class="container-site grid gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <h2 id="contact-details-heading" class="text-3xl font-semibold text-brand">Contact details</h2>
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+          <li class="card sm:col-span-2">
+            <a href={`mailto:${SITE.email}`} class="group flex items-start gap-4">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-lilac text-brand"><Icon name="mail" /></span>
+              <span>
+                <span class="block text-sm text-muted">Email</span>
+                <span class="block text-lg font-semibold break-all text-brand group-hover:underline">{SITE.email}</span>
+              </span>
+            </a>
+          </li>
+          {
+            phones.map((p) => (
+              <li class="card">
+                <a href={p.href} class="group flex items-start gap-4">
+                  <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-lilac text-brand">
+                    <Icon name={p.icon} />
+                  </span>
+                  <span>
+                    <span class="block text-sm text-muted">{p.label}</span>
+                    <span class="block text-lg font-semibold text-brand group-hover:underline">{p.display}</span>
+                    <span class="block text-sm text-muted">{p.note}</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+          <li class="card">
+            <a href={SITE.address.mapUrl} class="group flex items-start gap-4" target="_blank" rel="noopener">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-lilac text-brand"><Icon name="map-pin" /></span>
+              <span>
+                <span class="block text-sm text-muted">Office</span>
+                <span class="block text-lg font-semibold text-brand group-hover:underline">
+                  {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+                </span>
+                <span class="block text-sm text-muted">Open in Google Maps<span class="sr-only"> (new tab)</span></span>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p class="mt-6 text-muted">
+          Follow us on X: <a href={SITE.social.x} class="link" target="_blank" rel="noopener">{SITE.social.xHandle}<span class="sr-only"> (opens in a new tab)</span></a>
+        </p>
+      </div>
+
+      <aside class="lg:col-span-5" aria-labelledby="contact-cta-heading">
+        <div class="on-dark rounded-3xl bg-brand p-8 text-white sm:p-10">
+          <p class="eyebrow text-lilac-deep">Fastest route to funding</p>
+          <h2 id="contact-cta-heading" class="mt-3 text-3xl font-semibold">Start your application.</h2>
+          <p class="mt-4 text-lilac-200">
+            The quickest way to get answers about your options is to apply. It takes minutes, and a Falcon specialist will contact
+            you to review your file.
+          </p>
+          <a href="/apply" class="btn-accent mt-8 w-full">Start your application <Icon name="arrow-right" size={18} /></a>
+          <p class="mt-6 border-t border-white/10 pt-6 text-sm text-lilac-200">
+            Prefer to talk first? Call a specialist at
+            <a href={SITE.phones.direct.href} class="font-semibold text-white underline">{SITE.phones.direct.display}</a>.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

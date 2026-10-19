@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { SERVICES } from '@/data/services';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services' },
+];
+
+const process = [
+  { icon: 'file-text', title: 'Apply', body: 'Complete one short online application in minutes.' },
+  { icon: 'eye', title: 'Review', body: 'A specialist reviews your file and confirms what fits.' },
+  { icon: 'badge-check', title: 'Approve', body: 'Choose your offer and sign your agreement.' },
+  { icon: 'zap', title: 'Fund', body: 'Receive funds in as little as 24–48 hours.' },
+];
+---
+
+<BaseLayout
+  title="Business Funding Services"
+  description="Compare Falcon Equity Group's seven business funding options: collateral loans, lines of credit, merchant cash advances, term loans, invoice factoring, consolidation and digital asset financing."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Services"
+    title="Your winning lineup."
+    lead="Seven funding products, each built for a different kind of move. Compare amounts, terms and requirements, then pick the one that fits your next win."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="bg-lilac py-20" aria-labelledby="options-heading">
+    <div class="container-site">
+      <h2 id="options-heading" class="sr-only">Funding options</h2>
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          SERVICES.map((s) => (
+            <li>
+              <ServiceCard service={s} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-white py-20" aria-labelledby="compare-heading">
+    <div class="container-site">
+      <SectionHeading id="compare-heading" eyebrow="Compare" title="Side by side." />
+      <div class="mt-10 overflow-x-auto rounded-3xl border border-lilac-200" role="region" aria-labelledby="compare-heading" tabindex="0">
+        <table class="w-full min-w-[44rem] text-left text-[15px]">
+          <caption class="sr-only">Comparison of amounts, terms and requirements for each Falcon funding product</caption>
+          <thead class="bg-lilac text-brand">
+            <tr>
+              <th scope="col" class="px-6 py-4 font-semibold">Product</th>
+              <th scope="col" class="px-6 py-4 font-semibold">Amounts</th>
+              <th scope="col" class="px-6 py-4 font-semibold">Terms</th>
+              <th scope="col" class="px-6 py-4 font-semibold">Key requirements</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-lilac-200">
+            {
+              SERVICES.map((s) => (
+                <tr>
+                  <th scope="row" class="px-6 py-4 font-semibold">
+                    <a href={`/services/${s.slug}`} class="link">
+                      {s.name}
+                    </a>
+                  </th>
+                  <td class="px-6 py-4">{s.amounts}</td>
+                  <td class="px-6 py-4">{s.terms}</td>
+                  <td class="px-6 py-4 text-muted">{s.requirements.join(' · ')}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted">Ranges are typical. Final amounts and terms depend on underwriting. Approval is not guaranteed.</p>
+    </div>
+  </section>
+
+  <section id="process" class="on-dark bg-brand-dark py-20 text-white" aria-labelledby="process-heading">
+    <div class="container-site">
+      <SectionHeading
+        id="process-heading"
+        eyebrow="Our process"
+        title="Apply → Review → Approve → Fund."
+        lead="The same fast, transparent process for every product."
+        tone="dark"
+      />
+      <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          process.map((p, i) => (
+            <li class="relative rounded-3xl border border-white/10 bg-white/5 p-7">
+              <div class="flex items-center justify-between">
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lilac-deep text-brand-dark">
+                  <Icon name={p.icon} />
+                </span>
+                <span class="font-serif text-4xl font-semibold text-white/20" aria-hidden="true">
+                  {i + 1}
+                </span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold">
+                <span class="sr-only">Step {i + 1}: </span>
+                {p.title}
+              </h3>
+              <p class="mt-2 text-[15px] text-lilac-200">{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

@@ -1,0 +1,102 @@
+---
+import {
+  ArrowRight,
+  BadgeCheck,
+  Bitcoin,
+  Briefcase,
+  CalendarClock,
+  Check,
+  ChevronDown,
+  Clock,
+  Eye,
+  Factory,
+  FileText,
+  Gauge,
+  GraduationCap,
+  Handshake,
+  HardHat,
+  HeartPulse,
+  Landmark,
+  Layers,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Plane,
+  Printer,
+  Settings,
+  ShieldAlert,
+  ShieldCheck,
+  ShoppingCart,
+  Store,
+  SunSnow,
+  Target,
+  Timer,
+  TrendingUp,
+  Truck,
+  Users,
+  Utensils,
+  Wallet,
+  Wrench,
+  X,
+  Zap,
+} from '@lucide/astro';
+
+const ICONS = {
+  'arrow-right': ArrowRight,
+  'badge-check': BadgeCheck,
+  bitcoin: Bitcoin,
+  briefcase: Briefcase,
+  'calendar-clock': CalendarClock,
+  check: Check,
+  'chevron-down': ChevronDown,
+  clock: Clock,
+  eye: Eye,
+  factory: Factory,
+  'file-text': FileText,
+  gauge: Gauge,
+  'graduation-cap': GraduationCap,
+  handshake: Handshake,
+  'hard-hat': HardHat,
+  'heart-pulse': HeartPulse,
+  landmark: Landmark,
+  layers: Layers,
+  mail: Mail,
+  'map-pin': MapPin,
+  menu: Menu,
+  phone: Phone,
+  plane: Plane,
+  printer: Printer,
+  settings: Settings,
+  'shield-alert': ShieldAlert,
+  'shield-check': ShieldCheck,
+  'shopping-cart': ShoppingCart,
+  store: Store,
+  'sun-snow': SunSnow,
+  target: Target,
+  timer: Timer,
+  'trending-up': TrendingUp,
+  truck: Truck,
+  users: Users,
+  utensils: Utensils,
+  wallet: Wallet,
+  wrench: Wrench,
+  x: X,
+  zap: Zap,
+} as const;
+
+export type IconKey = keyof typeof ICONS;
+
+interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+  strokeWidth?: number;
+}
+
+const { name, class: className = '', size = 24, strokeWidth = 1.75 } = Astro.props;
+const Component = ICONS[name as IconKey];
+if (!Component) throw new Error(`Unknown icon: ${name}`);
+---
+
+<Component class={className} size={size} stroke-width={strokeWidth} aria-hidden="true" focusable="false" />

@@ -1,0 +1,139 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { categorySlug, formatDate, getPublishedPosts, readingTime, type Post } from '@/lib/blog';
+import { articleSchema, breadcrumbSchema } from '@/lib/schema';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      related: posts
+        .filter((p) => p.id !== post.id)
+        .sort((a, b) => Number(b.data.category === post.data.category) - Number(a.data.category === post.data.category))
+        .slice(0, 3),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  post: Post;
+  related: Post[];
+}
+
+const { post, related } = Astro.props;
+const { Content } = await render(post);
+const { title, date, updated, category, author, description, cover, coverAlt, draft } = post.data;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: title, path: `/blog/${post.id}` },
+];
+const minutes = readingTime(post.body);
+const ogImage = cover?.src;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  image={ogImage}
+  imageAlt={coverAlt || title}
+  publishedTime={date.toISOString()}
+  modifiedTime={(updated ?? date).toISOString()}
+  noindex={draft}
+  schema={[
+    breadcrumbSchema(crumbs),
+    articleSchema({ title, description, slug: post.id, date, updated, author, image: ogImage }),
+  ]}
+>
+  <article>
+    <header class="on-dark bg-brand-dark text-white">
+      <div class="container-site max-w-4xl py-14 sm:py-20">
+        <nav aria-label="Breadcrumb" class="text-sm text-lilac-200">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href="/" class="hover:text-white hover:underline">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/blog" class="hover:text-white hover:underline">Blog</a></li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <a href={`/blog/category/${categorySlug(category)}`} class="hover:text-white hover:underline">{category}</a>
+            </li>
+          </ol>
+        </nav>
+        {
+          draft && (
+            <p class="mt-6 inline-block rounded-full bg-lilac-deep px-3 py-1 text-sm font-semibold text-brand-dark">
+              Draft: awaiting Dwight’s approval. Not visible in production.
+            </p>
+          )
+        }
+        <h1 class="mt-6 text-4xl leading-tight font-semibold sm:text-5xl">{title}</h1>
+        <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-lilac-200">
+          <span>By <span class="font-semibold text-white">{author}</span></span>
+          <span aria-hidden="true">·</span>
+          <time datetime={date.toISOString()}>{formatDate(date)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min read</span>
+        </p>
+      </div>
+    </header>
+
+    {
+      cover && (
+        <div class="container-site max-w-5xl">
+          <Image
+            src={cover}
+            alt={coverAlt}
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            class="mt-10 aspect-[16/9] w-full rounded-3xl object-cover"
+            priority
+          />
+        </div>
+      )
+    }
+
+    <div class="container-site max-w-3xl py-12 sm:py-16">
+      <div
+        class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-brand prose-a:text-brand prose-a:decoration-lilac-deep prose-a:decoration-2 prose-a:underline-offset-4 hover:prose-a:decoration-brand prose-strong:text-ink prose-table:text-base prose-th:text-brand"
+      >
+        <Content />
+      </div>
+
+      <aside class="on-dark mt-14 rounded-3xl bg-brand p-8 text-white" aria-label="Get funded">
+        <p class="font-serif text-2xl font-semibold">Ready to make your move?</p>
+        <p class="mt-2 text-lilac-200">Apply in minutes and a Falcon specialist will lay out your options.</p>
+        <a href="/apply" class="btn-accent mt-6">Start your application <Icon name="arrow-right" size={18} /></a>
+      </aside>
+    </div>
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="bg-lilac py-16" aria-labelledby="related-heading">
+        <div class="container-site">
+          <h2 id="related-heading" class="text-3xl font-semibold text-brand">
+            Related articles
+          </h2>
+          <ul class="mt-8 grid gap-6 md:grid-cols-3">
+            {related.map((p) => (
+              <li>
+                <PostCard post={p} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand />
+</BaseLayout>

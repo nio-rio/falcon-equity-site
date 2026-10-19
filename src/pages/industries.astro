@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { INDUSTRIES } from '@/data/industries';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Industries', path: '/industries' },
+];
+---
+
+<BaseLayout
+  title="Industries We Fund"
+  description="Falcon Equity Group funds retail, transportation, restaurants, real estate, healthcare, construction, e-commerce, auto services, manufacturing, professional services, education and hospitality."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Industries"
+    title="Built to win in your industry."
+    lead="Every industry has its own rhythm: seasons, payment cycles, equipment needs. We fund businesses across virtually every sector, and these are twelve we know especially well."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="bg-lilac py-20" aria-labelledby="industries-list-heading">
+    <div class="container-site">
+      <h2 id="industries-list-heading" class="sr-only">Industries we serve</h2>
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          INDUSTRIES.map((ind) => (
+            <li class="card flex flex-col">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lilac text-brand">
+                <Icon name={ind.icon} />
+              </span>
+              <h3 class="mt-5 text-xl font-semibold text-brand">{ind.name}</h3>
+              <p class="mt-2 flex-1 leading-relaxed text-muted">{ind.blurb}</p>
+              <ul class="mt-5 space-y-2 border-t border-lilac-200 pt-5 text-[15px]">
+                {ind.uses.map((u) => (
+                  <li class="flex items-start gap-2">
+                    <Icon name="check" size={16} strokeWidth={2.5} class="mt-1 shrink-0 text-brand" />
+                    {u}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-10 text-center text-lg text-muted">
+        Don’t see your industry? <a href="/contact" class="link">Talk to us</a>. If you have steady revenue, there’s a good chance we can help.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Whatever your industry, play to win." />
+</BaseLayout>

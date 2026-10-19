@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { SITE } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Credit Repair & Loan Prep', path: '/resources/credit-repair-loan-prep' },
+];
+
+const programs = [
+  {
+    group: 'Business credit programs',
+    lead: 'Build a business credit profile that lenders want to approve.',
+    items: [
+      { name: 'Business Funding Prep', body: 'Business and personal credit monitoring, dispute resolution and tradeline strategy to position your file for approval.' },
+      { name: 'Credit Ready Business', body: 'An in-house business credit plan focused on repair, vendor tradelines and PAYDEX score growth.' },
+      { name: 'Startup Capital Prep', body: 'New LLC or S-Corp formation paired with personal credit improvement, so you can fund a brand-new venture.' },
+      { name: 'SBA & Term Loan Prep', body: 'FICO SBSS score improvement and underwriting prep tailored to SBA 7(a) and bank term loan approval.' },
+      { name: 'MBE, Veteran & WOSB Prep', body: 'Minority-, veteran- and women-owned small business certification plus a credit preparation package.' },
+      { name: 'Federal Contracting Prep', body: 'System for Award Management (SAM) registration, including 8(a) certification guidance.' },
+    ],
+  },
+  {
+    group: 'Personal credit programs',
+    lead: 'Strengthen the personal credit profile behind your business.',
+    items: [
+      { name: 'Mortgage & Loan Prep', body: 'Includes 90 days of certified FICO™ professional service to position you for the best possible mortgage rate.' },
+      { name: 'Student Loan & Credit Plan', body: 'Consolidation and refinance strategies combined with personal credit repair.' },
+      { name: 'The Inquirer', body: 'Personal credit monitoring setup with continuous bureau tracking and dispute support.' },
+    ],
+  },
+];
+
+const reasons = [
+  'One-on-one work with a dedicated Credit & Lending specialist',
+  'Bureau-direct dispute handling with Experian, Equifax, TransUnion and Dun & Bradstreet',
+  'Tradeline strategy to build PAYDEX and FICO SBSS scores',
+  'A free consultation to start',
+  'Your information stays confidential',
+];
+
+const steps = [
+  { title: 'Consultation', body: 'A free one-on-one review of your personal and business credit.' },
+  { title: 'Custom plan', body: 'We build a roadmap aimed at the financing you need.' },
+  { title: 'Active repair', body: 'Disputes, tradeline strategy and FICO SBSS optimization.' },
+  { title: 'Get funded', body: 'Once your file is loan-ready, we place you with the right lender.' },
+];
+---
+
+<BaseLayout
+  title="Credit Repair & Loan Prep"
+  description="Improve your business and personal credit and get loan-ready with Falcon Equity Group's Credit Repair & Loan Prep programs. Free consultation."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Credit Repair & Loan Prep"
+    title="Get your file ready to win."
+    lead="Falcon Equity Group puts its business financing experience to work improving credit standings, so owners who found credit out of reach can qualify for the financing that’s right for them."
+    breadcrumbs={crumbs}
+  >
+    <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+      <a href={SITE.phones.direct.href} class="btn-accent"><Icon name="phone" size={18} /> Free consultation: {SITE.phones.direct.display}</a>
+      <a href="/apply" class="btn-outline-light">Apply online</a>
+    </div>
+  </PageHero>
+
+  {
+    programs.map((p, gi) => (
+      <section class:list={['py-20', gi % 2 === 0 ? 'bg-lilac' : 'bg-white']} aria-labelledby={`program-${gi}`}>
+        <div class="container-site">
+          <SectionHeading id={`program-${gi}`} eyebrow="Programs" title={p.group} lead={p.lead} />
+          <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {p.items.map((item) => (
+              <li class="card">
+                <h3 class="text-xl font-semibold text-brand">{item.name}</h3>
+                <p class="mt-2 leading-relaxed text-muted">{item.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="on-dark bg-brand-dark py-20 text-white" aria-labelledby="why-program-heading">
+    <div class="container-site grid gap-12 lg:grid-cols-2">
+      <div>
+        <SectionHeading id="why-program-heading" eyebrow="Why clients choose us" title="A program built around your goal." tone="dark" />
+        <ul class="mt-8 space-y-4">
+          {
+            reasons.map((r) => (
+              <li class="flex items-start gap-3">
+                <Icon name="badge-check" class="mt-0.5 shrink-0 text-lilac-deep" />
+                <span class="text-lilac-200">{r}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-2xl font-semibold">How it works</h3>
+        <ol class="mt-6 space-y-4">
+          {
+            steps.map((s, i) => (
+              <li class="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-lilac-deep font-semibold text-brand-dark">
+                  {i + 1}
+                </span>
+                <span>
+                  <span class="block font-semibold">{s.title}</span>
+                  <span class="block text-[15px] text-lilac-200">{s.body}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Talk one-on-one with a Credit & Lending specialist." body="Start with a free consultation and a plan tailored to the financing you need." />
+</BaseLayout>

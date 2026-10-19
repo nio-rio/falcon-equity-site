@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/Icon.astro';
+import { SERVICES } from '@/data/services';
+---
+
+<BaseLayout title="Page Not Found" description="The page you are looking for could not be found." noindex>
+  <section class="on-dark bg-brand-dark text-white">
+    <div class="container-site py-24 text-center sm:py-32">
+      <p class="eyebrow text-lilac-deep">Error 404</p>
+      <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-semibold sm:text-6xl">This page flew the coop.</h1>
+      <p class="mx-auto mt-6 max-w-xl text-lg text-lilac-200">
+        The page you’re looking for has moved or doesn’t exist. Let’s get you back on the flight path.
+      </p>
+      <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/" class="btn-accent">Back to home</a>
+        <a href="/apply" class="btn-outline-light">Apply now <Icon name="arrow-right" size={18} /></a>
+      </div>
+    </div>
+  </section>
+  <section class="bg-lilac py-16" aria-labelledby="popular-heading">
+    <div class="container-site max-w-4xl">
+      <h2 id="popular-heading" class="text-2xl font-semibold text-brand">Popular pages</h2>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          SERVICES.map((s) => (
+            <li>
+              <a href={`/services/${s.slug}`} class="link">
+                {s.name}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href="/resources/loan-calculator" class="link">Loan Calculator</a></li>
+        <li><a href="/contact" class="link">Contact us</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

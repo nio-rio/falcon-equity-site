@@ -1,0 +1,4 @@
+# Netlify redirects. Existing Webflow paths (/industries, /about, /apply,
+# /resources/credit-repair-loan-prep, /privacy-policy, /terms-conditions)
+# keep the same URLs in the new site, so they need no rules.
+/resources/business-loan-calculator  /resources/loan-calculator  301

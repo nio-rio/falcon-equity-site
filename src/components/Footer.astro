@@ -1,0 +1,112 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { SERVICES } from '@/data/services';
+import { COMPANY_LINKS, LEGAL_LINKS, RESOURCE_LINKS, SITE } from '@/data/site';
+
+const year = new Date().getFullYear();
+const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
+---
+
+<footer class="on-dark bg-brand-darker text-lilac-200" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Site footer</h2>
+  <div class="container-site grid gap-12 py-16 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <a href="/" class="text-white" aria-label="Falcon Equity Group home"><Logo /></a>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed">
+        Fast, strategic business funding from New York City. Falcon vision. Falcon speed. Falcon precision.
+      </p>
+      <address class="mt-6 space-y-3 text-sm not-italic">
+        <a href={`mailto:${SITE.email}`} class="flex items-center gap-2 hover:text-white">
+          <Icon name="mail" size={16} />
+          {SITE.email}
+        </a>
+        {
+          phones.map((p) => (
+            <a href={p.href} class="flex items-center gap-2 hover:text-white">
+              <Icon name={p.label === 'Fax' ? 'printer' : 'phone'} size={16} />
+              <span>
+                <span class="text-lilac-deep">{p.label}:</span> {p.display}
+              </span>
+            </a>
+          ))
+        }
+        <a href={SITE.address.mapUrl} class="flex items-start gap-2 hover:text-white" rel="noopener" target="_blank">
+          <Icon name="map-pin" size={16} class="mt-0.5" />
+          <span>
+            {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+            <span class="sr-only"> (opens Google Maps in a new tab)</span>
+          </span>
+        </a>
+      </address>
+      <a
+        href={SITE.social.x}
+        class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm hover:border-white hover:text-white"
+        rel="noopener me"
+        target="_blank"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+        </svg>
+        Follow {SITE.social.xHandle}<span class="sr-only"> on X (opens in a new tab)</span>
+      </a>
+    </div>
+
+    <nav class="grid gap-10 sm:grid-cols-3 lg:col-span-8" aria-label="Footer">
+      <div>
+        <h3 class="eyebrow font-sans text-lilac-deep">Funding options</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
+          <li><a href="/services" class="font-semibold text-white hover:underline">All services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="eyebrow font-sans text-lilac-deep">Resources</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+          <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="eyebrow font-sans text-lilac-deep">Company</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-site py-8">
+      <section aria-labelledby="fraud-disclosure" class="rounded-2xl border border-white/10 bg-white/5 p-5 text-xs leading-relaxed sm:p-6">
+        <h3 id="fraud-disclosure" class="flex items-center gap-2 font-sans text-sm font-semibold text-white">
+          <Icon name="shield-alert" size={18} class="text-lilac-deep" /> Fraud disclosure
+        </h3>
+        <p class="mt-2">
+          Falcon Equity Group will never ask you to pay an upfront fee, buy gift cards, or send cryptocurrency to
+          “unlock” an approval or release funds. We only contact applicants from an <strong class="text-white">@falconequity.ai</strong>
+          email address or the phone numbers listed on this site. If someone claims to represent Falcon Equity Group and asks
+          for payment, personal passwords or bank login credentials, do not respond. Verify by calling our office at
+          <a href={SITE.phones.office.href} class="underline hover:text-white">{SITE.phones.office.display}</a> or emailing
+          <a href={`mailto:${SITE.email}`} class="underline hover:text-white">{SITE.email}</a>, and report suspected fraud to the
+          <a href="https://reportfraud.ftc.gov/" class="underline hover:text-white" rel="noopener" target="_blank"
+            >FTC<span class="sr-only"> (opens in a new tab)</span></a
+          >.
+        </p>
+        <p class="mt-3">
+          All funding is subject to underwriting review and approval; approval is not guaranteed. Rates, terms and amounts vary by
+          product and business profile. Statistics such as approval rate refer to qualified applicants. Merchant cash advances and
+          invoice factoring are purchases of receivables, not loans.
+        </p>
+      </section>
+
+      <div class="mt-8 flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <p>© {year} {SITE.name}. All rights reserved.</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+          <li><a href="/sitemap-index.xml" class="hover:text-white">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,75 @@
+---
+import PostCard from './PostCard.astro';
+import type { Post } from '@/lib/blog';
+import { categorySlug } from '@/lib/blog';
+
+interface Props {
+  posts: Post[];
+  categories: string[];
+  activeCategory?: string;
+}
+
+const { posts, categories, activeCategory } = Astro.props;
+---
+
+<section class="bg-lilac py-16 sm:py-20" aria-labelledby="posts-heading">
+  <div class="container-site">
+    <h2 id="posts-heading" class="sr-only">{activeCategory ? `${activeCategory} articles` : 'Latest articles'}</h2>
+    {
+      categories.length > 0 && (
+        <nav aria-label="Blog categories" class="mb-10">
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a
+                href="/blog"
+                class:list={[
+                  'inline-block rounded-full border px-4 py-2 text-sm font-semibold',
+                  !activeCategory ? 'border-brand bg-brand text-white' : 'border-brand/20 bg-white text-brand hover:border-brand',
+                ]}
+                aria-current={!activeCategory ? 'page' : undefined}
+              >
+                All
+              </a>
+            </li>
+            {categories.map((c) => (
+              <li>
+                <a
+                  href={`/blog/category/${categorySlug(c)}`}
+                  class:list={[
+                    'inline-block rounded-full border px-4 py-2 text-sm font-semibold',
+                    activeCategory === c
+                      ? 'border-brand bg-brand text-white'
+                      : 'border-brand/20 bg-white text-brand hover:border-brand',
+                  ]}
+                  aria-current={activeCategory === c ? 'page' : undefined}
+                >
+                  {c}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    {
+      posts.length > 0 ? (
+        <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <li>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="card mx-auto max-w-2xl text-center">
+          <h3 class="text-2xl font-semibold text-brand">New articles are on the way.</h3>
+          <p class="mt-3 text-muted">
+            The Falcon Brief will share practical guides on working capital, consolidation and getting funded fast. In the meantime,
+            try our <a href="/resources/loan-calculator" class="link">loan calculator</a> or read the <a href="/faq" class="link">FAQ</a>.
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  class?: string;
+  markClass?: string;
+  showWordmark?: boolean;
+}
+
+const { class: className = '', markClass = 'h-8 w-8', showWordmark = true } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-3', className]}>
+  <svg
+    class={markClass}
+    viewBox="0 0 41 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      d="M39.3284 25.4951L15.0049 1.17157C14.2548 0.421427 13.2373 0 12.1765 0H0.5V13.3333H9.83333C12.0425 13.3333 13.8333 15.1242 13.8333 17.3333V26.6667H23.1667C25.3758 26.6667 27.1667 28.4575 27.1667 30.6667V40H40.5V28.3235C40.5 27.2627 40.0786 26.2452 39.3284 25.4951Z"
+      fill="currentColor"></path>
+    <path d="M27.1667 0H36.5C38.7092 0 40.5 1.79086 40.5 4V13.3333H27.1667V0Z" fill="currentColor"></path>
+    <path d="M0.5 26.6667H9.83334C12.0425 26.6667 13.8333 28.4575 13.8333 30.6667V40H0.5V26.6667Z" fill="currentColor"
+    ></path>
+  </svg>
+  {showWordmark && <span class="font-serif text-lg leading-none font-semibold tracking-tight">Falcon Equity Group</span>}
+</span>

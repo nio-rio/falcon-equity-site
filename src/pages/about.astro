@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import StatsBar from '@/components/StatsBar.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { DEPARTMENTS, VALUES } from '@/data/content';
+import { SITE } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+import dwight from '@/assets/images/dwight-holly.webp';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+];
+
+const founderSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.founder.name,
+  jobTitle: SITE.founder.title,
+  worksFor: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="About Us"
+  description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the team behind your funding."
+  schema={[breadcrumbSchema(crumbs), founderSchema]}
+>
+  <PageHero
+    eyebrow="About Falcon"
+    title="More than a funding provider. Your partner in winning."
+    lead="Based in New York City, we help businesses and entrepreneurs grow with fast, flexible funding designed to fuel growth, strengthen cash flow and build long-term success."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="bg-white py-20" aria-labelledby="story-heading">
+    <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
+      <div class="lg:col-span-6">
+        <SectionHeading id="story-heading" eyebrow="Our story" title="Funding businesses from the heart of Manhattan." />
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-muted">
+          <p>
+            For 15 years, Falcon Equity Group has helped business owners turn financial challenges into opportunities. From our
+            office at 11 Broadway in Lower Manhattan, we have deployed more than $100M in funding to businesses that refuse to
+            settle for second place.
+          </p>
+          <p>
+            We take our name from the peregrine falcon, the fastest hunter on earth. It sees the opportunity first, commits with
+            precision and wins. That is the standard we hold ourselves to: fast decisions, the right product and a partner who stays
+            with you after the deal closes.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-6">
+        <ul class="grid gap-4 sm:grid-cols-2">
+          {
+            VALUES.map((v) => (
+              <li class="rounded-3xl bg-lilac p-6">
+                <Icon name={v.icon} class="text-brand" size={28} />
+                <h3 class="mt-4 text-xl font-semibold text-brand">{v.name}</h3>
+                <p class="mt-2 text-[15px] leading-relaxed text-muted">{v.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-5 text-center font-serif text-lg text-brand italic">Falcon vision. Falcon speed. Falcon precision.</p>
+      </div>
+    </div>
+  </section>
+
+  <StatsBar />
+
+  <section class="bg-lilac py-20" aria-labelledby="founder-heading">
+    <div class="container-site">
+      <SectionHeading id="founder-heading" eyebrow="Leadership" title="Meet our founder." />
+      <article class="card mt-10 grid gap-8 p-0! sm:p-0! md:grid-cols-12 md:items-stretch overflow-hidden">
+        <div class="md:col-span-4">
+          <Image
+            src={dwight}
+            alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+            widths={[360, 562]}
+            sizes="(min-width: 768px) 33vw, 100vw"
+            class="h-full max-h-[32rem] w-full object-cover object-top"
+          />
+        </div>
+        <div class="p-8 md:col-span-8 md:p-10 md:pl-2 lg:p-12">
+          <h3 class="text-3xl font-semibold text-brand">{SITE.founder.name}</h3>
+          <p class="mt-1 font-semibold text-brand-light">{SITE.founder.title}</p>
+          <div class="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+            <p>
+              Dwight Holly founded Falcon Equity Group to give business owners what they rarely get from traditional lenders:
+              speed, clarity and a partner who understands how real businesses run.
+            </p>
+            <p>
+              Under his leadership, Falcon has built 15 years of expertise in business funding and deployed more than $100M to
+              businesses across virtually every industry, from same-day approvals to cost-saving consolidation.
+            </p>
+          </div>
+          <a href="/contact" class="btn-primary mt-8">Talk to our team</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-white py-20" aria-labelledby="team-heading">
+    <div class="container-site">
+      <SectionHeading
+        id="team-heading"
+        eyebrow="Our team"
+        title="Specialists behind every file."
+        lead="Your application is handled by focused teams, each built around one part of getting you funded."
+      />
+      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          DEPARTMENTS.map((d) => (
+            <li class="card">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-lilac-deep">
+                <Icon name={d.icon} />
+              </span>
+              <h3 class="mt-5 text-xl font-semibold text-brand">{d.name}</h3>
+              <p class="mt-2 text-[15px] leading-relaxed text-muted">{d.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
