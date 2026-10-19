@@ -3,9 +3,25 @@ import { BLOG_CATEGORY_SLUG, type BlogCategory } from '@/data/blog';
 
 export type Post = CollectionEntry<'blog'>;
 
-/** Drafts render in `astro dev` for review but never ship in production builds. */
+/**
+ * Drafts render on Netlify deploy-preview / branch-deploy and in `astro dev`.
+ * Production builds (`CONTEXT=production`) omit them. Sitemap and RSS always
+ * exclude drafts even when the HTML is generated for review.
+ */
+export const includeDraftPosts = () => {
+  const context = process.env.CONTEXT ?? '';
+  if (context === 'deploy-preview' || context === 'branch-deploy') return true;
+  if (context === 'production') return false;
+  return import.meta.env.DEV;
+};
+
 export const getPublishedPosts = async (): Promise<Post[]> => {
-  const posts = await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true));
+  const posts = await getCollection('blog', ({ data }) => includeDraftPosts() || !data.draft);
+  return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+};
+
+export const getPublicPosts = async (): Promise<Post[]> => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 };
 

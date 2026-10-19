@@ -24,7 +24,11 @@ const {
   modifiedTime,
 } = Astro.props as SEOProps;
 
-const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Fast Business Funding in 24–48 Hours`;
+const fullTitle = title
+  ? title.includes('|')
+    ? title
+    : `${title} | ${SITE.name}`
+  : `${SITE.name} | Fast Business Funding in 24–48 Hours`;
 const canonical = new URL(cleanPath(Astro.url.pathname), Astro.site ?? SITE.url).href;
 const imageUrl = new URL(image, Astro.site ?? SITE.url).href;
 const preview =

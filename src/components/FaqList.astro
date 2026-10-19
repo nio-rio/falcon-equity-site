@@ -5,6 +5,15 @@ interface Props {
 }
 
 const { faqs } = Astro.props;
+
+const escapeHtml = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const answerHtml = (text: string) =>
+  escapeHtml(text).replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    (_, label: string, href: string) => `<a class="link" href="${href}">${label}</a>`,
+  );
 ---
 
 <div class="faq-list">
@@ -15,7 +24,7 @@ const { faqs } = Astro.props;
           <span>{f.q}</span>
           <span class="shrink-0 text-muted transition-transform group-open:rotate-45" aria-hidden="true">+</span>
         </summary>
-        <p class="mt-3 max-w-3xl leading-relaxed text-muted">{f.a}</p>
+        <p class="mt-3 max-w-3xl leading-relaxed text-muted" set:html={answerHtml(f.a)} />
       </details>
     ))
   }

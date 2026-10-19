@@ -52,13 +52,15 @@ export const breadcrumbSchema = (items: { name: string; path: string }[]) => ({
   })),
 });
 
+const stripMdLinks = (text: string) => text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
+
 export const faqSchema = (faqs: readonly { q: string; a: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({
     '@type': 'Question',
     name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
+    acceptedAnswer: { '@type': 'Answer', text: stripMdLinks(f.a) },
   })),
 });
 
