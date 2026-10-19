@@ -37,6 +37,13 @@ export type Service = {
   amounts: string;
   /** Compact range for menus; falls back to `amounts`. */
   amountsShort?: string;
+  /**
+   * Compact amount + term line for home and /services cards.
+   * Built only from `amounts` / `amountsShort` / `terms` — no new figures.
+   */
+  rangeLine: string;
+  /** Short “Best for” phrase for the /services compare table, from whoFor or idealUses. */
+  bestFor: string;
   terms: string;
   speed?: string;
   options?: ServiceOption[];
@@ -50,10 +57,11 @@ export type Service = {
   seoDescription: string;
 };
 
-const standardSteps = (product: string) => [
+/** Home process cards. Same titles/bodies as each product’s standard steps. */
+export const STANDARD_STEPS = [
   {
     title: 'Apply in minutes',
-    body: `Complete one short online application. Tell us about your business and how much ${product} you need.`,
+    body: 'Complete one short online application. Tell us about your business and how much capital you need.',
   },
   {
     title: 'Review with a specialist',
@@ -63,6 +71,15 @@ const standardSteps = (product: string) => [
     title: 'Approve and fund',
     body: 'Once approved, review and sign your agreement. Funds can arrive in as little as 24–48 hours.',
   },
+] as const;
+
+const standardSteps = (product: string) => [
+  {
+    title: STANDARD_STEPS[0].title,
+    body: `Complete one short online application. Tell us about your business and how much ${product} you need.`,
+  },
+  { title: STANDARD_STEPS[1].title, body: STANDARD_STEPS[1].body },
+  { title: STANDARD_STEPS[2].title, body: STANDARD_STEPS[2].body },
 ];
 
 export const SERVICES: Service[] = [
@@ -79,6 +96,8 @@ export const SERVICES: Service[] = [
     whoFor: 'Businesses purchasing machinery, vehicles, technology, or other equipment.',
     amounts: 'Up to 100% of equipment value · Real estate $150K – $20M',
     amountsShort: 'Equipment & real estate to $20M',
+    rangeLine: 'Up to 100% of equipment · $150K – $20M · 1 – 30 years',
+    bestFor: 'Buying or upgrading equipment',
     terms: '1 – 30 years',
     speed: 'About 2 days (equipment) · about 2 weeks (real estate)',
     options: [
@@ -154,6 +173,8 @@ export const SERVICES: Service[] = [
       'A business line of credit gives you a revolving pool of funds. Draw on it to cover payroll, inventory or an unexpected opportunity, repay, and draw again. You only pay interest on what you borrow.',
     whoFor: 'Businesses needing flexible, on-demand access to working capital.',
     amounts: '$5,000 – $10,000,000',
+    rangeLine: '$5K – $10M · 6 months – 2 years',
+    bestFor: 'Smoothing out uneven cash flow',
     terms: '6 months – 2 years',
     speed: 'Same-day funding',
     options: [
@@ -225,6 +246,8 @@ export const SERVICES: Service[] = [
       'A merchant cash advance provides a lump sum in exchange for a portion of your future receivables. Approval focuses on your revenue and bank activity, which makes it one of the fastest ways to fund a business.',
     whoFor: 'Businesses with $10K+ monthly revenue and 3+ months in operation.',
     amounts: '$5,000 – $5,000,000',
+    rangeLine: '$5K – $5M · 3 months – 2 years',
+    bestFor: 'Time-sensitive inventory',
     terms: '3 months – 2 years',
     speed: 'Same-day funding',
     options: [
@@ -294,6 +317,8 @@ export const SERVICES: Service[] = [
       'A business term loan delivers a lump sum with a predictable repayment schedule. Long terms of 5 to 30 years suit established businesses planning an expansion, a remodel or another major investment, while short-term loans cover faster, smaller needs.',
     whoFor: 'Established businesses seeking structured financing for growth or operations.',
     amounts: '$5,000 – $20,000,000',
+    rangeLine: '$5K – $20M · 3 months – 30 years',
+    bestFor: 'Opening a new location',
     terms: '3 months – 30 years',
     speed: 'About 2 days (term) · same day (short-term)',
     options: [
@@ -369,6 +394,8 @@ export const SERVICES: Service[] = [
     whoFor: 'B2B businesses with outstanding invoices from creditworthy clients.',
     amounts: 'Up to 100% of invoice value · AR factoring $100K – $10M',
     amountsShort: 'Up to 100% of invoice value',
+    rangeLine: 'Up to 100% of invoice value · Ongoing facility',
+    bestFor: 'Outstanding B2B invoices',
     terms: 'Ongoing facility',
     options: [
       { name: 'Invoice financing', amounts: 'Up to 100% of the invoice' },
@@ -439,6 +466,8 @@ export const SERVICES: Service[] = [
     whoFor:
       'Established businesses carrying multiple advances or loans that want one lower, more manageable payment.',
     amounts: '$10,000 – $2,000,000',
+    rangeLine: '$10K – $2M · 6 – 36 months',
+    bestFor: 'Replacing several daily payments',
     terms: '6 – 36 months',
     requirements: ['6+ months in business', '$15K+ monthly revenue', '550+ credit score'],
     idealUses: [
@@ -517,6 +546,8 @@ export const SERVICES: Service[] = [
       'Digital assets are becoming part of how modern businesses hold value and move money. Falcon helps you bring them into your financial strategy with guided onboarding and secure custodial services.',
     whoFor: 'Businesses exploring or already holding digital assets that want expert, secure guidance.',
     amounts: 'Tailored to your business',
+    rangeLine: 'Tailored to your business · Consultative',
+    bestFor: 'Crypto onboarding and custody',
     terms: 'Consultative',
     requirements: ['Active business', 'Consultation with a Digital Assets specialist'],
     idealUses: [
@@ -587,12 +618,19 @@ export const SERVICES: Service[] = [
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
 
+/** Amount portion of `rangeLine` (everything before the final ` · terms`). */
+export const rangeAmount = (service: Service) => {
+  const suffix = ` · ${service.terms}`;
+  return service.rangeLine.endsWith(suffix) ? service.rangeLine.slice(0, -suffix.length) : service.rangeLine;
+};
+
 export type HomeServiceArea = 'f1' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f2';
 
 export type HomeServiceCard = {
   href: string;
   name: string;
   teaser: string;
+  rangeLine: string;
   featured?: 1 | 2;
   area: HomeServiceArea;
 };
@@ -616,6 +654,7 @@ const toHomeCard = (service: Service, featured?: 1 | 2): Omit<HomeServiceCard, '
   href: `/services/${service.slug}`,
   name: service.name,
   teaser: HOME_TEASERS[service.slug] ?? service.summary,
+  rangeLine: service.rangeLine,
   featured,
 });
 

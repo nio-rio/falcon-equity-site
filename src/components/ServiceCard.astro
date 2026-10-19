@@ -3,10 +3,11 @@ interface Props {
   href: string;
   name: string;
   teaser: string;
+  rangeLine: string;
   featured?: 1 | 2;
 }
 
-const { href, name, teaser, featured } = Astro.props;
+const { href, name, teaser, rangeLine, featured } = Astro.props;
 
 const featuredSrc =
   featured === 1 ? '/images/featured-1.jpg' : featured === 2 ? '/images/featured-2.jpg' : undefined;
@@ -23,6 +24,7 @@ const featuredSrc =
 >
   <div class="bento-card-copy">
     <h3>{name}</h3>
+    <p class="bento-range">{rangeLine}</p>
     <p>{teaser}</p>
     <span class="bento-cta"><span class="bento-pill">Learn more</span></span>
   </div>
@@ -87,6 +89,13 @@ const featuredSrc =
     color: var(--color-ink-soft);
   }
 
+  .bento-card p.bento-range {
+    margin-top: 0.5rem;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-muted);
+  }
+
   .bento-pill {
     display: inline-flex;
     align-items: center;
@@ -140,6 +149,10 @@ const featuredSrc =
 
   .bento-card--featured p {
     color: rgb(255 255 255 / 0.92);
+  }
+
+  .bento-card--featured p.bento-range {
+    color: rgb(255 255 255 / 0.9);
   }
 
   .bento-card--featured .bento-pill {

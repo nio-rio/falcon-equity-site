@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceBlock from '@/components/ServiceBlock.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { SERVICES } from '@/data/services';
+import { SERVICES, rangeAmount } from '@/data/services';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
@@ -37,5 +38,58 @@ const crumbs = [
     </div>
   </section>
 
+  <section class="section bg-tint" aria-labelledby="compare-heading">
+    <div class="container-site">
+      <SectionHeading id="compare-heading" title="Compare options" />
+      <div class="mt-12 overflow-x-auto" role="region" aria-labelledby="compare-heading" tabindex="0">
+        <table class="service-table w-full min-w-[52rem] text-left">
+          <caption class="sr-only">Compare Falcon’s seven funding products by amount, term, speed and typical use</caption>
+          <thead class="text-ink">
+            <tr>
+              <th scope="col" class="font-medium">Product</th>
+              <th scope="col" class="font-medium">Amount range</th>
+              <th scope="col" class="font-medium">Term</th>
+              <th scope="col" class="font-medium">Funding speed</th>
+              <th scope="col" class="font-medium">Best for</th>
+              <th scope="col" class="font-medium"><span class="sr-only">Link</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              SERVICES.map((s) => (
+                <tr>
+                  <th scope="row" class="font-medium text-ink">{s.name}</th>
+                  <td>{rangeAmount(s)}</td>
+                  <td>{s.terms}</td>
+                  <td>{s.speed ?? '—'}</td>
+                  <td>{s.bestFor}</td>
+                  <td>
+                    <a href={`/services/${s.slug}`} class="link">Learn more</a>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-muted">Figures are typical. Rates are quoted individually. Approval is not guaranteed.</p>
+    </div>
+  </section>
+
   <CtaBand />
 </BaseLayout>
+
+<style>
+  .service-table {
+    font-size: inherit;
+    line-height: 1.55;
+    border-collapse: collapse;
+  }
+
+  .service-table th,
+  .service-table td {
+    border: 1px solid var(--color-line);
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+  }
+</style>
