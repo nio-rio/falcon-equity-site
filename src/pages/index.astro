@@ -54,9 +54,15 @@ const storyImages = [
   <section class="section bg-white" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <SectionHeading id="services-heading" title="Our services" />
-      <div class="mt-12 max-w-4xl">
-        {SERVICES.map((s) => <ServiceBlock service={s} />)}
-      </div>
+      <ul class="mt-12 flex max-w-4xl flex-col gap-6">
+        {
+          SERVICES.map((s) => (
+            <li>
+              <ServiceBlock service={s} />
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 

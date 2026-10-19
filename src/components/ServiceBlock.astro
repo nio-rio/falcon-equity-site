@@ -9,10 +9,10 @@ interface Props {
 const { service } = Astro.props;
 ---
 
-<article class="group relative py-10 first:pt-0 last:pb-0">
+<article class="service-card group relative">
   <h3 class="flex items-start gap-3">
-    <Icon name={service.icon} size={28} class="mt-1 shrink-0 text-accent" />
-    <a href={`/services/${service.slug}`} class="after:absolute after:inset-0 group-hover:underline">
+    <Icon name={service.icon} size={32} class="mt-1.5 shrink-0 text-accent" />
+    <a href={`/services/${service.slug}`} class="service-card-link">
       {service.name}
     </a>
   </h3>
@@ -43,3 +43,70 @@ const { service } = Astro.props;
     }
   </ul>
 </article>
+
+<style>
+  .service-card {
+    background: var(--color-tint);
+    padding: 2rem;
+    transition: background-color 150ms ease;
+  }
+
+  @media (min-width: 768px) {
+    .service-card {
+      padding: 2.5rem;
+    }
+  }
+
+  .service-card:hover {
+    background: color-mix(in srgb, var(--color-accent) 8%, #fff);
+  }
+
+  .service-card h3 {
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .service-card h3 {
+      font-size: 33px;
+      line-height: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .service-card h3 {
+      font-size: 39px;
+      line-height: 46px;
+    }
+  }
+
+  .service-card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .service-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .service-card:hover .service-card-link {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .service-card-link:focus {
+    outline: none;
+  }
+
+  .service-card-link:focus-visible {
+    outline: none;
+  }
+
+  .service-card:has(.service-card-link:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+</style>
