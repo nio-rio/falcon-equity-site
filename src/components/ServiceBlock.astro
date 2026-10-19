@@ -46,8 +46,10 @@ const { service } = Astro.props;
 
 <style>
   .service-card {
+    isolation: isolate;
     background: var(--color-tint);
     padding: 2rem;
+    cursor: pointer;
     transition: background-color 150ms ease;
   }
 
@@ -58,7 +60,7 @@ const { service } = Astro.props;
   }
 
   .service-card:hover {
-    background: color-mix(in srgb, var(--color-accent) 8%, #fff);
+    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-tint));
   }
 
   .service-card h3 {
@@ -90,6 +92,7 @@ const { service } = Astro.props;
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
   }
 
   .service-card:hover .service-card-link {
