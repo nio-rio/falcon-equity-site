@@ -6,7 +6,8 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import FaqList from '@/components/FaqList.astro';
 import PostCard from '@/components/PostCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { INDUSTRIES, type Industry } from '@/data/industries';
+import ImageSlot from '@/components/ImageSlot.astro';
+import { INDUSTRIES, INDUSTRY_PLACEHOLDERS, type Industry } from '@/data/industries';
 import { SERVICES } from '@/data/services';
 import { getPublishedPosts } from '@/lib/blog';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
@@ -39,6 +40,7 @@ const crumbs = [
   { name: 'Industries', path: '/industries' },
   { name: industry.name, path: `/industries/${industry.slug}` },
 ];
+const placeholders = INDUSTRY_PLACEHOLDERS[industry.slug];
 const products = industry.products.map((item) => {
   const service = SERVICES.find((s) => s.slug === item.slug);
   if (!service) throw new Error(`Unknown service slug on industry page: ${item.slug}`);
@@ -58,19 +60,33 @@ const products = industry.products.map((item) => {
   description={industry.seoDescription}
   schema={[breadcrumbSchema(crumbs), faqSchema(industry.faqs)]}
 >
-  <PageHero title={industry.h1} lead={industry.subtitle} />
-
-  {
-    industry.note && (
-      <div class="container-site -mt-4 pb-4 md:-mt-6 md:pb-6">
-        <p class="max-w-2xl text-ink-soft">{industry.note}</p>
-      </div>
-    )
-  }
+  <PageHero title={industry.h1} lead={industry.subtitle}>
+    {
+      industry.note && (
+        <p class="mt-6 max-w-2xl text-ink-soft">{industry.note}</p>
+      )
+    }
+    <div class="mt-10">
+      <ImageSlot
+        labeled
+        intent={placeholders.hero.intent}
+        alt={placeholders.hero.alt}
+        ratio="16 / 9"
+      />
+    </div>
+  </PageHero>
 
   <section class="section bg-white" aria-labelledby="needs-heading">
     <div class="container-site">
       <SectionHeading id="needs-heading" eyebrow="Common funding needs" title="Where capital usually goes first." />
+      <div class="mt-10">
+        <ImageSlot
+          labeled
+          intent={placeholders.needs.intent}
+          alt={placeholders.needs.alt}
+          ratio="16 / 9"
+        />
+      </div>
       <ol class="mt-12 grid gap-10 md:grid-cols-2">
         {
           industry.needs.map((need, i) => (
@@ -120,6 +136,14 @@ const products = industry.products.map((item) => {
         title="Situations owners bring to Falcon."
         lead="Generic situations. Not real clients or results."
       />
+      <div class="mt-10">
+        <ImageSlot
+          labeled
+          intent={placeholders.setting.intent}
+          alt={placeholders.setting.alt}
+          ratio="16 / 9"
+        />
+      </div>
       <ul class="mt-12 grid gap-10 md:grid-cols-3">
         {
           industry.useCases.map((useCase) => (

@@ -45,16 +45,30 @@ const crumbs = [
     height: 100%;
     color: inherit;
     text-decoration: none;
+    transition: background-color 200ms ease;
+  }
+
+  .industry-card:hover,
+  .industry-card:focus-visible {
+    background: #eeedf3;
+    text-decoration: none;
   }
 
   .industry-card:hover h3,
-  .industry-card:focus-visible h3 {
-    color: inherit;
-    text-decoration: underline;
+  .industry-card:focus-visible h3,
+  .industry-card:hover p,
+  .industry-card:focus-visible p {
+    text-decoration: none;
   }
 
   .industry-card:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industry-card {
+      transition: none;
+    }
   }
 </style>

@@ -4,11 +4,48 @@ interface Props {
   intent: string;
   ratio?: string;
   class?: string;
+  /** Visible “Image placeholder: …” label plus accessible name. */
+  labeled?: boolean;
+  alt?: string;
 }
 
-const { intent, ratio = '16 / 9', class: className = '' } = Astro.props;
+const { intent, ratio = '16 / 9', class: className = '', labeled = false, alt } = Astro.props;
+const label = `Image placeholder: ${intent}`;
+const accessibleName = alt || label;
 ---
 
-<div class:list={['image-slot', className]} style={`aspect-ratio: ${ratio}`} aria-hidden="true">
-  <Fragment set:html={`<!-- ${intent} -->`} />
-</div>
+{
+  labeled ? (
+    <figure
+      class:list={['image-slot', 'image-slot--labeled', className]}
+      style={`aspect-ratio: ${ratio}`}
+      role="img"
+      aria-label={accessibleName}
+    >
+      <span class="image-slot-label">{label}</span>
+    </figure>
+  ) : (
+    <div class:list={['image-slot', className]} style={`aspect-ratio: ${ratio}`} aria-hidden="true">
+      <Fragment set:html={`<!-- ${intent} -->`} />
+    </div>
+  )
+}
+
+<style>
+  .image-slot--labeled {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    border-radius: 0;
+    background: #f7f7fa;
+    padding: 1rem;
+  }
+
+  .image-slot-label {
+    max-width: 28rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-muted);
+    text-align: center;
+  }
+</style>

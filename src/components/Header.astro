@@ -32,7 +32,7 @@ const dropdownItem = 'nav-dropdown-item';
 ---
 
 <header class="site-header sticky top-0 z-50" data-header>
-  <div class="container-site flex h-14 items-center justify-between gap-6 md:h-[4.25rem]">
+  <div class="header-bar container-site flex h-14 items-center justify-between gap-6 md:h-[4.25rem]">
     <a href="/" class="header-logo shrink-0" aria-label="Falcon Equity Group home">
       <Logo class="h-6 w-auto md:h-[1.8rem]" />
     </a>
@@ -201,7 +201,7 @@ const dropdownItem = 'nav-dropdown-item';
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-3.5rem)] overflow-y-auto bg-tint text-ink lg:hidden">
+  <nav id="mobile-menu" aria-label="Mobile" class="mobile-menu hidden text-ink lg:hidden">
     <div class="container-site py-4">
       <ul class="mobile-sections">
         {
@@ -244,9 +244,38 @@ const dropdownItem = 'nav-dropdown-item';
     color: var(--color-ink);
   }
 
+  .header-bar {
+    position: relative;
+    z-index: 2;
+  }
+
   .header-logo,
   .header-toggle {
     color: inherit;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-tint);
+    padding-top: 3.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu {
+      padding-top: 4.25rem;
+    }
+  }
+
+  .site-header.is-open {
+    background: var(--color-tint);
   }
 
   .header-phone {
@@ -418,12 +447,17 @@ const dropdownItem = 'nav-dropdown-item';
   const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
   const mobileMenu = document.getElementById('mobile-menu');
   if (toggle && mobileMenu) {
+    const setScrollLock = (lock: boolean) => {
+      document.documentElement.style.overflow = lock ? 'hidden' : '';
+      document.body.style.overflow = lock ? 'hidden' : '';
+    };
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       mobileMenu.classList.toggle('hidden', !open);
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
-      toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+      toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', open);
       header?.classList.toggle('is-open', open);
+      setScrollLock(open);
       const label = toggle.querySelector('[data-mobile-label]');
       if (label) label.textContent = open ? 'Close menu' : 'Open menu';
     };

@@ -986,3 +986,183 @@ export const INDUSTRIES: Industry[] = [
 ];
 
 export const getIndustry = (slug: string) => INDUSTRIES.find((industry) => industry.slug === slug);
+
+export type IndustryPlaceholder = {
+  intent: string;
+  alt: string;
+};
+
+/** Object/space stills only. Do not commission or generate people in these frames. */
+export const INDUSTRY_PLACEHOLDERS: Record<
+  IndustrySlug,
+  { hero: IndustryPlaceholder; needs: IndustryPlaceholder; setting: IndustryPlaceholder }
+> = {
+  retail: {
+    hero: {
+      intent: 'empty retail store interior with stocked shelves and a POS counter',
+      alt: 'Placeholder for a retail store interior with shelves and a register, no people',
+    },
+    needs: {
+      intent: 'holiday inventory cartons stacked in a stockroom',
+      alt: 'Placeholder for stacked inventory boxes in a retail stockroom',
+    },
+    setting: {
+      intent: 'refrigerated cases and store fixtures on an empty sales floor',
+      alt: 'Placeholder for retail fixtures and refrigerated cases, no people',
+    },
+  },
+  'transportation-logistics': {
+    hero: {
+      intent: 'tractor-trailer at an empty loading dock at dusk',
+      alt: 'Placeholder for a tractor-trailer parked at a warehouse dock, no people',
+    },
+    needs: {
+      intent: 'freight pallets and rate-confirmation paperwork on a warehouse floor',
+      alt: 'Placeholder for palletized freight on a warehouse floor',
+    },
+    setting: {
+      intent: 'open trailer interior with a liftgate lowered',
+      alt: 'Placeholder for an open trailer and liftgate, no people',
+    },
+  },
+  'restaurants-food-service': {
+    hero: {
+      intent: 'commercial kitchen with a walk-in cooler, range and hood, lights on, empty',
+      alt: 'Placeholder for an empty commercial kitchen with a walk-in, range and hood',
+    },
+    needs: {
+      intent: 'stainless prep line and dish machine after close',
+      alt: 'Placeholder for a closed restaurant prep line and dish machine',
+    },
+    setting: {
+      intent: 'empty dining room with new seating and pendant lights',
+      alt: 'Placeholder for an empty restaurant dining room with new seating',
+    },
+  },
+  'real-estate': {
+    hero: {
+      intent: 'mid-rise commercial building facade with ground-floor glass',
+      alt: 'Placeholder for a commercial building exterior, no people',
+    },
+    needs: {
+      intent: 'empty brokerage office with desks, listing boards and a conference table',
+      alt: 'Placeholder for an empty real estate office interior',
+    },
+    setting: {
+      intent: 'vacant unit mid-rehab with exposed framing and contractor tools',
+      alt: 'Placeholder for a vacant property under renovation, no people',
+    },
+  },
+  healthcare: {
+    hero: {
+      intent: 'empty exam room with a treatment chair and diagnostic monitor',
+      alt: 'Placeholder for an empty clinical exam room with equipment',
+    },
+    needs: {
+      intent: 'medical imaging unit in a quiet procedure room',
+      alt: 'Placeholder for a clinical imaging unit, no people',
+    },
+    setting: {
+      intent: 'clinic reception desk and waiting area after hours',
+      alt: 'Placeholder for an empty clinic reception and waiting area',
+    },
+  },
+  construction: {
+    hero: {
+      intent: 'job-site materials, lumber stacks and a skid steer before the crew arrives',
+      alt: 'Placeholder for construction materials and a skid steer on a job site, no people',
+    },
+    needs: {
+      intent: 'excavator and compacted earth on an empty lot',
+      alt: 'Placeholder for an excavator on a graded lot, no people',
+    },
+    setting: {
+      intent: 'subcontractor invoices and a hard hat on a job-box lid',
+      alt: 'Placeholder for construction paperwork and gear on a job box',
+    },
+  },
+  'e-commerce': {
+    hero: {
+      intent: 'warehouse aisle of boxed SKUs with a packing station in the foreground',
+      alt: 'Placeholder for an e-commerce warehouse aisle and packing station, no people',
+    },
+    needs: {
+      intent: 'open cartons of product next to a shipping scale',
+      alt: 'Placeholder for packed product cartons beside a shipping scale',
+    },
+    setting: {
+      intent: 'racks of inventory with shipping labels ready to go out',
+      alt: 'Placeholder for warehouse racks of labeled inventory, no people',
+    },
+  },
+  'auto-services': {
+    hero: {
+      intent: 'empty service bay with a four-post lift and a tool chest',
+      alt: 'Placeholder for an empty auto shop bay with a lift, no people',
+    },
+    needs: {
+      intent: 'diagnostic scan tools and an alignment rack',
+      alt: 'Placeholder for auto diagnostic tools and an alignment rack',
+    },
+    setting: {
+      intent: 'parts shelves and a tire machine in a quiet shop',
+      alt: 'Placeholder for auto parts shelves and a tire machine, no people',
+    },
+  },
+  manufacturing: {
+    hero: {
+      intent: 'CNC machine on a clean shop floor with raw stock nearby',
+      alt: 'Placeholder for a CNC machine and raw materials on a shop floor, no people',
+    },
+    needs: {
+      intent: 'pallets of components staged for a production run',
+      alt: 'Placeholder for palletized manufacturing components',
+    },
+    setting: {
+      intent: 'packaging line and finished-goods crates at the end of a run',
+      alt: 'Placeholder for a packaging line and finished-goods crates, no people',
+    },
+  },
+  'professional-services': {
+    hero: {
+      intent: 'empty conference room with a long table and city-facing windows',
+      alt: 'Placeholder for an empty professional-services conference room',
+    },
+    needs: {
+      intent: 'office desks and dual monitors after hours',
+      alt: 'Placeholder for an empty office with desks and monitors',
+    },
+    setting: {
+      intent: 'law or accounting library shelves and a side table of files',
+      alt: 'Placeholder for professional-services library shelves and files, no people',
+    },
+  },
+  education: {
+    hero: {
+      intent: 'empty classroom with low tables, cubbies and a whiteboard',
+      alt: 'Placeholder for an empty classroom with tables and cubbies, no people',
+    },
+    needs: {
+      intent: 'outdoor playground equipment on a fenced lot',
+      alt: 'Placeholder for playground equipment at a childcare center, no people',
+    },
+    setting: {
+      intent: 'passenger van parked beside a school building',
+      alt: 'Placeholder for a school passenger van beside a building, no people',
+    },
+  },
+  'travel-hospitality': {
+    hero: {
+      intent: 'made-up boutique hotel room with new furniture and bedding',
+      alt: 'Placeholder for an empty hotel room with refreshed furniture, no people',
+    },
+    needs: {
+      intent: 'hotel lobby seating and a reception desk before open',
+      alt: 'Placeholder for an empty hotel lobby and reception desk',
+    },
+    setting: {
+      intent: 'rooftop HVAC unit and a linen cart in a service corridor',
+      alt: 'Placeholder for hotel HVAC equipment and a linen cart, no people',
+    },
+  },
+};
