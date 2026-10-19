@@ -14,7 +14,7 @@ const { icon, href, class: className = '', external = false } = Astro.props;
 
 <a
   href={href}
-  class:list={['inline-flex items-start gap-3', className]}
+  class:list={['flex items-start gap-3', className]}
   rel={external ? 'noopener' : undefined}
   target={external ? '_blank' : undefined}
 >

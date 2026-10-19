@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Falcon Equity Group',
   legalName: 'Falcon Equity Group',
   url: 'https://falconequity.ai',
-  tagline: 'Capital for businesses that play to win.',
+  tagline: 'You need capital now. We move at your pace.',
   description:
     'Falcon Equity Group delivers fast business funding from New York City: merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. Funding in as little as 24–48 hours.',
   email: 'information@falconequity.ai',

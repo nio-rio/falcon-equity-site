@@ -18,15 +18,15 @@ export const WHY_FALCON = [
 export const HOW_IT_WORKS = [
   {
     title: 'Apply',
-    body: 'One short form about the business and the use of proceeds.',
+    body: 'One short application about the business and the use of proceeds.',
   },
   {
     title: 'Review',
-    body: 'A specialist matches products to the file.',
+    body: 'A specialist reviews your file promptly and matches products to it.',
   },
   {
     title: 'Fund',
-    body: 'Sign the offer. Many products fund within 24-48 hours.',
+    body: 'Sign the offer. Many products fund within 24-48 hours of approval.',
   },
 ] as const;
 

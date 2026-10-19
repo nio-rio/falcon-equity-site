@@ -4,11 +4,13 @@ import { PRIMARY_PHONE } from '@/data/site';
 interface Props {
   title?: string;
   body?: string;
+  ctaLabel?: string;
 }
 
 const {
-  title = 'Apply',
-  body = 'A specialist reviews the file. Many products fund within 24-48 hours of approval.',
+  title = 'You need capital now.',
+  body = 'One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.',
+  ctaLabel = 'Get Funding Today',
 } = Astro.props;
 ---
 
@@ -19,7 +21,7 @@ const {
       <p class="mt-4 text-ink-soft">{body}</p>
     </div>
     <div class="flex flex-col gap-3 sm:flex-row">
-      <a href="/apply" class="btn-primary">Apply</a>
+      <a href="/apply" class="btn-primary">{ctaLabel}</a>
       <a href={PRIMARY_PHONE.href} class="btn-outline-dark">{PRIMARY_PHONE.display}</a>
     </div>
   </div>
