@@ -15,21 +15,6 @@ export const WHY_FALCON = [
   { icon: 'bitcoin', title: 'Digital asset ready', body: 'Crypto onboarding and custody for businesses building on new rails.' },
 ] as const;
 
-export const HOW_IT_WORKS = [
-  {
-    title: 'Apply',
-    body: 'One short application about the business and the use of proceeds.',
-  },
-  {
-    title: 'Review',
-    body: 'A specialist reviews your file promptly and matches products to it.',
-  },
-  {
-    title: 'Fund',
-    body: 'Sign the offer. Many products fund within 24-48 hours of approval.',
-  },
-] as const;
-
 export const QUALIFY = [
   { icon: 'calendar-clock', title: 'Time in business', value: '3+ months', body: 'Most products start at 3–6 months of operating history.' },
   { icon: 'trending-up', title: 'Monthly revenue', value: '$10K+', body: 'Consistent deposits show you can support a payment.' },
@@ -90,18 +75,24 @@ export const TESTIMONIALS = [
     amount: '$[Amount] funded',
     business: '[Business name]',
     owner: '[Owner name], [Title]',
+    industry: '[Industry]',
+    product: '[Product]',
   },
   {
     quote: '[Client quote — 1–2 sentences about their funding experience]',
     amount: '$[Amount] funded',
     business: '[Business name]',
     owner: '[Owner name], [Title]',
+    industry: '[Industry]',
+    product: '[Product]',
   },
   {
     quote: '[Client quote — 1–2 sentences about their funding experience]',
     amount: '$[Amount] funded',
     business: '[Business name]',
     owner: '[Owner name], [Title]',
+    industry: '[Industry]',
+    product: '[Product]',
   },
 ] as const;
 

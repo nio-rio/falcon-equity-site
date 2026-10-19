@@ -587,7 +587,7 @@ export const SERVICES: Service[] = [
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
 
-export type HomeServiceArea = 'f1' | 'a' | 'b' | 'c' | 'd' | 'e' | 'g' | 'f2';
+export type HomeServiceArea = 'f1' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f2';
 
 export type HomeServiceCard = {
   href: string;
@@ -596,19 +596,6 @@ export type HomeServiceCard = {
   featured?: 1 | 2;
   area: HomeServiceArea;
 };
-
-/**
- * Eighth home-grid card. Credit Repair is a resource, not one of the seven
- * /services products, so it stays out of `SERVICES` (and the /services 2-col
- * grid) while still appearing on the home bento — 8 cards, no empty cells.
- */
-export const HOME_EXTRA_SERVICES: Omit<HomeServiceCard, 'area' | 'featured'>[] = [
-  {
-    href: '/resources/credit-repair-loan-prep',
-    name: 'Credit Repair & Loan Prep',
-    teaser: 'Improve business and personal credit and get your file loan-ready.',
-  },
-];
 
 /** One-line home descriptions, shortened from each product summary. */
 const HOME_TEASERS: Record<string, string> = {
@@ -633,9 +620,8 @@ const toHomeCard = (service: Service, featured?: 1 | 2): Omit<HomeServiceCard, '
 });
 
 /**
- * Home bento order (3-col desktop):
- * row 1 = featured 1 (2 cols) + small; row 2 = 3 small; row 3 = small + featured 2 (2 cols);
- * row 4 = Credit Repair spanning 3 cols so the eighth card fills the grid.
+ * Home bento order (3-col desktop, 7 products):
+ * row 1 = featured 1 (2 cols) + small; row 2 = 3 small; row 3 = small + featured 2 (2 cols).
  */
 export const getHomeServices = (): HomeServiceCard[] => {
   const slot1 =
@@ -647,10 +633,9 @@ export const getHomeServices = (): HomeServiceCard[] => {
   const cards: Omit<HomeServiceCard, 'area'>[] = [
     toHomeCard(slot1, 1),
     ...rest.map((s) => toHomeCard(s)),
-    ...HOME_EXTRA_SERVICES,
     toHomeCard(slot2, 2),
   ];
 
-  const areas: HomeServiceArea[] = ['f1', 'a', 'b', 'c', 'd', 'e', 'g', 'f2'];
-  return cards.map((card, i) => ({ ...card, area: areas[i] ?? 'g' }));
+  const areas: HomeServiceArea[] = ['f1', 'a', 'b', 'c', 'd', 'e', 'f2'];
+  return cards.map((card, i) => ({ ...card, area: areas[i] ?? 'e' }));
 };

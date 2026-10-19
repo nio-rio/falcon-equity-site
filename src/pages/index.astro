@@ -4,12 +4,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
-import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import { getHomeServices } from '@/data/services';
-import { CLIENT_STORIES, HOW_IT_WORKS } from '@/data/content';
+import { CLIENT_STORIES } from '@/data/content';
 import { PRIMARY_PHONE } from '@/data/site';
 import Icon from '@/components/Icon.astro';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
@@ -52,7 +51,7 @@ const homeServices = getHomeServices();
   <section class="section bg-tint" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <SectionHeading id="services-heading" title="Our services" />
-      <ul class="bento-grid mt-12">
+      <ul class="bento-grid">
         {
           homeServices.map((s) => (
             <li class={`bento-cell bento-cell--${s.area}`}>
@@ -61,35 +60,6 @@ const homeServices = getHomeServices();
           ))
         }
       </ul>
-    </div>
-  </section>
-
-  <section class="section bg-white" aria-labelledby="how-heading">
-    <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
-      <div class="lg:col-span-5">
-        <ImageSlot intent="specialist reviewing a file at a desk, warm light" ratio="4 / 5" />
-      </div>
-      <div class="lg:col-span-7">
-        <SectionHeading
-          id="how-heading"
-          eyebrow="Process"
-          title="How a file moves."
-          lead="We move at your pace. The same sequence for every product."
-        />
-        <ol class="mt-10 grid gap-8">
-          {
-            HOW_IT_WORKS.map((step, i) => (
-              <li>
-                <h3>
-                  <span class="sr-only">Step {i + 1}: </span>
-                  {step.title}
-                </h3>
-                <p class="mt-2 text-ink-soft">{step.body}</p>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
     </div>
   </section>
 
@@ -106,7 +76,7 @@ const homeServices = getHomeServices();
     grid-template-columns: 1fr;
     gap: 1.25rem;
     list-style: none;
-    margin: 0;
+    margin: 3rem 0 0;
     padding: 0;
   }
 
@@ -137,8 +107,7 @@ const homeServices = getHomeServices();
       grid-template-areas:
         'f1 f1 a'
         'b c d'
-        'e f2 f2'
-        'g g g';
+        'e f2 f2';
     }
 
     .bento-cell--f1 {
@@ -161,9 +130,6 @@ const homeServices = getHomeServices();
     }
     .bento-cell--f2 {
       grid-area: f2;
-    }
-    .bento-cell--g {
-      grid-area: g;
     }
   }
 </style>
