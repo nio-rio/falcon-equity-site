@@ -24,7 +24,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-mediu
 ---
 
 <header
-  class="site-header sticky top-0 z-50 border-b"
+  class:list={['site-header top-0 z-50 border-b', overlay ? 'fixed inset-x-0' : 'sticky']}
   data-overlay={overlay ? 'true' : 'false'}
   data-header
 >

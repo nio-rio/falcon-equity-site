@@ -48,17 +48,17 @@ const isDigital = service.slug === 'decentralized-business-financing';
         <dl class="mt-8 grid gap-4 sm:grid-cols-2">
           <div class="border-t border-line pt-5 sm:col-span-2">
             <dt class="text-sm text-muted">Amounts</dt>
-            <dd class="mt-1 font-display text-2xl font-semibold tracking-tight">{service.amounts}</dd>
+            <dd class="mt-1 text-2xl font-semibold tracking-tight text-ink">{service.amounts}</dd>
           </div>
           <div class:list={['border-t border-line pt-5', !service.speed && 'sm:col-span-2']}>
             <dt class="text-sm text-muted">Terms</dt>
-            <dd class="mt-1 font-display text-2xl font-semibold tracking-tight">{service.terms}</dd>
+            <dd class="mt-1 text-2xl font-semibold tracking-tight text-ink">{service.terms}</dd>
           </div>
           {
             service.speed && (
               <div class="border-t border-line pt-5">
                 <dt class="text-sm text-muted">Speed</dt>
-                <dd class="mt-1 font-display text-xl font-semibold tracking-tight">{service.speed}</dd>
+                <dd class="mt-1 text-xl font-semibold tracking-tight text-ink">{service.speed}</dd>
               </div>
             )
           }
