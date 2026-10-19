@@ -18,7 +18,7 @@ const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.sta
 const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal';
 ---
 
-<header class="site-header sticky top-0 z-50 border-b" data-header>
+<header class="site-header sticky top-0 z-50" data-header>
   <div class="container-site flex h-14 items-center justify-between gap-6 md:h-[4.25rem]">
     <a href="/" class="header-logo shrink-0" aria-label="Falcon Equity Group home">
       <Logo class="h-6 w-auto md:h-[1.8rem]" />
@@ -38,7 +38,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
           </button>
           <div
             id="menu-services"
-            class="absolute top-full left-0 mt-0 hidden w-[32rem] border border-line bg-white p-2 text-ink"
+            class="absolute top-full left-0 mt-0 hidden w-[32rem] bg-white p-2 text-ink shadow-md"
             data-dropdown-menu
           >
             <ul class="grid grid-cols-2">
@@ -57,7 +57,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
                 ))
               }
             </ul>
-            <a href="/services" class="mt-1 block border-t border-line px-3 py-3 text-sm font-semibold text-accent">
+            <a href="/services" class="mt-1 block px-3 py-3 text-sm font-semibold text-accent">
               Compare all funding options
             </a>
           </div>
@@ -87,7 +87,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
           </button>
           <div
             id="menu-resources"
-            class="absolute top-full left-0 mt-0 hidden w-72 border border-line bg-white p-2 text-ink"
+            class="absolute top-full left-0 mt-0 hidden w-72 bg-white p-2 text-ink shadow-md"
             data-dropdown-menu
           >
             <ul>
@@ -145,7 +145,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-line bg-white text-ink lg:hidden">
+  <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-3.5rem)] overflow-y-auto bg-tint text-ink lg:hidden">
     <div class="container-site py-6">
       <p class="eyebrow">Services</p>
       <ul class="mt-2 grid gap-1 sm:grid-cols-2">
@@ -195,7 +195,6 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal'
 <style>
   .site-header {
     background: #fff;
-    border-color: var(--color-line);
     color: var(--color-ink);
   }
 

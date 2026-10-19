@@ -80,7 +80,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
               <h3 id="options-heading">Options</h3>
               <table class="mt-6 w-full min-w-[32rem] text-left text-[15px]">
                 <caption class="sr-only">{service.name} options with amounts, speed and terms</caption>
-                <thead class="border-b border-line text-ink">
+                <thead class="text-ink">
                   <tr>
                     <th scope="col" class="py-3 pr-5 font-medium">Option</th>
                     <th scope="col" class="py-3 pr-5 font-medium">Amounts</th>
@@ -88,7 +88,7 @@ const isDigital = service.slug === 'decentralized-business-financing';
                     <th scope="col" class="py-3 font-medium">Terms</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-line">
+                <tbody>
                   {service.options.map((o) => (
                     <tr>
                       <th scope="row" class="py-3 pr-5 font-medium text-ink">{o.name}</th>
