@@ -26,13 +26,14 @@ Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicod
 | Token | 1440 | 1024 | 768 | 390 |
 | --- | --- | --- | --- | --- |
 | Container max-width | 1440px | 1440px | 1440px | 100% |
+| Article column | 896px (8/12, `max-width` 66.6667%) | 619px (8/12) | 522px (9/12 / 75%) | 358px (100% − 16px gutters) |
 | Gutter | 40px | 40px | 32px | 16px |
 | Grid gap | 32px | 32px | 32px | 32px |
 | Nav height | 64px | 64px | 64px | 40px |
 | Nav position | sticky, in flow (not overlay) | same | same | same |
 | Nav background | `rgb(114, 151, 197)` | same | same | same |
 
-Falcon nav stays **white with black text** (site rule). Goldman’s pale panel `rgb(247, 247, 250)` is the secondary background: tint `#F7F7FA`.
+Falcon nav stays **white with black text** (site rule). Goldman’s pale panel `rgb(247, 247, 250)` is the secondary background: tint `#F7F7FA`. Falcon blog post shells use `max-width: 56rem` (896px) to match the measured article column at 1440.
 
 Section interiors are whitespace-led rather than padded boxes. Falcon uses `64px` vertical padding on small screens and `80px` from 768 up.
 
