@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import ImageSlot from '@/components/ImageSlot.astro';
+import Media from '@/components/Media.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -27,7 +27,7 @@ const crumbs = [
           <li class="bx-span-4 bx-lg-span-4">
             <a href={`/industries/${ind.slug}`} class="industry-card group">
               <div class="media-zoom">
-                <ImageSlot
+                <Media
                   labeled
                   intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
                   alt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}

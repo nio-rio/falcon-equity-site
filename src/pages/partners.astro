@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Icon from '@/components/Icon.astro';
-import ImageSlot from '@/components/ImageSlot.astro';
+import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -65,7 +65,7 @@ const audiences = [
     <div class="container-site">
       <div class="bx-grid items-center">
         <div class="bx-span-4 bx-lg-span-5">
-          <ImageSlot intent="handshake across a conference table, warm light" ratio="4 / 3" />
+          <Media labeled intent="handshake across a conference table, warm light, no identifiable faces" ratio="4 / 3" />
         </div>
         <div class="section-stack bx-span-4 bx-lg-span-6 bx-lg-start-7">
           <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />

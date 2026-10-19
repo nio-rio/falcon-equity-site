@@ -1,29 +1,33 @@
 ---
 import Eyebrow from './Eyebrow.astro';
 import { TESTIMONIALS } from '@/data/content';
+
+const stories = TESTIMONIALS.filter((t) => t.quote && !t.quote.includes('['));
 ---
 
-<section class="section bg-white" aria-labelledby="testimonials-heading">
-  <div class="container-site">
-    <div class="bx-grid">
-      <div class="section-head bx-span-4 bx-lg-span-10">
-        <Eyebrow>Testimonials</Eyebrow>
-        <h2 id="testimonials-heading">When our customers succeed, so do we.</h2>
-      </div>
-      {
-        TESTIMONIALS.map((t) => (
-          <div class="bx-span-4 bx-lg-span-4">
-            <blockquote>
-              <p class="font-display text-[1.375rem] font-light leading-snug text-ink">{t.quote}</p>
-            </blockquote>
-            <p class="mt-6 font-medium text-ink">{t.amount}</p>
-            <p class="mt-2 text-ink">{t.business}</p>
-            <p class="mt-1 text-sm text-muted">{t.owner}</p>
-            <p class="mt-1 text-sm text-muted">{t.industry}</p>
-            <p class="mt-1 text-sm text-muted">Product: {t.product}</p>
+{
+  stories.length > 0 && (
+    <section class="section bg-white" aria-labelledby="testimonials-heading">
+      <div class="container-site">
+        <div class="bx-grid">
+          <div class="section-head bx-span-4 bx-lg-span-10">
+            <Eyebrow>Testimonials</Eyebrow>
+            <h2 id="testimonials-heading">When our customers succeed, so do we.</h2>
           </div>
-        ))
-      }
-    </div>
-  </div>
-</section>
+          {stories.map((t) => (
+            <div class="bx-span-4 bx-lg-span-4">
+              <blockquote>
+                <p class="quote-card-text">{t.quote}</p>
+              </blockquote>
+              <p class="quote-card-amount">{t.amount}</p>
+              <p class="quote-card-biz">{t.business}</p>
+              <p class="quote-card-meta">{t.owner}</p>
+              <p class="quote-card-meta">{t.industry}</p>
+              <p class="quote-card-meta">Product: {t.product}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

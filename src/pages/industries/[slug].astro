@@ -5,7 +5,7 @@ import PageHero from '@/components/PageHero.astro';
 import FaqList from '@/components/FaqList.astro';
 import PostCard from '@/components/PostCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import ImageSlot from '@/components/ImageSlot.astro';
+import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import WhatWeDo from '@/components/WhatWeDo.astro';
 import Principles from '@/components/Principles.astro';
@@ -62,11 +62,11 @@ const principles = industry.useCases.slice(0, 3).map((item) => ({ title: item.ti
   <PageHero title={industry.h1} lead={industry.subtitle}>
     {
       industry.note && (
-        <p class="page-hero-lead mt-6 max-w-3xl">{industry.note}</p>
+        <p class="page-hero-lead page-hero-note">{industry.note}</p>
       )
     }
     <div class="page-hero-media">
-      <ImageSlot
+      <Media
         labeled
         intent={placeholders.hero.intent}
         alt={placeholders.hero.alt}

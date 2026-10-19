@@ -1,0 +1,144 @@
+/* Single source for Blackstone-v2 tokens + Falcon semantic aliases.
+   Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle.
+   Do not put .afterabsolute rules here. */
+
+:root {
+  --bx-black: #000000;
+  --bx-white: #ffffff;
+  --bx-variant-black: #202020;
+  --bx-slate-1: #515256;
+  --bx-slate-2: #d5d8df;
+  --bx-slate-3: #f4f5f7;
+  --bx-yellow: #fdf147;
+  --bx-highlight-dark: #121317;
+  --bx-highlight-light-active: #e7eaee;
+  --bx-grey-100: #f8f8f8;
+  --bx-grey-300: #a3aaae;
+  --bx-copper: #a95228;
+  --bx-red: #b80000;
+  --bx-error: #ea4334;
+  --bx-on-dark: rgb(255 255 255 / 0.88);
+  --bx-on-dark-muted: rgb(255 255 255 / 0.82);
+  --bx-on-dark-rule: rgb(255 255 255 / 0.16);
+
+  /* Falcon brand exceptions (not BX yellow / black pills). */
+  --falcon-accent: #5b21b6;
+  --falcon-accent-hover: #4c1d95;
+  --falcon-cta: rgb(190, 171, 214);
+  --falcon-featured: #443869;
+
+  --color-ink: var(--bx-black);
+  --color-ink-soft: var(--bx-variant-black);
+  --color-muted: var(--bx-slate-1);
+  --color-line: var(--bx-slate-2);
+  --color-tint: var(--bx-slate-3);
+  --color-accent: var(--falcon-accent);
+  --color-accent-hover: var(--falcon-accent-hover);
+  --color-brand: var(--falcon-accent);
+  --color-brand-dark: var(--falcon-accent-hover);
+  --color-brand-light: #666666;
+  --color-cta: #a072c5;
+  --color-featured: var(--falcon-featured);
+
+  --bx-font-display: 'At Gambit', 'Manrope', sans-serif;
+  --bx-font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--bx-font-display);
+  --font-sans: var(--bx-font-sans);
+
+  --bx-fs-12: 0.75rem;
+  --bx-fs-14: 0.875rem;
+  --bx-fs-16: 1rem;
+  --bx-fs-18: 1.125rem;
+  --bx-fs-20: 1.25rem;
+  --bx-fs-24: 1.5rem;
+  --bx-fs-32: 2rem;
+  --bx-fs-36: 2.25rem;
+  --bx-fs-40: 2.5rem;
+  --bx-fs-48: 3rem;
+  --bx-fs-56: 3.5rem;
+  --bx-fs-64: 4rem;
+  --bx-fs-72: 4.5rem;
+  --bx-fs-80: 5rem;
+  --bx-fs-96: 6rem;
+  --bx-fs-176: 11rem;
+
+  --bx-fw-light: 300;
+  --bx-fw-regular: 400;
+  --bx-fw-medium: 500;
+  --bx-fw-bold: 700;
+
+  --bx-ls-eyebrow: 0.08em;
+  --bx-lh-title: 1.25;
+  --bx-lh-body: 1.6;
+
+  --bx-space-8: 0.5rem;
+  --bx-space-12: 0.75rem;
+  --bx-space-16: 1rem;
+  --bx-space-24: 1.5rem;
+  --bx-space-32: 2rem;
+  --bx-space-40: 2.5rem;
+  --bx-space-48: 3rem;
+  --bx-space-56: 3.5rem;
+  --bx-space-64: 4rem;
+  --bx-space-80: 5rem;
+  --bx-space-88: 5.5rem;
+  --bx-space-112: 7rem;
+  --bx-space-120: 7.5rem;
+  --bx-rule: 0.0625rem;
+  --bx-ease: 0.3s ease;
+  --bx-duration: 0.3s;
+
+  --bx-max: 20.5rem;
+  --bx-columns: 4;
+  --bx-gutter: 16px;
+  --bx-margin: 15px;
+  --bx-section: 4rem;
+  --bx-bp-md: 768px;
+  --bx-bp-lg: 1024px;
+  --bx-header: 3.5rem;
+}
+
+@media (min-width: 26em) {
+  :root {
+    --bx-max: 23rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --bx-columns: 8;
+    --bx-gutter: 24px;
+    --bx-margin: 40px;
+    --bx-section: 5.5rem;
+    --bx-max: 43rem;
+    --bx-header: 4.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --bx-columns: 12;
+    --bx-gutter: 24px;
+    --bx-section: 7.5rem;
+    --bx-max: 71rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --bx-max: 71rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --bx-margin: 80px;
+    --bx-max: 79rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --bx-max: 103rem;
+  }
+}

@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import ImageSlot from './ImageSlot.astro';
+import Media from './Media.astro';
 import type { Post } from '@/lib/blog';
 
 interface Props {
@@ -13,19 +12,14 @@ const { title, category, cover, coverAlt, draft } = post.data;
 
 <article class="post-card group relative">
   <div class="post-card-media media-zoom">
-    {
-      cover ? (
-        <Image
-          src={cover}
-          alt={coverAlt}
-          widths={[480, 800]}
-          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          class="aspect-[16/9] w-full object-cover"
-        />
-      ) : (
-        <ImageSlot intent={coverAlt || 'editorial photograph for this article'} ratio="16 / 9" />
-      )
-    }
+    <Media
+      image={cover}
+      alt={coverAlt}
+      intent={coverAlt || 'editorial photograph for this article'}
+      labeled={!cover}
+      ratio="16 / 9"
+      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+    />
   </div>
   <p class="post-card-cat eyebrow">{category}{draft && ' · Draft'}</p>
   <h3 class="post-card-title">
@@ -34,33 +28,3 @@ const { title, category, cover, coverAlt, draft } = post.data;
     </a>
   </h3>
 </article>
-
-<style>
-  .post-card {
-    display: flex;
-    flex-direction: column;
-    background: transparent;
-  }
-
-  .post-card-media {
-    aspect-ratio: 16 / 9;
-  }
-
-  .post-card-cat {
-    margin-top: 1.5rem;
-  }
-
-  .post-card-title {
-    margin-top: 0.75rem;
-  }
-
-  .post-card h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .post-card:has(a:focus-visible) {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 6px;
-  }
-</style>

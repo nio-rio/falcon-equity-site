@@ -1,3 +1,4 @@
+@import './tokens.css';
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
@@ -66,23 +67,20 @@
 @utility bx-start-12 { grid-column-start: 12; }
 
 @theme {
-  --color-ink: #000000;
-  --color-ink-soft: #202020;
-  --color-muted: #515256;
-  --color-line: #d5d8df;
-  --color-accent: #5b21b6;
-  --color-accent-hover: #4c1d95;
-  --color-brand: #5b21b6;
-  --color-brand-dark: #4c1d95;
+  --color-ink: var(--bx-black);
+  --color-ink-soft: var(--bx-variant-black);
+  --color-muted: var(--bx-slate-1);
+  --color-line: var(--bx-slate-2);
+  --color-accent: var(--falcon-accent);
+  --color-accent-hover: var(--falcon-accent-hover);
+  --color-brand: var(--falcon-accent);
+  --color-brand-dark: var(--falcon-accent-hover);
   --color-brand-light: #666666;
-  --color-tint: #f4f5f7;
-  /* Goldman Subscribe to Briefings rgb(114,151,197) → hue rotated to lilac, same S/L. */
+  --color-tint: var(--bx-slate-3);
   --color-cta: #a072c5;
-  /* Live falconequity.ai card purple #332a4e (H 255 S 30% L 23.5%) +8 L. */
-  --color-featured: #443869;
-
-  --font-display: 'At Gambit', 'Manrope', sans-serif;
-  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-featured: var(--falcon-featured);
+  --font-display: var(--bx-font-display);
+  --font-sans: var(--bx-font-sans);
 }
 
 @layer base {
@@ -135,14 +133,26 @@
     }
   }
   h3 {
-    font-weight: 500;
-    font-size: clamp(1.25rem, 0.95vw + 1.02rem, 1.625rem);
-    line-height: 1.2;
+    font-weight: 400;
+    font-size: var(--bx-fs-24);
+    line-height: var(--bx-lh-title);
   }
   h4 {
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: var(--bx-fs-20);
     line-height: 1.2;
+  }
+  h5 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--bx-fs-16);
+    line-height: 1.4;
+  }
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--bx-fs-14);
+    line-height: 1.4;
   }
 
   /* Text links always inherit the surrounding text color (no purple links). Buttons set their own colors. */
@@ -175,12 +185,6 @@
 }
 
 @layer components {
-  .container-site {
-    margin-inline: auto;
-    width: 100%;
-    min-width: 0;
-  }
-
   /* Tech-and-innovations eyebrow: ~12–13px, uppercase, slight tracking, black (not grey).
      Bundle token is --fs-14 / .08em; screenshot reads 12–13px. */
   .eyebrow {
@@ -208,7 +212,7 @@
     font-weight: 500;
     letter-spacing: normal;
     white-space: nowrap;
-    transition: background-color 150ms, color 150ms, border-color 150ms;
+    transition: background-color var(--bx-ease), color var(--bx-ease), border-color var(--bx-ease);
   }
 
   .btn-primary,
@@ -273,11 +277,6 @@
   .link {
     font-weight: 500;
     color: inherit;
-    text-underline-offset: 4px;
-  }
-
-  .link:hover {
-    text-decoration: underline;
   }
 
   .prose .r-table-wrap {

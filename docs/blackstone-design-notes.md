@@ -1,5 +1,7 @@
 # Blackstone / BREIT design notes
 
+Full system: `docs/blackstone-design-system.md`.
+
 Studied 19 Oct 2026 from live pages (`breit.com`, `breit.com/performance/`, `blackstone.com/insights/`, `blackstone.com/the-firm/`, `blackstone.com/our-businesses/credit-and-insurance-bxci/`, `blackstone.com/#slide-1-2`) plus Ling’s attached frames, including the Private Wealth column overlay. Falcon keeps At Gambit + Inter and the existing purple/tint tokens. **Blackstone wins** on spacing, dividers, hovers, eyebrows, cards, link motion, and the site-wide grid. Hard exceptions: no fabricated people, quotes, or numbers; do not edit `.afterabsolute`.
 
 Blackstone.com is behind Cloudflare from this environment, so computed CSS could not be read live (CDP returned empty). An overlay inspector once reported `content__inner` at **1648px**; that figure was a DevTools label on a hi-DPI (likely 2×) screenshot, not CSS pixels. At a **1440px** viewport Blackstone’s content is about **1280px** with **~80px** side margins.

@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import ImageSlot from './ImageSlot.astro';
+import Media from './Media.astro';
 import Eyebrow from './Eyebrow.astro';
 
 interface Props {
@@ -11,6 +10,7 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   intent?: string;
+  labeled?: boolean;
   reverse?: boolean;
 }
 
@@ -21,37 +21,48 @@ const {
   image,
   imageAlt = '',
   intent = 'workspace table and documents, even daylight, empty of people',
+  labeled = false,
   reverse = false,
 } = Astro.props;
+const showMedia = Boolean(image) || labeled;
 ---
 
 <section class="section bg-white" aria-labelledby={id}>
   <div class="container-site">
-    <div class="bx-grid items-center">
-      <div class:list={['bx-span-4 bx-lg-span-6', reverse && 'bx-lg-start-7']}>
-        {
-          image ? (
-            <Image
-              src={image}
+    {
+      showMedia ? (
+        <div class="bx-grid items-center">
+          <div class:list={['bx-span-4 bx-lg-span-6', reverse && 'bx-lg-start-7']}>
+            <Media
+              image={image}
               alt={imageAlt}
-              widths={[720, 1100, 1600]}
+              intent={intent}
+              labeled={labeled && !image}
+              ratio="16 / 9"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              class="aspect-[16/9] w-full object-cover"
             />
-          ) : (
-            <ImageSlot labeled intent={intent} ratio="16 / 9" />
-          )
-        }
-      </div>
-      <div class:list={['section-stack bx-span-4 bx-lg-span-5', !reverse && 'bx-lg-start-8']}>
-        <div class="section-head">
-          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <h2 id={id}>{title}</h2>
+          </div>
+          <div class:list={['section-stack bx-span-4 bx-lg-span-5', !reverse && 'bx-lg-start-8']}>
+            <div class="section-head">
+              {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+              <h2 id={id}>{title}</h2>
+            </div>
+            <div class="section-body">
+              <slot />
+            </div>
+          </div>
         </div>
-        <div class="section-body">
-          <slot />
+      ) : (
+        <div class="bx-grid">
+          <div class="section-head bx-span-4 bx-lg-span-10">
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            <h2 id={id}>{title}</h2>
+          </div>
+          <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+            <slot />
+          </div>
         </div>
-      </div>
-    </div>
+      )
+    }
   </div>
 </section>

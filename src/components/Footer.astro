@@ -19,24 +19,24 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
           Business funding from New York City. Seven products, from working capital to consolidation.
         </p>
         <address class="mt-6 flex flex-col space-y-3 text-sm not-italic">
-          <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="hover:text-white">
+          <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="footer-link">
             {SITE.email}
           </ContactLine>
           {
             phones.map((p) => (
-              <ContactLine icon="phone" href={p.href} class="hover:text-white">
+              <ContactLine icon="phone" href={p.href} class="footer-link">
                 {p.label}: {p.display}
               </ContactLine>
             ))
           }
-          <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="hover:text-white" external>
+          <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="footer-link" external>
             {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
             <span class="sr-only"> (opens Google Maps in a new tab)</span>
           </ContactLine>
         </address>
         <a
           href={SITE.social.x}
-          class="mt-6 inline-block text-sm text-white hover:text-white/80"
+          class="footer-link footer-social"
           rel="noopener me"
           target="_blank"
         >
@@ -48,22 +48,22 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
         <div class="footer-cols">
           <div>
             <Eyebrow>Funding options</Eyebrow>
-            <ul class="mt-4 space-y-2.5 text-sm">
-              {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
-              <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
+            <ul class="footer-nav-list">
+              {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="footer-link">{s.name}</a></li>)}
+              <li><a href="/services" class="footer-link footer-link--strong">All services</a></li>
             </ul>
           </div>
           <div>
             <Eyebrow>Resources</Eyebrow>
-            <ul class="mt-4 space-y-2.5 text-sm">
-              {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
-              <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
+            <ul class="footer-nav-list">
+              {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
+              <li><a href="/rss.xml" class="footer-link">RSS feed</a></li>
             </ul>
           </div>
           <div>
             <Eyebrow>Company</Eyebrow>
-            <ul class="mt-4 space-y-2.5 text-sm">
-              {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+            <ul class="footer-nav-list">
+              {COMPANY_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
             </ul>
           </div>
         </div>
@@ -75,7 +75,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
     <div class="bx-grid items-center">
       <p class="bx-span-4 bx-lg-span-6">© {year} {SITE.name}. All rights reserved.</p>
       <ul class="bx-span-4 bx-lg-span-6 flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
-        {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+        {LEGAL_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
       </ul>
     </div>
   </div>

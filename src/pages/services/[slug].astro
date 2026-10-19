@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
 import PageHero from '@/components/PageHero.astro';
 import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
@@ -62,12 +62,12 @@ const accordionItems =
 >
   <PageHero title={service.name} lead={service.headline}>
     <div class="page-hero-media">
-      <Image
-        src={service.image}
+      <Media
+        image={service.image}
         alt=""
-        widths={[640, 960, 1280, 1920]}
+        intent={`${service.name} still`}
+        ratio="16 / 9"
         sizes="100vw"
-        class="aspect-[16/9] w-full object-cover"
         priority
       />
     </div>
@@ -102,7 +102,7 @@ const accordionItems =
     </div>
   </section>
 
-  <FeatureSplit id="details-heading" eyebrow="Overview" title={service.intro} image={service.image}>
+  <FeatureSplit id="details-heading" eyebrow="Overview" title={service.intro}>
     {service.spec && <ServiceSpec spec={service.spec} />}
     <p class="mt-8">
       <ArrowCta href="/apply" label="Apply for this product" />

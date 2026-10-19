@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import ImageSlot from './ImageSlot.astro';
+import Media from './Media.astro';
 
 export type StatementItem = {
   title: string;
@@ -24,17 +23,14 @@ const { items, image, imageAlt = '', intent = 'quiet office interior, even dayli
       <div class="container-site">
         <div class="bx-grid items-center">
           <div class="statement-media bx-span-4 bx-lg-span-6">
-            {image ? (
-              <Image
-                src={image}
-                alt={imageAlt}
-                widths={[720, 1100, 1600]}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                class="h-full w-full object-cover"
-              />
-            ) : (
-              <ImageSlot labeled intent={intent} ratio="4 / 3" />
-            )}
+            <Media
+              image={image}
+              alt={imageAlt}
+              intent={intent}
+              labeled={!image}
+              ratio="4 / 3"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
           </div>
           <div class="bx-span-4 bx-lg-span-5 bx-lg-start-8">
             <ul class="statement-list">

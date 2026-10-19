@@ -1,5 +1,5 @@
 ---
-import ImageSlot from './ImageSlot.astro';
+import Media from './Media.astro';
 import Eyebrow from './Eyebrow.astro';
 
 export type WhatWeDoItem = {
@@ -37,7 +37,7 @@ const shown = items.slice(0, 4);
             <h2 id={id}>{title}</h2>
           </div>
           <div class="what-we-do-media bx-span-4 bx-lg-span-6">
-            <ImageSlot labeled intent={intent} alt={imageAlt} ratio="3 / 4" />
+            <Media labeled intent={intent} alt={imageAlt} ratio="3 / 4" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
           <ul class="what-we-do-list bx-span-4 bx-lg-span-5 bx-lg-start-8">
             {shown.map((item) => (

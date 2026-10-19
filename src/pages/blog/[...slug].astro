@@ -1,10 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
-import ImageSlot from '@/components/ImageSlot.astro';
+import Media from '@/components/Media.astro';
 import FaqList from '@/components/FaqList.astro';
 import InsightsCta from '@/components/InsightsCta.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
@@ -80,20 +79,15 @@ const schema = [
       <div class="container-site pt-10 pb-4 sm:pt-14">
         <div class="bx-grid">
         <div class="article-shell bx-span-4 bx-lg-span-8 bx-lg-start-3">
-          {
-            cover ? (
-              <Image
-                src={cover}
-                alt={coverAlt}
-                widths={[640, 960, 1280]}
-                sizes="(min-width: 1024px) 896px, 100vw"
-                class="aspect-[16/9] w-full object-cover"
-                priority
-              />
-            ) : (
-              <ImageSlot intent={coverAlt || 'editorial illustration for this article'} ratio="16 / 9" />
-            )
-          }
+          <Media
+            image={cover}
+            alt={coverAlt}
+            intent={coverAlt || 'editorial illustration for this article'}
+            labeled={!cover}
+            ratio="16 / 9"
+            sizes="(min-width: 1024px) 896px, 100vw"
+            priority
+          />
           {
             draft && (
               <p class="mt-8 text-sm font-semibold text-accent">

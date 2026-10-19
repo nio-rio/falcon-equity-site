@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Testimonials from '@/components/Testimonials.astro';
@@ -24,12 +24,12 @@ const homeServices = getHomeServices();
         <p class="home-hero-aside bx-span-4 bx-lg-span-4 bx-lg-start-9">We move at your pace.</p>
       </div>
       <div class="home-hero-media bx-full">
-        <Image
-          src={heroFalcon}
+        <Media
+          image={heroFalcon}
           alt="A peregrine falcon launching from a branch with its wings spread wide"
-          widths={[640, 960, 1280, 1920, 2400]}
+          intent="peregrine falcon launching from a branch"
+          ratio="16 / 9"
           sizes="100vw"
-          class="h-full w-full object-cover object-[60%_30%]"
           priority
         />
       </div>
@@ -93,8 +93,8 @@ const homeServices = getHomeServices();
           STANDARD_STEPS.map((step, i) => (
             <div class="bx-span-4 bx-lg-span-4">
               <p class="process-num">{String(i + 1).padStart(2, '0')}</p>
-              <h3 class="mt-4">{step.title}</h3>
-              <p class="mt-3 text-ink-soft">{step.body}</p>
+              <h3 class="process-title">{step.title}</h3>
+              <p class="process-body">{step.body}</p>
             </div>
           ))
         }
@@ -104,13 +104,3 @@ const homeServices = getHomeServices();
 
   <CtaBand />
 </BaseLayout>
-
-<style>
-  .process-num {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    line-height: 1;
-    font-weight: 300;
-    color: var(--color-muted);
-  }
-</style>

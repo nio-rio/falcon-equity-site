@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import Media from './Media.astro';
 import ServiceSpec from './ServiceSpec.astro';
 import ArrowCta from './ArrowCta.astro';
 import type { Service } from '@/data/services';
@@ -14,12 +14,12 @@ const { service } = Astro.props;
 <article class="service-row">
   <div class="service-row-top">
     <div class="service-row-media media-zoom">
-      <Image
-        src={service.image}
+      <Media
+        image={service.image}
         alt=""
-        widths={[480, 720, 960]}
+        intent={`${service.name} still`}
+        ratio="16 / 9"
         sizes="(min-width: 768px) 22.5rem, 100vw"
-        class="h-full w-full object-cover"
       />
     </div>
     <div class="service-row-copy">
@@ -76,6 +76,11 @@ const { service } = Astro.props;
     .service-row-media {
       width: 22.5rem;
     }
+  }
+
+  .service-row-media :global(.media) {
+    height: 100%;
+    aspect-ratio: auto;
   }
 
   .service-row-media :global(img) {

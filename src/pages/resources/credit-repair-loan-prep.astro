@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import Media from '@/components/Media.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import UseCases from '@/components/UseCases.astro';
 import StepTimeline from '@/components/StepTimeline.astro';
@@ -61,7 +62,15 @@ const steps = [
   <PageHero
     title="Credit Repair & Loan Prep"
     lead="Improve your credit standing and obtain the financing that's right for you."
-  />
+  >
+    <div class="page-hero-media">
+      <Media
+        labeled
+        intent="closed credit file, bureau letters and a calculator on a desk, even light, no people"
+        ratio="16 / 9"
+      />
+    </div>
+  </PageHero>
 
   {
     programs.map((p, gi) => (
