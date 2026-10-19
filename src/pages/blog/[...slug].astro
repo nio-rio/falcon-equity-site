@@ -79,7 +79,7 @@ const schema = [
     <header class="bg-white">
       <div class="container-site pt-10 pb-4 sm:pt-14">
         <div class="bx-grid">
-        <div class="article-shell bx-span-4 lg:bx-span-8 lg:bx-start-3">
+        <div class="article-shell bx-span-4 bx-lg-span-8 bx-lg-start-3">
           {
             cover ? (
               <Image
@@ -125,7 +125,7 @@ const schema = [
 
     <div class="container-site py-12 sm:py-16">
       <div class="bx-grid">
-      <div class="article-shell bx-span-4 lg:bx-span-8 lg:bx-start-3">
+      <div class="article-shell bx-span-4 bx-lg-span-8 bx-lg-start-3">
         <aside class="takeaways" aria-labelledby="takeaways-heading">
           <h2 id="takeaways-heading">Key takeaways</h2>
           <ul>
@@ -174,12 +174,12 @@ const schema = [
       <section class="section bg-white" aria-labelledby="related-heading">
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-span-4 lg:bx-span-6">
+            <div class="bx-full">
               <Eyebrow>Related</Eyebrow>
               <h2 id="related-heading" class="mt-4">Related articles</h2>
             </div>
             {related.map((p) => (
-              <div class="bx-span-4 lg:bx-span-4">
+              <div class="bx-span-4 bx-lg-span-4">
                 <PostCard post={p} />
               </div>
             ))}

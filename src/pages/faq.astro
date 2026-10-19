@@ -25,11 +25,11 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
   <section class="section bg-white" aria-labelledby="general-faq-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-4">
+        <div class="bx-span-4 bx-lg-span-4">
           <Eyebrow>FAQ</Eyebrow>
           <h2 id="general-faq-heading" class="mt-4">General</h2>
         </div>
-        <div class="bx-span-4 lg:bx-span-8">
+        <div class="bx-span-4 bx-lg-span-8">
           <FaqList faqs={FAQS} idPrefix="general" />
         </div>
       </div>
@@ -39,11 +39,11 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
   <section class="section bg-white" aria-labelledby="product-faq-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-4">
+        <div class="bx-span-4 bx-lg-span-4">
           <Eyebrow>Products</Eyebrow>
           <h2 id="product-faq-heading" class="mt-4">By product</h2>
         </div>
-        <div class="bx-span-4 lg:bx-span-8 space-y-12">
+        <div class="bx-span-4 bx-lg-span-8 space-y-12">
           {
             productFaqs.map(({ service, faqs }) => (
               <div>

@@ -2,7 +2,7 @@
    Do not put .afterabsolute rules here. Leave .bg-cta and .btn-outline-dark in global.css. */
 
 :root {
-  --bx-max: 1648px;
+  --bx-max: 1280px;
   --bx-columns: 4;
   --bx-gutter: 16px;
   --bx-margin: 20px;
@@ -24,8 +24,13 @@
   :root {
     --bx-columns: 12;
     --bx-gutter: 24px;
-    --bx-margin: 80px;
     --bx-section: 7.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --bx-margin: 80px;
   }
 }
 
@@ -33,7 +38,10 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* 1280px content + matching side margins. At a 1440 viewport that is 80px + 1280 + 80px.
+   Width is content-box equivalent via border-box padding: do not also shrink width by 2*margin. */
 .container-site {
+  box-sizing: border-box;
   width: 100%;
   max-width: calc(var(--bx-max) + 2 * var(--bx-margin));
   margin-inline: auto;
@@ -48,13 +56,24 @@ html {
   display: grid;
   grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
   column-gap: var(--bx-gutter);
-  row-gap: var(--bx-gutter);
+  row-gap: 1.75rem;
+}
+
+@media (min-width: 1024px) {
+  .bx-grid {
+    row-gap: 2.5rem;
+  }
 }
 
 .bx-grid > * {
   min-width: 0;
+  max-width: 100%;
 }
 
+/* Span sets only grid-column-end so it composes with start. Never use the
+   `grid-column: span N` shorthand — it resets start to `span N` and collapses
+   the item to one track when paired with bx-*-start-*. Class names are
+   unprefixed (bx-lg-span-6, not lg:bx-span-6) so Tailwind v4 cannot drop them. */
 .bx-span-1 { grid-column-end: span 1; }
 .bx-span-2 { grid-column-end: span 2; }
 .bx-span-3 { grid-column-end: span 3; }
@@ -73,53 +92,61 @@ html {
 .bx-start-2 { grid-column-start: 2; }
 .bx-start-3 { grid-column-start: 3; }
 .bx-start-4 { grid-column-start: 4; }
+.bx-start-5 { grid-column-start: 5; }
+.bx-start-6 { grid-column-start: 6; }
+.bx-start-7 { grid-column-start: 7; }
+.bx-start-8 { grid-column-start: 8; }
+.bx-start-9 { grid-column-start: 9; }
+.bx-start-10 { grid-column-start: 10; }
+.bx-start-11 { grid-column-start: 11; }
+.bx-start-12 { grid-column-start: 12; }
 
 @media (min-width: 768px) {
-  .md\:bx-span-1 { grid-column-end: span 1; }
-  .md\:bx-span-2 { grid-column-end: span 2; }
-  .md\:bx-span-3 { grid-column-end: span 3; }
-  .md\:bx-span-4 { grid-column-end: span 4; }
-  .md\:bx-span-5 { grid-column-end: span 5; }
-  .md\:bx-span-6 { grid-column-end: span 6; }
-  .md\:bx-span-7 { grid-column-end: span 7; }
-  .md\:bx-span-8,
-  .md\:bx-full { grid-column: 1 / -1; }
-  .md\:bx-start-1 { grid-column-start: 1; }
-  .md\:bx-start-2 { grid-column-start: 2; }
-  .md\:bx-start-3 { grid-column-start: 3; }
-  .md\:bx-start-4 { grid-column-start: 4; }
-  .md\:bx-start-5 { grid-column-start: 5; }
-  .md\:bx-start-6 { grid-column-start: 6; }
-  .md\:bx-start-7 { grid-column-start: 7; }
-  .md\:bx-start-8 { grid-column-start: 8; }
+  .bx-md-span-1 { grid-column-end: span 1; }
+  .bx-md-span-2 { grid-column-end: span 2; }
+  .bx-md-span-3 { grid-column-end: span 3; }
+  .bx-md-span-4 { grid-column-end: span 4; }
+  .bx-md-span-5 { grid-column-end: span 5; }
+  .bx-md-span-6 { grid-column-end: span 6; }
+  .bx-md-span-7 { grid-column-end: span 7; }
+  .bx-md-span-8,
+  .bx-md-full { grid-column: 1 / -1; }
+  .bx-md-start-1 { grid-column-start: 1; }
+  .bx-md-start-2 { grid-column-start: 2; }
+  .bx-md-start-3 { grid-column-start: 3; }
+  .bx-md-start-4 { grid-column-start: 4; }
+  .bx-md-start-5 { grid-column-start: 5; }
+  .bx-md-start-6 { grid-column-start: 6; }
+  .bx-md-start-7 { grid-column-start: 7; }
+  .bx-md-start-8 { grid-column-start: 8; }
 }
 
 @media (min-width: 1024px) {
-  .lg\:bx-span-1 { grid-column-end: span 1; }
-  .lg\:bx-span-2 { grid-column-end: span 2; }
-  .lg\:bx-span-3 { grid-column-end: span 3; }
-  .lg\:bx-span-4 { grid-column-end: span 4; }
-  .lg\:bx-span-5 { grid-column-end: span 5; }
-  .lg\:bx-span-6 { grid-column-end: span 6; }
-  .lg\:bx-span-7 { grid-column-end: span 7; }
-  .lg\:bx-span-8 { grid-column-end: span 8; }
-  .lg\:bx-span-9 { grid-column-end: span 9; }
-  .lg\:bx-span-10 { grid-column-end: span 10; }
-  .lg\:bx-span-11 { grid-column-end: span 11; }
-  .lg\:bx-span-12,
-  .lg\:bx-full { grid-column: 1 / -1; }
-  .lg\:bx-start-1 { grid-column-start: 1; }
-  .lg\:bx-start-2 { grid-column-start: 2; }
-  .lg\:bx-start-3 { grid-column-start: 3; }
-  .lg\:bx-start-4 { grid-column-start: 4; }
-  .lg\:bx-start-5 { grid-column-start: 5; }
-  .lg\:bx-start-6 { grid-column-start: 6; }
-  .lg\:bx-start-7 { grid-column-start: 7; }
-  .lg\:bx-start-8 { grid-column-start: 8; }
-  .lg\:bx-start-9 { grid-column-start: 9; }
-  .lg\:bx-start-10 { grid-column-start: 10; }
-  .lg\:bx-start-11 { grid-column-start: 11; }
-  .lg\:bx-start-12 { grid-column-start: 12; }
+  .bx-lg-span-1 { grid-column-end: span 1; }
+  .bx-lg-span-2 { grid-column-end: span 2; }
+  .bx-lg-span-3 { grid-column-end: span 3; }
+  .bx-lg-span-4 { grid-column-end: span 4; }
+  .bx-lg-span-5 { grid-column-end: span 5; }
+  .bx-lg-span-6 { grid-column-end: span 6; }
+  .bx-lg-span-7 { grid-column-end: span 7; }
+  .bx-lg-span-8 { grid-column-end: span 8; }
+  .bx-lg-span-9 { grid-column-end: span 9; }
+  .bx-lg-span-10 { grid-column-end: span 10; }
+  .bx-lg-span-11 { grid-column-end: span 11; }
+  .bx-lg-span-12,
+  .bx-lg-full { grid-column: 1 / -1; }
+  .bx-lg-start-1 { grid-column-start: 1; }
+  .bx-lg-start-2 { grid-column-start: 2; }
+  .bx-lg-start-3 { grid-column-start: 3; }
+  .bx-lg-start-4 { grid-column-start: 4; }
+  .bx-lg-start-5 { grid-column-start: 5; }
+  .bx-lg-start-6 { grid-column-start: 6; }
+  .bx-lg-start-7 { grid-column-start: 7; }
+  .bx-lg-start-8 { grid-column-start: 8; }
+  .bx-lg-start-9 { grid-column-start: 9; }
+  .bx-lg-start-10 { grid-column-start: 10; }
+  .bx-lg-start-11 { grid-column-start: 11; }
+  .bx-lg-start-12 { grid-column-start: 12; }
 }
 
 /* Default eyebrow: uppercase label + short rule to the RIGHT.
@@ -965,6 +992,20 @@ a:focus-visible .media-zoom .image-slot {
   font-weight: 500;
   color: inherit;
   cursor: pointer;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
 }
 
 .stat-cell dd {

@@ -13,11 +13,11 @@ const { eyebrow, title, lead } = Astro.props;
 <section class="page-hero bg-white">
   <div class="container-site page-hero-pad">
     <div class="bx-grid">
-      <div class="bx-span-4 lg:bx-span-7">
+      <div class="bx-span-4 bx-lg-span-7">
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         <h1 class:list={[eyebrow && 'mt-4']}>{title}</h1>
       </div>
-      {lead && <p class="page-hero-lead bx-span-4 lg:bx-span-5">{lead}</p>}
+      {lead && <p class="page-hero-lead bx-span-4 bx-lg-span-5">{lead}</p>}
     </div>
     <slot />
   </div>

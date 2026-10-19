@@ -13,7 +13,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
   <h2 id="footer-heading" class="sr-only">Site footer</h2>
   <div class="container-site py-16">
     <div class="bx-grid">
-      <div class="bx-span-4 lg:bx-span-4">
+      <div class="bx-span-4 bx-lg-span-4">
         <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-[1.8rem] w-auto" /></a>
         <p class="mt-5 max-w-sm text-sm leading-relaxed">
           Business funding from New York City. Seven products, from working capital to consolidation.
@@ -44,23 +44,23 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
         </a>
       </div>
 
-      <nav class="bx-span-4 lg:bx-span-7 lg:bx-start-6" aria-label="Footer">
+      <nav class="bx-span-4 bx-lg-span-7 bx-lg-start-6" aria-label="Footer">
         <div class="bx-grid">
-          <div class="bx-span-4 md:bx-span-2 lg:bx-span-4">
+          <div class="bx-span-4 bx-md-span-2 bx-lg-span-4">
             <Eyebrow class="text-white/50">Funding options</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
               <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
             </ul>
           </div>
-          <div class="bx-span-4 md:bx-span-3 lg:bx-span-4">
+          <div class="bx-span-4 bx-md-span-3 bx-lg-span-4">
             <Eyebrow class="text-white/50">Resources</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
               <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
             </ul>
           </div>
-          <div class="bx-span-4 md:bx-span-3 lg:bx-span-4">
+          <div class="bx-span-4 bx-md-span-3 bx-lg-span-4">
             <Eyebrow class="text-white/50">Company</Eyebrow>
             <ul class="mt-4 space-y-2.5 text-sm">
               {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
@@ -73,8 +73,8 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
 
   <div class="container-site py-8 text-xs">
     <div class="bx-grid items-center">
-      <p class="bx-span-4 lg:bx-span-6">© {year} {SITE.name}. All rights reserved.</p>
-      <ul class="bx-span-4 lg:bx-span-6 flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
+      <p class="bx-span-4 bx-lg-span-6">© {year} {SITE.name}. All rights reserved.</p>
+      <ul class="bx-span-4 bx-lg-span-6 flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
         {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
       </ul>
     </div>

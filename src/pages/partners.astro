@@ -44,13 +44,13 @@ const audiences = [
   <section class="section bg-white" aria-labelledby="who-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-full">
           <Eyebrow>Partners</Eyebrow>
           <h2 id="who-heading" class="mt-4">Who we partner with</h2>
         </div>
         {
           audiences.map((a) => (
-            <div class="tile-card bx-span-4 lg:bx-span-4">
+            <div class="tile-card bx-span-4 bx-lg-span-4">
               <Icon name={a.icon} size={28} class="text-ink" />
               <h3 class="mt-5">{a.title}</h3>
               <p class="mt-3 text-ink-soft">{a.body}</p>
@@ -64,10 +64,10 @@ const audiences = [
   <section class="section bg-white" aria-labelledby="featured-heading">
     <div class="container-site">
       <div class="bx-grid items-center">
-        <div class="bx-span-4 lg:bx-span-5">
+        <div class="bx-span-4 bx-lg-span-5">
           <ImageSlot intent="handshake across a conference table, warm light" ratio="4 / 3" />
         </div>
-        <div class="bx-span-4 lg:bx-span-6 lg:bx-start-7">
+        <div class="bx-span-4 bx-lg-span-6 bx-lg-start-7">
           <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />
           <Eyebrow>Featured</Eyebrow>
           <h2 id="featured-heading" class="mt-4">Cardiff</h2>
@@ -85,11 +85,11 @@ const audiences = [
   <section class="bg-cta text-ink" aria-labelledby="partner-cta-heading">
     <div class="container-site section">
       <div class="bx-grid items-end">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-span-4 bx-lg-span-6">
           <h2 id="partner-cta-heading">Work with Falcon</h2>
           <p class="mt-5 text-ink">Email a short note about your firm and the clients you serve.</p>
         </div>
-        <div class="cta-band-actions bx-span-4 lg:bx-span-5 lg:bx-start-8">
+        <div class="cta-band-actions bx-span-4 bx-lg-span-5 bx-lg-start-8">
           <a href={`mailto:${SITE.email}?subject=Partnership%20inquiry`} class="btn-primary">Email us</a>
           <a href={SITE.phones.office.href} class="btn-outline-dark">{SITE.phones.office.display}</a>
         </div>

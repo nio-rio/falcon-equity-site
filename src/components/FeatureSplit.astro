@@ -28,7 +28,7 @@ const {
 <section class="section bg-white" aria-labelledby={id}>
   <div class="container-site">
     <div class="bx-grid items-center">
-      <div class:list={['bx-span-4 lg:bx-span-6', reverse && 'lg:bx-start-7']}>
+      <div class:list={['bx-span-4 bx-lg-span-6', reverse && 'bx-lg-start-7']}>
         {
           image ? (
             <Image
@@ -43,7 +43,7 @@ const {
           )
         }
       </div>
-      <div class:list={['bx-span-4 lg:bx-span-5', !reverse && 'lg:bx-start-8']}>
+      <div class:list={['bx-span-4 bx-lg-span-5', !reverse && 'bx-lg-start-8']}>
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         <h2 id={id} class:list={[eyebrow && 'mt-4']}>{title}</h2>
         <div class="mt-5">

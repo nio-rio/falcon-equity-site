@@ -4,10 +4,10 @@ import { STATS } from '@/data/site';
 
 <section aria-label="Falcon Equity Group by the numbers" class="bg-tint">
   <div class="container-site py-12 md:py-16">
-    <dl class="bx-grid">
+    <dl class="stats-grid">
       {
         STATS.map((s) => (
-          <div class="stat-cell bx-span-2 lg:bx-span-2">
+          <div class="stat-cell">
             <dd>{s.value}</dd>
             <dt>{s.label}</dt>
           </div>

@@ -23,7 +23,7 @@ const { items, image, imageAlt = '', intent = 'quiet office interior, even dayli
     <section class="statement-band on-dark">
       <div class="container-site">
         <div class="bx-grid items-center">
-          <div class="statement-media bx-span-4 lg:bx-span-6">
+          <div class="statement-media bx-span-4 bx-lg-span-6">
             {image ? (
               <Image
                 src={image}
@@ -36,7 +36,7 @@ const { items, image, imageAlt = '', intent = 'quiet office interior, even dayli
               <ImageSlot labeled intent={intent} ratio="4 / 3" />
             )}
           </div>
-          <div class="bx-span-4 lg:bx-span-5 lg:bx-start-8">
+          <div class="bx-span-4 bx-lg-span-5 bx-lg-start-8">
             <ul class="statement-list">
               {items.map((item) => (
                 <li>

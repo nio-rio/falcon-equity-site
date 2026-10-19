@@ -6,13 +6,13 @@ import { TESTIMONIALS } from '@/data/content';
 <section class="section bg-white" aria-labelledby="testimonials-heading">
   <div class="container-site">
     <div class="bx-grid">
-      <div class="bx-span-4 lg:bx-span-6">
+      <div class="bx-full">
         <Eyebrow>Testimonials</Eyebrow>
         <h2 id="testimonials-heading" class="mt-4">When our customers succeed, so do we.</h2>
       </div>
       {
         TESTIMONIALS.map((t) => (
-          <div class="bx-span-4 lg:bx-span-4">
+          <div class="bx-span-4 bx-lg-span-4">
             <blockquote>
               <p class="font-display text-[1.375rem] font-light leading-snug text-ink">{t.quote}</p>
             </blockquote>

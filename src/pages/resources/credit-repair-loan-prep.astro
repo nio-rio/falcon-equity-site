@@ -68,7 +68,7 @@ const steps = [
       <section class="section bg-white" aria-labelledby={`program-${gi}`}>
         <div class="container-site">
           <div class="bx-grid">
-            <div class="bx-span-4 lg:bx-span-12">
+            <div class="bx-span-4 bx-lg-span-12">
               <Eyebrow>{p.group.startsWith('Business') ? 'Business' : 'Personal'}</Eyebrow>
               <h2 id={`program-${gi}`} class="mt-4">
                 {p.group}
@@ -76,7 +76,7 @@ const steps = [
               <p class="section-lead mt-5">{p.lead}</p>
             </div>
             {p.items.map((item) => (
-              <div class="tile-card bx-span-4 lg:bx-span-4">
+              <div class="tile-card bx-span-4 bx-lg-span-4">
                 <h3>{item.name}</h3>
                 <p class="mt-3 text-ink-soft">{item.body}</p>
               </div>
@@ -90,11 +90,11 @@ const steps = [
   <section class="section bg-white" aria-labelledby="why-program-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-5">
+        <div class="bx-span-4 bx-lg-span-5">
           <Eyebrow>Why</Eyebrow>
           <h2 id="why-program-heading" class="mt-4">Why clients choose this program</h2>
         </div>
-        <ul class="bx-span-4 lg:bx-span-6 lg:bx-start-7 space-y-3">
+        <ul class="bx-span-4 bx-lg-span-6 bx-lg-start-7 space-y-3">
           {
             reasons.map((r) => (
               <li class="text-ink-soft">{r}</li>
@@ -108,11 +108,11 @@ const steps = [
   <section class="section bg-white" aria-labelledby="how-program-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-8 lg:bx-start-3 text-center">
+        <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3 text-center">
           <Eyebrow align="center">Process</Eyebrow>
           <h2 id="how-program-heading" class="mt-4">How it works</h2>
         </div>
-        <div class="bx-span-4 lg:bx-span-8 lg:bx-start-3">
+        <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3">
           <div class="mt-8">
             <StepTimeline steps={steps} />
           </div>

@@ -68,7 +68,7 @@ const pageSize = 6;
     posts.length > 0 ? (
       <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'bx-grid']} data-blog-grid>
         {posts.map((post) => (
-          <li class="bx-span-4 lg:bx-span-4" data-blog-category={categorySlug(post.data.category)}>
+          <li class="bx-span-4 bx-lg-span-4" data-blog-category={categorySlug(post.data.category)}>
             <PostCard post={post} />
           </li>
         ))}

@@ -24,7 +24,7 @@ const shown = cases.slice(0, 3);
     <section class="section bg-white" aria-labelledby={headingId}>
       <div class="container-site">
         <div class="bx-grid">
-          <div class="bx-span-4 lg:bx-span-6">
+          <div class="bx-full">
             <Eyebrow>Use cases</Eyebrow>
             <h2 id={headingId} class="mt-4">
               Situations owners bring to Falcon.
@@ -32,7 +32,7 @@ const shown = cases.slice(0, 3);
             <p class="section-lead mt-5">Generic situations. Not real clients or results.</p>
           </div>
           {shown.map((s) => (
-            <div class="bx-span-4 lg:bx-span-4">
+            <div class="bx-span-4 bx-lg-span-4">
               <div class="media-zoom">
                 <ImageSlot intent={s.intent} ratio="16 / 9" />
               </div>

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { id = 'principles-heading', eyebrow, title, items } = Astro.props;
-const col = items.length > 3 ? 'lg:bx-span-3' : 'lg:bx-span-4';
+const col = items.length > 3 ? 'bx-lg-span-3' : 'bx-lg-span-4';
 ---
 
 {
@@ -22,7 +22,7 @@ const col = items.length > 3 ? 'lg:bx-span-3' : 'lg:bx-span-4';
     <section class="section bg-white" aria-labelledby={id}>
       <div class="container-site">
         <div class="bx-grid">
-          <div class="bx-span-4 lg:bx-span-10">
+          <div class="bx-full">
             {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
             <h2 id={id} class:list={['principles-statement', eyebrow && 'mt-4']}>
               {title}

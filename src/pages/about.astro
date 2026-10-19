@@ -49,7 +49,7 @@ const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
   <section class="section bg-white" aria-labelledby="people-cta-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-span-4 bx-lg-span-6">
           <h2 id="people-cta-heading" class="sr-only">Our people</h2>
           <ArrowCta href="#people-heading" label="Learn more about our people" />
         </div>
@@ -60,13 +60,13 @@ const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
   <section class="section bg-white" aria-labelledby="people-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-full">
           <Eyebrow>Our people</Eyebrow>
           <h2 id="people-heading" class="mt-4">The people of Falcon.</h2>
         </div>
         {
           TEAM_ROLES.map((title) => (
-            <div class="bx-span-2 md:bx-span-2 lg:bx-span-3">
+            <div class="bx-span-2 bx-md-span-2 bx-lg-span-3">
               <ImageSlot intent="staff headshot, even studio light" ratio="3 / 4" />
               <p class="mt-4 min-h-[1.5em] font-medium text-ink">
                 <Fragment set:html="<!-- real staff name -->" />

@@ -34,11 +34,11 @@ const chartSeries = SERVICES.flatMap((s) => {
   <section class="section bg-white" aria-labelledby="options-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-full">
           <Eyebrow>Options</Eyebrow>
           <h2 id="options-heading" class="mt-4">Funding options</h2>
         </div>
-        <ul class="service-list bx-span-4 lg:bx-span-12">
+        <ul class="service-list bx-span-4 bx-lg-span-12">
           {
             SERVICES.map((s) => (
               <li>
@@ -54,11 +54,11 @@ const chartSeries = SERVICES.flatMap((s) => {
   <section class="section bg-white" aria-labelledby="compare-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 lg:bx-span-6">
+        <div class="bx-full">
           <Eyebrow>Compare</Eyebrow>
           <h2 id="compare-heading" class="mt-4">Compare options</h2>
         </div>
-        <div class="bx-span-4 lg:bx-span-12">
+        <div class="bx-span-4 bx-lg-span-12">
           <ChartTable
             labelledBy="compare-heading"
             caption="Compare Falcon’s seven funding products by amount, term, speed and typical use"
