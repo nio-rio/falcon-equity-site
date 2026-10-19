@@ -49,8 +49,8 @@ const dropdownItem = 'nav-dropdown-item';
                       class={dropdownItem}
                       aria-current={isActive(`/services/${s.slug}`) ? 'page' : undefined}
                     >
-                      <span class="block text-sm font-semibold text-ink">{s.name}</span>
-                      <span class="block text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
+                      <span class="nav-item-title text-sm font-semibold text-ink">{s.name}</span>
+                      <span class="nav-item-desc text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
                     </a>
                   </li>
                 ))
@@ -94,7 +94,7 @@ const dropdownItem = 'nav-dropdown-item';
                       class={dropdownItem}
                       aria-current={isActive(l.href) ? 'page' : undefined}
                     >
-                      <span class="block text-sm font-semibold text-ink">{l.label}</span>
+                      <span class="nav-item-title text-sm font-semibold text-ink">{l.label}</span>
                     </a>
                   </li>
                 ))
@@ -126,8 +126,8 @@ const dropdownItem = 'nav-dropdown-item';
                       class={dropdownItem}
                       aria-current={isActive(l.href) ? 'page' : undefined}
                     >
-                      <span class="block text-sm font-semibold text-ink">{l.label}</span>
-                      <span class="block text-xs text-muted">{l.description}</span>
+                      <span class="nav-item-title text-sm font-semibold text-ink">{l.label}</span>
+                      <span class="nav-item-desc text-xs text-muted">{l.description}</span>
                     </a>
                   </li>
                 ))
@@ -168,7 +168,8 @@ const dropdownItem = 'nav-dropdown-item';
           SERVICES.map((s) => (
             <li>
               <a href={`/services/${s.slug}`} class="block py-2.5">
-                {s.name}
+                <span class="nav-item-title">{s.name}</span>
+                <span class="nav-item-desc text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
               </a>
             </li>
           ))
@@ -180,7 +181,7 @@ const dropdownItem = 'nav-dropdown-item';
           FIRM_LINKS.map((l) => (
             <li>
               <a href={l.href} class="block py-2.5">
-                {l.label}
+                <span class="nav-item-title">{l.label}</span>
               </a>
             </li>
           ))
@@ -192,7 +193,8 @@ const dropdownItem = 'nav-dropdown-item';
           RESOURCE_LINKS.map((l) => (
             <li>
               <a href={l.href} class="block py-2.5">
-                {l.label}
+                <span class="nav-item-title">{l.label}</span>
+                {l.description && <span class="nav-item-desc text-xs text-muted">{l.description}</span>}
               </a>
             </li>
           ))
@@ -268,6 +270,16 @@ const dropdownItem = 'nav-dropdown-item';
 
   .nav-dropdown-footer {
     margin-top: 0.5rem;
+  }
+
+  .nav-item-title,
+  .nav-item-desc {
+    display: block;
+  }
+
+  .nav-item-desc {
+    margin-top: 5px;
+    line-height: 1.45;
   }
 
   .nav-dropdown:hover > .nav-dropdown-menu,
