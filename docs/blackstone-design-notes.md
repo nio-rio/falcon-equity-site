@@ -8,15 +8,27 @@ Blackstone.com is behind Cloudflare from this environment, so computed CSS could
 
 Implemented as `--bx-*` tokens and `.bx-grid` / `.bx-span-*` / `.bx-lg-span-*` / `.bx-lg-start-*` in `src/styles/blackstone.css`. `.container-site` is the `content__inner` equivalent. Class names are unprefixed (`bx-lg-span-6`, not `lg:bx-span-6`) so Tailwind v4 cannot drop them.
 
-| Token | Mobile `<768` | Tablet `768–1023` | Desktop `1024–1439` | Wide `≥1440` |
-| --- | --- | --- | --- | --- |
-| Columns | 4 | 8 | 12 | 12 |
-| Gutter | 16px | 24px | 24px | 24px |
-| Outer margin | 20px | 40px | 40px | 80px |
-| Section padding | 4rem (64px) | 5.5rem (88px) | 7.5rem (120px) | 7.5rem (120px) |
-| Content max | 1280px | 1280px | 1280px | 1280px |
+| Token | Mobile `<768` | Tablet `768–1023` | Desktop `1024–1439` | Wide `≥1440` | Source |
+| --- | --- | --- | --- | --- | --- |
+| Columns `--bx-columns` | 4 | 8 | 12 | 12 | Bundle `--columns`; Falcon uses 12 from 1024 (BX 16-col at 80em mapped to 12) |
+| Gutter `--bx-gutter` | 16px | 24px | 24px | 24px | Bundle `--column-gap: 2em` at desktop → 24px at 12px root; 16px mobile from screenshot |
+| Outer margin `--bx-margin` | 15px | 40px | 40px | 80px | Bundle default 15px; `--pad-container-md-plus: 80px` at 90em |
+| Section padding `--bx-section` | 4rem (64px) | 5.5rem (88px) | 7.5rem (120px) | 7.5rem (120px) | Ling + BXCI 120px desktop |
+| Content max `--bx-max` | 20.5→23rem | 43rem | 71rem | **79rem (1264px)** | Bundle `--container-width`: 20.5 / 23 / 43 / 71 / 79 / 103rem at 0 / 26em / 48em / 80em / 90em / 120em |
 
-**Container math.** `.container-site` is `max-width: calc(var(--bx-max) + 2 * var(--bx-margin))` with `--bx-max: 1280px` and `padding-inline: var(--bx-margin)`. At a 1440 viewport that is a **1440px** outer box and a **1280px** inner grid (80px + 1280 + 80px). Wider viewports keep the 1280px inner width centered; narrower viewports keep the 20 / 40px margins. 80px margins apply at `≥1440`, not at 1024 (80px pad on 1024 would leave only ~864px for twelve columns).
+**Container math.** `.container-site` is `max-width: calc(var(--bx-max) + 2 * var(--bx-margin))` with `padding-inline: var(--bx-margin)`. At a **1440** viewport: `--bx-max: 79rem` (1264px) + 80px sides ≈ Ling’s 1280/80. Measured inner grid at 1440 = **1264px**, pad **80px** (8px leftover centering). At 1024 the viewport is narrower than 71rem, so the grid is 1024 − 80 = **944px**. Do not apply the 43rem tablet cap while using 12 columns.
+
+## Colors (from blackstone-v2 bundle, Wayback `20260925104209`)
+
+| Token | Value | Falcon | Source |
+| --- | --- | --- | --- |
+| `--c-black` | `#000000` | `--color-ink` | Bundle |
+| `--c-variant-black` | `#202020` | `--color-ink-soft` | Bundle |
+| `--c-slate-1` | `#515256` | `--color-muted` | Bundle |
+| `--c-slate-2` | `#d5d8df` | `--color-line` | Bundle |
+| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` | Bundle |
+| `--c-yellow` | `#fdf147` | not used as CTA fill | Bundle (focus/highlight only) |
+| Falcon CTA | `#5b21b6` | `--color-accent` | Existing Falcon purple; not BX yellow |
 
 **Breakpoints.** `768px` (tablet, 8 columns), `1024px` (desktop, 12 columns), `1440px` (80px page margin).
 
@@ -81,7 +93,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 5. **Image-led cards.** 16:9 crop, hover zoom ~1.06, square corners, no shadow.
 6. **Inactive vs active lists.** Unhovered Explore rows recede; the hovered row returns to ink and fills its arrow.
 7. **Black bands** where Blackstone uses them: home hero, Insights CTA, statement band.
-8. **Quote split.** Portrait left, oversized quote right. Live Dwight copy only.
+8. **Quote split.** Portrait left (4 of 12, 3:4 crop), large **sans** quote right (start 6, span 7), name bold + title bottom-right. Live Dwight copy only. `.page-hero-media figure` must not force `display:block` on `.quote-split`.
 9. **Tables.** Uppercase muted headers, thin row lines, no vertical rules.
 10. **BXCI landing rhythm.** Hero title + lead + image → stat row → black statement band (image left, list right) → accordion → feature + image → 3-column principles → related cards → quote only if real copy exists.
 11. **Eyebrows.** Default: uppercase tracked label + short rule to the **right**. When the heading is centered: rule **above** the label (`.eyebrow--center`).

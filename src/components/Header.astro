@@ -181,7 +181,7 @@ const dropdownItem = 'nav-dropdown-item';
     </nav>
 
     <div class="hidden items-center gap-5 lg:flex">
-      <a href={PRIMARY_PHONE.href} class="header-phone inline-flex items-center gap-2 text-base">
+      <a href={PRIMARY_PHONE.href} class="header-phone hidden items-center gap-2 text-base xl:inline-flex">
         <Icon name="phone" size={16} />
         <span class="sr-only">Call </span>{PRIMARY_PHONE.display}
       </a>
@@ -247,6 +247,15 @@ const dropdownItem = 'nav-dropdown-item';
   .header-bar {
     position: relative;
     z-index: 2;
+  }
+
+  .header-bar > nav > ul {
+    flex-wrap: nowrap;
+  }
+
+  .header-bar > nav > ul > li > a,
+  .header-bar > nav > ul > li > button {
+    white-space: nowrap;
   }
 
   .header-logo,

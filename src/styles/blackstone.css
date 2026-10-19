@@ -591,7 +591,7 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
 
 .page-hero-media img,
 .page-hero-media .image-slot,
-.page-hero-media figure {
+.page-hero-media figure:not(.bx-grid) {
   display: block;
   width: 100%;
   border-radius: 0;
@@ -855,10 +855,22 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
 }
 
 /* BREIT quote: portrait in its own column, large sans quote, name+title bottom-right.
-   BX .bx-quote-block__inner at 80em: image 4 of 16, content 10 of 16 → 4 + start-6 span-7 on 12. */
+   BX .bx-quote-block__inner at 80em: image 4 of 16, content 10 of 16 → 4 + start-6 span-7 on 12.
+   Must set display:grid here: .page-hero-media figure { display:block } is more specific than .bx-grid. */
+.quote-split {
+  display: grid;
+  grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-40);
+  align-items: stretch;
+  width: 100%;
+}
+
 .quote-split-photo {
   background: var(--color-tint);
-  min-height: 18rem;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  min-height: 0;
 }
 
 .quote-split-photo img {
@@ -885,8 +897,8 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: clamp(1.5rem, 1.6vw + 1rem, 2.5rem);
-  line-height: 1.3;
+  font-size: clamp(1.75rem, 2vw + 1rem, 3rem);
+  line-height: 1.25;
   color: var(--color-ink);
 }
 
@@ -914,9 +926,9 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
   color: var(--color-muted);
 }
 
-@media (min-width: 768px) {
-  .quote-split-photo {
-    min-height: 28rem;
+@media (min-width: 1024px) {
+  .quote-split-copy {
+    min-height: 100%;
   }
 }
 
