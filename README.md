@@ -138,7 +138,7 @@ The output is plain static files in `dist/`, so either free tier works. **Do not
 ### Netlify
 
 1. Add a new site from the GitHub repo.
-2. Netlify reads `netlify.toml`: build command `npm run build`, publish directory `dist`, Node 24.
+2. Netlify reads `netlify.toml`: build command `npm run build`, publish directory `dist`, Node 20.
 3. `public/_redirects` is copied into `dist/` and applied automatically.
 4. Every pull request gets a Deploy Preview URL once the site is connected.
 
