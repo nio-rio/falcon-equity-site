@@ -31,12 +31,7 @@ export const compactUsdRange = (value: string): string => {
       return n;
     })
     .filter((n): n is number => n != null);
-  if (nums.length >= 2) {
-    const [a, b] = nums;
-    const bothK = a >= 1_000 && a < 1_000_000 && b >= 1_000 && b < 1_000_000;
-    if (bothK) return `$${a / 1_000}-${b / 1_000}K`;
-    return `${formatUsd(a)}-${formatUsd(b)}`;
-  }
+  if (nums.length >= 2) return `${formatUsd(nums[0])}-${formatUsd(nums[1])}`;
   if (nums.length === 1) {
     const core = formatUsd(nums[0]);
     return trimmed.includes('+') ? `${core}+` : core;
