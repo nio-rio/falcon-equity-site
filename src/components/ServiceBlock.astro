@@ -55,6 +55,7 @@ const { service } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    min-width: 0;
   }
 
   @media (min-width: 768px) {
@@ -68,6 +69,7 @@ const { service } = Astro.props;
   .service-row-media {
     flex: none;
     width: 100%;
+    max-width: 100%;
     overflow: hidden;
     aspect-ratio: 16 / 9;
   }
