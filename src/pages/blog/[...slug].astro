@@ -56,16 +56,30 @@ const ogImage = cover?.src;
 >
   <article>
     <header class="bg-white">
-      <div class="container-site py-14 sm:py-20">
+      <div class="container-site pt-10 pb-4 sm:pt-14">
         <div class="article-shell">
           {
+            cover ? (
+              <Image
+                src={cover}
+                alt={coverAlt}
+                widths={[640, 960, 1280]}
+                sizes="(min-width: 1024px) 896px, 100vw"
+                class="aspect-[16/9] w-full object-cover"
+                priority
+              />
+            ) : (
+              <ImageSlot intent={coverAlt || 'editorial illustration for this article'} ratio="16 / 9" />
+            )
+          }
+          {
             draft && (
-              <p class="text-sm font-semibold text-accent">
+              <p class="mt-8 text-sm font-semibold text-accent">
                 Draft: awaiting Dwight’s approval. Not visible in production.
               </p>
             )
           }
-          <h1 class:list={['article-h1', draft && 'mt-6']}>{title}</h1>
+          <h1 class:list={['article-h1', draft ? 'mt-6' : 'mt-10']}>{title}</h1>
           <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted">
             <span>By <span class="font-semibold text-ink">{author}</span></span>
             <span aria-hidden="true">·</span>
@@ -76,29 +90,6 @@ const ogImage = cover?.src;
         </div>
       </div>
     </header>
-
-    <div class="container-site">
-      <div class="article-shell">
-        {
-          cover ? (
-            <Image
-              src={cover}
-              alt={coverAlt}
-              widths={[640, 960, 1280]}
-              sizes="(min-width: 1024px) 896px, 100vw"
-              class="mt-10 aspect-[16/9] w-full object-cover"
-              priority
-            />
-          ) : (
-            <ImageSlot
-              class="mt-10"
-              intent={coverAlt || 'editorial photograph for this article'}
-              ratio="16 / 9"
-            />
-          )
-        }
-      </div>
-    </div>
 
     <div class="container-site py-12 sm:py-16">
       <div class="article-shell">

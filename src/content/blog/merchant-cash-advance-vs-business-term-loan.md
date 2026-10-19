@@ -5,8 +5,8 @@ category: Working Capital
 author: Falcon Equity Group
 excerpt: 'Both put capital in your account fast. But they work very differently. Here is a plain-English comparison to help you pick the right one.'
 description: 'Merchant cash advance or business term loan? Compare speed, requirements, repayment and best uses to choose the right funding for your business.'
-cover: ../../assets/blog/mca-vs-term-loan.jpg
-coverAlt: 'Two overlapping circles representing a comparison between a merchant cash advance and a business term loan.'
+cover: ../../assets/blog/merchant-cash-advance-vs-business-term-loan.jpg
+coverAlt: ''
 draft: false
 ---
 

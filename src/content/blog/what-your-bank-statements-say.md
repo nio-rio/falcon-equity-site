@@ -5,7 +5,8 @@ category: How-To
 author: Falcon Equity Group
 excerpt: 'Underwriters read statements before the application. Three things decide most of the conversation: whether deposits arrive consistently, whether payments bounce, and whether you hold a balance.'
 description: 'What underwriters look for in six months of business bank statements, what weak statements look like, and how to present your file honestly and clearly.'
-coverAlt: 'A printed bank statement with several lines highlighted, representing underwriting review.'
+cover: ../../assets/blog/what-your-bank-statements-say.jpg
+coverAlt: ''
 draft: false
 ---
 

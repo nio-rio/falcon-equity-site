@@ -5,7 +5,8 @@ category: How-To
 author: Falcon Equity Group
 excerpt: 'A factor rate is not an interest rate. Here is the arithmetic that turns a quote like 1.30 into a number you can compare against any other offer on the table.'
 description: 'How to read a merchant cash advance factor rate, convert it into an annualized rate, and the questions to ask in writing before you sign.'
-coverAlt: 'A calculator, a printed quote and a pen on a desk, representing how a factor rate is converted into an annualized cost.'
+cover: ../../assets/blog/how-to-read-a-factor-rate.jpg
+coverAlt: ''
 draft: false
 ---
 

@@ -27,21 +27,37 @@ const { title, category, cover, coverAlt, draft } = post.data;
       )
     }
   </div>
-  <p class="eyebrow mt-4">{category}{draft && ' · Draft'}</p>
-  <h3 class="mt-2">
+  <p class="post-card-cat eyebrow">{category}{draft && ' · Draft'}</p>
+  <h3 class="post-card-title">
     <a href={`/blog/${post.id}`} class="after:absolute after:inset-0">{title}</a>
   </h3>
 </article>
 
 <style>
+  .post-card {
+    display: flex;
+    flex-direction: column;
+  }
+
   .post-card-media {
     overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .post-card-cat {
+    margin-top: 1.5rem;
+  }
+
+  .post-card-title {
+    margin-top: 0.75rem;
   }
 
   .post-card-media :global(img),
   .post-card-media :global(.image-slot) {
     display: block;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     transform-origin: center;
     transition: transform 300ms ease;
   }
