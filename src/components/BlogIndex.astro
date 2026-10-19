@@ -1,6 +1,5 @@
 ---
 import PostCard from './PostCard.astro';
-import SectionHeading from './SectionHeading.astro';
 import type { Post } from '@/lib/blog';
 import { categorySlug } from '@/lib/blog';
 
@@ -13,57 +12,48 @@ interface Props {
 const { posts, categories, activeCategory } = Astro.props;
 ---
 
-<section class="section bg-white" aria-labelledby="posts-heading">
-  <div class="container-site">
-    <SectionHeading
-      id="posts-heading"
-      eyebrow="Blog"
-      title={activeCategory ? `${activeCategory} articles` : 'Latest articles'}
-    />
-    {
-      categories.length > 0 && (
-        <nav aria-label="Blog categories" class="mt-8">
-          <ul class="flex flex-wrap gap-x-8 gap-y-2 text-base">
-            <li>
-              <a
-                href="/blog"
-                class:list={[!activeCategory ? 'text-accent' : 'text-ink-soft hover:text-ink']}
-                aria-current={!activeCategory ? 'page' : undefined}
-              >
-                All
-              </a>
-            </li>
-            {categories.map((c) => (
-              <li>
-                <a
-                  href={`/blog/category/${categorySlug(c)}`}
-                  class:list={[activeCategory === c ? 'text-accent' : 'text-ink-soft hover:text-ink']}
-                  aria-current={activeCategory === c ? 'page' : undefined}
-                >
-                  {c}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )
-    }
+{
+  categories.length > 0 && (
+    <nav aria-label="Blog categories" class="mt-12">
+      <ul class="flex flex-wrap gap-x-8 gap-y-2 text-base">
+        <li>
+          <a
+            href="/blog"
+            class:list={[!activeCategory ? 'text-accent' : 'text-ink-soft hover:text-ink']}
+            aria-current={!activeCategory ? 'page' : undefined}
+          >
+            All
+          </a>
+        </li>
+        {categories.map((c) => (
+          <li>
+            <a
+              href={`/blog/category/${categorySlug(c)}`}
+              class:list={[activeCategory === c ? 'text-accent' : 'text-ink-soft hover:text-ink']}
+              aria-current={activeCategory === c ? 'page' : undefined}
+            >
+              {c}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
-    {
-      posts.length > 0 ? (
-        <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <li>
-              <PostCard post={post} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="mt-10 max-w-2xl text-ink-soft">
-          New articles are on the way. Until then, use the <a href="/resources/loan-calculator" class="link">loan calculator</a> or
-          the <a href="/faq" class="link">FAQ</a>.
-        </p>
-      )
-    }
-  </div>
-</section>
+{
+  posts.length > 0 ? (
+    <ul class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'grid gap-8 md:grid-cols-2 lg:grid-cols-3']}>
+      {posts.map((post) => (
+        <li>
+          <PostCard post={post} />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class:list={[categories.length > 0 ? 'mt-10' : 'mt-12', 'max-w-2xl text-ink-soft']}>
+      New articles are on the way. Until then, use the <a href="/resources/loan-calculator" class="link">loan calculator</a> or
+      the <a href="/faq" class="link">FAQ</a>.
+    </p>
+  )
+}

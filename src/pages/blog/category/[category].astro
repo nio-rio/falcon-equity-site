@@ -36,7 +36,8 @@ const crumbs = [
   description={`${category} guides from the Falcon blog.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <PageHero title={category} />
-  <BlogIndex posts={posts} categories={categories} activeCategory={category} />
+  <PageHero title={category}>
+    <BlogIndex posts={posts} categories={categories} activeCategory={category} />
+  </PageHero>
   <CtaBand />
 </BaseLayout>

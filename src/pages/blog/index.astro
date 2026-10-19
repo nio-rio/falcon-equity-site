@@ -21,7 +21,8 @@ const crumbs = [
   description="Guides on working capital, merchant cash advances, consolidation, factoring and getting funded."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <PageHero title="Blog" lead="Short guides on working capital, consolidation and getting funded." />
-  <BlogIndex posts={posts} categories={categories} />
+  <PageHero title="Blog" lead="Short guides on working capital, consolidation and getting funded.">
+    <BlogIndex posts={posts} categories={categories} />
+  </PageHero>
   <CtaBand />
 </BaseLayout>
