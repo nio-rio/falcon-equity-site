@@ -139,7 +139,7 @@ const dropdownItem = 'nav-dropdown-item';
     </nav>
 
     <div class="hidden items-center gap-5 lg:flex">
-      <a href={PRIMARY_PHONE.href} class="header-phone inline-flex items-center gap-2 text-base hover:underline">
+      <a href={PRIMARY_PHONE.href} class="header-phone inline-flex items-center gap-2 text-base">
         <Icon name="phone" size={16} />
         <span class="sr-only">Call </span>{PRIMARY_PHONE.display}
       </a>
@@ -227,9 +227,20 @@ const dropdownItem = 'nav-dropdown-item';
   }
 
   .header-logo,
-  .header-phone,
   .header-toggle {
     color: inherit;
+  }
+
+  .header-phone {
+    color: inherit;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .header-phone:hover,
+  .header-phone:focus-visible {
+    color: var(--color-accent);
+    text-decoration: none;
   }
 
   .site-header a.is-active,

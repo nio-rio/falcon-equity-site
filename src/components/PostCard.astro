@@ -11,29 +11,77 @@ const { post } = Astro.props;
 const { title, category, cover, coverAlt, draft } = post.data;
 ---
 
-<article class="group relative">
-  {
-    cover ? (
-      <Image
-        src={cover}
-        alt={coverAlt}
-        widths={[480, 800]}
-        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-        class="aspect-[16/9] w-full object-cover"
-      />
-    ) : (
-      <ImageSlot intent={coverAlt || 'editorial photograph for this article'} ratio="16 / 9" />
-    )
-  }
+<article class="post-card group relative">
+  <div class="post-card-media">
+    {
+      cover ? (
+        <Image
+          src={cover}
+          alt={coverAlt}
+          widths={[480, 800]}
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          class="aspect-[16/9] w-full object-cover"
+        />
+      ) : (
+        <ImageSlot intent={coverAlt || 'editorial photograph for this article'} ratio="16 / 9" />
+      )
+    }
+  </div>
   <p class="eyebrow mt-4">{category}{draft && ' · Draft'}</p>
   <h3 class="mt-2">
-    <a href={`/blog/${post.id}`} class="after:absolute after:inset-0 group-hover:underline focus-visible:outline-none">{title}</a>
+    <a href={`/blog/${post.id}`} class="after:absolute after:inset-0">{title}</a>
   </h3>
 </article>
 
 <style>
-  article:has(a:focus-visible) {
+  .post-card-media {
+    overflow: hidden;
+  }
+
+  .post-card-media :global(img),
+  .post-card-media :global(.image-slot) {
+    display: block;
+    width: 100%;
+    transform-origin: center;
+    transition: transform 300ms ease;
+  }
+
+  .post-card h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 300ms ease;
+  }
+
+  .post-card:hover h3 a,
+  .post-card:has(a:focus-visible) h3 a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .post-card:hover .post-card-media :global(img),
+  .post-card:hover .post-card-media :global(.image-slot),
+  .post-card:has(a:focus-visible) .post-card-media :global(img),
+  .post-card:has(a:focus-visible) .post-card-media :global(.image-slot) {
+    transform: scale(1.03);
+  }
+
+  .post-card:has(a:focus-visible) {
     outline: 2px solid var(--color-accent);
     outline-offset: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card-media :global(img),
+    .post-card-media :global(.image-slot),
+    .post-card h3 a {
+      transition: none;
+    }
+
+    .post-card:hover .post-card-media :global(img),
+    .post-card:hover .post-card-media :global(.image-slot),
+    .post-card:has(a:focus-visible) .post-card-media :global(img),
+    .post-card:has(a:focus-visible) .post-card-media :global(.image-slot) {
+      transform: none;
+    }
   }
 </style>
