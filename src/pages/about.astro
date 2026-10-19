@@ -6,7 +6,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
-import { SITE, STATS } from '@/data/site';
+import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import dwight from '@/assets/images/dwight-holly.webp';
 
@@ -22,8 +22,6 @@ const founderSchema = {
   jobTitle: SITE.founder.title,
   worksFor: { '@id': `${SITE.url}/#organization` },
 };
-
-const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.value));
 ---
 
 <BaseLayout
@@ -33,52 +31,34 @@ const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.val
 >
   <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
 
-  <section class="section bg-white" aria-labelledby="founder-heading">
-    <div class="container-site max-w-4xl">
-      <SectionHeading id="founder-heading" eyebrow="Founder" title="From the founder." />
-      <figure class="mt-8">
+  <section class="quote-band" aria-label="Founder">
+    <div class="quote-copy">
+      <p class="eyebrow">Founder</p>
+      <div class="quote-copy-main">
         <blockquote>
           <p class="founder-quote">
-            <!-- Dwight to write and approve -->
-            “[Founder statement to come.]”
+            “Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the
+            complex financial landscape to ensure your wealth works for you.”
           </p>
         </blockquote>
-        <figcaption class="mt-8 text-ink-soft">
-          {SITE.founder.name}, {SITE.founder.title}
-        </figcaption>
-      </figure>
+        {/* Dwight should confirm the attribution before launch. */}
+        <p class="quote-attr">{SITE.founder.name}, {SITE.founder.title}</p>
+      </div>
     </div>
-  </section>
-
-  <section class="section bg-white" aria-labelledby="leadership-heading">
-    <div class="container-site">
-      <SectionHeading id="leadership-heading" eyebrow="Leadership" title={SITE.founder.name} />
-      <p class="mt-3 text-ink-soft">{SITE.founder.title}</p>
-      <article class="mt-12 grid gap-10 md:grid-cols-12 md:items-start">
-        <div class="md:col-span-4">
-          <Image
-            src={dwight}
-            alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
-            widths={[360, 562]}
-            sizes="(min-width: 768px) 33vw, 100vw"
-            loading="eager"
-            class="block aspect-[3/4] w-full object-cover object-top"
-          />
-        </div>
-        <div class="md:col-span-8 md:pl-4">
-          <p class="text-ink-soft">{SITE.founder.bio}</p>
-          <ul class="mt-10 grid gap-8 sm:grid-cols-3">
-            {
-              founderStats.map((s) => (
-                <li>
-                  <p class="font-display text-4xl font-light text-ink">{s.value}</p>
-                  <p class="mt-2 text-sm text-muted">{s.label}</p>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </article>
+    <div class="quote-photo">
+      <Image
+        src={dwight}
+        alt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+        widths={[640, 960, 1280]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        loading="eager"
+        class="quote-photo-img"
+      />
+      <div class="quote-photo-scrim" aria-hidden="true"></div>
+      <div class="quote-photo-meta">
+        <p class="quote-photo-name">{SITE.founder.name}</p>
+        <p class="quote-photo-title">{SITE.founder.title}</p>
+      </div>
     </div>
   </section>
 
@@ -121,10 +101,119 @@ const founderStats = STATS.filter((s) => ['$100M+', '15', '300+'].includes(s.val
 </BaseLayout>
 
 <style>
+  .quote-band {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .quote-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    min-height: 22rem;
+    padding: 2rem 1.5rem 2.5rem;
+    background: var(--color-tint);
+  }
+
+  .quote-copy-main {
+    max-width: 36rem;
+  }
+
+  .quote-copy blockquote {
+    margin: 0;
+  }
+
   .founder-quote {
+    font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem);
-    line-height: 1.15;
+    font-size: clamp(1.5rem, 2vw + 0.9rem, 2.25rem);
+    line-height: 1.2;
     color: var(--color-ink);
+  }
+
+  .quote-attr {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-ink-soft);
+  }
+
+  .quote-photo {
+    position: relative;
+    min-height: 22rem;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+
+  .quote-photo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+  }
+
+  .quote-photo-scrim {
+    position: absolute;
+    inset: auto 0 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
+
+  .quote-photo-meta {
+    position: absolute;
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .quote-photo-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+
+  .quote-photo-title {
+    margin-top: 0.35rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: rgb(255 255 255 / 0.9);
+  }
+
+  @media (min-width: 768px) {
+    .quote-band {
+      grid-template-columns: 1fr 1fr;
+      min-height: 36rem;
+    }
+
+    .quote-copy,
+    .quote-photo {
+      min-height: 36rem;
+    }
+
+    .quote-copy {
+      padding: 2.5rem 3rem 3rem;
+    }
+
+    .quote-photo-meta {
+      left: 2rem;
+      right: 2rem;
+      bottom: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .quote-copy {
+      padding: 3rem 4rem 3.5rem;
+    }
+
+    .founder-quote {
+      font-size: clamp(1.75rem, 1.4vw + 1rem, 2.375rem);
+    }
   }
 </style>
