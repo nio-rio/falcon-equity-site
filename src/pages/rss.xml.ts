@@ -6,7 +6,7 @@ import { SITE } from '@/data/site';
 export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
   return rss({
-    title: 'The Falcon Brief | Falcon Equity Group',
+    title: 'Falcon Equity Group Blog',
     description: 'Practical guides on business funding, working capital and consolidation from Falcon Equity Group.',
     site: context.site ?? SITE.url,
     items: posts.map((post) => ({
