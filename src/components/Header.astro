@@ -2,15 +2,31 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { SERVICES } from '@/data/services';
+import { INDUSTRIES } from '@/data/industries';
 import { FIRM_LINKS, PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 
 const path = cleanPath(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
-const extraLinks = [{ label: 'Industries', href: '/industries' }];
 const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources');
 const firmActive = FIRM_LINKS.some((l) => isActive(l.href));
+const industriesActive = isActive('/industries');
+
+const mobileSections = [
+  {
+    id: 'services',
+    label: 'Services',
+    links: [{ label: 'All funding options', href: '/services' }, ...SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))],
+  },
+  { id: 'firm', label: 'Our Firm', links: FIRM_LINKS.map((l) => ({ label: l.label, href: l.href })) },
+  { id: 'resources', label: 'Resources', links: RESOURCE_LINKS.map((l) => ({ label: l.label, href: l.href })) },
+  {
+    id: 'industries',
+    label: 'Industries',
+    links: [{ label: 'All industries', href: '/industries' }, ...INDUSTRIES.map((i) => ({ label: i.name, href: `/industries/${i.slug}` }))],
+  },
+];
 const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal';
 const dropdownItem = 'nav-dropdown-item';
 ---
@@ -60,15 +76,6 @@ const dropdownItem = 'nav-dropdown-item';
               Compare all funding options
             </a>
           </div>
-        </li>
-        <li>
-          <a
-            href="/industries"
-            class:list={[navLink, isActive('/industries') && 'is-active']}
-            aria-current={isActive('/industries') ? 'page' : undefined}
-          >
-            Industries
-          </a>
         </li>
         <li class="nav-dropdown relative" data-dropdown>
           <button
@@ -135,6 +142,41 @@ const dropdownItem = 'nav-dropdown-item';
             </ul>
           </div>
         </li>
+        <li class="nav-dropdown relative" data-dropdown>
+          <button
+            type="button"
+            class:list={[navLink, industriesActive && 'is-active']}
+            aria-expanded="false"
+            aria-controls="menu-industries"
+            data-dropdown-trigger
+          >
+            Industries <Icon name="chevron-down" size={14} class="transition-transform" />
+          </button>
+          <div
+            id="menu-industries"
+            class="nav-dropdown-menu absolute top-full right-0 z-10 w-[32rem] bg-white text-ink shadow-md"
+            data-dropdown-menu
+          >
+            <ul class="grid grid-cols-2">
+              {
+                INDUSTRIES.map((i) => (
+                  <li>
+                    <a
+                      href={`/industries/${i.slug}`}
+                      class={dropdownItem}
+                      aria-current={isActive(`/industries/${i.slug}`) ? 'page' : undefined}
+                    >
+                      <span class="nav-item-title text-sm font-semibold text-ink">{i.name}</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <a href="/industries" class="nav-dropdown-footer text-sm font-semibold text-ink">
+              View all industries
+            </a>
+          </div>
+        </li>
       </ul>
     </nav>
 
@@ -160,54 +202,30 @@ const dropdownItem = 'nav-dropdown-item';
   </div>
 
   <nav id="mobile-menu" aria-label="Mobile" class="hidden max-h-[calc(100dvh-3.5rem)] overflow-y-auto bg-tint text-ink lg:hidden">
-    <div class="container-site py-6">
-      <p class="eyebrow">Services</p>
-      <ul class="mt-2 grid gap-1 sm:grid-cols-2">
-        <li><a href="/services" class="block py-2.5 font-semibold text-accent">All funding options</a></li>
+    <div class="container-site py-4">
+      <ul class="mobile-sections">
         {
-          SERVICES.map((s) => (
-            <li>
-              <a href={`/services/${s.slug}`} class="block py-2.5">
-                <span class="nav-item-title">{s.name}</span>
-                <span class="nav-item-desc text-xs text-muted">{s.amountsShort ?? s.amounts}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="eyebrow mt-6">Our Firm</p>
-      <ul class="mt-2 grid gap-1 sm:grid-cols-2">
-        {
-          FIRM_LINKS.map((l) => (
-            <li>
-              <a href={l.href} class="block py-2.5">
-                <span class="nav-item-title">{l.label}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="eyebrow mt-6">Resources</p>
-      <ul class="mt-2 grid gap-1 sm:grid-cols-2">
-        {
-          RESOURCE_LINKS.map((l) => (
-            <li>
-              <a href={l.href} class="block py-2.5">
-                <span class="nav-item-title">{l.label}</span>
-                {l.description && <span class="nav-item-desc text-xs text-muted">{l.description}</span>}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="eyebrow mt-6">Company</p>
-      <ul class="mt-2 grid gap-1 sm:grid-cols-2">
-        {
-          extraLinks.map((l) => (
-            <li>
-              <a href={l.href} class="block py-2.5">
-                {l.label}
-              </a>
+          mobileSections.map((section) => (
+            <li class="mobile-section" data-mobile-section>
+              <button
+                type="button"
+                class="mobile-section-toggle"
+                aria-expanded="false"
+                aria-controls={`mobile-menu-${section.id}`}
+                data-mobile-section-toggle
+              >
+                <span>{section.label}</span>
+                <Icon name="chevron-down" size={18} class="transition-transform" />
+              </button>
+              <ul id={`mobile-menu-${section.id}`} class="mobile-section-panel grid gap-1 pb-3 sm:grid-cols-2" hidden>
+                {section.links.map((l) => (
+                  <li>
+                    <a href={l.href} class="block py-2.5" aria-current={path === l.href ? 'page' : undefined}>
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))
         }
@@ -239,13 +257,31 @@ const dropdownItem = 'nav-dropdown-item';
 
   .header-phone:hover,
   .header-phone:focus-visible {
-    color: var(--color-accent);
+    color: inherit;
+    opacity: 0.7;
     text-decoration: none;
   }
 
   .site-header a.is-active,
   .site-header button.is-active {
-    color: var(--color-accent);
+    color: inherit;
+    font-weight: 600;
+  }
+
+  .mobile-section-toggle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: inherit;
+    text-align: left;
+  }
+
+  .mobile-section-toggle[aria-expanded='true'] :global(svg) {
+    transform: rotate(180deg);
   }
 
   .site-header nav a:hover,
@@ -391,7 +427,21 @@ const dropdownItem = 'nav-dropdown-item';
       const label = toggle.querySelector('[data-mobile-label]');
       if (label) label.textContent = open ? 'Close menu' : 'Open menu';
     };
-    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    const sectionToggles = mobileMenu.querySelectorAll<HTMLButtonElement>('[data-mobile-section-toggle]');
+    const setSection = (btn: HTMLButtonElement, open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      const panel = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+      if (panel) panel.hidden = !open;
+    };
+    sectionToggles.forEach((btn) => {
+      btn.addEventListener('click', () => setSection(btn, btn.getAttribute('aria-expanded') !== 'true'));
+    });
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      // Every time the menu opens, show only the collapsed top-level items.
+      if (open) sectionToggles.forEach((btn) => setSection(btn, false));
+      setOpen(open);
+    });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
         setOpen(false);

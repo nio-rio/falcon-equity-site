@@ -145,7 +145,7 @@ const schema = [
           )
         }
         <div
-          class="prose prose-lg mt-12 max-w-none prose-headings:font-display prose-headings:text-ink prose-a:text-accent prose-a:decoration-accent prose-a:decoration-2 prose-a:underline-offset-4 hover:prose-a:text-accent-hover prose-strong:text-ink prose-table:text-base prose-th:text-ink"
+          class="prose prose-lg mt-12 max-w-none prose-headings:font-display prose-headings:text-ink prose-a:text-inherit prose-a:decoration-current prose-a:decoration-1 prose-a:underline-offset-4 prose-strong:text-ink prose-table:text-base prose-th:text-ink"
         >
           <Content />
         </div>
@@ -235,6 +235,7 @@ const schema = [
 
   .post-toc a:hover,
   .post-toc a:focus-visible {
-    color: var(--color-accent);
+    color: inherit;
+    text-decoration: underline;
   }
 </style>

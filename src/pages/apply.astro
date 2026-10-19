@@ -43,7 +43,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
         {
           phones.map((p) => (
             <li>
-              <ContactLine icon="phone" href={p.href} class="hover:text-accent">
+              <ContactLine icon="phone" href={p.href}>
                 {p.label}: {p.display}
               </ContactLine>
             </li>

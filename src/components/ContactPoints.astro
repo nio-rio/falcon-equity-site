@@ -12,7 +12,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
     </span>
     <h3 class="mt-5">Email</h3>
     <p class="mt-2">
-      <a href={`mailto:${SITE.email}`} class="hover:text-accent">{SITE.email}</a>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
     </p>
   </div>
   <div>
@@ -24,7 +24,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
       {
         phones.map((p) => (
           <li>
-            <a href={p.href} class="hover:text-accent">
+            <a href={p.href}>
               {p.label} {p.display}
             </a>
           </li>
@@ -38,7 +38,7 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
     </span>
     <h3 class="mt-5">Office</h3>
     <p class="mt-2">
-      <a href={SITE.address.mapUrl} target="_blank" rel="noopener" class="hover:text-accent">
+      <a href={SITE.address.mapUrl} target="_blank" rel="noopener">
         {SITE.address.street}<br />
         {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
         <span class="sr-only"> (opens Google Maps in a new tab)</span>
