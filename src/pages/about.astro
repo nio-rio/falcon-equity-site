@@ -3,8 +3,9 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import ImageSlot from '@/components/ImageSlot.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { DEPARTMENTS, VALUES } from '@/data/content';
+import { TEAM_ROLES, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import dwight from '@/assets/images/dwight-holly.webp';
@@ -35,7 +36,7 @@ const founderSchema = {
   />
 
   <section class="section bg-white" aria-labelledby="story-heading">
-    <div class="container-site grid gap-16 lg:grid-cols-12">
+    <div class="container-site grid gap-16 lg:grid-cols-12 lg:items-center">
       <div class="lg:col-span-6">
         <SectionHeading id="story-heading" eyebrow="The firm" title="From Lower Manhattan." />
         <div class="mt-6 space-y-5 text-ink-soft">
@@ -49,17 +50,20 @@ const founderSchema = {
         </div>
       </div>
       <div class="lg:col-span-6">
-        <ul class="grid gap-8 sm:grid-cols-2">
-          {
-            VALUES.map((v) => (
-              <li class="border-t border-line pt-5">
-                <h3>{v.name}</h3>
-                <p class="mt-2 text-ink-soft">{v.body}</p>
-              </li>
-            ))
-          }
-        </ul>
+        <ImageSlot intent="11 Broadway entrance, Lower Manhattan, daylight" ratio="4 / 3" />
       </div>
+    </div>
+    <div class="container-site mt-16">
+      <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          VALUES.map((v) => (
+            <li>
+              <h3>{v.name}</h3>
+              <p class="mt-2 text-ink-soft">{v.body}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -95,18 +99,16 @@ const founderSchema = {
 
   <section class="section bg-white" aria-labelledby="team-heading">
     <div class="container-site">
-      <SectionHeading
-        id="team-heading"
-        eyebrow="Departments"
-        title="How a file is handled."
-        lead="Applications move through focused teams. Named staff on this site: the founder only."
-      />
-      <ul class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading id="team-heading" eyebrow="The team" title="People on the file." />
+      <ul class="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {
-          DEPARTMENTS.map((d) => (
-            <li class="border-t border-line pt-6">
-              <h3>{d.name}</h3>
-              <p class="mt-2 text-ink-soft">{d.body}</p>
+          TEAM_ROLES.map((title) => (
+            <li>
+              <ImageSlot intent="staff headshot, even studio light" ratio="3 / 4" />
+              <p class="mt-4 min-h-[1.5em] font-medium text-ink">
+                <Fragment set:html="<!-- real staff name -->" />
+              </p>
+              <p class="mt-1 text-sm text-muted">{title}</p>
             </li>
           ))
         }

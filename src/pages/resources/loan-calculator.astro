@@ -41,7 +41,7 @@ const calculatorSchema = {
     <div class="container-site">
       <h2 id="calc-heading" class="sr-only">Calculator</h2>
       <form class="grid gap-6 lg:grid-cols-12" data-calculator novalidate>
-        <fieldset class="card space-y-10 lg:col-span-7">
+        <fieldset class="space-y-10 lg:col-span-7">
           <legend class="sr-only">Loan details</legend>
           {
             fields.map((f) => (
@@ -86,14 +86,14 @@ const calculatorSchema = {
           }
         </fieldset>
 
-        <div class="flex flex-col border-t border-line pt-8 lg:col-span-5 lg:border-t-0 lg:border-l lg:pl-10 lg:pt-0">
+        <div class="flex flex-col bg-tint p-8 lg:col-span-5">
           <div aria-live="polite" aria-atomic="true">
             <p class="text-muted">Estimated monthly payment</p>
             <p class="mt-1 font-display text-5xl font-light sm:text-6xl">
               <output data-out="monthly" for="amount-range term-range apr-range">$0</output>
               <span class="text-xl font-normal text-muted">/ mo</span>
             </p>
-            <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-line pt-6">
+            <dl class="mt-8 grid grid-cols-2 gap-4">
               <div>
                 <dt class="text-sm text-muted">Total repayment</dt>
                 <dd class="mt-1 text-2xl font-semibold"><output data-out="total">$0</output></dd>

@@ -20,15 +20,15 @@ import { SERVICES } from '@/data/services';
       <ul class="mt-6 grid gap-3 sm:grid-cols-2">
         {
           SERVICES.map((s) => (
-            <li class="border-t border-line pt-3">
+            <li>
               <a href={`/services/${s.slug}`} class="link">
                 {s.name}
               </a>
             </li>
           ))
         }
-        <li class="border-t border-line pt-3"><a href="/resources/loan-calculator" class="link">Loan calculator</a></li>
-        <li class="border-t border-line pt-3"><a href="/contact" class="link">Contact</a></li>
+        <li><a href="/resources/loan-calculator" class="link">Loan calculator</a></li>
+        <li><a href="/contact" class="link">Contact</a></li>
       </ul>
     </div>
   </section>

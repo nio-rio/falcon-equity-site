@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import type { IconKey } from './Icon.astro';
+
+interface Props {
+  icon: IconKey;
+  href: string;
+  class?: string;
+  external?: boolean;
+}
+
+const { icon, href, class: className = '', external = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['inline-flex items-start gap-3', className]}
+  rel={external ? 'noopener' : undefined}
+  target={external ? '_blank' : undefined}
+>
+  <Icon name={icon} size={18} class="mt-0.5 shrink-0" />
+  <span><slot /></span>
+</a>

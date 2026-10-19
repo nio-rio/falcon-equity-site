@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import ContactLine from './ContactLine.astro';
 import { SERVICES } from '@/data/services';
 import { COMPANY_LINKS, LEGAL_LINKS, RESOURCE_LINKS, SITE } from '@/data/site';
 
@@ -7,31 +8,33 @@ const year = new Date().getFullYear();
 const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
 ---
 
-<footer class="border-t border-line bg-white text-muted" aria-labelledby="footer-heading">
+<footer class="site-footer bg-ink text-white/70" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Site footer</h2>
   <div class="container-site grid gap-12 py-16 lg:grid-cols-12">
     <div class="lg:col-span-4">
-      <a href="/" class="inline-block text-ink" aria-label="Falcon Equity Group home"><Logo class="h-6 w-auto" /></a>
+      <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-6 w-auto" /></a>
       <p class="mt-5 max-w-sm text-sm leading-relaxed">
         Business funding from New York City. Seven products, from working capital to consolidation.
       </p>
-      <address class="mt-6 space-y-2 text-sm not-italic">
-        <a href={`mailto:${SITE.email}`} class="block hover:text-ink">{SITE.email}</a>
+      <address class="mt-6 space-y-3 text-sm not-italic">
+        <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="hover:text-white">
+          {SITE.email}
+        </ContactLine>
         {
           phones.map((p) => (
-            <a href={p.href} class="block hover:text-ink">
+            <ContactLine icon="phone" href={p.href} class="hover:text-white">
               {p.label}: {p.display}
-            </a>
+            </ContactLine>
           ))
         }
-        <a href={SITE.address.mapUrl} class="block hover:text-ink" rel="noopener" target="_blank">
+        <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="hover:text-white" external>
           {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
           <span class="sr-only"> (opens Google Maps in a new tab)</span>
-        </a>
+        </ContactLine>
       </address>
       <a
         href={SITE.social.x}
-        class="mt-6 inline-block text-sm text-ink hover:text-accent"
+        class="mt-6 inline-block text-sm text-white hover:text-white/80"
         rel="noopener me"
         target="_blank"
       >
@@ -41,68 +44,34 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
 
     <nav class="grid gap-10 sm:grid-cols-3 lg:col-span-8" aria-label="Footer">
       <div>
-        <h3 class="eyebrow">Funding options</h3>
+        <h3 class="eyebrow text-white/50">Funding options</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
-          {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-ink">{s.name}</a></li>)}
-          <li><a href="/services" class="font-semibold text-ink hover:text-accent">All services</a></li>
+          {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="hover:text-white">{s.name}</a></li>)}
+          <li><a href="/services" class="font-semibold text-white hover:text-white/80">All services</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="eyebrow">Resources</h3>
+        <h3 class="eyebrow text-white/50">Resources</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
-          {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-ink">{l.label}</a></li>)}
-          <li><a href="/rss.xml" class="hover:text-ink">RSS feed</a></li>
+          {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+          <li><a href="/rss.xml" class="hover:text-white">RSS feed</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="eyebrow">Company</h3>
+        <h3 class="eyebrow text-white/50">Company</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
-          {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-ink">{l.label}</a></li>)}
+          {COMPANY_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
         </ul>
       </div>
     </nav>
   </div>
 
-  <div class="border-t border-line">
-    <div class="container-site py-8">
-      <section aria-labelledby="fraud-disclosure" class="border border-line p-5 text-xs leading-relaxed sm:p-6">
-        <h3 id="fraud-disclosure" class="font-sans text-sm font-semibold text-ink">Fraud disclosure</h3>
-        <p class="mt-2">
-          Falcon Equity Group will never ask you to pay an upfront fee, buy gift cards, or send cryptocurrency to
-          “unlock” an approval or release funds. We only contact applicants from an{' '}
-          <strong class="text-ink">@falconequity.ai</strong>{' '}
-          email address or the phone numbers listed on this site. If someone claims to represent Falcon Equity Group and asks
-          for payment, personal passwords or bank login credentials, do not respond. Verify by calling our office at{' '}
-          <a href={SITE.phones.office.href} class="text-ink underline hover:text-accent">{SITE.phones.office.display}</a>
-          {' '}or emailing{' '}
-          <a href={`mailto:${SITE.email}`} class="text-ink underline hover:text-accent">{SITE.email}</a>
-          , and report suspected fraud to the{' '}
-          <a href="https://reportfraud.ftc.gov/" class="text-ink underline hover:text-accent" rel="noopener" target="_blank">
-            FTC<span class="sr-only"> (opens in a new tab)</span>
-          </a>.
-        </p>
-        <p class="mt-3">
-          All funding is subject to underwriting review and approval; approval is not guaranteed. Rates, terms and amounts vary by
-          product and business profile. Statistics such as approval rate refer to qualified applicants. Merchant cash advances and
-          invoice factoring are purchases of receivables, not loans.
-        </p>
-      </section>
-
-      {/* TODO(Dwight): replace this placeholder with Falcon's official licensing / NMLS / state-disclosure copy. */}
-      <section aria-labelledby="licensing-disclosure" class="mt-4 border border-dashed border-line p-5 text-xs leading-relaxed sm:p-6">
-        <h3 id="licensing-disclosure" class="font-sans text-sm font-semibold text-ink">Licensing &amp; disclosures</h3>
-        <p class="mt-2">
-          Licensing, NMLS and state-specific disclosure language will appear here. Pending copy from Dwight Holly.
-        </p>
-      </section>
-
-      <div class="mt-8 flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between">
-        <p>© {year} {SITE.name}. All rights reserved.</p>
-        <ul class="flex flex-wrap gap-x-6 gap-y-2">
-          {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-ink">{l.label}</a></li>)}
-          <li><a href="/sitemap-index.xml" class="hover:text-ink">Sitemap</a></li>
-        </ul>
-      </div>
+  <div class="container-site py-8 text-xs">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {SITE.name}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {LEGAL_LINKS.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+      </ul>
     </div>
   </div>
 </footer>

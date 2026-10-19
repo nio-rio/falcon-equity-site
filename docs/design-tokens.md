@@ -1,6 +1,6 @@
 # Design tokens (Goldman Sachs, measured 19 Oct 2026)
 
-Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Falcon maps these values 1:1 except typeface (At Gambit + Inter) and color (white / ink / `#5b21b6` / tint `#F1ECFB`).
+Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Falcon maps these values 1:1 except typeface (At Gambit + Inter) and color (white / ink / `#5b21b6` / tint `#F8F6FC`).
 
 ## Type
 
@@ -30,7 +30,7 @@ Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicod
 | Nav position | sticky, in flow (not overlay) | same | same | same |
 | Nav background | `rgb(114, 151, 197)` | same | same | same |
 
-Falcon nav stays **white with black text** (site rule). Goldman’s dusty-blue bar and the pale panel `rgb(247, 247, 250)` map to tint `#F1ECFB`.
+Falcon nav stays **white with black text** (site rule). Goldman’s dusty-blue bar and the pale panel `rgb(247, 247, 250)` map to a very light lilac at the same luminance: tint `#F8F6FC`.
 
 Section interiors are whitespace-led rather than padded boxes. Falcon uses `64px` vertical padding on small screens and `80px` from 768 up.
 
@@ -60,10 +60,10 @@ No min/max height constraints beyond those intrinsic heights. One primary CTA in
 | White page, `rgba(0,0,0,0.95)` type | `#ffffff` / `#0a0a0a` |
 | Body `rgba(0,0,0,0.8)` | `#333333` |
 | Muted `rgba(0,0,0,0.6)` | `#666666` |
-| Nav `rgb(114,151,197)` and panel `rgb(247,247,250)` | `#F1ECFB` |
+| Nav `rgb(114,151,197)` and panel `rgb(247, 247, 250)` | `#F8F6FC` |
 | Links / selected UI | `#5b21b6` (`#4c1d95` hover) |
 
-Contrast (`#F1ECFB`): ink 17.1:1 AAA; `#5b21b6` 7.8:1 AA; `#666` 5.0:1 AA.
+Contrast (`#F8F6FC`): ink ~18:1 AAA; `#5b21b6` 7.8:1 AA; `#666` 5.0:1 AA.
 
 ## Cards, lists, teasers
 
@@ -76,6 +76,6 @@ Other teaser patterns on goldmansachs.com:
 | Pattern | Structure | Falcon use |
 | --- | --- | --- |
 | Insight / article card | Image, uppercase kicker, title (excerpt dropped) | `PostCard` |
-| Text capability card | Hairline, title as link, one supporting sentence, optional muted meta | `ServiceCard`, industries, partners, credit programs |
-| Numbered / process list | Hairline, title, body. No step labels or icons | Home process, credit-repair steps |
+| Text capability card | Whitespace or tint background, no hairline. Title as link, one supporting sentence | `ServiceCard`, industries, partners, credit programs |
+| Numbered / process list | Title and body, separated by space. No hairlines | Home process, credit-repair steps |
 | Stat | Large display figure, muted label underneath. No eyebrow | `StatsBar` |

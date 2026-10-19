@@ -1,0 +1,14 @@
+---
+interface Props {
+  /** Short description of the photograph Ling should place here. */
+  intent: string;
+  ratio?: string;
+  class?: string;
+}
+
+const { intent, ratio = '16 / 9', class: className = '' } = Astro.props;
+---
+
+<div class:list={['image-slot', className]} style={`aspect-ratio: ${ratio}`} aria-hidden="true">
+  <Fragment set:html={`<!-- ${intent} -->`} />
+</div>

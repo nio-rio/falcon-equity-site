@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import ContactPoints from '@/components/ContactPoints.astro';
+import ContactLine from '@/components/ContactLine.astro';
+import ImageSlot from '@/components/ImageSlot.astro';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -8,7 +11,6 @@ const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Contact', path: '/contact' },
 ];
-const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
 ---
 
 <BaseLayout
@@ -22,54 +24,28 @@ const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
     breadcrumbs={crumbs}
   />
 
-  <section class="section bg-white" aria-labelledby="contact-details-heading">
-    <div class="container-site grid gap-16 lg:grid-cols-12">
+  <section class="section bg-tint" aria-labelledby="contact-details-heading">
+    <div class="container-site">
+      <h2 id="contact-details-heading" class="sr-only">Details</h2>
+      <ContactPoints />
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container-site grid gap-12 lg:grid-cols-12 lg:items-center">
       <div class="lg:col-span-7">
-        <h2 id="contact-details-heading">Details</h2>
-        <dl class="mt-8 divide-y divide-line border-y border-line">
-          <div class="grid gap-1 py-4 sm:grid-cols-3">
-            <dt class="text-muted">Email</dt>
-            <dd class="sm:col-span-2">
-              <a href={`mailto:${SITE.email}`} class="hover:text-accent">{SITE.email}</a>
-            </dd>
-          </div>
-          {
-            phones.map((p) => (
-              <div class="grid gap-1 py-4 sm:grid-cols-3">
-                <dt class="text-muted">{p.label}</dt>
-                <dd class="sm:col-span-2">
-                  <a href={p.href} class="hover:text-accent">{p.display}</a>
-                </dd>
-              </div>
-            ))
-          }
-          <div class="grid gap-1 py-4 sm:grid-cols-3">
-            <dt class="text-muted">Office</dt>
-            <dd class="sm:col-span-2">
-              <a href={SITE.address.mapUrl} target="_blank" rel="noopener">
-                {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
-                <span class="sr-only"> (opens Google Maps in a new tab)</span>
-              </a>
-            </dd>
-          </div>
-          <div class="grid gap-1 py-4 sm:grid-cols-3">
-            <dt class="text-muted">X</dt>
-            <dd class="sm:col-span-2">
-              <a href={SITE.social.x} class="hover:text-accent" target="_blank" rel="noopener">
-                {SITE.social.xHandle}<span class="sr-only"> (opens in a new tab)</span>
-              </a>
-            </dd>
-          </div>
-        </dl>
+        <ImageSlot intent="map of Lower Manhattan around 11 Broadway" ratio="16 / 9" />
       </div>
-      <aside class="lg:col-span-5" aria-labelledby="contact-cta-heading">
-        <h2 id="contact-cta-heading">Apply</h2>
+      <div class="lg:col-span-5">
+        <h2>Apply</h2>
         <p class="mt-4 text-ink-soft">The shortest path to a review is the online application.</p>
         <a href="/apply" class="btn-primary mt-6">Apply</a>
-        <p class="mt-6 text-sm text-muted">
-          Or call <a href={SITE.phones.direct.href} class="text-ink underline">{SITE.phones.direct.display}</a>.
+        <p class="mt-6">
+          <ContactLine icon="phone" href={SITE.phones.direct.href} class="hover:text-accent">
+            {SITE.phones.direct.display}
+          </ContactLine>
         </p>
-      </aside>
+      </div>
     </div>
   </section>
 </BaseLayout>

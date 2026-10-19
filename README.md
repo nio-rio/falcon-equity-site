@@ -74,7 +74,7 @@ src/
 | `/rss.xml`, `/sitemap-index.xml`, `/robots.txt` | Feeds and crawl files |
 | `404` | Custom not-found page |
 
-The fraud disclosure lives in the footer on every page. A licensing/disclosure placeholder sits under it until Dwight provides the official copy.
+The footer is black with white or gray text. Copyright, Privacy Policy and Terms & Conditions sit on every page.
 
 ## Type
 
@@ -163,7 +163,7 @@ Items that still need a human before launch. None of these block the preview.
 
 - [ ] **Dwight:** swap the illustrative client stories on Home for real stories, with written permission. No names, photos or star ratings until then.
 - [ ] **Dwight:** confirm interest rates and factor rates. None are published on the site today (`src/data/services.ts`).
-- [ ] **Dwight:** provide licensing / NMLS / state-disclosure copy for the footer placeholder.
+- [ ] **Dwight:** provide licensing / NMLS / state-disclosure copy if it should return to the site.
 - [ ] **Dwight:** approve the three draft blog posts (`draft: true` in `src/content/blog/`). They are visible in `npm run dev` only and never in production builds.
 - [ ] **Dwight / Ling:** review Privacy Policy and Terms & Conditions (ported from the current site; last privacy update October 21, 2025).
 - [ ] **Ling:** confirm photo credits in [CREDITS.md](./CREDITS.md). Hero is Frank Cone on Pexels; swap if a preferred falcon image is chosen.

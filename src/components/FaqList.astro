@@ -7,10 +7,10 @@ interface Props {
 const { faqs } = Astro.props;
 ---
 
-<div class="divide-y divide-line border-y border-line">
+<div class="space-y-8">
   {
     faqs.map((f) => (
-      <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+      <details class="group [&_summary::-webkit-details-marker]:hidden">
         <summary class="flex cursor-pointer list-none items-center justify-between gap-6 text-left text-lg font-semibold text-ink">
           <span>{f.q}</span>
           <span class="shrink-0 text-muted transition-transform group-open:rotate-45" aria-hidden="true">+</span>

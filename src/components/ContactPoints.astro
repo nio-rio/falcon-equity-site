@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '@/data/site';
+
+const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
+---
+
+<div class="grid gap-12 md:grid-cols-3">
+  <div>
+    <span class="contact-tile">
+      <Icon name="mail" size={22} />
+    </span>
+    <h3 class="mt-5">Email</h3>
+    <p class="mt-2">
+      <a href={`mailto:${SITE.email}`} class="hover:text-accent">{SITE.email}</a>
+    </p>
+  </div>
+  <div>
+    <span class="contact-tile">
+      <Icon name="phone" size={22} />
+    </span>
+    <h3 class="mt-5">Phone</h3>
+    <ul class="mt-2 space-y-1">
+      {
+        phones.map((p) => (
+          <li>
+            <a href={p.href} class="hover:text-accent">
+              {p.label} {p.display}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div>
+    <span class="contact-tile">
+      <Icon name="map-pin" size={22} />
+    </span>
+    <h3 class="mt-5">Office</h3>
+    <p class="mt-2">
+      <a href={SITE.address.mapUrl} target="_blank" rel="noopener" class="hover:text-accent">
+        {SITE.address.street}<br />
+        {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+        <span class="sr-only"> (opens Google Maps in a new tab)</span>
+      </a>
+    </p>
+  </div>
+</div>

@@ -120,27 +120,25 @@ export const FAQS = [
   },
 ] as const;
 
-export const DEPARTMENTS = [
-  {
-    icon: 'shield-check',
-    name: 'Underwriting',
-    body: 'Reviews each file and matches it to terms the business can support.',
-  },
-  {
-    icon: 'handshake',
-    name: 'Client Success',
-    body: 'Point of contact from application to funding, and after.',
-  },
-  {
-    icon: 'landmark',
-    name: 'Funding Partners',
-    body: 'Works with the lenders and funders behind each product.',
-  },
-  {
-    icon: 'bitcoin',
-    name: 'Digital Assets',
-    body: 'Crypto onboarding and custodial services.',
-  },
+/** Role titles only. Names and photos are filled later. Do not invent identities. */
+export const TEAM_ROLES = [
+  'Senior Funding Advisor',
+  'Funding Advisor',
+  'Underwriting Manager',
+  'Senior Underwriter',
+  'Underwriter',
+  'Client Success Lead',
+  'Client Success Manager',
+  'SBA Specialist',
+  'Operations Analyst',
+  'Operations Manager',
+  'ISO Relationship Manager',
+  'Broker Desk Lead',
+  'Consolidation Specialist',
+  'Digital Assets Specialist',
+  'Credit Analyst',
+  'Funding Coordinator',
+  'Compliance Analyst',
 ] as const;
 
 export const VALUES = [
