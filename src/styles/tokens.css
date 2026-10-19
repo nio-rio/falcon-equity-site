@@ -1,6 +1,5 @@
 /* Single source for Blackstone-v2 tokens + Falcon semantic aliases.
-   Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle.
-   Do not put .afterabsolute rules here. */
+   Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle. */
 
 :root {
   --bx-black: #000000;

@@ -11,7 +11,7 @@ Studied 19 Oct 2026 from:
 
 Live `blackstone.com` is behind Cloudflare in this environment, so computed CSS was read from the **blackstone-v2** bundle on Wayback `20260925104209` (`/_static` `main` CSS, cached at `/tmp/bxcss/main.raw.css`) plus screenshots from earlier passes. BREIT quote layout is from live `breit.com` frames plus the same type tokens.
 
-Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans), **Falcon purple buttons**, and **Ling’s** `.afterabsolute { font-size: 3rem; }` in `src/styles/global.css`. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
+Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans) and **Falcon purple buttons**. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
 
 **Source of tokens in this repo:** `src/styles/tokens.css` (only). Tailwind `@theme` in `global.css` aliases those variables. Component CSS lives in `src/styles/blackstone.css`.
 
@@ -223,7 +223,13 @@ BX `.bx-button` is a 999px pill, black, 0.3s, yellow focus — **not copied**.
 
 ### Stats
 
-`.hero-stats`: one featured figure (large display) + two side stats + Note + numbered footnotes. BXCI. Skip when amounts are non-numeric (`Tailored to your business`). Home `.stats-bar` is the compact strip.
+`HeroStats` (`.stats-bx`, scoped in the component). BXCI `.bx-stat-featured` from the v2 bundle:
+
+- Featured label: sans 300, **24px** (&lt;768) / **32px** (≥768). Not the 13px eyebrow.
+- Featured value: display 300, **5rem / 11rem / 9rem / 10rem** at 375 / 768 / 1280 / 1440, `line-height: 1`, **40–64px** gap under the label. One line; published ranges compact to `$10K-$1M`.
+- Side pair from **768**: two columns, sans 16px label, display **32 / 40 / 48px** value, **1px** rule under the value. Desktop ≥1280 sits them to the right of the featured figure (8+3+3 of 16 mapped to 6 + 2 + 2 of 12).
+- No footnote superscripts, Note, or numbered list.
+- Skip when amounts are non-numeric (`Tailored to your business`). Home compact strip stays `.stats-grid`.
 
 ### Quote
 
@@ -251,10 +257,9 @@ BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. F
 
 1. Fonts: At Gambit + Inter.
 2. Buttons: purple squares, not black pills / yellow focus.
-3. `.afterabsolute { font-size: 3rem; }` in `global.css` only.
-4. `.bg-cta` and `.btn-outline-dark` stay in `global.css`.
-5. No fabricated people, quotes, numbers, or testimonials.
-6. Compact header (not BX’s 7–12rem).
+3. `.bg-cta` and `.btn-outline-dark` stay in `global.css`.
+4. No fabricated people, quotes, numbers, or testimonials.
+5. Compact header (not BX’s 7–12rem).
 
 ---
 
@@ -299,7 +304,8 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | File | Role |
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
-| `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, Falcon buttons, sacred `.afterabsolute`, `.bg-cta` |
+| `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, Falcon buttons, `.bg-cta` |
+| `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`) |
 | `src/styles/blackstone.css` | Grid utilities + every BX-mapped component |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |

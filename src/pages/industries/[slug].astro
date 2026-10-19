@@ -76,13 +76,11 @@ const principles = industry.useCases.slice(0, 3).map((item) => ({ title: item.ti
   </PageHero>
 
   <HeroStats
-    featured={{ label: STATS[0].label, value: STATS[0].value, marker: '1' }}
+    featured={{ label: STATS[0].label, value: STATS[0].value }}
     side={[
       { label: STATS[1].label, value: STATS[1].value },
       { label: STATS[3].label, value: STATS[3].value },
     ]}
-    note="Figures are typical. Approval is not guaranteed."
-    footnotes={['Company-wide figures. Subject to approval.']}
   />
 
   <WhatWeDo

@@ -1,5 +1,5 @@
 /* Blackstone / BREIT motion, grid, and chrome. Loaded after global.css.
-   Tokens live in tokens.css. Do not put .afterabsolute rules here.
+   Tokens live in tokens.css.
    Leave .bg-cta and .btn-outline-dark in global.css. */
 
 html {
@@ -1634,82 +1634,6 @@ a:focus-visible .media-zoom .image-slot {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 1rem;
-}
-
-/* BXCI featured stats: one huge left figure, two stacked right with a hairline under each. */
-.hero-stats {
-  padding-block: var(--bx-space-64);
-}
-
-.hero-stats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--bx-space-48);
-}
-
-@media (min-width: 1024px) {
-  .hero-stats-grid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    column-gap: var(--bx-gutter);
-    align-items: start;
-  }
-}
-
-.hero-stats-label {
-  margin: 0;
-  font-size: var(--bx-fs-14);
-  line-height: 1.4;
-  color: var(--color-ink);
-}
-
-.hero-stats-label sup {
-  font-size: 0.7em;
-  margin-left: 0.15em;
-}
-
-.hero-stats-value {
-  margin: var(--bx-space-12) 0 0;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(3rem, 6vw + 1rem, 6.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: #000;
-}
-
-.hero-stats-side {
-  display: flex;
-  flex-direction: column;
-  gap: var(--bx-space-32);
-}
-
-.hero-stats-field {
-  padding-bottom: var(--bx-space-24);
-  border-bottom: var(--bx-rule) solid var(--color-ink);
-}
-
-.hero-stats-mid {
-  margin: var(--bx-space-8) 0 0;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2rem, 2.4vw + 1rem, 3.5rem);
-  line-height: 1.05;
-  color: #000;
-}
-
-.hero-stats-note {
-  margin: var(--bx-space-40) 0 0;
-  font-size: var(--bx-fs-14);
-  line-height: 1.5;
-  color: var(--color-ink-soft);
-}
-
-.hero-stats-notes {
-  margin: var(--bx-space-16) 0 0;
-  padding-left: 1.25rem;
-  font-size: var(--bx-fs-12);
-  line-height: 1.5;
-  color: var(--color-muted);
 }
 
 .footer-cols {
