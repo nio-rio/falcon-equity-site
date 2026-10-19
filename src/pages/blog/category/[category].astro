@@ -36,7 +36,7 @@ const crumbs = [
   description={`${category} guides from The Falcon Brief, the Falcon Equity Group business funding blog.`}
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <PageHero eyebrow="The Falcon Brief" title={category} breadcrumbs={crumbs} />
+  <PageHero title={category} breadcrumbs={crumbs} />
   <BlogIndex posts={posts} categories={categories} activeCategory={category} />
   <CtaBand />
 </BaseLayout>

@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
 const crumbs = [
@@ -14,70 +13,64 @@ const crumbs = [
 const programs = [
   {
     group: 'Business credit programs',
-    lead: 'Build a business credit profile that lenders want to approve.',
+    lead: 'Build a business credit profile lenders will review.',
     items: [
-      { name: 'Business Funding Prep', body: 'Business and personal credit monitoring, dispute resolution and tradeline strategy to position your file for approval.' },
-      { name: 'Credit Ready Business', body: 'An in-house business credit plan focused on repair, vendor tradelines and PAYDEX score growth.' },
-      { name: 'Startup Capital Prep', body: 'New LLC or S-Corp formation paired with personal credit improvement, so you can fund a brand-new venture.' },
-      { name: 'SBA & Term Loan Prep', body: 'FICO SBSS score improvement and underwriting prep tailored to SBA 7(a) and bank term loan approval.' },
-      { name: 'MBE, Veteran & WOSB Prep', body: 'Minority-, veteran- and women-owned small business certification plus a credit preparation package.' },
-      { name: 'Federal Contracting Prep', body: 'System for Award Management (SAM) registration, including 8(a) certification guidance.' },
+      { name: 'Business Funding Prep', body: 'Business and personal credit monitoring, disputes and tradeline strategy.' },
+      { name: 'Credit Ready Business', body: 'Repair, vendor tradelines and PAYDEX score growth.' },
+      { name: 'Startup Capital Prep', body: 'New LLC or S-Corp formation with personal credit improvement.' },
+      { name: 'SBA & Term Loan Prep', body: 'FICO SBSS improvement and underwriting prep for SBA 7(a) and bank term loans.' },
+      { name: 'MBE, Veteran & WOSB Prep', body: 'Certification plus a credit preparation package.' },
+      { name: 'Federal Contracting Prep', body: 'SAM registration, including 8(a) guidance.' },
     ],
   },
   {
     group: 'Personal credit programs',
-    lead: 'Strengthen the personal credit profile behind your business.',
+    lead: 'Strengthen the personal file behind the business.',
     items: [
-      { name: 'Mortgage & Loan Prep', body: 'Includes 90 days of certified FICO™ professional service to position you for the best possible mortgage rate.' },
-      { name: 'Student Loan & Credit Plan', body: 'Consolidation and refinance strategies combined with personal credit repair.' },
-      { name: 'The Inquirer', body: 'Personal credit monitoring setup with continuous bureau tracking and dispute support.' },
+      { name: 'Mortgage & Loan Prep', body: 'Includes 90 days of certified FICO professional service.' },
+      { name: 'Student Loan & Credit Plan', body: 'Consolidation and refinance strategies with personal credit repair.' },
+      { name: 'The Inquirer', body: 'Personal credit monitoring, bureau tracking and dispute support.' },
     ],
   },
 ];
 
 const reasons = [
-  'One-on-one work with a dedicated Credit & Lending specialist',
-  'Bureau-direct dispute handling with Experian, Equifax, TransUnion and Dun & Bradstreet',
-  'Tradeline strategy to build PAYDEX and FICO SBSS scores',
+  'One-on-one work with a Credit and Lending specialist',
+  'Bureau-direct disputes with Experian, Equifax, TransUnion and Dun & Bradstreet',
+  'Tradeline strategy for PAYDEX and FICO SBSS',
   'A free consultation to start',
-  'Your information stays confidential',
+  'Information stays confidential',
 ];
 
 const steps = [
-  { title: 'Consultation', body: 'A free one-on-one review of your personal and business credit.' },
-  { title: 'Custom plan', body: 'We build a roadmap aimed at the financing you need.' },
-  { title: 'Active repair', body: 'Disputes, tradeline strategy and FICO SBSS optimization.' },
-  { title: 'Get funded', body: 'Once your file is loan-ready, we place you with the right lender.' },
+  { title: 'Consultation', body: 'A free review of personal and business credit.' },
+  { title: 'Plan', body: 'A roadmap aimed at the financing you need.' },
+  { title: 'Repair', body: 'Disputes, tradelines and FICO SBSS work.' },
+  { title: 'Fund', body: 'When the file is ready, we place it with a lender.' },
 ];
 ---
 
 <BaseLayout
   title="Credit Repair & Loan Prep"
-  description="Improve your business and personal credit and get loan-ready with Falcon Equity Group's Credit Repair & Loan Prep programs. Free consultation."
+  description="Improve business and personal credit and get loan-ready. Free consultation."
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero
-    eyebrow="Credit Repair & Loan Prep"
-    title="Get your file ready to win."
-    lead="Falcon Equity Group puts its business financing experience to work improving credit standings, so owners who found credit out of reach can qualify for the financing that’s right for them."
+    title="Credit Repair & Loan Prep"
+    lead="Credit work for owners who need a stronger file before they apply."
     breadcrumbs={crumbs}
-  >
-    <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-      <a href={SITE.phones.direct.href} class="btn-primary">Free consultation: {SITE.phones.direct.display}</a>
-      <a href="/apply" class="btn-outline-dark">Apply online</a>
-    </div>
-  </PageHero>
+  />
 
   {
     programs.map((p, gi) => (
-      <section class:list={['py-20', gi % 2 === 0 ? 'bg-white' : 'bg-white']} aria-labelledby={`program-${gi}`}>
+      <section class:list={['section', gi % 2 === 0 ? 'bg-white' : 'bg-tint']} aria-labelledby={`program-${gi}`}>
         <div class="container-site">
-          <SectionHeading id={`program-${gi}`} eyebrow="Programs" title={p.group} lead={p.lead} />
-          <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading id={`program-${gi}`} title={p.group} lead={p.lead} />
+          <ul class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {p.items.map((item) => (
-              <li class="border-t border-line pt-5">
-                <h3 class="text-xl font-semibold">{item.name}</h3>
-                <p class="mt-2 leading-relaxed text-muted">{item.body}</p>
+              <li class="border-t border-line pt-6">
+                <h3>{item.name}</h3>
+                <p class="mt-3 text-ink-soft">{item.body}</p>
               </li>
             ))}
           </ul>
@@ -86,27 +79,26 @@ const steps = [
     ))
   }
 
-  <section class="border-t border-line bg-white py-20" aria-labelledby="why-program-heading">
+  <section class="section bg-white" aria-labelledby="why-program-heading">
     <div class="container-site grid gap-12 lg:grid-cols-2">
       <div>
-        <SectionHeading id="why-program-heading" eyebrow="Why clients choose us" title="A program built around your goal." />
-        <ul class="mt-8 space-y-4">
+        <SectionHeading id="why-program-heading" title="What is included" />
+        <ul class="mt-8 space-y-3">
           {
             reasons.map((r) => (
-              <li class="border-t border-line pt-3 text-muted">{r}</li>
+              <li class="border-t border-line pt-3 text-ink-soft">{r}</li>
             ))
           }
         </ul>
       </div>
       <div>
-        <h3 class="text-2xl font-semibold">How it works</h3>
-        <ol class="mt-6 space-y-6">
+        <h2>How it works</h2>
+        <ol class="mt-8 space-y-6">
           {
-            steps.map((s, i) => (
+            steps.map((s) => (
               <li class="border-t border-line pt-4">
-                <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent">0{i + 1}</span>
-                <span class="mt-2 block font-semibold">{s.title}</span>
-                <span class="mt-1 block text-[15px] text-muted">{s.body}</span>
+                <h3>{s.title}</h3>
+                <p class="mt-1 text-ink-soft">{s.body}</p>
               </li>
             ))
           }
@@ -115,5 +107,5 @@ const steps = [
     </div>
   </section>
 
-  <CtaBand title="Talk one-on-one with a Credit and Lending specialist." body="Start with a free consultation and a plan tailored to the financing you need." />
+  <CtaBand title="Credit consultation" body="A free call to review the file and the financing you need." />
 </BaseLayout>

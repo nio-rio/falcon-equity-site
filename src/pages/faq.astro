@@ -15,32 +15,27 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
 ---
 
 <BaseLayout
-  title="Frequently Asked Questions"
-  description="Answers to common questions about Falcon Equity Group business funding: speed, requirements, credit, consolidation and each funding product."
+  title="FAQ"
+  description="Answers about Falcon Equity Group business funding: speed, requirements, credit, consolidation and each product."
   schema={[breadcrumbSchema(crumbs), faqSchema(FAQS)]}
 >
-  <PageHero
-    eyebrow="FAQ"
-    title="Straight answers, fast."
-    lead="Everything you need to know before you apply. Still have a question? Call us and a specialist will help."
-    breadcrumbs={crumbs}
-  />
+  <PageHero title="FAQ" lead="General questions first, then by product." breadcrumbs={crumbs} />
 
-  <section class="bg-white py-20" aria-labelledby="general-faq-heading">
+  <section class="section bg-white" aria-labelledby="general-faq-heading">
     <div class="container-site max-w-4xl">
-      <h2 id="general-faq-heading" class="text-3xl font-semibold text-brand">General questions</h2>
+      <h2 id="general-faq-heading">General</h2>
       <div class="mt-8"><FaqList faqs={FAQS} /></div>
     </div>
   </section>
 
-  <section class="bg-white py-20" aria-labelledby="product-faq-heading">
+  <section class="section bg-tint" aria-labelledby="product-faq-heading">
     <div class="container-site max-w-4xl">
-      <h2 id="product-faq-heading" class="text-3xl font-semibold text-brand">Questions by product</h2>
+      <h2 id="product-faq-heading">By product</h2>
       <div class="mt-8 space-y-12">
         {
           productFaqs.map(({ service, faqs }) => (
             <div>
-              <h3 class="text-2xl font-semibold text-brand">
+              <h3>
                 <a href={`/services/${service.slug}`} class="hover:underline">
                   {service.name}
                 </a>

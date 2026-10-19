@@ -5,11 +5,6 @@ import { SERVICES } from '@/data/services';
 import { PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 
-interface Props {
-  overlay?: boolean;
-}
-
-const { overlay = false } = Astro.props;
 const path = cleanPath(Astro.url.pathname);
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
@@ -20,15 +15,11 @@ const simpleLinks = [
   { label: 'Contact', href: '/contact' },
 ];
 const resourcesActive = RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources');
-const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-medium tracking-wide';
+const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-base font-normal';
 ---
 
-<header
-  class:list={['site-header top-0 z-50 border-b', overlay ? 'fixed inset-x-0' : 'sticky']}
-  data-overlay={overlay ? 'true' : 'false'}
-  data-header
->
-  <div class="container-site flex h-16 items-center justify-between gap-6">
+<header class="site-header sticky top-0 z-50 border-b" data-header>
+  <div class="container-site flex h-14 items-center justify-between gap-6 md:h-16">
     <a href="/" class="header-logo shrink-0" aria-label="Falcon Equity Group home">
       <Logo class="h-5 w-auto sm:h-6" />
     </a>
@@ -134,7 +125,7 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-mediu
     </nav>
 
     <div class="hidden items-center gap-5 lg:flex">
-      <a href={PRIMARY_PHONE.href} class="header-phone text-[13px] font-medium tracking-wide hover:underline">
+      <a href={PRIMARY_PHONE.href} class="header-phone text-base hover:underline">
         <span class="sr-only">Call </span>{PRIMARY_PHONE.display}
       </a>
       <a href="/apply" class="header-cta">Apply Now</a>
@@ -217,10 +208,10 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-mediu
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.55rem 1.1rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    padding: 9px 14px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
     white-space: nowrap;
     background: var(--color-accent);
     color: #fff;
@@ -235,39 +226,19 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-mediu
     color: var(--color-accent);
   }
 
-  .site-header[data-overlay='true']:not(.is-solid) {
-    background: transparent;
-    border-color: rgb(255 255 255 / 0.2);
-    color: #fff;
+  .site-header nav a:hover,
+  .site-header nav button:hover {
+    background: var(--color-tint);
   }
 
-  .site-header[data-overlay='true']:not(.is-solid) .header-cta {
-    background: #fff;
-    color: var(--color-ink);
-  }
-
-  .site-header[data-overlay='true']:not(.is-solid) a.is-active,
-  .site-header[data-overlay='true']:not(.is-solid) button.is-active {
+  .header-cta:hover {
+    background: var(--color-accent-hover);
     color: #fff;
-    text-decoration: underline;
-    text-underline-offset: 0.4em;
   }
 </style>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
-  const overlay = header?.dataset.overlay === 'true';
-
-  const setSolid = (solid: boolean) => {
-    header?.classList.toggle('is-solid', solid);
-  };
-
-  if (overlay && header) {
-    const onScroll = () => setSolid(window.scrollY > 40 || header.classList.contains('is-open'));
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
   const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]');
 
   const closeAll = (except?: HTMLElement) => {
@@ -321,7 +292,6 @@ const navLink = 'inline-flex items-center gap-1 px-3 py-2 text-[13px] font-mediu
       toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
       toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
       header?.classList.toggle('is-open', open);
-      if (overlay) setSolid(open || window.scrollY > 40);
       const label = toggle.querySelector('[data-mobile-label]');
       if (label) label.textContent = open ? 'Close menu' : 'Open menu';
     };

@@ -12,12 +12,7 @@ const crumbs = [
   { name: 'Services', path: '/services' },
 ];
 
-const process = [
-  { title: 'Apply', body: 'Complete one short online application in minutes.' },
-  { title: 'Review', body: 'A specialist reviews your file and confirms what fits.' },
-  { title: 'Approve', body: 'Choose your offer and sign your agreement.' },
-  { title: 'Fund', body: 'Receive funds in as little as 24-48 hours.' },
-];
+const sba = ADDITIONAL_OPTIONS.find((o) => o.name === 'SBA loans');
 ---
 
 <BaseLayout
@@ -26,16 +21,15 @@ const process = [
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero
-    eyebrow="Services"
-    title="Your winning lineup."
-    lead="Seven funding products, each built for a different kind of move. Compare amounts, terms and requirements, then pick the one that fits your next win."
+    title="Services"
+    lead="Seven products, plus SBA loans by referral. Figures below are typical. Rates are quoted individually. Approval is not guaranteed."
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-white py-24" aria-labelledby="options-heading">
+  <section class="section bg-white" aria-labelledby="options-heading">
     <div class="container-site">
       <h2 id="options-heading" class="sr-only">Funding options</h2>
-      <ul class="grid gap-x-12 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {
           SERVICES.map((s) => (
             <li>
@@ -47,104 +41,34 @@ const process = [
     </div>
   </section>
 
-  <section class="border-t border-line bg-white py-24" aria-labelledby="compare-heading">
-    <div class="container-site">
-      <SectionHeading id="compare-heading" eyebrow="Compare" title="Side by side." />
-      <div class="mt-10 overflow-x-auto border border-line" role="region" aria-labelledby="compare-heading" tabindex="0">
-        <table class="w-full min-w-[52rem] text-left text-[15px]">
-          <caption class="sr-only">Comparison of amounts, terms and requirements for each Falcon funding product</caption>
-          <thead class="border-b border-line text-ink">
-            <tr>
-              <th scope="col" class="px-6 py-4 font-semibold">Product</th>
-              <th scope="col" class="px-6 py-4 font-semibold">Amounts</th>
-              <th scope="col" class="px-6 py-4 font-semibold">Terms</th>
-              <th scope="col" class="px-6 py-4 font-semibold">Speed</th>
-              <th scope="col" class="px-6 py-4 font-semibold">Key requirements</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-line">
-            {
-              SERVICES.map((s) => (
-                <tr>
-                  <th scope="row" class="px-6 py-4 font-semibold">
-                    <a href={`/services/${s.slug}`} class="link">
-                      {s.name}
-                    </a>
-                  </th>
-                  <td class="px-6 py-4">{s.amounts}</td>
-                  <td class="px-6 py-4">{s.terms}</td>
-                  <td class="px-6 py-4">{s.speed ?? '—'}</td>
-                  <td class="px-6 py-4 text-muted">{s.requirements.join(' · ')}</td>
-                </tr>
-              ))
-            }
-            {
-              ADDITIONAL_OPTIONS.map((o) => (
-                <tr>
-                  <th scope="row" class="px-6 py-4 font-semibold">{o.name}</th>
-                  <td class="px-6 py-4">{o.amounts}</td>
-                  <td class="px-6 py-4">{o.terms}</td>
-                  <td class="px-6 py-4">{o.speed}</td>
-                  <td class="px-6 py-4 text-muted">Ask your specialist</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-      <p class="mt-4 text-sm text-muted">
-        Ranges and speeds are typical. Rates are quoted individually, and final amounts and terms depend on underwriting.
-        Approval is not guaranteed.
-      </p>
-
-      <aside class="mt-12 border-t border-line pt-10" aria-labelledby="sba-heading">
-        <p class="eyebrow">Additional option</p>
-        <h3 id="sba-heading" class="mt-2 text-2xl font-semibold">SBA loans</h3>
-        <p class="mt-2 max-w-2xl text-muted">
-          Government-backed SBA loans for established businesses that want long terms. Ask your specialist whether your file is a
-          fit.
-        </p>
-        <dl class="mt-6 grid max-w-xl grid-cols-3 gap-6 text-sm">
-          {
-            ADDITIONAL_OPTIONS.filter((o) => o.name === 'SBA loans').map((o) => (
-              <>
-                <div><dt class="text-muted">Amounts</dt><dd class="mt-0.5 font-semibold text-ink">{o.amounts}</dd></div>
-                <div><dt class="text-muted">Speed</dt><dd class="mt-0.5 font-semibold text-ink">{o.speed}</dd></div>
-                <div><dt class="text-muted">Terms</dt><dd class="mt-0.5 font-semibold text-ink">{o.terms}</dd></div>
-              </>
-            ))
-          }
-        </dl>
-      </aside>
-    </div>
-  </section>
-
-  <section id="process" class="border-t border-line bg-white py-24" aria-labelledby="process-heading">
-    <div class="container-site">
-      <SectionHeading
-        id="process-heading"
-        eyebrow="Our process"
-        title="Apply, review, approve, fund."
-        lead="The same fast, transparent process for every product."
-      />
-      <ol class="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          process.map((p, i) => (
-            <li>
-              <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent" aria-hidden="true">
-                0{i + 1}
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">
-                <span class="sr-only">Step {i + 1}: </span>
-                {p.title}
-              </h3>
-              <p class="mt-2 text-[15px] text-muted">{p.body}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
+  {
+    sba && (
+      <section class="section bg-tint" aria-labelledby="sba-heading">
+        <div class="container-site max-w-3xl">
+          <SectionHeading
+            id="sba-heading"
+            eyebrow="Additional option"
+            title="SBA loans"
+            lead="Government-backed loans for established businesses that want longer terms. Ask a specialist whether the file is a fit."
+          />
+          <dl class="mt-10 grid grid-cols-3 gap-8 border-t border-line pt-8 text-sm">
+            <div>
+              <dt class="text-muted">Amounts</dt>
+              <dd class="mt-1 font-medium text-ink">{sba.amounts}</dd>
+            </div>
+            <div>
+              <dt class="text-muted">Speed</dt>
+              <dd class="mt-1 font-medium text-ink">{sba.speed}</dd>
+            </div>
+            <div>
+              <dt class="text-muted">Terms</dt>
+              <dd class="mt-1 font-medium text-ink">{sba.terms}</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    )
+  }
 
   <CtaBand />
 </BaseLayout>

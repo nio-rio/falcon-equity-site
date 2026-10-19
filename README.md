@@ -52,8 +52,8 @@ src/
 
 | Route | Notes |
 | --- | --- |
-| `/` | Home: hero, stats, why Falcon, how it works, qualify, when to apply, funding options, industries, client stories, FAQ, CTA |
-| `/services` | Index, comparison table, and process section (`/services#process`) |
+| `/` | Home: hero, stats, seven products, process, illustrative examples, CTA |
+| `/services` | Seven products plus SBA loans by referral |
 | `/services/collateral-asset-loans` | Collateral & Asset Loans |
 | `/services/business-line-of-credit` | Business Line of Credit |
 | `/services/merchant-cash-advance` | Merchant Cash Advance |
@@ -94,7 +94,7 @@ title: 'Post title'
 date: 2026-10-19
 category: Consolidation   # Working Capital | How-To | Consolidation | Equipment | Factoring | Digital Assets
 author: Falcon Equity Group
-excerpt: 'One or two sentences for cards and RSS.'
+excerpt: 'One or two sentences for RSS. Blog cards show category and title only.'
 description: 'SEO meta description, max 170 characters.'
 cover: ../../assets/blog/my-cover.jpg   # optional
 coverAlt: 'Describe the image for screen readers.'

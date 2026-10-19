@@ -5,33 +5,30 @@ import { SERVICES } from '@/data/services';
 
 <BaseLayout title="Page Not Found" description="The page you are looking for could not be found." noindex>
   <section class="border-b border-line bg-white">
-    <div class="container-site py-24 text-center sm:py-32">
-      <p class="eyebrow">Error 404</p>
-      <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-semibold sm:text-6xl">This page flew the coop.</h1>
-      <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
-        The page you are looking for has moved or does not exist. Let us get you back on track.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-        <a href="/" class="btn-primary">Back to home</a>
-        <a href="/apply" class="btn-outline-dark">Apply now</a>
+    <div class="container-site py-16 md:py-24">
+      <h1>Page not found.</h1>
+      <p class="mt-4 max-w-xl text-ink-soft">The page has moved or does not exist.</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="btn-primary">Home</a>
+        <a href="/apply" class="btn-outline-dark">Apply</a>
       </div>
     </div>
   </section>
-  <section class="bg-white py-16" aria-labelledby="popular-heading">
+  <section class="section bg-white" aria-labelledby="popular-heading">
     <div class="container-site max-w-4xl">
-      <h2 id="popular-heading" class="text-2xl font-semibold text-brand">Popular pages</h2>
+      <h2 id="popular-heading">Pages</h2>
       <ul class="mt-6 grid gap-3 sm:grid-cols-2">
         {
           SERVICES.map((s) => (
-            <li>
+            <li class="border-t border-line pt-3">
               <a href={`/services/${s.slug}`} class="link">
                 {s.name}
               </a>
             </li>
           ))
         }
-        <li><a href="/resources/loan-calculator" class="link">Loan Calculator</a></li>
-        <li><a href="/contact" class="link">Contact us</a></li>
+        <li class="border-t border-line pt-3"><a href="/resources/loan-calculator" class="link">Loan calculator</a></li>
+        <li class="border-t border-line pt-3"><a href="/contact" class="link">Contact</a></li>
       </ul>
     </div>
   </section>

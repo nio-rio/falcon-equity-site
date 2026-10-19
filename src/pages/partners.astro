@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
-import Icon from '@/components/Icon.astro';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -13,19 +12,16 @@ const crumbs = [
 
 const audiences = [
   {
-    icon: 'briefcase',
     title: 'Brokers',
-    body: 'Bring your clients a full lineup of products, from merchant cash advances to consolidation, with a team that moves fast.',
+    body: 'A full product set for your clients, from merchant cash advances to consolidation.',
   },
   {
-    icon: 'users',
     title: 'ISOs',
-    body: 'Independent sales organizations get a responsive underwriting partner and clear communication on every file.',
+    body: 'Responsive underwriting and clear communication on every file.',
   },
   {
-    icon: 'landmark',
-    title: 'Funders & lenders',
-    body: 'Reach qualified business owners across a wide range of industries through a partner focused on fit, not volume.',
+    title: 'Funders and lenders',
+    body: 'Access to qualified business owners across a wide range of industries.',
   },
 ];
 ---
@@ -36,21 +32,20 @@ const audiences = [
   schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero
-    eyebrow="Partners"
-    title="Win together."
-    lead="We work with brokers, ISOs and funders who share our standard: fast decisions, the right product and real partnership with every business owner."
+    title="Partners"
+    lead="Brokers, ISOs and funders. Fast decisions. The right product for the file."
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-white py-20" aria-labelledby="who-heading">
+  <section class="section bg-white" aria-labelledby="who-heading">
     <div class="container-site">
-      <SectionHeading id="who-heading" eyebrow="Who we partner with" title="Built for the people who move deals." />
-      <ul class="mt-10 grid gap-6 md:grid-cols-3">
+      <h2 id="who-heading" class="sr-only">Who we partner with</h2>
+      <ul class="grid gap-8 md:grid-cols-3">
         {
           audiences.map((a) => (
             <li class="border-t border-line pt-6">
-              <h3 class="text-xl font-semibold">{a.title}</h3>
-              <p class="mt-2 leading-relaxed text-muted">{a.body}</p>
+              <h3>{a.title}</h3>
+              <p class="mt-3 text-ink-soft">{a.body}</p>
             </li>
           ))
         }
@@ -58,36 +53,28 @@ const audiences = [
     </div>
   </section>
 
-  <section class="bg-white py-20" aria-labelledby="featured-heading">
-    <div class="container-site">
-      <SectionHeading id="featured-heading" eyebrow="Featured partner" title="Cardiff" />
-      <div class="mt-10 grid gap-8 border-t border-line pt-10 md:grid-cols-12 md:items-center">
-        <div class="flex items-center justify-center rounded-2xl bg-white p-8 md:col-span-4">
-          <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />
-        </div>
-        <div class="md:col-span-8">
-          <p class="text-lg leading-relaxed text-muted">
-            Falcon Equity Group partners with Cardiff to expand the range of funding options available to business owners. Explore
-            Cardiff’s offerings through our partner link.
-          </p>
-          <a href={SITE.partner.url} class="btn-primary mt-6" target="_blank" rel="noopener sponsored">
-            Visit Cardiff <Icon name="arrow-right" size={18} /><span class="sr-only"> (opens in a new tab)</span>
-          </a>
-          <p class="mt-4 text-xs text-muted">
-            This is a partner link to an external site. Cardiff’s products are subject to Cardiff’s own terms and approval.
-          </p>
-        </div>
+  <section class="section bg-tint" aria-labelledby="featured-heading">
+    <div class="container-site grid gap-10 md:grid-cols-12 md:items-center">
+      <div class="md:col-span-4">
+        <img src={SITE.partner.logo} alt="Cardiff logo" width="416" height="94" loading="lazy" decoding="async" class="h-auto w-full max-w-[16rem]" />
+      </div>
+      <div class="md:col-span-8">
+        <SectionHeading id="featured-heading" eyebrow="Featured partner" title="Cardiff" />
+        <p class="mt-4 text-ink-soft">
+          Cardiff expands the options available to business owners. Their products are subject to Cardiff’s terms and approval.
+        </p>
+        <a href={SITE.partner.url} class="btn-primary mt-6" target="_blank" rel="noopener sponsored">
+          Visit Cardiff<span class="sr-only"> (opens in a new tab)</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="border-t border-line bg-white py-20" aria-labelledby="partner-cta-heading">
+  <section class="section bg-white" aria-labelledby="partner-cta-heading">
     <div class="container-site flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div class="max-w-2xl">
-        <h2 id="partner-cta-heading" class="text-3xl font-semibold sm:text-4xl">Interested in partnering with Falcon?</h2>
-        <p class="mt-4 text-lg text-muted">
-          Email us with a little about your business and the clients you serve, and we will be in touch.
-        </p>
+        <h2 id="partner-cta-heading">Work with Falcon</h2>
+        <p class="mt-4 text-ink-soft">Email a short note about your firm and the clients you serve.</p>
       </div>
       <div class="flex flex-col gap-3 sm:flex-row">
         <a href={`mailto:${SITE.email}?subject=Partnership%20inquiry`} class="btn-primary">Email us</a>

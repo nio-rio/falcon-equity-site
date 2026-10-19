@@ -1,5 +1,6 @@
 ---
 import '@fontsource-variable/inter';
+import '@fontsource/manrope/300.css';
 import '@fontsource/manrope/400.css';
 import '@fontsource/manrope/600.css';
 import '@fontsource/manrope/700.css';
@@ -9,14 +10,12 @@ import JsonLd from '@/components/JsonLd.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { organizationSchema } from '@/lib/schema';
-import { cleanPath } from '@/lib/paths';
 
 interface Props extends SEOProps {
   schema?: Record<string, unknown>[];
 }
 
 const { schema = [], ...seo } = Astro.props;
-const overlayNav = cleanPath(Astro.url.pathname) === '/';
 ---
 
 <!doctype html>
@@ -28,8 +27,8 @@ const overlayNav = cleanPath(Astro.url.pathname) === '/';
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preload" href="/fonts/AtGambit-Semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/AtGambit-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/AtGambit-Light.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/AtGambit-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="The Falcon Brief" href="/rss.xml" />
     <SEO {...seo} />
@@ -42,7 +41,7 @@ const overlayNav = cleanPath(Astro.url.pathname) === '/';
       class="sr-only z-[100] bg-accent px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >Skip to main content</a
     >
-    <Header overlay={overlayNav} />
+    <Header />
     <main id="main" class="flex-1" tabindex="-1">
       <slot />
     </main>

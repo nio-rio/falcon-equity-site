@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
-import StatsBar from '@/components/StatsBar.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { DEPARTMENTS, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
@@ -26,54 +25,47 @@ const founderSchema = {
 
 <BaseLayout
   title="About Us"
-  description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the team behind your funding."
+  description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the teams behind each file."
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
   <PageHero
-    eyebrow="About Falcon"
-    title="More than a funding provider. Your partner in winning."
-    lead="Based in New York City, we help businesses and entrepreneurs grow with fast, flexible funding designed to fuel growth, strengthen cash flow and build long-term success."
+    title="About"
+    lead="11 Broadway, Lower Manhattan. 15 years. $100M+ deployed. 300+ businesses funded."
     breadcrumbs={crumbs}
   />
 
-  <section class="bg-white py-24" aria-labelledby="story-heading">
+  <section class="section bg-white" aria-labelledby="story-heading">
     <div class="container-site grid gap-16 lg:grid-cols-12">
       <div class="lg:col-span-6">
-        <SectionHeading id="story-heading" eyebrow="Our story" title="Funding businesses from the heart of Manhattan." />
-        <div class="mt-6 space-y-5 text-lg leading-relaxed text-muted">
+        <SectionHeading id="story-heading" eyebrow="The firm" title="From Lower Manhattan." />
+        <div class="mt-6 space-y-5 text-ink-soft">
           <p>
-            For 15 years, Falcon Equity Group has helped business owners turn financial challenges into opportunities. From our
-            office at 11 Broadway in Lower Manhattan, we have deployed more than $100M in funding and helped 300+ businesses
-            that refuse to settle for second place.
+            For 15 years Falcon has funded businesses from 11 Broadway. More than $100M deployed. 300+ businesses helped.
           </p>
           <p>
-            We take our name from the peregrine falcon, the fastest hunter on earth. It sees the opportunity first, commits with
-            precision and wins. That is the standard we hold ourselves to: fast decisions, the right product and a partner who stays
-            with you after the deal closes.
+            Named for the peregrine falcon: see the file clearly, decide, follow through. A specialist stays with the
+            relationship after funds land.
           </p>
         </div>
       </div>
       <div class="lg:col-span-6">
-        <ul class="grid gap-10 sm:grid-cols-2">
+        <ul class="grid gap-8 sm:grid-cols-2">
           {
             VALUES.map((v) => (
               <li class="border-t border-line pt-5">
-                <h3 class="text-xl font-semibold">{v.name}</h3>
-                <p class="mt-2 text-[15px] leading-relaxed text-muted">{v.body}</p>
+                <h3>{v.name}</h3>
+                <p class="mt-2 text-ink-soft">{v.body}</p>
               </li>
             ))
           }
         </ul>
-        <p class="mt-10 font-display text-lg">Falcon vision. Falcon speed. Falcon precision.</p>
       </div>
     </div>
   </section>
 
-  <StatsBar />
-
-  <section class="border-t border-line bg-white py-24" aria-labelledby="founder-heading">
+  <section class="section bg-tint" aria-labelledby="founder-heading">
     <div class="container-site">
-      <SectionHeading id="founder-heading" eyebrow="Leadership" title="Meet our founder." />
+      <SectionHeading id="founder-heading" eyebrow="Leadership" title="Dwight Holly, Founder and CFO." />
       <article class="mt-12 grid gap-10 md:grid-cols-12 md:items-center">
         <div class="md:col-span-4">
           <Image
@@ -86,38 +78,35 @@ const founderSchema = {
           />
         </div>
         <div class="md:col-span-8 md:pl-4">
-          <h3 class="text-3xl font-semibold">{SITE.founder.name}</h3>
-          <p class="mt-1 font-semibold text-muted">{SITE.founder.title}</p>
-          <div class="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+          <div class="space-y-4 text-ink-soft">
             <p>
-              Dwight Holly founded Falcon Equity Group to give business owners what they rarely get from traditional lenders:
-              speed, clarity and a partner who understands how real businesses run.
+              Dwight Holly founded Falcon to give owners what traditional lenders often do not: speed, clarity and someone who
+              understands how businesses run.
             </p>
             <p>
-              Under his leadership, Falcon has built 15 years of expertise in business funding and deployed more than $100M to
-              businesses across virtually every industry, from same-day approvals to cost-saving consolidation.
+              Under his leadership the firm has 15 years in business funding and has deployed more than $100M, from same-day
+              approvals to consolidation.
             </p>
           </div>
-          <a href="/contact" class="btn-primary mt-8">Talk to our team</a>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="border-t border-line bg-white py-24" aria-labelledby="team-heading">
+  <section class="section bg-white" aria-labelledby="team-heading">
     <div class="container-site">
       <SectionHeading
         id="team-heading"
-        eyebrow="Our team"
-        title="Specialists behind every file."
-        lead="Your application is handled by focused teams, each built around one part of getting you funded."
+        eyebrow="Departments"
+        title="How a file is handled."
+        lead="Applications move through focused teams. Named staff on this site: the founder only."
       />
-      <ul class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <ul class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {
           DEPARTMENTS.map((d) => (
             <li class="border-t border-line pt-6">
-              <h3 class="text-xl font-semibold">{d.name}</h3>
-              <p class="mt-2 text-[15px] leading-relaxed text-muted">{d.body}</p>
+              <h3>{d.name}</h3>
+              <p class="mt-2 text-ink-soft">{d.body}</p>
             </li>
           ))
         }

@@ -4,157 +4,53 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatsBar from '@/components/StatsBar.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
-import FaqList from '@/components/FaqList.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { SERVICES } from '@/data/services';
-import { INDUSTRIES } from '@/data/industries';
-import { CLIENT_STORIES, FAQS, HOW_IT_WORKS, QUALIFY, WHEN_TO_APPLY, WHY_FALCON } from '@/data/content';
+import { CLIENT_STORIES, HOW_IT_WORKS } from '@/data/content';
 import { PRIMARY_PHONE } from '@/data/site';
-import { faqSchema } from '@/lib/schema';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
-
-const homeFaqs = FAQS.slice(0, 6);
 ---
 
-<BaseLayout
-  description="Fast business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24–48 hours."
-  schema={[faqSchema(homeFaqs)]}
->
-  <!-- 1. Hero -->
-  <section class="on-dark relative h-svh min-h-[36rem] overflow-hidden text-white" aria-labelledby="hero-heading">
-    <Image
-      src={heroFalcon}
-      alt="A peregrine falcon launching from a branch with its wings spread wide"
-      widths={[640, 960, 1280, 1920, 2400]}
-      sizes="100vw"
-      class="absolute inset-0 h-full w-full object-cover object-[60%_30%]"
-      priority
-    />
-    <div class="absolute inset-0 bg-black/55" aria-hidden="true"></div>
-    <div class="relative flex h-full items-end">
-      <div class="container-site w-full pb-16 pt-24 sm:pb-20 lg:pb-24">
-        <p class="eyebrow text-white/70">Fast business funding · New York City</p>
-        <h1 id="hero-heading" class="mt-4 max-w-3xl text-4xl leading-[1.05] font-semibold text-white sm:text-6xl lg:text-7xl">
-          Capital for businesses that play to win.
-        </h1>
-        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-          Funding from $5,000 to $20,000,000, often in as little as 24-48 hours.
+<BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
+  <section class="home-hero on-dark" aria-labelledby="hero-heading">
+    <div class="home-hero-media">
+      <Image
+        src={heroFalcon}
+        alt="A peregrine falcon launching from a branch with its wings spread wide"
+        widths={[640, 960, 1280, 1920, 2400]}
+        sizes="100vw"
+        class="absolute inset-0 h-full w-full object-cover object-[60%_30%]"
+        priority
+      />
+      <div class="absolute inset-0 bg-black/45" aria-hidden="true"></div>
+    </div>
+    <div class="home-hero-copy">
+      <div class="container-site">
+        <h1 id="hero-heading">Capital for businesses that play to win.</h1>
+        <p class="lead">
+          Capital from $5,000 to $20,000,000. Many products fund within 24-48 hours of approval.
         </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a href="/apply" class="btn-on-dark">Apply Now</a>
-          <a href={PRIMARY_PHONE.href} class="btn-outline-light">{PRIMARY_PHONE.display}</a>
+        <div class="mt-6">
+          <a href="/apply" class="btn-on-dark">Apply</a>
+          <a href={PRIMARY_PHONE.href} class="ml-5 inline-block text-base text-white/90 underline-offset-4 hover:underline">
+            {PRIMARY_PHONE.display}
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. Stats -->
   <StatsBar />
 
-  <!-- 3. Why Falcon -->
-  <section class="bg-white py-24 sm:py-28" aria-labelledby="why-heading">
+  <section class="section bg-white" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <SectionHeading
-        id="why-heading"
-        eyebrow="Why Falcon"
-        title="Built for speed. Engineered to win."
-        lead="The falcon is the fastest hunter on earth. It sees the opportunity first and strikes with precision. That is how we fund."
+        id="services-heading"
+        eyebrow="What we do"
+        title="Seven funding products."
+        lead="Amounts, terms and speed vary by file."
       />
-      <ul class="mt-16 grid gap-x-12 gap-y-12 border-t border-line pt-12 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          WHY_FALCON.map((w) => (
-            <li>
-              <h3 class="text-xl font-semibold">{w.title}</h3>
-              <p class="mt-3 text-[15px] leading-relaxed text-muted">{w.body}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <!-- 4. How it works -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="how-heading">
-    <div class="container-site">
-      <SectionHeading id="how-heading" eyebrow="How it works" title="Three moves to your next win." />
-      <ol class="mt-16 grid gap-12 md:grid-cols-3">
-        {
-          HOW_IT_WORKS.map((step, i) => (
-            <li>
-              <span class="font-display text-sm font-semibold tracking-[0.2em] text-accent" aria-hidden="true">
-                0{i + 1}
-              </span>
-              <h3 class="mt-4 text-2xl font-semibold">
-                <span class="sr-only">Step {i + 1}: </span>
-                {step.title}
-              </h3>
-              <p class="mt-3 leading-relaxed text-muted">{step.body}</p>
-            </li>
-          ))
-        }
-      </ol>
-      <div class="mt-12">
-        <a href="/apply" class="btn-primary">Start your application</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Do you qualify -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="qualify-heading">
-    <div class="container-site grid gap-16 lg:grid-cols-12">
-      <div class="lg:col-span-4">
-        <SectionHeading
-          id="qualify-heading"
-          eyebrow="Do you qualify?"
-          title="Ready to win? Here is what it takes."
-          lead="Most Falcon products start with these four basics. Requirements vary by product, and every file gets a real review."
-        />
-        <a href="/apply" class="btn-primary mt-10">Check in 60 seconds</a>
-      </div>
-      <dl class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-8">
-        {
-          QUALIFY.map((q) => (
-            <div class="border-t border-line pt-6">
-              <dt class="text-lg font-semibold">{q.title}</dt>
-              <dd class="mt-2 font-display text-2xl font-semibold text-accent">{q.value}</dd>
-              <dd class="mt-2 text-[15px] text-muted">{q.body}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </section>
-
-  <!-- 6. When should you apply -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="when-heading">
-    <div class="container-site">
-      <SectionHeading id="when-heading" eyebrow="When should you apply?" title="Win the next move. We will fund it." />
-      <ul class="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          WHEN_TO_APPLY.map((w) => (
-            <li class="border-t border-line pt-6">
-              <h3 class="text-xl font-semibold">{w.title}</h3>
-              <p class="mt-3 text-[15px] leading-relaxed text-muted">{w.body}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <!-- 7. Funding options -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="services-heading" id="services">
-    <div class="container-site">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <SectionHeading
-          id="services-heading"
-          eyebrow="Funding options"
-          title="Your winning lineup."
-          lead="Seven ways to fund your business, each matched to a different kind of move."
-        />
-        <a href="/services" class="btn-outline-dark shrink-0">Compare all options</a>
-      </div>
-      <ul class="mt-4 grid gap-x-12 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {
           SERVICES.map((s) => (
             <li>
@@ -163,49 +59,52 @@ const homeFaqs = FAQS.slice(0, 6);
           ))
         }
       </ul>
+      <p class="mt-10">
+        <a href="/services" class="link">Compare amounts, terms and requirements</a>
+      </p>
     </div>
   </section>
 
-  <!-- 8. Industries -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="industries-heading">
+  <section class="section bg-tint" aria-labelledby="how-heading">
     <div class="container-site">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <SectionHeading
-          id="industries-heading"
-          eyebrow="Industries"
-          title="Built to win in your industry."
-          lead="We fund businesses across virtually every sector. Here are twelve we know especially well."
-        />
-        <a href="/industries" class="btn-outline-dark shrink-0">Explore industries</a>
-      </div>
-      <ul class="mt-16 grid grid-cols-2 border-t border-line sm:grid-cols-3 lg:grid-cols-4">
+      <SectionHeading
+        id="how-heading"
+        eyebrow="Process"
+        title="How a file moves."
+        lead="The same sequence for every product."
+      />
+      <ol class="mt-12 grid gap-8 md:grid-cols-3">
         {
-          INDUSTRIES.map((ind) => (
-            <li class="border-b border-line py-5 pr-6 text-[15px] font-semibold">{ind.name}</li>
+          HOW_IT_WORKS.map((step, i) => (
+            <li class="border-t border-line pt-6">
+              <h3>
+                <span class="sr-only">Step {i + 1}: </span>
+                {step.title}
+              </h3>
+              <p class="mt-3 text-ink-soft">{step.body}</p>
+            </li>
           ))
         }
-      </ul>
+      </ol>
     </div>
   </section>
 
-  <!-- 9. Client stories -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="stories-heading">
+  <section class="section bg-white" aria-labelledby="stories-heading">
     <div class="container-site">
       <SectionHeading
         id="stories-heading"
         eyebrow="Illustrative examples"
         title="Situations owners bring to Falcon."
-        lead="These are anonymized, generic situations. They are not real client stories, and they do not describe outcomes."
+        lead="Generic situations. Not real clients or results."
       />
-      <ul class="mt-16 grid gap-12 lg:grid-cols-3">
+      <ul class="mt-12 grid gap-8 lg:grid-cols-3">
         {
           CLIENT_STORIES.map((s) => (
             <li class="border-t border-line pt-6">
-              <p class="eyebrow">Illustrative example</p>
-              <h3 class="mt-4 text-xl leading-snug font-semibold">{s.title}</h3>
-              <p class="mt-3 leading-relaxed text-muted">{s.body}</p>
+              <h3>{s.title}</h3>
+              <p class="mt-3 text-ink-soft">{s.body}</p>
               <p class="mt-6 text-sm text-muted">
-                {s.industry} · <span class="font-semibold text-ink">{s.product}</span>
+                {s.industry} · <span class="text-ink">{s.product}</span>
               </p>
             </li>
           ))
@@ -214,19 +113,5 @@ const homeFaqs = FAQS.slice(0, 6);
     </div>
   </section>
 
-  <!-- 10. FAQ -->
-  <section class="border-t border-line bg-white py-24 sm:py-28" aria-labelledby="faq-heading">
-    <div class="container-site grid gap-12 lg:grid-cols-12">
-      <div class="lg:col-span-4">
-        <SectionHeading id="faq-heading" eyebrow="FAQ" title="Straight answers, fast." />
-        <a href="/faq" class="link mt-6 inline-block">See all FAQs</a>
-      </div>
-      <div class="lg:col-span-8">
-        <FaqList faqs={homeFaqs} />
-      </div>
-    </div>
-  </section>
-
-  <!-- 11. Final CTA -->
   <CtaBand />
 </BaseLayout>

@@ -17,16 +17,16 @@ export const WHY_FALCON = [
 
 export const HOW_IT_WORKS = [
   {
-    title: 'Apply in minutes',
-    body: 'One short online application tells us about your business and what you need the capital for.',
+    title: 'Apply',
+    body: 'One short form about the business and the use of proceeds.',
   },
   {
-    title: 'Review your options',
-    body: 'A Falcon specialist reviews your file and lays out the products that fit, in plain English.',
+    title: 'Review',
+    body: 'A specialist matches products to the file.',
   },
   {
-    title: 'Get funded',
-    body: 'Approve the offer you like, sign, and receive funds in as little as 24–48 hours.',
+    title: 'Fund',
+    body: 'Sign the offer. Many products fund within 24-48 hours.',
   },
 ] as const;
 
@@ -61,19 +61,19 @@ export const CLIENT_STORIES = [
     industry: 'Auto Services',
     product: 'Business Term Loan',
     title: 'An auto parts retailer looking for expansion capital.',
-    body: 'A shop considering a second location, extra inventory or new diagnostic equipment might look at a term loan or a line of credit. This is an illustrative situation, not a client result.',
+    body: 'A second location, extra inventory or new equipment might point to a term loan or a line of credit.',
   },
   {
     industry: 'Agriculture',
     product: 'Consolidation of Positions',
     title: 'A Southwest agricultural services company with an existing advance, looking to expand.',
-    body: 'When an open advance is already on the books, the next conversation is often whether to add capital, consolidate the current position, or both. This is an illustrative situation, not a client result.',
+    body: 'With an advance already open, the next step is often new capital, consolidation, or both.',
   },
   {
     industry: 'Landscaping',
     product: 'Merchant Cash Advance',
     title: 'A landscaping company bridging a slow season.',
-    body: 'Payroll, equipment leases and insurance do not pause when the calendar does. A working capital bridge is one option owners weigh before peak season returns. This is an illustrative situation, not a client result.',
+    body: 'Payroll, leases and insurance still run in the off-season. A working-capital bridge is one option before peak season.',
   },
 ] as const;
 
@@ -124,28 +124,28 @@ export const DEPARTMENTS = [
   {
     icon: 'shield-check',
     name: 'Underwriting',
-    body: 'Reviews every file with care and speed, matching your business to terms it can actually support.',
+    body: 'Reviews each file and matches it to terms the business can support.',
   },
   {
     icon: 'handshake',
     name: 'Client Success',
-    body: 'Your dedicated point of contact from application to funding, and the first call when you need more.',
+    body: 'Point of contact from application to funding, and after.',
   },
   {
     icon: 'landmark',
     name: 'Funding Partners',
-    body: 'Manages relationships with the lenders and funders behind every product, so you see strong options.',
+    body: 'Works with the lenders and funders behind each product.',
   },
   {
     icon: 'bitcoin',
     name: 'Digital Assets',
-    body: 'Guides crypto onboarding and custodial services for businesses building on digital rails.',
+    body: 'Crypto onboarding and custodial services.',
   },
 ] as const;
 
 export const VALUES = [
-  { icon: 'eye', name: 'Vision', body: 'A falcon spots opportunity from a mile up. We see what your business can become.' },
-  { icon: 'zap', name: 'Speed', body: 'The fastest hunter on earth. Decisions in hours, funding in days.' },
-  { icon: 'target', name: 'Precision', body: 'The right product, sized correctly, for the goal in front of you.' },
-  { icon: 'handshake', name: 'Partnership', body: 'We win when you win. Long relationships over one-off deals.' },
+  { icon: 'eye', name: 'Vision', body: 'We look at the whole file, not a single score.' },
+  { icon: 'zap', name: 'Speed', body: 'Decisions in hours. Many products fund within 24-48 hours of approval.' },
+  { icon: 'target', name: 'Precision', body: 'The product and size should match the use of proceeds.' },
+  { icon: 'handshake', name: 'Partnership', body: 'Long relationships over one-off transactions.' },
 ] as const;

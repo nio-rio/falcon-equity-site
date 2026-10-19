@@ -17,16 +17,11 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title="The Falcon Brief: Business Funding Blog"
-  description="Practical, plain-English guides on working capital, merchant cash advances, consolidation, factoring and getting funded fast."
+  title="The Falcon Brief"
+  description="Guides on working capital, merchant cash advances, consolidation, factoring and getting funded."
   schema={[breadcrumbSchema(crumbs)]}
 >
-  <PageHero
-    eyebrow="The Falcon Brief"
-    title="Sharper funding decisions."
-    lead="Plain-English guides on working capital, consolidation and getting funded fast, from the team at Falcon Equity Group."
-    breadcrumbs={crumbs}
-  />
+  <PageHero title="The Falcon Brief" lead="Short guides on working capital, consolidation and getting funded." breadcrumbs={crumbs} />
   <BlogIndex posts={posts} categories={categories} />
   <CtaBand />
 </BaseLayout>
