@@ -38,8 +38,8 @@ const process = [
       <h2 id="options-heading" class="sr-only">Funding options</h2>
       <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
-          SERVICES.map((s) => (
-            <li>
+          SERVICES.map((s, i) => (
+            <li class:list={[i === SERVICES.length - 1 && 'lg:col-span-3']}>
               <ServiceCard service={s} />
             </li>
           ))

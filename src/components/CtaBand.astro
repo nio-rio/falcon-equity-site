@@ -19,14 +19,16 @@ const {
     aria-hidden="true"
   >
   </div>
-  <div class="container-site relative flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+  <div class="container-site relative flex flex-col items-start gap-8 xl:flex-row xl:items-center xl:justify-between">
     <div class="max-w-2xl">
       <h2 id="cta-heading" class="text-3xl leading-tight font-semibold sm:text-5xl">{title}</h2>
       <p class="mt-4 text-lg text-lilac-200">{body}</p>
     </div>
-    <div class="flex flex-col gap-3 sm:flex-row">
-      <a href="/apply" class="btn-accent px-8! py-4! text-lg!">Start your application <Icon name="arrow-right" size={20} /></a>
-      <a href={PRIMARY_PHONE.href} class="btn-outline-light px-8! py-4! text-lg!">
+    <div class="flex w-full max-w-md shrink-0 flex-col gap-3 sm:max-w-none sm:flex-row xl:max-w-sm xl:flex-col">
+      <a href="/apply" class="btn-accent whitespace-nowrap px-8! py-4! text-lg!">
+        Start your application <Icon name="arrow-right" size={20} />
+      </a>
+      <a href={PRIMARY_PHONE.href} class="btn-outline-light whitespace-nowrap px-8! py-4! text-lg!">
         <Icon name="phone" size={20} /> {PRIMARY_PHONE.display}
       </a>
     </div>
