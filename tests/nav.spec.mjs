@@ -949,24 +949,30 @@ const sitemapPaths = async () => {
   });
   for (const route of routes) {
     const candidates = route.endsWith('.html') ? [route] : [route, `${route === '/' ? '/index.html' : `${route}.html`}`];
-    let html = '';
     let used = route;
+    let loaded = false;
     for (const candidate of candidates) {
       const res = await page.goto(`${BASE}${candidate}`, { waitUntil: 'domcontentloaded' }).catch(() => null);
       if (res && res.ok()) {
-        html = await page.content();
         used = candidate;
+        loaded = true;
         break;
       }
     }
-    const matches = html.match(/data-site-cta/g) || [];
-    const footerAfter = /data-site-cta[\s\S]*site-footer/.test(html);
+    const count = loaded ? await page.locator('[data-site-cta]').count() : -1;
+    const beforeFooter = loaded
+      ? await page.evaluate(() => {
+          const cta = document.querySelector('[data-site-cta]');
+          const footer = document.querySelector('.site-footer');
+          return Boolean(cta && footer && cta.nextElementSibling === footer);
+        })
+      : false;
     log({
       vp: 'all',
       page: used,
       check: 'site-cta-once-every-page',
-      ok: matches.length === 1 && footerAfter,
-      detail: `count=${matches.length} beforeFooter=${footerAfter}`,
+      ok: loaded && count === 1 && beforeFooter,
+      detail: `count=${count} beforeFooter=${beforeFooter} loaded=${loaded}`,
     });
   }
   await context.close();
