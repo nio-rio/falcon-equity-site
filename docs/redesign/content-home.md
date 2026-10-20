@@ -112,7 +112,7 @@ Usable later without inventing:
 
 ## Proposed order
 
-Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonials are the three Ling-supplied quotes with `Falcon client` placeholder credits. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
+Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`24-48h` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonials are the three Ling-supplied quotes with `Falcon client` placeholder credits. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
 
 | # | Section | Status | Blackstone / BREIT model |
 | --- | --- | --- | --- |
@@ -150,10 +150,10 @@ Visual density: **one photo in the hero.** Industries and Insights may use 16:9 
 - **Purpose:** Proof, using only Ling-confirmed figures. This is the Blackstone "by the numbers" band the current strip is trying to be.
 - **Eyebrow:** none (stats are not an H2 section)
 - **Headline:** none
-- **Featured:** Funding deployed — `$100M+`
-- **Side (pick two, keep the qualifier on 98%):**
-  - Years of experience — `15`
-  - Average funding time — `24-48h`
+- **Featured:** Average funding time — `24-48h`
+- **Side (two slots; keep the qualifier on 98%):**
+  - Funding deployed — `$100M+` (first)
+  - Approval for qualified applicants — `98%`
 - **Where the other two go:** `300+` Businesses helped and `98%` Approval for qualified applicants stay in the dataset. If a third side slot is ever added, 98% **must** keep "for qualified applicants". Do not promote 98% as a bare featured number. Do not add a customer-satisfaction figure (explicitly unpublished).
 - **Do not use:** Kandy numbers; Jotform counts; unverified monthly volume.
 

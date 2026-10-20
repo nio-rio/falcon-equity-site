@@ -653,7 +653,25 @@ for (const vp of VIEWPORTS) {
         const quoteOpacity = document.querySelector('.pilot-ann-title')
           ? getComputedStyle(document.querySelector('.pilot-ann-title')).opacity
           : null;
-        return { roots, skipped, heroOpacity, quoteOpacity, hasJs: document.documentElement.classList.contains('has-js') };
+        const featLabel = document.querySelector('.pilot-stats-feat-label')?.textContent.trim() || '';
+        const featValue = document.querySelector('.pilot-stats-feat-value')?.textContent.trim() || '';
+        const sideLabels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
+          el.textContent.trim(),
+        );
+        const sideValues = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
+          el.textContent.trim(),
+        );
+        return {
+          roots,
+          skipped,
+          heroOpacity,
+          quoteOpacity,
+          hasJs: document.documentElement.classList.contains('has-js'),
+          featLabel,
+          featValue,
+          sideLabels,
+          sideValues,
+        };
       });
       log({
         ...tag,
@@ -670,7 +688,13 @@ for (const vp of VIEWPORTS) {
           reveal.skipped.ann === false &&
           reveal.skipped.cta === false &&
           reveal.heroOpacity === '1' &&
-          reveal.quoteOpacity === '1',
+          reveal.quoteOpacity === '1' &&
+          reveal.featLabel === 'Average funding time' &&
+          reveal.featValue === '24-48h' &&
+          reveal.sideLabels[0] === 'Funding deployed' &&
+          reveal.sideValues[0] === '$100M+' &&
+          reveal.sideLabels[1] === 'Approval for qualified applicants' &&
+          reveal.sideValues[1] === '98%',
         detail: JSON.stringify(reveal),
       });
     } else {

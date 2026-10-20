@@ -41,4 +41,4 @@ small value (`.bx-stat__animateFeatureStat:before`).
 | Underline | **1px** `#000`, full 3-col width | **1px** × **224px** |
 | Side vs featured | side labels top = featured label top | measured 56px = 56px |
 
-Falcon home maps this onto `.pilot-stats-*` with `$100M+` as the featured figure.
+Falcon home maps this onto `.pilot-stats-*` with `24-48h` as the featured figure.

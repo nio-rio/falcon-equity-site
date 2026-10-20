@@ -55,9 +55,9 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
   />
 
   <PilotStats
-    featured={{ label: deployed.label, value: deployed.value }}
+    featured={{ label: fundingTime.label, value: fundingTime.value }}
     side={[
-      { label: fundingTime.label, value: fundingTime.value },
+      { label: deployed.label, value: deployed.value },
       { label: approval.label, value: approval.value },
     ]}
   />
