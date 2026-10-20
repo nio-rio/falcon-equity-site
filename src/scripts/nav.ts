@@ -19,7 +19,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1
 
 export function initNav() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const desktopMq = window.matchMedia('(min-width: 80em)');
+  const desktopMq = window.matchMedia('(min-width: 90em)');
   const d = (sec: number) => (reduce.matches ? 0 : sec);
 
   const menuWrap = document.querySelector<HTMLElement>('[data-menu-wrap]');

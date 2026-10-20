@@ -634,6 +634,7 @@ html.has-scroll-lock .site-header {
 
 .site-header__inner {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--bx-space-24);
@@ -744,6 +745,7 @@ html.has-scroll-lock .site-header {
 .site-header__tools {
   display: flex;
   flex: 0 0 auto;
+  flex-wrap: nowrap;
   flex-shrink: 0;
   align-items: center;
   justify-content: flex-end;
@@ -953,14 +955,21 @@ html.has-scroll-lock .site-header {
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .primary-nav__list-item {
   border-top: 1px solid var(--nav-rule);
 }
 
+.primary-nav__list-item-label {
+  white-space: nowrap;
+}
+
 .primary-nav__list-item-link {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--bx-space-16);
@@ -1161,7 +1170,7 @@ h2.primary-nav-widget__title {
   outline-offset: 2px;
 }
 
-@media (min-width: 80em) {
+@media (min-width: 90em) {
   .primary-nav {
     --column-gap: var(--bx-space-88);
   }
@@ -1229,12 +1238,12 @@ h2.primary-nav-widget__title {
 
   .primary-nav__list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: stretch;
     justify-content: center;
     height: 100%;
     column-gap: var(--bx-space-24);
-    row-gap: var(--bx-space-8);
+    white-space: nowrap;
   }
 
   .primary-nav__list-item {
@@ -1248,11 +1257,13 @@ h2.primary-nav-widget__title {
 
   .primary-nav__list-item-link {
     display: inline-flex;
+    flex-wrap: nowrap;
     align-items: center;
     width: auto;
     height: 100%;
     padding: 0;
     gap: 0;
+    white-space: nowrap;
   }
 
   .primary-nav__list-item-label,

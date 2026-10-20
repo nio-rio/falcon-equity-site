@@ -2,7 +2,7 @@
 
 Reference (behavior only, not look): [Mega Navigation (Directional Hover)](https://www.osmo.supply/resource/mega-navigation-directional-hover) and the live demo at https://osmo-mega-navigation-directional-hover.webflow.io/. Logic follows Osmo’s `script.js` (GSAP 3.15). Falcon keeps its own fonts, palette, full-bleed mega, divider, overlay blur, button-040, and phone.
 
-Desktop breakpoint stays **80em** (our header chrome). Osmo’s 991px is not used for layout.
+Desktop breakpoint is **90em** (raised from 80em so the inline row never wraps). Osmo’s 991px is not used for layout.
 
 ## Measured timings (from Osmo `DUR` / hover constants)
 
@@ -18,7 +18,7 @@ Desktop breakpoint stays **80em** (our header chrome). Osmo’s 991px is not use
 | `backdropIn` / `Out` | **0.30** / **0.20** | power2 | Our overlay still uses CSS show + existing blur |
 | Directional slide | **30px** | — | Content exits `-dir`, enters `+dir` |
 
-## Mobile (our `<80em` header)
+## Mobile (our `<90em` header)
 
 | Step | Timing |
 | --- | --- |

@@ -30,7 +30,7 @@ await mkdir(OUT, { recursive: true });
 
 const VIEWPORTS = [
   { name: '1440', width: 1440, height: 900, mode: 'desktop' },
-  { name: '1280', width: 1280, height: 800, mode: 'desktop' },
+  { name: '1280', width: 1280, height: 800, mode: 'mobile' },
   { name: '1024', width: 1024, height: 768, mode: 'mobile' },
   { name: '768', width: 768, height: 1024, mode: 'mobile' },
   { name: '390', width: 390, height: 844, mode: 'mobile' },
@@ -112,6 +112,40 @@ const openMenu = async (page, mode) => {
   }
   await page.waitForTimeout(280);
 };
+
+const readBarWrap = (page) =>
+  page.evaluate(() => {
+    const bar = document.querySelector('[data-header-bar]');
+    const items = [...document.querySelectorAll('[data-nav-list] > [data-nav-item]')];
+    const burger = document.querySelector('[data-mobile-toggle]');
+    const tel = document.querySelector('.site-header__tel--bar');
+    const apply = document.querySelector('.site-header__apply--bar');
+    const logo = document.querySelector('.site-header__logo');
+    const visible = (el) => {
+      if (!el) return false;
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 1 && r.height > 1;
+    };
+    const tops = items.filter(visible).map((el) => Math.round(el.getBoundingClientRect().top));
+    const chrome = [logo, tel, apply, burger].filter(visible);
+    const chromeTops = chrome.map((el) => Math.round(el.getBoundingClientRect().top));
+    const chromeBottoms = chrome.map((el) => Math.round(el.getBoundingClientRect().bottom));
+    const barR = bar?.getBoundingClientRect();
+    const chromeSpread = chromeTops.length ? Math.max(...chromeTops) - Math.min(...chromeTops) : 0;
+    return {
+      barH: barR ? Math.round(barR.height * 10) / 10 : null,
+      burger: visible(burger),
+      tel: visible(tel),
+      apply: visible(apply),
+      itemRows: new Set(tops).size,
+      chromeAligned: chromeSpread <= 24,
+      chromeSpread,
+      chromeTop: chromeTops.length ? Math.min(...chromeTops) : null,
+      chromeBottom: chromeBottoms.length ? Math.max(...chromeBottoms) : null,
+      wrap: getComputedStyle(document.querySelector('[data-nav-list]')).flexWrap,
+    };
+  });
 
 const closeMenu = async (page, mode) => {
   await page.keyboard.press('Escape');
@@ -1070,6 +1104,21 @@ for (const vp of VIEWPORTS) {
       (logoBox.border === '0px' || logoBox.border === '0px none') &&
       (logoBox.bg === 'rgba(0, 0, 0, 0)' || logoBox.bg === 'transparent' || logoBox.bg === 'none');
     log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
+
+    const barWrap = await readBarWrap(page);
+    const expectBarH = vp.width < 768 ? 102 : 108;
+    log({
+      ...tag,
+      check: 'nav-no-wrap',
+      ok:
+        barWrap.barH === expectBarH &&
+        barWrap.itemRows <= 1 &&
+        barWrap.chromeAligned &&
+        (vp.mode === 'desktop'
+          ? barWrap.burger === false && barWrap.wrap === 'nowrap'
+          : barWrap.burger === true),
+      detail: JSON.stringify({ ...barWrap, expectBarH, mode: vp.mode }),
+    });
 
     const liveLogo = vp.width < 1280
       ? { mark: 32, word: '20.8px', weight: '600', lh: '31.2px', gap: 16 }
@@ -2264,6 +2313,40 @@ for (const vp of VIEWPORTS) {
 
     await context.close();
   }
+}
+
+{
+  const context = await browser.newContext({ viewport: { width: 768, height: 900 } });
+  const page = await context.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
+  const heights = [];
+  for (let width = 768; width <= 1440; width += 20) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.waitForTimeout(40);
+    const wrap = await readBarWrap(page);
+    heights.push(wrap.barH);
+    const desktop = width >= 1440;
+    log({
+      vp: String(width),
+      page: 'home',
+      check: 'nav-width-step',
+      ok:
+        wrap.barH === 108 &&
+        wrap.itemRows <= 1 &&
+        wrap.chromeAligned &&
+        wrap.wrap === 'nowrap' &&
+        (desktop ? wrap.burger === false && wrap.apply === true && wrap.tel === true : wrap.burger === true),
+      detail: JSON.stringify(wrap),
+    });
+  }
+  log({
+    vp: '768-1440',
+    page: 'home',
+    check: 'nav-bar-height-constant',
+    ok: heights.length > 0 && heights.every((h) => h === 108),
+    detail: JSON.stringify({ heights: [...new Set(heights)] }),
+  });
+  await context.close();
 }
 
 const sitemapPaths = async () => {
