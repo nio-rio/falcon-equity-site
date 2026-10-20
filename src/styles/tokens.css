@@ -140,7 +140,8 @@
 @media (min-width: 1280px) {
   :root {
     --bx-max: 71rem;
-    --bx-header: 12.75rem;
+    /* Captures show the compact bar (~108px), which is BX `--h-site-header--fixed`. */
+    --bx-header: 6.75rem;
     --pilot-heading-to-items: var(--bx-space-96);
   }
 }

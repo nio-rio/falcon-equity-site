@@ -110,7 +110,7 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 | Home announcement (EARNINGS) | see below | | | | `.bx-announcement` |
 | Gutter `--bx-gutter` | 16px | 24px | 24px | 24px | `--column-gap: 2em` → 24px |
 | Content max `--bx-max` | 20.5→23rem | 43rem | 71rem | **79rem (1264px)** | `--container-width` |
-| Header height | 112px (7rem) | 140px (8.75rem) | **204px (12.75rem)** | **204px** | BX `--h-site-header`. Compact on scroll **102 / 108px**. See `docs/refs/bx-header.md` |
+| Header height | 112px (7rem) | 140px (8.75rem) | **108px (6.75rem)** | **108px** | Captures match BX `--h-site-header--fixed`. See `docs/refs/bx-header.md` |
 | Eyebrow → H2 | 40px | 40px | 40px | 40px | Tech-and-innovations |
 | H2 → body | 48px (grid row-gap ≥1024) | | | | Title `padding-bottom` |
 | Body → circle-arrow | 40px | | | | `.section-cta` |
@@ -167,10 +167,10 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 ### Nav + dropdowns
 
 - Sticky bar. **Home** (`body.is-home`): black, white type, outlined white-on-black logo (`is-color-theme-dark`). **Inner pages:** white, black type, filled black logo box with white mark. Theme does not change on scroll. Yellow highlights in reference screenshots are annotations, not hover.
-- Heights follow BX `--h-site-header` / `--fixed` (112→140→**204px**; compact **102/108px**). Logo box **122×48** then **152×60**.
+- Heights follow the compact bar in the nav captures (**108px** at 80em). Logo box **122×48** then **152×60**.
 - Desktop `80em+`: top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`.
-- Full-width mega-menu (`top: 100%`) of real pages only: Services, Industries (2-col), Resources, Our Firm. Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
-- Services menu includes an Apply promo card (`#121317` on home, `#f4f5f7` inner): title, apply-page sentence, Learn More + 40px circle-arrow, MCA still.
+- Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
+- Resources menu includes an Apply promo card (`#121317`): title, apply-page sentence, Learn More + white 40px circle-arrow, MCA still.
 - Backdrop: `blur(5px)` + `rgba(0,0,0,.32)`. Esc closes. `prefers-reduced-motion` drops transitions and blur.
 - Thin 1px `#d5d8df` rule under the bar.
 

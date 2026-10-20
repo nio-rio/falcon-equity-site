@@ -775,8 +775,8 @@ a:focus-visible .link-draw,
 
 .primary-nav-widget {
   display: none;
-  background: var(--nav-highlight);
-  color: inherit;
+  background: #121317;
+  color: #fff;
 }
 
 .primary-nav-widget__media {
@@ -833,6 +833,16 @@ a:focus-visible .link-draw,
 .primary-nav-widget .circle-arrow {
   width: 2.5rem;
   height: 2.5rem;
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+.primary-nav-widget .arrow-cta:hover .circle-arrow,
+.primary-nav-widget .arrow-cta:focus-visible .circle-arrow {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
 }
 
 .primary-nav__list-item-link:focus-visible,
@@ -1003,6 +1013,7 @@ a:focus-visible .link-draw,
     align-items: flex-start;
     flex: 1 0;
     flex-direction: column;
+    justify-content: space-between;
   }
 }
 

@@ -23,10 +23,11 @@ const nav = [
     columns: [
       {
         heading: 'Services',
+        twoCol: true,
         links: [{ label: 'Overview', href: '/services' }, ...SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))],
       },
     ] satisfies NavColumn[],
-    featured: true,
+    featured: false,
   },
   {
     id: 'industries',
@@ -49,12 +50,17 @@ const nav = [
     label: 'Resources',
     active: RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources'),
     columns: [
+      { heading: 'Blog', links: [{ label: 'Blog', href: '/blog' }] },
       {
-        heading: 'Resources',
-        links: RESOURCE_LINKS.map((l) => ({ label: l.label, href: l.href })),
+        heading: 'Tools',
+        links: [
+          { label: 'Loan Calculator', href: '/resources/loan-calculator' },
+          { label: 'Credit Repair & Loan Prep', href: '/resources/credit-repair-loan-prep' },
+        ],
       },
+      { heading: 'Help', links: [{ label: 'FAQ', href: '/faq' }] },
     ] satisfies NavColumn[],
-    featured: false,
+    featured: true,
   },
   {
     id: 'firm',
@@ -63,8 +69,12 @@ const nav = [
     columns: [
       {
         heading: 'Our Firm',
-        links: FIRM_LINKS.map((l) => ({ label: l.label, href: l.href })),
+        links: [
+          { label: 'About', href: '/about' },
+          { label: 'Partners', href: '/partners' },
+        ],
       },
+      { heading: 'Contact', links: [{ label: 'Contact', href: '/contact' }] },
     ] satisfies NavColumn[],
     featured: false,
   },
@@ -145,10 +155,7 @@ const nav = [
                                 </p>
                               </div>
                               <div class="primary-nav-widget__cta">
-                                <a
-                                  href="/apply"
-                                  class:list={['arrow-cta', isHome && 'arrow-cta--on-dark']}
-                                >
+                                <a href="/apply" class="arrow-cta arrow-cta--on-dark">
                                   <span class="arrow-cta-label">Learn More</span>
                                   <CircleArrow />
                                 </a>

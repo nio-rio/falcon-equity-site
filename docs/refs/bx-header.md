@@ -26,13 +26,14 @@ Theme does **not** change on scroll. Compact height does.
 
 | Token | Mobile | 26em | 48em (768) | 80em (1280) | 90em (1440) |
 | --- | --- | --- | --- | --- | --- |
-| `--h-site-header` | **7rem** (112px) | **8rem** | **8.75rem** (140px) | **12.75rem** (204px) | same |
+| `--h-site-header` (CSS unfixed) | **7rem** (112px) | **8rem** | **8.75rem** (140px) | **12.75rem** (204px) | same |
+| Applied bar (captures / `--fixed`) | **6.375rem** | same | **6.75rem** (108px) | **6.75rem** | same |
 | `--h-site-header--fixed` (scrolled) | **6.375rem** | same | **6.75rem** (108px) | same | same |
 | Logo box `--w` × `--h` | **7.625 × 3rem** | same | **9.5 × 3.75rem** (152×60) | same | same |
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
-Falcon uses **sticky** + `.is-compact` rather than a second fixed clone. Compact height is `--h-site-header--fixed`.
+Falcon uses **sticky**. Desktop bar height is `--h-site-header--fixed` (**108px**), matching the three nav captures (light inner, dark home, featured card). The 12.75rem unfixed token exists in BX CSS but is not what those screenshots show.
 
 ## Nav (desktop, `min-width: 80em`)
 
@@ -72,4 +73,11 @@ Toggle **2.125 × 1.5rem**, lines/cross swap at `aria-expanded`. Inner is absolu
 
 ## Falcon mapping
 
-Real pages only: Services, Industries (two-col), Resources, Our Firm. Featured card on Services is Apply (`/apply`) with live apply-page copy and the MCA still. Home header is dark; every other page is light. No invented social, people, or stats.
+Real pages only, grouped like the captures:
+
+- **Our Firm** — two headings (`Our Firm` / `Contact`), light-inner pattern
+- **Services** — two-col product list
+- **Industries** — two-col list
+- **Resources** — Blog / Tools / Help plus the Apply promo card (`#121317`, title, apply-page sentence, Learn More + white circle-arrow, MCA still)
+
+Home header is dark with an outlined logo and an underlined open item. Inner pages are white with a filled black logo tile. No invented social, people, or stats.
