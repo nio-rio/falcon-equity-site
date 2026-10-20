@@ -91,7 +91,7 @@ BX media: `22.5em` (~360), `48em` (768), `80em` (1280), `90em` (1440), `120em` (
 | **Quote** (BREIT) | **sans** | 300 | clamp 1.75–3rem | 1.25 | normal | Screenshot: Inter, not serif. Name 14px/700; role 14px/400 muted, bottom-right |
 | **Stat value** | display | 300 | 32px+ (featured larger) | 1 | normal | BXCI featured stat; `--fs-32` side values |
 | **Accordion title** | sans | 300 | 24px | 1.25 | normal | Strategies / FAQ row |
-| **Nav** | sans | 400 | 16px (Falcon); BX header is larger | 1 | normal | Active = 600 |
+| **Nav** | sans | 400 | 16px top-level; mega heading 20px/500 | 1 | normal | Open = 1px underline + chevron 180° |
 | **Button** | sans | 500 | 16px / 20px lh | 20px | normal | Falcon square. BX pill is 18px/400, `0.016em`, 8/32 padding, 64px radius |
 | **Link** | inherit | 500 (`.link`) | inherit | inherit | — | Drawn 1px underline, 350ms, left→right. Color inherit (never purple) |
 | **Table header** | sans | 500 | 12px uppercase | — | 0.08em | Muted; hairline rows |
@@ -110,7 +110,7 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 | Home announcement (EARNINGS) | see below | | | | `.bx-announcement` |
 | Gutter `--bx-gutter` | 16px | 24px | 24px | 24px | `--column-gap: 2em` → 24px |
 | Content max `--bx-max` | 20.5→23rem | 43rem | 71rem | **79rem (1264px)** | `--container-width` |
-| Header height | 56px (3.5rem) | 68px (4.25rem) | 68px | 68px | Falcon compact bar (BX header is taller: 7–12.75rem) |
+| Header height | 112px (7rem) | 140px (8.75rem) | **204px (12.75rem)** | **204px** | BX `--h-site-header`. Compact on scroll **102 / 108px**. See `docs/refs/bx-header.md` |
 | Eyebrow → H2 | 40px | 40px | 40px | 40px | Tech-and-innovations |
 | H2 → body | 48px (grid row-gap ≥1024) | | | | Title `padding-bottom` |
 | Body → circle-arrow | 40px | | | | `.section-cta` |
@@ -155,7 +155,7 @@ Classes are unprefixed (`bx-lg-span-6`, not `lg:bx-span-6`).
 | Accordion panel | `grid-template-rows` **350ms** |
 | Accordion icon rotate | **250ms** |
 | Image zoom | `transform: scale(1.06)`, ~350ms |
-| Header dropdown | show/hide; chevron 180° |
+| Header dropdown | `display` toggle; chevron 180° in 0.3s; header compact `height` 0.3s ease-out |
 | Reduced motion | transitions/animations off (`prefers-reduced-motion`) |
 
 BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:focus-visible` is 2px ink (white on dark).
@@ -166,20 +166,17 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 ### Nav + dropdowns
 
-- Sticky white bar (home: black until mobile menu opens).
-- Desktop `lg+`: text links, chevron, hover-open + focus-open menus. Escape closes and sets `is-escaped` so focus doesn’t reopen.
-- Wide menus (Services, Industries): 32rem, 2 columns. Narrow (Firm, Resources): 18rem.
-- Item: 13/16 padding; title 14px/600; meta 12px muted.
-- Active: weight 600.
-- Phone: `xl+` only so 1024 doesn’t wrap the bar.
-- CTA: `.btn-primary` “Get Funding Today”.
-- Hover on home dark nav: white 8% wash (not tint).
+- Sticky bar. **Home** (`body.is-home`): black, white type, outlined logo (`is-color-theme-dark`). **Inner pages:** white, black type, boxed logo. Theme does not change on scroll.
+- Heights follow BX `--h-site-header` / `--fixed` (112→140→**204px**; compact **102/108px**). Logo box **122×48** then **152×60**.
+- Desktop `80em+`: top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`.
+- Full-width mega-menu (`top: 100%`) of real pages only: Services, Industries (2-col), Resources, Our Firm. Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
+- Services menu includes an Apply promo card (`#121317` on home, `#f4f5f7` inner): title, apply-page sentence, Learn More + 40px circle-arrow, MCA still.
+- Backdrop: `blur(5px)` + `rgba(0,0,0,.32)`. Esc closes. `prefers-reduced-motion` drops transitions and blur.
+- Thin 1px `#d5d8df` rule under the bar.
 
 ### Mobile nav
 
-- Full-viewport `100dvh` overlay, tint background, scroll lock.
-- Collapsed sections; chevron rotates when open.
-- Primary + outline CTAs at the bottom.
+- Hamburger until `80em` (2.125×1.5rem, lines/cross). Overlay from the bar, scroll lock, accordion sections, 16px chevron.
 
 ### Hero
 
@@ -311,7 +308,6 @@ BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. F
 2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy.
 3. `.btn-outline-dark` stays in `global.css`. No purple fills.
 4. No fabricated people, quotes, numbers, or testimonials. The home testimonial is the consented JJJ Enterprise Trucking quote.
-5. Compact header (not BX’s 7–12rem).
 
 ---
 
@@ -358,6 +354,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
+| `src/components/Header.astro` | Sitewide Blackstone header: boxed logo, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Measures in `docs/refs/bx-header.md`. |
 | `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Social / Get in Touch, 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |

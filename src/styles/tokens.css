@@ -100,12 +100,16 @@
   --bx-section: 4rem;
   --bx-bp-md: 768px;
   --bx-bp-lg: 1024px;
-  --bx-header: 3.5rem;
+  --bx-header: 7rem;
+  --bx-header-fixed: 6.375rem;
+  --bx-header-logo-w: 7.625rem;
+  --bx-header-logo-h: 3rem;
 }
 
 @media (min-width: 26em) {
   :root {
     --bx-max: 23rem;
+    --bx-header: 8rem;
   }
 }
 
@@ -116,7 +120,10 @@
     --bx-margin: 40px;
     --bx-section: 5.5rem;
     --bx-max: 43rem;
-    --bx-header: 4.25rem;
+    --bx-header: 8.75rem;
+    --bx-header-fixed: 6.75rem;
+    --bx-header-logo-w: 9.5rem;
+    --bx-header-logo-h: 3.75rem;
     --pilot-heading-to-items: var(--bx-space-48);
   }
 }
@@ -133,6 +140,7 @@
 @media (min-width: 1280px) {
   :root {
     --bx-max: 71rem;
+    --bx-header: 12.75rem;
     --pilot-heading-to-items: var(--bx-space-96);
   }
 }
