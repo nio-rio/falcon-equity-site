@@ -545,6 +545,46 @@ for (const vp of VIEWPORTS) {
         ok: theme.dark && theme.bg === MARTINIQUE_DARKER,
         detail: `bg=${theme.bg}`,
       });
+      const testi = await page.evaluate(() => {
+        const wrap = document.querySelector('[data-testimonial-wrap]');
+        const items = [...document.querySelectorAll('[data-testimonial-item]')];
+        const quote = wrap?.querySelector('[data-testimonial-text]')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        const business = wrap?.querySelector('[data-testimonial-split]')?.textContent.trim() || '';
+        const prev = wrap?.querySelector('[data-prev]');
+        const next = wrap?.querySelector('[data-next]');
+        const marks = wrap ? [...wrap.querySelectorAll('.pilot-ann-mark')].map((el) => el.textContent) : [];
+        return {
+          count: items.length,
+          autoplay: wrap?.getAttribute('data-autoplay'),
+          duration: wrap?.getAttribute('data-autoplay-duration'),
+          quote,
+          business,
+          prevDisabled: prev?.disabled === true,
+          nextDisabled: next?.disabled === true,
+          prevLabel: prev?.getAttribute('aria-label'),
+          nextLabel: next?.getAttribute('aria-label'),
+          marks,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-testimonial-slider',
+        ok:
+          testi.count === 1 &&
+          testi.autoplay === 'true' &&
+          testi.duration === '5000' &&
+          testi.business === 'JJJ Enterprise Trucking' &&
+          testi.quote.includes('After covid, I thought my startup was out of options') &&
+          testi.quote.includes('new lease on life!') &&
+          !/Ava Chen|River Stone Bakery|demo/i.test(testi.quote) &&
+          testi.prevDisabled &&
+          testi.nextDisabled &&
+          testi.prevLabel === 'Previous testimonial' &&
+          testi.nextLabel === 'Next testimonial' &&
+          testi.marks.includes('“') &&
+          testi.marks.includes('”'),
+        detail: JSON.stringify(testi),
+      });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }

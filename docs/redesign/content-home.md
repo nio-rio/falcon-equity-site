@@ -65,7 +65,7 @@ Order follows `getHomeServices()`: featured-1 (MCA) first, then the five non-fea
 - **Quote (verbatim):** After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life!
 - **Credit:** JJJ Enterprise Trucking (business only; no owner-name line)
 - **Media:** existing trucking/transport still (`trucking-factoring-vs-business-loan.jpg`)
-- **Layout:** EARNINGS announcement (quote left, 3:4 still, credit bottom-right)
+- **Layout:** EARNINGS announcement slider (quote left with on-palette opening/closing marks, 3:4 still, credit above prev/next in the right column). One real quote in `HOME_TESTIMONIALS`; do not add placeholders.
 
 ### 5. Process
 

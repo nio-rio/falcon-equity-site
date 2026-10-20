@@ -754,8 +754,11 @@
 
 /* Home testimonial — Blackstone `.bx-announcement` (home “EARNINGS”).
    Live blackstone.com is Cloudflare-blocked here; values from blackstone-v2
-   frontend.css at 80em/90em (same rules getComputedStyle would return). */
+   frontend.css at 80em/90em (same rules getComputedStyle would return).
+   Slider keeps that layout; arrows sit in the right column, image-bottom. */
 .pilot-ann {
+  --pilot-ann-nav-gap: 2.5rem;
+  --pilot-ann-btn: 2.5em;
   background: #fff;
   color: var(--bx-black);
   padding-top: 5rem;
@@ -765,6 +768,32 @@
 .pilot-ann-inner {
   display: flex;
   flex-direction: column;
+}
+
+.pilot-ann-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-ann-list {
+  display: grid;
+}
+
+.pilot-ann-item {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pilot-ann-item.is--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .pilot-ann-title {
@@ -779,6 +808,28 @@
   line-height: 1.5;
   letter-spacing: 0.008em;
   color: var(--bx-black);
+  text-wrap: wrap;
+}
+
+.pilot-ann-mark {
+  color: var(--bx-red);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.15em;
+  line-height: 0.8;
+}
+
+.pilot-ann-mark:first-child {
+  margin-right: 0.12em;
+}
+
+.pilot-ann-mark:last-child {
+  margin-left: 0.12em;
+}
+
+.pilot-ann .text-line-mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
 
 .pilot-ann-media {
@@ -799,6 +850,7 @@
   margin-top: 3rem;
 }
 
+.pilot-ann-business,
 .pilot-ann-meta p {
   margin: 0;
   font-family: var(--font-sans);
@@ -808,24 +860,79 @@
   color: var(--bx-black);
 }
 
+.pilot-ann-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: var(--pilot-ann-nav-gap);
+  z-index: 2;
+}
+
+.pilot-ann-btn {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--pilot-ann-btn);
+  height: var(--pilot-ann-btn);
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgb(20 16 31 / 0.2);
+  border-radius: 0.25em;
+  background: transparent;
+  color: var(--bx-black);
+  cursor: pointer;
+}
+
+.pilot-ann-btn svg {
+  display: block;
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.pilot-ann-btn:disabled,
+.pilot-ann-btn[aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.pilot-ann-btn:focus-visible {
+  outline: 2px solid var(--bx-black);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pilot-ann-btn:not(:disabled):hover {
+    border-color: var(--bx-black);
+  }
+}
+
 @media (min-width: 48em) {
   .pilot-ann {
+    --pilot-ann-nav-gap: 3.5rem;
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 
-  .pilot-ann-inner {
+  .pilot-ann-stage {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+
+  .pilot-ann-list {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .pilot-ann-item {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: 16px;
     grid-template-areas:
-      'Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow . .'
       'Title Title Title Title Title Title . .'
       'Media Media Media Media . Meta Meta Meta';
-  }
-
-  .pilot-ann-eyebrow {
-    grid-area: Eyebrow;
   }
 
   .pilot-ann-title {
@@ -853,22 +960,32 @@
     flex-direction: column;
     justify-content: flex-end;
     margin-top: 0;
-    padding-bottom: 3.5rem;
+    padding-bottom: calc(var(--pilot-ann-btn) + var(--pilot-ann-nav-gap));
+  }
+
+  .pilot-ann-nav {
+    grid-column: 6 / 9;
+    grid-row: 1;
+    align-self: end;
+    margin-top: 0;
+    padding-bottom: 0;
   }
 }
 
 @media (min-width: 80em) {
   .pilot-ann {
+    --pilot-ann-nav-gap: 4rem;
     padding-top: 9rem;
     padding-bottom: 9rem;
   }
 
-  .pilot-ann-inner {
+  .pilot-ann-stage,
+  .pilot-ann-item {
     grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 16px;
-    grid-template-areas:
-      'Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow . . . . . . . Meta Meta Meta'
-      'Title Title Title Title Title Title . . Media Media Media Media . Meta Meta Meta';
+  }
+
+  .pilot-ann-item {
+    grid-template-areas: 'Title Title Title Title Title Title . . Media Media Media Media . Meta Meta Meta';
   }
 
   .pilot-ann-eyebrow {
@@ -894,8 +1011,8 @@
     max-width: none;
   }
 
-  .pilot-ann-meta {
-    padding-bottom: 3rem;
+  .pilot-ann-nav {
+    grid-column: 14 / 17;
   }
 }
 
@@ -905,10 +1022,8 @@
     padding-bottom: 10rem;
   }
 
-  .pilot-ann-inner {
-    grid-template-areas:
-      'Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow Eyebrow . . . . . . . Meta Meta Meta'
-      'Title Title Title Title Title Title Title . Media Media Media Media . Meta Meta Meta';
+  .pilot-ann-item {
+    grid-template-areas: 'Title Title Title Title Title Title Title . Media Media Media Media . Meta Meta Meta';
   }
 
   .pilot-ann-eyebrow {
@@ -921,10 +1036,6 @@
 
   .pilot-ann-title p {
     font-size: 2.5rem;
-  }
-
-  .pilot-ann-meta {
-    padding-bottom: 3.5rem;
   }
 }
 
