@@ -1,0 +1,32 @@
+---
+import PilotEyebrow from './PilotEyebrow.astro';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  steps: readonly { title: string; body: string }[];
+}
+
+const { id = 'process-heading', eyebrow = 'Process', title, steps } = Astro.props;
+---
+
+<section class="pilot-section" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+        <PilotEyebrow>{eyebrow}</PilotEyebrow>
+        <h2 id={id}>{title}</h2>
+      </div>
+      {
+        steps.map((step, i) => (
+          <div class="bx-span-4 bx-lg-span-4">
+            <p class="pilot-step-num">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="pilot-step-title">{step.title}</h3>
+            <p class="pilot-step-body">{step.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

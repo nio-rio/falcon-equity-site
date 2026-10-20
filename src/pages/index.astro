@@ -1,100 +1,113 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Media from '@/components/Media.astro';
-import StatsBar from '@/components/StatsBar.astro';
-import CtaBand from '@/components/CtaBand.astro';
-import Testimonials from '@/components/Testimonials.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
-import ArrowCta from '@/components/ArrowCta.astro';
-import CircleArrow from '@/components/CircleArrow.astro';
+import HeroStats from '@/components/HeroStats.astro';
+import PilotHero from '@/components/pilot/PilotHero.astro';
+import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
+import PilotArrow from '@/components/pilot/PilotArrow.astro';
+import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
+import PilotProcess from '@/components/pilot/PilotProcess.astro';
+import PilotQuote from '@/components/pilot/PilotQuote.astro';
+import PilotCta from '@/components/pilot/PilotCta.astro';
+import Icon from '@/components/Icon.astro';
 import { getHomeServices, STANDARD_STEPS } from '@/data/services';
+import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
+import { STATS, SITE } from '@/data/site';
+import { getPublicPosts } from '@/lib/blog';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
+import dwight from '@/assets/images/dwight-holly.webp';
+import '@/styles/pilot.css';
 
 const homeServices = getHomeServices();
+const published = await getPublicPosts();
+const insightIds = [
+  '24-48-hour-funding-checklist',
+  'merchant-cash-advance-vs-business-term-loan',
+  'bridging-a-slow-season',
+];
+const insights = insightIds
+  .map((id) => published.find((post) => post.id === id))
+  .filter((post): post is (typeof published)[number] => Boolean(post));
+
+const fundingTime = STATS.find((s) => s.label === 'Average funding time')!;
+const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
+const approval = STATS.find((s) => s.label === 'Approval for qualified applicants')!;
 ---
 
 <BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
-  <section class="home-hero on-dark" aria-labelledby="hero-heading">
-    <div class="container-site">
-      <div class="bx-grid home-hero-top">
-        <h1 id="hero-heading" class="bx-span-4 bx-lg-span-7">
-          <span class="home-hero-line1">Fuel success with</span>
-          <span class="home-hero-line2">fast funding</span>
-        </h1>
-        <p class="home-hero-aside bx-span-4 bx-lg-span-4 bx-lg-start-9">We move at your pace.</p>
-      </div>
-      <div class="home-hero-media bx-full">
-        <Media
-          image={heroFalcon}
-          alt="A peregrine falcon launching from a branch with its wings spread wide"
-          intent="peregrine falcon launching from a branch"
-          ratio="16 / 9"
-          sizes="100vw"
-          priority
-        />
-      </div>
-      <div class="bx-grid home-hero-below">
-        <div class="section-head bx-span-4 bx-lg-span-10">
-          <h2>Apply to get same-day funding</h2>
-        </div>
-        <div class="section-body home-hero-below-copy bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          <p>One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.</p>
-          <div class="section-cta">
-            <ArrowCta href="/apply" label="Learn more" tone="light" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PilotHero
+    line1="Fuel success with"
+    line2="fast funding"
+    aside="We move at your pace."
+    captionTitle="Apply to get same-day funding"
+    captionBody="One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval."
+    captionHref="/apply"
+    captionLabel="Learn more"
+    image={heroFalcon}
+    imageAlt="A peregrine falcon launching from a branch with its wings spread wide"
+  />
 
-  <StatsBar />
+  <HeroStats
+    featured={{ label: fundingTime.label, value: fundingTime.value }}
+    side={[
+      { label: deployed.label, value: deployed.value },
+      { label: approval.label, value: approval.value },
+    ]}
+  />
 
-  <section class="section bg-tint" aria-labelledby="services-heading" id="services">
+  <section class="pilot-section" aria-labelledby="services-heading" id="services">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="section-head bx-span-4 bx-lg-span-10">
-          <Eyebrow>Services</Eyebrow>
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Services</PilotEyebrow>
           <h2 id="services-heading">How we can bring you victory.</h2>
         </div>
-        <div class="section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          <ul class="explore-list">
+        <div class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          <ul class="pilot-rows">
             {
               homeServices.map((s) => (
                 <li>
-                  <a class="explore-row" href={s.href}>
-                    <span class="explore-row-copy">
-                      <span class="explore-row-title">{s.name}</span>
-                      <span class="explore-row-meta">{s.rangeLine}</span>
+                  <a class="pilot-row" href={s.href}>
+                    <span class="pilot-row-copy">
+                      <span class="pilot-row-title">{s.name}</span>
+                      <span class="pilot-row-teaser">{s.teaser}</span>
+                      <span class="pilot-row-meta">{s.rangeLine}</span>
                     </span>
-                    <CircleArrow />
+                    <span class="pilot-circle" aria-hidden="true">
+                      <Icon name="arrow-right" size={16} />
+                    </span>
                   </a>
                 </li>
               ))
             }
           </ul>
-          <div class="section-cta">
-            <ArrowCta href="/services" label="Learn more" />
+          <div class="pilot-section-cta">
+            <PilotArrow href="/services" label="Learn more" />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <Testimonials />
-
-  <section class="section bg-tint" aria-labelledby="process-heading">
+  <section class="pilot-section" aria-labelledby="industries-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="section-head bx-span-4 bx-lg-span-10">
-          <Eyebrow>Process</Eyebrow>
-          <h2 id="process-heading">How you get approved.</h2>
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Industries</PilotEyebrow>
+          <h2 id="industries-heading">Sectors we fund.</h2>
         </div>
+        <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          We fund businesses across these twelve sectors, and others with steady revenue.
+        </p>
         {
-          STANDARD_STEPS.map((step, i) => (
+          INDUSTRIES.map((ind) => (
             <div class="bx-span-4 bx-lg-span-4">
-              <p class="process-num">{String(i + 1).padStart(2, '0')}</p>
-              <h3 class="process-title">{step.title}</h3>
-              <p class="process-body">{step.body}</p>
+              <PilotImageCard
+                href={`/industries/${ind.slug}`}
+                title={ind.name}
+                body={ind.blurb}
+                intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
+                imageAlt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}
+              />
             </div>
           ))
         }
@@ -102,5 +115,50 @@ const homeServices = getHomeServices();
     </div>
   </section>
 
-  <CtaBand />
+  <PilotProcess title="How you get approved." steps={STANDARD_STEPS} />
+
+  <PilotQuote
+    quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
+    name={SITE.founder.name}
+    role={SITE.founder.title}
+    image={dwight}
+    imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+  />
+
+  {
+    insights.length > 0 && (
+      <section class="pilot-section" aria-labelledby="insights-heading">
+        <div class="container-site">
+          <div class="bx-grid">
+            <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+              <PilotEyebrow>Insights</PilotEyebrow>
+              <h2 id="insights-heading">Guides for getting funded.</h2>
+            </div>
+            <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+              Short guides on getting approved, comparing options, costs, and cash flow.
+            </p>
+            {insights.map((post) => (
+              <div class="bx-span-4 bx-lg-span-4">
+                <PilotImageCard
+                  href={`/blog/${post.id}`}
+                  title={post.data.title}
+                  kicker={post.data.category}
+                  image={post.data.cover}
+                  imageAlt={post.data.coverAlt || ''}
+                  intent={post.data.coverAlt || 'editorial photograph for this article'}
+                />
+              </div>
+            ))}
+            <div class="bx-span-4 bx-lg-start-7 bx-lg-span-6">
+              <div class="pilot-section-cta">
+                <PilotArrow href="/blog" label="View all" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <PilotCta body="A specialist reviews your file promptly. Call or apply when you are ready." />
 </BaseLayout>

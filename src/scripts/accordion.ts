@@ -3,7 +3,7 @@ export const bindAccordions = () => {
     if (root.dataset.accBound === 'true') return;
     root.dataset.accBound = 'true';
     root.querySelectorAll<HTMLButtonElement>('[data-acc-trigger]').forEach((btn) => {
-      const item = btn.closest('.bx-acc-item');
+      const item = btn.closest('[data-acc-item], .bx-acc-item, .pilot-acc-item');
       if (!item) return;
       btn.addEventListener('click', () => {
         const open = btn.getAttribute('aria-expanded') !== 'true';

@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroStats from '@/components/HeroStats.astro';
+import PilotPageHero from '@/components/pilot/PilotPageHero.astro';
+import PilotWhatWeDo from '@/components/pilot/PilotWhatWeDo.astro';
+import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
+import PilotAccordion from '@/components/pilot/PilotAccordion.astro';
+import PilotProcess from '@/components/pilot/PilotProcess.astro';
+import PilotCta from '@/components/pilot/PilotCta.astro';
+import { getService, STANDARD_STEPS } from '@/data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
+
+const service = getService('merchant-cash-advance');
+if (!service || !service.spec) throw new Error('Merchant Cash Advance spec is missing');
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services' },
+  { name: service.name, path: `/services/${service.slug}` },
+];
+
+const spec = service.spec;
+
+const uses = [
+  {
+    title: 'Seizing a time-sensitive inventory deal',
+    body: 'An advance based on future sales can fund a time-sensitive inventory buy, often the same day after approval.',
+  },
+  {
+    title: 'Bridging a slow season',
+    body: 'Payroll, rent and insurance still run in the off-season. A working-capital bridge covers that stretch until peak work returns.',
+  },
+  {
+    title: 'Funding a marketing push',
+    body: 'Revenue-based capital can fund a campaign before a busy stretch.',
+  },
+  {
+    title: 'Covering urgent repairs or replacements',
+    body: 'When a repair or replacement cannot wait.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is a merchant cash advance a loan?',
+    a: 'No. An MCA is a purchase of future receivables. Instead of a fixed loan payment, remittances are based on your sales under the terms of your agreement.',
+  },
+  {
+    q: 'How fast can I get funded?',
+    a: 'Timing depends on how quickly documents are provided. Once you are approved and the agreement is signed, merchant cash advances can fund the same day.',
+  },
+  {
+    q: 'Does my credit score matter?',
+    a: 'Revenue and bank activity carry the most weight, but your specialist will review your full profile. Approval is never guaranteed.',
+  },
+];
+---
+
+<BaseLayout
+  title={service.seoTitle}
+  description={service.seoDescription}
+  schema={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(faqs)]}
+>
+  <PilotPageHero title={service.name} lead={service.headline} image={service.image} intent={`${service.name} still`} />
+
+  <PilotWhatWeDo
+    eyebrow="What we do"
+    title="A lump sum against your future sales."
+    lead="A merchant cash advance is a purchase of a portion of your future receivables, not a loan. Approval focuses on revenue and bank activity. It fits businesses with $10K+ in monthly revenue and 3+ months in operation."
+    items={uses}
+    intent="MCA what-we-do portrait (3:4)"
+  />
+
+  <HeroStats
+    featured={{ label: 'Typical amounts', value: spec.amounts }}
+    side={[
+      { label: 'Terms', value: spec.terms },
+      ...(service.speed ? [{ label: 'Funding speed', value: service.speed }] : []),
+    ]}
+  />
+
+  <section class="pilot-section" aria-labelledby="overview-heading">
+    <div class="container-site">
+      <div class="bx-grid">
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Overview</PilotEyebrow>
+          <h2 id="overview-heading">What you can expect.</h2>
+        </div>
+        <div class="bx-full">
+          <PilotAccordion
+            variant="strategies"
+            idPrefix="mca-terms"
+            items={[
+              { q: "Who it's for", a: spec.whoFor },
+              { q: 'Amounts', a: spec.amounts },
+              { q: 'Terms', a: spec.terms },
+              { q: 'Requirements', bullets: spec.requirements },
+              {
+                q: 'How remittance works',
+                a: 'An MCA is a purchase of future receivables. You remit an agreed share of sales until the purchased amount is delivered. It is not a loan.',
+              },
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PilotProcess title="How you get approved." steps={[...STANDARD_STEPS]} />
+
+  <section class="pilot-section" aria-labelledby="mca-faq-heading">
+    <div class="container-site">
+      <div class="bx-grid">
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>FAQ</PilotEyebrow>
+          <h2 id="mca-faq-heading">Cash Advance questions.</h2>
+        </div>
+        <div class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          <PilotAccordion items={faqs} idPrefix="mca-faq" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PilotCta />
+</BaseLayout>

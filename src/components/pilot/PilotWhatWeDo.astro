@@ -1,0 +1,71 @@
+---
+import Media from '@/components/Media.astro';
+import PilotEyebrow from './PilotEyebrow.astro';
+import type { ImageMetadata } from 'astro';
+
+export type WhatWeDoItem = {
+  title: string;
+  body: string;
+};
+
+interface Props {
+  id?: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  items: readonly WhatWeDoItem[];
+  intent: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const {
+  id = 'what-we-do-heading',
+  eyebrow,
+  title,
+  lead,
+  items,
+  intent,
+  image,
+  imageAlt,
+} = Astro.props;
+const shown = items.slice(0, 4);
+---
+
+<section class="pilot-what pilot-on-dark" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+        <PilotEyebrow>{eyebrow}</PilotEyebrow>
+        <h2 id={id}>{title}</h2>
+      </div>
+      {
+        lead && (
+          <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{lead}</p>
+        )
+      }
+    </div>
+    <div class="bx-grid pilot-what-content">
+      <div class="pilot-what-media bx-span-4 bx-lg-span-6">
+        <Media
+          image={image}
+          alt={imageAlt}
+          intent={intent}
+          labeled={!image}
+          ratio="3 / 4"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+        />
+      </div>
+      <ul class="pilot-what-list bx-span-4 bx-lg-span-5 bx-lg-start-8">
+        {
+          shown.map((item) => (
+            <li>
+              <h3 class="pilot-what-title">{item.title}</h3>
+              <p class="pilot-what-body">{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

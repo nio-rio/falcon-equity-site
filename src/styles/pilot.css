@@ -1,0 +1,817 @@
+/* Pilot design layer — home + Merchant Cash Advance only.
+   Classes are prefixed `pilot-` so other pages keep the existing Blackstone pass.
+   Tokens and `.container-site` / `.bx-grid` stay the site grid (Blackstone content__inner).
+   Spacing is the priority: section 64/88/120, eyebrow→H2 40, H2→body 48, what-we-do 80/56. */
+
+.pilot-hero {
+  position: relative;
+  background: #000;
+  color: #fff;
+  padding-block: var(--bx-section);
+}
+
+.pilot-hero h1,
+.pilot-hero h2,
+.pilot-hero p {
+  color: #fff;
+}
+
+.pilot-hero h1 {
+  font-weight: 300;
+  max-width: none;
+  font-size: clamp(2rem, 0.9rem + 4.2vw, 4.25rem);
+  line-height: 1.05;
+}
+
+.pilot-hero-line {
+  display: block;
+}
+
+.pilot-hero-aside {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--bx-on-dark);
+}
+
+.pilot-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-top: var(--bx-space-40);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.pilot-hero-media .media {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  aspect-ratio: auto;
+}
+
+.pilot-hero-media img,
+.pilot-hero-media .media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 30%;
+}
+
+.pilot-hero-caption {
+  margin-top: var(--bx-space-40);
+  align-items: end;
+}
+
+.pilot-hero-caption-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pilot-hero-caption-copy p {
+  margin: 0;
+  color: var(--bx-on-dark);
+}
+
+@media (min-width: 768px) {
+  .pilot-hero-media {
+    aspect-ratio: 21 / 9;
+    min-height: 22rem;
+  }
+
+  .pilot-hero-top {
+    align-items: end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-hero-line {
+    white-space: nowrap;
+  }
+
+  .pilot-hero-line--offset {
+    padding-left: calc(100% / 7);
+  }
+
+  .pilot-hero-aside {
+    padding-bottom: 0.35rem;
+  }
+
+  .pilot-hero-media {
+    margin-top: var(--bx-space-56);
+    min-height: 28rem;
+  }
+
+  .pilot-hero-caption {
+    margin-top: var(--bx-space-48);
+  }
+}
+
+/* Inner-page hero — BXCI / Insights title + still. */
+.pilot-page-hero {
+  background: #fff;
+  padding-block: 3.5rem 2.5rem;
+}
+
+.pilot-page-hero-lead {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-page-hero-media {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-page-hero-media .media,
+.pilot-page-hero-media img {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .pilot-page-hero {
+    padding-block: 5rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-page-hero {
+    padding-block: 6.5rem 3.5rem;
+  }
+
+  .pilot-page-hero .bx-grid {
+    align-items: end;
+  }
+}
+
+/* Eyebrow: left = 48×2px rule to the right; centered headings = rule above. */
+.pilot-eyebrow {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: var(--bx-ls-eyebrow);
+  text-transform: uppercase;
+  color: #000;
+}
+
+.pilot-eyebrow--line {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pilot-eyebrow--line::after {
+  content: '';
+  display: block;
+  width: var(--bx-space-48);
+  height: 2px;
+  margin-left: var(--bx-space-16);
+  background: currentColor;
+  flex: none;
+}
+
+.pilot-eyebrow--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bx-space-16);
+  text-align: center;
+}
+
+.pilot-eyebrow--center::before {
+  content: '';
+  display: block;
+  width: var(--bx-space-48);
+  height: 2px;
+  background: currentColor;
+}
+
+.pilot-on-dark .pilot-eyebrow {
+  color: #fff;
+}
+
+.pilot-section {
+  padding-block: var(--bx-section);
+  background: #fff;
+}
+
+.pilot-section--tint {
+  background: var(--color-tint);
+}
+
+.pilot-section-head h2 {
+  margin: 0;
+}
+
+.pilot-section-head .pilot-eyebrow + h2 {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-section-head--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pilot-section-body {
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-on-dark .pilot-section-body {
+  color: var(--bx-on-dark);
+}
+
+.pilot-section-cta {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-stack > .pilot-section-head + .pilot-section-body,
+.pilot-stack > .pilot-section-head + .pilot-section-cta {
+  margin-top: var(--bx-space-48);
+}
+
+/* Circle-arrow + drawn underline — Blackstone Learn more. */
+.pilot-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pilot-arrow-label {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.pilot-arrow:hover .pilot-arrow-label,
+.pilot-arrow:focus-visible .pilot-arrow-label {
+  background-size: 100% 1px;
+}
+
+.pilot-circle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+.pilot-circle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pilot-arrow:hover .pilot-circle,
+.pilot-arrow:focus-visible .pilot-circle,
+.pilot-row:hover .pilot-circle,
+.pilot-row:focus-visible .pilot-circle {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.pilot-on-dark .pilot-arrow:hover .pilot-circle,
+.pilot-on-dark .pilot-arrow:focus-visible .pilot-circle,
+.pilot-arrow--light:hover .pilot-circle,
+.pilot-arrow--light:focus-visible .pilot-circle {
+  background: #fff;
+  border-color: #fff;
+  color: var(--color-ink);
+}
+
+/* BXCI What we do — black band, portrait 1–6, list start 8. */
+.pilot-what {
+  background: #000;
+  color: #fff;
+}
+
+.pilot-what .container-site {
+  padding-block: var(--bx-section);
+}
+
+.pilot-what h2 {
+  color: #fff;
+}
+
+.pilot-what-content {
+  margin-top: var(--bx-space-80);
+  row-gap: var(--bx-space-80);
+}
+
+.pilot-what-media {
+  min-height: 20rem;
+  background: var(--bx-highlight-dark);
+  align-self: start;
+}
+
+.pilot-what-media .media,
+.pilot-what-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+}
+
+@media (min-width: 1024px) {
+  .pilot-what-media,
+  .pilot-what-media .media,
+  .pilot-what-media figure {
+    min-height: 36rem;
+  }
+}
+
+.pilot-what-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-56);
+  align-self: start;
+}
+
+.pilot-what-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.pilot-what-body {
+  margin: 0.75rem 0 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--bx-on-dark);
+}
+
+/* Services / businesses list — inactive rows recede, hover fills the arrow. */
+.pilot-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pilot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.pilot-row:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pilot-rows:hover .pilot-row,
+.pilot-rows:focus-within .pilot-row {
+  color: var(--color-muted);
+}
+
+.pilot-rows .pilot-row:hover,
+.pilot-rows .pilot-row:focus-visible {
+  color: var(--color-ink);
+}
+
+.pilot-row-copy {
+  min-width: 0;
+}
+
+.pilot-row-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2.25rem);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+.pilot-row-teaser,
+.pilot-row-meta {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: inherit;
+}
+
+.pilot-row-meta {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+/* Insights / industry image cards. */
+.pilot-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.pilot-card-media {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--color-tint);
+}
+
+.pilot-card-media .media,
+.pilot-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 350ms ease;
+}
+
+.pilot-card:hover .pilot-card-media img,
+.pilot-card:hover .pilot-card-media .media,
+.pilot-card:focus-visible .pilot-card-media img,
+.pilot-card:focus-visible .pilot-card-media .media {
+  transform: scale(1.06);
+}
+
+.pilot-card-kicker {
+  margin: var(--bx-space-24) 0 0;
+}
+
+.pilot-card-title {
+  margin-top: 0.75rem;
+}
+
+.pilot-card-title-text {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.pilot-card:hover .pilot-card-title-text,
+.pilot-card:focus-visible .pilot-card-title-text {
+  background-size: 100% 1px;
+}
+
+.pilot-card-body {
+  margin-top: 0.75rem;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+/* Process — type only. */
+.pilot-step-num {
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  line-height: 1;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+
+.pilot-step-title {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-step-body {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+/* BREIT quote split. */
+.pilot-quote {
+  display: grid;
+  grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-40);
+  align-items: stretch;
+  width: 100%;
+}
+
+.pilot-quote-photo {
+  background: var(--color-tint);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.pilot-quote-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.pilot-quote-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bx-space-40);
+  min-height: 100%;
+}
+
+.pilot-quote blockquote {
+  margin: 0;
+}
+
+.pilot-quote-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 2vw + 1rem, 3rem);
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.pilot-quote-attr {
+  text-align: right;
+  margin-top: auto;
+}
+
+.pilot-quote-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.pilot-quote-role {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* FAQ accordion. */
+.pilot-acc {
+  border-top: 1px solid var(--color-line);
+}
+
+.pilot-acc-item {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pilot-acc-item h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.pilot-acc-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.35rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.pilot-acc-item.is-open .pilot-acc-trigger {
+  color: var(--color-ink);
+}
+
+.pilot-acc-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.pilot-acc-icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.pilot-acc-item.is-open .pilot-acc-icon {
+  background-color: #0a0a0a;
+  border-color: #0a0a0a;
+  color: #fff;
+  transform: rotate(180deg);
+}
+
+.pilot-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 350ms ease;
+}
+
+.pilot-acc-item.is-open .pilot-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.pilot-acc-panel-inner {
+  overflow: hidden;
+}
+
+.pilot-acc-panel-inner p,
+.pilot-acc-panel-inner ul {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  font-size: var(--bx-fs-16);
+}
+
+.pilot-acc-panel-inner ul {
+  padding-left: 1.125em;
+  list-style: square;
+}
+
+.pilot-acc-panel-inner li + li {
+  margin-top: 0.75rem;
+}
+
+/* BXCI Credit strategies variant. */
+.pilot-acc--strategies {
+  border-top-color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item {
+  border-bottom-color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item h3 {
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+}
+
+.pilot-acc--strategies .pilot-acc-trigger {
+  color: var(--color-ink);
+  padding-block: var(--bx-space-24);
+}
+
+@media (min-width: 768px) {
+  .pilot-acc--strategies .pilot-acc-trigger {
+    padding-block: var(--bx-space-32);
+  }
+}
+
+.pilot-acc--strategies .pilot-acc-icon {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item.is-open .pilot-acc-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #0a0a0a;
+  border-radius: 50%;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .pilot-acc--strategies .pilot-acc-panel-inner p,
+  .pilot-acc--strategies .pilot-acc-panel-inner ul {
+    max-width: 50%;
+  }
+}
+
+/* Falcon lilac CTA — not BX yellow. */
+.pilot-cta {
+  background: rgb(190, 171, 214);
+  color: var(--color-ink);
+}
+
+.pilot-cta .container-site {
+  padding-block: var(--bx-section);
+}
+
+.pilot-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  margin: 0;
+  width: 100%;
+}
+
+.pilot-overview dt {
+  font-size: 0.75rem;
+  line-height: 1.25;
+  letter-spacing: var(--bx-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.pilot-overview dd {
+  margin: 0.5rem 0 0;
+  color: var(--color-ink);
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+}
+
+.pilot-overview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .pilot-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  .pilot-overview-req {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pilot-overview-req {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pilot-arrow-label,
+  .pilot-circle,
+  .pilot-acc-icon,
+  .pilot-acc-panel,
+  .pilot-card-media img,
+  .pilot-card-media .media,
+  .pilot-card-title-text,
+  .pilot-row {
+    transition: none;
+  }
+
+  .pilot-card:hover .pilot-card-media img,
+  .pilot-card:hover .pilot-card-media .media {
+    transform: none;
+  }
+}

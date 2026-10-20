@@ -1,0 +1,39 @@
+---
+import Media from '@/components/Media.astro';
+import PilotEyebrow from './PilotEyebrow.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  title: string;
+  kicker?: string;
+  body?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  intent: string;
+}
+
+const { href, title, kicker, body, image, imageAlt = '', intent } = Astro.props;
+---
+
+<a class="pilot-card" href={href}>
+  <div class="pilot-card-media">
+    <Media
+      image={image}
+      alt={imageAlt}
+      intent={intent}
+      labeled={!image}
+      ratio="16 / 9"
+      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+    />
+  </div>
+  {kicker && (
+    <p class="pilot-card-kicker">
+      <PilotEyebrow>{kicker}</PilotEyebrow>
+    </p>
+  )}
+  <h3 class="pilot-card-title">
+    <span class="pilot-card-title-text">{title}</span>
+  </h3>
+  {body && <p class="pilot-card-body">{body}</p>}
+</a>

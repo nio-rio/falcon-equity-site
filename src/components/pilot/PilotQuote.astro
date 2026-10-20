@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { quote, name, role, image, imageAlt } = Astro.props;
+---
+
+<section class="pilot-section" aria-label={`Quote from ${name}`}>
+  <div class="container-site">
+    <figure class="pilot-quote">
+      <div class="pilot-quote-photo bx-span-4 bx-lg-span-4">
+        <Image
+          src={image}
+          alt={imageAlt}
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 1024px) 32vw, 100vw"
+        />
+      </div>
+      <div class="pilot-quote-copy bx-span-4 bx-lg-span-7 bx-lg-start-6">
+        <blockquote>
+          <p class="pilot-quote-text">{quote}</p>
+        </blockquote>
+        <figcaption class="pilot-quote-attr">
+          <span class="pilot-quote-name">{name}</span>
+          <span class="pilot-quote-role">{role}</span>
+        </figcaption>
+      </div>
+    </figure>
+  </div>
+</section>

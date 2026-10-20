@@ -1,0 +1,19 @@
+---
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  tone?: 'dark' | 'light';
+  class?: string;
+}
+
+const { href, label, tone = 'dark', class: className } = Astro.props;
+---
+
+<a href={href} class:list={['pilot-arrow', tone === 'light' && 'pilot-arrow--light', className]}>
+  <span class="pilot-arrow-label">{label}</span>
+  <span class="pilot-circle" aria-hidden="true">
+    <Icon name="arrow-right" size={16} />
+  </span>
+</a>

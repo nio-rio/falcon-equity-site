@@ -13,7 +13,7 @@ Live `blackstone.com` is behind Cloudflare in this environment, so computed CSS 
 
 Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans) and **Falcon purple buttons**. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
 
-**Source of tokens in this repo:** `src/styles/tokens.css` (only). Tailwind `@theme` in `global.css` aliases those variables. Component CSS lives in `src/styles/blackstone.css`.
+**Source of tokens in this repo:** `src/styles/tokens.css` (only). Tailwind `@theme` in `global.css` aliases those variables. Site-wide chrome lives in `src/styles/blackstone.css`. The **home + Merchant Cash Advance pilot** uses a separate namespaced layer: `src/styles/pilot.css` (`.pilot-*`) and `src/components/pilot/`. Other pages keep building on the existing components.
 
 ---
 
@@ -287,9 +287,10 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home | 1 hero (`hero-falcon.jpg`) | Process, services list, CTA — type only |
+| Home (pilot) | 1 hero (`hero-falcon.jpg`); 12 industry 16:9 **labeled** cards; BREIT quote portrait; 3 published insight covers | Process, services list, CTA — type only. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
-| Service landing | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
+| Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ, CTA — type only |
+| Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
 | Industry landing | Hero placeholder + What we do 3:4 | Accordion, FAQ, principles — type only. Related article thumbs are a listing, not decoration |
 | Directory (industries, blog, services rows) | Grid thumbs *are* the page | No second full-bleed hero |
 | About | 1 quote portrait (`dwight-holly.webp`) | No headshot per role |
@@ -305,7 +306,17 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, Falcon buttons, `.bg-cta` |
-| `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`) |
-| `src/styles/blackstone.css` | Grid utilities + every BX-mapped component |
+| `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). Reused on the pilot. |
+| `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
+| `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
+| `src/components/pilot/` | Home + MCA sections (hero, what-we-do, list, cards, process, quote, accordion, CTA) |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |
+| `docs/redesign/content-home.md` | Approved home copy outline |
+| `docs/redesign/content-merchant-cash-advance.md` | Approved MCA copy outline |
+
+### Pilot pages
+
+**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel success with` / `fast funding` with 1/7 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → services list with live names + teasers → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
+
+**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.

@@ -17,7 +17,11 @@ import HeroStats from '@/components/HeroStats.astro';
 import { SERVICES, type Service } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 
-export const getStaticPaths = (() => SERVICES.map((service) => ({ params: { slug: service.slug }, props: { service } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (() =>
+  SERVICES.filter((service) => service.slug !== 'merchant-cash-advance').map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }))) satisfies GetStaticPaths;
 
 interface Props {
   service: Service;
