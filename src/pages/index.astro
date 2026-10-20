@@ -7,11 +7,11 @@ import PilotArrow from '@/components/pilot/PilotArrow.astro';
 import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
+import PilotIndustryTabs from '@/components/pilot/PilotIndustryTabs.astro';
 import PilotProcess from '@/components/pilot/PilotProcess.astro';
 import PilotQuote from '@/components/pilot/PilotQuote.astro';
 import PilotCta from '@/components/pilot/PilotCta.astro';
 import { getHomeServices, STANDARD_STEPS } from '@/data/services';
-import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 import { STATS, SITE } from '@/data/site';
 import { getPublicPosts } from '@/lib/blog';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
@@ -68,39 +68,7 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
 
   <PilotTestimonial />
 
-  <section class="pilot-section" aria-labelledby="industries-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
-          <PilotEyebrow>Industries</PilotEyebrow>
-          <h2 id="industries-heading">Sectors we fund.</h2>
-        </div>
-        <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          We fund businesses across these twelve sectors, and others with steady revenue.
-        </p>
-        <div class="bx-full">
-          <div class="bx-grid">
-            {
-              INDUSTRIES.map((ind) => (
-                <div class="bx-span-4 bx-lg-span-4">
-                  <PilotImageCard
-                    href={`/industries/${ind.slug}`}
-                    title={ind.name}
-                    body={ind.blurb}
-                    intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
-                    imageAlt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}
-                  />
-                </div>
-              ))
-            }
-          </div>
-        </div>
-        <div class="bx-span-4 bx-lg-start-7 bx-lg-span-6">
-          <PilotArrow href="/industries" label="Learn more" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <PilotIndustryTabs />
 
   <PilotProcess title="How you get approved." steps={STANDARD_STEPS} />
 

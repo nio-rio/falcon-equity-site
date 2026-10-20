@@ -742,6 +742,389 @@
   }
 }
 
+/* BMACX `blackstone-v2/tabs` + featured-content — home Industries only.
+   Source: bmacx.com “The Latest from BMACX”. Live site Cloudflare-blocked;
+   values from frontend.css at 80em / 90em. */
+.pilot-tabs {
+  background: #fff;
+  color: #000;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.pilot-tabs-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.pilot-tabs-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1.25;
+  letter-spacing: 0.008em;
+  color: #000;
+}
+
+.pilot-tabs-intro {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-20);
+  line-height: 1.5;
+  color: #000;
+}
+
+.pilot-tabs-nav {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.pilot-tabs-scroll {
+  display: none;
+}
+
+.pilot-tabs-list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pilot-tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.pilot-tabs-tab {
+  position: relative;
+  flex: none;
+  margin: 0 2.5rem 0 0;
+  padding: 0 0 0.25rem;
+  border: 0;
+  border-bottom: 0.063rem solid transparent;
+  background: none;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #000;
+  cursor: pointer;
+}
+
+.pilot-tabs-tab:last-child {
+  margin-right: 0;
+}
+
+.pilot-tabs-tab::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.063rem;
+  background: #000;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.pilot-tabs-tab:is(:hover, :focus-visible)::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.pilot-tabs-tab.is-active {
+  font-weight: 400;
+  border-bottom: 0.063rem solid #000;
+}
+
+.pilot-tabs-tab.is-active::before {
+  transform: scaleX(0);
+}
+
+.pilot-tabs-tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.pilot-tabs-dropwrap {
+  position: relative;
+}
+
+.pilot-tabs-drop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  padding: 1.5rem;
+  border: 0;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pilot-tabs-drop:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.pilot-tabs-menu {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #000;
+}
+
+.pilot-tabs-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pilot-tabs-menu button:hover,
+.pilot-tabs-menu button:focus-visible,
+.pilot-tabs-menu button[aria-selected='true'] {
+  background: #fff;
+  color: #000;
+}
+
+.pilot-tabs-panels {
+  position: relative;
+}
+
+.pilot-tabs-panel {
+  display: none;
+}
+
+.pilot-tabs-panel[hidden] {
+  display: none !important;
+}
+
+.pilot-tabs-panel.is-active {
+  display: grid;
+  gap: 2rem;
+  animation: pilot-tabs-in 0.5s ease both;
+}
+
+.pilot-tabs-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1.25;
+  letter-spacing: 0.008em;
+  color: #000;
+}
+
+.pilot-tabs-body {
+  margin: 0 0 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-18);
+  line-height: 1.5;
+  color: #000;
+}
+
+.pilot-tabs-media {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.pilot-tabs-media .media {
+  width: 100%;
+  height: 11.563rem;
+  aspect-ratio: 16 / 9;
+}
+
+.pilot-tabs-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes pilot-tabs-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+@media (min-width: 48em) {
+  .pilot-tabs {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .pilot-tabs-head {
+    padding-bottom: 3rem;
+  }
+
+  .pilot-tabs-head h2 {
+    font-size: 2.5rem;
+  }
+
+  .pilot-tabs-nav {
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .pilot-tabs-scroll {
+    display: block;
+    overflow: hidden;
+  }
+
+  .pilot-tabs-dropwrap {
+    display: none;
+  }
+
+  .pilot-tabs-tab {
+    font-size: var(--bx-fs-16);
+    margin-right: 2.5rem;
+  }
+
+  .pilot-tabs-media .media {
+    height: 24.188rem;
+  }
+
+  .pilot-tabs-body {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-tabs {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+
+  .pilot-tabs-head {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    padding-bottom: 3rem;
+    align-items: start;
+  }
+
+  .pilot-tabs-head h2 {
+    grid-column: 1 / span 7;
+    font-size: 2rem;
+  }
+
+  .pilot-tabs-intro {
+    grid-column: 10 / span 7;
+  }
+
+  .pilot-tabs-nav {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .pilot-tabs-tab {
+    margin-right: 3rem;
+  }
+
+  .pilot-tabs-panel.is-active {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: start;
+    gap: 0;
+  }
+
+  .pilot-tabs-copy {
+    grid-column: 1 / span 6;
+    min-width: 0;
+  }
+
+  .pilot-tabs-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .pilot-tabs-body {
+    margin-bottom: 3rem;
+  }
+
+  .pilot-tabs-media {
+    grid-column: 8 / span 9;
+  }
+
+  .pilot-tabs-media .media {
+    height: 22.25rem;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-tabs {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+
+  .pilot-tabs-head {
+    padding-bottom: 3.5rem;
+  }
+
+  .pilot-tabs-head h2 {
+    grid-column: 1 / span 8;
+    font-size: 2.5rem;
+  }
+
+  .pilot-tabs-intro {
+    grid-column: 11 / span 6;
+  }
+
+  .pilot-tabs-nav {
+    padding-bottom: 3.5rem;
+  }
+
+  .pilot-tabs-tab {
+    font-size: var(--bx-fs-18);
+    line-height: 1.6875;
+    margin-right: 3.5rem;
+  }
+
+  .pilot-tabs-copy {
+    grid-column: 1 / span 5;
+  }
+
+  .pilot-tabs-media .media {
+    height: 24.75rem;
+  }
+}
+
 /* BMACX `bx-link-list` — home Services only (`.pilot-ll-*`).
    Source: bmacx.com “Explore More About BMACX”, blackstone-v2 frontend.css
    (Wayback 20261001234616) + frontend.js tabsscript mouseover. */
@@ -1358,6 +1741,14 @@
   /* Drop the draw overlay; static 1px rules already mark each edge. */
   .pilot-ll-row::after {
     display: none;
+  }
+
+  .pilot-tabs-tab::before {
+    display: none;
+  }
+
+  .pilot-tabs-panel.is-active {
+    animation: none;
   }
 
   .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
