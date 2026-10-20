@@ -214,10 +214,46 @@ const nav = [
   const isDesktop = () => desktopMq.matches;
 
   let closeTimer = 0;
+  let lockY = 0;
   const cancelClose = () => window.clearTimeout(closeTimer);
 
+  const eventInMobileDrawer = (target: EventTarget | null) =>
+    !isDesktop() && target instanceof Element && !!target.closest('[data-nav-inner]');
+
+  const preventScroll = (e: Event) => {
+    if (eventInMobileDrawer(e.target)) return;
+    e.preventDefault();
+  };
+
+  const preventScrollKeys = (e: KeyboardEvent) => {
+    if (!['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Spacebar'].includes(e.key)) return;
+    if (e.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (eventInMobileDrawer(e.target)) return;
+    e.preventDefault();
+  };
+
+  const holdScroll = () => {
+    if (window.scrollY === lockY) return;
+    window.scrollTo({ top: lockY, left: 0, behavior: 'auto' });
+  };
+
   const setScrollLock = (lock: boolean) => {
-    document.documentElement.classList.toggle('has-scroll-lock', lock);
+    const root = document.documentElement;
+    if (lock) {
+      if (root.classList.contains('has-scroll-lock')) return;
+      lockY = window.scrollY;
+      root.classList.add('has-scroll-lock');
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('keydown', preventScrollKeys);
+      window.addEventListener('scroll', holdScroll);
+      return;
+    }
+    root.classList.remove('has-scroll-lock');
+    window.removeEventListener('wheel', preventScroll);
+    window.removeEventListener('touchmove', preventScroll);
+    window.removeEventListener('keydown', preventScrollKeys);
+    window.removeEventListener('scroll', holdScroll);
   };
 
   const setBackdrop = (on: boolean) => {
@@ -281,8 +317,13 @@ const nav = [
     const trigger = item.querySelector<HTMLElement>('[data-nav-trigger]');
     if (!trigger) return;
 
-    item.addEventListener('mouseenter', () => {
-      if (!isDesktop() || item.classList.contains('is-escaped')) return;
+    item.addEventListener('mouseenter', (e) => {
+      if (!isDesktop()) return;
+      if (item.classList.contains('is-escaped')) {
+        const from = e.relatedTarget as Node | null;
+        if (from && item.contains(from)) return;
+        item.classList.remove('is-escaped');
+      }
       openItem(item);
     });
     item.addEventListener('mouseleave', () => {
@@ -373,6 +414,7 @@ const nav = [
     const scrolled = window.scrollY > 24;
     header?.classList.toggle('is-compact', scrolled);
     if (isHomeHeader) header?.classList.toggle('is-color-theme-dark', !scrolled);
+    items.forEach((item) => item.classList.remove('is-escaped'));
   };
   setCompact();
   window.addEventListener('scroll', setCompact, { passive: true });

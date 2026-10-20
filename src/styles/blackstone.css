@@ -543,10 +543,29 @@ a:focus-visible .link-draw,
   pointer-events: none;
 }
 
-html.has-scroll-lock,
-html.has-scroll-lock body {
-  overflow: hidden;
+/* Do not set overflow:hidden on html/body: that makes a scrolled
+   document the containing block for position:fixed, so the bar
+   vanishes. Blackstone pins #masthead with .has-scroll-lock and
+   stops page scroll in JS. */
+html.has-scroll-lock {
   overscroll-behavior: none;
+}
+
+html.has-scroll-lock body {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+html.has-scroll-lock [data-nav-inner] {
+  touch-action: pan-y;
+}
+
+html.has-scroll-lock .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 
 .site-header.is-color-theme-dark {

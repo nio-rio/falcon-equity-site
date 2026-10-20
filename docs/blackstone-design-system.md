@@ -166,7 +166,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 ### Nav + dropdowns
 
-- Fixed bar (`position: fixed; z-index: 50`) like Blackstone, with a spacer so content is not covered. **Home** at the top of the hero: black, white type, bare logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white bar, black type, same bare logo. Opening a menu locks page scroll (`html.has-scroll-lock`); the panel is `top: 100%` of the visible bar.
+- Fixed bar (`position: fixed; z-index: 50`) like Blackstone, with a spacer so content is not covered. **Home** at the top of the hero: black, white type, bare logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white bar, black type, same bare logo. Opening a menu locks page scroll (`html.has-scroll-lock` + wheel/touch preventDefault; no html/body `overflow: hidden`, which hides a scrolled fixed bar). The panel is `top: 100%` of the visible bar.
 - Heights follow the compact bar in the nav captures (**108px** at 80em). Logo **122×48** then **152×60**, no box.
 - Desktop `80em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is black on white / white on black. Phone is the real direct line `+1 (917) 245-5277`.
 - Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.

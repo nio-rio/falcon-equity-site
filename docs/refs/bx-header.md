@@ -33,7 +33,7 @@ Blackstone does **not** change theme on scroll. Falcon home is dark on the hero 
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
-Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock body scroll (`has-scroll-lock`).
+Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock page scroll (`html.has-scroll-lock`) with wheel/touch preventDefault — not `overflow: hidden` on html/body, which would trap the fixed bar off-screen after scroll.
 
 ## Nav (desktop, `min-width: 80em`)
 
@@ -65,7 +65,7 @@ background-color: rgba(0,0,0,.32);
 position: fixed; inset: 0; z-index: 2;
 ```
 
-Header `z-index: 3`. `.has-scroll-lock` pins the header while a panel is open.
+Header `z-index: 3`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390.
 
 ## Mobile (`max-width: 79.9375em`)
 
