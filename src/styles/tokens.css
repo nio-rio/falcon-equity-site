@@ -9,7 +9,7 @@
   --bx-martinique: #332a4e;
   --bx-lilac: #f3f2fb;
   --bx-white: #ffffff;
-  --bx-variant-black: #202020; /* gray body ink; not used for dark bands */
+  --bx-variant-black: #14101f; /* site black; same as Martinique Darker */
   --bx-slate-1: #515256;
   --bx-slate-2: #d5d8df;
   --bx-slate-3: #f4f5f7;
@@ -28,7 +28,7 @@
 
   /* Square buttons stay Darker ink, not purple. Button-040 uses Martinique/Lilac. */
   --falcon-accent: var(--bx-martinique-darker);
-  --falcon-accent-hover: #202020;
+  --falcon-accent-hover: #14101f;
   --falcon-cta: var(--bx-martinique-darker);
   --falcon-featured: var(--bx-martinique-darker);
 

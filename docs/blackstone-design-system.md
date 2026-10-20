@@ -25,7 +25,7 @@ From `:root` in the v2 bundle.
 | --- | --- | --- |
 | `--c-black` | `#000000` | `--bx-martinique-darker` `#14101f` via `--bx-black` / `--color-ink` / `--color-surface-dark` |
 | `--c-white` | `#ffffff` | `--bx-white` |
-| `--c-variant-black` | `#202020` | `--color-ink-soft` (body gray; not dark bands) |
+| `--c-variant-black` | `#202020` | `--color-ink-soft` → `#14101f` (same site black) |
 | `--c-slate-1` | `#515256` | `--color-muted` |
 | `--c-slate-2` | `#d5d8df` | `--color-line` (hairlines) |
 | `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` |
@@ -179,7 +179,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 - Fixed bar (`position: fixed; z-index: 50`) like Blackstone, with a spacer so content is not covered. **Home** at the top of the hero: black, white type, bare logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white bar, black type, same bare logo. Opening a menu locks page scroll (`html.has-scroll-lock` + wheel/touch preventDefault; no html/body `overflow: hidden`, which hides a scrolled fixed bar). The panel is `top: 100%` of the visible bar.
 - Heights follow the compact bar in the nav captures (**108px** at 80em). Logo is the live falconequity.ai lockup: inline SVG mark (`currentColor`) + HTML “Falcon Equity Group” in At Gambit. Measured live (html 16px, one line, no second line): mark **2.3rem / 36.8px** (≤479px **2rem / 32px**); word **1.5rem / 24px / 600 / lh 1.5 / tracking normal** (≤479px **1.3rem / 20.8px**); nav gap **1.5rem / 24px** (≤479px **1rem / 16px**). Footer uses the same mark and word size, weight **400**, gap **1.2rem / 19.2px**. Not 1.25× — that would be a 46px mark / 30px word / ~342px lockup in the 108px bar. Unboxed: no padding, border, or background.
-- Desktop `80em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is Ling’s `.button-040` (Lilac `#f3f2fb` / Martinique `#332a4e`); dark header uses the light variant, white header uses the dark variant. Phone is the real direct line `+1 (917) 245-5277`, styled like a primary nav label (16px/400, inherit color, same 1px underline hover/focus — no button or icon chrome).
+- Desktop `80em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is Ling’s `.button-040` (Lilac `#f3f2fb` / Martinique `#332a4e`); dark header uses the light variant, white header uses the dark variant. Nav Apply is **1.0625rem / 3em tall / 1.25em pad** (icon 1em, scales with type) so it stands out in the bar; **0.7em** extra sits between the phone link and the pill. Phone is the real direct line `+1 (917) 245-5277`, styled like a primary nav label (16px/400, inherit color, same 1px underline hover/focus — no button or icon chrome).
 - Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
 - Resources menu includes the only dropdown feature card (Apply). It follows `.site-header` theme via `--nav-widget-bg` / `--nav-widget-copy`: dark header uses Martinique Darker `#14101f` with white type; light header uses Lilac `#f3f2fb` with `#14101f` type. Learn More + 40px circle-arrow invert with those tokens (no separate card toggle). Title, body, optional eyebrow, link, and button label keep `--nav-widget-copy` at rest and hover so global `h2` / `.arrow-cta:hover` ink cannot fail WCAG AA on either card (4.5:1 body, 3:1 large text / UI). `npm run test:nav` asserts those ratios. No other dropdowns ship a feature card.
 - Backdrop: `blur(5px)` + `rgba(20,16,31,.32)` (`--bx-overlay`) on the page overlay only (header and mega-panel stay opaque, `backdrop-filter: none`). Esc closes. `prefers-reduced-motion` drops transitions; overlay blur stays.
@@ -204,7 +204,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 | Class | Rest | Hover | Notes |
 | --- | --- | --- | --- |
-| `.btn-primary` / `.btn-accent` | `#14101f` fill, white type, 13×24, square | `#202020` | Martinique Darker, not purple |
+| `.btn-primary` / `.btn-accent` | `#14101f` fill, white type, 13×24, square | `#14101f` | Martinique Darker, not purple |
 | `.button-040` light | Lilac pill `#f3f2fb`, Martinique type `#332a4e`, Martinique arrow-circle, Lilac arrow | same | Nav on dark header; CTA Apply |
 | `.button-040` dark | Inverse of light | same | Nav on white header |
 | `.btn-on-dark` | white fill, ink type | tint | |

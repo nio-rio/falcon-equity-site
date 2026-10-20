@@ -2,10 +2,10 @@
    applied only through the custom properties on variants. */
 
 :root {
-  --button-040-color: #131313;
+  --button-040-color: #14101f;
   --button-040-color-background: #efeeec;
   --button-040-color-arrow: #efeeec;
-  --button-040-color-arrow-background: #202623;
+  --button-040-color-arrow-background: #14101f;
   --button-040-color-focus: #fff;
   --button-040-height: 2.5em;
   --button-040-padding-x: 1em;
@@ -62,7 +62,12 @@
 }
 
 .site-header .button-040 {
-  font-size: 0.875rem;
+  /* Larger than the 0.875rem / 2.5em default so Apply reads as the bar CTA.
+     Height, padding, and the 1em icon all follow this font-size. */
+  font-size: 1.0625rem;
+  --button-040-height: 3em;
+  --button-040-padding-x: 1.25em;
+  --button-040-border-radius: 3em;
   --button-040-color: var(--bx-lilac);
   --button-040-color-background: var(--bx-martinique);
   --button-040-color-arrow: var(--bx-martinique);

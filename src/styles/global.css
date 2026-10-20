@@ -222,7 +222,7 @@
 
   .btn-primary:hover,
   .btn-accent:hover {
-    background: #202020;
+    background: var(--color-accent-hover);
     color: #fff;
   }
 

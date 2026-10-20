@@ -714,6 +714,11 @@ html.has-scroll-lock .site-header {
   margin-left: auto;
 }
 
+/* Phone → Apply: keep the tools gap, then add ~0.7em so the pill stands apart. */
+.site-header__tel + .site-header__apply {
+  margin-inline-start: 0.7em;
+}
+
 .site-header__tel {
   display: inline-flex;
   align-items: center;
@@ -766,10 +771,14 @@ html.has-scroll-lock .site-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--bx-space-16);
+  gap: calc(var(--bx-space-16) + 0.7em);
   margin-top: var(--bx-space-24);
   padding: var(--bx-space-24) 0 var(--bx-space-40);
   border-top: 1px solid var(--nav-rule);
+}
+
+.site-header__cta--menu .site-header__tel + .site-header__apply {
+  margin-inline-start: 0;
 }
 
 .site-header__cta--menu .site-header__apply {

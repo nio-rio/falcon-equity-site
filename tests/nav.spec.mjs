@@ -287,6 +287,10 @@ const readButton040 = (page, sel) =>
       arrowBg: dcs?.backgroundColor || null,
       focus: cs.getPropertyValue('--button-040-color-focus').trim(),
       height: br.height,
+      computedH: parseFloat(cs.height),
+      fontSize: parseFloat(cs.fontSize),
+      padX: tcs ? parseFloat(tcs.paddingLeft) : null,
+      icon: ics ? parseFloat(ics.width) : null,
       headerH: hr?.height ?? null,
       svgCount: svgs.length,
       svgsHidden: svgs.length > 0 && svgs.every((s) => s.getAttribute('aria-hidden') === 'true'),
@@ -1046,6 +1050,42 @@ for (const vp of VIEWPORTS) {
           apply040.height > 0 &&
           apply040.height <= apply040.headerH - 8,
         detail: JSON.stringify({ height: apply040?.height, headerH: apply040?.headerH }),
+      });
+    }
+    const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    log({
+      ...tag,
+      check: 'apply-040-larger',
+      ok:
+        apply040 != null &&
+        apply040.fontSize >= 16 &&
+        sizedH >= 44 &&
+        apply040.padX != null &&
+        apply040.padX >= 16 &&
+        apply040.icon != null &&
+        Math.abs(apply040.icon - apply040.fontSize) <= 1.5,
+      detail: JSON.stringify({
+        fontSize: apply040?.fontSize,
+        height: apply040?.height,
+        computedH: apply040?.computedH,
+        padX: apply040?.padX,
+        icon: apply040?.icon,
+      }),
+    });
+    if (vp.mode === 'desktop') {
+      const telApply = await page.evaluate(() => {
+        const tel = document.querySelector('.site-header__tel--bar');
+        const apply = document.querySelector('.site-header__apply--bar');
+        if (!tel || !apply) return null;
+        const gap = apply.getBoundingClientRect().left - tel.getBoundingClientRect().right;
+        const em = parseFloat(getComputedStyle(apply).fontSize);
+        return { gap: Math.round(gap * 10) / 10, em, min: Math.round(0.7 * em * 10) / 10 };
+      });
+      log({
+        ...tag,
+        check: 'apply-tel-gap',
+        ok: telApply != null && telApply.gap + 1 >= telApply.min,
+        detail: JSON.stringify(telApply),
       });
     }
 
