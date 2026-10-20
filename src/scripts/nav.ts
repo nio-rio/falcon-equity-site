@@ -586,7 +586,7 @@ export function initNav() {
 
   burger?.addEventListener('click', () => {
     if (state.mobileMenuOpen) closeMobileMenu();
-    else if (!state.mobileTl) openMobileMenu();
+    else openMobileMenu();
   });
   backBtn?.addEventListener('click', closeMobilePanel);
 

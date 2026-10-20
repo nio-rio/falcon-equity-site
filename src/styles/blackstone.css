@@ -1587,8 +1587,8 @@ h2.primary-nav-widget__title {
   }
 
   .site-cta__content {
-    display: grid;
-    grid-template-columns: 1fr max-content;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 2rem 1rem;
@@ -1597,10 +1597,12 @@ h2.primary-nav-widget__title {
   }
 
   .site-cta__sentence {
-    flex-flow: row wrap;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
+    min-width: min(100%, 36rem);
   }
 
   .site-cta__wheel {

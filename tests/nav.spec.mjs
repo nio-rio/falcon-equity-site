@@ -1777,7 +1777,7 @@ for (const vp of VIEWPORTS) {
       const visN = await countOpenPanels(page);
       log({ ...tag, check: 'only-one-open', ok: visN === 1 && openN <= 1, detail: `is-open=${openN} visible=${visN}` });
 
-      await page.mouse.click(40, vp.height - 40);
+      await page.locator('[data-nav-backdrop]').click({ force: true, position: { x: 20, y: 20 } });
       await page.waitForTimeout(400);
       const afterOutside = await countOpenPanels(page);
       const backdropOff = await page.evaluate(() => {
