@@ -5,6 +5,8 @@ import { pathToFileURL } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
+const pickChromium = (mod) => mod?.chromium || mod?.default?.chromium;
+
 const loadChromium = async () => {
   const candidates = [
     new URL('../node_modules/playwright-core/index.js', import.meta.url).pathname,
@@ -13,9 +15,10 @@ const loadChromium = async () => {
   for (const file of candidates) {
     if (!existsSync(file)) continue;
     const mod = await import(pathToFileURL(file).href);
-    return mod.chromium;
+    const chromium = pickChromium(mod);
+    if (chromium) return chromium;
   }
-  return require('playwright-core').chromium;
+  return pickChromium(require('playwright-core'));
 };
 
 const chromium = await loadChromium();
