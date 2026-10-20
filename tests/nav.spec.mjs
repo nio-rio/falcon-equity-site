@@ -700,6 +700,11 @@ for (const vp of VIEWPORTS) {
       });
 
       const why = await page.evaluate(() => {
+        const nextBand = (el) => {
+          let n = el?.nextElementSibling || null;
+          while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+          return n;
+        };
         const section = document.querySelector('#why-choose-us');
         const tabs = document.querySelector('.pilot-tabs');
         const news = document.querySelector('.pilot-news');
@@ -722,8 +727,8 @@ for (const vp of VIEWPORTS) {
           tapeHref: tape?.getAttribute('href') || '',
           tapeLabel: tape?.getAttribute('aria-label') || '',
           note,
-          afterTabs: Boolean(tabs && section && tabs.nextElementSibling === section),
-          beforeNews: Boolean(news && section && section.nextElementSibling === news),
+          afterTabs: Boolean(tabs && section && nextBand(tabs) === section),
+          beforeNews: Boolean(news && section && nextBand(section) === news),
           bg: section ? getComputedStyle(section).backgroundColor : null,
         };
       });
