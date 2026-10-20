@@ -21,6 +21,8 @@ Component classes: `.bx-horizontal-static-list`, `.bx-headers-one`,
 | Eyebrow → H2 (eyebrow `padding-bottom`) | **56px** | **64px** |
 | H2 | serif 300, **40px**, lh **60px** (1.5), tracking normal | **48px**, lh **72px** (1.5) |
 | Heading → cards | header pad-bottom **48px** + inner pad-top **48px** = **96px** | **56px** + **48px** = **104px** |
+
+Falcon stores that total as `--pilot-heading-to-items` (`--bx-space-96` at 1280, `--bx-space-104` at 1440) and uses it for both Insights (`.pilot-news-head`) and home Services (`.pilot-ll-head`).
 | Column grid | **16** cols, gutter **16px**, container **1136px**; tracks **56px** | **16** / **16px**, container **1264px**; tracks **64px** |
 | Card columns | 1–5 / 6–11 / 12–16 (span **5 / 6 / 5**) | same |
 | Card extra padding | 0+**24** / **48**+**48** / **24**+0 | 0+**32** / **56**+**56** / **32**+0 |

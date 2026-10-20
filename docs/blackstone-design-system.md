@@ -231,7 +231,7 @@ Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 va
 
 Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx.com` `wp-block-blackstone-v2-link-list` / `.bx-link-list` (Wayback `20261001234616`, `blackstone-v2` `frontend.css` + `frontend.js` `tabsscript`).
 
-- **H2:** display light (Falcon serif role), then **32 / 40 / 48px** space before the first rule (`--spacing-32/40/48`).
+- **H2:** display light (Falcon serif role). Space before the first row is `--pilot-heading-to-items` — the Life Sciences News heading→cards gap (**40 / 48 / 96 / 104px**). Same token as `.pilot-news-head`.
 - **Rows:** full content width. **2px black** rules top and bottom of the stack. Padding **32px** mobile, **40px** ≥768.
 - **Desktop 12-col:** title + gray range cols **1–6**; teaser (16px, 2-line clamp) start **8** span 4, top-aligned with the title; circle arrow col **12**, vertically centered.
 - **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line, **~1em** below the title.
@@ -367,11 +367,11 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
-| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
+| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Heading→list gap is `--pilot-heading-to-items` (same as Insights). Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
 | `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 trucking still cols 9–12, business name cols 14–16 bottom-aligned. JJJ Enterprise Trucking quote; no owner line. |
 | `src/data/home-testimonial.ts` | Consented home testimonial copy |
 | `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray listbox (placeholder then selected sector name), featured panel (title + blurb + Learn more / 16:9 still). |
-| `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. |
+| `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
 | `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |

@@ -81,8 +81,14 @@
   --bx-space-64: 4rem;
   --bx-space-80: 5rem;
   --bx-space-88: 5.5rem;
+  --bx-space-96: 6rem;
+  --bx-space-104: 6.5rem;
   --bx-space-112: 7rem;
   --bx-space-120: 7.5rem;
+
+  /* Life Sciences News & Insights heading → cards (48+48 at 80em, 56+48 at 90em).
+     Shared by home Services (`.pilot-ll-head`) and Insights (`.pilot-news-head`). */
+  --pilot-heading-to-items: var(--bx-space-40);
   --bx-rule: 0.0625rem;
   --bx-ease: 0.3s ease;
   --bx-duration: 0.3s;
@@ -111,6 +117,7 @@
     --bx-section: 5.5rem;
     --bx-max: 43rem;
     --bx-header: 4.25rem;
+    --pilot-heading-to-items: var(--bx-space-48);
   }
 }
 
@@ -126,6 +133,7 @@
 @media (min-width: 1280px) {
   :root {
     --bx-max: 71rem;
+    --pilot-heading-to-items: var(--bx-space-96);
   }
 }
 
@@ -133,6 +141,7 @@
   :root {
     --bx-margin: 80px;
     --bx-max: 79rem;
+    --pilot-heading-to-items: var(--bx-space-104);
   }
 }
 
