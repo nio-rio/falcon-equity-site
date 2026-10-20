@@ -675,9 +675,14 @@ for (const vp of VIEWPORTS) {
       });
 
       if (vp.name === '1440') {
-        await page.locator('.pilot-stats').scrollIntoViewIfNeeded();
-        await page.waitForTimeout(1400);
-        const after = await page.evaluate(() => {
+        const playCtx = await browser.newContext({
+          viewport: { width: vp.width, height: vp.height },
+        });
+        const playPage = await playCtx.newPage();
+        await playPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+        await playPage.locator('.pilot-stats').scrollIntoViewIfNeeded();
+        await playPage.waitForTimeout(1400);
+        const after = await playPage.evaluate(() => {
           const label = document.querySelector('.pilot-stats-feat-label');
           const value = document.querySelector('.pilot-stats-feat-value');
           const labelCs = label ? getComputedStyle(label) : null;
@@ -693,12 +698,7 @@ for (const vp of VIEWPORTS) {
           ok: after.labelOn && after.valueOn && after.labelOpacity === '1',
           detail: JSON.stringify(after),
         });
-
-        await page.evaluate(() => window.scrollTo(0, 0));
-        await page.waitForFunction(() => {
-          const h = document.querySelector('[data-header]');
-          return h?.classList.contains('is-color-theme-dark');
-        });
+        await playCtx.close();
 
         const reducedCtx = await browser.newContext({
           viewport: { width: vp.width, height: vp.height },
