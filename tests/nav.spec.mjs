@@ -673,62 +673,6 @@ for (const vp of VIEWPORTS) {
           reveal.quoteOpacity === '1',
         detail: JSON.stringify(reveal),
       });
-
-      if (vp.name === '1440') {
-        const playCtx = await browser.newContext({
-          viewport: { width: vp.width, height: vp.height },
-        });
-        const playPage = await playCtx.newPage();
-        await playPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
-        await playPage.locator('.pilot-stats').scrollIntoViewIfNeeded();
-        await playPage.waitForTimeout(1400);
-        const after = await playPage.evaluate(() => {
-          const label = document.querySelector('.pilot-stats-feat-label');
-          const value = document.querySelector('.pilot-stats-feat-value');
-          const labelCs = label ? getComputedStyle(label) : null;
-          return {
-            labelOn: label?.classList.contains('is-active') ?? false,
-            valueOn: value?.classList.contains('is-active') ?? false,
-            labelOpacity: labelCs?.opacity ?? null,
-          };
-        });
-        log({
-          ...tag,
-          check: 'home-scroll-in-plays',
-          ok: after.labelOn && after.valueOn && after.labelOpacity === '1',
-          detail: JSON.stringify(after),
-        });
-        await playCtx.close();
-
-        const reducedCtx = await browser.newContext({
-          viewport: { width: vp.width, height: vp.height },
-          reducedMotion: 'reduce',
-        });
-        const reducedPage = await reducedCtx.newPage();
-        await reducedPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
-        const reduced = await reducedPage.evaluate(() => {
-          const label = document.querySelector('.pilot-stats-feat-label');
-          const title = document.querySelector('.pilot-ll-head h2');
-          const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
-          return {
-            hasJs: document.documentElement.classList.contains('has-js'),
-            labelOpacity: label ? getComputedStyle(label).opacity : null,
-            titleOpacity: title ? getComputedStyle(title).opacity : null,
-            mediaOpacity: media ? getComputedStyle(media).opacity : null,
-          };
-        });
-        log({
-          ...tag,
-          check: 'home-scroll-in-reduced-motion',
-          ok:
-            reduced.hasJs === false &&
-            reduced.labelOpacity === '1' &&
-            reduced.titleOpacity === '1' &&
-            (reduced.mediaOpacity == null || reduced.mediaOpacity === '1'),
-          detail: JSON.stringify(reduced),
-        });
-        await reducedCtx.close();
-      }
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
@@ -1741,6 +1685,63 @@ for (const vp of VIEWPORTS) {
     await closeMenu(page, vp.mode);
 
     log({ ...tag, check: 'no-console-errors', ok: errors.length === 0, detail: errors.join(' | ') });
+
+    if (vp.name === '1440' && pg.name === 'home') {
+      const playCtx = await browser.newContext({
+        viewport: { width: vp.width, height: vp.height },
+      });
+      const playPage = await playCtx.newPage();
+      await playPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+      await playPage.locator('.pilot-stats').scrollIntoViewIfNeeded();
+      await playPage.waitForTimeout(1400);
+      const afterReveal = await playPage.evaluate(() => {
+        const label = document.querySelector('.pilot-stats-feat-label');
+        const value = document.querySelector('.pilot-stats-feat-value');
+        const labelCs = label ? getComputedStyle(label) : null;
+        return {
+          labelOn: label?.classList.contains('is-active') ?? false,
+          valueOn: value?.classList.contains('is-active') ?? false,
+          labelOpacity: labelCs?.opacity ?? null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-plays',
+        ok: afterReveal.labelOn && afterReveal.valueOn && afterReveal.labelOpacity === '1',
+        detail: JSON.stringify(afterReveal),
+      });
+      await playCtx.close();
+
+      const reducedCtx = await browser.newContext({
+        viewport: { width: vp.width, height: vp.height },
+        reducedMotion: 'reduce',
+      });
+      const reducedPage = await reducedCtx.newPage();
+      await reducedPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+      const reduced = await reducedPage.evaluate(() => {
+        const label = document.querySelector('.pilot-stats-feat-label');
+        const title = document.querySelector('.pilot-ll-head h2');
+        const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
+        return {
+          hasJs: document.documentElement.classList.contains('has-js'),
+          labelOpacity: label ? getComputedStyle(label).opacity : null,
+          titleOpacity: title ? getComputedStyle(title).opacity : null,
+          mediaOpacity: media ? getComputedStyle(media).opacity : null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-reduced-motion',
+        ok:
+          reduced.hasJs === false &&
+          reduced.labelOpacity === '1' &&
+          reduced.titleOpacity === '1' &&
+          (reduced.mediaOpacity == null || reduced.mediaOpacity === '1'),
+        detail: JSON.stringify(reduced),
+      });
+      await reducedCtx.close();
+    }
+
     await context.close();
   }
 }
