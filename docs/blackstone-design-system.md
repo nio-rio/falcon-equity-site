@@ -79,7 +79,7 @@ BX media: `22.5em` (~360), `48em` (768), `80em` (1280), `90em` (1440), `120em` (
 
 | Role | Family (Falcon) | Weight | Size mobile → 768 → 1440 | Line-height | Tracking | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| **H1** page hero | display | 300 | clamp ~2.75rem → ~6.25rem; home hero clamped to fit span-7 | 1 / 1.05 | normal | Page heroes; BX home slide is larger display serif. Home two-line H1 ≥1024 nowrap, line 2 indented 1/7 |
+| **H1** page hero | display | 300 | clamp ~2.75rem → ~6.25rem; home hero clamped to fit span-8 | 1 / 1.05 | normal | Page heroes; BX `.bx-promo-header` 64/72/96. Home two-line H1 ≥1024 nowrap in a nested 8-col (line 2 starts track 2); wraps as one phrase below 1024 |
 | **H2** `.bx-headers-one__title` | display | 300 | 32 → 40 (768) → 48 (1440) | 1.25 | normal | Bundle; 56px only at 1920 (not used) |
 | **H3** cards / principles | display | 400 | 24px | 1.25 | normal | BX accordion title is 24 sans light; Falcon uses display 24/400 for named cards |
 | **H4** | sans | 500 | 20px | 1.2 | normal | |
@@ -137,7 +137,8 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 | Article column | start 3, span 8 |
 | BXCI What we do | H2 span 10; portrait 1–6; list start 8 span 5 |
 | BREIT quote | photo span 4; copy start 6 span 7 |
-| Home H1 line 2 | `padding-left: calc(100% / 7)` **≥1024 only** |
+| Home H1 | title span 8, aside start 9 span 4; line 2 nested track 2 ≥1024 |
+| Home caption (BREIT promo-carousel) | H2 cols 1–6 (`bx-lg-span-6`); body+Learn more start 8 span 5; `align-items: start` |
 
 Classes are unprefixed (`bx-lg-span-6`, not `lg:bx-span-6`).
 
@@ -321,7 +322,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). Reused on the pilot. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
-| `src/components/pilot/PilotHero.astro` | Home `#slide-1-2`: black band, 7+4 title row, 16:9→21:9 still, caption H2/body/Learn more |
+| `src/components/pilot/PilotHero.astro` | Home `#slide-1-2` + BREIT promo-carousel caption: black band, 8+4 title row, 16:9→21:9 still, H2 cols 1–6 / body+Learn more cols 8–12 top-aligned |
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
@@ -339,6 +340,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel success with` / `fast funding` with 1/7 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** as BMACX `bx-link-list` (full-width rows; live name + teaser + range; sibling-hover 36%) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
+**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel Success with` / `Fast Business Funding` with nested-8 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** as BMACX `bx-link-list` (full-width rows; live name + teaser + range; sibling-hover 36%) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.

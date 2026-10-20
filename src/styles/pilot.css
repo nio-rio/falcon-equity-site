@@ -23,8 +23,13 @@
   line-height: 1.05;
 }
 
+/* Inline below 1024 so the full H1 wraps as one phrase. Desktop forces two lines. */
 .pilot-hero-line {
-  display: block;
+  display: inline;
+}
+
+.pilot-hero-line--offset::before {
+  content: ' ';
 }
 
 .pilot-hero-aside {
@@ -59,9 +64,10 @@
   object-position: 60% 30%;
 }
 
+/* BREIT promo-carousel caption: title cols 1–6, body+CTA cols 8–12, top-aligned. */
 .pilot-hero-caption {
   margin-top: var(--bx-space-40);
-  align-items: end;
+  align-items: start;
 }
 
 .pilot-hero-caption-copy {
@@ -87,12 +93,26 @@
 }
 
 @media (min-width: 1024px) {
+  /* Blackstone .bx-promo-header__title nested 8-col: line 2 starts at track 2. */
+  .pilot-hero h1 {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: var(--bx-gutter);
+    row-gap: 0;
+  }
+
   .pilot-hero-line {
+    display: block;
+    grid-column: 1 / -1;
     white-space: nowrap;
   }
 
   .pilot-hero-line--offset {
-    padding-left: calc(100% / 7);
+    grid-column: 2 / -1;
+  }
+
+  .pilot-hero-line--offset::before {
+    content: none;
   }
 
   .pilot-hero-aside {

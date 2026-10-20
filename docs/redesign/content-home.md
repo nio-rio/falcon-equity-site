@@ -17,9 +17,9 @@ Rendered by `src/pages/index.astro`.
 
 Dark band, split H1, 16:9 then 21:9 media, caption row under the still.
 
-- **H1 line 1:** Fuel success with
-- **H1 line 2:** fast funding *(indented 1/7 from 1024)*
-- **Aside:** We move at your pace.
+- **H1 line 1:** Fuel Success with
+- **H1 line 2:** Fast Business Funding *(nested 8-col offset from 1024; wraps as one phrase below)*
+- **Aside:** Falcon Equity Group delivers fast business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. We move at your pace.
 - **Media:** `hero-falcon.jpg` — A peregrine falcon launching from a branch with its wings spread wide
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
@@ -131,11 +131,11 @@ Visual density: **one photo in the hero.** Industries and Insights may use 16:9 
 
 ### 1. Hero
 
-- **Pattern:** Blackstone home slide. Split H1 (span 7 + aside start 9 span 4), full-width still, caption row (H2 span 10, body start 7).
+- **Pattern:** Blackstone home slide + BREIT promo-carousel caption. Split H1 (span 8 + aside start 9 span 4), full-width still, caption row (H2 cols 1–6, body+Learn more start 8 span 5, top-aligned).
 - **Purpose:** Name the firm in a sentence, then the speed claim that is Falcon's actual offer.
 - **Eyebrow:** none
-- **Headline (H1):** Fuel success with / fast funding
-- **Aside:** We move at your pace.
+- **Headline (H1):** Fuel Success with / Fast Business Funding
+- **Aside:** Falcon Equity Group delivers fast business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. We move at your pace.
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
 - **Caption CTA:** Learn more → `/apply` *(or "Get Funding Today" if Ling wants one label on every primary)*
