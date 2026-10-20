@@ -28,10 +28,6 @@
   display: inline;
 }
 
-.pilot-hero-line--offset::before {
-  content: ' ';
-}
-
 .pilot-hero-aside {
   margin: 0;
   font-size: var(--bx-fs-16);
@@ -109,10 +105,6 @@
 
   .pilot-hero-line--offset {
     grid-column: 2 / -1;
-  }
-
-  .pilot-hero-line--offset::before {
-    content: none;
   }
 
   .pilot-hero-aside {
