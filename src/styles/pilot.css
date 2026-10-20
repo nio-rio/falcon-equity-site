@@ -3,11 +3,15 @@
    Tokens and `.container-site` / `.bx-grid` stay the site grid (Blackstone content__inner).
    Spacing is the priority: section 64/88/120, eyebrow→H2 40, H2→body 48, what-we-do 80/56. */
 
+/* Home hero — Ling-approved Blackstone promo-header + carousel measures.
+   80em = 1280 values, 90em = 1440 values. Fixed steps, no clamp.
+   16-col / 16px gutter is scoped here; site `.bx-grid` stays 12/24. */
 .pilot-hero {
   position: relative;
   background: #000;
   color: #fff;
-  padding-block: var(--bx-section);
+  padding-top: 2rem;
+  padding-bottom: 4rem;
 }
 
 .pilot-hero h1,
@@ -17,19 +21,24 @@
 }
 
 .pilot-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
   font-weight: 300;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 0.008em;
   max-width: none;
-  font-size: clamp(2rem, 0.9rem + 4.2vw, 4.25rem);
-  line-height: 1.05;
+  text-wrap: unset;
 }
 
-/* Inline below 1024 so the full H1 wraps as one phrase. Desktop forces two lines. */
 .pilot-hero-line {
   display: inline;
 }
 
 .pilot-hero-aside {
-  margin: 0;
+  margin: 1.5rem 0 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
   font-size: var(--bx-fs-16);
   line-height: 1.5;
   color: var(--bx-on-dark);
@@ -39,7 +48,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin-top: var(--bx-space-40);
+  margin-top: 2.5rem;
   overflow: hidden;
   aspect-ratio: 16 / 9;
 }
@@ -60,64 +69,232 @@
   object-position: 60% 30%;
 }
 
-/* BREIT promo-carousel caption: title cols 1–6, body+CTA cols 8–12, top-aligned. */
 .pilot-hero-caption {
-  margin-top: var(--bx-space-40);
-  align-items: start;
+  margin-top: 2rem;
+}
+
+.pilot-hero-caption-title h2 {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  max-width: none;
 }
 
 .pilot-hero-caption-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 1.5rem;
 }
 
 .pilot-hero-caption-copy p {
   margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
   color: var(--bx-on-dark);
 }
 
-@media (min-width: 768px) {
+.pilot-hero-caption-cta {
+  margin-top: 1.5rem;
+}
+
+/* Scoped singular-link: 18px label, 40px circle, 44px tall. */
+.pilot-hero .pilot-arrow {
+  height: 2.75rem;
+  gap: 1rem;
+}
+
+.pilot-hero .pilot-arrow-label {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.016em;
+}
+
+.pilot-hero .pilot-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@media (min-width: 48em) {
+  .pilot-hero {
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .pilot-hero h1 {
+    font-size: 3rem;
+  }
+
+  .pilot-hero-line {
+    display: block;
+  }
+
+  .pilot-hero-line--offset {
+    padding-left: 1rem;
+  }
+
+  .pilot-hero-aside {
+    margin-top: 2rem;
+    font-size: 1.125rem;
+  }
+
   .pilot-hero-media {
-    aspect-ratio: 21 / 9;
-    min-height: 22rem;
+    margin-top: 4rem;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 1.75rem;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 1.125rem;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 2rem;
+  }
+}
+
+/* 1280 — exact 80em steps. */
+@media (min-width: 80em) {
+  .pilot-hero {
+    padding-top: 40px;
+    padding-bottom: 112px;
+  }
+
+  .pilot-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: start;
   }
 
   .pilot-hero-top {
     align-items: end;
   }
-}
 
-@media (min-width: 1024px) {
-  /* Blackstone .bx-promo-header__title nested 8-col: line 2 starts at track 2. */
   .pilot-hero h1 {
     display: grid;
+    grid-column: 1 / span 8;
     grid-template-columns: repeat(8, minmax(0, 1fr));
-    column-gap: var(--bx-gutter);
-    row-gap: 0;
+    column-gap: 16px;
+    row-gap: 16px;
+    font-size: 64px;
+    line-height: 1;
   }
 
   .pilot-hero-line {
     display: block;
     grid-column: 1 / -1;
-    white-space: nowrap;
   }
 
   .pilot-hero-line--offset {
     grid-column: 2 / -1;
+    padding-left: 0;
   }
 
   .pilot-hero-aside {
-    padding-bottom: 0.35rem;
+    grid-column: 11 / span 6;
+    align-self: end;
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
   }
 
   .pilot-hero-media {
-    margin-top: var(--bx-space-56);
-    min-height: 28rem;
+    margin-top: 112px;
+    aspect-ratio: auto;
+    height: 487px;
   }
 
   .pilot-hero-caption {
-    margin-top: var(--bx-space-48);
+    margin-top: 48px;
+  }
+
+  .pilot-hero-caption-title {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
+  .pilot-hero-caption-copy {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
+    width: 456px;
+    margin-top: 0;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 40px;
+  }
+}
+
+/* 1440 — exact 90em steps. */
+@media (min-width: 90em) {
+  .pilot-hero {
+    padding-top: 48px;
+    padding-bottom: 120px;
+  }
+
+  .pilot-hero h1 {
+    row-gap: 24px;
+    font-size: 72px;
+  }
+
+  .pilot-hero-line--offset {
+    grid-column: 3 / -1;
+  }
+
+  .pilot-hero-aside {
+    font-size: 24px;
+  }
+
+  .pilot-hero-media {
+    margin-top: 120px;
+    height: 542px;
+  }
+
+  .pilot-hero-caption {
+    margin-top: 56px;
+  }
+
+  .pilot-hero-caption-title {
+    grid-column: 1 / span 8;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 40px;
+    max-width: 37rem;
+  }
+
+  .pilot-hero-caption-copy {
+    width: 504px;
+    margin-top: 8px;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 20px;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 48px;
   }
 }
 
@@ -429,6 +606,7 @@
 }
 
 .pilot-ll-row {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
@@ -442,11 +620,69 @@
   color: #000;
   text-decoration: none;
   opacity: 1;
-  transition: opacity 0.3s;
+  transition:
+    opacity 0.3s,
+    border-bottom-color 0s linear 0.5s;
 }
 
 .pilot-ll li:last-child .pilot-ll-row {
   border-bottom: 0.063rem solid #000;
+}
+
+.pilot-ll li + li .pilot-ll-row {
+  transition:
+    opacity 0.3s,
+    border-top-color 0s linear 0.5s;
+}
+
+/* BMACX `.bx-link-list__animated:after`: 1px bottom rule, scaleX, origin left,
+   0.5s linear. Hover plays Border-Bottom-Animate (0 → 1). Mouse-out reverses
+   via the same transform transition (origin stays left). */
+.pilot-ll-row::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -0.063rem;
+  border-bottom: solid 0.063rem #000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s linear;
+  pointer-events: none;
+}
+
+.pilot-ll li:last-child .pilot-ll-row::after {
+  bottom: -0.063rem;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  animation: pilot-ll-border-bottom 0.5s linear both;
+  transition-timing-function: ease-out;
+}
+
+@keyframes pilot-ll-border-bottom {
+  0% {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Hide the static edge the line travels along so the draw/retract is visible. */
+.pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
+  border-top-color: transparent;
+  transition-delay: 0s;
+}
+
+.pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
+  border-bottom-color: transparent;
+  transition-delay: 0s;
 }
 
 @media (min-width: 768px) {
@@ -944,12 +1180,28 @@
   .pilot-ll-row,
   .pilot-ll-icon,
   .pilot-ll-icon-arrow,
-  .pilot-ll-icon-fill {
+  .pilot-ll-icon-fill,
+  .pilot-ll-row::after {
     transition: none;
+    animation: none;
   }
 
   .pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon {
     transform: none;
+  }
+
+  .pilot-ll-row::after,
+  .pilot-ll-row:is(:hover, :focus-visible)::after {
+    animation: none;
+    transform: none;
+  }
+
+  .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
+    border-top-color: #000;
+  }
+
+  .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
+    border-bottom-color: #000;
   }
 
   .pilot-card:hover .pilot-card-media img,

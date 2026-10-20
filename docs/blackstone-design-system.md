@@ -220,7 +220,8 @@ Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx
 - **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line.
 - **Circle:** BMACX 40×40 SVG (border + arrow + evenodd fill). Rest = outlined circle + black arrow (`fill` opacity 0). Hover/focus = fill opacity 1, arrow opacity 0, icon **scale(1.1666666667)**. Transitions: transform **0.3s**, opacity **0.3s**.
 - **Siblings:** list `:hover` / `:focus-within` sets other rows to **opacity 0.36** (BMACX `.bx-link-list__title-animation`). Hovered/focused row stays 1.
-- **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale and transitions.
+- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`, `transition: transform .5s linear`. Hover/focus plays `@keyframes pilot-ll-border-bottom` (`scaleX(0)` → `scaleX(1)`, **0.5s linear**, `animation-fill-mode: both`, hover `transition-timing-function: ease-out`). Mouse-out removes the animation so the **same 0.5s linear transform** retracts to `scaleX(0)` (origin stays left). Static hairline on that edge is hidden while the line runs so the draw is visible; `prefers-reduced-motion` drops the animation and leaves the 1px rules in place.
+- **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale, line animation, and transitions.
 - Does **not** restyle `.pilot-circle` / `.pilot-arrow`.
 
 ### Cards
@@ -323,7 +324,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). Reused on the pilot. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
-| `src/components/pilot/PilotHero.astro` | Home `#slide-1-2` + BREIT promo-carousel caption: black band, 8+4 title row, 16:9→21:9 still, H2 cols 1–6 / body+Learn more cols 8–12 top-aligned |
+| `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image in container 487/542. Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
@@ -341,6 +342,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel Success with` / `Fast Business Funding` with nested-8 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s linear and retracts on mouse-out) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.
