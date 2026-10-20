@@ -1323,9 +1323,17 @@ for (const vp of VIEWPORTS) {
         (el) => !el.classList.contains('is-active') && !el.classList.contains('is-past'),
       );
       const cs = btn ? getComputedStyle(btn) : null;
+      const heading = [...document.querySelectorAll('h2')].find((el) => !el.classList.contains('sr-only'));
+      const headingCs = heading ? getComputedStyle(heading) : null;
       const bodyFont = getComputedStyle(document.body).fontFamily;
       const leadCs = lead ? getComputedStyle(lead) : null;
       const activeCs = active ? getComputedStyle(active) : null;
+      const sentence = document.querySelector('.site-cta__sentence');
+      const sentenceR = sentence?.getBoundingClientRect();
+      const btnR = btn?.getBoundingClientRect();
+      const phraseOverflow = [...document.querySelectorAll('.site-cta__copy:first-of-type [data-cta-phrase]')].some(
+        (el) => el.scrollWidth > el.clientWidth + 1,
+      );
       const pastCs = past ? getComputedStyle(past) : null;
       const restCs = rest ? getComputedStyle(rest) : null;
       const wheel = document.querySelector('[data-cta-wheel]');
@@ -1363,8 +1371,16 @@ for (const vp of VIEWPORTS) {
         srText: sr?.textContent?.trim() || '',
         leadText: lead?.textContent?.trim() || '',
         leadFont: leadCs?.fontFamily || null,
+        leadWeight: leadCs?.fontWeight || null,
         phraseFont: activeCs?.fontFamily || null,
+        phraseWeight: activeCs?.fontWeight || null,
+        headingFont: headingCs?.fontFamily || null,
+        headingWeight: headingCs?.fontWeight || null,
         bodyFont,
+        btnGap: sentenceR && btnR
+          ? Math.round((btnR.top >= sentenceR.bottom - 2 ? btnR.top - sentenceR.bottom : btnR.left - sentenceR.right) * 10) / 10
+          : null,
+        phraseOverflow,
         phraseLine: activeCs?.lineHeight || null,
         phraseH: active ? Math.round(active.getBoundingClientRect().height * 10) / 10 : null,
         wheelH: wheel ? Math.round(wheel.getBoundingClientRect().height * 10) / 10 : null,
@@ -1572,15 +1588,25 @@ for (const vp of VIEWPORTS) {
     }
     log({
       ...tag,
-      check: 'site-cta-lead-body-font',
+      check: 'site-cta-lead-heading-font',
       ok:
         Boolean(ctaChrome.leadFont) &&
-        ctaChrome.leadFont === ctaChrome.bodyFont &&
-        ctaChrome.phraseFont === ctaChrome.leadFont,
+        ctaChrome.leadFont === ctaChrome.headingFont &&
+        ctaChrome.phraseFont === ctaChrome.leadFont &&
+        ctaChrome.leadFont !== ctaChrome.bodyFont &&
+        ctaChrome.leadWeight === '300' &&
+        ctaChrome.phraseWeight === '300' &&
+        ctaChrome.leadWeight === ctaChrome.headingWeight &&
+        ctaChrome.phraseOverflow === false,
       detail: JSON.stringify({
         leadFont: ctaChrome.leadFont,
         phraseFont: ctaChrome.phraseFont,
+        headingFont: ctaChrome.headingFont,
         bodyFont: ctaChrome.bodyFont,
+        leadWeight: ctaChrome.leadWeight,
+        phraseWeight: ctaChrome.phraseWeight,
+        headingWeight: ctaChrome.headingWeight,
+        phraseOverflow: ctaChrome.phraseOverflow,
       }),
     });
     log({
