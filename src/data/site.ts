@@ -80,3 +80,12 @@ export const LEGAL_LINKS: NavLink[] = [
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms & Conditions', href: '/terms-conditions' },
 ];
+
+/** Footer Quick Links — real pages only. */
+export const FOOTER_QUICK_LINKS: NavLink[] = [
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Industries', href: '/industries' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Apply', href: '/apply' },
+];

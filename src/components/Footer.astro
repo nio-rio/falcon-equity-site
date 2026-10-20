@@ -1,82 +1,72 @@
 ---
 import Logo from './Logo.astro';
-import ContactLine from './ContactLine.astro';
-import Eyebrow from './Eyebrow.astro';
-import { SERVICES } from '@/data/services';
-import { COMPANY_LINKS, LEGAL_LINKS, RESOURCE_LINKS, SITE } from '@/data/site';
+import { FOOTER_QUICK_LINKS, LEGAL_LINKS, SITE } from '@/data/site';
 
 const year = new Date().getFullYear();
-const phones = [SITE.phones.office, SITE.phones.direct, SITE.phones.fax];
+const phone = SITE.phones.direct;
 ---
 
-<footer class="site-footer bg-ink text-white/70" aria-labelledby="footer-heading">
+<footer class="site-footer" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Site footer</h2>
-  <div class="container-site py-16">
-    <div class="bx-grid">
-      <div class="bx-span-4 bx-lg-span-4">
-        <a href="/" class="inline-block text-white" aria-label="Falcon Equity Group home"><Logo class="h-[1.8rem] w-auto" /></a>
-        <p class="mt-5 max-w-sm text-sm leading-relaxed">
-          Business funding from New York City. Seven products, from working capital to consolidation.
-        </p>
-        <address class="mt-6 flex flex-col space-y-3 text-sm not-italic">
-          <ContactLine icon="mail" href={`mailto:${SITE.email}`} class="footer-link">
-            {SITE.email}
-          </ContactLine>
-          {
-            phones.map((p) => (
-              <ContactLine icon="phone" href={p.href} class="footer-link">
-                {p.label}: {p.display}
-              </ContactLine>
-            ))
-          }
-          <ContactLine icon="map-pin" href={SITE.address.mapUrl} class="footer-link" external>
-            {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
-            <span class="sr-only"> (opens Google Maps in a new tab)</span>
-          </ContactLine>
-        </address>
-        <a
-          href={SITE.social.x}
-          class="footer-link footer-social"
-          rel="noopener me"
-          target="_blank"
-        >
-          Follow {SITE.social.xHandle}<span class="sr-only"> on X (opens in a new tab)</span>
+  <div class="container-site site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__logo-link" aria-label="Falcon Equity Group home">
+          <Logo class="site-footer__logo" />
         </a>
       </div>
 
-      <nav class="bx-span-4 bx-lg-span-7 bx-lg-start-6" aria-label="Footer">
-        <div class="footer-cols">
-          <div>
-            <Eyebrow>Funding options</Eyebrow>
-            <ul class="footer-nav-list">
-              {SERVICES.map((s) => <li><a href={`/services/${s.slug}`} class="footer-link">{s.name}</a></li>)}
-              <li><a href="/services" class="footer-link footer-link--strong">All services</a></li>
-            </ul>
-          </div>
-          <div>
-            <Eyebrow>Resources</Eyebrow>
-            <ul class="footer-nav-list">
-              {RESOURCE_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
-              <li><a href="/rss.xml" class="footer-link">RSS feed</a></li>
-            </ul>
-          </div>
-          <div>
-            <Eyebrow>Company</Eyebrow>
-            <ul class="footer-nav-list">
-              {COMPANY_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
-            </ul>
-          </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">Quick Links</h3>
+          <ul class="site-footer__list">
+            {FOOTER_QUICK_LINKS.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">Social</h3>
+          <ul class="site-footer__list">
+            <li>
+              <a href={SITE.social.x} class="site-footer__link" rel="noopener me" target="_blank">
+                X (Twitter)<span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">Get in Touch</h3>
+          <ul class="site-footer__list">
+            <li><a href="/contact" class="site-footer__link">Contact</a></li>
+            <li>
+              <a href={`mailto:${SITE.email}`} class="site-footer__link">{SITE.email}</a>
+            </li>
+            <li>
+              <a href={phone.href} class="site-footer__link">{phone.display}</a>
+            </li>
+            <li>
+              <a href={SITE.address.mapUrl} class="site-footer__link" rel="noopener" target="_blank">
+                {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+                <span class="sr-only"> (opens Google Maps in a new tab)</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>
-  </div>
 
-  <div class="container-site py-8 text-xs">
-    <div class="bx-grid items-center">
-      <p class="bx-span-4 bx-lg-span-6">© {year} {SITE.name}. All rights reserved.</p>
-      <ul class="bx-span-4 bx-lg-span-6 flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
-        {LEGAL_LINKS.map((l) => <li><a href={l.href} class="footer-link">{l.label}</a></li>)}
-      </ul>
+    <div class="site-footer__bottom">
+      <nav class="site-footer__legal" aria-label="Legal">
+        <ul class="site-footer__legal-list">
+          {LEGAL_LINKS.map((l) => (
+            <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
     </div>
   </div>
 </footer>

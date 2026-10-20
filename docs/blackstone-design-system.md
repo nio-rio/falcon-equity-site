@@ -297,7 +297,7 @@ Removed sitewide. Do not restore a pre-footer Get-funding band. Blog still uses 
 
 ### Footer
 
-Black band, 3-column `.footer-cols` from 768 (nested grid; do not put 3 cols inside `.bx-grid` at tablet). Eyebrows + text links. Bottom legal row.
+Black band, white type. Falcon lockup top-left (cols 1–4 of 16). Three columns on the right — Quick Links, Social, Get in Touch — with real Falcon URLs only (X is the only social). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). No pre-footer CTA. No invented social accounts. The previous footer had no funding/broker disclaimer; none added.
 
 ### Forms
 
@@ -358,6 +358,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
+| `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Social / Get in Touch, 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
