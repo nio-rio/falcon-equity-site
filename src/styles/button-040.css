@@ -57,7 +57,7 @@
   --button-040-color: var(--bx-lilac);
   --button-040-color-background: var(--bx-martinique);
   --button-040-color-arrow: var(--bx-martinique);
-  --button-040-color-arrow-background: var(--bx-lilac);
+  --button-040-color-arrow-background: var(--bx-lilac-darker);
   --button-040-color-focus: var(--bx-martinique);
 }
 
@@ -71,7 +71,7 @@
   --button-040-color: var(--bx-lilac);
   --button-040-color-background: var(--bx-martinique);
   --button-040-color-arrow: var(--bx-martinique);
-  --button-040-color-arrow-background: var(--bx-lilac);
+  --button-040-color-arrow-background: var(--bx-lilac-darker);
   --button-040-color-focus: var(--bx-martinique);
 }
 

@@ -302,6 +302,8 @@ const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
 const LILAC_DARK = 'rgb(229, 228, 242)';
+const LILAC_DARKER = 'rgb(196, 191, 225)';
+const LILAC_LIGHT = 'rgb(246, 245, 252)';
 const WHITE_A16 = 'rgba(255, 255, 255, 0.16)';
 const MARTINIQUE_LIGHTER = 'rgb(96, 90, 123)';
 const MARTINIQUE_DARKER = 'rgb(20, 16, 31)';
@@ -330,7 +332,7 @@ const APPLY_DARK = {
   color: LILAC,
   textBg: MARTINIQUE,
   arrow: MARTINIQUE,
-  arrowBg: LILAC,
+  arrowBg: LILAC_DARKER,
   focus: '#332a4e',
 };
 const WHITE = 'rgb(255, 255, 255)';
@@ -1034,6 +1036,7 @@ for (const vp of VIEWPORTS) {
         const dropR = drop?.getBoundingClientRect();
         const titleBefore = title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null;
         const defaultLabel = document.querySelector('#industry-select-value')?.textContent.trim() || '';
+        const fieldBg = drop ? getComputedStyle(drop).backgroundColor : null;
         drop?.click();
         const options = [...(menu?.querySelectorAll('[role="option"]') || [])];
         const first = options[0];
@@ -1091,6 +1094,7 @@ for (const vp of VIEWPORTS) {
           dropTop: dropR ? Math.round(dropR.top) : null,
           dropLeft: dropR ? Math.round(dropR.left) : null,
           headingRight: headingR ? Math.round(headingR.right) : null,
+          fieldBg,
         };
         first?.click();
         const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
@@ -1101,6 +1105,8 @@ for (const vp of VIEWPORTS) {
           selected: selected?.textContent.trim() || '',
           selectedAria: selected?.getAttribute('aria-selected') || null,
           color: selected ? getComputedStyle(selected).color : null,
+          selectedBg: selected ? getComputedStyle(selected).backgroundColor : null,
+          check: selected ? getComputedStyle(selected, '::after').borderLeftWidth : null,
         };
         drop?.click();
         const reopened = drop?.getAttribute('aria-expanded') || null;
@@ -1123,7 +1129,8 @@ for (const vp of VIEWPORTS) {
           industry.open.expanded === 'true' &&
           industry.open.hidden === false &&
           industry.open.position === 'absolute' &&
-          industry.open.bg === 'rgb(243, 242, 251)' &&
+          industry.open.bg === LILAC_LIGHT &&
+          industry.open.fieldBg === LILAC_LIGHT &&
           industry.open.opacity === '1' &&
           industry.open.border === '1px rgb(229, 228, 242)' &&
           industry.open.shadow !== 'none' &&
@@ -1164,6 +1171,7 @@ for (const vp of VIEWPORTS) {
           industry.open.mediaBg === 'rgb(229, 228, 242)' &&
           typeof industry.open.scrollbar === 'string' &&
           industry.open.scrollbar.includes('rgb(82, 74, 104)') &&
+          industry.open.scrollbar.includes(LILAC_LIGHT) &&
           !industry.open.scrollbar.includes('rgb(128, 128, 128)'),
         detail: JSON.stringify({ mediaBg: industry.open.mediaBg, scrollbar: industry.open.scrollbar }),
       });
@@ -1176,8 +1184,25 @@ for (const vp of VIEWPORTS) {
           industry.picked.selectedAria === 'true' &&
           industry.picked.expanded === 'false' &&
           industry.picked.hidden === true &&
-          industry.picked.color === 'rgb(51, 42, 78)',
+          industry.picked.color === MARTINIQUE &&
+          industry.picked.selectedBg === LILAC_DARKER &&
+          parseFloat(industry.picked.check || '0') >= 2,
         detail: JSON.stringify(industry.picked),
+      });
+      const dropBtn = page.locator('.pilot-tabs-drop');
+      await dropBtn.click();
+      const hoverOption = page.locator('.pilot-tabs-menu [role="option"]:not([aria-selected="true"])').first();
+      await hoverOption.hover();
+      const hoverBg = await hoverOption.evaluate((el) => getComputedStyle(el).backgroundColor);
+      const selectedStay = await page
+        .locator('.pilot-tabs-menu [role="option"][aria-selected="true"]')
+        .evaluate((el) => getComputedStyle(el).backgroundColor);
+      await page.keyboard.press('Escape');
+      log({
+        ...tag,
+        check: 'industry-menu-hover',
+        ok: hoverBg === LILAC_DARK && selectedStay === LILAC_DARKER,
+        detail: JSON.stringify({ hoverBg, selectedStay }),
       });
       log({ ...tag, check: 'industry-menu-esc', ok: industry.reopened === 'true' && industry.afterEsc === 'false', detail: JSON.stringify({ reopened: industry.reopened, afterEsc: industry.afterEsc }) });
       log({ ...tag, check: 'industry-menu-outside', ok: industry.afterOutside === 'false', detail: industry.afterOutside });

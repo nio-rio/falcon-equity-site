@@ -1046,7 +1046,7 @@
   width: 100%;
 }
 
-/* Sector field: light gray fill, 2px ink bottom, in-field label, chevron. */
+/* Sector field: Lilac Light fill, 2px ink bottom, in-field label, chevron. */
 .pilot-tabs-drop {
   display: flex;
   align-items: center;
@@ -1056,7 +1056,7 @@
   border: 0;
   border-bottom: 2px solid var(--bx-black);
   border-radius: 0;
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
   color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
@@ -1089,7 +1089,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
   color: var(--bx-black);
   border: 1px solid var(--bx-lilac-dark);
   box-shadow: 0 0.5rem 1.25rem rgb(15 12 23 / 0.14);
@@ -1099,17 +1099,17 @@
   -webkit-overflow-scrolling: touch;
   opacity: 1;
   scrollbar-width: thin;
-  scrollbar-color: var(--bx-martinique-light) var(--bx-lilac);
+  scrollbar-color: var(--bx-martinique-light) var(--bx-lilac-light);
 }
 
 .pilot-tabs-menu::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
 }
 
 .pilot-tabs-menu::-webkit-scrollbar-track {
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
 }
 
 .pilot-tabs-menu::-webkit-scrollbar-thumb {
@@ -1123,7 +1123,7 @@
   display: none;
   width: 0;
   height: 0;
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
 }
 
 .pilot-tabs-menu button {
@@ -1134,7 +1134,7 @@
   width: 100%;
   padding: 0.75rem 1.5rem;
   border: 0;
-  background: var(--bx-lilac);
+  background: var(--bx-lilac-light);
   color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
@@ -1147,6 +1147,7 @@
 .pilot-tabs-menu button[aria-selected='true'] {
   color: var(--bx-martinique);
   font-weight: 500;
+  background: var(--bx-lilac-darker);
 }
 
 .pilot-tabs-menu button[aria-selected='true']::after {
@@ -1162,7 +1163,12 @@
 
 .pilot-tabs-menu button:hover,
 .pilot-tabs-menu button:focus-visible {
-  background: var(--bx-highlight-light-active);
+  background: var(--bx-lilac-dark);
+}
+
+.pilot-tabs-menu button[aria-selected='true']:hover,
+.pilot-tabs-menu button[aria-selected='true']:focus-visible {
+  background: var(--bx-lilac-darker);
 }
 
 .pilot-tabs-menu button:focus-visible {

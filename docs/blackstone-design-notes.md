@@ -29,6 +29,8 @@ Implemented as `--bx-*` tokens and `.bx-grid` / `.bx-span-*` / `.bx-lg-span-*` /
 | `--c-slate-1` | `#515256` | `--color-muted` → Martinique Light `#524a68` | Bundle |
 | `--c-slate-2` | `#d5d8df` | `--color-line` → Lilac Darker `#c4bfe1` | Bundle |
 | `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` → Lilac `#f3f2fb` | Bundle |
+| Falcon Industry picker | | Field + list Lilac Light `#f6f5fc`; selected Lilac Darker `#c4bfe1`; hover Lilac Dark `#e5e4f2` | Ling |
+| Falcon Apply dark | | Martinique pill; Lilac Darker `#c4bfe1` arrow circle; Martinique arrow | Ling |
 | `--c-yellow` | `#fdf147` | not used as CTA fill | Bundle (focus/highlight only) |
 | Falcon CTA | `#000` | `--color-accent` | Ink buttons / circle-arrows; not purple, not BX yellow |
 

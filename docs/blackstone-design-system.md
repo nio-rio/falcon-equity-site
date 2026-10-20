@@ -29,7 +29,7 @@ From `:root` in the v2 bundle.
 | `--c-slate-1` | `#515256` | `--bx-martinique-light` `#524a68` |
 | `--c-slate-2` | `#d5d8df` | `--bx-lilac-darker` `#c4bfe1` |
 | `--c-highlight-light-active` | `#e7eaee` | `--bx-lilac-dark` `#e5e4f2` |
-| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--bx-lilac` `#f3f2fb` (Industry field/menu too) |
+| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--bx-lilac` `#f3f2fb` |
 | `--c-highlight-dark` | `#121317` | `--bx-highlight-dark` → Martinique Darker |
 | `--c-grey-100` | `#f8f8f8` | `--bx-lilac-light` `#f6f5fc` |
 | `--c-grey-300` | `#a3aaae` | `--ink-a36` |
@@ -51,10 +51,10 @@ Ling additions (Falcon-only):
 | `--bx-martinique-darkest` | `#0f0c17` | Martinique Darkest. Reserved; not used for BX `#000` masks |
 | `--bx-martinique-light` | `#524a68` | Martinique Light. Muted copy (`--color-muted` / `--bx-slate-1`) |
 | `--bx-martinique-lighter` | `#605a7b` | Martinique Lighter. Brand-light, CTA past wheel lines |
-| `--bx-lilac` | `#f3f2fb` | Lilac. Tints, Industry field/menu, button-040 light pill |
-| `--bx-lilac-darker` | `#c4bfe1` | Lilac Darker. Hairlines (`--color-line` / `--bx-slate-2`) |
-| `--bx-lilac-dark` | `#e5e4f2` | Lilac Dark. Light-nav divider, Industry menu border |
-| `--bx-lilac-light` | `#f6f5fc` | Lilac Light. Soft washes (`--bx-grey-100`) |
+| `--bx-lilac` | `#f3f2fb` | Lilac. Tints, button-040 light pill |
+| `--bx-lilac-darker` | `#c4bfe1` | Lilac Darker. Hairlines, Martinique-pill Apply arrow circle, Industry selected row |
+| `--bx-lilac-dark` | `#e5e4f2` | Lilac Dark. Light-nav divider, Industry menu border + unselected hover |
+| `--bx-lilac-light` | `#f6f5fc` | Lilac Light. Soft washes, Industry field + open list |
 | `--bx-overlay` | `rgba(20, 16, 31, 0.32)` | Nav page overlay tint |
 
 Semantic on-dark copy: white `/ 0.88` body, `/ 0.82` secondary, `/ 0.16` rules.
@@ -186,7 +186,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 - Fixed bar (`position: fixed; z-index: 50`) like Blackstone, with a spacer so content is not covered. **Home** at the top of the hero: black, white type, bare logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white bar, black type, same bare logo. Opening a menu locks page scroll (`html.has-scroll-lock` + wheel/touch preventDefault; no html/body `overflow: hidden`, which hides a scrolled fixed bar). The panel is `top: 100%` of the visible bar.
 - Heights follow the compact bar in the nav captures (**108px** at 80em; **102px** mobile / **108px** tablet). Logo is the live falconequity.ai lockup: inline SVG mark (`currentColor`) + HTML “Falcon Equity Group” in At Gambit. Mobile and tablet (`<80em`): mark **2rem / 32px**, word **1.3rem / 20.8px / 600 / lh 1.5**, gap **1rem / 16px**. Desktop (`80em+`): mark **2.3rem / 36.8px**, word **1.5rem / 24px / 600**, gap **1.5rem / 24px**. Footer uses the same mark and word size, weight **400**, gap **1.2rem / 19.2px**. Not 1.25×. Unboxed: no padding, border, or background. Mobile toggle shows only the hamburger when closed and only the X when open.
-- Desktop `90em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. The row is `flex-wrap: nowrap` / `white-space: nowrap` so “Our Firm” cannot drop. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is Ling’s `.button-040` (Lilac `#f3f2fb` / Martinique `#332a4e`); dark header uses the light variant, white header uses the dark variant. Nav Apply is **1.0625rem / 3em tall / 1.25em pad** (icon 1em, scales with type) so it stands out in the bar; **0.7em** extra sits between the phone link and the pill. Phone is the real direct line `+1 (917) 245-5277`, styled like a primary nav label (16px/400, inherit color, same 1px underline hover/focus — no button or icon chrome).
+- Desktop `90em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. The row is `flex-wrap: nowrap` / `white-space: nowrap` so “Our Firm” cannot drop. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is Ling’s `.button-040` (Lilac `#f3f2fb` / Martinique `#332a4e`); dark header uses the light variant, white header uses the dark variant (Martinique pill, Lilac Darker `#c4bfe1` arrow circle, Martinique arrow). Nav Apply is **1.0625rem / 3em tall / 1.25em pad** (icon 1em, scales with type) so it stands out in the bar; **0.7em** extra sits between the phone link and the pill. Phone is the real direct line `+1 (917) 245-5277`, styled like a primary nav label (16px/400, inherit color, same 1px underline hover/focus — no button or icon chrome).
 - Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
 - Resources menu includes the only dropdown feature card (Apply). It follows `.site-header` theme via `--nav-widget-bg` / `--nav-widget-copy`: dark header uses Martinique Darker `#14101f` with white type; light header uses Lilac `#f3f2fb` with `#14101f` type. Learn More + 40px circle-arrow invert with those tokens (no separate card toggle). Title, body, optional eyebrow, link, and button label keep `--nav-widget-copy` at rest and hover so global `h2` / `.arrow-cta:hover` ink cannot fail WCAG AA on either card (4.5:1 body, 3:1 large text / UI). `npm run test:nav` asserts those ratios. No other dropdowns ship a feature card.
 - Backdrop: `blur(5px)` + `rgba(20,16,31,.32)` (`--bx-overlay`) on the page overlay only (header and mega-panel stay opaque, `backdrop-filter: none`). Esc closes. `prefers-reduced-motion` drops transitions; overlay blur stays.
@@ -213,7 +213,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 | --- | --- | --- | --- |
 | `.btn-primary` / `.btn-accent` | `#14101f` fill, white type, 13×24, square | `#28213e` | Darker rest, Dark hover |
 | `.button-040` light | Lilac pill `#f3f2fb`, Martinique type `#332a4e`, Martinique arrow-circle, Lilac arrow | same | Nav on dark header; CTA Apply |
-| `.button-040` dark | Inverse of light | same | Nav on white header |
+| `.button-040` dark | Martinique pill `#332a4e`, Lilac type `#f3f2fb`, Lilac Darker arrow-circle `#c4bfe1`, Martinique arrow | same | Nav on white header; hamburger-menu Apply |
 | `.btn-on-dark` | white fill, ink type | tint | |
 | `.btn-outline-dark` | 1px grey-ink border | ink fill, white type | Lives in `global.css` |
 | `.btn-outline-light` | 1px white | white fill, ink type | |
@@ -266,8 +266,8 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; no subtitle | H2 cols **1–8** **40px** |
-| Dropdown | Lilac (`--bx-lilac`) field, in-field “Select your sector” until a sector is chosen, then the sector name, 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; top-right cols **11–16**, aligned to the H2 | cols **12–16** |
-| Menu | Floating overlay: solid opaque Lilac (z-index above panel copy), 1px Lilac Dark border, Martinique Darkest soft shadow; cap ~6 options; thin Martinique Light scrollbar (`scrollbar-color` + webkit); never past the section; selected option Martinique + check | same |
+| Dropdown | Lilac Light (`--bx-lilac-light` `#f6f5fc`) field, in-field “Select your sector” until a sector is chosen, then the sector name, 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; top-right cols **11–16**, aligned to the H2 | cols **12–16** |
+| Menu | Floating overlay: solid opaque Lilac Light (z-index above panel copy), 1px Lilac Dark border, Martinique Darkest soft shadow; cap ~6 options; thin Martinique Light scrollbar (`scrollbar-color` + webkit); never past the section; selected row Lilac Darker `#c4bfe1` + Martinique text + check; unselected hover Lilac Dark `#e5e4f2` | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
@@ -402,7 +402,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; stills are trucks / dentist / chef; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
 | `src/scripts/scroll-in.ts` | Home scroll-in below the hero. Headers/body `y:20` 800/400, start `top 90%`. Services `top 85%` + 150ms per row. Stats fade + 1px line. News curtain. Skip hero / testimonial / CTA. |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + “Sectors we fund.” with the sector picker across from the H2 (stacked under it on small screens). Lilac listbox overlay (placeholder then selected sector name, Martinique check), featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + “Sectors we fund.” with the sector picker across from the H2 (stacked under it on small screens). Lilac Light field + listbox (`#f6f5fc`; placeholder then selected sector name), selected row Lilac Darker + Martinique check, hover Lilac Dark, featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
@@ -417,6 +417,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`24-48h` big; `$100M+` and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; Lilac “Select your sector” field across from the H2, stacked under it on small screens; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`24-48h` big; `$100M+` and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; Lilac Light “Select your sector” field across from the H2, stacked under it on small screens; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro`.
