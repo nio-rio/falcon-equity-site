@@ -6,6 +6,7 @@ import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
 import PilotArrow from '@/components/pilot/PilotArrow.astro';
 import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
+import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
 import PilotProcess from '@/components/pilot/PilotProcess.astro';
 import PilotQuote from '@/components/pilot/PilotQuote.astro';
 import PilotCta from '@/components/pilot/PilotCta.astro';
@@ -64,6 +65,8 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
       rangeLine: s.rangeLine,
     }))}
   />
+
+  <PilotTestimonial />
 
   <section class="pilot-section" aria-labelledby="industries-heading">
     <div class="container-site">

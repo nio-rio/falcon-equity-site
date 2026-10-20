@@ -1,0 +1,30 @@
+---
+/**
+ * Blackstone home `.bx-announcement` (“EARNINGS”): eyebrow + serif title left,
+ * 3:4 portrait in the middle columns, small copy right and bottom-aligned.
+ * Home testimonial only. Copy comes from HOME_TESTIMONIAL (placeholders).
+ */
+import Media from '@/components/Media.astro';
+import PilotEyebrow from './PilotEyebrow.astro';
+import { HOME_TESTIMONIAL } from '@/data/home-testimonial';
+
+const { eyebrow, quote, name, business, imageIntent, imageAlt } = HOME_TESTIMONIAL;
+---
+
+<section class="pilot-ann" aria-labelledby="testimonial-quote">
+  <div class="container-site">
+    <div class="pilot-ann-inner">
+      <PilotEyebrow class="pilot-ann-eyebrow">{eyebrow}</PilotEyebrow>
+      <blockquote class="pilot-ann-title" id="testimonial-quote">
+        <p>{quote}</p>
+      </blockquote>
+      <div class="pilot-ann-media">
+        <Media intent={imageIntent} alt={imageAlt} labeled ratio="3 / 4" sizes="(min-width: 80em) 304px, 50vw" />
+      </div>
+      <div class="pilot-ann-meta">
+        <p class="pilot-ann-name">{name}</p>
+        <p class="pilot-ann-business">{business}</p>
+      </div>
+    </div>
+  </div>
+</section>

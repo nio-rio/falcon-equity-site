@@ -107,6 +107,7 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 | --- | --- | --- | --- | --- | --- |
 | Section `--bx-section` | 64px (4rem) | 88px (5.5rem) | 120px (7.5rem) | 120px | `--pad` / BXCI |
 | Outer margin `--bx-margin` | 15px | 40px | 40px | **80px** | `--pad-container-sm` / `--pad-container-md-plus` at 90em |
+| Home announcement (EARNINGS) | see below | | | | `.bx-announcement` |
 | Gutter `--bx-gutter` | 16px | 24px | 24px | 24px | `--column-gap: 2em` → 24px |
 | Content max `--bx-max` | 20.5→23rem | 43rem | 71rem | **79rem (1264px)** | `--container-width` |
 | Header height | 56px (3.5rem) | 68px (4.25rem) | 68px | 68px | Falcon compact bar (BX header is taller: 7–12.75rem) |
@@ -202,6 +203,22 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 BX `.bx-button` is a 999px pill, black, 0.3s, yellow focus — **not copied**.
 
+### Home announcement (EARNINGS → testimonial)
+
+Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 values are the blackstone-v2 `.bx-announcement` rules (Wayback home HTML + `frontend.css`) — the same computed styles `getBoundingClientRect` / `getComputedStyle` would return at `80em` / `90em`. Gutter is **16px**. Container is `--container-width` (1136 / 1264).
+
+| | 1280 (`80em`) | 1440 (`90em`) |
+| --- | --- | --- |
+| Section pad (`.bx-component-base-padding-*`) | **144px** | **160px** |
+| Grid | 16 col, 16px gap | 16 col, 16px gap |
+| Eyebrow | cols **1–6**, sans 13px/0.08em/uppercase, rule 48×2px to the right, margin-bottom **56px** | same cols, margin-bottom **64px** |
+| Title (quote) | cols **1–6**, serif 300, **32px**, lh **1.5**, tracking **0.008em** | cols **1–7**, **40px** |
+| Image | cols **9–12**, **3:4**, object-fit cover, margin-top 0 | same |
+| Right column | cols **14–16**, row-span 2, `justify-content: flex-end`, padding-bottom **48px** | padding-bottom **56px** |
+| Right type | body sans 16px (press links on BX) | same |
+
+`.pilot-ann-*` on home only. Copy is `HOME_TESTIMONIAL` placeholders; do not invent a person or quote.
+
 ### Link underline draw
 
 `.link`, `.link-draw`, prose `<a>` except buttons: gradient underline, size 0→100% × 1px, 350ms. No `text-decoration` hover (that fought the draw).
@@ -220,7 +237,7 @@ Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx
 - **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line.
 - **Circle:** BMACX 40×40 SVG (border + arrow + evenodd fill). Rest = outlined circle + black arrow (`fill` opacity 0). Hover/focus = fill opacity 1, arrow opacity 0, icon **scale(1.1666666667)**. Transitions: transform **0.3s**, opacity **0.3s**.
 - **Siblings:** list `:hover` / `:focus-within` sets other rows to **opacity 0.36** (BMACX `.bx-link-list__title-animation`). Hovered/focused row stays 1.
-- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`, `transition: transform .5s linear`. Hover/focus sets `scaleX(1)` with `transition-timing-function: ease-out` (BMACX hover). Mouse-out keeps origin left and retracts on the **same 0.5s linear** transform (keyframes `fill-mode: both` was omitted so leave can reverse). Static hairline on that edge is hidden while the line runs so the draw is visible; `prefers-reduced-motion` drops the motion and leaves the 1px rules in place.
+- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`, `transition: transform .5s linear`. Hover/focus sets `scaleX(1)` with `transition-timing-function: ease-out` (BMACX hover). Mouse-out keeps origin left and retracts on the **same 0.5s linear** transform (keyframes `fill-mode: both` was omitted so leave can reverse). Static hairline on that edge is hidden while the line runs so the draw is visible; `prefers-reduced-motion` hides `::after` and leaves the 1px rules in place.
 - **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale, line animation, and transitions.
 - Does **not** restyle `.pilot-circle` / `.pilot-arrow`.
 
@@ -328,7 +345,9 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
-| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6, teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
+| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6, teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` scaleX 0.5s linear, origin left, reverses on mouse-out. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
+| `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 labeled industry still cols 9–12, name/business cols 14–16 bottom-aligned. Placeholders only. |
+| `src/data/home-testimonial.ts` | Single object for the home testimonial slot |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
 | `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |
@@ -342,6 +361,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s linear and retracts on mouse-out) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s linear and retracts on mouse-out) → **Testimonial** (EARNINGS layout; quote/name/business are `[PLACEHOLDER: …]` until a consented quote exists) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No Explore more.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.
