@@ -2,14 +2,16 @@
    Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle. */
 
 :root {
-  /* Martinique Darker (Ling). Site black and near-blacks. */
-  --bx-martinique-darker: #14101f;
-  --bx-black: var(--bx-martinique-darker);
-  /* Button-040 only (Ling): Martinique + Lilac. Other buttons stay Darker. */
+  /* Martinique scale (Ling). Site black and near-blacks stay on this palette. */
   --bx-martinique: #332a4e;
+  --bx-martinique-dark: #28213e;
+  --bx-martinique-darker: #14101f;
+  --bx-martinique-darkest: #0f0c17;
+  --bx-black: var(--bx-martinique-darker);
+  /* Button-040 uses Martinique + Lilac. Square buttons stay Darker. */
   --bx-lilac: #f3f2fb;
   --bx-white: #ffffff;
-  --bx-variant-black: #14101f; /* site black; same as Martinique Darker */
+  --bx-variant-black: var(--bx-martinique-dark);
   --bx-slate-1: #515256;
   --bx-slate-2: #d5d8df;
   --bx-slate-3: #f4f5f7;
@@ -28,7 +30,7 @@
 
   /* Square buttons stay Darker ink, not purple. Button-040 uses Martinique/Lilac. */
   --falcon-accent: var(--bx-martinique-darker);
-  --falcon-accent-hover: #14101f;
+  --falcon-accent-hover: var(--bx-martinique-dark);
   --falcon-cta: var(--bx-martinique-darker);
   --falcon-featured: var(--bx-martinique-darker);
 

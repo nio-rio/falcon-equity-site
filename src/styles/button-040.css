@@ -2,10 +2,10 @@
    applied only through the custom properties on variants. */
 
 :root {
-  --button-040-color: #14101f;
-  --button-040-color-background: #efeeec;
-  --button-040-color-arrow: #efeeec;
-  --button-040-color-arrow-background: #14101f;
+  --button-040-color: var(--bx-martinique-darker);
+  --button-040-color-background: var(--bx-lilac);
+  --button-040-color-arrow: var(--bx-lilac);
+  --button-040-color-arrow-background: var(--bx-martinique-dark);
   --button-040-color-focus: #fff;
   --button-040-height: 2.5em;
   --button-040-padding-x: 1em;

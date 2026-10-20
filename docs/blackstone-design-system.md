@@ -25,7 +25,7 @@ From `:root` in the v2 bundle.
 | --- | --- | --- |
 | `--c-black` | `#000000` | `--bx-martinique-darker` `#14101f` via `--bx-black` / `--color-ink` / `--color-surface-dark` |
 | `--c-white` | `#ffffff` | `--bx-white` |
-| `--c-variant-black` | `#202020` | `--color-ink-soft` → `#14101f` (same site black) |
+| `--c-variant-black` | `#202020` | `--color-ink-soft` → Martinique Dark `#28213e` |
 | `--c-slate-1` | `#515256` | `--color-muted` |
 | `--c-slate-2` | `#d5d8df` | `--color-line` (hairlines) |
 | `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` |
@@ -45,8 +45,10 @@ Ling additions (Falcon-only):
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `--bx-martinique-darker` | `#14101f` | Site black / near-black (header, hero, text, borders, overlay tint base, square buttons) |
-| `--bx-martinique` | `#332a4e` | Button-040 dark (text / arrow circle on the light variant) |
+| `--bx-martinique` | `#332a4e` | Martinique. Button-040 dark (text / arrow circle on the light variant) |
+| `--bx-martinique-dark` | `#28213e` | Martinique Dark. Soft ink, accent hover, button-040 default arrow fill |
+| `--bx-martinique-darker` | `#14101f` | Martinique Darker. Site black (header, hero, text, borders, overlay tint, square buttons) |
+| `--bx-martinique-darkest` | `#0f0c17` | Martinique Darkest. Reserved; not used for BX `#000` masks |
 | `--bx-lilac` | `#f3f2fb` | Button-040 light (pill / arrow on the light variant) |
 | `--bx-overlay` | `rgba(20, 16, 31, 0.32)` | Nav page overlay tint |
 
@@ -204,7 +206,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 | Class | Rest | Hover | Notes |
 | --- | --- | --- | --- |
-| `.btn-primary` / `.btn-accent` | `#14101f` fill, white type, 13×24, square | `#14101f` | Martinique Darker, not purple |
+| `.btn-primary` / `.btn-accent` | `#14101f` fill, white type, 13×24, square | `#28213e` | Darker rest, Dark hover |
 | `.button-040` light | Lilac pill `#f3f2fb`, Martinique type `#332a4e`, Martinique arrow-circle, Lilac arrow | same | Nav on dark header; CTA Apply |
 | `.button-040` dark | Inverse of light | same | Nav on white header |
 | `.btn-on-dark` | white fill, ink type | tint | |
