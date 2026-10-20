@@ -166,8 +166,9 @@ for (const vp of VIEWPORTS) {
       vp: vp.name,
       check: 'next-advances',
       ok:
-        after.business === 'Retail business' &&
-        after.quote.includes('game-changer for my retail business') &&
+        after.business === 'Falcon client' &&
+        after.quote.includes('The team and Dwight') &&
+        after.quote.includes('24 hours') &&
         after.quote.startsWith('“') &&
         after.quote.endsWith('”') &&
         after.linesAtRest,

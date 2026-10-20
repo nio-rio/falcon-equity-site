@@ -603,15 +603,21 @@ for (const vp of VIEWPORTS) {
           testi.count === 3 &&
           testi.autoplay === 'true' &&
           testi.duration === '5000' &&
-          testi.business === 'JJJ Enterprise Trucking' &&
-          testi.businesses[1] === 'Retail business' &&
-          testi.businesses[2] === 'Business line of credit client' &&
-          testi.quote.includes('After covid, I thought my startup was out of options') &&
-          testi.quote.includes('new lease on life!') &&
+          testi.business === 'Falcon client' &&
+          testi.businesses.every((b) => b === 'Falcon client') &&
+          testi.quote.includes('Excellent service') &&
+          testi.quote.includes('same day!') &&
           testi.quote.startsWith('“') &&
           testi.quote.endsWith('”') &&
-          testi.quotes[1].includes('game-changer for my retail business') &&
-          testi.quotes[2].includes('application process with Falcon Equity Group') &&
+          testi.quotes[1].includes('The team and Dwight') &&
+          testi.quotes[1].includes('24 hours') &&
+          testi.quotes[2].includes('Second round with Falcon') &&
+          !/JJJ Enterprise Trucking|Retail business|Business line of credit client/i.test(
+            testi.businesses.join(' '),
+          ) &&
+          !/After covid|game-changer for my retail|personal consultant, Mark/i.test(
+            testi.quotes.join(' '),
+          ) &&
           !/Ava Chen|River Stone Bakery|demo/i.test(testi.quotes.join(' ')) &&
           !testi.prevDisabled &&
           !testi.nextDisabled &&

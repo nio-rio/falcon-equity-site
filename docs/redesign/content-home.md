@@ -5,7 +5,7 @@ Pilot landing for the Blackstone rebuild. **Content only.** Do not change design
 **Page:** `/`  
 **Pair with:** `docs/redesign/content-merchant-cash-advance.md` (the one service-page pilot).
 
-Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, quotes, or extra figures. Home testimonials are the consented JJJ Enterprise Trucking quote plus two Ling-supplied quotes (placeholder credits until real names are confirmed). Real applicant / Jotform data (including SSNs) is never copy.
+Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, quotes, or extra figures. Home testimonials are the three Ling-supplied quotes (placeholder credits until real names are confirmed). Real applicant / Jotform data (including SSNs) is never copy.
 
 ---
 
@@ -63,11 +63,11 @@ Order follows `getHomeServices()`: featured-1 (MCA) first, then the five non-fea
 
 - **Eyebrow:** Testimonial
 - **Quotes (verbatim, in `HOME_TESTIMONIALS`):**
-  1. After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life! — **JJJ Enterprise Trucking**
-  2. Falcon Equity Group has been a game-changer for my retail business. I needed quick capital to expand our inventory, and their merchant cash advance came through in record time. Their team guided me every step of the way, making the process seamless and stress-free. With Falcon, I know I have a partner I can trust to fuel my business dreams! — **Retail business** (placeholder credit; TODO confirm real name)
-  3. The application process with Falcon Equity Group was incredibly smooth and fast. I submitted my form online, and within hours, my personal consultant, Mark, reached out to strategize. Two days later, the funds from their business line of credit were in my account, helping me cover unexpected expenses. I'm so grateful for their speed and support! — **Business line of credit client** (placeholder credit; TODO confirm real name)
-- **Credit:** business only; no owner-name line. Quotes 2 and 3 stay marked as placeholders until Ling confirms names.
-- **Media:** 3:4 stills — JJJ uses the trucking/transport still; the other two use existing abstract placeholders (`retail-inventory-financing-holiday-season.jpg`, `business-line-of-credit.jpg`). Not client portraits.
+  1. Excellent service… they helped me really fast to get my credit! High amount, verification and approval same day! — **Falcon client** (placeholder credit; TODO confirm real name)
+  2. The team and Dwight got me the cash I needed to float some business expenses during a time of decreased business. The period of time it took was incredibly fast (about 24 hours) and they worked with me on a rate and weekly payment that I could handle in my current situation. I look forward to working with them in the future as needed. — **Falcon client** (placeholder credit; TODO confirm real name). Dwight is quote text, not a credit.
+  3. Second round with Falcon and it went smooth. Everything was disclosed up front on one page: the fee, what actually lands in the account, total repayment, prepayment terms. Approved and funded fast, and our rep answered every question I threw at him. — **Falcon client** (placeholder credit; TODO confirm real name)
+- **Credit:** placeholder `Falcon client` on all three until Ling confirms real names. No owner-name line.
+- **Media:** 3:4 abstract placeholders (`trucking-factoring-vs-business-loan.jpg`, `retail-inventory-financing-holiday-season.jpg`, `business-line-of-credit.jpg`). Not client portraits.
 - **Layout:** EARNINGS announcement slider (quote left with typographic quotes in Falcon serif / `#14101f`, 3:4 still, credit above prev/next in the right column). Prev/next are the site circle-arrow (prev mirrored). No `--bx-red`.
 
 ### 5. Process
@@ -112,7 +112,7 @@ Usable later without inventing:
 
 ## Proposed order
 
-Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonials are the consented JJJ quote plus two Ling-supplied quotes with placeholder credits. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
+Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonials are the three Ling-supplied quotes with `Falcon client` placeholder credits. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
 
 | # | Section | Status | Blackstone / BREIT model |
 | --- | --- | --- | --- |

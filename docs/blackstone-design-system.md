@@ -225,7 +225,7 @@ Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 va
 | Right column | cols **14–16**, row-span 2, `justify-content: flex-end`, padding-bottom **48px** | padding-bottom **56px** |
 | Right type | body sans 16px (press links on BX) | same |
 
-`.pilot-ann-*` on home only. Copy is `HOME_TESTIMONIALS`: the consented JJJ Enterprise Trucking quote plus two Ling-supplied quotes with placeholder credits (`Retail business`, `Business line of credit client`) until real names are confirmed. Credit the business only (no owner name). Typographic quotation marks live in the quote, in Falcon display serif and `--bx-black` (`#14101f`); no `--bx-red`. Prev/next reuse the site `.circle-arrow` (same 2.75rem circle as Services / arrow-cta; prev is mirrored). They sit in the right column, bottom-aligned with the image. With 3+ slides the arrows are enabled and autoplay runs. GSAP SplitText + circular clip-path follow Ling’s timings.
+`.pilot-ann-*` on home only. Copy is `HOME_TESTIMONIALS`: three Ling-supplied quotes, in order, with placeholder credits (`Falcon client`) until real names are confirmed. Credit the business only (no owner name). Typographic quotation marks live in the quote, in Falcon display serif and `--bx-black` (`#14101f`); no `--bx-red`. Prev/next reuse the site `.circle-arrow` (same 2.75rem circle as Services / arrow-cta; prev is mirrored). They sit in the right column, bottom-aligned with the image. With 3+ slides the arrows are enabled and autoplay runs. GSAP SplitText + circular clip-path follow Ling’s timings.
 
 ### Link underline draw
 
@@ -318,7 +318,7 @@ BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. F
 1. Fonts: At Gambit + Inter.
 2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy. Exception: nav Apply and the pre-footer `.site-cta` use Ling’s `.button-040` pill (sliding text + arrow-circle). Light on dark surfaces, dark on the white header. No purple.
 3. `.btn-outline-dark` stays in `global.css`. No purple fills.
-4. No fabricated people, quotes, numbers, or testimonials. Home testimonials are the consented JJJ Enterprise Trucking quote plus two Ling-supplied quotes; placeholder credits stay marked until real names are confirmed.
+4. No fabricated people, quotes, numbers, or testimonials. Home testimonials are the three Ling-supplied quotes; placeholder credits (`Falcon client`) stay marked until real names are confirmed.
 
 ---
 
@@ -346,7 +346,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial stills (trucking + two abstract placeholders); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial stills (three abstract placeholders); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. Pre-footer `.site-cta` comes from the layout. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
@@ -378,8 +378,8 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
 | `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Heading→list gap is `--pilot-heading-to-items` (same as Insights). Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
-| `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement slider: eyebrow + serif quote left (typographic quotes in ink), 3:4 still cols 9–12, business name above prev/next in cols 14–16, `.circle-arrow` buttons bottom-aligned with the image (prev mirrored). Three Ling quotes; placeholder credits on 2 and 3. |
-| `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: JJJ + two Ling quotes; TODO to confirm the placeholder business names). |
+| `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement slider: eyebrow + serif quote left (typographic quotes in ink), 3:4 still cols 9–12, business name above prev/next in cols 14–16, `.circle-arrow` buttons bottom-aligned with the image (prev mirrored). Three Ling quotes; all credits are `Falcon client` placeholders. |
+| `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
 | `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray listbox (placeholder then selected sector name), featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
@@ -395,6 +395,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`$100M+` big; 24-48h and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; JJJ Enterprise Trucking quote, business credit only, trucking still; arrows disabled until another consented quote) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`$100M+` big; 24-48h and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro`.

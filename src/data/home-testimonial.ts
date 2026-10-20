@@ -12,36 +12,35 @@ export type HomeTestimonial = {
   imageIntent: string;
 };
 
-export const HOME_TESTIMONIAL: HomeTestimonial = {
-  quote:
-    'After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life!',
-  business: 'JJJ Enterprise Trucking',
-  imageAlt: 'Abstract winding road representing trucking and transport.',
-  image: trucking,
-  imageIntent: 'trucking and transport still',
-};
-
 /**
- * TODO: confirm the real business names for the retail MCA and line-of-credit
- * quotes. Credits below are clearly marked placeholders until Ling confirms.
- * Do not invent owner names, photos, or amounts.
+ * TODO: confirm the real business names (and portraits, if any) for these three
+ * Ling-supplied quotes. Credits below are clearly marked placeholders until
+ * Ling confirms. Do not invent owner names, photos, or amounts. Dwight in quote
+ * 2 is verbatim quote text, not a credit line.
  */
 export const HOME_TESTIMONIALS: HomeTestimonial[] = [
-  HOME_TESTIMONIAL,
   {
     quote:
-      'Falcon Equity Group has been a game-changer for my retail business. I needed quick capital to expand our inventory, and their merchant cash advance came through in record time. Their team guided me every step of the way, making the process seamless and stress-free. With Falcon, I know I have a partner I can trust to fuel my business dreams!',
-    business: 'Retail business',
-    imageAlt: 'Abstract stacked blocks used as a placeholder still for a retail client.',
-    image: retail,
-    imageIntent: 'retail still (placeholder)',
+      'Excellent service… they helped me really fast to get my credit! High amount, verification and approval same day!',
+    business: 'Falcon client',
+    imageAlt: 'Abstract winding road used as a placeholder still.',
+    image: trucking,
+    imageIntent: 'placeholder still',
   },
   {
     quote:
-      'The application process with Falcon Equity Group was incredibly smooth and fast. I submitted my form online, and within hours, my personal consultant, Mark, reached out to strategize. Two days later, the funds from their business line of credit were in my account, helping me cover unexpected expenses. I\'m so grateful for their speed and support!',
-    business: 'Business line of credit client',
-    imageAlt: 'Abstract slider graphic used as a placeholder still for a line of credit client.',
+      'The team and Dwight got me the cash I needed to float some business expenses during a time of decreased business. The period of time it took was incredibly fast (about 24 hours) and they worked with me on a rate and weekly payment that I could handle in my current situation. I look forward to working with them in the future as needed.',
+    business: 'Falcon client',
+    imageAlt: 'Abstract stacked blocks used as a placeholder still.',
+    image: retail,
+    imageIntent: 'placeholder still',
+  },
+  {
+    quote:
+      'Second round with Falcon and it went smooth. Everything was disclosed up front on one page: the fee, what actually lands in the account, total repayment, prepayment terms. Approved and funded fast, and our rep answered every question I threw at him.',
+    business: 'Falcon client',
+    imageAlt: 'Abstract slider graphic used as a placeholder still.',
     image: lineOfCredit,
-    imageIntent: 'line of credit still (placeholder)',
+    imageIntent: 'placeholder still',
   },
 ];
