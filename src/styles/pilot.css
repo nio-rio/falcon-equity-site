@@ -827,7 +827,11 @@
   margin-left: 0.12em;
 }
 
-.pilot-ann .text-line-mask {
+.pilot-ann-line {
+  color: inherit;
+}
+
+.pilot-ann-line-mask {
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
 }

@@ -553,6 +553,7 @@ for (const vp of VIEWPORTS) {
         const prev = wrap?.querySelector('[data-prev]');
         const next = wrap?.querySelector('[data-next]');
         const marks = wrap ? [...wrap.querySelectorAll('.pilot-ann-mark')].map((el) => el.textContent) : [];
+        const line = wrap?.querySelector('.pilot-ann-line');
         return {
           count: items.length,
           autoplay: wrap?.getAttribute('data-autoplay'),
@@ -564,6 +565,7 @@ for (const vp of VIEWPORTS) {
           prevLabel: prev?.getAttribute('aria-label'),
           nextLabel: next?.getAttribute('aria-label'),
           marks,
+          lineColor: line ? getComputedStyle(line).color : null,
         };
       });
       log({
@@ -582,7 +584,8 @@ for (const vp of VIEWPORTS) {
           testi.prevLabel === 'Previous testimonial' &&
           testi.nextLabel === 'Next testimonial' &&
           testi.marks.includes('“') &&
-          testi.marks.includes('”'),
+          testi.marks.includes('”') &&
+          (testi.lineColor == null || testi.lineColor === MARTINIQUE_DARKER),
         detail: JSON.stringify(testi),
       });
     } else {

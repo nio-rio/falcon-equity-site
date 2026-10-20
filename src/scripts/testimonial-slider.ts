@@ -4,7 +4,7 @@ import { SplitText } from 'gsap/SplitText';
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-const CLIP_ON = 'circle(50% at 50% 50%)';
+const CLIP_ON = 'circle(75% at 50% 50%)';
 const CLIP_OFF = 'circle(0% at 50% 50%)';
 
 type Slide = {
@@ -80,7 +80,7 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
     return SplitText.create(el, {
       type: 'lines',
       mask: 'lines',
-      linesClass: 'text-line',
+      linesClass: 'pilot-ann-line',
       autoSplit: true,
       onSplit(self) {
         gsap.set(self.lines, { yPercent: active ? 0 : 110 });

@@ -88,7 +88,7 @@ for (const vp of VIEWPORTS) {
     detail: JSON.stringify(geom),
   });
 
-  await page.screenshot({ path: `${OUT}/testimonial-${vp.name}.png`, fullPage: false });
+  await page.locator('.pilot-ann').screenshot({ path: `${OUT}/testimonial-${vp.name}.png` });
   await context.close();
 }
 
