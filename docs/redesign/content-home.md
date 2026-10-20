@@ -5,7 +5,7 @@ Pilot landing for the Blackstone rebuild. **Content only.** Do not change design
 **Page:** `/`  
 **Pair with:** `docs/redesign/content-merchant-cash-advance.md` (the one service-page pilot).
 
-Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, quotes, or extra figures. The home testimonial is the consented JJJ Enterprise Trucking quote. Real applicant / Jotform data (including SSNs) is never copy.
+Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, quotes, or extra figures. Home testimonials are the consented JJJ Enterprise Trucking quote plus two Ling-supplied quotes (placeholder credits until real names are confirmed). Real applicant / Jotform data (including SSNs) is never copy.
 
 ---
 
@@ -62,10 +62,13 @@ Order follows `getHomeServices()`: featured-1 (MCA) first, then the five non-fea
 ### 4. Testimonial
 
 - **Eyebrow:** Testimonial
-- **Quote (verbatim):** After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life!
-- **Credit:** JJJ Enterprise Trucking (business only; no owner-name line)
-- **Media:** existing trucking/transport still (`trucking-factoring-vs-business-loan.jpg`)
-- **Layout:** EARNINGS announcement slider (quote left with on-palette opening/closing marks, 3:4 still, credit above prev/next in the right column). One real quote in `HOME_TESTIMONIALS`; do not add placeholders.
+- **Quotes (verbatim, in `HOME_TESTIMONIALS`):**
+  1. After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life! — **JJJ Enterprise Trucking**
+  2. Falcon Equity Group has been a game-changer for my retail business. I needed quick capital to expand our inventory, and their merchant cash advance came through in record time. Their team guided me every step of the way, making the process seamless and stress-free. With Falcon, I know I have a partner I can trust to fuel my business dreams! — **Retail business** (placeholder credit; TODO confirm real name)
+  3. The application process with Falcon Equity Group was incredibly smooth and fast. I submitted my form online, and within hours, my personal consultant, Mark, reached out to strategize. Two days later, the funds from their business line of credit were in my account, helping me cover unexpected expenses. I'm so grateful for their speed and support! — **Business line of credit client** (placeholder credit; TODO confirm real name)
+- **Credit:** business only; no owner-name line. Quotes 2 and 3 stay marked as placeholders until Ling confirms names.
+- **Media:** 3:4 stills — JJJ uses the trucking/transport still; the other two use existing abstract placeholders (`retail-inventory-financing-holiday-season.jpg`, `business-line-of-credit.jpg`). Not client portraits.
+- **Layout:** EARNINGS announcement slider (quote left with typographic quotes in Falcon serif / `#14101f`, 3:4 still, credit above prev/next in the right column). Prev/next are the site circle-arrow (prev mirrored). No `--bx-red`.
 
 ### 5. Process
 
@@ -109,7 +112,7 @@ Usable later without inventing:
 
 ## Proposed order
 
-Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonial is the consented JJJ Enterprise Trucking quote. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
+Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonials are the consented JJJ quote plus two Ling-supplied quotes with placeholder credits. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
 
 | # | Section | Status | Blackstone / BREIT model |
 | --- | --- | --- | --- |
@@ -253,7 +256,7 @@ Removed sitewide. Header Apply remains the primary conversion control (black but
 
 **Qualify** four cards. Better on `/faq` and `/apply`, which already use `APPLICATION_DOCS`.
 
-**Extra testimonials.** The unused `TESTIMONIALS` stubs in `content.ts` stay out of the public page. Do not invent additional reviews.
+**Extra testimonials.** The unused `TESTIMONIALS` stubs in `content.ts` stay out of the public page. Do not invent additional reviews beyond the three Ling-supplied quotes in `HOME_TESTIMONIALS`.
 
 **Explore more.** Removed from industry and service pages. Not a home section.
 

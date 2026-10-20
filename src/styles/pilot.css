@@ -758,7 +758,7 @@
    Slider keeps that layout; arrows sit in the right column, image-bottom. */
 .pilot-ann {
   --pilot-ann-nav-gap: 2.5rem;
-  --pilot-ann-btn: 2.5em;
+  --pilot-ann-btn: 2.75rem; /* same as .circle-arrow / arrow-cta */
   background: #fff;
   color: var(--bx-black);
   padding-top: 5rem;
@@ -811,22 +811,6 @@
   text-wrap: wrap;
 }
 
-.pilot-ann-mark {
-  color: var(--bx-red);
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 1.15em;
-  line-height: 0.8;
-}
-
-.pilot-ann-mark:first-child {
-  margin-right: 0.12em;
-}
-
-.pilot-ann-mark:last-child {
-  margin-left: 0.12em;
-}
-
 .pilot-ann-line {
   color: inherit;
 }
@@ -873,25 +857,24 @@
 }
 
 .pilot-ann-btn {
-  display: inline-grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex: none;
   box-sizing: border-box;
   width: var(--pilot-ann-btn);
   height: var(--pilot-ann-btn);
   padding: 0;
   margin: 0;
-  border: 1px solid rgb(20 16 31 / 0.2);
-  border-radius: 0.25em;
+  border: 0;
   background: transparent;
-  color: var(--bx-black);
+  color: var(--color-ink);
   cursor: pointer;
+  appearance: none;
 }
 
-.pilot-ann-btn svg {
-  display: block;
-  width: 0.75em;
-  height: 0.75em;
+.pilot-ann-arrow--prev {
+  transform: scaleX(-1);
 }
 
 .pilot-ann-btn:disabled,
@@ -901,15 +884,15 @@
   pointer-events: none;
 }
 
-.pilot-ann-btn:focus-visible {
-  outline: 2px solid var(--bx-black);
-  outline-offset: 2px;
+.pilot-ann-btn:hover .circle-arrow,
+.pilot-ann-btn:focus-visible .circle-arrow {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .pilot-ann-btn:not(:disabled):hover {
-    border-color: var(--bx-black);
-  }
+.pilot-ann-btn:focus-visible {
+  outline: none;
 }
 
 @media (min-width: 48em) {

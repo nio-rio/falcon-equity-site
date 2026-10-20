@@ -4,6 +4,7 @@
  * 3:4 portrait in the middle columns, small copy right and bottom-aligned.
  * Home testimonial slider — only consented quotes in HOME_TESTIMONIALS.
  */
+import CircleArrow from '@/components/CircleArrow.astro';
 import Media from '@/components/Media.astro';
 import PilotEyebrow from './PilotEyebrow.astro';
 import { HOME_TESTIMONIALS } from '@/data/home-testimonial';
@@ -34,16 +35,12 @@ const eyebrow = 'Testimonial';
                 aria-hidden={i === 0 ? 'false' : 'true'}
               >
                 <blockquote class="pilot-ann-title" id={i === 0 ? 'testimonial-quote' : undefined}>
-                  <p data-testimonial-text>
-                    <span class="pilot-ann-mark" aria-hidden="true">“</span>
-                    {slide.quote}
-                    <span class="pilot-ann-mark" aria-hidden="true">”</span>
-                  </p>
+                  <p data-testimonial-text>“{slide.quote}”</p>
                 </blockquote>
                 <div class="pilot-ann-media" data-testimonial-img>
                   <Media
                     image={slide.image}
-                    intent="trucking and transport still"
+                    intent={slide.imageIntent}
                     alt={slide.imageAlt}
                     ratio="3 / 4"
                     sizes="(min-width: 80em) 304px, 50vw"
@@ -70,12 +67,7 @@ const eyebrow = 'Testimonial';
             disabled={!canLoop}
             aria-disabled={canLoop ? 'false' : 'true'}
           >
-            <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
-              <path
-                fill="currentColor"
-                d="M5.26512 12L6.43721 10.7746L1.48837 5.28169V6.71831L6.45581 1.22535L5.28372 0L-2.21369e-07 6L5.26512 12ZM12 6.97183V5.02817H1.30232V6.97183H12Z"
-              ></path>
-            </svg>
+            <CircleArrow class="pilot-ann-arrow--prev" />
           </button>
           <button
             type="button"
@@ -85,12 +77,7 @@ const eyebrow = 'Testimonial';
             disabled={!canLoop}
             aria-disabled={canLoop ? 'false' : 'true'}
           >
-            <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
-              <path
-                fill="currentColor"
-                d="M6.73488 12L5.56279 10.7746L10.5116 5.28169V6.71831L5.54419 1.22535L6.71628 0L12 6L6.73488 12ZM0 6.97183V5.02817H10.6977V6.97183H0Z"
-              ></path>
-            </svg>
+            <CircleArrow />
           </button>
         </div>
       </div>

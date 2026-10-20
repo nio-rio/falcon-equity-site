@@ -548,44 +548,87 @@ for (const vp of VIEWPORTS) {
       const testi = await page.evaluate(() => {
         const wrap = document.querySelector('[data-testimonial-wrap]');
         const items = [...document.querySelectorAll('[data-testimonial-item]')];
-        const quote = wrap?.querySelector('[data-testimonial-text]')?.textContent.replace(/\s+/g, ' ').trim() || '';
-        const business = wrap?.querySelector('[data-testimonial-split]')?.textContent.trim() || '';
+        const quotes = items.map(
+          (el) => el.querySelector('[data-testimonial-text]')?.textContent.replace(/\s+/g, ' ').trim() || '',
+        );
+        const businesses = items.map((el) => el.querySelector('[data-testimonial-split]')?.textContent.trim() || '');
+        const quote = quotes[0] || '';
+        const business = businesses[0] || '';
         const prev = wrap?.querySelector('[data-prev]');
         const next = wrap?.querySelector('[data-next]');
-        const marks = wrap ? [...wrap.querySelectorAll('.pilot-ann-mark')].map((el) => el.textContent) : [];
+        const prevCircle = prev?.querySelector('.circle-arrow');
+        const nextCircle = next?.querySelector('.circle-arrow');
         const line = wrap?.querySelector('.pilot-ann-line');
+        const quoteEl = wrap?.querySelector('[data-testimonial-text]');
+        const red = 'rgb(184, 0, 0)';
+        const redHit = wrap
+          ? [...wrap.querySelectorAll('*')].some((el) => {
+              const cs = getComputedStyle(el);
+              return cs.color === red || cs.backgroundColor === red || cs.borderColor === red;
+            })
+          : true;
         return {
           count: items.length,
           autoplay: wrap?.getAttribute('data-autoplay'),
           duration: wrap?.getAttribute('data-autoplay-duration'),
           quote,
           business,
+          businesses,
+          quotes,
           prevDisabled: prev?.disabled === true,
           nextDisabled: next?.disabled === true,
           prevLabel: prev?.getAttribute('aria-label'),
           nextLabel: next?.getAttribute('aria-label'),
-          marks,
+          markCount: wrap ? wrap.querySelectorAll('.pilot-ann-mark').length : -1,
+          hasPrevCircle: Boolean(prevCircle),
+          hasNextCircle: Boolean(nextCircle),
+          prevTransform: prevCircle ? getComputedStyle(prevCircle).transform : null,
+          nextTransform: nextCircle ? getComputedStyle(nextCircle).transform : null,
+          circleW: nextCircle ? Math.round(nextCircle.getBoundingClientRect().width * 10) / 10 : null,
+          circleH: nextCircle ? Math.round(nextCircle.getBoundingClientRect().height * 10) / 10 : null,
+          quoteColor: quoteEl ? getComputedStyle(quoteEl).color : null,
           lineColor: line ? getComputedStyle(line).color : null,
+          redHit,
         };
       });
+      const prevMirrored =
+        testi.prevTransform === 'matrix(-1, 0, 0, 1, 0, 0)' ||
+        (typeof testi.prevTransform === 'string' && testi.prevTransform.includes('matrix(-1,'));
+      const nextUpright =
+        testi.nextTransform === 'none' || testi.nextTransform === 'matrix(1, 0, 0, 1, 0, 0)';
       log({
         ...tag,
         check: 'home-testimonial-slider',
         ok:
-          testi.count === 1 &&
+          testi.count === 3 &&
           testi.autoplay === 'true' &&
           testi.duration === '5000' &&
           testi.business === 'JJJ Enterprise Trucking' &&
+          testi.businesses[1] === 'Retail business' &&
+          testi.businesses[2] === 'Business line of credit client' &&
           testi.quote.includes('After covid, I thought my startup was out of options') &&
           testi.quote.includes('new lease on life!') &&
-          !/Ava Chen|River Stone Bakery|demo/i.test(testi.quote) &&
-          testi.prevDisabled &&
-          testi.nextDisabled &&
+          testi.quote.startsWith('“') &&
+          testi.quote.endsWith('”') &&
+          testi.quotes[1].includes('game-changer for my retail business') &&
+          testi.quotes[2].includes('application process with Falcon Equity Group') &&
+          !/Ava Chen|River Stone Bakery|demo/i.test(testi.quotes.join(' ')) &&
+          !testi.prevDisabled &&
+          !testi.nextDisabled &&
           testi.prevLabel === 'Previous testimonial' &&
           testi.nextLabel === 'Next testimonial' &&
-          testi.marks.includes('“') &&
-          testi.marks.includes('”') &&
-          (testi.lineColor == null || testi.lineColor === MARTINIQUE_DARKER),
+          testi.markCount === 0 &&
+          testi.hasPrevCircle &&
+          testi.hasNextCircle &&
+          prevMirrored &&
+          nextUpright &&
+          testi.circleW != null &&
+          Math.abs(testi.circleW - 44) <= 1 &&
+          testi.circleH != null &&
+          Math.abs(testi.circleH - 44) <= 1 &&
+          testi.quoteColor === MARTINIQUE_DARKER &&
+          (testi.lineColor == null || testi.lineColor === MARTINIQUE_DARKER) &&
+          testi.redHit === false,
         detail: JSON.stringify(testi),
       });
     } else {
