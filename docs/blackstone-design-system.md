@@ -237,31 +237,28 @@ Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx
 - **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line.
 - **Circle:** BMACX 40×40 SVG (border + arrow + evenodd fill). Rest = outlined circle + black arrow (`fill` opacity 0). Hover/focus = fill opacity 1, arrow opacity 0, icon **scale(1.1666666667)**. Transitions: transform **0.3s**, opacity **0.3s**.
 - **Siblings:** list `:hover` / `:focus-within` sets other rows to **opacity 0.36** (BMACX `.bx-link-list__title-animation`). Hovered/focused row stays 1.
-- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`, `transition: transform .5s linear`. Hover/focus sets `scaleX(1)` with `transition-timing-function: ease-out` (BMACX hover). Mouse-out keeps origin left and retracts on the **same 0.5s linear** transform (keyframes `fill-mode: both` was omitted so leave can reverse). Static hairline on that edge is hidden while the line runs so the draw is visible; `prefers-reduced-motion` hides `::after` and leaves the 1px rules in place.
+- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`. Hover/focus draws `scaleX(1)` over **0.5s ease-out**. Mouse-out **snaps** `::after` off (`transition: none` at rest) — no reverse draw. While the line runs, the static divider on that edge stays at **40%** black (`rgba(0,0,0,0.4)`) so rows stay split. `prefers-reduced-motion` hides `::after` and leaves the 1px rules in place.
 - **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale, line animation, and transitions.
 - Does **not** restyle `.pilot-circle` / `.pilot-arrow`.
 
-### Home Industries tabs (BMACX “The Latest from BMACX”)
+### Home Industries (BMACX dropdown + featured panel)
 
-Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs` + `.bx-headers-two` + `.bx-featured-content` (`frontend.css`) at `80em` / `90em`. Home only: `.pilot-tabs-*` in `PilotIndustryTabs.astro`. No card grid.
+Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dropdown` + `.bx-headers-two` + `.bx-featured-content` (`frontend.css`) at `80em` / `90em`. Home only: `.pilot-tabs-*` in `PilotIndustryTabs.astro`. No card grid. No tab row — a **dropdown at every breakpoint**.
 
 | | 1280 (`80em`) | 1440 (`90em`) |
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
-| Heading → tabs | **48px** (`bx-stacked-header-padding-bottom`) | **56px** |
-| Tabs → panel | pad-top **40px**, pad-bottom **48px** | pad-bottom **56px** |
-| Tab row | overflow-x auto, nowrap, scrollbar hidden; sans 300 uppercase **16px**, gap **48px**; active **400** + 1px bottom rule | **18px**, gap **56px** |
-| Hover underline | `::before` 1px, `scaleX(0)` origin **right**, hover `scaleX(1)` origin **left**, **0.4s ease** | same |
+| Dropdown | BMACX black bar **64px**, cols **1–6**; label “Select your sector” 16px sans 300 above | cols **1–5** |
+| Menu | black list, hover/focus invert white; max-height 24rem, scroll | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
 | Image | **16:9**, height **22.25rem** (356px), cover | height **24.75rem** (396px) |
 | Panel in | `fadeInUp` 0.5s (0 → 40px / opacity 1) | same |
 
-- **12 tabs**, one per industry name. Desktop: single-row horizontal scroll (BMACX `overflow-x: auto`). Below **48em**: BMACX black dropdown (`bx-tabs__dropdown`).
-- Each panel: industry title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still from `INDUSTRY_PLACEHOLDERS`.
-- **A11y:** `role=tablist/tab/tabpanel`, unique ids, `aria-selected`, roving tabindex, Arrow / Home / End. Focus-visible: 2px Falcon accent. `prefers-reduced-motion` drops the underline and panel motion.
+- **12 options**, one per industry name. Picking an option swaps the featured panel (title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still).
+- **A11y:** visible “Select your sector” label, `aria-haspopup=listbox`, `role=listbox/option`, Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
 
 ### Cards
 
@@ -341,7 +338,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-falcon.jpg`); 12 industry 16:9 **labeled** cards; BREIT quote portrait; 3 published insight covers | Process, services list, CTA — type only. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-falcon.jpg`); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); BREIT quote portrait; 3 published insight covers | Process (removed from home), services list, CTA — type only. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ, CTA — type only |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
@@ -367,10 +364,10 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
-| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6, teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` scaleX 0.5s linear, origin left, reverses on mouse-out. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
+| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6, teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
 | `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 labeled industry still cols 9–12, name/business cols 14–16 bottom-aligned. Placeholders only. |
 | `src/data/home-testimonial.ts` | Single object for the home testimonial slot |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries as BMACX Latest tabs: heading/intro split, 12 uppercase tabs, featured panel (title + blurb + Learn more / 16:9 still). Desktop row scrolls; mobile dropdown. |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: heading/intro split, “Select your sector” listbox dropdown at every breakpoint, featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
 | `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |
@@ -384,6 +381,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s linear and retracts on mouse-out) → **Testimonial** (EARNINGS layout; quote/name/business are `[PLACEHOLDER: …]` until a consented quote exists) → **Industries** as BMACX Latest tabs (12 industry names; panel = title + blurb + Learn more / labeled 16:9 still) → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No Explore more.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** (EARNINGS layout; quote/name/business are `[PLACEHOLDER: …]` until a consented quote exists) → **Industries** dropdown (“Select your sector”; panel = title + blurb + Learn more / labeled 16:9 still) → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No Process. No Explore more.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.

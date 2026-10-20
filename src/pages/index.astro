@@ -8,10 +8,9 @@ import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
 import PilotIndustryTabs from '@/components/pilot/PilotIndustryTabs.astro';
-import PilotProcess from '@/components/pilot/PilotProcess.astro';
 import PilotQuote from '@/components/pilot/PilotQuote.astro';
 import PilotCta from '@/components/pilot/PilotCta.astro';
-import { getHomeServices, STANDARD_STEPS } from '@/data/services';
+import { getHomeServices } from '@/data/services';
 import { STATS, SITE } from '@/data/site';
 import { getPublicPosts } from '@/lib/blog';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
@@ -69,8 +68,6 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
   <PilotTestimonial />
 
   <PilotIndustryTabs />
-
-  <PilotProcess title="How you get approved." steps={STANDARD_STEPS} />
 
   <PilotQuote
     quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"

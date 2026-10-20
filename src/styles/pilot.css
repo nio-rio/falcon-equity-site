@@ -742,9 +742,9 @@
   }
 }
 
-/* BMACX `blackstone-v2/tabs` + featured-content — home Industries only.
-   Source: bmacx.com “The Latest from BMACX”. Live site Cloudflare-blocked;
-   values from frontend.css at 80em / 90em. */
+/* BMACX featured-content panel + black dropdown — home Industries only.
+   Source: bmacx.com “The Latest from BMACX” (dropdown + featured panel).
+   Live site Cloudflare-blocked; values from frontend.css at 80em / 90em. */
 .pilot-tabs {
   background: #fff;
   color: #000;
@@ -783,83 +783,19 @@
   padding-bottom: 1.5rem;
 }
 
-.pilot-tabs-scroll {
-  display: none;
-}
-
-.pilot-tabs-list {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-.pilot-tabs-list::-webkit-scrollbar {
-  display: none;
-}
-
-.pilot-tabs-tab {
+.pilot-tabs-dropwrap {
   position: relative;
-  flex: none;
-  margin: 0 2.5rem 0 0;
-  padding: 0 0 0.25rem;
-  border: 0;
-  border-bottom: 0.063rem solid transparent;
-  background: none;
+  width: 100%;
+}
+
+.pilot-tabs-select-label {
+  display: block;
+  margin: 0 0 0.75rem;
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: var(--bx-fs-16);
   line-height: 1.5;
-  text-transform: uppercase;
-  white-space: nowrap;
   color: #000;
-  cursor: pointer;
-}
-
-.pilot-tabs-tab:last-child {
-  margin-right: 0;
-}
-
-.pilot-tabs-tab::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 0.063rem;
-  background: #000;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s ease;
-}
-
-.pilot-tabs-tab:is(:hover, :focus-visible)::before {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-.pilot-tabs-tab.is-active {
-  font-weight: 400;
-  border-bottom: 0.063rem solid #000;
-}
-
-.pilot-tabs-tab.is-active::before {
-  transform: scaleX(0);
-}
-
-.pilot-tabs-tab:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
-}
-
-.pilot-tabs-dropwrap {
-  position: relative;
 }
 
 .pilot-tabs-drop {
@@ -879,6 +815,15 @@
   cursor: pointer;
 }
 
+.pilot-tabs-drop svg {
+  flex: none;
+  transition: transform 0.2s ease;
+}
+
+.pilot-tabs-drop[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
 .pilot-tabs-drop:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
@@ -890,6 +835,8 @@
   top: 100%;
   left: 0;
   right: 0;
+  max-height: min(24rem, 70vh);
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -910,10 +857,23 @@
   cursor: pointer;
 }
 
+.pilot-tabs-menu button[aria-selected='true'] {
+  box-shadow: inset 2px 0 0 #fff;
+}
+
 .pilot-tabs-menu button:hover,
 .pilot-tabs-menu button:focus-visible {
   background: #fff;
   color: #000;
+}
+
+.pilot-tabs-menu button[aria-selected='true']:is(:hover, :focus-visible) {
+  box-shadow: inset 2px 0 0 #000;
+}
+
+.pilot-tabs-menu button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
 }
 
 .pilot-tabs-panels {
@@ -1001,18 +961,8 @@
     padding-bottom: 2.5rem;
   }
 
-  .pilot-tabs-scroll {
-    display: block;
-    overflow: hidden;
-  }
-
   .pilot-tabs-dropwrap {
-    display: none;
-  }
-
-  .pilot-tabs-tab {
-    font-size: var(--bx-fs-16);
-    margin-right: 2.5rem;
+    max-width: 26.5rem;
   }
 
   .pilot-tabs-media .media {
@@ -1048,12 +998,16 @@
   }
 
   .pilot-tabs-nav {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
     padding-top: 2.5rem;
     padding-bottom: 3rem;
   }
 
-  .pilot-tabs-tab {
-    margin-right: 3rem;
+  .pilot-tabs-dropwrap {
+    grid-column: 1 / span 6;
+    max-width: none;
   }
 
   .pilot-tabs-panel.is-active {
@@ -1110,10 +1064,8 @@
     padding-bottom: 3.5rem;
   }
 
-  .pilot-tabs-tab {
-    font-size: var(--bx-fs-18);
-    line-height: 1.6875;
-    margin-right: 3.5rem;
+  .pilot-tabs-dropwrap {
+    grid-column: 1 / span 5;
   }
 
   .pilot-tabs-copy {
@@ -1179,24 +1131,16 @@
   color: #000;
   text-decoration: none;
   opacity: 1;
-  transition:
-    opacity 0.3s,
-    border-bottom-color 0s linear 0.5s;
+  transition: opacity 0.3s;
 }
 
 .pilot-ll li:last-child .pilot-ll-row {
   border-bottom: 0.063rem solid #000;
 }
 
-.pilot-ll li + li .pilot-ll-row {
-  transition:
-    opacity 0.3s,
-    border-top-color 0s linear 0.5s;
-}
-
-/* BMACX `.bx-link-list__animated:after`: 1px bottom rule, scaleX, origin left,
-   0.5s linear. Hover plays Border-Bottom-Animate (0 → 1). Mouse-out reverses
-   via the same transform transition (origin stays left). */
+/* BMACX `.bx-link-list__animated:after`: 1px bottom rule, scaleX, origin left.
+   Hover draws 0.5s ease-out. Mouse-out snaps off (no reverse animation);
+   the static divider stays at 40% under the draw so rows stay split. */
 .pilot-ll-row::after {
   content: '';
   display: block;
@@ -1208,7 +1152,7 @@
   border-bottom: solid 0.063rem #000;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.5s linear;
+  transition: none;
   pointer-events: none;
 }
 
@@ -1219,18 +1163,15 @@
 .pilot-ll-row:is(:hover, :focus-visible)::after {
   transform: scaleX(1);
   transform-origin: left;
-  transition-timing-function: ease-out;
+  transition: transform 0.5s ease-out;
 }
 
-/* Hide the static edge the line travels along so the draw/retract is visible. */
 .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
-  border-top-color: transparent;
-  transition-delay: 0s;
+  border-top-color: rgba(0, 0, 0, 0.4);
 }
 
 .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
-  border-bottom-color: transparent;
-  transition-delay: 0s;
+  border-bottom-color: rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px) {
@@ -1743,12 +1684,10 @@
     display: none;
   }
 
-  .pilot-tabs-tab::before {
-    display: none;
-  }
-
+  .pilot-tabs-drop svg,
   .pilot-tabs-panel.is-active {
     animation: none;
+    transition: none;
   }
 
   .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {

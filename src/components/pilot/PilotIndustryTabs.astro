@@ -1,7 +1,7 @@
 ---
 /**
- * BMACX `blackstone-v2/tabs` + featured-content (“The Latest from BMACX”).
- * Home Industries only. 12 industry tabs; desktop row scrolls, mobile dropdown.
+ * BMACX featured-content panel + black dropdown (home Industries).
+ * Sector picker at every breakpoint; panel is title + blurb + Learn more / 16:9 still.
  */
 import Media from '@/components/Media.astro';
 import PilotArrow from './PilotArrow.astro';
@@ -18,36 +18,17 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
     </div>
 
     <div class="pilot-tabs-nav">
-      <div class="pilot-tabs-scroll">
-        <div class="pilot-tabs-list" role="tablist" aria-label="Industries" aria-orientation="horizontal">
-          {
-            INDUSTRIES.map((ind, i) => (
-              <button
-                type="button"
-                class:list={['pilot-tabs-tab', i === 0 && 'is-active']}
-                role="tab"
-                id={`industry-tab-${ind.slug}`}
-                aria-controls={`industry-panel-${ind.slug}`}
-                aria-selected={i === 0 ? 'true' : 'false'}
-                tabindex={i === 0 ? 0 : -1}
-                data-index={i}
-              >
-                {ind.name}
-              </button>
-            ))
-          }
-        </div>
-      </div>
-
       <div class="pilot-tabs-dropwrap">
+        <span class="pilot-tabs-select-label" id="industry-select-label">Select your sector</span>
         <button
           type="button"
           class="pilot-tabs-drop"
+          aria-labelledby="industry-select-label industry-select-value"
           aria-expanded="false"
-          aria-controls="industry-tab-menu"
+          aria-controls="industry-select-menu"
           aria-haspopup="listbox"
         >
-          <span class="pilot-tabs-drop-label">{INDUSTRIES[0].name}</span>
+          <span class="pilot-tabs-drop-label" id="industry-select-value">{INDUSTRIES[0].name}</span>
           <svg width="14" height="8" viewBox="0 0 14 8" aria-hidden="true">
             <path
               d="M7 8 1.35 2.29a.9.9 0 0 1 1.28-1.27L7 5.4l4.37-4.38a.9.9 0 1 1 1.28 1.27L7 8Z"
@@ -55,11 +36,17 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
             />
           </svg>
         </button>
-        <ul class="pilot-tabs-menu" id="industry-tab-menu" role="listbox" hidden>
+        <ul class="pilot-tabs-menu" id="industry-select-menu" role="listbox" aria-labelledby="industry-select-label" hidden>
           {
             INDUSTRIES.map((ind, i) => (
               <li role="presentation">
-                <button type="button" role="option" data-index={i} aria-selected={i === 0 ? 'true' : 'false'}>
+                <button
+                  type="button"
+                  role="option"
+                  id={`industry-option-${ind.slug}`}
+                  data-index={i}
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                >
                   {ind.name}
                 </button>
               </li>
@@ -74,13 +61,13 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
         INDUSTRIES.map((ind, i) => (
           <div
             class:list={['pilot-tabs-panel', i === 0 && 'is-active']}
-            role="tabpanel"
             id={`industry-panel-${ind.slug}`}
-            aria-labelledby={`industry-tab-${ind.slug}`}
+            role="region"
+            aria-labelledby={`industry-title-${ind.slug}`}
             hidden={i !== 0}
           >
             <div class="pilot-tabs-copy">
-              <h3 class="pilot-tabs-title">{ind.name}</h3>
+              <h3 class="pilot-tabs-title" id={`industry-title-${ind.slug}`}>{ind.name}</h3>
               <p class="pilot-tabs-body">{ind.blurb}</p>
               <PilotArrow href={`/industries/${ind.slug}`} label="Learn more" />
             </div>
@@ -103,31 +90,16 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 <script>
   const root = document.querySelector('.pilot-tabs');
   if (root) {
-    const tabs = [...root.querySelectorAll<HTMLButtonElement>('.pilot-tabs-tab')];
     const panels = [...root.querySelectorAll<HTMLElement>('.pilot-tabs-panel')];
     const options = [...root.querySelectorAll<HTMLButtonElement>('.pilot-tabs-menu [role="option"]')];
     const drop = root.querySelector<HTMLButtonElement>('.pilot-tabs-drop');
     const dropLabel = root.querySelector<HTMLElement>('.pilot-tabs-drop-label');
     const menu = root.querySelector<HTMLElement>('.pilot-tabs-menu');
     const dropwrap = root.querySelector('.pilot-tabs-dropwrap');
-
-    const list = root.querySelector<HTMLElement>('.pilot-tabs-list');
     let current = 0;
 
-    const select = (index: number, { focusTab = false } = {}) => {
+    const select = (index: number) => {
       current = index;
-      tabs.forEach((tab, i) => {
-        const on = i === index;
-        tab.classList.toggle('is-active', on);
-        tab.setAttribute('aria-selected', on ? 'true' : 'false');
-        tab.tabIndex = on ? 0 : -1;
-        if (on && focusTab) tab.focus();
-      });
-      const active = tabs[index];
-      if (active && list) {
-        const left = active.offsetLeft - (list.clientWidth - active.offsetWidth) / 2;
-        list.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
-      }
       panels.forEach((panel, i) => {
         const on = i === index;
         panel.hidden = !on;
@@ -136,7 +108,7 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
       options.forEach((opt, i) => {
         opt.setAttribute('aria-selected', i === index ? 'true' : 'false');
       });
-      if (dropLabel) dropLabel.textContent = tabs[index]?.textContent?.trim() ?? '';
+      if (dropLabel) dropLabel.textContent = options[index]?.textContent?.trim() ?? '';
     };
 
     const closeMenu = () => {
@@ -145,21 +117,6 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
       drop.setAttribute('aria-expanded', 'false');
     };
 
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => select(i));
-      tab.addEventListener('keydown', (event) => {
-        const key = event.key;
-        let next = i;
-        if (key === 'ArrowRight') next = (i + 1) % tabs.length;
-        else if (key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
-        else if (key === 'Home') next = 0;
-        else if (key === 'End') next = tabs.length - 1;
-        else return;
-        event.preventDefault();
-        select(next, { focusTab: true });
-      });
-    });
-
     const openMenu = () => {
       if (!menu || !drop) return;
       menu.hidden = false;
@@ -167,7 +124,7 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
     };
 
     drop?.addEventListener('click', () => {
-      if (!menu || !drop) return;
+      if (!menu) return;
       if (menu.hidden) openMenu();
       else closeMenu();
     });
@@ -184,15 +141,24 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
       if (!dropwrap?.contains(event.target as Node)) closeMenu();
     });
 
+    dropwrap?.addEventListener('focusout', (event) => {
+      if (!dropwrap.contains(event.relatedTarget as Node)) closeMenu();
+    });
+
     drop?.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
+      const key = event.key;
+      if (key === 'Escape') {
         closeMenu();
         drop.focus();
-      } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        return;
+      }
+      if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'Home' || key === 'End') {
         event.preventDefault();
         openMenu();
-        const target = event.key === 'ArrowUp' ? options[options.length - 1] : options[current] || options[0];
-        target?.focus();
+        let target = current;
+        if (key === 'Home') target = 0;
+        else if (key === 'End') target = options.length - 1;
+        options[target]?.focus();
       }
     });
 
@@ -202,6 +168,16 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
         event.preventDefault();
         closeMenu();
         drop?.focus();
+        return;
+      }
+      if (key === 'Enter' || key === ' ') {
+        const i = options.findIndex((opt) => opt === document.activeElement);
+        if (i >= 0) {
+          event.preventDefault();
+          select(i);
+          closeMenu();
+          drop?.focus();
+        }
         return;
       }
       let next = options.findIndex((opt) => opt === document.activeElement);
