@@ -24,7 +24,15 @@ interface Props {
 const { id = 'services-heading', eyebrow, title, items } = Astro.props;
 ---
 
-<section class="pilot-ll-section" aria-labelledby={id} id="services" data-band="light" data-reveal-root>
+<section
+  class="pilot-ll-section"
+  aria-labelledby={id}
+  id="services"
+  data-band="light"
+  data-reveal-root
+  data-reveal-start="top 85%"
+  data-reveal-stagger="0.15"
+>
   <div class="container-site">
     {
       (eyebrow || title) && (
@@ -36,10 +44,10 @@ const { id = 'services-heading', eyebrow, title, items } = Astro.props;
         </div>
       )
     }
-    <ul class="pilot-ll" data-reveal>
+    <ul class="pilot-ll">
       {
         items.map((item) => (
-          <li>
+          <li data-reveal>
             <a class="pilot-ll-row" href={item.href}>
               <span class="pilot-ll-main">
                 <span class="pilot-ll-title">{item.name}</span>

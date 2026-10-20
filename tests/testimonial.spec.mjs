@@ -169,6 +169,7 @@ for (const vp of VIEWPORTS) {
         after.business === 'Falcon client' &&
         after.quote.includes('The team and Dwight') &&
         after.quote.includes('24 hours') &&
+        !after.quote.includes('I look forward to working with them in the future as needed') &&
         after.quote.startsWith('“') &&
         after.quote.endsWith('”') &&
         after.linesAtRest,

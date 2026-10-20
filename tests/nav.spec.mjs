@@ -611,6 +611,7 @@ for (const vp of VIEWPORTS) {
           testi.quote.endsWith('”') &&
           testi.quotes[1].includes('The team and Dwight') &&
           testi.quotes[1].includes('24 hours') &&
+          !testi.quotes[1].includes('I look forward to working with them in the future as needed') &&
           testi.quotes[2].includes('Second round with Falcon') &&
           !/JJJ Enterprise Trucking|Retail business|Business line of credit client/i.test(
             testi.businesses.join(' '),
@@ -661,6 +662,9 @@ for (const vp of VIEWPORTS) {
         const sideValues = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
           el.textContent.trim(),
         );
+        const services = document.querySelector('.pilot-ll-section');
+        const serviceItems = [...document.querySelectorAll('.pilot-ll > li[data-reveal]')];
+        const tabsPanel = document.querySelector('.pilot-tabs-panels');
         return {
           roots,
           skipped,
@@ -671,6 +675,11 @@ for (const vp of VIEWPORTS) {
           featValue,
           sideLabels,
           sideValues,
+          serviceStart: services?.getAttribute('data-reveal-start') || '',
+          serviceStagger: services?.getAttribute('data-reveal-stagger') || '',
+          serviceItemCount: serviceItems.length,
+          tabsPanelReveal: tabsPanel?.hasAttribute('data-reveal') ?? false,
+          tabsPanelAfter: tabsPanel?.hasAttribute('data-reveal-after') ?? false,
         };
       });
       log({
@@ -695,7 +704,13 @@ for (const vp of VIEWPORTS) {
           reveal.sideLabels[0] === 'Funding deployed' &&
           reveal.sideValues[0] === '$100M+' &&
           reveal.sideLabels[1] === 'Approval for qualified applicants' &&
-          reveal.sideValues[1] === '98%',
+          reveal.sideValues[1] === '98%' &&
+          reveal.serviceStart === 'top 85%' &&
+          Number(reveal.serviceStagger) > 0 &&
+          Number(reveal.serviceStagger) <= 0.4 &&
+          reveal.serviceItemCount >= 2 &&
+          reveal.tabsPanelReveal === true &&
+          reveal.tabsPanelAfter === true,
         detail: JSON.stringify(reveal),
       });
 
@@ -714,6 +729,7 @@ for (const vp of VIEWPORTS) {
         const rows = [...(section?.querySelectorAll('.pilot-why-row') || [])].map((row) => ({
           title: row.querySelector('.pilot-why-row-title')?.textContent.trim() || '',
           body: row.querySelector('.pilot-why-row-body')?.textContent.trim() || '',
+          step: row.querySelector('.pilot-why-step')?.textContent.trim() || '',
           hasIcon: Boolean(row.querySelector('.circle-arrow')),
           isLink: row.tagName === 'A' || Boolean(row.querySelector('a')),
         }));
@@ -748,7 +764,8 @@ for (const vp of VIEWPORTS) {
           why.rows[1].body.includes('same day') &&
           why.rows[2].title === 'No hard credit pulls' &&
           why.rows[2].body.includes('without affecting your credit score') &&
-          why.rows.every((row) => row.hasIcon && !row.isLink) &&
+          why.rows.every((row) => !row.hasIcon && !row.isLink) &&
+          why.rows.map((row) => row.step).join(',') === '1,2,3' &&
           why.tapeHref === '/apply' &&
           why.tapeLabel === 'Apply for funding' &&
           why.note.includes('Funding timing depends on approval') &&
@@ -1862,17 +1879,43 @@ for (const vp of VIEWPORTS) {
       const afterReveal = await playPage.evaluate(() => {
         const label = document.querySelector('.pilot-stats-feat-label');
         const value = document.querySelector('.pilot-stats-feat-value');
+        const rule = document.querySelector('.pilot-stats-rule');
         const labelCs = label ? getComputedStyle(label) : null;
+        const valueCs = value ? getComputedStyle(value) : null;
+        const ruleCs = rule ? getComputedStyle(rule) : null;
+        const scaleX = (cs) => {
+          const t = cs?.transform || 'none';
+          if (t === 'none') return 1;
+          const m = t.match(/matrix\(([^)]+)\)/);
+          if (!m) return null;
+          return Number(m[1].split(',')[0]);
+        };
         return {
           labelOn: label?.classList.contains('is-active') ?? false,
           valueOn: value?.classList.contains('is-active') ?? false,
+          ruleOn: rule?.classList.contains('is-active') ?? false,
           labelOpacity: labelCs?.opacity ?? null,
+          valueOpacity: valueCs?.opacity ?? null,
+          valueColor: valueCs?.color ?? null,
+          ruleH: ruleCs ? Math.round(parseFloat(ruleCs.height)) : null,
+          ruleBg: ruleCs?.backgroundColor ?? null,
+          ruleScale: scaleX(ruleCs),
         };
       });
       log({
         ...tag,
         check: 'home-scroll-in-plays',
-        ok: afterReveal.labelOn && afterReveal.valueOn && afterReveal.labelOpacity === '1',
+        ok:
+          afterReveal.labelOn &&
+          afterReveal.valueOn &&
+          afterReveal.ruleOn &&
+          afterReveal.labelOpacity === '1' &&
+          afterReveal.valueOpacity === '1' &&
+          afterReveal.valueColor === 'rgb(20, 16, 31)' &&
+          afterReveal.ruleH === 1 &&
+          afterReveal.ruleBg === 'rgb(20, 16, 31)' &&
+          afterReveal.ruleScale != null &&
+          afterReveal.ruleScale > 0.95,
         detail: JSON.stringify(afterReveal),
       });
       await playCtx.close();
@@ -1889,6 +1932,9 @@ for (const vp of VIEWPORTS) {
         const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
         const whyTitle = document.querySelector('.pilot-why-title');
         const tape = document.querySelector('.pilot-why-tape-track');
+        const rule = document.querySelector('.pilot-stats-rule');
+        const tabsPanel = document.querySelector('.pilot-tabs-panels');
+        const serviceItem = document.querySelector('.pilot-ll > li[data-reveal]');
         return {
           hasJs: document.documentElement.classList.contains('has-js'),
           labelOpacity: label ? getComputedStyle(label).opacity : null,
@@ -1896,6 +1942,15 @@ for (const vp of VIEWPORTS) {
           mediaOpacity: media ? getComputedStyle(media).opacity : null,
           whyOpacity: whyTitle ? getComputedStyle(whyTitle).opacity : null,
           tapeAnimation: tape ? getComputedStyle(tape).animationName : null,
+          ruleScale: (() => {
+            if (!rule) return 0;
+            const t = getComputedStyle(rule).transform;
+            if (t === 'none') return 1;
+            const m = t.match(/matrix\(([^)]+)\)/);
+            return m ? Number(m[1].split(',')[0]) : 0;
+          })(),
+          tabsOpacity: tabsPanel ? getComputedStyle(tabsPanel).opacity : null,
+          serviceOpacity: serviceItem ? getComputedStyle(serviceItem).opacity : null,
         };
       });
       log({
@@ -1907,7 +1962,10 @@ for (const vp of VIEWPORTS) {
           reduced.titleOpacity === '1' &&
           (reduced.mediaOpacity == null || reduced.mediaOpacity === '1') &&
           reduced.whyOpacity === '1' &&
-          (reduced.tapeAnimation === 'none' || reduced.tapeAnimation === ''),
+          (reduced.tapeAnimation === 'none' || reduced.tapeAnimation === '') &&
+          reduced.ruleScale > 0.95 &&
+          reduced.tabsOpacity === '1' &&
+          reduced.serviceOpacity === '1',
         detail: JSON.stringify(reduced),
       });
       await reducedCtx.close();

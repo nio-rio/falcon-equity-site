@@ -29,7 +29,7 @@ export const HOME_TESTIMONIALS: HomeTestimonial[] = [
   },
   {
     quote:
-      'The team and Dwight got me the cash I needed to float some business expenses during a time of decreased business. The period of time it took was incredibly fast (about 24 hours) and they worked with me on a rate and weekly payment that I could handle in my current situation. I look forward to working with them in the future as needed.',
+      'The team and Dwight got me the cash I needed to float some business expenses during a time of decreased business. The period of time it took was incredibly fast (about 24 hours) and they worked with me on a rate and weekly payment that I could handle in my current situation.',
     business: 'Falcon client',
     imageAlt: 'Abstract stacked blocks used as a placeholder still.',
     image: retail,

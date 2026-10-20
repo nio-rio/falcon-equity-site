@@ -4,7 +4,6 @@
  * Measured from blackstone-v2 `.bx-two-up-content` + `.bx-tickertape`
  * (frontend.css / frontend.js). Falcon fonts and Martinique Darker.
  */
-import CircleArrow from '@/components/CircleArrow.astro';
 import PilotArrow from './PilotArrow.astro';
 import PilotEyebrow from './PilotEyebrow.astro';
 
@@ -38,19 +37,21 @@ const tapeCopies = 3;
         <PilotArrow href="/how-it-works" label="Learn how it works" tone="light" />
       </div>
       <div class="pilot-why-card" data-reveal>
-        <ul class="pilot-why-list">
+        <ol class="pilot-why-list">
           {
-            rows.map((row) => (
+            rows.map((row, i) => (
               <li class="pilot-why-row">
                 <div class="pilot-why-row-copy">
                   <h3 class="pilot-why-row-title">{row.title}</h3>
                   <p class="pilot-why-row-body">{row.body}</p>
                 </div>
-                <CircleArrow class="pilot-why-row-icon" />
+                <span class="pilot-why-step" aria-hidden="true">
+                  {i + 1}
+                </span>
               </li>
             ))
           }
-        </ul>
+        </ol>
       </div>
     </div>
   </div>

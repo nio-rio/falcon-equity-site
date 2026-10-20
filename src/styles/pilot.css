@@ -643,16 +643,9 @@
 
 .pilot-stats-rule {
   display: block;
-  position: relative;
   width: 100%;
   height: 1px;
-  background: transparent;
-}
-
-.pilot-stats-rule::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  margin: 0;
   background: var(--bx-black);
   transform: scaleX(1);
   transform-origin: left;
@@ -1427,10 +1420,16 @@
   color: var(--bx-on-dark);
 }
 
-.pilot-why-row-icon {
+.pilot-why-step {
   flex: none;
-  pointer-events: none;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: 0.008em;
   color: #fff;
+  min-width: 1.25em;
+  text-align: right;
 }
 
 .pilot-why-tape {
@@ -2576,6 +2575,7 @@
   html.has-js [data-reveal],
   html.has-js [data-reveal-media] img,
   html.has-js [data-reveal-media] .media,
+  html.has-js [data-reveal-stat],
   html.has-js [data-reveal-stat='value'] {
     opacity: 1;
     transform: none;
@@ -2585,8 +2585,8 @@
     visibility: visible;
   }
 
-  html.has-js .pilot-stats-rule::before,
-  html.has-js .pilot-stats-rule.is-active::before {
+  html.has-js .pilot-stats-rule,
+  html.has-js .pilot-stats-rule.is-active {
     animation: none;
     transform: scaleX(1);
   }
@@ -2611,24 +2611,15 @@
     animation: pilot-fade-in 0.75s forwards;
   }
 
-  html.has-js [data-reveal-stat='value'] {
-    color: transparent;
-    background: linear-gradient(var(--bx-black), var(--bx-black)) no-repeat;
-    background-size: 0 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    opacity: 1;
-  }
-
   html.has-js [data-reveal-stat='value'].is-active {
-    animation: pilot-data-text 0.9s 0.375s both;
+    animation: pilot-fade-in 0.75s 0.15s both;
   }
 
-  html.has-js .pilot-stats-rule::before {
+  html.has-js .pilot-stats-rule {
     transform: scaleX(0);
   }
 
-  html.has-js .pilot-stats-rule.is-active::before {
+  html.has-js .pilot-stats-rule.is-active {
     animation: pilot-divider-line 1.125s linear forwards;
   }
 
@@ -2672,19 +2663,13 @@
   }
 }
 
-@keyframes pilot-data-text {
-  to {
-    background-size: 100% 100%;
-    visibility: visible;
-  }
-}
-
 @keyframes pilot-divider-line {
   0%,
   20% {
     transform: scaleX(0);
   }
-  40% {
+  40%,
+  100% {
     transform: scaleX(1);
   }
 }

@@ -9,8 +9,8 @@ declare global {
   }
 }
 
-/** Measured from blackstone-v2 frontend.js on BXCI / inner pages. */
-const START = '50% 90%';
+/** Home default: section top vs 90% of the viewport. Plays once. */
+const START = 'top 90%';
 const TOGGLE = 'play none none none';
 const DURATION = 0.8;
 const STAGGER = 0.4;
@@ -28,6 +28,13 @@ const armCurtain = (media: HTMLElement) => {
   curtain.classList.add('is-on');
 };
 
+const sectionStart = (section: HTMLElement) => section.dataset.revealStart || START;
+
+const sectionStagger = (section: HTMLElement) => {
+  const raw = Number.parseFloat(section.dataset.revealStagger || '');
+  return Number.isFinite(raw) && raw >= 0 ? raw : STAGGER;
+};
+
 export function initScrollIn(root: ParentNode = document) {
   window.__pilotRevealReady = true;
   const mm = gsap.matchMedia();
@@ -43,24 +50,28 @@ export function initScrollIn(root: ParentNode = document) {
     const animated: HTMLElement[] = [];
     sections.forEach((section) => {
       const items = [...section.querySelectorAll<HTMLElement>(':scope [data-reveal]')];
+      const start = sectionStart(section);
       if (items.length) {
         animated.push(...items);
         gsap.set(items, { autoAlpha: 0, y: 20 });
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: START,
-              toggleActions: TOGGLE,
-            },
-          })
-          .to(items, {
-            autoAlpha: 1,
-            y: 0,
-            duration: DURATION,
-            stagger: STAGGER,
-            ease: 'power1.out',
-          });
+        const lead = items.filter((el) => !el.hasAttribute('data-reveal-after'));
+        const follow = items.filter((el) => el.hasAttribute('data-reveal-after'));
+        const tween = {
+          autoAlpha: 1,
+          y: 0,
+          duration: DURATION,
+          stagger: sectionStagger(section),
+          ease: 'power1.out',
+        };
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start,
+            toggleActions: TOGGLE,
+          },
+        });
+        if (lead.length) tl.to(lead, { ...tween });
+        if (follow.length) tl.to(follow, { ...tween });
       }
 
       const lines = [...section.querySelectorAll<HTMLElement>('[data-reveal-line]')];
@@ -70,7 +81,7 @@ export function initScrollIn(root: ParentNode = document) {
 
       ScrollTrigger.create({
         trigger: section,
-        start: section.dataset.revealStart || START,
+        start,
         toggleActions: TOGGLE,
         onEnter: () => {
           lines.forEach((el) => el.classList.add('is-active'));

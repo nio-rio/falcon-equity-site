@@ -5,7 +5,8 @@ Source: `blackstone.com` home `#private-wealth` (two-up + tickertape). Live
 `frontend.css` / `frontend.js` plus `/tmp/bxhero/bxhome.html`.
 
 Falcon mapping: home **Why choose us** (`.pilot-why-*`). At Gambit + Inter,
-`--bx-black` `#14101f`. Rows are not links.
+`--bx-black` `#14101f`. Rows are not links; Falcon uses step numbers 1–3
+instead of BX’s decorative circle arrows.
 
 ## Two-up (`.bx-two-up-content.is-color-theme-dark`)
 

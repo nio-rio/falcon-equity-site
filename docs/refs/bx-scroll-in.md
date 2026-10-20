@@ -53,4 +53,12 @@ IntersectionObserver (threshold default 0) adds `.active`:
 
 ## Falcon mapping
 
-Home sections **below the hero** use the headers preset (`y: 20`, 800ms, stagger 400ms, start `50% 90%`, play once). Stats use Fade-In + data-text + 1.125s line. News stills use the curtain. **Not** applied to `.pilot-hero`, `.pilot-ann` (its own SplitText + clip), or `.site-cta` (rolling line). Content stays visible without JS (`html.has-js` is the only hide switch).
+Home sections **below the hero** use the headers preset (`y: 20`, 800ms,
+stagger 400ms, start **`top 90%`**, play once) so the band is not waiting on
+its midpoint. Services override to **`top 85%`** and stagger each row
+**150ms**. Industries tab content is a `data-reveal` after the dropdown.
+Stats labels/values fade (0.75s, values delayed 0.15s) so `24-48h` stays
+readable; the side divider is a 1px ink line that draws `scaleX` 0→1 in
+**1.125s**. News stills use the curtain. **Not** applied to `.pilot-hero`,
+`.pilot-ann` (its own SplitText + clip), or `.site-cta` (rolling line).
+Content stays visible without JS (`html.has-js` is the only hide switch).
