@@ -640,7 +640,7 @@ a:focus-visible .link-draw,
 .primary-nav__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 2;
+  z-index: 20;
   pointer-events: auto;
   background-color: rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(5px);
@@ -666,6 +666,7 @@ a:focus-visible .link-draw,
 
 .primary-nav__inner.is-open {
   display: block;
+  min-height: calc(100dvh - var(--bx-header));
 }
 
 .site-header.is-compact .primary-nav__inner {
@@ -869,6 +870,7 @@ a:focus-visible .link-draw,
     top: auto;
     left: auto;
     width: auto;
+    min-height: 0;
     max-height: none;
     overflow: visible;
     padding-inline: 0;
@@ -991,6 +993,7 @@ a:focus-visible .link-draw,
 
   .primary-nav-widget {
     display: flex;
+    min-height: 14.5rem;
     height: 100%;
   }
 

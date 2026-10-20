@@ -50,7 +50,7 @@ const nav = [
     label: 'Resources',
     active: RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources'),
     columns: [
-      { heading: 'Blog', links: [{ label: 'Blog', href: '/blog' }] },
+      { heading: 'Blog', links: [{ label: 'View all', href: '/blog' }] },
       {
         heading: 'Tools',
         links: [
@@ -184,8 +184,8 @@ const nav = [
       </nav>
     </div>
   </div>
-  <div class="primary-nav__backdrop primary-nav__backdrop--hidden" data-nav-backdrop hidden></div>
 </header>
+<div class="primary-nav__backdrop primary-nav__backdrop--hidden" data-nav-backdrop hidden></div>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
