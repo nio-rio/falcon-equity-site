@@ -613,19 +613,13 @@
   margin-top: 3rem;
 }
 
-.pilot-ann-name,
-.pilot-ann-business {
+.pilot-ann-meta p {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--bx-fs-16);
   line-height: 1.5;
   color: #000;
-}
-
-.pilot-ann-business {
-  margin-top: 0.25rem;
-  color: var(--color-muted);
 }
 
 @media (min-width: 48em) {
@@ -693,6 +687,12 @@
 
   .pilot-ann-eyebrow {
     margin-bottom: 3.5rem;
+    font-size: 1rem; /* BX `.is-style-eyebrow` --fs-16 at 80em */
+  }
+
+  .pilot-ann-eyebrow.pilot-eyebrow--line::after {
+    width: 3.5rem; /* 56px */
+    margin-left: 1.5rem; /* 24px */
   }
 
   .pilot-ann-title p {
@@ -727,6 +727,10 @@
 
   .pilot-ann-eyebrow {
     margin-bottom: 4rem;
+  }
+
+  .pilot-ann-eyebrow.pilot-eyebrow--line::after {
+    width: 4rem; /* 64px at 90em */
   }
 
   .pilot-ann-title p {

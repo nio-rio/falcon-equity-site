@@ -211,7 +211,7 @@ Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 va
 | --- | --- | --- |
 | Section pad (`.bx-component-base-padding-*`) | **144px** | **160px** |
 | Grid | 16 col, 16px gap | 16 col, 16px gap |
-| Eyebrow | cols **1–6**, sans 13px/0.08em/uppercase, rule 48×2px to the right, margin-bottom **56px** | same cols, margin-bottom **64px** |
+| Eyebrow | cols **1–6**, sans **16px**/0.08em/uppercase (`--fs-16` at 80em; 14px below), rule **56×2px** / gap **24px**, margin-bottom **56px** | same type, rule **64×2px**, margin-bottom **64px** |
 | Title (quote) | cols **1–6**, serif 300, **32px**, lh **1.5**, tracking **0.008em** | cols **1–7**, **40px** |
 | Image | cols **9–12**, **3:4**, object-fit cover, margin-top 0 | same |
 | Right column | cols **14–16**, row-span 2, `justify-content: flex-end`, padding-bottom **48px** | padding-bottom **56px** |

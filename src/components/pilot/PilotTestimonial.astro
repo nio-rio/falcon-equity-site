@@ -22,8 +22,10 @@ const { eyebrow, quote, name, business, imageIntent, imageAlt } = HOME_TESTIMONI
         <Media intent={imageIntent} alt={imageAlt} labeled ratio="3 / 4" sizes="(min-width: 80em) 304px, 50vw" />
       </div>
       <div class="pilot-ann-meta">
-        <p class="pilot-ann-name">{name}</p>
-        <p class="pilot-ann-business">{business}</p>
+        <p>
+          <span class="pilot-ann-name">{name}</span><br />
+          <span class="pilot-ann-business">{business}</span>
+        </p>
       </div>
     </div>
   </div>
