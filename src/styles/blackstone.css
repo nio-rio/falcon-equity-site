@@ -1275,19 +1275,21 @@ html.has-scroll-lock .site-header {
 
 /* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
    Measured 2026-10-20 on https://govwell.com/ at 1440: dark band #202020,
-   21em wrap, mask 5%/40-60%/95%, 48px (3rem) stepped translateY, ~400ms
-   cubic ease + ~1200ms hold. Lead is Inter (body). Active phrase is
-   plain white; neighbors above #636363; rest white/0.5. White pill
-   12px 24px / 16px / radius 100rem. */
+   7-line wrap, mask 5%/40-60%/95%, stepped translateY, ~400ms cubic ease
+   + ~1200ms hold. Lead and phrases are Inter (body). Pitch is 4.5rem
+   (1.5× the prior 3rem) so the wheel is 31.5rem. Active phrase is plain
+   white; neighbors above #636363; rest white/0.5. White pill 12px 24px /
+   16px / radius 100rem. */
 .site-cta {
-  --site-cta-line: 3rem;
+  --site-cta-line: 4.5rem;
+  --site-cta-wheel: calc(var(--site-cta-line) * 7);
   --site-cta-type: 1.5rem;
   --site-cta-lead: rgb(255 255 255 / 0.5);
   --site-cta-active: #fff;
   --site-cta-past: #636363;
   background: var(--bx-variant-black);
   color: #fff;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
 }
 
 .site-cta__content {
@@ -1306,15 +1308,16 @@ html.has-scroll-lock .site-header {
   gap: 0.5rem;
   margin: 0;
   color: var(--site-cta-lead);
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--site-cta-type);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: var(--site-cta-line);
 }
 
 .site-cta__lead {
   color: var(--site-cta-lead);
   font-family: var(--font-sans);
+  line-height: var(--site-cta-line);
 }
 
 .site-cta__wheel {
@@ -1322,8 +1325,10 @@ html.has-scroll-lock .site-header {
   flex: none;
   width: max-content;
   max-width: 100%;
-  height: 21em;
-  margin-block: -10rem;
+  height: var(--site-cta-wheel);
+  /* Collapse the 7-line wrap to one line in flow so the masked center
+     sits on the same baseline as the lead in the stacked layout. */
+  margin-block: calc((var(--site-cta-wheel) - var(--site-cta-line)) / -2);
   overflow: hidden;
   font-size: 1rem;
   -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
@@ -1344,7 +1349,7 @@ html.has-scroll-lock .site-header {
   width: max-content;
   max-width: 100%;
   color: var(--site-cta-lead);
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--site-cta-type);
   font-weight: 400;
   line-height: var(--site-cta-line);
@@ -1408,10 +1413,6 @@ html.has-scroll-lock .site-header {
   .site-cta {
     --site-cta-type: 2rem;
   }
-
-  .site-cta__wheel {
-    margin-block: -10rem;
-  }
 }
 
 @media (min-width: 62em) {
@@ -1420,7 +1421,6 @@ html.has-scroll-lock .site-header {
   }
 
   .site-cta__wheel {
-    margin-block: -9.5rem;
     -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
     mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
   }
@@ -1453,7 +1453,7 @@ html.has-scroll-lock .site-header {
   }
 
   .site-cta__wheel {
-    height: 21em;
+    height: var(--site-cta-wheel);
     margin-block: 0;
     -webkit-mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
     mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);

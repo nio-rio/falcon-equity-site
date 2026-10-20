@@ -435,6 +435,18 @@ for (const vp of VIEWPORTS) {
       const activeCs = active ? getComputedStyle(active) : null;
       const pastCs = past ? getComputedStyle(past) : null;
       const restCs = rest ? getComputedStyle(rest) : null;
+      const wheel = document.querySelector('[data-cta-wheel]');
+      const wheelCs = wheel ? getComputedStyle(wheel) : null;
+      const baselineOf = (el) => {
+        if (!el) return null;
+        const probe = document.createElement('span');
+        probe.style.cssText =
+          'display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;';
+        el.appendChild(probe);
+        const y = probe.getBoundingClientRect().top;
+        probe.remove();
+        return Math.round(y * 10) / 10;
+      };
       return {
         beforeFooter: Boolean(
           cta &&
@@ -453,7 +465,14 @@ for (const vp of VIEWPORTS) {
         srText: sr?.textContent?.trim() || '',
         leadText: lead?.textContent?.trim() || '',
         leadFont: leadCs?.fontFamily || null,
+        phraseFont: activeCs?.fontFamily || null,
         bodyFont,
+        phraseLine: activeCs?.lineHeight || null,
+        phraseH: active ? Math.round(active.getBoundingClientRect().height * 10) / 10 : null,
+        wheelH: wheel ? Math.round(wheel.getBoundingClientRect().height * 10) / 10 : null,
+        wheelCssH: wheelCs?.height || null,
+        leadBaseline: baselineOf(lead),
+        activeBaseline: baselineOf(active),
         activeColor: activeCs?.color || null,
         pastColor: pastCs?.color || null,
         restColor: restCs?.color || null,
@@ -494,8 +513,30 @@ for (const vp of VIEWPORTS) {
     log({
       ...tag,
       check: 'site-cta-lead-body-font',
-      ok: Boolean(ctaChrome.leadFont) && ctaChrome.leadFont === ctaChrome.bodyFont,
-      detail: JSON.stringify({ leadFont: ctaChrome.leadFont, bodyFont: ctaChrome.bodyFont }),
+      ok:
+        Boolean(ctaChrome.leadFont) &&
+        ctaChrome.leadFont === ctaChrome.bodyFont &&
+        ctaChrome.phraseFont === ctaChrome.leadFont,
+      detail: JSON.stringify({
+        leadFont: ctaChrome.leadFont,
+        phraseFont: ctaChrome.phraseFont,
+        bodyFont: ctaChrome.bodyFont,
+      }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-phrase-pitch',
+      ok:
+        ctaChrome.phraseLine === '72px' &&
+        ctaChrome.phraseH != null &&
+        Math.abs(ctaChrome.phraseH - 72) <= 1 &&
+        ctaChrome.wheelH != null &&
+        Math.abs(ctaChrome.wheelH - 504) <= 1,
+      detail: JSON.stringify({
+        phraseLine: ctaChrome.phraseLine,
+        phraseH: ctaChrome.phraseH,
+        wheelH: ctaChrome.wheelH,
+      }),
     });
     const fadedWhite = (c) =>
       c === 'rgba(255, 255, 255, 0.5)' || c === 'rgb(255, 255, 255, 0.5)';
@@ -512,6 +553,20 @@ for (const vp of VIEWPORTS) {
         restColor: ctaChrome.restColor,
       }),
     });
+    if (vp.mode === 'desktop') {
+      log({
+        ...tag,
+        check: 'site-cta-baseline-align',
+        ok:
+          ctaChrome.leadBaseline != null &&
+          ctaChrome.activeBaseline != null &&
+          Math.abs(ctaChrome.leadBaseline - ctaChrome.activeBaseline) <= 2,
+        detail: JSON.stringify({
+          leadBaseline: ctaChrome.leadBaseline,
+          activeBaseline: ctaChrome.activeBaseline,
+        }),
+      });
+    }
 
     const dividerClosed = await readPanelChrome(page);
     log({

@@ -55,7 +55,7 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
     let colorRaf = 0;
     let resizing = 0;
 
-    const lineHeight = () => phrases[0]?.getBoundingClientRect().height || 48;
+    const lineHeight = () => phrases[0]?.getBoundingClientRect().height || 72;
 
     const colorize = () => {
       const wr = wheel.getBoundingClientRect();
