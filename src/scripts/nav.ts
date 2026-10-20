@@ -258,6 +258,8 @@ export function initNav() {
       const item = items.find((i) => i.querySelector(`[data-dropdown-toggle="${state.activePanel}"]`));
       item?.classList.add('is-escaped');
     }
+    setScrollLock(false);
+    setBackdropEl(false);
     killDropdown();
     const tl = gsap.timeline({
       onComplete() {

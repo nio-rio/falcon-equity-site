@@ -1827,6 +1827,7 @@ for (const vp of VIEWPORTS) {
       const focused = await page.evaluate(() => document.activeElement?.className || document.activeElement?.tagName);
       log({ ...tag, check: 'keyboard-tab-into-panel', ok: /primary-nav__list-lvl-3-link|arrow-cta/.test(focused), detail: focused });
       await page.keyboard.press('Escape');
+      await page.waitForTimeout(400);
 
       if (pg.name === 'home') {
         await page.evaluate(() => window.scrollTo(0, 600));
