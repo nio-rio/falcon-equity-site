@@ -5,10 +5,10 @@ import PilotHero from '@/components/pilot/PilotHero.astro';
 import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
 import PilotArrow from '@/components/pilot/PilotArrow.astro';
 import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
+import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import PilotProcess from '@/components/pilot/PilotProcess.astro';
 import PilotQuote from '@/components/pilot/PilotQuote.astro';
 import PilotCta from '@/components/pilot/PilotCta.astro';
-import Icon from '@/components/Icon.astro';
 import { getHomeServices, STANDARD_STEPS } from '@/data/services';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 import { STATS, SITE } from '@/data/site';
@@ -54,39 +54,16 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
     ]}
   />
 
-  <section class="pilot-section" aria-labelledby="services-heading" id="services">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
-          <PilotEyebrow>Services</PilotEyebrow>
-          <h2 id="services-heading">How we can bring you victory.</h2>
-        </div>
-        <div class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          <ul class="pilot-rows">
-            {
-              homeServices.map((s) => (
-                <li>
-                  <a class="pilot-row" href={s.href}>
-                    <span class="pilot-row-copy">
-                      <span class="pilot-row-title">{s.name}</span>
-                      <span class="pilot-row-teaser">{s.teaser}</span>
-                      <span class="pilot-row-meta">{s.rangeLine}</span>
-                    </span>
-                    <span class="pilot-circle" aria-hidden="true">
-                      <Icon name="arrow-right" size={16} />
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-          <div class="pilot-section-cta">
-            <PilotArrow href="/services" label="Learn more" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PilotLinkList
+    eyebrow="Services"
+    title="How we can bring you victory."
+    items={homeServices.map((s) => ({
+      href: s.href,
+      name: s.name,
+      teaser: s.teaser,
+      rangeLine: s.rangeLine,
+    }))}
+  />
 
   <section class="pilot-section" aria-labelledby="industries-heading">
     <div class="container-site">

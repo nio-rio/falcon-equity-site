@@ -285,9 +285,7 @@
 }
 
 .pilot-arrow:hover .pilot-circle,
-.pilot-arrow:focus-visible .pilot-circle,
-.pilot-row:hover .pilot-circle,
-.pilot-row:focus-visible .pilot-circle {
+.pilot-arrow:focus-visible .pilot-circle {
   background: var(--color-ink);
   border-color: var(--color-ink);
   color: #fff;
@@ -379,63 +377,187 @@
   color: var(--bx-on-dark);
 }
 
-/* Services / businesses list — inactive rows recede, hover fills the arrow. */
-.pilot-rows {
+/* BMACX `bx-link-list` — home Services only (`.pilot-ll-*`).
+   Source: bmacx.com “Explore More About BMACX”, blackstone-v2 frontend.css
+   (Wayback 20261001234616) + frontend.js tabsscript mouseover. */
+.pilot-ll-section {
+  padding-block: var(--bx-section);
+  background: #fff;
+  color: #000;
+}
+
+.pilot-ll-head {
+  margin-bottom: var(--bx-space-32);
+}
+
+.pilot-ll-head .pilot-eyebrow + h2 {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-ll-head h2 {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .pilot-ll-head {
+    margin-bottom: var(--bx-space-40);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-ll-head {
+    margin-bottom: var(--bx-space-48);
+  }
+}
+
+.pilot-ll {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.pilot-row {
+.pilot-ll-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding-block: 1.75rem;
-  border-top: 1px solid var(--color-line);
-  color: var(--color-ink);
+  gap: var(--bx-space-16);
+  padding-block: var(--bx-space-24);
+  border-top: 0.063rem solid #000;
+  color: #000;
   text-decoration: none;
-  transition: color 250ms ease;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
-.pilot-row:last-child {
-  border-bottom: 1px solid var(--color-line);
+.pilot-ll li:last-child .pilot-ll-row {
+  border-bottom: 0.063rem solid #000;
 }
 
-.pilot-rows:hover .pilot-row,
-.pilot-rows:focus-within .pilot-row {
-  color: var(--color-muted);
+@media (min-width: 768px) {
+  .pilot-ll-row {
+    padding-block: var(--bx-space-32);
+  }
 }
 
-.pilot-rows .pilot-row:hover,
-.pilot-rows .pilot-row:focus-visible {
-  color: var(--color-ink);
+@media (min-width: 1440px) {
+  .pilot-ll-row {
+    padding-block: var(--bx-space-40);
+  }
 }
 
-.pilot-row-copy {
+/* Sibling recede: non-hovered/focused rows at 36% (BMACX `.bx-link-list__title-animation`). */
+.pilot-ll:is(:hover, :focus-within) .pilot-ll-row {
+  opacity: 0.36;
+}
+
+.pilot-ll:is(:hover, :focus-within) .pilot-ll-row:is(:hover, :focus-visible),
+.pilot-ll-row:is(:hover, :focus-visible) {
+  opacity: 1;
+}
+
+.pilot-ll-copy {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-8);
 }
 
-.pilot-row-title {
+.pilot-ll-title {
   display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2.25rem);
-  line-height: 1.15;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+  color: #000;
+}
+
+@media (min-width: 1440px) {
+  .pilot-ll-title {
+    font-size: var(--bx-fs-32);
+  }
+}
+
+.pilot-ll-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pilot-ll-desc,
+.pilot-ll-range {
+  display: block;
+  font-family: var(--font-sans);
   font-weight: 400;
+  font-size: var(--bx-fs-18);
+  letter-spacing: 0.02rem;
+  line-height: 1.688rem;
+  color: #000;
 }
 
-.pilot-row-teaser,
-.pilot-row-meta {
+.pilot-ll-range {
+  opacity: 0.72;
+}
+
+@media (min-width: 1440px) {
+  .pilot-ll-desc,
+  .pilot-ll-range {
+    font-size: var(--bx-fs-20);
+    line-height: 1.875rem;
+  }
+}
+
+.pilot-ll-btn {
+  flex: none;
+  align-self: center;
+  line-height: 0;
+}
+
+.pilot-ll-icon {
   display: block;
-  margin-top: 0.4rem;
-  font-size: var(--bx-fs-16);
-  line-height: 1.5;
-  color: inherit;
+  width: var(--bx-space-32);
+  height: var(--bx-space-32);
+  color: #000;
+  transition: transform 0.3s;
 }
 
-.pilot-row-meta {
-  opacity: 0.7;
-  font-size: 0.95rem;
+@media (min-width: 768px) {
+  .pilot-ll-icon {
+    width: var(--bx-space-40);
+    height: var(--bx-space-40);
+  }
+}
+
+@media (min-width: 1440px) {
+  .pilot-ll-icon {
+    width: var(--bx-space-48);
+    height: var(--bx-space-48);
+  }
+}
+
+.pilot-ll-icon-fill {
+  opacity: 0;
+}
+
+.pilot-ll-icon-arrow,
+.pilot-ll-icon-fill {
+  transition: opacity 0.3s;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon {
+  transform: scale(1.1666666667);
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon-fill {
+  opacity: 1;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon-arrow {
+  opacity: 0;
+}
+
+.pilot-ll-row:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
 }
 
 /* Insights / industry image cards. */
@@ -771,8 +893,15 @@
   .pilot-card-media img,
   .pilot-card-media .media,
   .pilot-card-title-text,
-  .pilot-row {
+  .pilot-ll-row,
+  .pilot-ll-icon,
+  .pilot-ll-icon-arrow,
+  .pilot-ll-icon-fill {
     transition: none;
+  }
+
+  .pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon {
+    transform: none;
   }
 
   .pilot-card:hover .pilot-card-media img,

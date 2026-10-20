@@ -209,6 +209,18 @@ BX `.bx-button` is a 999px pill, black, 0.3s, yellow focus — **not copied**.
 
 `.arrow-cta` + `.circle-arrow` (44px outline). Hover: circle fills ink, glyph inverts. `.arrow-cta--on-dark` inverts to white fill. Used for “Learn more” / “Apply”.
 
+### Link list (BMACX Explore More)
+
+Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx.com` `wp-block-blackstone-v2-link-list` / `.bx-link-list` (Wayback `20261001234616`, `blackstone-v2` `frontend.css` + `frontend.js` `tabsscript`).
+
+- **H2:** display light (Falcon serif role), then **32 / 40 / 48px** space before the first rule (`--spacing-32/40/48`).
+- **Rows:** full content width. **1px (`0.063rem`) black** rules top and bottom of the stack. Padding **24 / 32 / 40px**.
+- **Title:** sans **300**, **24px** (32px ≥1440). Description + range line: sans 400, **18px**, `0.02em` tracking (range slightly quieter).
+- **Circle:** BMACX 40×40 SVG (border + arrow + evenodd fill). Rest = outlined circle + black arrow (`fill` opacity 0). Hover/focus = fill opacity 1, arrow opacity 0, icon **scale(1.1666666667)**. Transitions: transform **0.3s**, opacity **0.3s**.
+- **Siblings:** list `:hover` / `:focus-within` sets other rows to **opacity 0.36** (BMACX `.bx-link-list__title-animation`). Hovered/focused row stays 1.
+- **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale and transitions.
+- Does **not** restyle `.pilot-circle` / `.pilot-arrow`.
+
 ### Cards
 
 - Insights / blog: 16:9 crop, zoom 1.06, square corners, no shadow, category + title.
@@ -313,6 +325,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
+| `src/components/pilot/PilotLinkList.astro` | BMACX `bx-link-list` (home Services). Full-width rows, 1px black rules, light sans title, 40px circle. Hover: row black + filled circle (white arrow hole); siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
 | `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |
@@ -326,6 +339,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel success with` / `fast funding` with 1/7 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → services list with live names + teasers → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
+**Home** (`/`): Blackstone `#slide-1-2` hero (static falcon; desktop H1 `Fuel success with` / `fast funding` with 1/7 offset) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** as BMACX `bx-link-list` (full-width rows; live name + teaser + range; sibling-hover 36%) → 12 industry image cards → process → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No testimonials. No Explore more.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.

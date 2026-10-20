@@ -1,0 +1,84 @@
+---
+/**
+ * BMACX `bx-link-list` (“Explore More About BMACX”).
+ * Scoped `.pilot-ll-*` — home Services only.
+ */
+import PilotEyebrow from './PilotEyebrow.astro';
+
+interface Item {
+  href: string;
+  name: string;
+  teaser: string;
+  rangeLine: string;
+}
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  items: readonly Item[];
+}
+
+const { id = 'services-heading', eyebrow, title, items } = Astro.props;
+---
+
+<section class="pilot-ll-section" aria-labelledby={id} id="services">
+  <div class="container-site">
+    {
+      (eyebrow || title) && (
+        <div class="pilot-ll-head">
+          {eyebrow && <PilotEyebrow>{eyebrow}</PilotEyebrow>}
+          <h2 id={id}>{title}</h2>
+        </div>
+      )
+    }
+    <ul class="pilot-ll">
+      {
+        items.map((item) => (
+          <li>
+            <a class="pilot-ll-row" href={item.href}>
+              <span class="pilot-ll-copy">
+                <span class="pilot-ll-title">{item.name}</span>
+                <span class="pilot-ll-meta">
+                  <span class="pilot-ll-desc">{item.teaser}</span>
+                  <span class="pilot-ll-range">{item.rangeLine}</span>
+                </span>
+              </span>
+              <span class="pilot-ll-btn" aria-hidden="true">
+                <svg class="pilot-ll-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    class="pilot-ll-icon-arrow"
+                    d="M29 20c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    class="pilot-ll-icon-fill"
+                    fill-rule="evenodd"
+                    d="M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Zm3.2 14.8c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    class="pilot-ll-icon-border"
+                    d="M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.pilot-ll-row').forEach((link) => {
+    link.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        event.preventDefault();
+        link.click();
+      }
+    });
+  });
+</script>
