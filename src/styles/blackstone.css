@@ -31,6 +31,12 @@ html {
   border-radius: 0;
 }
 
+.media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .media-img {
   display: block;
   width: 100%;

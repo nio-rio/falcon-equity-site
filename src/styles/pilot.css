@@ -60,13 +60,20 @@
   aspect-ratio: auto;
 }
 
+.pilot-hero-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .pilot-hero-media img,
 .pilot-hero-media .media-img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 60% 30%;
+  /* 16:9 source crops to ~21:9 at 80em/90em; keep the eye and beak in frame. */
+  object-position: 62% 40%;
 }
 
 .pilot-hero-caption {

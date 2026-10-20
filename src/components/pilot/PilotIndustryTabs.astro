@@ -26,7 +26,8 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
         <button
           type="button"
           class="pilot-tabs-drop"
-          aria-label="Select your sector"
+          id="industry-select"
+          aria-labelledby="industry-select-value"
           aria-expanded="false"
           aria-controls="industry-select-menu"
           aria-haspopup="listbox"
@@ -39,7 +40,13 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
             />
           </svg>
         </button>
-        <ul class="pilot-tabs-menu" id="industry-select-menu" role="listbox" aria-label="Select your sector" hidden>
+        <ul
+          class="pilot-tabs-menu"
+          id="industry-select-menu"
+          role="listbox"
+          aria-labelledby="industry-select-value"
+          hidden
+        >
           {
             INDUSTRIES.map((ind, i) => (
               <li role="presentation">
@@ -48,7 +55,7 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
                   role="option"
                   id={`industry-option-${ind.slug}`}
                   data-index={i}
-                  aria-selected={i === 0 ? 'true' : 'false'}
+                  aria-selected="false"
                 >
                   {ind.name}
                 </button>
@@ -98,10 +105,13 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
     const drop = root.querySelector<HTMLButtonElement>('.pilot-tabs-drop');
     const menu = root.querySelector<HTMLElement>('.pilot-tabs-menu');
     const dropwrap = root.querySelector('.pilot-tabs-dropwrap');
+    const valueEl = root.querySelector<HTMLElement>('#industry-select-value');
     let current = 0;
 
     const select = (index: number) => {
       current = index;
+      const name = options[index]?.textContent?.trim() ?? '';
+      if (valueEl && name) valueEl.textContent = name;
       panels.forEach((panel, i) => {
         const on = i === index;
         panel.hidden = !on;
@@ -159,6 +169,7 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
         let target = current;
         if (key === 'Home') target = 0;
         else if (key === 'End') target = options.length - 1;
+        else if (key === 'ArrowDown') target = Math.min(current + 1, options.length - 1);
         options[target]?.focus();
       }
     });

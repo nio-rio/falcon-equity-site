@@ -9,7 +9,7 @@ import PilotNews from '@/components/pilot/PilotNews.astro';
 import { getHomeServices } from '@/data/services';
 import { STATS } from '@/data/site';
 import { getPublicPosts } from '@/lib/blog';
-import heroFalcon from '@/assets/images/hero-falcon.jpg';
+import heroFalcon from '@/assets/images/hero-falcon.png';
 import '@/styles/pilot.css';
 
 const homeServices = getHomeServices();
@@ -38,7 +38,7 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
     captionHref="/apply"
     captionLabel="Apply for funding"
     image={heroFalcon}
-    imageAlt="A peregrine falcon launching from a branch with its wings spread wide"
+    imageAlt="Peregrine falcon in profile"
   />
 
   <PilotStats

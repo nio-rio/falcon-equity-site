@@ -23,7 +23,7 @@ const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 async function ogDefault() {
   const W = 1200;
   const H = 630;
-  const falcon = await sharp('src/assets/images/hero-falcon.jpg')
+  const falcon = await sharp('src/assets/images/hero-falcon.png')
     .resize(560, H, { fit: 'cover', position: 'attention' })
     .toBuffer();
   const overlay = Buffer.from(`

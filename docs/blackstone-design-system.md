@@ -249,7 +249,7 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
-| Dropdown | Light gray (`--color-tint`) field, in-field “Select your sector” 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
+| Dropdown | Light gray (`--color-tint`) field, in-field “Select your sector” until a sector is chosen, then the sector name (native-select value), 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
 | Menu | same gray fill + 2px ink bottom; simple hover tint; 12 industry options | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
@@ -258,7 +258,7 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | Panel in | `fadeInUp` 0.5s (0 → 40px / opacity 1) | same |
 
 - **12 options**, one per industry name. Picking an option swaps the featured panel (title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still).
-- **A11y:** in-field “Select your sector” is the accessible name (`aria-label` + visible text), `aria-haspopup=listbox`, `role=listbox/option`, Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
+- **A11y:** the field’s accessible name is the visible value (`aria-labelledby` on the button and listbox). Placeholder is “Select your sector”; choosing an option replaces it with that sector’s name and sets `aria-selected` on the option so the selection is announced. `aria-expanded`, `aria-haspopup=listbox`, `aria-controls`. Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
 
 ### Cards
 
@@ -339,7 +339,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-falcon.jpg`); testimonial trucking still; 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list, pre-footer CTA (removed) — type only. Founder quote lives on About. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-falcon.png`, peregrine in profile); testimonial trucking still; 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list, pre-footer CTA (removed) — type only. Founder quote lives on About. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. No pre-footer CTA. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
@@ -362,14 +362,14 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
-| `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image in container 487/542. Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
+| `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image in container 487/542 (`hero-falcon.png` peregrine profile, AVIF/WebP, object-position 62% 40%). Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
 | `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
 | `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 trucking still cols 9–12, business name cols 14–16 bottom-aligned. JJJ Enterprise Trucking quote; no owner line. |
 | `src/data/home-testimonial.ts` | Consented home testimonial copy |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray “Select your sector” listbox, featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray listbox (placeholder then selected sector name), featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |

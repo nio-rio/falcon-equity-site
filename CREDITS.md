@@ -6,7 +6,8 @@ Every third-party asset used on the site, with its source and license. No paid a
 
 | File | Subject | Author | Source | License |
 | --- | --- | --- | --- | --- |
-| `src/assets/images/hero-falcon.jpg` | Peregrine falcon (*Falco peregrinus*) launching from a branch, wings spread. Wenatchee, WA. | Frank Cone | [Pexels photo 5247930](https://www.pexels.com/photo/a-falcon-flying-from-a-tree-branch-5247930/) | [Pexels License](https://www.pexels.com/license/): free for commercial use, attribution not required (credited here as good practice) |
+| `src/assets/images/hero-falcon.png` | Peregrine falcon in profile, close-up on a warm green-gold background. | Ling (site photo) | Home hero still | Used with permission |
+| `src/assets/images/hero-falcon.jpg` | Previous launching-falcon still, kept in the repo unused. | Frank Cone | [Pexels photo 5247930](https://www.pexels.com/photo/a-falcon-flying-from-a-tree-branch-5247930/) | [Pexels License](https://www.pexels.com/license/) |
 
 Photo alternatives considered (all free licenses) if the hero image should change:
 
