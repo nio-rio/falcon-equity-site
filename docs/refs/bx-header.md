@@ -29,11 +29,12 @@ Blackstone does **not** change theme on scroll. Falcon home is dark on the hero 
 | `--h-site-header` (CSS unfixed) | **7rem** (112px) | **8rem** | **8.75rem** (140px) | **12.75rem** (204px) | same |
 | Applied bar (captures / `--fixed`) | **6.375rem** | same | **6.75rem** (108px) | **6.75rem** | same |
 | `--h-site-header--fixed` (scrolled) | **6.375rem** | same | **6.75rem** (108px) | same | same |
-| Logo box `--w` × `--h` | **7.625 × 3rem** | same | **9.5 × 3.75rem** (152×60) | same | same |
+| Logo box `--w` × `--h` (BX) | **7.625 × 3rem** | same | **9.5 × 3.75rem** (152×60) | same | same |
+| Falcon logo (1.25×, width auto) | **9.53125rem × 1.31875rem** (152.5×21.1) | same | **11.875rem × 1.643125rem** (190×26.3) | same | same |
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
-Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock page scroll (`html.has-scroll-lock`) with wheel/touch preventDefault — not `overflow: hidden` on html/body, which would trap the fixed bar off-screen after scroll.
+Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock page scroll (`html.has-scroll-lock`) with wheel/touch preventDefault — not `overflow: hidden` on html/body, which would trap the fixed bar off-screen after scroll. The bar has **no bottom border, box-shadow, or hairline**. The logo is the unboxed lockup at **1.25×** the prior height (`width: auto`).
 
 ## Nav (desktop, `min-width: 80em`)
 

@@ -71,6 +71,10 @@ const headerPanelGeom = (page) =>
     const br = bar.getBoundingClientRect();
     const pr = panel ? panel.getBoundingClientRect() : null;
     const cs = getComputedStyle(header);
+    const barCs = getComputedStyle(bar);
+    const noHairline = (elCs) =>
+      (elCs.borderBottomWidth === '0px' || elCs.borderBottomStyle === 'none') &&
+      (elCs.boxShadow === 'none' || elCs.boxShadow === '');
     return {
       headerTop: Math.round(hr.top * 10) / 10,
       barBottom: Math.round(br.bottom * 10) / 10,
@@ -85,6 +89,7 @@ const headerPanelGeom = (page) =>
         cs.position === 'fixed' &&
         cs.visibility !== 'hidden' &&
         cs.display !== 'none',
+      noHairline: noHairline(cs) && noHairline(barCs),
       pos: cs.position,
       locked: document.documentElement.classList.contains('has-scroll-lock'),
       y: Math.round(window.scrollY),
@@ -158,14 +163,77 @@ for (const vp of VIEWPORTS) {
 
     const logoBox = await page.evaluate(() => {
       const el = document.querySelector('.site-header__logo');
+      const mark = document.querySelector('.site-header__logo-mark');
       const cs = getComputedStyle(el);
-      return { pad: cs.padding, border: cs.borderTopWidth, bg: cs.backgroundColor };
+      const r = mark.getBoundingClientRect();
+      return {
+        pad: cs.padding,
+        border: cs.borderTopWidth,
+        bg: cs.backgroundColor,
+        w: Math.round(r.width * 10) / 10,
+        h: Math.round(r.height * 10) / 10,
+      };
     });
     const logoBare =
       (logoBox.pad === '0px' || logoBox.pad === '0px 0px') &&
       (logoBox.border === '0px' || logoBox.border === '0px none') &&
       (logoBox.bg === 'rgba(0, 0, 0, 0)' || logoBox.bg === 'transparent' || logoBox.bg === 'none');
     log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
+
+    const expectedLogo = vp.width < 768 ? { w: 152.5, h: 21.1 } : { w: 190, h: 26.3 };
+    const logoSized =
+      Math.abs(logoBox.w - expectedLogo.w) <= 2 && Math.abs(logoBox.h - expectedLogo.h) <= 2;
+    log({
+      ...tag,
+      check: 'logo-125',
+      ok: logoSized,
+      detail: `got ${logoBox.w}x${logoBox.h} expected ${expectedLogo.w}x${expectedLogo.h}`,
+    });
+
+    const noHairline = async () =>
+      page.evaluate(() => {
+        const header = document.querySelector('[data-header]');
+        const bar = document.querySelector('[data-header-bar]');
+        const check = (el) => {
+          const cs = getComputedStyle(el);
+          return {
+            borderBottom: cs.borderBottomWidth,
+            borderBottomStyle: cs.borderBottomStyle,
+            boxShadow: cs.boxShadow,
+            outline: cs.outlineWidth,
+          };
+        };
+        const h = check(header);
+        const b = check(bar);
+        const none = (x) =>
+          (x.borderBottom === '0px' || x.borderBottomStyle === 'none') &&
+          (x.boxShadow === 'none' || x.boxShadow === '');
+        return { ok: none(h) && none(b), h, b };
+      });
+
+    const hairlineTop = await noHairline();
+    log({ ...tag, check: 'header-no-bottom-rule', ok: hairlineTop.ok, detail: JSON.stringify(hairlineTop) });
+
+    const overlap = await page.evaluate(() => {
+      const logo = document.querySelector('.site-header__logo').getBoundingClientRect();
+      const tools = document.querySelector('.site-header__tools').getBoundingClientRect();
+      const nav = document.querySelector('.site-header__nav').getBoundingClientRect();
+      const hits = (a, b) => a.right > b.left + 1 && a.left < b.right - 1 && a.bottom > b.top + 1 && a.top < b.bottom - 1;
+      return {
+        logoTools: hits(logo, tools),
+        logoNav: hits(logo, nav),
+        navTools: hits(nav, tools),
+        logo: { l: Math.round(logo.left), r: Math.round(logo.right) },
+        nav: { l: Math.round(nav.left), r: Math.round(nav.right) },
+        tools: { l: Math.round(tools.left), r: Math.round(tools.right) },
+      };
+    });
+    log({
+      ...tag,
+      check: 'logo-no-overlap',
+      ok: !overlap.logoTools && !overlap.logoNav,
+      detail: JSON.stringify(overlap),
+    });
 
     const telHref = await page.locator('.site-header__tel--bar').getAttribute('href');
     log({ ...tag, check: 'tel-real-number', ok: telHref === 'tel:+19172455277', detail: telHref });
@@ -375,7 +443,7 @@ for (const vp of VIEWPORTS) {
       log({
         ...tag,
         check: `open-at-y${y}-header-in-view`,
-        ok: g.visible,
+        ok: g.visible && g.noHairline,
         detail: JSON.stringify(g),
       });
       log({
@@ -407,7 +475,7 @@ for (const vp of VIEWPORTS) {
     log({
       ...tag,
       check: 'scroll-while-open-header-stays',
-      ok: afterScroll.visible && stillAttached,
+      ok: afterScroll.visible && stillAttached && afterScroll.noHairline,
       detail: JSON.stringify(afterScroll),
     });
     await closeMenu(page, vp.mode);
@@ -420,7 +488,7 @@ for (const vp of VIEWPORTS) {
     log({
       ...tag,
       check: 'open-after-scroll-header-in-view',
-      ok: after.visible,
+      ok: after.visible && after.noHairline,
       detail: JSON.stringify(after),
     });
     log({

@@ -577,6 +577,16 @@ html.has-scroll-lock .site-header {
   --nav-rule: var(--bx-slate-2);
 }
 
+.site-header,
+.site-header__container,
+.site-header.is-open .site-header__container,
+.site-header.is-compact .site-header__container,
+.site-header.is-color-theme-dark .site-header__container {
+  border: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
 .site-header__container {
   position: relative;
   z-index: 3;
@@ -587,7 +597,6 @@ html.has-scroll-lock .site-header {
   height: var(--bx-header);
   background: var(--nav-bg);
   color: var(--nav-copy);
-  border-bottom: 1px solid var(--nav-rule);
   transition: height 0.3s ease-out;
 }
 
@@ -606,11 +615,13 @@ html.has-scroll-lock .site-header {
 
 .site-header__logo {
   display: flex;
-  flex: 0 0 var(--bx-header-logo-w);
+  flex: 0 0 auto;
   align-items: center;
-  box-sizing: border-box;
-  width: var(--bx-header-logo-w);
-  height: var(--bx-header-logo-h);
+  align-self: center;
+  box-sizing: content-box;
+  width: auto;
+  height: auto;
+  max-height: 100%;
   padding: 0;
   border: 0;
   color: inherit;
@@ -626,20 +637,22 @@ html.has-scroll-lock .site-header {
 
 .site-header__logo-mark {
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: 100%;
+  width: auto;
+  height: var(--bx-header-logo-h);
+  max-height: none;
 }
 
 .site-header__nav {
   display: flex;
   flex: 1 1 auto;
+  min-width: 0;
   justify-content: center;
 }
 
 .site-header__tools {
   display: flex;
   flex: 0 0 auto;
+  flex-shrink: 0;
   align-items: center;
   justify-content: flex-end;
   gap: 0.75rem;
@@ -969,7 +982,7 @@ html.has-scroll-lock .site-header {
 
   .site-header__inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
     align-items: stretch;
     column-gap: var(--bx-space-24);
   }
@@ -977,11 +990,13 @@ html.has-scroll-lock .site-header {
   .site-header__logo {
     justify-self: start;
     align-self: center;
+    min-width: max-content;
   }
 
   .site-header__nav {
     justify-content: center;
     flex: none;
+    min-width: 0;
     margin: 0;
     align-self: stretch;
   }
@@ -989,6 +1004,8 @@ html.has-scroll-lock .site-header {
   .site-header__tools {
     margin-left: 0;
     align-self: center;
+    justify-self: end;
+    min-width: max-content;
   }
 
   .site-header__tel {

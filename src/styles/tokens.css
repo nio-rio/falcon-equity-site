@@ -102,8 +102,9 @@
   --bx-bp-lg: 1024px;
   --bx-header: 7rem;
   --bx-header-fixed: 6.375rem;
-  --bx-header-logo-w: 7.625rem;
-  --bx-header-logo-h: 3rem;
+  /* Artwork: 1.25× the prior 7.625×3 box; SVG keeps 159/22 aspect (width auto). */
+  --bx-header-logo-w: 9.53125rem;
+  --bx-header-logo-h: 1.31875rem;
 }
 
 @media (min-width: 26em) {
@@ -122,8 +123,8 @@
     --bx-max: 43rem;
     --bx-header: 8.75rem;
     --bx-header-fixed: 6.75rem;
-    --bx-header-logo-w: 9.5rem;
-    --bx-header-logo-h: 3.75rem;
+    --bx-header-logo-w: 11.875rem;
+    --bx-header-logo-h: 1.643125rem;
     --pilot-heading-to-items: var(--bx-space-48);
   }
 }
