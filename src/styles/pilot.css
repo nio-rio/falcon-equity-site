@@ -327,6 +327,16 @@
   align-self: start;
 }
 
+.pilot-what .media--labeled,
+.pilot-what .image-slot--labeled {
+  background: #1a1a1a;
+}
+
+.pilot-what .media-label,
+.pilot-what .image-slot-label {
+  color: rgb(255 255 255 / 0.55);
+}
+
 .pilot-what-media .media,
 .pilot-what-media figure {
   display: block;
@@ -462,6 +472,13 @@
 
 .pilot-card-kicker {
   margin: var(--bx-space-24) 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: var(--bx-ls-eyebrow);
+  text-transform: uppercase;
+  color: #000;
 }
 
 .pilot-card-title {
@@ -744,58 +761,6 @@
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   margin-top: var(--bx-space-40);
-}
-
-.pilot-overview {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.25rem;
-  margin: 0;
-  width: 100%;
-}
-
-.pilot-overview dt {
-  font-size: 0.75rem;
-  line-height: 1.25;
-  letter-spacing: var(--bx-ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.pilot-overview dd {
-  margin: 0.5rem 0 0;
-  color: var(--color-ink);
-  font-size: var(--bx-fs-16);
-  line-height: 1.5;
-}
-
-.pilot-overview ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .pilot-overview {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
-  }
-
-  .pilot-overview-req {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (min-width: 1024px) {
-  .pilot-overview {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .pilot-overview-req {
-    grid-column: auto;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

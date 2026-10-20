@@ -1,6 +1,5 @@
 ---
 import Media from '@/components/Media.astro';
-import PilotEyebrow from './PilotEyebrow.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -27,11 +26,7 @@ const { href, title, kicker, body, image, imageAlt = '', intent } = Astro.props;
       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
     />
   </div>
-  {kicker && (
-    <p class="pilot-card-kicker">
-      <PilotEyebrow>{kicker}</PilotEyebrow>
-    </p>
-  )}
+  {kicker && <p class="pilot-card-kicker">{kicker}</p>}
   <h3 class="pilot-card-title">
     <span class="pilot-card-title-text">{title}</span>
   </h3>

@@ -229,7 +229,7 @@ BX `.bx-button` is a 999px pill, black, 0.3s, yellow focus — **not copied**.
 - Featured value: display 300, **5rem / 11rem / 9rem / 10rem** at 375 / 768 / 1280 / 1440, `line-height: 1`, **40–64px** gap under the label. One line; published ranges compact to `$10K-$1M`.
 - Side pair from **768**: two columns, sans 16px label, display **32 / 40 / 48px** value, **1px** rule under the value. Desktop ≥1280 sits them to the right of the featured figure (8+3+3 of 16 mapped to 6 + 2 + 2 of 12).
 - No footnote superscripts, Note, or numbered list.
-- Skip when amounts are non-numeric (`Tailored to your business`). Home compact strip stays `.stats-grid`.
+- Skip when amounts are non-numeric (`Tailored to your business`). Home and MCA pilots reuse this component (not the old compact `.stats-grid` strip).
 
 ### Quote
 
@@ -309,7 +309,16 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). Reused on the pilot. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
-| `src/components/pilot/` | Home + MCA sections (hero, what-we-do, list, cards, process, quote, accordion, CTA) |
+| `src/components/pilot/PilotHero.astro` | Home `#slide-1-2`: black band, 7+4 title row, 16:9→21:9 still, caption H2/body/Learn more |
+| `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
+| `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
+| `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
+| `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
+| `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
+| `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |
+| `src/components/pilot/PilotQuote.astro` | BREIT split: 3:4 portrait span 4, sans-light quote start 6 span 7, name/role bottom-right |
+| `src/components/pilot/PilotAccordion.astro` | FAQ (slate hairline, outline→filled circle) or `variant="strategies"` (black rules, plain chevron closed) |
+| `src/components/pilot/PilotCta.astro` | Falcon lilac band, not BX yellow |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |
 | `docs/redesign/content-home.md` | Approved home copy outline |

@@ -98,19 +98,26 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
         <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
           We fund businesses across these twelve sectors, and others with steady revenue.
         </p>
-        {
-          INDUSTRIES.map((ind) => (
-            <div class="bx-span-4 bx-lg-span-4">
-              <PilotImageCard
-                href={`/industries/${ind.slug}`}
-                title={ind.name}
-                body={ind.blurb}
-                intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
-                imageAlt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}
-              />
-            </div>
-          ))
-        }
+        <div class="bx-full">
+          <div class="bx-grid">
+            {
+              INDUSTRIES.map((ind) => (
+                <div class="bx-span-4 bx-lg-span-4">
+                  <PilotImageCard
+                    href={`/industries/${ind.slug}`}
+                    title={ind.name}
+                    body={ind.blurb}
+                    intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
+                    imageAlt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="bx-span-4 bx-lg-start-7 bx-lg-span-6">
+          <PilotArrow href="/industries" label="Learn more" />
+        </div>
       </div>
     </div>
   </section>
@@ -137,22 +144,24 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
             <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
               Short guides on getting approved, comparing options, costs, and cash flow.
             </p>
-            {insights.map((post) => (
-              <div class="bx-span-4 bx-lg-span-4">
-                <PilotImageCard
-                  href={`/blog/${post.id}`}
-                  title={post.data.title}
-                  kicker={post.data.category}
-                  image={post.data.cover}
-                  imageAlt={post.data.coverAlt || ''}
-                  intent={post.data.coverAlt || 'editorial photograph for this article'}
-                />
+            <div class="bx-full">
+              <div class="bx-grid">
+                {insights.map((post) => (
+                  <div class="bx-span-4 bx-lg-span-4">
+                    <PilotImageCard
+                      href={`/blog/${post.id}`}
+                      title={post.data.title}
+                      kicker={post.data.category}
+                      image={post.data.cover}
+                      imageAlt={post.data.coverAlt || ''}
+                      intent={post.data.coverAlt || 'editorial photograph for this article'}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
             <div class="bx-span-4 bx-lg-start-7 bx-lg-span-6">
-              <div class="pilot-section-cta">
-                <PilotArrow href="/blog" label="View all" />
-              </div>
+              <PilotArrow href="/blog" label="View all" />
             </div>
           </div>
         </div>
