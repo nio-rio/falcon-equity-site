@@ -105,6 +105,9 @@
   --bx-gutter: 16px;
   --bx-margin: 15px;
   --bx-section: 4rem;
+  /* Home band spacing — BX `.bx-component-base-padding` / stacked-same-theme. */
+  --pilot-section-y: 5rem;
+  --pilot-section-y-stack: 2.5rem;
   --bx-bp-md: 768px;
   --bx-bp-lg: 1024px;
   --bx-header: 7rem;
@@ -137,6 +140,8 @@
     --bx-gutter: 24px;
     --bx-margin: 40px;
     --bx-section: 5.5rem;
+    --pilot-section-y: 6rem;
+    --pilot-section-y-stack: 2.5rem;
     --bx-max: 43rem;
     --bx-header: 8.75rem;
     --bx-header-fixed: 6.75rem;
@@ -159,6 +164,8 @@
     /* Captures show the compact bar (~108px), which is BX `--h-site-header--fixed`. */
     --bx-header: 6.75rem;
     --pilot-heading-to-items: var(--bx-space-96);
+    --pilot-section-y: 9rem;
+    --pilot-section-y-stack: 3rem;
   }
 }
 
@@ -167,6 +174,8 @@
     --bx-margin: 80px;
     --bx-max: 79rem;
     --pilot-heading-to-items: var(--bx-space-104);
+    --pilot-section-y: 10rem;
+    --pilot-section-y-stack: 3.5rem;
   }
 }
 

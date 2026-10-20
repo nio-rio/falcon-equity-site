@@ -579,8 +579,6 @@
 .pilot-stats {
   background: #fff;
   color: var(--bx-black);
-  padding-top: 2.5rem;
-  padding-bottom: 5rem;
 }
 
 .pilot-stats-grid {
@@ -661,11 +659,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-stats {
-    padding-top: 2.5rem;
-    padding-bottom: 6rem;
-  }
-
   .pilot-stats-grid {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -718,11 +711,6 @@
 }
 
 @media (min-width: 80em) {
-  .pilot-stats {
-    padding-top: 48px;
-    padding-bottom: 144px;
-  }
-
   .pilot-stats-grid {
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
@@ -745,11 +733,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-stats {
-    padding-top: 56px;
-    padding-bottom: 160px;
-  }
-
   .pilot-stats-feat-value {
     margin-top: 64px;
     font-size: 10rem;
@@ -771,8 +754,6 @@
   --pilot-ann-btn: 2.75rem; /* same as .circle-arrow / arrow-cta */
   background: #fff;
   color: var(--bx-black);
-  padding-top: 5rem;
-  padding-bottom: 5rem;
 }
 
 .pilot-ann-inner {
@@ -908,8 +889,6 @@
 @media (min-width: 48em) {
   .pilot-ann {
     --pilot-ann-nav-gap: 3.5rem;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
   }
 
   .pilot-ann-stage {
@@ -972,8 +951,6 @@
 @media (min-width: 80em) {
   .pilot-ann {
     --pilot-ann-nav-gap: 4rem;
-    padding-top: 9rem;
-    padding-bottom: 9rem;
   }
 
   .pilot-ann-stage,
@@ -1014,11 +991,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-ann {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
-  }
-
   .pilot-ann-item {
     grid-template-areas: 'Title Title Title Title Title Title Title . Media Media Media Media . Meta Meta Meta';
   }
@@ -1042,8 +1014,6 @@
 .pilot-tabs {
   background: #fff;
   color: var(--bx-black);
-  padding-top: 5rem;
-  padding-bottom: 5rem;
 }
 
 .pilot-tabs-head {
@@ -1230,11 +1200,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-tabs {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-
   .pilot-tabs-head {
     padding-bottom: 3rem;
   }
@@ -1262,11 +1227,6 @@
 }
 
 @media (min-width: 80em) {
-  .pilot-tabs {
-    padding-top: 9rem;
-    padding-bottom: 9rem;
-  }
-
   .pilot-tabs-head {
     display: grid;
     grid-template-columns: repeat(16, minmax(0, 1fr));
@@ -1332,11 +1292,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-tabs {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
-  }
-
   .pilot-tabs-head {
     padding-bottom: 3.5rem;
   }
@@ -1375,8 +1330,6 @@
 .pilot-why {
   background: var(--bx-black);
   color: #fff;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
 }
 
 .pilot-why h2,
@@ -1532,11 +1485,6 @@
 }
 
 @media (min-width: 26em) {
-  .pilot-why {
-    padding-top: 5.5rem;
-    padding-bottom: 5.5rem;
-  }
-
   .pilot-why-card {
     padding: 3rem 1.5rem;
   }
@@ -1552,11 +1500,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-why {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-
   .pilot-why-grid {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -1623,11 +1566,6 @@
 }
 
 @media (min-width: 80em) {
-  .pilot-why {
-    padding-top: 9rem;
-    padding-bottom: 9rem;
-  }
-
   .pilot-why-grid {
     grid-template-columns: repeat(16, minmax(0, 1fr));
     grid-template-areas:
@@ -1670,11 +1608,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-why {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
-  }
-
   .pilot-why-eyebrow {
     margin-bottom: 4rem;
   }
@@ -1722,7 +1655,6 @@
    Source: bmacx.com “Explore More About BMACX”, blackstone-v2 frontend.css
    (Wayback 20261001234616) + frontend.js tabsscript mouseover. */
 .pilot-ll-section {
-  padding-block: var(--bx-section);
   background: #fff;
   color: var(--bx-black);
 }
@@ -2039,8 +1971,6 @@
 .pilot-news {
   background: #fff;
   color: var(--bx-black);
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .pilot-news-head {
@@ -2198,11 +2128,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-news {
-    padding-top: 2.5rem;
-    padding-bottom: 3rem;
-  }
-
   .pilot-news-head h2 {
     font-size: 2.5rem;
     line-height: 1.5;
@@ -2236,11 +2161,6 @@
 }
 
 @media (min-width: 80em) {
-  .pilot-news {
-    padding-top: 48px;
-    padding-bottom: 112px;
-  }
-
   .pilot-news-head .pilot-eyebrow {
     font-size: 16px;
     padding-bottom: 56px;
@@ -2311,11 +2231,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-news {
-    padding-top: 56px;
-    padding-bottom: 120px;
-  }
-
   .pilot-news-head .pilot-eyebrow {
     padding-bottom: 64px;
   }

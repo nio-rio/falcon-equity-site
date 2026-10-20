@@ -24,7 +24,7 @@ interface Props {
 const { id = 'services-heading', eyebrow, title, items } = Astro.props;
 ---
 
-<section class="pilot-ll-section" aria-labelledby={id} id="services" data-reveal-root>
+<section class="pilot-ll-section" aria-labelledby={id} id="services" data-band="light" data-reveal-root>
   <div class="container-site">
     {
       (eyebrow || title) && (

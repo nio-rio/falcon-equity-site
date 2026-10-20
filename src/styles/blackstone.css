@@ -21,6 +21,17 @@ html {
   padding-block: var(--bx-section);
 }
 
+/* Home bands + global CTA. Different-bg neighbors keep full pad on both
+   sides. Same-bg neighbors collapse the follower's top to the stacked token. */
+[data-band] {
+  padding-block: var(--pilot-section-y);
+}
+
+[data-band='light'] + [data-band='light'],
+[data-band='dark'] + [data-band='dark'] {
+  padding-top: var(--pilot-section-y-stack);
+}
+
 .media,
 .image-slot {
   display: block;
@@ -1320,7 +1331,7 @@ h2.primary-nav-widget__title {
   flex-direction: column;
   align-items: center;
   gap: var(--bx-space-32);
-  padding-block: var(--bx-space-64);
+  padding-block: 0;
   text-align: center;
 }
 
@@ -1422,7 +1433,7 @@ h2.primary-nav-widget__title {
   }
 
   .site-cta__content {
-    padding-block: var(--bx-space-64);
+    padding-block: 0;
   }
 }
 

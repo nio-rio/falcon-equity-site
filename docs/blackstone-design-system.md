@@ -114,7 +114,8 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 
 | Role | Mobile | 768 | ≥1024 | ≥1440 | Source |
 | --- | --- | --- | --- | --- | --- |
-| Section `--bx-section` | 64px (4rem) | 88px (5.5rem) | 120px (7.5rem) | 120px | `--pad` / BXCI |
+| Section `--bx-section` | 64px (4rem) | 88px (5.5rem) | 120px (7.5rem) | 120px | `--pad` / BXCI (inner pages) |
+| Home band `--pilot-section-y` | 80px | 96px | 144px (1280) | 160px | BX base pad. Same-bg follower uses `--pilot-section-y-stack` 40 / 40 / 48 / 56. See `docs/refs/bx-section-spacing.md` |
 | Outer margin `--bx-margin` | 15px | 40px | 40px | **80px** | `--pad-container-sm` / `--pad-container-md-plus` at 90em |
 | Home announcement (EARNINGS) | see below | | | | `.bx-announcement` |
 | Gutter `--bx-gutter` | 16px | 24px | 24px | 24px | `--column-gap: 2em` → 24px |

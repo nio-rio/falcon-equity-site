@@ -750,6 +750,89 @@ for (const vp of VIEWPORTS) {
           why.bg === 'rgb(20, 16, 31)',
         detail: JSON.stringify(why),
       });
+
+      const spacing = await page.evaluate(() => {
+        const px = (el) => {
+          const cs = getComputedStyle(el);
+          return {
+            top: Math.round(parseFloat(cs.paddingTop)),
+            bottom: Math.round(parseFloat(cs.paddingBottom)),
+          };
+        };
+        const root = getComputedStyle(document.documentElement);
+        const toPx = (token) => {
+          const probe = document.createElement('div');
+          probe.style.paddingTop = `var(${token})`;
+          document.body.append(probe);
+          const v = Math.round(parseFloat(getComputedStyle(probe).paddingTop));
+          probe.remove();
+          return v;
+        };
+        const y = toPx('--pilot-section-y');
+        const stack = toPx('--pilot-section-y-stack');
+        const stats = document.querySelector('.pilot-stats');
+        const ll = document.querySelector('.pilot-ll-section');
+        const ann = document.querySelector('.pilot-ann');
+        const tabs = document.querySelector('.pilot-tabs');
+        const whyEl = document.querySelector('.pilot-why');
+        const news = document.querySelector('.pilot-news');
+        const cta = document.querySelector('.site-cta');
+        const hero = document.querySelector('.pilot-hero');
+        const gap = (a, b) => {
+          if (!a || !b) return null;
+          return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
+        };
+        return {
+          y,
+          stack,
+          stats: px(stats),
+          ll: px(ll),
+          ann: px(ann),
+          tabs: px(tabs),
+          why: px(whyEl),
+          news: px(news),
+          cta: px(cta),
+          hero: hero ? px(hero) : null,
+          gaps: {
+            statsToLl: gap(stats, ll),
+            llToAnn: gap(ll, ann),
+            annToTabs: gap(ann, tabs),
+            tabsToWhy: gap(tabs, whyEl),
+            whyToNews: gap(whyEl, news),
+            newsToCta: gap(news, cta),
+          },
+        };
+      });
+      const flush = (n) => n != null && Math.abs(n) <= 1;
+      log({
+        ...tag,
+        check: 'home-section-spacing',
+        ok:
+          spacing.y > 0 &&
+          spacing.stack > 0 &&
+          spacing.stack < spacing.y &&
+          spacing.stats.top === spacing.y &&
+          spacing.stats.bottom === spacing.y &&
+          spacing.ll.top === spacing.stack &&
+          spacing.ll.bottom === spacing.y &&
+          spacing.ann.top === spacing.stack &&
+          spacing.ann.bottom === spacing.y &&
+          spacing.tabs.top === spacing.stack &&
+          spacing.tabs.bottom === spacing.y &&
+          spacing.why.top === spacing.y &&
+          spacing.why.bottom === spacing.y &&
+          spacing.news.top === spacing.y &&
+          spacing.news.bottom === spacing.y &&
+          spacing.cta.top === spacing.y &&
+          spacing.cta.bottom === spacing.y &&
+          flush(spacing.gaps.statsToLl) &&
+          flush(spacing.gaps.llToAnn) &&
+          flush(spacing.gaps.annToTabs) &&
+          flush(spacing.gaps.tabsToWhy) &&
+          flush(spacing.gaps.whyToNews) &&
+          flush(spacing.gaps.newsToCta),
+        detail: JSON.stringify(spacing),
+      });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
