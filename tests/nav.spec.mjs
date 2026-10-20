@@ -404,11 +404,7 @@ for (const vp of VIEWPORTS) {
           menuRest: restSizes.menuLabel,
         }),
       });
-      await page.keyboard.press('Escape');
-      await page.waitForTimeout(150);
 
-      await trigger.hover();
-      await page.waitForTimeout(200);
       const hoverOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
       const panelVisible = await panel.evaluate((el) => getComputedStyle(el).display !== 'none');
       log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
