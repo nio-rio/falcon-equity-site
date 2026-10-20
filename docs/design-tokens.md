@@ -33,7 +33,7 @@ Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicod
 | Nav position | sticky, in flow (not overlay) | same | same | same |
 | Nav background | `rgb(114, 151, 197)` | same | same | same |
 
-Falcon nav stays **white with black text** (site rule). Goldman’s pale panel `rgb(247, 247, 250)` is the secondary background: tint `#F7F7FA`. Falcon blog post shells use `max-width: 56rem` (896px) to match the measured article column at 1440.
+Falcon nav stays **white with black text** (site rule). Goldman’s pale panel `rgb(247, 247, 250)` mapped to leftover `#F7F7FA`; Falcon now uses Lilac Light `#f6f5fc`. Falcon blog post shells use `max-width: 56rem` (896px) to match the measured article column at 1440.
 
 Section interiors are whitespace-led rather than padded boxes. Falcon uses `64px` vertical padding on small screens and `80px` from 768 up.
 
@@ -62,12 +62,12 @@ No min/max height constraints beyond those intrinsic heights. One primary CTA in
 | --- | --- |
 | White page, `rgba(0,0,0,0.95)` type | `#ffffff` / `#0a0a0a` |
 | Body `rgba(0,0,0,0.8)` | `#333333` |
-| Muted `rgba(0,0,0,0.6)` | `#666666` |
-| Pale panel `rgb(247, 247, 250)` | `#F7F7FA` |
+| Muted `rgba(0,0,0,0.6)` | leftover `#666666` → Martinique Lighter `#605a7b` |
+| Pale panel `rgb(247, 247, 250)` | leftover `#F7F7FA` → Lilac Light `#f6f5fc` |
 | Subscribe to Briefings band `rgb(114, 151, 197)` (HSL 213° / 42% / 61%) | Hue rotated to lilac: `#A072C5` (`rgb(160, 114, 197)`, HSL 273° / 42% / 61%). CTA bands use this with dark ink text. Ink on `#A072C5` is **5.4:1** (AA for body). |
 | Links / selected UI | `#5b21b6` (`#4c1d95` hover) |
 
-Contrast (`#F7F7FA`): ink ~19:1 AAA; `#5b21b6` 7.8:1 AA; `#666` 5.0:1 AA. CTA lilac `#A072C5`: ink 5.4:1 AA; do not use muted `#666` on it.
+Contrast (Lilac Light `#f6f5fc`): ink ~19:1 AAA. Historical Goldman `#5b21b6` / `#A072C5` fills are no longer used; current buttons are ink/white or button-040 Lilac/Martinique.
 
 ## Cards, lists, teasers
 

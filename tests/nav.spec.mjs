@@ -267,9 +267,9 @@ const readTypeChrome = (page, telSel = '.site-header__tel--bar') =>
 const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
-const INK_A16 = 'rgba(15, 12, 23, 0.16)';
+const LILAC_DARK = 'rgb(229, 228, 242)';
 const WHITE_A16 = 'rgba(255, 255, 255, 0.16)';
-const WHITE_A34 = 'rgba(255, 255, 255, 0.34)';
+const MARTINIQUE_LIGHTER = 'rgb(96, 90, 123)';
 const MARTINIQUE_DARKER = 'rgb(20, 16, 31)';
 const MARTINIQUE = 'rgb(51, 42, 78)';
 const LILAC = 'rgb(243, 242, 251)';
@@ -1556,7 +1556,7 @@ for (const vp of VIEWPORTS) {
       check: 'site-cta-active-white',
       ok:
         ctaChrome.activeColor === 'rgb(255, 255, 255)' &&
-        (ctaChrome.pastColor == null || ctaChrome.pastColor === WHITE_A34) &&
+        (ctaChrome.pastColor == null || ctaChrome.pastColor === MARTINIQUE_LIGHTER) &&
         (ctaChrome.restColor == null || fadedWhite(ctaChrome.restColor)),
       detail: JSON.stringify({
         activeColor: ctaChrome.activeColor,
@@ -1658,7 +1658,7 @@ for (const vp of VIEWPORTS) {
           openChrome.panelVisible &&
           openChrome.borderTopWidth === '1px' &&
           openChrome.borderTopStyle === 'solid' &&
-          openChrome.borderTopColor === (theme.dark ? WHITE_A16 : INK_A16) &&
+          openChrome.borderTopColor === (theme.dark ? WHITE_A16 : LILAC_DARK) &&
           openChrome.headerBorder === '0px',
         detail: JSON.stringify(openChrome),
       });
@@ -2019,7 +2019,7 @@ for (const vp of VIEWPORTS) {
           mobileChrome.headerBorder === '0px' &&
           mobileChrome.barBorder === '0px' &&
           mobileRule?.width === '1px' &&
-          mobileRule?.color === (theme.dark ? WHITE_A16 : INK_A16),
+          mobileRule?.color === (theme.dark ? WHITE_A16 : LILAC_DARK),
         detail: JSON.stringify({ ...mobileChrome, mobileRule }),
       });
       await shot(page, `${vp.name}-${pg.name}-mobile-drill`);

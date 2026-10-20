@@ -2,7 +2,7 @@
    Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle. */
 
 :root {
-  /* Martinique + Lilac scale (Ling). Solids only when saturation matches. */
+  /* Martinique + Lilac scale (Ling). Listed greys become these solids. */
   --bx-martinique: #332a4e;
   --bx-martinique-dark: #28213e;
   --bx-martinique-darker: #14101f;
@@ -34,11 +34,11 @@
   --white-a16: rgb(255 255 255 / 0.16);
   --white-a12: rgb(255 255 255 / 0.12);
 
-  --bx-slate-1: var(--ink-a72);
-  --bx-slate-2: var(--ink-a16);
-  --bx-slate-3: var(--ink-a4);
-  --bx-highlight-light-active: var(--ink-a9);
-  --bx-grey-100: var(--ink-a3);
+  --bx-slate-1: var(--bx-martinique-light);
+  --bx-slate-2: var(--bx-lilac-darker);
+  --bx-slate-3: var(--bx-lilac);
+  --bx-highlight-light-active: var(--bx-lilac-dark);
+  --bx-grey-100: var(--bx-lilac-light);
   --bx-grey-300: var(--ink-a36);
   --bx-on-dark: var(--white-a88);
   --bx-on-dark-muted: var(--white-a82);
@@ -60,7 +60,7 @@
   --color-accent-hover: var(--falcon-accent-hover);
   --color-brand: var(--falcon-accent);
   --color-brand-dark: var(--falcon-accent-hover);
-  --color-brand-light: var(--ink-a63);
+  --color-brand-light: var(--bx-martinique-lighter);
   --color-cta: var(--bx-martinique-darker);
   --color-featured: var(--falcon-featured);
   --color-surface-dark: var(--bx-martinique-darker);

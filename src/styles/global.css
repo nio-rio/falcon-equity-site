@@ -75,7 +75,7 @@
   --color-accent-hover: var(--falcon-accent-hover);
   --color-brand: var(--falcon-accent);
   --color-brand-dark: var(--falcon-accent-hover);
-  --color-brand-light: var(--ink-a63);
+  --color-brand-light: var(--bx-martinique-lighter);
   --color-tint: var(--bx-slate-3);
   --color-cta: var(--bx-martinique-darker);
   --color-featured: var(--falcon-featured);

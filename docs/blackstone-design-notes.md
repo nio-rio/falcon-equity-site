@@ -26,9 +26,9 @@ Implemented as `--bx-*` tokens and `.bx-grid` / `.bx-span-*` / `.bx-lg-span-*` /
 | --- | --- | --- | --- |
 | `--c-black` | `#000000` | `--color-ink` | Bundle |
 | `--c-variant-black` | `#202020` | `--color-ink-soft` | Bundle |
-| `--c-slate-1` | `#515256` | `--color-muted` | Bundle |
-| `--c-slate-2` | `#d5d8df` | `--color-line` | Bundle |
-| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` | Bundle |
+| `--c-slate-1` | `#515256` | `--color-muted` → Martinique Light `#524a68` | Bundle |
+| `--c-slate-2` | `#d5d8df` | `--color-line` → Lilac Darker `#c4bfe1` | Bundle |
+| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` → Lilac `#f3f2fb` | Bundle |
 | `--c-yellow` | `#fdf147` | not used as CTA fill | Bundle (focus/highlight only) |
 | Falcon CTA | `#000` | `--color-accent` | Ink buttons / circle-arrows; not purple, not BX yellow |
 
@@ -73,7 +73,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 | What-we-do H2 → content | 80px (`--bx-space-80`) | BXCI screenshot (estimated from 1440 frame) |
 | What-we-do list item gap | 56px (`--bx-space-56`) | BXCI screenshot |
 | Eyebrow rule | 48×2px, 16px from label | Bundle `:after` width `--spacing-48`, height 2px |
-| Hairline | 1px `#d5d8df` (`--c-slate-2`) | Bundle |
+| Hairline | 1px Lilac Darker `#c4bfe1` (`--bx-slate-2`; BX was `#d5d8df`) | Falcon |
 | Card / list row padding | ~1.75rem | Screenshot |
 
 ## Type (section headers)

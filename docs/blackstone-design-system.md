@@ -26,16 +26,15 @@ From `:root` in the v2 bundle.
 | `--c-black` | `#000000` | `--bx-martinique-darker` `#14101f` via `--bx-black` / `--color-ink` / `--color-surface-dark` |
 | `--c-white` | `#ffffff` | `--bx-white` |
 | `--c-variant-black` | `#202020` | `--color-ink-soft` → Martinique Dark `#28213e` |
-| `--c-slate-1` | `#515256` | `--ink-a72` (3% sat grey; not Martinique Light) |
-| `--c-slate-2` | `#d5d8df` | `--ink-a16` hairlines (closer than Lilac Dark `#e5e4f2`) |
-| `--c-highlight-light-active` | `#e7eaee` | `--ink-a9` (Lilac Dark is 35% sat) |
-| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--ink-a4` tints; Industry field/menu use `--bx-lilac` |
+| `--c-slate-1` | `#515256` | `--bx-martinique-light` `#524a68` |
+| `--c-slate-2` | `#d5d8df` | `--bx-lilac-darker` `#c4bfe1` |
+| `--c-highlight-light-active` | `#e7eaee` | `--bx-lilac-dark` `#e5e4f2` |
+| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--bx-lilac` `#f3f2fb` (Industry field/menu too) |
 | `--c-highlight-dark` | `#121317` | `--bx-highlight-dark` → Martinique Darker |
-| `--c-grey-100` | `#f8f8f8` | `--ink-a3` |
+| `--c-grey-100` | `#f8f8f8` | `--bx-lilac-light` `#f6f5fc` |
 | `--c-grey-300` | `#a3aaae` | `--ink-a36` |
-| leftover `#636363` | on-dark | `--white-a34` (CTA past lines) |
-| leftover `#666666` | on-light | `--ink-a63` (`--color-brand-light`) |
-| leftover `#f7f7fa` | wash | `--ink-a3` |
+| leftover `#636363` / `#666666` | | `--bx-martinique-lighter` `#605a7b` (CTA past lines, brand-light) |
+| leftover `#f7f7fa` | wash | `--bx-lilac-light` `#f6f5fc` |
 | `--c-copy` | `var(--c-black)` | ink |
 | `--c-background` | `var(--c-white)` | page |
 | `--c-links` | `var(--c-black)` | inherit |
@@ -50,7 +49,12 @@ Ling additions (Falcon-only):
 | `--bx-martinique-dark` | `#28213e` | Martinique Dark. Soft ink, accent hover, button-040 default arrow fill |
 | `--bx-martinique-darker` | `#14101f` | Martinique Darker. Site black (header, hero, text, borders, overlay tint, square buttons) |
 | `--bx-martinique-darkest` | `#0f0c17` | Martinique Darkest. Reserved; not used for BX `#000` masks |
-| `--bx-lilac` | `#f3f2fb` | Button-040 light (pill / arrow on the light variant) |
+| `--bx-martinique-light` | `#524a68` | Martinique Light. Muted copy (`--color-muted` / `--bx-slate-1`) |
+| `--bx-martinique-lighter` | `#605a7b` | Martinique Lighter. Brand-light, CTA past wheel lines |
+| `--bx-lilac` | `#f3f2fb` | Lilac. Tints, Industry field/menu, button-040 light pill |
+| `--bx-lilac-darker` | `#c4bfe1` | Lilac Darker. Hairlines (`--color-line` / `--bx-slate-2`) |
+| `--bx-lilac-dark` | `#e5e4f2` | Lilac Dark. Light-nav divider, Industry menu border |
+| `--bx-lilac-light` | `#f6f5fc` | Lilac Light. Soft washes (`--bx-grey-100`) |
 | `--bx-overlay` | `rgba(20, 16, 31, 0.32)` | Nav page overlay tint |
 
 Semantic on-dark copy: white `/ 0.88` body, `/ 0.82` secondary, `/ 0.16` rules.
@@ -129,7 +133,7 @@ Bundle `--spacing-*` is an 8px-based scale: 8, 12, 16, 24, 32, 40, 48, 56, 64, 8
 | Body → circle-arrow | 40px | | | | `.section-cta` |
 | What-we-do H2 → content | 80px | | | | BXCI |
 | What-we-do item gap | 56px | | | | BXCI |
-| Hairline | 1px `#d5d8df` | | | | `--c-slate-2` |
+| Hairline | 1px `#c4bfe1` | | | | `--bx-lilac-darker` (`--c-slate-2` was `#d5d8df`) |
 | Eyebrow rule | 48×2px, 16px gap | | | | `:after` `--spacing-48` |
 
 `.container-site` = `max-width: calc(var(--bx-max) + 2 * var(--bx-margin))` + `padding-inline: var(--bx-margin)`. At 1440: 1264 + 80 + 80.
@@ -315,7 +319,7 @@ Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats
 
 ### CTA band
 
-Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both Inter / body (no “for your business” tail). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, `--white-a34` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. Noticeably larger than the nav Apply: 1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em (height 3em). `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
+Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both Inter / body (no “for your business” tail). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, Martinique Lighter `#605a7b` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. Noticeably larger than the nav Apply: 1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em (height 3em). `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
 
 ### Footer
 
@@ -323,7 +327,7 @@ Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-l
 
 ### Forms
 
-BX: floating 14px light label, 16px inset, focus lifts label. Falcon apply uses Jotform embed (untouched). Loan calculator `.lc-*` stays page-local (range + result), using ink/tint/white on the dark hero. Do not use the BX red error `#ea4334`.
+BX: floating 14px light label, 16px inset, focus lifts label. Falcon apply uses Jotform embed (untouched). Loan calculator `.lc-*` stays page-local (range + result), using ink/tint/white on the dark hero. BX reds `#b80000` / `#ea4334` are removed; an error state would use a Martinique shade.
 
 ---
 
@@ -379,7 +383,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
-| `src/components/Header.astro` | Sitewide Blackstone header: live SVG mark + At Gambit wordmark, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `--ink-a16` / `--white-a16` container-width divider; panel content shares `.container-site` with the logo/Apply row. Desktop directional hover + mobile drill-down follow Osmo Mega Navigation timings (`docs/refs/osmo-mega-nav.md`), not Osmo’s look. |
+| `src/components/Header.astro` | Sitewide Blackstone header: live SVG mark + At Gambit wordmark, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px Lilac Dark / `--white-a16` container-width divider; panel content shares `.container-site` with the logo/Apply row. Desktop directional hover + mobile drill-down follow Osmo Mega Navigation timings (`docs/refs/osmo-mega-nav.md`), not Osmo’s look. |
 | `src/components/Button040.astro` | Ling button-040: pill with sliding text and arrow-circle. `href`, `label`, `variant` (`light` on dark, `dark` on white). Nav follows header theme. |
 | `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy (no tail), Inter lead and phrases, 4.5rem pitch, white active line, button-040 Apply. |
 | `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Get in Touch (X in that list), 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
