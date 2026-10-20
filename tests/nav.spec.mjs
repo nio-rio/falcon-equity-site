@@ -939,39 +939,26 @@ for (const vp of VIEWPORTS) {
         detail: JSON.stringify(spacing),
       });
 
-      await page.evaluate(() => {
-        const el = document.querySelector('.pilot-tabs-drop');
-        const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
-        if (!el) return;
-        const top = el.getBoundingClientRect().top + window.scrollY - headerH - 16;
-        window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'auto' });
-      });
-      await page.waitForTimeout(80);
-      const industryClosed = await page.evaluate(() => {
-        const drop = document.querySelector('.pilot-tabs-drop');
-        const menu = document.querySelector('.pilot-tabs-menu');
-        const title = document.querySelector('.pilot-tabs-title');
-        return {
-          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
-          expanded: drop?.getAttribute('aria-expanded') || null,
-          hidden: menu?.hidden ?? null,
-          titleY: title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null,
-        };
-      });
-      await page.locator('.pilot-tabs-drop').click({ force: true });
-      await page.waitForTimeout(80);
-      const industryOpen = await page.evaluate(() => {
+      const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');
         const drop = document.querySelector('.pilot-tabs-drop');
         const menu = document.querySelector('.pilot-tabs-menu');
         const title = document.querySelector('.pilot-tabs-title');
+        const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
+        if (drop) {
+          const top = drop.getBoundingClientRect().top + window.scrollY - headerH - 16;
+          window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'auto' });
+        }
+        const titleBefore = title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null;
+        drop?.click();
         const options = [...(menu?.querySelectorAll('[role="option"]') || [])];
         const first = options[0];
         const cs = menu ? getComputedStyle(menu) : null;
         const sr = section?.getBoundingClientRect();
         const mr = menu?.getBoundingClientRect();
         const tr = title?.getBoundingClientRect();
-        return {
+        const open = {
+          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
           expanded: drop?.getAttribute('aria-expanded') || null,
           hidden: menu?.hidden ?? null,
           optionCount: options.length,
@@ -984,37 +971,12 @@ for (const vp of VIEWPORTS) {
           menuH: mr ? Math.round(mr.height * 10) / 10 : null,
           optionH: first ? Math.round(first.getBoundingClientRect().height * 10) / 10 : null,
           pastSection: Boolean(sr && mr && mr.bottom > sr.bottom + 1),
-          titleMoved: tr ? Math.round(tr.top * 10) / 10 : null,
-          coversTitle: Boolean(mr && tr && mr.bottom > tr.top + 4 && mr.top < tr.bottom),
+          titleBefore,
+          titleAfter: tr ? Math.round(tr.top * 10) / 10 : null,
         };
-      });
-      const sixCap = industryOpen.optionH != null && industryOpen.menuH != null
-        ? industryOpen.menuH <= industryOpen.optionH * 6 + 4
-        : false;
-      log({
-        ...tag,
-        check: 'industry-menu-overlay',
-        ok:
-          industryOpen.expanded === 'true' &&
-          industryOpen.hidden === false &&
-          industryOpen.position === 'absolute' &&
-          industryOpen.bg === 'rgb(243, 242, 251)' &&
-          industryOpen.border === '1px rgb(229, 228, 242)' &&
-          industryOpen.shadow !== 'none' &&
-          (industryOpen.overflow === 'auto' || industryOpen.overflow === 'scroll') &&
-          sixCap &&
-          !industryOpen.pastSection &&
-          industryClosed.titleY != null &&
-          industryOpen.titleMoved === industryClosed.titleY,
-        detail: JSON.stringify({ industryClosed, industryOpen, sixCap }),
-      });
-      await page.locator('.pilot-tabs-menu [role="option"]').nth(0).click();
-      await page.waitForTimeout(80);
-      const industryPicked = await page.evaluate(() => {
-        const drop = document.querySelector('.pilot-tabs-drop');
-        const menu = document.querySelector('.pilot-tabs-menu');
+        first?.click();
         const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
-        return {
+        const picked = {
           label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
           expanded: drop?.getAttribute('aria-expanded') || null,
           hidden: menu?.hidden ?? null,
@@ -1022,31 +984,50 @@ for (const vp of VIEWPORTS) {
           selectedAria: selected?.getAttribute('aria-selected') || null,
           color: selected ? getComputedStyle(selected).color : null,
         };
+        drop?.click();
+        const reopened = drop?.getAttribute('aria-expanded') || null;
+        drop?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        const afterEsc = drop?.getAttribute('aria-expanded') || null;
+        drop?.click();
+        document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        const afterOutside = drop?.getAttribute('aria-expanded') || null;
+        return { open, picked, reopened, afterEsc, afterOutside };
+      });
+      const sixCap =
+        industry.open.optionH != null &&
+        industry.open.menuH != null &&
+        industry.open.menuH <= industry.open.optionH * 6 + 4;
+      log({
+        ...tag,
+        check: 'industry-menu-overlay',
+        ok:
+          industry.open.expanded === 'true' &&
+          industry.open.hidden === false &&
+          industry.open.position === 'absolute' &&
+          industry.open.bg === 'rgb(243, 242, 251)' &&
+          industry.open.border === '1px rgb(229, 228, 242)' &&
+          industry.open.shadow !== 'none' &&
+          (industry.open.overflow === 'auto' || industry.open.overflow === 'scroll') &&
+          sixCap &&
+          !industry.open.pastSection &&
+          industry.open.titleBefore != null &&
+          industry.open.titleAfter === industry.open.titleBefore,
+        detail: JSON.stringify({ ...industry.open, sixCap }),
       });
       log({
         ...tag,
         check: 'industry-menu-selects',
         ok:
-          industryPicked.label === 'Retail' &&
-          industryPicked.selected === 'Retail' &&
-          industryPicked.selectedAria === 'true' &&
-          industryPicked.expanded === 'false' &&
-          industryPicked.hidden === true &&
-          industryPicked.color === 'rgb(51, 42, 78)',
-        detail: JSON.stringify(industryPicked),
+          industry.picked.label === 'Retail' &&
+          industry.picked.selected === 'Retail' &&
+          industry.picked.selectedAria === 'true' &&
+          industry.picked.expanded === 'false' &&
+          industry.picked.hidden === true &&
+          industry.picked.color === 'rgb(51, 42, 78)',
+        detail: JSON.stringify(industry.picked),
       });
-      await page.locator('.pilot-tabs-drop').click();
-      await page.waitForTimeout(40);
-      await page.keyboard.press('Escape');
-      await page.waitForTimeout(40);
-      const industryEsc = await page.locator('.pilot-tabs-drop').getAttribute('aria-expanded');
-      log({ ...tag, check: 'industry-menu-esc', ok: industryEsc === 'false' });
-      await page.locator('.pilot-tabs-drop').click();
-      await page.waitForTimeout(40);
-      await page.mouse.click(12, 12);
-      await page.waitForTimeout(40);
-      const industryOutside = await page.locator('.pilot-tabs-drop').getAttribute('aria-expanded');
-      log({ ...tag, check: 'industry-menu-outside', ok: industryOutside === 'false' });
+      log({ ...tag, check: 'industry-menu-esc', ok: industry.reopened === 'true' && industry.afterEsc === 'false', detail: JSON.stringify({ reopened: industry.reopened, afterEsc: industry.afterEsc }) });
+      log({ ...tag, check: 'industry-menu-outside', ok: industry.afterOutside === 'false', detail: industry.afterOutside });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
