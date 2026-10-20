@@ -27,17 +27,6 @@ const phone = SITE.phones.direct;
         </div>
 
         <div class="site-footer__col">
-          <h3 class="site-footer__col-title">Social</h3>
-          <ul class="site-footer__list">
-            <li>
-              <a href={SITE.social.x} class="site-footer__link" rel="noopener me" target="_blank">
-                X (Twitter)<span class="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="site-footer__col">
           <h3 class="site-footer__col-title">Get in Touch</h3>
           <ul class="site-footer__list">
             <li><a href="/contact" class="site-footer__link">Contact</a></li>
@@ -51,6 +40,11 @@ const phone = SITE.phones.direct;
               <a href={SITE.address.mapUrl} class="site-footer__link" rel="noopener" target="_blank">
                 {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
                 <span class="sr-only"> (opens Google Maps in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={SITE.social.x} class="site-footer__link" rel="noopener me" target="_blank">
+                X<span class="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
           </ul>

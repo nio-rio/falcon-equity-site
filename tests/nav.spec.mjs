@@ -660,6 +660,70 @@ for (const vp of VIEWPORTS) {
         ctaChrome.ctaBg === ctaChrome.footerBg,
       detail: JSON.stringify({ ctaBg: ctaChrome.ctaBg, footerBg: ctaChrome.footerBg }),
     });
+    const footerNav = await page.evaluate(() => {
+      const cols = [...document.querySelectorAll('.site-footer__col')];
+      const git = cols.find(
+        (col) => col.querySelector('.site-footer__col-title')?.textContent.trim() === 'Get in Touch',
+      );
+      const styleOf = (a) => {
+        if (!a) return null;
+        const cs = getComputedStyle(a);
+        const visible = [...a.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent.trim())
+          .join('');
+        return {
+          href: a.getAttribute('href'),
+          visible,
+          className: a.className,
+          color: cs.color,
+          fontSize: cs.fontSize,
+          fontWeight: cs.fontWeight,
+          fontFamily: cs.fontFamily,
+          lineHeight: cs.lineHeight,
+          backgroundImage: cs.backgroundImage,
+          backgroundSize: cs.backgroundSize,
+        };
+      };
+      return {
+        titles: cols.map((col) => col.querySelector('.site-footer__col-title')?.textContent.trim() || ''),
+        x: styleOf(git?.querySelector('a[href="https://x.com/FalconEquitynyc"]')),
+        contact: styleOf(git?.querySelector('a[href="/contact"]')),
+      };
+    });
+    const xMatchesContact =
+      Boolean(footerNav.x) &&
+      Boolean(footerNav.contact) &&
+      footerNav.x.className === footerNav.contact.className &&
+      footerNav.x.color === footerNav.contact.color &&
+      footerNav.x.fontSize === footerNav.contact.fontSize &&
+      footerNav.x.fontWeight === footerNav.contact.fontWeight &&
+      footerNav.x.fontFamily === footerNav.contact.fontFamily &&
+      footerNav.x.lineHeight === footerNav.contact.lineHeight &&
+      footerNav.x.backgroundImage === footerNav.contact.backgroundImage &&
+      footerNav.x.backgroundSize === footerNav.contact.backgroundSize;
+    log({
+      ...tag,
+      check: 'footer-social-in-get-in-touch',
+      ok:
+        footerNav.titles.length === 2 &&
+        footerNav.titles[0] === 'Quick Links' &&
+        footerNav.titles[1] === 'Get in Touch' &&
+        !footerNav.titles.includes('Social') &&
+        footerNav.x?.visible === 'X' &&
+        footerNav.x?.href === 'https://x.com/FalconEquitynyc' &&
+        xMatchesContact,
+      detail: JSON.stringify(footerNav),
+    });
+    const xHover = page.locator('.site-footer a[href="https://x.com/FalconEquitynyc"]');
+    await xHover.hover();
+    const xHoverSize = await xHover.evaluate((el) => getComputedStyle(el).backgroundSize);
+    log({
+      ...tag,
+      check: 'footer-social-hover-underline',
+      ok: xHoverSize === '100% 1px',
+      detail: xHoverSize,
+    });
     log({
       ...tag,
       check: 'site-cta-lead-body-font',

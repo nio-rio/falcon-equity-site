@@ -1574,7 +1574,7 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__nav {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--bx-space-16);
     row-gap: var(--bx-space-64);
     margin-top: var(--bx-space-80);

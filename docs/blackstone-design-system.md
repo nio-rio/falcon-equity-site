@@ -305,7 +305,7 @@ Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the 
 
 ### Footer
 
-Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-left (cols 1–4 of 16). Three columns on the right — Quick Links, Social, Get in Touch — with real Falcon URLs only (X is the only social). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). The Govwell-style `.site-cta` wheel sits immediately above this footer. No invented social accounts. The previous footer had no funding/broker disclaimer; none added.
+Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-left (cols 1–4 of 16). Two columns on the right — Quick Links and Get in Touch. The X profile sits in Get in Touch as a text link (`site-footer__link`), not a separate Social column. Real Falcon URLs only (X is the only social; no invented LinkedIn/Instagram). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). The Govwell-style `.site-cta` wheel sits immediately above this footer. The previous footer had no funding/broker disclaimer; none added.
 
 ### Forms
 
@@ -368,7 +368,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/Header.astro` | Sitewide Blackstone header: unboxed 1.25× logo, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `#d5d8df` container-width divider; panel content shares `--bx-max` with the logo/Apply row. Measures in `docs/refs/bx-header.md`. |
 | `src/components/Button040.astro` | Ling button-040: pill with sliding text and arrow-circle. `href`, `label`, `variant` (`light` on dark, `dark` on white). Nav follows header theme. |
 | `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy (no tail), Inter lead and phrases, 4.5rem pitch, white active line, button-040 Apply. |
-| `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Social / Get in Touch, 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
+| `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Get in Touch (X in that list), 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |

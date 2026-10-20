@@ -8,8 +8,8 @@ Live `blackstone.com` is Cloudflare-blocked here. Values are from archived home 
 
 Dark theme: `--c-background: #000`, `--c-copy: #fff`, `--c-graphics: #fff`.
 
-Markup: logo left (`.site-footer__branding`, cols **1–4** of 16), three columns
-in `.site-footer__primary-nav` (Quick Links, Social, Get in Touch). Bottom rule is
+Markup: logo left (`.site-footer__branding`, cols **1–4** of 16), columns
+in `.site-footer__primary-nav` (Blackstone: Quick Links, Social, Get in Touch). Bottom rule is
 `border-bottom: 1px solid var(--c-graphics)` on `.site-footer__top`. Bottom row is
 flex `row-reverse` (legal right, copyright left).
 
@@ -30,6 +30,7 @@ flex `row-reverse` (legal right, copyright left).
 | Legal / copyright | **16px**/300 and **16px**/400 | **18px** |
 | Rule | **1px** white, full inner width | same |
 
-Falcon maps this onto `.site-footer` with the Falcon lockup and real Falcon URLs only
-(X is the only social account). No funding/broker disclaimer — the previous footer
+Falcon maps this onto `.site-footer` with the Falcon lockup and two nav columns
+(Quick Links, Get in Touch). The X profile is a Get in Touch text link, not a
+Social column. Real Falcon URLs only. No funding/broker disclaimer — the previous footer
 did not have one.
