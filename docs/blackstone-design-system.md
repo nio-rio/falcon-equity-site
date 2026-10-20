@@ -265,13 +265,13 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | | 1280 (`80em`) | 1440 (`90em`) |
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
-| Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
-| Dropdown | Lilac (`--bx-lilac`) field, in-field “Select your sector” until a sector is chosen, then the sector name, 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
-| Menu | Floating overlay: solid Lilac, 1px Lilac Dark border, Martinique Darkest soft shadow; cap ~6 options and scroll; never past the section; selected option Martinique + check | same |
+| Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; no subtitle | H2 cols **1–8** **40px** |
+| Dropdown | Lilac (`--bx-lilac`) field, in-field “Select your sector” until a sector is chosen, then the sector name, 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; top-right cols **11–16**, aligned to the H2 | cols **12–16** |
+| Menu | Floating overlay: solid opaque Lilac (z-index above panel copy), 1px Lilac Dark border, Martinique Darkest soft shadow; cap ~6 options; thin Martinique Light scrollbar (`scrollbar-color` + webkit); never past the section; selected option Martinique + check | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
-| Image | **16:9**, height **22.25rem** (356px), cover | height **24.75rem** (396px) |
+| Image | **16:9**, height **22.25rem** (356px), cover; labeled placeholder fill Lilac Dark (`#e5e4f2`) | height **24.75rem** (396px) |
 | Panel in | `fadeInUp` 0.5s (0 → 40px / opacity 1) | same |
 
 - **12 options**, one per industry name. Picking an option swaps the featured panel (title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still).
@@ -400,7 +400,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; stills are trucks / dentist / chef; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
 | `src/scripts/scroll-in.ts` | Home scroll-in below the hero. Headers/body `y:20` 800/400, start `top 90%`. Services `top 85%` + 150ms per row. Stats fade + 1px line. News curtain. Skip hero / testimonial / CTA. |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, Lilac listbox overlay (placeholder then selected sector name, Martinique check), featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + “Sectors we fund.” with the sector picker across from the H2 (stacked under it on small screens). Lilac listbox overlay (placeholder then selected sector name, Martinique check), featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
@@ -415,6 +415,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`24-48h` big; `$100M+` and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`24-48h` big; `$100M+` and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; Lilac “Select your sector” field across from the H2, stacked under it on small screens; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
 
 **Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro`.

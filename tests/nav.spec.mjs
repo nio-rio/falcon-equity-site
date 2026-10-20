@@ -1013,15 +1013,22 @@ for (const vp of VIEWPORTS) {
 
       const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');
+        const head = document.querySelector('.pilot-tabs-head');
+        const heading = document.querySelector('#industries-heading');
         const drop = document.querySelector('.pilot-tabs-drop');
         const menu = document.querySelector('.pilot-tabs-menu');
         const title = document.querySelector('.pilot-tabs-title');
+        const panels = document.querySelector('.pilot-tabs-panels');
+        const media = document.querySelector('.pilot-tabs-media .media');
         const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
         if (drop) {
           const top = drop.getBoundingClientRect().top + window.scrollY - headerH - 16;
           window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'auto' });
         }
+        const headingR = heading?.getBoundingClientRect();
+        const dropR = drop?.getBoundingClientRect();
         const titleBefore = title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null;
+        const defaultLabel = document.querySelector('#industry-select-value')?.textContent.trim() || '';
         drop?.click();
         const options = [...(menu?.querySelectorAll('[role="option"]') || [])];
         const first = options[0];
@@ -1029,22 +1036,42 @@ for (const vp of VIEWPORTS) {
         const sr = section?.getBoundingClientRect();
         const mr = menu?.getBoundingClientRect();
         const tr = title?.getBoundingClientRect();
+        const hitX = mr ? Math.min(mr.left + 28, innerWidth - 4) : 0;
+        const hitY = mr ? Math.min(mr.top + 28, innerHeight - 4) : 0;
+        const hit = mr ? document.elementFromPoint(hitX, hitY) : null;
         const open = {
           label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
+          defaultLabel,
           expanded: drop?.getAttribute('aria-expanded') || null,
           hidden: menu?.hidden ?? null,
           optionCount: options.length,
           bg: cs?.backgroundColor || null,
+          opacity: cs?.opacity || null,
           border: cs ? `${cs.borderTopWidth} ${cs.borderTopColor}` : null,
           position: cs?.position || null,
           overflow: cs?.overflowY || null,
           shadow: cs?.boxShadow || null,
           maxH: cs?.maxHeight || null,
+          zMenu: cs ? Number(cs.zIndex) || 0 : 0,
+          zHead: head ? Number(getComputedStyle(head).zIndex) || 0 : 0,
+          zPanels: panels ? Number(getComputedStyle(panels).zIndex) || 0 : 0,
+          scrollbar: cs?.scrollbarColor || null,
+          hitClass: hit?.className || hit?.tagName || null,
+          hitInMenu: Boolean(menu && hit && menu.contains(hit)),
           menuH: mr ? Math.round(mr.height * 10) / 10 : null,
           optionH: first ? Math.round(first.getBoundingClientRect().height * 10) / 10 : null,
           pastSection: Boolean(sr && mr && mr.bottom > sr.bottom + 1),
           titleBefore,
           titleAfter: tr ? Math.round(tr.top * 10) / 10 : null,
+          hasIntro: Boolean(section?.querySelector('.pilot-tabs-intro')),
+          introCopy: section?.textContent.includes('twelve sectors') ?? false,
+          mediaBg: media ? getComputedStyle(media).backgroundColor : null,
+          stacked: Boolean(headingR && dropR && dropR.top >= headingR.bottom - 2),
+          beside: Boolean(headingR && dropR && dropR.left >= headingR.right - 2),
+          headingBottom: headingR ? Math.round(headingR.bottom) : null,
+          dropTop: dropR ? Math.round(dropR.top) : null,
+          dropLeft: dropR ? Math.round(dropR.left) : null,
+          headingRight: headingR ? Math.round(headingR.right) : null,
         };
         first?.click();
         const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
@@ -1069,6 +1096,7 @@ for (const vp of VIEWPORTS) {
         industry.open.optionH != null &&
         industry.open.menuH != null &&
         industry.open.menuH <= industry.open.optionH * 6 + 4;
+      const desktopIndustry = vp.width >= 1280;
       log({
         ...tag,
         check: 'industry-menu-overlay',
@@ -1077,14 +1105,48 @@ for (const vp of VIEWPORTS) {
           industry.open.hidden === false &&
           industry.open.position === 'absolute' &&
           industry.open.bg === 'rgb(243, 242, 251)' &&
+          industry.open.opacity === '1' &&
           industry.open.border === '1px rgb(229, 228, 242)' &&
           industry.open.shadow !== 'none' &&
           (industry.open.overflow === 'auto' || industry.open.overflow === 'scroll') &&
+          industry.open.zHead > industry.open.zPanels &&
+          industry.open.hitInMenu === true &&
           sixCap &&
           !industry.open.pastSection &&
           industry.open.titleBefore != null &&
           industry.open.titleAfter === industry.open.titleBefore,
         detail: JSON.stringify({ ...industry.open, sixCap }),
+      });
+      log({
+        ...tag,
+        check: 'industry-head-layout',
+        ok:
+          industry.open.hasIntro === false &&
+          industry.open.introCopy === false &&
+          industry.open.defaultLabel === 'Select your sector' &&
+          industry.open.label === 'Select your sector' &&
+          (desktopIndustry ? industry.open.beside === true : industry.open.stacked === true),
+        detail: JSON.stringify({
+          hasIntro: industry.open.hasIntro,
+          introCopy: industry.open.introCopy,
+          defaultLabel: industry.open.defaultLabel,
+          stacked: industry.open.stacked,
+          beside: industry.open.beside,
+          headingBottom: industry.open.headingBottom,
+          dropTop: industry.open.dropTop,
+          dropLeft: industry.open.dropLeft,
+          headingRight: industry.open.headingRight,
+        }),
+      });
+      log({
+        ...tag,
+        check: 'industry-placeholder-scrollbar',
+        ok:
+          industry.open.mediaBg === 'rgb(229, 228, 242)' &&
+          typeof industry.open.scrollbar === 'string' &&
+          industry.open.scrollbar.includes('rgb(82, 74, 104)') &&
+          !industry.open.scrollbar.includes('rgb(128, 128, 128)'),
+        detail: JSON.stringify({ mediaBg: industry.open.mediaBg, scrollbar: industry.open.scrollbar }),
       });
       log({
         ...tag,

@@ -1,7 +1,9 @@
 ---
 /**
- * BMACX featured-content panel + light-gray sector select (home Industries).
- * Sector picker at every breakpoint; panel is title + blurb + Learn more / 16:9 still.
+ * BMACX featured-content panel + sector select (home Industries).
+ * Heading row holds the picker (stacked under the H2 on small screens,
+ * top-right across from “Sectors we fund.” from 80em). Panel is title +
+ * blurb + Learn more / 16:9 still.
  */
 import Media from '@/components/Media.astro';
 import PilotArrow from './PilotArrow.astro';
@@ -16,53 +18,49 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
         <PilotEyebrow>Industries</PilotEyebrow>
         <h2 id="industries-heading" data-reveal>Sectors we fund.</h2>
       </div>
-      <p class="pilot-tabs-intro" data-reveal>
-        We fund businesses across these twelve sectors, and others with steady revenue.
-      </p>
-    </div>
-
-    <div class="pilot-tabs-nav" data-reveal>
-      <div class="pilot-tabs-dropwrap">
-        <button
-          type="button"
-          class="pilot-tabs-drop"
-          id="industry-select"
-          aria-labelledby="industry-select-value"
-          aria-expanded="false"
-          aria-controls="industry-select-menu"
-          aria-haspopup="listbox"
-        >
-          <span class="pilot-tabs-drop-label" id="industry-select-value">Select your sector</span>
-          <svg width="14" height="8" viewBox="0 0 14 8" aria-hidden="true">
-            <path
-              d="M7 8 1.35 2.29a.9.9 0 0 1 1.28-1.27L7 5.4l4.37-4.38a.9.9 0 1 1 1.28 1.27L7 8Z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <ul
-          class="pilot-tabs-menu"
-          id="industry-select-menu"
-          role="listbox"
-          aria-labelledby="industry-select-value"
-          hidden
-        >
-          {
-            INDUSTRIES.map((ind, i) => (
-              <li role="presentation">
-                <button
-                  type="button"
-                  role="option"
-                  id={`industry-option-${ind.slug}`}
-                  data-index={i}
-                  aria-selected="false"
-                >
-                  {ind.name}
-                </button>
-              </li>
-            ))
-          }
-        </ul>
+      <div class="pilot-tabs-nav" data-reveal>
+        <div class="pilot-tabs-dropwrap">
+          <button
+            type="button"
+            class="pilot-tabs-drop"
+            id="industry-select"
+            aria-labelledby="industry-select-value"
+            aria-expanded="false"
+            aria-controls="industry-select-menu"
+            aria-haspopup="listbox"
+          >
+            <span class="pilot-tabs-drop-label" id="industry-select-value">Select your sector</span>
+            <svg width="14" height="8" viewBox="0 0 14 8" aria-hidden="true">
+              <path
+                d="M7 8 1.35 2.29a.9.9 0 0 1 1.28-1.27L7 5.4l4.37-4.38a.9.9 0 1 1 1.28 1.27L7 8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          <ul
+            class="pilot-tabs-menu"
+            id="industry-select-menu"
+            role="listbox"
+            aria-labelledby="industry-select-value"
+            hidden
+          >
+            {
+              INDUSTRIES.map((ind, i) => (
+                <li role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    id={`industry-option-${ind.slug}`}
+                    data-index={i}
+                    aria-selected="false"
+                  >
+                    {ind.name}
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
 

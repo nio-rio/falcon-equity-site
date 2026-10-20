@@ -1004,15 +1004,18 @@
   }
 }
 
-/* BMACX featured-content panel + light BX select — home Industries only.
+/* BMACX featured-content panel + sector select — home Industries only.
    Source: bmacx.com “The Latest from BMACX” (dropdown + featured panel).
-   Live site Cloudflare-blocked; values from frontend.css at 80em / 90em. */
+   Live site Cloudflare-blocked; values from frontend.css at 80em / 90em.
+   Dropdown sits across from the H2 from 80em; stacked under it below that. */
 .pilot-tabs {
   background: #fff;
   color: var(--bx-black);
 }
 
 .pilot-tabs-head {
+  position: relative;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -1033,22 +1036,13 @@
   color: var(--bx-black);
 }
 
-.pilot-tabs-intro {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: var(--bx-fs-20);
-  line-height: 1.5;
-  color: var(--bx-black);
-}
-
 .pilot-tabs-nav {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  min-width: 0;
 }
 
 .pilot-tabs-dropwrap {
   position: relative;
+  z-index: 5;
   width: 100%;
 }
 
@@ -1088,7 +1082,7 @@
 
 .pilot-tabs-menu {
   position: absolute;
-  z-index: 20;
+  z-index: 8;
   top: 100%;
   left: 0;
   right: 0;
@@ -1103,6 +1097,33 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+  opacity: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bx-martinique-light) var(--bx-lilac);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: var(--bx-lilac);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-track {
+  background: var(--bx-lilac);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-thumb {
+  background-color: var(--bx-martinique-light);
+  border: none;
+  border-radius: 0;
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-button,
+.pilot-tabs-menu::-webkit-scrollbar-corner {
+  display: none;
+  width: 0;
+  height: 0;
+  background: var(--bx-lilac);
 }
 
 .pilot-tabs-menu button {
@@ -1151,6 +1172,7 @@
 
 .pilot-tabs-panels {
   position: relative;
+  z-index: 1;
 }
 
 .pilot-tabs-panel {
@@ -1191,10 +1213,13 @@
   min-width: 0;
 }
 
-.pilot-tabs-media .media {
+.pilot-tabs-media .media,
+.pilot-tabs-media .media--labeled,
+.pilot-tabs-media .image-slot--labeled {
   width: 100%;
   height: 11.563rem;
   aspect-ratio: 16 / 9;
+  background: var(--bx-lilac-dark);
 }
 
 .pilot-tabs-media img {
@@ -1224,11 +1249,6 @@
     font-size: 2.5rem;
   }
 
-  .pilot-tabs-nav {
-    padding-top: 2rem;
-    padding-bottom: 2.5rem;
-  }
-
   .pilot-tabs-dropwrap {
     max-width: 26.5rem;
   }
@@ -1248,7 +1268,7 @@
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
     padding-bottom: 3rem;
-    align-items: start;
+    align-items: end;
   }
 
   .pilot-tabs-heading {
@@ -1259,20 +1279,12 @@
     font-size: 2rem;
   }
 
-  .pilot-tabs-intro {
-    grid-column: 10 / span 7;
-  }
-
   .pilot-tabs-nav {
-    display: grid;
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 16px;
-    padding-top: 2.5rem;
-    padding-bottom: 3rem;
+    grid-column: 11 / span 6;
+    padding: 0;
   }
 
   .pilot-tabs-dropwrap {
-    grid-column: 1 / span 6;
     max-width: none;
   }
 
@@ -1320,16 +1332,8 @@
     font-size: 2.5rem;
   }
 
-  .pilot-tabs-intro {
-    grid-column: 11 / span 6;
-  }
-
   .pilot-tabs-nav {
-    padding-bottom: 3.5rem;
-  }
-
-  .pilot-tabs-dropwrap {
-    grid-column: 1 / span 5;
+    grid-column: 12 / span 5;
   }
 
   .pilot-tabs-copy {

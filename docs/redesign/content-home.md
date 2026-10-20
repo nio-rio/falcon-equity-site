@@ -186,7 +186,7 @@ Industry pages already use `$100M+` / `15` / `24-48h` in this layout. Home shoul
 - **Eyebrow:** Industries
 - **Eyebrow:** Industries
 - **Headline (H2):** Sectors we fund.
-- **Body:** We fund businesses across these twelve sectors, and others with steady revenue. *(existing `/industries` lead)*
+- **Body:** none on home. The `/industries` index still uses “We fund businesses across these twelve sectors, and others with steady revenue.”
 - **Cards:** six of the twelve published industry pages. **Not a ranking** — there is no volume data. Remaining six stay on `/industries`. Each card: name + existing blurb (or the three `uses` joined, as the index does today).
 
   | Name | Blurb (existing) |
