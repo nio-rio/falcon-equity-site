@@ -28,7 +28,9 @@ html {
 }
 
 [data-band='light'] + [data-band='light'],
-[data-band='dark'] + [data-band='dark'] {
+[data-band='light'] + script + [data-band='light'],
+[data-band='dark'] + [data-band='dark'],
+[data-band='dark'] + script + [data-band='dark'] {
   padding-top: var(--pilot-section-y-stack);
 }
 
