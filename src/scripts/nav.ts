@@ -346,6 +346,8 @@ export function initNav() {
     menuWrap?.setAttribute('data-menu-open', 'false');
     state.mobileMenuOpen = false;
     state.mobilePanelActive = null;
+    header?.classList.remove('is-drilled');
+    inner?.classList.remove('is-drilled');
     setBurger(false);
     const tl = gsap.timeline({
       onComplete() {
@@ -403,15 +405,15 @@ export function initNav() {
     const el = getPanel(state.mobilePanelActive);
     if (!el) return;
     killTl('mobilePanelTl');
+    state.mobilePanelActive = null;
+    inner?.classList.remove('is-drilled');
+    header?.classList.remove('is-drilled');
+    syncItemOpen(null);
     const navItems = getNavItems();
     const panelFade = getFade(el);
     const tl = gsap.timeline({
       onComplete() {
-        state.mobilePanelActive = null;
         state.mobilePanelTl = null;
-        inner?.classList.remove('is-drilled');
-        header?.classList.remove('is-drilled');
-        syncItemOpen(null);
       },
     });
     state.mobilePanelTl = tl;
@@ -557,15 +559,24 @@ export function initNav() {
     }
   });
 
+  const inOpenChrome = (target: EventTarget | null) =>
+    target instanceof Element &&
+    Boolean(
+      target.closest('[data-header-bar]') ||
+        target.closest('[data-dropdown-container]') ||
+        target.closest('[data-dropdown-toggle]') ||
+        target.closest('[data-nav-content]'),
+    );
+
   document.addEventListener('click', (e) => {
     if (state.isMobile) {
       if (!state.mobileMenuOpen) return;
-      if (menuWrap?.contains(e.target as Node)) return;
+      if (inOpenChrome(e.target) || (e.target instanceof Element && e.target.closest('[data-nav-inner]'))) return;
       closeMobileMenu();
       return;
     }
     if (!state.isOpen) return;
-    if (!menuWrap?.contains(e.target as Node)) closeDropdown();
+    if (!inOpenChrome(e.target)) closeDropdown();
   });
 
   backdrop?.addEventListener('click', () => {
@@ -575,7 +586,7 @@ export function initNav() {
 
   burger?.addEventListener('click', () => {
     if (state.mobileMenuOpen) closeMobileMenu();
-    else openMobileMenu();
+    else if (!state.mobileTl) openMobileMenu();
   });
   backBtn?.addEventListener('click', closeMobilePanel);
 

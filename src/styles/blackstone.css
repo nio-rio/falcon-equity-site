@@ -1287,7 +1287,7 @@ h2.primary-nav-widget__title {
     right: 0;
     z-index: 5;
     width: 100%;
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   .primary-nav__dropdown::before {
@@ -1297,6 +1297,11 @@ h2.primary-nav-widget__title {
     right: 0;
     bottom: 100%;
     height: 0.75rem;
+    pointer-events: auto;
+  }
+
+  .primary-nav__dropdown-container {
+    pointer-events: auto;
   }
 
   .primary-nav__lvl-2-wrap {
@@ -1312,11 +1317,10 @@ h2.primary-nav-widget__title {
   .primary-nav__list-lvl-2 {
     display: flex;
     column-gap: var(--column-gap);
-    box-sizing: border-box;
     width: 100%;
-    max-width: calc(var(--bx-max) + 2 * var(--bx-margin));
+    max-width: var(--bx-max);
     margin-inline: auto;
-    padding-inline: var(--bx-margin);
+    padding-inline: 0;
     padding-bottom: var(--bx-space-48);
     /* 1px hairline on --container-width, only while open. Light: --ink-a16. */
     border-top: 1px solid var(--nav-rule);

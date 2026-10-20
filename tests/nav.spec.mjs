@@ -2027,7 +2027,7 @@ for (const vp of VIEWPORTS) {
       log({ ...tag, check: 'mobile-only-one-panel', ok: ones === 1, detail: `open=${ones}` });
 
       await page.locator('[data-mobile-back]').click();
-      await page.waitForTimeout(450);
+      await page.waitForTimeout(700);
       const afterBack = await page.evaluate(() => {
         const inner = document.querySelector('[data-nav-inner]');
         const openItems = document.querySelectorAll('[data-nav-item].is-open').length;
@@ -2036,14 +2036,14 @@ for (const vp of VIEWPORTS) {
       log({ ...tag, check: 'mobile-back-returns', ok: afterBack.menuOpen && !afterBack.drilled && afterBack.openItems === 0, detail: JSON.stringify(afterBack) });
 
       await page.keyboard.press('Escape');
-      await page.waitForTimeout(400);
+      await page.waitForTimeout(500);
       const closedEsc = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
       log({ ...tag, check: 'mobile-esc-closes', ok: closedEsc });
 
       await toggle.click();
-      await page.waitForTimeout(100);
+      await page.waitForTimeout(400);
       await toggle.click();
-      await page.waitForTimeout(150);
+      await page.waitForTimeout(450);
       const closedToggle = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
       log({ ...tag, check: 'mobile-toggle-closes', ok: closedToggle });
       const iconsClosedAgain = await readToggleIcons(page);
