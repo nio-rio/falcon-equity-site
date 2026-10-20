@@ -166,6 +166,7 @@ Classes are unprefixed (`bx-lg-span-6`, not `lg:bx-span-6`).
 | Image zoom | `transform: scale(1.06)`, ~350ms |
 | Header dropdown | `display` toggle; chevron 180° in 0.3s; header compact `height` 0.3s ease-out |
 | Reduced motion | transitions/animations off (`prefers-reduced-motion`) |
+| Home scroll-in (below hero) | GSAP `y: 20` + `autoAlpha` **800ms** / stagger **400ms**, start **`50% 90%`**, play once. Stats: Fade-In **0.75s**, value wipe **0.9s** / **0.375s** delay, line **1.125s** linear. News stills: curtain **1s** + image fade **0.5s** / **0.4s** delay. Skip hero, testimonial slider, CTA wheel. Measures in `docs/refs/bx-scroll-in.md`. |
 
 BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:focus-visible` is 2px ink (white on dark).
 
@@ -381,6 +382,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement slider: eyebrow + serif quote left (typographic quotes in ink), 3:4 still cols 9–12, business name above prev/next in cols 14–16, `.circle-arrow` buttons bottom-aligned with the image (prev mirrored). Three Ling quotes; all credits are `Falcon client` placeholders. |
 | `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
+| `src/scripts/scroll-in.ts` | Home scroll-in below the hero (BXCI measures). Headers/body `y:20` 800/400; stats Fade-In + data-text + line; news curtain. Skip hero / testimonial / CTA. |
 | `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray listbox (placeholder then selected sector name), featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
@@ -390,6 +392,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotAccordion.astro` | FAQ (slate hairline, outline→filled circle) or `variant="strategies"` (black rules, plain chevron closed) |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |
+| `docs/refs/bx-scroll-in.md` | Measured BXCI / blackstone-v2 scroll-in values (GSAP start, durations, curtain, stats). |
 | `docs/redesign/content-home.md` | Approved home copy outline |
 | `docs/redesign/content-merchant-cash-advance.md` | Approved MCA copy outline |
 

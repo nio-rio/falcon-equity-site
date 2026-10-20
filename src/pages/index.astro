@@ -29,6 +29,19 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
 ---
 
 <BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
   <PilotHero
     line1="Fuel Success with"
     line2="Fast Funding"
@@ -65,4 +78,8 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
   <PilotIndustryTabs />
 
   <PilotNews posts={insights} />
+
+  <script>
+    import '@/scripts/scroll-in';
+  </script>
 </BaseLayout>

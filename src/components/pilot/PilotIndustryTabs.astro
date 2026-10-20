@@ -9,19 +9,19 @@ import PilotEyebrow from './PilotEyebrow.astro';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 ---
 
-<section class="pilot-tabs" aria-labelledby="industries-heading">
+<section class="pilot-tabs" aria-labelledby="industries-heading" data-reveal-root>
   <div class="container-site">
     <div class="pilot-tabs-head">
       <div class="pilot-tabs-heading">
         <PilotEyebrow>Industries</PilotEyebrow>
-        <h2 id="industries-heading">Sectors we fund.</h2>
+        <h2 id="industries-heading" data-reveal>Sectors we fund.</h2>
       </div>
-      <p class="pilot-tabs-intro">
+      <p class="pilot-tabs-intro" data-reveal>
         We fund businesses across these twelve sectors, and others with steady revenue.
       </p>
     </div>
 
-    <div class="pilot-tabs-nav">
+    <div class="pilot-tabs-nav" data-reveal>
       <div class="pilot-tabs-dropwrap">
         <button
           type="button"

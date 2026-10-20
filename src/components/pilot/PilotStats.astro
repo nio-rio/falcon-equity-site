@@ -24,20 +24,22 @@ const sideStats = side.slice(0, 2).map((stat) => ({
 }));
 ---
 
-<section class="pilot-stats" aria-label="Published figures">
+<section class="pilot-stats" aria-label="Published figures" data-reveal-root>
   <div class="container-site">
     <div class="pilot-stats-grid">
       <div class="pilot-stats-feat">
-        <p class="pilot-stats-feat-label">{featured.label}</p>
-        <p class="pilot-stats-feat-value">{featuredValue}</p>
+        <p class="pilot-stats-feat-label" data-reveal-stat>{featured.label}</p>
+        <p class="pilot-stats-feat-value" data-reveal-stat="value">{featuredValue}</p>
       </div>
       {
         sideStats.map((stat, i) => (
           <>
-            <p class={`pilot-stats-side-label pilot-stats-side-label--${i + 1}`}>{stat.label}</p>
+            <p class={`pilot-stats-side-label pilot-stats-side-label--${i + 1}`} data-reveal-stat>
+              {stat.label}
+            </p>
             <div class={`pilot-stats-side-value pilot-stats-side-value--${i + 1}`}>
-              <p>{stat.value}</p>
-              <span class="pilot-stats-rule" aria-hidden="true" />
+              <p data-reveal-stat="value">{stat.value}</p>
+              <span class="pilot-stats-rule" data-reveal-line aria-hidden="true" />
             </div>
           </>
         ))

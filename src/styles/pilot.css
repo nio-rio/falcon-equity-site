@@ -645,9 +645,19 @@
 
 .pilot-stats-rule {
   display: block;
+  position: relative;
   width: 100%;
   height: 1px;
+  background: transparent;
+}
+
+.pilot-stats-rule::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: var(--bx-black);
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 @media (min-width: 48em) {
@@ -2294,5 +2304,144 @@
   .pilot-news-card:hover .pilot-news-icon,
   .pilot-news-card:focus-visible .pilot-news-icon {
     transform: none;
+  }
+
+  html.has-js [data-reveal],
+  html.has-js [data-reveal-media] img,
+  html.has-js [data-reveal-media] .media,
+  html.has-js [data-reveal-stat='value'] {
+    opacity: 1;
+    transform: none;
+    color: inherit;
+    background: none;
+    animation: none;
+    visibility: visible;
+  }
+
+  html.has-js .pilot-stats-rule::before,
+  html.has-js .pilot-stats-rule.is-active::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  html.has-js .pilot-reveal-curtain {
+    display: none;
+  }
+}
+
+/* BXCI / blackstone-v2 scroll-in. Hidden only when JS opted in; no-JS stays visible. */
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  html.has-js [data-reveal-stat] {
+    opacity: 0;
+  }
+
+  html.has-js [data-reveal-stat].is-active {
+    animation: pilot-fade-in 0.75s forwards;
+  }
+
+  html.has-js [data-reveal-stat='value'] {
+    color: transparent;
+    background: linear-gradient(var(--bx-black), var(--bx-black)) no-repeat;
+    background-size: 0 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 1;
+  }
+
+  html.has-js [data-reveal-stat='value'].is-active {
+    animation: pilot-data-text 0.9s 0.375s both;
+  }
+
+  html.has-js .pilot-stats-rule::before {
+    transform: scaleX(0);
+  }
+
+  html.has-js .pilot-stats-rule.is-active::before {
+    animation: pilot-divider-line 1.125s linear forwards;
+  }
+
+  html.has-js [data-reveal-media] {
+    position: relative;
+  }
+
+  html.has-js [data-reveal-media] img,
+  html.has-js [data-reveal-media] .media {
+    opacity: 0;
+  }
+
+  html.has-js [data-reveal-media].is-on img,
+  html.has-js [data-reveal-media].is-on .media {
+    animation: pilot-image-fade-in 0.5s 0.4s forwards;
+  }
+
+  .pilot-reveal-curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    height: 0;
+    background: var(--bx-black);
+    pointer-events: none;
+  }
+
+  .pilot-reveal-curtain.is-on {
+    animation: pilot-curtain-reveal 1s forwards;
+  }
+}
+
+@keyframes pilot-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pilot-data-text {
+  to {
+    background-size: 100% 100%;
+    visibility: visible;
+  }
+}
+
+@keyframes pilot-divider-line {
+  0%,
+  20% {
+    transform: scaleX(0);
+  }
+  40% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pilot-curtain-reveal {
+  0% {
+    bottom: 0;
+    height: 0;
+  }
+  50% {
+    bottom: 0;
+    height: 100%;
+  }
+  to {
+    bottom: 100%;
+    height: 0;
+  }
+}
+
+@keyframes pilot-image-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

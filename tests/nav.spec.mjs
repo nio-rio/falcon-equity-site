@@ -637,6 +637,93 @@ for (const vp of VIEWPORTS) {
           testi.redHit === false,
         detail: JSON.stringify(testi),
       });
+
+      const reveal = await page.evaluate(() => {
+        const roots = [...document.querySelectorAll('[data-reveal-root]')].map(
+          (el) => el.className.split(/\s+/)[0],
+        );
+        const skipped = {
+          hero: Boolean(document.querySelector('.pilot-hero [data-reveal], .pilot-hero[data-reveal-root]')),
+          ann: Boolean(document.querySelector('.pilot-ann [data-reveal], .pilot-ann[data-reveal-root]')),
+          cta: Boolean(document.querySelector('.site-cta [data-reveal], .site-cta[data-reveal-root]')),
+        };
+        const heroOpacity = document.querySelector('.pilot-hero-line')
+          ? getComputedStyle(document.querySelector('.pilot-hero-line')).opacity
+          : null;
+        const quoteOpacity = document.querySelector('.pilot-ann-title')
+          ? getComputedStyle(document.querySelector('.pilot-ann-title')).opacity
+          : null;
+        return { roots, skipped, heroOpacity, quoteOpacity, hasJs: document.documentElement.classList.contains('has-js') };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-targets',
+        ok:
+          reveal.roots.includes('pilot-stats') &&
+          reveal.roots.includes('pilot-ll-section') &&
+          reveal.roots.includes('pilot-tabs') &&
+          reveal.roots.includes('pilot-news') &&
+          !reveal.roots.includes('pilot-hero') &&
+          !reveal.roots.includes('pilot-ann') &&
+          !reveal.roots.includes('site-cta') &&
+          reveal.skipped.hero === false &&
+          reveal.skipped.ann === false &&
+          reveal.skipped.cta === false &&
+          reveal.heroOpacity === '1' &&
+          reveal.quoteOpacity === '1',
+        detail: JSON.stringify(reveal),
+      });
+
+      if (vp.name === '1440') {
+        await page.locator('.pilot-stats').scrollIntoViewIfNeeded();
+        await page.waitForTimeout(1400);
+        const after = await page.evaluate(() => {
+          const label = document.querySelector('.pilot-stats-feat-label');
+          const value = document.querySelector('.pilot-stats-feat-value');
+          const labelCs = label ? getComputedStyle(label) : null;
+          return {
+            labelOn: label?.classList.contains('is-active') ?? false,
+            valueOn: value?.classList.contains('is-active') ?? false,
+            labelOpacity: labelCs?.opacity ?? null,
+          };
+        });
+        log({
+          ...tag,
+          check: 'home-scroll-in-plays',
+          ok: after.labelOn && after.valueOn && after.labelOpacity === '1',
+          detail: JSON.stringify(after),
+        });
+
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.waitForTimeout(200);
+        const reduced = await page.evaluate(() => {
+          const label = document.querySelector('.pilot-stats-feat-label');
+          const title = document.querySelector('.pilot-ll-head h2');
+          const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
+          return {
+            hasJs: document.documentElement.classList.contains('has-js'),
+            labelOpacity: label ? getComputedStyle(label).opacity : null,
+            titleOpacity: title ? getComputedStyle(title).opacity : null,
+            mediaOpacity: media ? getComputedStyle(media).opacity : null,
+          };
+        });
+        log({
+          ...tag,
+          check: 'home-scroll-in-reduced-motion',
+          ok:
+            reduced.hasJs === false &&
+            reduced.labelOpacity === '1' &&
+            reduced.titleOpacity === '1' &&
+            (reduced.mediaOpacity == null || reduced.mediaOpacity === '1'),
+          detail: JSON.stringify(reduced),
+        });
+        await page.emulateMedia({ reducedMotion: 'no-preference' });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForFunction(() => {
+          const h = document.querySelector('[data-header]');
+          return h?.classList.contains('is-color-theme-dark');
+        });
+      }
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
