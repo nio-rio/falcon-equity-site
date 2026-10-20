@@ -303,8 +303,8 @@ Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up
 Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats (measured 1440 / 1280; `docs/refs/bx-tac-opps-stats.md`). MCA and industry landings keep `HeroStats`.
 
 - **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. Featured spans both rows so small labels align to the **top** of the featured label.
-- Featured label: sans 300, **24px** / **32px** from 768, lh 1.5. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, margin-top **40 / 56 / 56 / 64px**, lh **1.4** (224px at 1440).
-- Side labels: sans 300 **16px**, lh 24, margin-bottom **32px**. Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px**, **1px** black rule under the number.
+- Featured label: sans 300, **24px** / **32px** from 768, lh 1.5. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, margin-top **8 / 8 / 8 / 16px** (BX 40 / 56 / 56 / 64 minus 3rem, or `--bx-space-8` when the gap was already under 3rem), lh **1.4** (224px at 1440).
+- Side labels: sans 300 **16px**, lh 24, margin-bottom **8px** (BX 32 was under 3rem). Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px** unchanged, **1px** black rule under the number.
 - Section pad: **48 / 144** at 1280, **56 / 160** at 1440.
 - Home featured figure is **`24-48h` Average funding time**; sides are **`$100M+` Funding deployed** then 98% for qualified applicants.
 - No footnote superscripts, Note, or numbered list. Skip when amounts are non-numeric (`Tailored to your business`).

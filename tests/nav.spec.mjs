@@ -973,6 +973,44 @@ for (const vp of VIEWPORTS) {
         detail: JSON.stringify(spacing),
       });
 
+      const statsGaps = await page.evaluate(() => {
+        const boxGap = (a, b) => {
+          if (!a || !b) return null;
+          return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
+        };
+        const featLabel = document.querySelector('.pilot-stats-feat-label');
+        const featValue = document.querySelector('.pilot-stats-feat-value');
+        const sideLabel = document.querySelector('.pilot-stats-side-label');
+        const sideValue = document.querySelector('.pilot-stats-side-value p');
+        const sideRule = document.querySelector('.pilot-stats-rule');
+        const featCs = featValue ? getComputedStyle(featValue) : null;
+        const sideLabelCs = sideLabel ? getComputedStyle(sideLabel) : null;
+        const sideValueCs = sideValue ? getComputedStyle(sideValue) : null;
+        return {
+          featLabelToNumber: boxGap(featLabel, featValue),
+          featMt: featCs ? Math.round(parseFloat(featCs.marginTop)) : null,
+          featPb: featCs ? Math.round(parseFloat(featCs.paddingBottom)) : null,
+          sideLabelToNumber: boxGap(sideLabel, sideValue),
+          sideMb: sideLabelCs ? Math.round(parseFloat(sideLabelCs.marginBottom)) : null,
+          sideValuePb: sideValueCs ? Math.round(parseFloat(sideValueCs.paddingBottom)) : null,
+          sideNumberToRuleBox: boxGap(sideValue, sideRule),
+        };
+      });
+      const featMt = vp.width >= 1440 ? 16 : 8;
+      const stacked = vp.width < 1280;
+      log({
+        ...tag,
+        check: 'home-stats-label-number-gap',
+        ok:
+          statsGaps.featMt === featMt &&
+          Math.abs((statsGaps.featLabelToNumber ?? -1) - featMt) <= 1 &&
+          statsGaps.sideMb === 8 &&
+          statsGaps.sideValuePb === 16 &&
+          statsGaps.sideNumberToRuleBox === 0 &&
+          (!stacked || Math.abs((statsGaps.sideLabelToNumber ?? -1) - 8) <= 1),
+        detail: JSON.stringify(statsGaps),
+      });
+
       const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');
         const drop = document.querySelector('.pilot-tabs-drop');

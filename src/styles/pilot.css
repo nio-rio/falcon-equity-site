@@ -575,7 +575,8 @@
 }
 
 /* Home stats — Tac Opps `.bx-stat-featured`. Measured 1440 / 1280.
-   docs/refs/bx-tac-opps-stats.md. 16-col / 16px. */
+   docs/refs/bx-tac-opps-stats.md. 16-col / 16px.
+   Label → number is BX minus 3rem, or --bx-space-8 when that gap was under 3rem. */
 .pilot-stats {
   background: #fff;
   color: var(--bx-black);
@@ -609,7 +610,8 @@
 }
 
 .pilot-stats-feat-value {
-  margin-top: 2.5rem;
+  /* Label → number: −3rem, or --bx-space-8 when the gap was already < 3rem. */
+  margin-top: var(--bx-space-8);
   padding-bottom: 3rem;
   font-family: var(--font-display);
   font-weight: 300;
@@ -622,7 +624,8 @@
 
 .pilot-stats-side-label {
   margin-top: 2.5rem;
-  margin-bottom: 2rem;
+  /* Label → number: 2rem was < 3rem, so --bx-space-8. Number → rule is the value padding. */
+  margin-bottom: var(--bx-space-8);
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: 1rem;
@@ -672,7 +675,7 @@
   }
 
   .pilot-stats-feat-value {
-    margin-top: 3.5rem;
+    margin-top: var(--bx-space-8);
     padding-bottom: 3.5rem;
     font-size: 11rem;
     line-height: 1;
@@ -714,7 +717,7 @@
   }
 
   .pilot-stats-feat-value {
-    margin-top: 56px;
+    margin-top: var(--bx-space-8);
     padding-bottom: 0;
     font-size: 9rem;
     line-height: 1.4;
@@ -727,7 +730,7 @@
 
 @media (min-width: 90em) {
   .pilot-stats-feat-value {
-    margin-top: 64px;
+    margin-top: var(--bx-space-16);
     font-size: 10rem;
     line-height: 224px;
   }

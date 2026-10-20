@@ -42,3 +42,7 @@ small value (`.bx-stat__animateFeatureStat:before`).
 | Side vs featured | side labels top = featured label top | measured 56px = 56px |
 
 Falcon home maps this onto `.pilot-stats-*` with `24-48h` as the featured figure.
+Label → number is tighter than the BX source: featured margin-top is **8 / 8 / 8 / 16px**
+at 390 / 768 / 1280 / 1440 (BX 40 / 56 / 56 / 64 minus 3rem, or `--bx-space-8` when the
+gap was already under 3rem). Side label margin-bottom is **8px** (BX 32 was under 3rem).
+Number → rule (side value padding-bottom **16px**) is unchanged.
