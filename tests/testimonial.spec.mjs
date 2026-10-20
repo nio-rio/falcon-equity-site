@@ -88,6 +88,8 @@ for (const vp of VIEWPORTS) {
       markCount: wrap ? wrap.querySelectorAll('.pilot-ann-mark').length : -1,
       quoteColor: quote ? getComputedStyle(quote).color : null,
       quoteText: quote?.textContent.replace(/\s+/g, ' ').trim() || '',
+      imgAlt: media?.querySelector('img')?.getAttribute('alt') || '',
+      imgSrc: media?.querySelector('img')?.currentSrc || media?.querySelector('img')?.getAttribute('src') || '',
       prevTransform: prev ? getComputedStyle(prev).transform : null,
       nextTransform: next ? getComputedStyle(next).transform : null,
       circleW: next ? Math.round(next.getBoundingClientRect().width * 10) / 10 : null,
@@ -107,6 +109,14 @@ for (const vp of VIEWPORTS) {
       ? geom.nameAbove && geom.arrowAlign != null && geom.arrowAlign <= 8 && geom.nameGap >= 32
       : geom.stacked && geom.nameAbove && geom.nameGap >= 24,
     detail: JSON.stringify(geom),
+  });
+  log({
+    vp: vp.name,
+    check: 'slide-image',
+    ok:
+      geom.imgAlt === 'Overhead view of a row of white and red semi-trucks parked in a freight yard.' &&
+      /trucking|1-trucking/i.test(geom.imgSrc),
+    detail: JSON.stringify({ imgAlt: geom.imgAlt, imgSrc: geom.imgSrc }),
   });
   log({
     vp: vp.name,
@@ -158,6 +168,7 @@ for (const vp of VIEWPORTS) {
       return {
         quote: quote?.textContent.replace(/\s+/g, ' ').trim() || '',
         business: item?.querySelector('[data-testimonial-split]')?.textContent.trim() || '',
+        imgAlt: item?.querySelector('[data-testimonial-img] img')?.getAttribute('alt') || '',
         lineCount: lines.length,
         linesAtRest,
       };
@@ -172,6 +183,7 @@ for (const vp of VIEWPORTS) {
         !after.quote.includes('I look forward to working with them in the future as needed') &&
         after.quote.startsWith('“') &&
         after.quote.endsWith('”') &&
+        after.imgAlt === 'Dentist in a white coat and mask treating a patient reclined in a clinic chair.' &&
         after.linesAtRest,
       detail: JSON.stringify(after),
     });

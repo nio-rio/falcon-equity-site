@@ -364,7 +364,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial stills (three abstract placeholders); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial stills (trucks / dentist / chef, 3:4 crop); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. Pre-footer `.site-cta` comes from the layout. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
@@ -397,7 +397,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
 | `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Heading→list gap is `--pilot-heading-to-items` (same as Insights). Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
 | `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement slider: eyebrow + serif quote left (typographic quotes in ink), 3:4 still cols 9–12, business name above prev/next in cols 14–16, `.circle-arrow` buttons bottom-aligned with the image (prev mirrored). Three Ling quotes; all credits are `Falcon client` placeholders. |
-| `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; TODO to confirm the real credits). |
+| `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; stills are trucks / dentist / chef; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
 | `src/scripts/scroll-in.ts` | Home scroll-in below the hero. Headers/body `y:20` 800/400, start `top 90%`. Services `top 85%` + 150ms per row. Stats fade + 1px line. News curtain. Skip hero / testimonial / CTA. |
 | `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, Lilac listbox overlay (placeholder then selected sector name, Martinique check), featured panel (title + blurb + Learn more / 16:9 still). |
