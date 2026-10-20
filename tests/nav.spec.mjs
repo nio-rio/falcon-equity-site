@@ -125,6 +125,94 @@ const closeMenu = async (page, mode) => {
   }
 };
 
+const isBlur5 = (value) =>
+  typeof value === 'string' && /blur\(\s*5px\s*\)/.test(value) && !/saturate/i.test(value);
+
+const isFilterNone = (value) => !value || value === 'none';
+
+const readFilters = (page) =>
+  page.evaluate(() => {
+    const read = (el) => {
+      if (!el) return null;
+      const cs = getComputedStyle(el);
+      return {
+        backdropFilter: cs.backdropFilter || cs.webkitBackdropFilter || 'none',
+        webkitBackdropFilter: cs.webkitBackdropFilter || '',
+        backgroundColor: cs.backgroundColor,
+        display: cs.display,
+        isolation: cs.isolation,
+        transform: cs.transform,
+        filter: cs.filter,
+      };
+    };
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]');
+    const overlay = document.querySelector('[data-nav-backdrop]');
+    const panel =
+      document.querySelector('[data-nav-item].is-open [data-nav-panel]') ||
+      document.querySelector('[data-nav-inner].is-open') ||
+      null;
+    let ancestorTrap = false;
+    for (let n = overlay?.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      if (cs.transform !== 'none' || cs.filter !== 'none' || cs.isolation === 'isolate') ancestorTrap = true;
+    }
+    return {
+      header: read(header),
+      bar: read(bar),
+      overlay: read(overlay),
+      panel: read(panel),
+      overlayParent: overlay?.parentElement?.tagName || null,
+      ancestorTrap,
+    };
+  });
+
+const readTypeChrome = (page) =>
+  page.evaluate(() => {
+    const tel = document.querySelector('.site-header__tel--bar');
+    const menu = document.querySelector('.primary-nav__list-item-link');
+    const telLabel = document.querySelector('.site-header__tel--bar .site-header__tel-label');
+    const menuLabel = document.querySelector('.primary-nav__list-item-label');
+    const typeOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        fontFamily: cs.fontFamily,
+        fontSize: cs.fontSize,
+        fontWeight: cs.fontWeight,
+        color: cs.color,
+        letterSpacing: cs.letterSpacing,
+        textTransform: cs.textTransform,
+        textDecorationLine: cs.textDecorationLine,
+        fontStyle: cs.fontStyle,
+      };
+    };
+    const labelOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        backgroundImage: cs.backgroundImage,
+        backgroundSize: cs.backgroundSize,
+        backgroundPosition: cs.backgroundPosition,
+        backgroundRepeat: cs.backgroundRepeat,
+      };
+    };
+    const chromeOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        backgroundColor: cs.backgroundColor,
+        borderWidth: cs.borderTopWidth,
+        boxShadow: cs.boxShadow,
+        padding: cs.padding,
+      };
+    };
+    return {
+      tel: typeOf(tel),
+      menu: typeOf(menu),
+      telLabel: labelOf(telLabel),
+      menuLabel: labelOf(menuLabel),
+      telChrome: chromeOf(tel),
+    };
+  });
+
 const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
@@ -238,6 +326,46 @@ for (const vp of VIEWPORTS) {
     const telHref = await page.locator('.site-header__tel--bar').getAttribute('href');
     log({ ...tag, check: 'tel-real-number', ok: telHref === 'tel:+19172455277', detail: telHref });
 
+    const typeRest = await readTypeChrome(page);
+    const typeMatch =
+      typeRest.tel.fontFamily === typeRest.menu.fontFamily &&
+      typeRest.tel.fontSize === typeRest.menu.fontSize &&
+      typeRest.tel.fontWeight === typeRest.menu.fontWeight &&
+      typeRest.tel.color === typeRest.menu.color &&
+      typeRest.tel.letterSpacing === typeRest.menu.letterSpacing &&
+      typeRest.tel.textTransform === typeRest.menu.textTransform &&
+      typeRest.tel.textDecorationLine === typeRest.menu.textDecorationLine &&
+      typeRest.tel.fontStyle === typeRest.menu.fontStyle;
+    const noButtonChrome =
+      (typeRest.telChrome.backgroundColor === 'rgba(0, 0, 0, 0)' ||
+        typeRest.telChrome.backgroundColor === 'transparent') &&
+      (typeRest.telChrome.borderWidth === '0px' || typeRest.telChrome.borderWidth === '0px none') &&
+      (typeRest.telChrome.boxShadow === 'none' || typeRest.telChrome.boxShadow === '') &&
+      (typeRest.telChrome.padding === '0px' || typeRest.telChrome.padding === '0px 0px');
+    log({
+      ...tag,
+      check: 'tel-matches-menu-link',
+      ok: typeMatch && noButtonChrome,
+      detail: JSON.stringify(typeRest),
+    });
+
+    const filtersClosed = await readFilters(page);
+    log({
+      ...tag,
+      check: 'overlay-blur-5px',
+      ok:
+        isBlur5(filtersClosed.overlay?.backdropFilter) &&
+        !filtersClosed.ancestorTrap &&
+        filtersClosed.overlayParent === 'BODY',
+      detail: JSON.stringify(filtersClosed.overlay),
+    });
+    log({
+      ...tag,
+      check: 'header-backdrop-none',
+      ok: isFilterNone(filtersClosed.header?.backdropFilter) && isFilterNone(filtersClosed.bar?.backdropFilter),
+      detail: JSON.stringify({ header: filtersClosed.header, bar: filtersClosed.bar }),
+    });
+
     const applyHref = await page.locator('a.site-header__apply[href="/apply"]').first().getAttribute('href');
     log({ ...tag, check: 'apply-href', ok: applyHref === '/apply' });
 
@@ -246,6 +374,38 @@ for (const vp of VIEWPORTS) {
       const trigger = first.locator('[data-nav-trigger]');
       const panel = first.locator('[data-nav-panel]');
       const label = (await trigger.innerText()).trim().split('\n')[0];
+
+      await page.locator('.site-header__tel--bar').hover();
+      await page.waitForTimeout(350);
+      const telHoverSize = await page
+        .locator('.site-header__tel--bar .site-header__tel-label')
+        .evaluate((el) => getComputedStyle(el).backgroundSize);
+      await page.mouse.move(2, 2);
+      await page.waitForTimeout(80);
+      await trigger.hover();
+      await page.waitForTimeout(350);
+      const menuHoverSize = await page
+        .locator('.primary-nav__list-item-label')
+        .first()
+        .evaluate((el) => getComputedStyle(el).backgroundSize);
+      const restSizes = typeRest;
+      log({
+        ...tag,
+        check: 'tel-hover-matches-menu',
+        ok:
+          telHoverSize === menuHoverSize &&
+          telHoverSize === '100% 1px' &&
+          restSizes.telLabel.backgroundSize === restSizes.menuLabel.backgroundSize &&
+          restSizes.telLabel.backgroundImage === restSizes.menuLabel.backgroundImage,
+        detail: JSON.stringify({
+          telHoverSize,
+          menuHoverSize,
+          telRest: restSizes.telLabel,
+          menuRest: restSizes.menuLabel,
+        }),
+      });
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(150);
 
       await trigger.hover();
       await page.waitForTimeout(200);
@@ -262,6 +422,29 @@ for (const vp of VIEWPORTS) {
         return !b.hidden && cs.display !== 'none' && cs.backgroundColor.includes('0, 0, 0');
       });
       log({ ...tag, check: 'backdrop-on-when-open', ok: backdropOn });
+
+      const filtersOpen = await readFilters(page);
+      log({
+        ...tag,
+        check: 'overlay-blur-5px-open',
+        ok:
+          isBlur5(filtersOpen.overlay?.backdropFilter) &&
+          filtersOpen.overlay?.display !== 'none' &&
+          !filtersOpen.ancestorTrap,
+        detail: JSON.stringify(filtersOpen.overlay),
+      });
+      log({
+        ...tag,
+        check: 'panel-backdrop-none',
+        ok: isFilterNone(filtersOpen.panel?.backdropFilter),
+        detail: JSON.stringify(filtersOpen.panel),
+      });
+      log({
+        ...tag,
+        check: 'header-backdrop-none-open',
+        ok: isFilterNone(filtersOpen.header?.backdropFilter) && isFilterNone(filtersOpen.bar?.backdropFilter),
+        detail: JSON.stringify({ header: filtersOpen.header, bar: filtersOpen.bar }),
+      });
 
       const z = await page.evaluate(() => {
         const header = document.querySelector('[data-header]');
@@ -369,6 +552,25 @@ for (const vp of VIEWPORTS) {
           };
         });
         log({ ...tag, check: 'home-theme-light-on-scroll', ok: !scrolled.dark, detail: JSON.stringify(scrolled) });
+        const typeScrolled = await readTypeChrome(page);
+        log({
+          ...tag,
+          check: 'tel-matches-menu-link-scrolled',
+          ok:
+            typeScrolled.tel.fontFamily === typeScrolled.menu.fontFamily &&
+            typeScrolled.tel.fontSize === typeScrolled.menu.fontSize &&
+            typeScrolled.tel.fontWeight === typeScrolled.menu.fontWeight &&
+            typeScrolled.tel.color === typeScrolled.menu.color &&
+            typeScrolled.tel.textDecorationLine === typeScrolled.menu.textDecorationLine,
+          detail: JSON.stringify(typeScrolled),
+        });
+        const filtersScrolled = await readFilters(page);
+        log({
+          ...tag,
+          check: 'overlay-blur-5px-scrolled',
+          ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
+          detail: JSON.stringify(filtersScrolled),
+        });
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(150);
       }
@@ -381,6 +583,38 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(200);
       const innerOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open') && getComputedStyle(el).display !== 'none');
       log({ ...tag, check: 'mobile-opens', ok: innerOpen });
+
+      await page.locator('.site-header__tel--bar').hover();
+      await page.waitForTimeout(200);
+      const mobileHover = await readTypeChrome(page);
+      log({
+        ...tag,
+        check: 'tel-hover-matches-menu',
+        ok:
+          mobileHover.tel.fontFamily === mobileHover.menu.fontFamily &&
+          mobileHover.tel.fontSize === mobileHover.menu.fontSize &&
+          mobileHover.tel.fontWeight === mobileHover.menu.fontWeight &&
+          mobileHover.tel.color === mobileHover.menu.color &&
+          mobileHover.telLabel.backgroundSize === mobileHover.menuLabel.backgroundSize,
+        detail: JSON.stringify(mobileHover),
+      });
+
+      const filtersOpen = await readFilters(page);
+      log({
+        ...tag,
+        check: 'overlay-blur-5px-open',
+        ok:
+          isBlur5(filtersOpen.overlay?.backdropFilter) &&
+          filtersOpen.overlay?.display !== 'none' &&
+          !filtersOpen.ancestorTrap,
+        detail: JSON.stringify(filtersOpen.overlay),
+      });
+      log({
+        ...tag,
+        check: 'panel-backdrop-none',
+        ok: isFilterNone(filtersOpen.panel?.backdropFilter),
+        detail: JSON.stringify(filtersOpen.panel),
+      });
       await shot(page, `${vp.name}-${pg.name}-mobile-open`);
 
       const scrollable = await page.evaluate(() => {
@@ -429,6 +663,32 @@ for (const vp of VIEWPORTS) {
       const kbOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open'));
       log({ ...tag, check: 'mobile-keyboard-enter-opens', ok: kbOpen });
       await page.keyboard.press('Escape');
+
+      if (pg.name === 'home') {
+        await page.evaluate(() => window.scrollTo(0, 600));
+        await page.waitForTimeout(200);
+        const typeScrolled = await readTypeChrome(page);
+        log({
+          ...tag,
+          check: 'tel-matches-menu-link-scrolled',
+          ok:
+            typeScrolled.tel.fontFamily === typeScrolled.menu.fontFamily &&
+            typeScrolled.tel.fontSize === typeScrolled.menu.fontSize &&
+            typeScrolled.tel.fontWeight === typeScrolled.menu.fontWeight &&
+            typeScrolled.tel.color === typeScrolled.menu.color &&
+            typeScrolled.tel.textDecorationLine === typeScrolled.menu.textDecorationLine,
+          detail: JSON.stringify(typeScrolled),
+        });
+        const filtersScrolled = await readFilters(page);
+        log({
+          ...tag,
+          check: 'overlay-blur-5px-scrolled',
+          ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
+          detail: JSON.stringify(filtersScrolled),
+        });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(150);
+      }
     }
 
     await closeMenu(page, vp.mode);

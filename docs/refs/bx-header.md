@@ -58,15 +58,16 @@ Hamburger `display: none`. Inner is `position: static; display: flex`.
 | Promo body | **18px**, margin-top **16px** | same |
 | Promo CTA | “Learn More” + 40px circle-arrow | same |
 
-Open/close is `display: none` on `[aria-hidden=true]` (no fade). Chevron rotates. Backdrop:
+Open/close is `display: none` on `[aria-hidden=true]` (no fade). Chevron rotates. Live `blackstone.com` (Chrome, 1440, 2026-10-20): header bar and mega-panel compute `backdrop-filter: none` with opaque `rgb(0, 0, 0)` / `rgb(255, 255, 255)`. Only the page overlay uses blur, and it has no saturate:
 
 ```
+-webkit-backdrop-filter: blur(5px);
 backdrop-filter: blur(5px);
 background-color: rgba(0,0,0,.32);
-position: fixed; inset: 0; z-index: 2;
+position: fixed; inset: 0;
 ```
 
-Header `z-index: 3`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390.
+Falcon matches those values. Overlay is a `document.body` child (`z-index: 40`) so transform/filter/isolation on the header cannot clip the blur; header stays `z-index: 50`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390. It also asserts overlay `blur(5px)` (no saturate) and header/panel `none` in each state, and that the bar phone (`tel:+19172455277`) matches a primary menu link’s font, size, weight, color, and 1px `currentColor` hover underline.
 
 ## Mobile (`max-width: 79.9375em`)
 

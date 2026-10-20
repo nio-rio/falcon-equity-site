@@ -529,6 +529,11 @@ a:focus-visible .link-draw,
   flex-shrink: 0;
   width: 100%;
   overflow: visible;
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   background: #fff;
   color: #000;
   --nav-copy: #000;
@@ -597,6 +602,11 @@ html.has-scroll-lock .site-header {
   height: var(--bx-header);
   background: var(--nav-bg);
   color: var(--nav-copy);
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   transition: height 0.3s ease-out;
 }
 
@@ -660,16 +670,36 @@ html.has-scroll-lock .site-header {
 }
 
 .site-header__tel {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
   color: inherit;
+  font: inherit;
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: inherit;
   text-decoration: none;
-  font-size: 0.8125rem;
-  line-height: 1.2;
+  text-transform: none;
   white-space: nowrap;
+  cursor: pointer;
+}
+
+.site-header__tel-label {
+  color: inherit;
+  font: inherit;
 }
 
 .site-header__tel:hover,
 .site-header__tel:focus-visible {
-  text-decoration: underline;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  box-shadow: none;
 }
 
 .site-header__apply {
@@ -721,6 +751,7 @@ html.has-scroll-lock .site-header {
 
 .site-header__cta--menu .site-header__tel {
   font-size: var(--bx-fs-16);
+  font-weight: 400;
 }
 
 .primary-nav__toggle {
@@ -753,14 +784,19 @@ html.has-scroll-lock .site-header {
   display: block;
 }
 
+/* Live blackstone.com 2026-10-20: overlay is blur(5px) + rgba(0,0,0,.32).
+   Header bar and mega-panel compute backdrop-filter: none (opaque rgb). */
 .primary-nav__backdrop {
   position: fixed;
   inset: 0;
   z-index: 40;
   pointer-events: auto;
+  isolation: auto;
+  transform: none;
+  filter: none;
   background-color: rgba(0, 0, 0, 0.32);
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
 .primary-nav__backdrop--hidden {
@@ -778,6 +814,11 @@ html.has-scroll-lock .site-header {
   padding-inline: var(--bx-margin);
   background: var(--nav-bg);
   color: var(--nav-copy);
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .primary-nav__inner.is-open {
@@ -830,6 +871,11 @@ html.has-scroll-lock .site-header {
 
 .primary-nav__lvl-2-wrap {
   display: none;
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .primary-nav__list-item.is-open > .primary-nav__lvl-2-wrap,
@@ -1008,10 +1054,6 @@ html.has-scroll-lock .site-header {
     min-width: max-content;
   }
 
-  .site-header__tel {
-    font-size: var(--bx-fs-16);
-  }
-
   .site-header__apply--bar {
     display: inline-flex;
   }
@@ -1064,7 +1106,8 @@ html.has-scroll-lock .site-header {
     gap: 0;
   }
 
-  .primary-nav__list-item-label {
+  .primary-nav__list-item-label,
+  .site-header__tel-label {
     background-image: linear-gradient(currentColor, currentColor);
     background-position: 0 100%;
     background-repeat: no-repeat;
@@ -1074,7 +1117,9 @@ html.has-scroll-lock .site-header {
 
   .primary-nav__list-item-link:hover .primary-nav__list-item-label,
   .primary-nav__list-item-link:focus-visible .primary-nav__list-item-label,
-  .primary-nav__list-item-link[aria-expanded='true'] .primary-nav__list-item-label {
+  .primary-nav__list-item-link[aria-expanded='true'] .primary-nav__list-item-label,
+  .site-header__tel:hover .site-header__tel-label,
+  .site-header__tel:focus-visible .site-header__tel-label {
     background-size: 100% 1px;
   }
 
@@ -1199,13 +1244,9 @@ html.has-scroll-lock .site-header {
   .site-header__container,
   .primary-nav__list-item-icon,
   .primary-nav__list-item-label,
+  .site-header__tel-label,
   .primary-nav__list-lvl-3-link {
     transition: none;
-  }
-
-  .primary-nav__backdrop {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 }
 

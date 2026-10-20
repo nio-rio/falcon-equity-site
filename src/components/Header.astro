@@ -169,14 +169,18 @@ const nav = [
             }
           </ul>
           <div class="site-header__cta site-header__cta--menu">
-            <a class="site-header__tel" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
+            <a class="site-header__tel" href={PRIMARY_PHONE.href}
+              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
+            >
             <a class="site-header__apply" href="/apply">Apply for funding</a>
           </div>
         </div>
       </nav>
 
       <div class="site-header__tools">
-        <a class="site-header__tel site-header__tel--bar" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
+        <a class="site-header__tel site-header__tel--bar" href={PRIMARY_PHONE.href}
+          ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
+        >
         <a class="site-header__apply site-header__apply--bar" href="/apply">Apply for funding</a>
         <button
           type="button"
@@ -198,12 +202,18 @@ const nav = [
   </div>
 </header>
 <div class="site-header-spacer" aria-hidden="true"></div>
-<div class="primary-nav__backdrop primary-nav__backdrop--hidden" data-nav-backdrop hidden></div>
+<div
+  class="primary-nav__backdrop primary-nav__backdrop--hidden"
+  data-nav-backdrop
+  hidden
+  style="-webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px)"
+></div>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
   const items = [...document.querySelectorAll<HTMLElement>('[data-nav-item]')];
   const backdrop = document.querySelector<HTMLElement>('[data-nav-backdrop]');
+  if (backdrop) document.body.appendChild(backdrop);
   const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
   const inner = document.querySelector<HTMLElement>('[data-nav-inner]');
   const desktopMq = window.matchMedia('(min-width: 80em)');

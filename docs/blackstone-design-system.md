@@ -168,10 +168,10 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 - Fixed bar (`position: fixed; z-index: 50`) like Blackstone, with a spacer so content is not covered. **Home** at the top of the hero: black, white type, bare logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white bar, black type, same bare logo. Opening a menu locks page scroll (`html.has-scroll-lock` + wheel/touch preventDefault; no html/body `overflow: hidden`, which hides a scrolled fixed bar). The panel is `top: 100%` of the visible bar.
 - Heights follow the compact bar in the nav captures (**108px** at 80em). Logo is unboxed at **1.25×** the prior lockup: **152.5×21.1** then **190×26.3** (`height` token, `width: auto`). No padding, border, or background.
-- Desktop `80em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is black on white / white on black. Phone is the real direct line `+1 (917) 245-5277`.
+- Desktop `80em+`: logo left, nav centered, phone + Apply on the right. Top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`. Apply is black on white / white on black. Phone is the real direct line `+1 (917) 245-5277`, styled like a primary nav label (16px/400, inherit color, same 1px underline hover/focus — no button or icon chrome).
 - Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
 - Resources menu includes an Apply promo card (`#121317`): title, apply-page sentence, Learn More + white 40px circle-arrow, MCA still.
-- Backdrop: `blur(5px)` + `rgba(0,0,0,.32)`. Esc closes. `prefers-reduced-motion` drops transitions and blur.
+- Backdrop: `blur(5px)` + `rgba(0,0,0,.32)` on the page overlay only (header and mega-panel stay opaque, `backdrop-filter: none`). Esc closes. `prefers-reduced-motion` drops transitions; overlay blur stays, matching Blackstone.
 - No bottom border, box-shadow, or hairline under the bar (home, inner, scrolled, or menu-open).
 
 ### Mobile nav
