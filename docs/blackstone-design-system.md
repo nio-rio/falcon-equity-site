@@ -250,7 +250,7 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
 | Dropdown | BMACX black bar **64px**, cols **1–6**; label “Select your sector” 16px sans 300 above | cols **1–5** |
-| Menu | black list, hover/focus invert white; max-height 24rem, scroll | same |
+| Menu | black list, hover/focus invert white; 12 industry options | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
