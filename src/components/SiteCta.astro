@@ -8,8 +8,7 @@ const phrases = [
   'expand to a new location',
 ];
 const lead = 'Need funding to';
-const tail = 'for your business';
-const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(-1)} ${tail}`;
+const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(-1)}`;
 ---
 
 <section class="site-cta" data-site-cta aria-labelledby="site-cta-heading">
@@ -29,7 +28,6 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
             ))}
           </span>
         </span>
-        <span class="site-cta__tail">{tail}</span>
       </p>
       <a class="site-cta__btn" href="/apply">Apply for funding</a>
     </div>

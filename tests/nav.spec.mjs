@@ -416,11 +416,25 @@ for (const vp of VIEWPORTS) {
 
     const ctaN = await page.locator('[data-site-cta]').count();
     log({ ...tag, check: 'site-cta-once', ok: ctaN === 1, detail: `count=${ctaN}` });
+    await page.waitForSelector('.site-cta__phrase.is-active');
     const ctaChrome = await page.evaluate(() => {
       const cta = document.querySelector('[data-site-cta]');
       const footer = document.querySelector('.site-footer');
       const btn = document.querySelector('.site-cta__btn');
+      const lead = document.querySelector('.site-cta__lead');
+      const tail = document.querySelector('.site-cta__tail');
+      const sr = document.querySelector('#site-cta-heading');
+      const active = document.querySelector('.site-cta__phrase.is-active');
+      const past = document.querySelector('.site-cta__phrase.is-past');
+      const rest = [...document.querySelectorAll('.site-cta__phrase')].find(
+        (el) => !el.classList.contains('is-active') && !el.classList.contains('is-past'),
+      );
       const cs = btn ? getComputedStyle(btn) : null;
+      const bodyFont = getComputedStyle(document.body).fontFamily;
+      const leadCs = lead ? getComputedStyle(lead) : null;
+      const activeCs = active ? getComputedStyle(active) : null;
+      const pastCs = past ? getComputedStyle(past) : null;
+      const restCs = rest ? getComputedStyle(rest) : null;
       return {
         beforeFooter: Boolean(
           cta &&
@@ -435,6 +449,15 @@ for (const vp of VIEWPORTS) {
         bg: cs?.backgroundColor || null,
         radius: cs?.borderRadius || null,
         color: cs?.color || null,
+        tailCount: document.querySelectorAll('.site-cta__tail').length,
+        srText: sr?.textContent?.trim() || '',
+        leadText: lead?.textContent?.trim() || '',
+        leadFont: leadCs?.fontFamily || null,
+        bodyFont,
+        activeColor: activeCs?.color || null,
+        pastColor: pastCs?.color || null,
+        restColor: restCs?.color || null,
+        hasTailEl: Boolean(tail),
       };
     });
     log({
@@ -452,6 +475,42 @@ for (const vp of VIEWPORTS) {
         (ctaChrome.radius === '100rem' || parseFloat(ctaChrome.radius) >= 100) &&
         ctaChrome.color === 'rgb(32, 32, 32)',
       detail: JSON.stringify(ctaChrome),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-no-tail',
+      ok:
+        !ctaChrome.hasTailEl &&
+        ctaChrome.tailCount === 0 &&
+        ctaChrome.leadText === 'Need funding to' &&
+        ctaChrome.srText.startsWith('Need funding to') &&
+        !ctaChrome.srText.includes('for your business'),
+      detail: JSON.stringify({
+        leadText: ctaChrome.leadText,
+        srText: ctaChrome.srText,
+        tailCount: ctaChrome.tailCount,
+      }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-lead-body-font',
+      ok: Boolean(ctaChrome.leadFont) && ctaChrome.leadFont === ctaChrome.bodyFont,
+      detail: JSON.stringify({ leadFont: ctaChrome.leadFont, bodyFont: ctaChrome.bodyFont }),
+    });
+    const fadedWhite = (c) =>
+      c === 'rgba(255, 255, 255, 0.5)' || c === 'rgb(255, 255, 255, 0.5)';
+    log({
+      ...tag,
+      check: 'site-cta-active-white',
+      ok:
+        ctaChrome.activeColor === 'rgb(255, 255, 255)' &&
+        (ctaChrome.pastColor == null || ctaChrome.pastColor === 'rgb(99, 99, 99)') &&
+        (ctaChrome.restColor == null || fadedWhite(ctaChrome.restColor)),
+      detail: JSON.stringify({
+        activeColor: ctaChrome.activeColor,
+        pastColor: ctaChrome.pastColor,
+        restColor: ctaChrome.restColor,
+      }),
     });
 
     const dividerClosed = await readPanelChrome(page);

@@ -81,7 +81,7 @@ No photos (Blackstone: process is type).
 
 ### 6. CTA band
 
-Sitewide Govwell-style wheel in the layout, above the footer. Lead “Need funding to”, six rotating uses, tail “for your business”, white pill “Apply for funding”.
+Sitewide Govwell-style wheel in the layout, above the footer. Lead “Need funding to” (body/Inter), six rotating uses (plain white when active), white pill “Apply for funding”. No “for your business” tail.
 
 ### Nearby copy, not currently on home
 

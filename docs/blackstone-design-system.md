@@ -290,7 +290,7 @@ Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats
 
 ### CTA band
 
-Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Modeled on Govwell’s `.section_cta`: dark `--bx-variant-black` band, At Gambit sentence (“Need funding to” + six rotating phrases + “for your business”), gold `--bx-yellow` on the active line, `#636363` on lines above, white/50 on the rest, 21em masked wheel, white pill “Apply for funding” → `/apply` (not purple). `prefers-reduced-motion` collapses to a static line. Blog still uses the black Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
+Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Modeled on Govwell’s `.section_cta`: dark `--bx-variant-black` band, sentence “Need funding to” (Inter / body) + six rotating At Gambit phrases (no “for your business” tail), plain white on the active line, `#636363` on lines above, white/50 on the rest, 21em masked wheel, white pill “Apply for funding” → `/apply` (not purple). `prefers-reduced-motion` collapses to a static line. Blog still uses the black Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
 
 ### Footer
 
@@ -355,7 +355,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
 | `src/components/Header.astro` | Sitewide Blackstone header: unboxed 1.25× logo, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `#d5d8df` container-width divider; panel content shares `--bx-max` with the logo/Apply row. Measures in `docs/refs/bx-header.md`. |
-| `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy/fonts/palette, white pill Apply. |
+| `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy (no tail), Inter lead + At Gambit phrases, white active line, white pill Apply. |
 | `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Social / Get in Touch, 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |

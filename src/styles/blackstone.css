@@ -1276,13 +1276,14 @@ html.has-scroll-lock .site-header {
 /* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
    Measured 2026-10-20 on https://govwell.com/ at 1440: dark band #202020,
    21em wrap, mask 5%/40-60%/95%, 48px (3rem) stepped translateY, ~400ms
-   cubic ease + ~1200ms hold, active #feaf0e / neighbors #636363 / rest
-   white/0.5, white pill 12px 24px / 16px / radius 100rem. */
+   cubic ease + ~1200ms hold. Lead is Inter (body). Active phrase is
+   plain white; neighbors above #636363; rest white/0.5. White pill
+   12px 24px / 16px / radius 100rem. */
 .site-cta {
   --site-cta-line: 3rem;
   --site-cta-type: 1.5rem;
   --site-cta-lead: rgb(255 255 255 / 0.5);
-  --site-cta-active: var(--bx-yellow);
+  --site-cta-active: #fff;
   --site-cta-past: #636363;
   background: var(--bx-variant-black);
   color: #fff;
@@ -1311,9 +1312,9 @@ html.has-scroll-lock .site-header {
   line-height: 1.2;
 }
 
-.site-cta__lead,
-.site-cta__tail {
+.site-cta__lead {
   color: var(--site-cta-lead);
+  font-family: var(--font-sans);
 }
 
 .site-cta__wheel {
