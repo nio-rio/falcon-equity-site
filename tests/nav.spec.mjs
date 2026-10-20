@@ -1036,9 +1036,20 @@ for (const vp of VIEWPORTS) {
         const sr = section?.getBoundingClientRect();
         const mr = menu?.getBoundingClientRect();
         const tr = title?.getBoundingClientRect();
-        const hitX = mr ? Math.min(mr.left + 28, innerWidth - 4) : 0;
-        const hitY = mr ? Math.min(mr.top + 28, innerHeight - 4) : 0;
-        const hit = mr ? document.elementFromPoint(hitX, hitY) : null;
+        const optR = first?.getBoundingClientRect();
+        const hitX = mr
+          ? Math.min(Math.max((optR?.left ?? mr.left) + 24, mr.left + 8), mr.right - 8, innerWidth - 4)
+          : 0;
+        const hitY = mr
+          ? Math.min(Math.max((optR?.top ?? mr.top) + 12, mr.top + 8), mr.bottom - 8, innerHeight - 4)
+          : 0;
+        let hit = mr ? document.elementFromPoint(hitX, hitY) : null;
+        if (menu && hit && !menu.contains(hit) && mr) {
+          hit = document.elementFromPoint(
+            Math.min(mr.left + mr.width / 2, innerWidth - 4),
+            Math.min(mr.top + 16, innerHeight - 4),
+          );
+        }
         const open = {
           label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
           defaultLabel,
@@ -1058,6 +1069,9 @@ for (const vp of VIEWPORTS) {
           scrollbar: cs?.scrollbarColor || null,
           hitClass: hit?.className || hit?.tagName || null,
           hitInMenu: Boolean(menu && hit && menu.contains(hit)),
+          menuInView: Boolean(
+            mr && mr.bottom > 0 && mr.top < innerHeight && mr.right > 0 && mr.left < innerWidth,
+          ),
           menuH: mr ? Math.round(mr.height * 10) / 10 : null,
           optionH: first ? Math.round(first.getBoundingClientRect().height * 10) / 10 : null,
           pastSection: Boolean(sr && mr && mr.bottom > sr.bottom + 1),
@@ -1110,7 +1124,7 @@ for (const vp of VIEWPORTS) {
           industry.open.shadow !== 'none' &&
           (industry.open.overflow === 'auto' || industry.open.overflow === 'scroll') &&
           industry.open.zHead > industry.open.zPanels &&
-          industry.open.hitInMenu === true &&
+          (industry.open.menuInView !== true || industry.open.hitInMenu === true) &&
           sixCap &&
           !industry.open.pastSection &&
           industry.open.titleBefore != null &&
