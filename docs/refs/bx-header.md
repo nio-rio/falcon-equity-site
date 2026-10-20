@@ -80,6 +80,6 @@ Real pages only, grouped like the captures:
 - **Our Firm** — two headings (`Our Firm` / `Contact`), light-inner pattern
 - **Services** — two-col product list
 - **Industries** — two-col list
-- **Resources** — Blog / Tools / Help plus the Apply promo card (Martinique Darker, title, apply-page sentence, Learn More + white circle-arrow, MCA still)
+- **Resources** — Blog / Tools / Help plus the Apply promo card (follows header theme: Darker + white on dark, Lilac + `#14101f` on light; Learn More + circle-arrow)
 
 Home header is dark with an outlined logo and an underlined open item. Inner pages are white with a filled black logo tile. No invented social, people, or stats.

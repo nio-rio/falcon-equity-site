@@ -246,6 +246,19 @@ const APPLY_DARK = {
   arrowBg: LILAC,
   focus: '#332a4e',
 };
+const WHITE = 'rgb(255, 255, 255)';
+const WIDGET_DARK = {
+  bg: MARTINIQUE_DARKER,
+  copy: WHITE,
+  circleBg: WHITE,
+  circleFg: MARTINIQUE_DARKER,
+};
+const WIDGET_LIGHT = {
+  bg: LILAC,
+  copy: MARTINIQUE_DARKER,
+  circleBg: MARTINIQUE_DARKER,
+  circleFg: LILAC,
+};
 
 const readButton040 = (page, sel) =>
   page.evaluate((selector) => {
@@ -299,6 +312,103 @@ const normFocus = (c) => {
   if (n === '#fff' || n === '#ffffff' || n === 'rgb(255,255,255)' || n === 'white') return '#ffffff';
   if (n === '#000' || n === '#000000' || n === 'rgb(0,0,0)' || n === 'black') return '#000000';
   return n;
+};
+
+const parseRgb = (c) => {
+  const m = String(c || '').match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/);
+  if (!m) return null;
+  return [Number(m[1]), Number(m[2]), Number(m[3])];
+};
+const relLum = ([r, g, b]) => {
+  const chan = (v) => {
+    v /= 255;
+    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * chan(r) + 0.7152 * chan(g) + 0.0722 * chan(b);
+};
+const contrastRatio = (fg, bg) => {
+  const a = parseRgb(fg);
+  const b = parseRgb(bg);
+  if (!a || !b) return 0;
+  const L1 = relLum(a);
+  const L2 = relLum(b);
+  const hi = Math.max(L1, L2);
+  const lo = Math.min(L1, L2);
+  return (hi + 0.05) / (lo + 0.05);
+};
+const aaMin = (fontPx, weight) => (fontPx >= 24 || (fontPx >= 18.66 && weight >= 700) ? 3 : 4.5);
+const roundRatio = (n) => Math.round(n * 100) / 100;
+
+const readNavWidget = (page) =>
+  page.evaluate(() => {
+    const widgets = [...document.querySelectorAll('.primary-nav-widget')];
+    const header = document.querySelector('[data-header]');
+    const el = widgets.find((w) => getComputedStyle(w).display !== 'none') || widgets[0] || null;
+    const styleOf = (node) => {
+      if (!node) return null;
+      const cs = getComputedStyle(node);
+      return {
+        color: cs.color,
+        bg: cs.backgroundColor,
+        fontSize: cs.fontSize,
+        fontWeight: Number.parseInt(cs.fontWeight, 10) || 400,
+      };
+    };
+    if (!el) {
+      return { count: widgets.length, dark: header?.classList.contains('is-color-theme-dark') || false, visible: false };
+    }
+    const wcs = getComputedStyle(el);
+    const title = el.querySelector('.primary-nav-widget__title');
+    const body = el.querySelector('.primary-nav-widget__content p');
+    const eyebrow = el.querySelector('.eyebrow, .primary-nav-widget__eyebrow');
+    const cta = el.querySelector('.arrow-cta');
+    const label = el.querySelector('.arrow-cta-label');
+    const circle = el.querySelector('.circle-arrow');
+    return {
+      count: widgets.length,
+      dark: header?.classList.contains('is-color-theme-dark') || false,
+      visible: wcs.display !== 'none',
+      bg: wcs.backgroundColor,
+      title: title ? { ...styleOf(title), text: title.textContent.trim() } : null,
+      body: body ? { ...styleOf(body) } : null,
+      eyebrow: eyebrow ? styleOf(eyebrow) : null,
+      link: cta ? { ...styleOf(cta), href: cta.getAttribute('href') } : null,
+      label: label ? { ...styleOf(label), text: label.textContent.trim() } : null,
+      circle: circle ? styleOf(circle) : null,
+    };
+  });
+
+const widgetPasses = (got, expected) => {
+  const ratios = {};
+  if (!got?.visible || got.count !== 1) return { ok: false, ratios, reason: 'missing-widget' };
+  const checkText = (name, node, required) => {
+    if (!node) {
+      ratios[name] = null;
+      return !required;
+    }
+    const ratio = contrastRatio(node.color, got.bg);
+    const min = aaMin(parseFloat(node.fontSize), node.fontWeight);
+    ratios[name] = roundRatio(ratio);
+    return ratio + 1e-6 >= min && node.color === expected.copy;
+  };
+  const titleOk = checkText('title', got.title, true);
+  const bodyOk = checkText('body', got.body, true);
+  const linkOk = checkText('link', got.link, true);
+  const labelOk = checkText('label', got.label, true);
+  const eyebrowOk = checkText('eyebrow', got.eyebrow, false);
+  const circleCard = got.circle ? contrastRatio(got.circle.bg, got.bg) : 0;
+  const arrowCircle = got.circle ? contrastRatio(got.circle.color, got.circle.bg) : 0;
+  ratios.circleOnCard = roundRatio(circleCard);
+  ratios.arrowOnCircle = roundRatio(arrowCircle);
+  const colorsOk =
+    got.bg === expected.bg &&
+    got.circle?.bg === expected.circleBg &&
+    got.circle?.color === expected.circleFg &&
+    got.link?.href === '/apply' &&
+    got.title?.text === 'Apply for funding' &&
+    got.label?.text === 'Learn More';
+  const contrastOk = titleOk && bodyOk && linkOk && labelOk && eyebrowOk && circleCard >= 3 && arrowCircle >= 3;
+  return { ok: colorsOk && contrastOk, ratios };
 };
 
 const button040Matches = (got, expected) =>
@@ -937,6 +1047,37 @@ for (const vp of VIEWPORTS) {
         log({ ...tag, check: 'no-gap-close-into-panel', ok: false, detail: 'missing boxes' });
       }
 
+      const resourcesTrigger = page.locator('[aria-controls="menu-resources"]');
+      await resourcesTrigger.hover();
+      await page.waitForTimeout(200);
+      const expectedWidget = theme.dark ? WIDGET_DARK : WIDGET_LIGHT;
+      const widgetRest = await readNavWidget(page);
+      const widgetRestCheck = widgetPasses(widgetRest, expectedWidget);
+      log({
+        ...tag,
+        check: 'nav-widget-theme',
+        ok: widgetRestCheck.ok && widgetRest.dark === theme.dark,
+        detail: JSON.stringify({
+          theme: theme.dark ? 'dark' : 'light',
+          ratios: widgetRestCheck.ratios,
+          got: widgetRest,
+        }),
+      });
+      await page.locator('#menu-resources .arrow-cta').hover();
+      await page.waitForTimeout(300);
+      const widgetHover = await readNavWidget(page);
+      const widgetHoverCheck = widgetPasses(widgetHover, expectedWidget);
+      log({
+        ...tag,
+        check: 'nav-widget-contrast-hover',
+        ok: widgetHoverCheck.ok,
+        detail: JSON.stringify({
+          theme: theme.dark ? 'dark' : 'light',
+          ratios: widgetHoverCheck.ratios,
+          got: widgetHover,
+        }),
+      });
+
       const second = page.locator('[data-nav-item]').nth(1);
       await second.locator('[data-nav-trigger]').hover();
       await page.waitForTimeout(200);
@@ -1030,6 +1171,27 @@ for (const vp of VIEWPORTS) {
           ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
           detail: JSON.stringify(filtersScrolled),
         });
+        await page.locator('[aria-controls="menu-resources"]').hover();
+        await page.waitForTimeout(200);
+        const widgetScrolled = await readNavWidget(page);
+        const widgetScrolledCheck = widgetPasses(widgetScrolled, WIDGET_LIGHT);
+        log({
+          ...tag,
+          check: 'nav-widget-theme-scrolled',
+          ok: widgetScrolledCheck.ok && widgetScrolled.dark === false,
+          detail: JSON.stringify({ ratios: widgetScrolledCheck.ratios, got: widgetScrolled }),
+        });
+        await page.locator('#menu-resources .arrow-cta').hover();
+        await page.waitForTimeout(300);
+        const widgetScrolledHover = await readNavWidget(page);
+        const widgetScrolledHoverCheck = widgetPasses(widgetScrolledHover, WIDGET_LIGHT);
+        log({
+          ...tag,
+          check: 'nav-widget-contrast-hover-scrolled',
+          ok: widgetScrolledHoverCheck.ok,
+          detail: JSON.stringify({ ratios: widgetScrolledHoverCheck.ratios, got: widgetScrolledHover }),
+        });
+        await page.keyboard.press('Escape');
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(150);
       }

@@ -541,6 +541,8 @@ a:focus-visible .link-draw,
   --nav-bg: #fff;
   --nav-highlight: var(--bx-slate-3);
   --nav-rule: var(--bx-slate-2);
+  --nav-widget-bg: var(--bx-lilac);
+  --nav-widget-copy: var(--bx-black);
 }
 
 .site-header-spacer {
@@ -581,6 +583,8 @@ html.has-scroll-lock .site-header {
   --nav-bg: var(--bx-black);
   --nav-highlight: var(--bx-highlight-dark);
   --nav-rule: var(--bx-slate-2);
+  --nav-widget-bg: var(--bx-black);
+  --nav-widget-copy: #fff;
 }
 
 .site-header,
@@ -910,8 +914,8 @@ html.has-scroll-lock .site-header {
 
 .primary-nav-widget {
   display: none;
-  background: var(--bx-black);
-  color: #fff;
+  background: var(--nav-widget-bg);
+  color: var(--nav-widget-copy);
 }
 
 .primary-nav-widget__media {
@@ -940,19 +944,26 @@ html.has-scroll-lock .site-header {
   font-weight: 500;
   letter-spacing: 0.02rem;
   line-height: 1.5;
+  color: var(--nav-widget-copy);
 }
 
 .primary-nav-widget__content p {
   margin: var(--bx-space-16) 0 0;
   font-size: var(--bx-fs-18);
   line-height: 1.5;
+  color: var(--nav-widget-copy);
 }
 
 .primary-nav-widget__cta {
   flex-grow: 0;
 }
 
+.primary-nav-widget .arrow-cta {
+  color: var(--nav-widget-copy);
+}
+
 .primary-nav-widget .arrow-cta-label {
+  color: var(--nav-widget-copy);
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -968,16 +979,16 @@ html.has-scroll-lock .site-header {
 .primary-nav-widget .circle-arrow {
   width: 2.5rem;
   height: 2.5rem;
-  background: #fff;
-  border-color: #fff;
-  color: var(--bx-black);
+  background: var(--nav-widget-copy);
+  border-color: var(--nav-widget-copy);
+  color: var(--nav-widget-bg);
 }
 
 .primary-nav-widget .arrow-cta:hover .circle-arrow,
 .primary-nav-widget .arrow-cta:focus-visible .circle-arrow {
-  background: #fff;
-  border-color: #fff;
-  color: var(--bx-black);
+  background: var(--nav-widget-copy);
+  border-color: var(--nav-widget-copy);
+  color: var(--nav-widget-bg);
 }
 
 .primary-nav__list-item-link:focus-visible,
