@@ -64,7 +64,7 @@ const headerPanelGeom = (page) =>
   page.evaluate(() => {
     const header = document.querySelector('[data-header]');
     const bar = document.querySelector('[data-header-bar]');
-    const desktopPanel = document.querySelector('[data-nav-item].is-open [data-nav-panel]');
+    const desktopPanel = document.querySelector('[data-nav-panel][aria-hidden="false"]');
     const mobileInner = document.querySelector('[data-nav-inner].is-open');
     const panel = desktopPanel || mobileInner;
     const hr = header.getBoundingClientRect();
@@ -102,8 +102,8 @@ const openMenu = async (page, mode) => {
     await page.waitForTimeout(80);
     const trigger = page.locator('[data-nav-trigger]').first();
     await trigger.hover({ force: true });
-    await page.waitForTimeout(200);
-    const opened = await page.locator('[data-nav-item]').first().evaluate((el) => el.classList.contains('is-open'));
+    await page.waitForTimeout(280);
+    const opened = await page.locator('[data-nav-item]').first().evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
     if (!opened) await trigger.click();
   } else {
     const toggle = page.locator('[data-mobile-toggle]');
@@ -200,7 +200,7 @@ const readFilters = (page) =>
     const bar = document.querySelector('[data-header-bar]');
     const overlay = document.querySelector('[data-nav-backdrop]');
     const panel =
-      document.querySelector('[data-nav-item].is-open [data-nav-panel]') ||
+      document.querySelector('[data-nav-panel][aria-hidden="false"]') ||
       document.querySelector('[data-nav-inner].is-open') ||
       null;
     let ancestorTrap = false;
@@ -267,7 +267,9 @@ const readTypeChrome = (page, telSel = '.site-header__tel--bar') =>
 const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
-const SLATE_2 = 'rgb(213, 216, 223)';
+const INK_A16 = 'rgba(15, 12, 23, 0.16)';
+const WHITE_A16 = 'rgba(255, 255, 255, 0.16)';
+const WHITE_A34 = 'rgba(255, 255, 255, 0.34)';
 const MARTINIQUE_DARKER = 'rgb(20, 16, 31)';
 const MARTINIQUE = 'rgb(51, 42, 78)';
 const LILAC = 'rgb(243, 242, 251)';
@@ -523,19 +525,40 @@ const button040Matches = (got, expected) =>
   got.svgsHidden &&
   got.svgCount === 2;
 
+const panelIsOpen = (el) => {
+  if (!el) return false;
+  const cs = getComputedStyle(el);
+  return (
+    cs.display !== 'none' &&
+    cs.visibility !== 'hidden' &&
+    Number(cs.opacity) > 0.05 &&
+    el.getAttribute('aria-hidden') !== 'true'
+  );
+};
+
+const countOpenPanels = (page) =>
+  page.locator('[data-nav-panel]').evaluateAll((els) =>
+    els.filter((el) => {
+      const cs = getComputedStyle(el);
+      return (
+        cs.display !== 'none' &&
+        cs.visibility !== 'hidden' &&
+        Number(cs.opacity) > 0.05 &&
+        el.getAttribute('aria-hidden') !== 'true'
+      );
+    }).length,
+  );
+
 const readPanelChrome = (page) =>
   page.evaluate(() => {
     const logo = document.querySelector('.site-header__logo');
     const apply = document.querySelector('.site-header__apply--bar');
-    const heading = document.querySelector(
-      '[data-nav-item].is-open .primary-nav__list-lvl-2-link, [data-nav-inner].is-open .primary-nav__list-lvl-2-link',
-    );
-    const list = document.querySelector(
-      '[data-nav-item].is-open [data-nav-panel-list], [data-nav-inner].is-open [data-nav-panel-list]',
-    );
     const panel =
+      document.querySelector('[data-nav-panel][aria-hidden="false"]') ||
       document.querySelector('[data-nav-item].is-open [data-nav-panel]') ||
-      document.querySelector('[data-nav-inner].is-open');
+      document.querySelector('[data-nav-inner].is-open [data-nav-panel]');
+    const heading = panel?.querySelector('.primary-nav__list-lvl-2-link');
+    const list = panel?.querySelector('[data-nav-panel-list]');
     const header = document.querySelector('[data-header]');
     const bar = document.querySelector('[data-header-bar]');
     const lr = logo.getBoundingClientRect();
@@ -546,7 +569,12 @@ const readPanelChrome = (page) =>
     const panelCs = panel ? getComputedStyle(panel) : null;
     const headerCs = getComputedStyle(header);
     const barCs = getComputedStyle(bar);
-    const panelVisible = panelCs && panelCs.display !== 'none';
+    const panelVisible =
+      Boolean(panelCs) &&
+      panelCs.display !== 'none' &&
+      panelCs.visibility !== 'hidden' &&
+      Number(panelCs.opacity) > 0.05 &&
+      panel?.getAttribute('aria-hidden') !== 'true';
     return {
       logoLeft: Math.round(lr.left * 10) / 10,
       colLeft: hr ? Math.round(hr.left * 10) / 10 : null,
@@ -910,6 +938,115 @@ for (const vp of VIEWPORTS) {
           flush(spacing.gaps.newsToCta),
         detail: JSON.stringify(spacing),
       });
+
+      await page.evaluate(() => {
+        const el = document.querySelector('.pilot-tabs-drop');
+        const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY - headerH - 16;
+        window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'auto' });
+      });
+      await page.waitForTimeout(80);
+      const industryClosed = await page.evaluate(() => {
+        const drop = document.querySelector('.pilot-tabs-drop');
+        const menu = document.querySelector('.pilot-tabs-menu');
+        const title = document.querySelector('.pilot-tabs-title');
+        return {
+          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
+          expanded: drop?.getAttribute('aria-expanded') || null,
+          hidden: menu?.hidden ?? null,
+          titleY: title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null,
+        };
+      });
+      await page.locator('.pilot-tabs-drop').click({ force: true });
+      await page.waitForTimeout(80);
+      const industryOpen = await page.evaluate(() => {
+        const section = document.querySelector('.pilot-tabs');
+        const drop = document.querySelector('.pilot-tabs-drop');
+        const menu = document.querySelector('.pilot-tabs-menu');
+        const title = document.querySelector('.pilot-tabs-title');
+        const options = [...(menu?.querySelectorAll('[role="option"]') || [])];
+        const first = options[0];
+        const cs = menu ? getComputedStyle(menu) : null;
+        const sr = section?.getBoundingClientRect();
+        const mr = menu?.getBoundingClientRect();
+        const tr = title?.getBoundingClientRect();
+        return {
+          expanded: drop?.getAttribute('aria-expanded') || null,
+          hidden: menu?.hidden ?? null,
+          optionCount: options.length,
+          bg: cs?.backgroundColor || null,
+          border: cs ? `${cs.borderTopWidth} ${cs.borderTopColor}` : null,
+          position: cs?.position || null,
+          overflow: cs?.overflowY || null,
+          shadow: cs?.boxShadow || null,
+          maxH: cs?.maxHeight || null,
+          menuH: mr ? Math.round(mr.height * 10) / 10 : null,
+          optionH: first ? Math.round(first.getBoundingClientRect().height * 10) / 10 : null,
+          pastSection: Boolean(sr && mr && mr.bottom > sr.bottom + 1),
+          titleMoved: tr ? Math.round(tr.top * 10) / 10 : null,
+          coversTitle: Boolean(mr && tr && mr.bottom > tr.top + 4 && mr.top < tr.bottom),
+        };
+      });
+      const sixCap = industryOpen.optionH != null && industryOpen.menuH != null
+        ? industryOpen.menuH <= industryOpen.optionH * 6 + 4
+        : false;
+      log({
+        ...tag,
+        check: 'industry-menu-overlay',
+        ok:
+          industryOpen.expanded === 'true' &&
+          industryOpen.hidden === false &&
+          industryOpen.position === 'absolute' &&
+          industryOpen.bg === 'rgb(243, 242, 251)' &&
+          industryOpen.border === '1px rgb(229, 228, 242)' &&
+          industryOpen.shadow !== 'none' &&
+          (industryOpen.overflow === 'auto' || industryOpen.overflow === 'scroll') &&
+          sixCap &&
+          !industryOpen.pastSection &&
+          industryClosed.titleY != null &&
+          industryOpen.titleMoved === industryClosed.titleY,
+        detail: JSON.stringify({ industryClosed, industryOpen, sixCap }),
+      });
+      await page.locator('.pilot-tabs-menu [role="option"]').nth(0).click();
+      await page.waitForTimeout(80);
+      const industryPicked = await page.evaluate(() => {
+        const drop = document.querySelector('.pilot-tabs-drop');
+        const menu = document.querySelector('.pilot-tabs-menu');
+        const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
+        return {
+          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
+          expanded: drop?.getAttribute('aria-expanded') || null,
+          hidden: menu?.hidden ?? null,
+          selected: selected?.textContent.trim() || '',
+          selectedAria: selected?.getAttribute('aria-selected') || null,
+          color: selected ? getComputedStyle(selected).color : null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'industry-menu-selects',
+        ok:
+          industryPicked.label === 'Retail' &&
+          industryPicked.selected === 'Retail' &&
+          industryPicked.selectedAria === 'true' &&
+          industryPicked.expanded === 'false' &&
+          industryPicked.hidden === true &&
+          industryPicked.color === 'rgb(51, 42, 78)',
+        detail: JSON.stringify(industryPicked),
+      });
+      await page.locator('.pilot-tabs-drop').click();
+      await page.waitForTimeout(40);
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(40);
+      const industryEsc = await page.locator('.pilot-tabs-drop').getAttribute('aria-expanded');
+      log({ ...tag, check: 'industry-menu-esc', ok: industryEsc === 'false' });
+      await page.locator('.pilot-tabs-drop').click();
+      await page.waitForTimeout(40);
+      await page.mouse.click(12, 12);
+      await page.waitForTimeout(40);
+      const industryOutside = await page.locator('.pilot-tabs-drop').getAttribute('aria-expanded');
+      log({ ...tag, check: 'industry-menu-outside', ok: industryOutside === 'false' });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
@@ -1223,6 +1360,30 @@ for (const vp of VIEWPORTS) {
       ok: button040Matches(cta040, APPLY_LIGHT),
       detail: JSON.stringify(cta040),
     });
+    const ctaBtnSize =
+      vp.width >= 1440
+        ? { font: 30, height: 90 }
+        : vp.width >= 1280
+          ? { font: 28, height: 84 }
+          : vp.width >= 768
+            ? { font: 24, height: 72 }
+            : { font: 22, height: 66 };
+    log({
+      ...tag,
+      check: 'site-cta-apply-larger-than-nav',
+      ok:
+        cta040 != null &&
+        apply040 != null &&
+        cta040.fontSize > apply040.fontSize + 2 &&
+        cta040.height > apply040.height + 8 &&
+        Math.abs(cta040.fontSize - ctaBtnSize.font) <= 1.5 &&
+        Math.abs(cta040.height - ctaBtnSize.height) <= 2,
+      detail: JSON.stringify({
+        cta: { font: cta040?.fontSize, height: cta040?.height },
+        nav: { font: apply040?.fontSize, height: apply040?.height },
+        expected: ctaBtnSize,
+      }),
+    });
     log({
       ...tag,
       check: 'site-cta-no-tail',
@@ -1414,7 +1575,7 @@ for (const vp of VIEWPORTS) {
       check: 'site-cta-active-white',
       ok:
         ctaChrome.activeColor === 'rgb(255, 255, 255)' &&
-        (ctaChrome.pastColor == null || ctaChrome.pastColor === 'rgb(99, 99, 99)') &&
+        (ctaChrome.pastColor == null || ctaChrome.pastColor === WHITE_A34) &&
         (ctaChrome.restColor == null || fadedWhite(ctaChrome.restColor)),
       detail: JSON.stringify({
         activeColor: ctaChrome.activeColor,
@@ -1448,7 +1609,8 @@ for (const vp of VIEWPORTS) {
     if (vp.mode === 'desktop') {
       const first = page.locator('[data-nav-item]').first();
       const trigger = first.locator('[data-nav-trigger]');
-      const panel = first.locator('[data-nav-panel]');
+      const controls = await trigger.getAttribute('aria-controls');
+      const panel = page.locator(`#${controls}`);
       const label = (await trigger.innerText()).trim().split('\n')[0];
 
       await page.locator('.site-header__tel--bar').hover();
@@ -1482,7 +1644,10 @@ for (const vp of VIEWPORTS) {
       });
 
       const hoverOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
-      const panelVisible = await panel.evaluate((el) => getComputedStyle(el).display !== 'none');
+      const panelVisible = await panel.evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+      });
       log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
 
       const openChrome = await readPanelChrome(page);
@@ -1512,7 +1677,7 @@ for (const vp of VIEWPORTS) {
           openChrome.panelVisible &&
           openChrome.borderTopWidth === '1px' &&
           openChrome.borderTopStyle === 'solid' &&
-          openChrome.borderTopColor === SLATE_2 &&
+          openChrome.borderTopColor === (theme.dark ? WHITE_A16 : INK_A16) &&
           openChrome.headerBorder === '0px',
         detail: JSON.stringify(openChrome),
       });
@@ -1552,7 +1717,7 @@ for (const vp of VIEWPORTS) {
 
       const z = await page.evaluate(() => {
         const header = document.querySelector('[data-header]');
-        const panel = document.querySelector('[data-nav-item].is-open [data-nav-panel], [data-nav-panel][aria-hidden="false"]') || document.querySelector('[data-nav-panel]');
+        const panel = document.querySelector('[data-nav-panel][aria-hidden="false"]') || document.querySelector('[data-nav-panel]');
         const hz = Number(getComputedStyle(header).zIndex) || 0;
         const main = document.querySelector('main');
         const mz = Number(getComputedStyle(main).zIndex) || 0;
@@ -1583,7 +1748,10 @@ for (const vp of VIEWPORTS) {
         await page.mouse.move(midX, toY, { steps: 8 });
         await page.waitForTimeout(250);
         const stillOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
-        const stillVisible = await panel.evaluate((el) => getComputedStyle(el).display !== 'none');
+        const stillVisible = await panel.evaluate((el) => {
+          const cs = getComputedStyle(el);
+          return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+        });
         log({ ...tag, check: 'no-gap-close-into-panel', ok: stillOpen && stillVisible, detail: `from ${Math.round(fromY)} to ${Math.round(toY)}` });
       } else {
         log({ ...tag, check: 'no-gap-close-into-panel', ok: false, detail: 'missing boxes' });
@@ -1623,14 +1791,14 @@ for (const vp of VIEWPORTS) {
 
       const second = page.locator('[data-nav-item]').nth(1);
       await second.locator('[data-nav-trigger]').hover();
-      await page.waitForTimeout(200);
+      await page.waitForTimeout(280);
       const openN = await page.locator('[data-nav-item].is-open').count();
-      const visN = await page.locator('[data-nav-panel]').evaluateAll((els) => els.filter((el) => getComputedStyle(el).display !== 'none').length);
+      const visN = await countOpenPanels(page);
       log({ ...tag, check: 'only-one-open', ok: visN === 1 && openN <= 1, detail: `is-open=${openN} visible=${visN}` });
 
       await page.mouse.click(40, vp.height - 40);
-      await page.waitForTimeout(250);
-      const afterOutside = await page.locator('[data-nav-panel]').evaluateAll((els) => els.filter((el) => getComputedStyle(el).display !== 'none').length);
+      await page.waitForTimeout(400);
+      const afterOutside = await countOpenPanels(page);
       const backdropOff = await page.evaluate(() => {
         const b = document.querySelector('[data-nav-backdrop]');
         return b.hidden || getComputedStyle(b).display === 'none';
@@ -1641,21 +1809,24 @@ for (const vp of VIEWPORTS) {
       await trigger.hover();
       await page.waitForTimeout(150);
       await page.keyboard.press('Escape');
-      await page.waitForTimeout(150);
-      const afterEsc = await page.locator('[data-nav-panel]').evaluateAll((els) => els.filter((el) => getComputedStyle(el).display !== 'none').length);
+      await page.waitForTimeout(400);
+      const afterEsc = await countOpenPanels(page);
       log({ ...tag, check: 'esc-closes', ok: afterEsc === 0, detail: `visible=${afterEsc}` });
 
       await trigger.hover();
       await page.waitForTimeout(150);
       await page.mouse.move(10, vp.height - 20);
       await page.waitForTimeout(400);
-      const afterLeave = await page.locator('[data-nav-panel]').evaluateAll((els) => els.filter((el) => getComputedStyle(el).display !== 'none').length);
+      const afterLeave = await countOpenPanels(page);
       log({ ...tag, check: 'leave-closes', ok: afterLeave === 0, detail: `visible=${afterLeave}` });
 
       await page.mouse.click(10, 10);
       await trigger.click();
       await page.waitForTimeout(200);
-      const clickOpen = await panel.evaluate((el) => getComputedStyle(el).display !== 'none');
+      const clickOpen = await panel.evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+      });
       log({ ...tag, check: 'click-opens', ok: clickOpen });
 
       const href = await panel.locator('a.primary-nav__list-lvl-3-link').first().getAttribute('href');
@@ -1669,7 +1840,7 @@ for (const vp of VIEWPORTS) {
       await page.keyboard.press('Tab');
       await page.keyboard.press('Enter');
       await page.waitForTimeout(200);
-      const kbOpen = await page.locator('[data-nav-panel]').evaluateAll((els) => els.filter((el) => getComputedStyle(el).display !== 'none').length);
+      const kbOpen = await countOpenPanels(page);
       log({ ...tag, check: 'keyboard-enter-opens', ok: kbOpen === 1, detail: `visible=${kbOpen}` });
       await page.keyboard.press('Tab');
       const focused = await page.evaluate(() => document.activeElement?.className || document.activeElement?.tagName);
@@ -1825,9 +1996,26 @@ for (const vp of VIEWPORTS) {
       });
 
       await page.locator('[data-nav-trigger]').first().click();
-      await page.waitForTimeout(150);
-      const acc1 = await page.locator('[data-nav-item]').first().evaluate((el) => el.classList.contains('is-open'));
-      log({ ...tag, check: 'mobile-accordion-opens', ok: acc1 });
+      await page.waitForTimeout(450);
+      const drilled = await page.evaluate(() => {
+        const inner = document.querySelector('[data-nav-inner]');
+        const panel = document.querySelector('[data-nav-panel][aria-hidden="false"]');
+        const back = document.querySelector('[data-mobile-back]');
+        const backCs = back ? getComputedStyle(back) : null;
+        return {
+          drilled: inner?.classList.contains('is-drilled') ?? false,
+          itemOpen: document.querySelector('[data-nav-item]')?.classList.contains('is-open') ?? false,
+          panelOn: Boolean(
+            panel &&
+              getComputedStyle(panel).display !== 'none' &&
+              getComputedStyle(panel).visibility !== 'hidden' &&
+              Number(getComputedStyle(panel).opacity) > 0.05,
+          ),
+          backOn: Boolean(backCs && backCs.opacity !== '0' && backCs.pointerEvents !== 'none'),
+        };
+      });
+      log({ ...tag, check: 'mobile-drill-opens', ok: drilled.drilled && drilled.itemOpen && drilled.panelOn, detail: JSON.stringify(drilled) });
+      log({ ...tag, check: 'mobile-back-visible', ok: drilled.backOn, detail: JSON.stringify(drilled) });
       const mobileChrome = await readPanelChrome(page);
       log({
         ...tag,
@@ -1849,18 +2037,25 @@ for (const vp of VIEWPORTS) {
           mobileChrome.headerBorder === '0px' &&
           mobileChrome.barBorder === '0px' &&
           mobileRule?.width === '1px' &&
-          mobileRule?.color === SLATE_2,
+          mobileRule?.color === (theme.dark ? WHITE_A16 : INK_A16),
         detail: JSON.stringify({ ...mobileChrome, mobileRule }),
       });
-      await shot(page, `${vp.name}-${pg.name}-mobile-accordion`);
+      await shot(page, `${vp.name}-${pg.name}-mobile-drill`);
 
-      await page.locator('[data-nav-trigger]').nth(1).click();
-      await page.waitForTimeout(150);
       const ones = await page.locator('[data-nav-item].is-open').count();
-      log({ ...tag, check: 'mobile-only-one-accordion', ok: ones === 1, detail: `open=${ones}` });
+      log({ ...tag, check: 'mobile-only-one-panel', ok: ones === 1, detail: `open=${ones}` });
+
+      await page.locator('[data-mobile-back]').click();
+      await page.waitForTimeout(450);
+      const afterBack = await page.evaluate(() => {
+        const inner = document.querySelector('[data-nav-inner]');
+        const openItems = document.querySelectorAll('[data-nav-item].is-open').length;
+        return { drilled: inner?.classList.contains('is-drilled') ?? false, menuOpen: inner?.classList.contains('is-open') ?? false, openItems };
+      });
+      log({ ...tag, check: 'mobile-back-returns', ok: afterBack.menuOpen && !afterBack.drilled && afterBack.openItems === 0, detail: JSON.stringify(afterBack) });
 
       await page.keyboard.press('Escape');
-      await page.waitForTimeout(150);
+      await page.waitForTimeout(400);
       const closedEsc = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
       log({ ...tag, check: 'mobile-esc-closes', ok: closedEsc });
 

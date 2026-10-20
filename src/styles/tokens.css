@@ -2,31 +2,48 @@
    Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle. */
 
 :root {
-  /* Martinique scale (Ling). Site black and near-blacks stay on this palette. */
+  /* Martinique + Lilac scale (Ling). Solids only when saturation matches. */
   --bx-martinique: #332a4e;
   --bx-martinique-dark: #28213e;
   --bx-martinique-darker: #14101f;
   --bx-martinique-darkest: #0f0c17;
+  --bx-martinique-light: #524a68;
+  --bx-martinique-lighter: #605a7b;
   --bx-black: var(--bx-martinique-darker);
-  /* Button-040 uses Martinique + Lilac. Square buttons stay Darker. */
   --bx-lilac: #f3f2fb;
+  --bx-lilac-darker: #c4bfe1;
+  --bx-lilac-dark: #e5e4f2;
+  --bx-lilac-light: #f6f5fc;
   --bx-white: #ffffff;
   --bx-variant-black: var(--bx-martinique-dark);
-  --bx-slate-1: #515256;
-  --bx-slate-2: #d5d8df;
-  --bx-slate-3: #f4f5f7;
-  --bx-yellow: #fdf147;
   --bx-highlight-dark: var(--bx-martinique-darker);
-  --bx-highlight-light-active: #e7eaee;
-  --bx-grey-100: #f8f8f8;
-  --bx-grey-300: #a3aaae;
-  --bx-copper: #a95228;
-  --bx-red: #b80000;
-  --bx-error: #ea4334;
-  --bx-on-dark: rgb(255 255 255 / 0.88);
-  --bx-on-dark-muted: rgb(255 255 255 / 0.82);
-  --bx-on-dark-rule: rgb(255 255 255 / 0.16);
-  --bx-overlay: rgba(20, 16, 31, 0.32);
+
+  /* Neutrals: Darkest over light, white over dark. Alpha matches original grey Y. */
+  --ink-a72: rgb(15 12 23 / 0.72);
+  --ink-a65: rgb(15 12 23 / 0.65);
+  --ink-a63: rgb(15 12 23 / 0.63);
+  --ink-a36: rgb(15 12 23 / 0.36);
+  --ink-a16: rgb(15 12 23 / 0.16);
+  --ink-a9: rgb(15 12 23 / 0.09);
+  --ink-a4: rgb(15 12 23 / 0.04);
+  --ink-a3: rgb(15 12 23 / 0.03);
+  --white-a88: rgb(255 255 255 / 0.88);
+  --white-a82: rgb(255 255 255 / 0.82);
+  --white-a50: rgb(255 255 255 / 0.5);
+  --white-a34: rgb(255 255 255 / 0.34);
+  --white-a16: rgb(255 255 255 / 0.16);
+  --white-a12: rgb(255 255 255 / 0.12);
+
+  --bx-slate-1: var(--ink-a72);
+  --bx-slate-2: var(--ink-a16);
+  --bx-slate-3: var(--ink-a4);
+  --bx-highlight-light-active: var(--ink-a9);
+  --bx-grey-100: var(--ink-a3);
+  --bx-grey-300: var(--ink-a36);
+  --bx-on-dark: var(--white-a88);
+  --bx-on-dark-muted: var(--white-a82);
+  --bx-on-dark-rule: var(--white-a16);
+  --bx-overlay: rgb(20 16 31 / 0.32);
 
   /* Square buttons stay Darker ink, not purple. Button-040 uses Martinique/Lilac. */
   --falcon-accent: var(--bx-martinique-darker);
@@ -43,7 +60,7 @@
   --color-accent-hover: var(--falcon-accent-hover);
   --color-brand: var(--falcon-accent);
   --color-brand-dark: var(--falcon-accent-hover);
-  --color-brand-light: #666666;
+  --color-brand-light: var(--ink-a63);
   --color-cta: var(--bx-martinique-darker);
   --color-featured: var(--falcon-featured);
   --color-surface-dark: var(--bx-martinique-darker);

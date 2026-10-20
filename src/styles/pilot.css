@@ -1059,7 +1059,7 @@
   border: 0;
   border-bottom: 2px solid var(--bx-black);
   border-radius: 0;
-  background: var(--color-tint);
+  background: var(--bx-lilac);
   color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
@@ -1085,24 +1085,32 @@
 
 .pilot-tabs-menu {
   position: absolute;
-  z-index: 10;
+  z-index: 20;
   top: 100%;
   left: 0;
   right: 0;
   margin: 0;
   padding: 0;
   list-style: none;
-  background: var(--color-tint);
+  background: var(--bx-lilac);
   color: var(--bx-black);
-  border-bottom: 2px solid var(--bx-black);
+  border: 1px solid var(--bx-lilac-dark);
+  box-shadow: 0 0.5rem 1.25rem rgb(15 12 23 / 0.14);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pilot-tabs-menu button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   width: 100%;
   padding: 0.75rem 1.5rem;
   border: 0;
-  background: none;
+  background: var(--bx-lilac);
   color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
@@ -1113,7 +1121,19 @@
 }
 
 .pilot-tabs-menu button[aria-selected='true'] {
-  box-shadow: inset 2px 0 0 var(--bx-black);
+  color: var(--bx-martinique);
+  font-weight: 500;
+}
+
+.pilot-tabs-menu button[aria-selected='true']::after {
+  content: '';
+  flex: none;
+  width: 0.7rem;
+  height: 0.35rem;
+  margin-right: 0.15rem;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
 }
 
 .pilot-tabs-menu button:hover,

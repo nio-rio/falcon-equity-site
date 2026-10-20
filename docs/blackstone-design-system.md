@@ -26,15 +26,16 @@ From `:root` in the v2 bundle.
 | `--c-black` | `#000000` | `--bx-martinique-darker` `#14101f` via `--bx-black` / `--color-ink` / `--color-surface-dark` |
 | `--c-white` | `#ffffff` | `--bx-white` |
 | `--c-variant-black` | `#202020` | `--color-ink-soft` → Martinique Dark `#28213e` |
-| `--c-slate-1` | `#515256` | `--color-muted` |
-| `--c-slate-2` | `#d5d8df` | `--color-line` (hairlines) |
-| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` |
-| `--c-yellow` | `#fdf147` | `--bx-yellow` (BX focus only; not Falcon CTA fill) |
+| `--c-slate-1` | `#515256` | `--ink-a72` (3% sat grey; not Martinique Light) |
+| `--c-slate-2` | `#d5d8df` | `--ink-a16` hairlines (closer than Lilac Dark `#e5e4f2`) |
+| `--c-highlight-light-active` | `#e7eaee` | `--ink-a9` (Lilac Dark is 35% sat) |
+| `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--ink-a4` tints; Industry field/menu use `--bx-lilac` |
 | `--c-highlight-dark` | `#121317` | `--bx-highlight-dark` → Martinique Darker |
-| `--c-grey-100` | `#f8f8f8` | table alt row |
-| `--c-grey-300` | `#a3aaae` | footnotes |
-| `--c-copper` | `#a95228` | BX table accent; unused at Falcon |
-| `--c-red` / form error | `#b80000` / `#ea4334` | `--bx-error` |
+| `--c-grey-100` | `#f8f8f8` | `--ink-a3` |
+| `--c-grey-300` | `#a3aaae` | `--ink-a36` |
+| leftover `#636363` | on-dark | `--white-a34` (CTA past lines) |
+| leftover `#666666` | on-light | `--ink-a63` (`--color-brand-light`) |
+| leftover `#f7f7fa` | wash | `--ink-a3` |
 | `--c-copy` | `var(--c-black)` | ink |
 | `--c-background` | `var(--c-white)` | page |
 | `--c-links` | `var(--c-black)` | inherit |
@@ -261,8 +262,8 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
-| Dropdown | Light gray (`--color-tint`) field, in-field “Select your sector” until a sector is chosen, then the sector name (native-select value), 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
-| Menu | same gray fill + 2px ink bottom; simple hover tint; 12 industry options | same |
+| Dropdown | Lilac (`--bx-lilac`) field, in-field “Select your sector” until a sector is chosen, then the sector name, 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
+| Menu | Floating overlay: solid Lilac, 1px Lilac Dark border, Martinique Darkest soft shadow; cap ~6 options and scroll; never past the section; selected option Martinique + check | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
@@ -314,7 +315,7 @@ Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats
 
 ### CTA band
 
-Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both Inter / body (no “for your business” tail). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, `#636363` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
+Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both Inter / body (no “for your business” tail). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, `--white-a34` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. Noticeably larger than the nav Apply: 1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em (height 3em). `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
 
 ### Footer
 
@@ -322,7 +323,7 @@ Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-l
 
 ### Forms
 
-BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. Falcon apply uses Jotform embed (untouched). Loan calculator `.lc-*` stays page-local (range + result), using ink/tint/white on the dark hero.
+BX: floating 14px light label, 16px inset, focus lifts label. Falcon apply uses Jotform embed (untouched). Loan calculator `.lc-*` stays page-local (range + result), using ink/tint/white on the dark hero. Do not use the BX red error `#ea4334`.
 
 ---
 
@@ -378,7 +379,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
-| `src/components/Header.astro` | Sitewide Blackstone header: live SVG mark + At Gambit wordmark, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `#d5d8df` container-width divider; panel content shares `--bx-max` with the logo/Apply row. Measures in `docs/refs/bx-header.md`. |
+| `src/components/Header.astro` | Sitewide Blackstone header: live SVG mark + At Gambit wordmark, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `--ink-a16` / `--white-a16` container-width divider; panel content shares `.container-site` with the logo/Apply row. Desktop directional hover + mobile drill-down follow Osmo Mega Navigation timings (`docs/refs/osmo-mega-nav.md`), not Osmo’s look. |
 | `src/components/Button040.astro` | Ling button-040: pill with sliding text and arrow-circle. `href`, `label`, `variant` (`light` on dark, `dark` on white). Nav follows header theme. |
 | `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy (no tail), Inter lead and phrases, 4.5rem pitch, white active line, button-040 Apply. |
 | `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Get in Touch (X in that list), 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
@@ -395,7 +396,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/data/home-testimonial.ts` | Home testimonial copy (`HOME_TESTIMONIALS`: three Ling quotes; TODO to confirm the real credits). |
 | `src/scripts/testimonial-slider.ts` | GSAP 3.15 SplitText line-mask + image clip-path, autoplay 5s (paused out of view; off when one slide), ArrowLeft/Right, reduced-motion crossfade. |
 | `src/scripts/scroll-in.ts` | Home scroll-in below the hero. Headers/body `y:20` 800/400, start `top 90%`. Services `top 85%` + 150ms per row. Stats fade + 1px line. News curtain. Skip hero / testimonial / CTA. |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray listbox (placeholder then selected sector name), featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, Lilac listbox overlay (placeholder then selected sector name, Martinique check), featured panel (title + blurb + Learn more / 16:9 still). |
 | `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. Heading→cards uses `--pilot-heading-to-items` (shared with Services). |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |

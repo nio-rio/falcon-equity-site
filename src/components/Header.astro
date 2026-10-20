@@ -85,20 +85,30 @@ const nav = [
 <header
   class:list={['site-header', isHome && 'is-color-theme-dark']}
   data-header
+  data-menu-wrap
+  data-menu-open="false"
   data-home={isHome ? '' : undefined}
 >
   <div class="site-header__container" data-header-bar>
     <div class="site-header__inner container-site">
-      <a href="/" class="site-header__logo" aria-label="Falcon Equity Group">
-        <Logo variant="nav" />
-      </a>
+      <div class="site-header__brand">
+        <a href="/" class="site-header__logo" aria-label="Falcon Equity Group" data-menu-logo>
+          <Logo variant="nav" />
+        </a>
+        <button type="button" class="site-header__back" data-mobile-back aria-label="Back to menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M11.3 1.7a1 1 0 0 1 0 1.4L5.4 9l5.9 5.9a1 1 0 1 1-1.4 1.4l-6.6-6.6a1 1 0 0 1 0-1.4l6.6-6.6a1 1 0 0 1 1.4 0Z"></path>
+          </svg>
+          <span>Back</span>
+        </button>
+      </div>
 
       <nav class="site-header__nav primary-nav" aria-label="Main">
         <div id="primary-nav-inner" class="primary-nav__inner" data-nav-inner>
-          <ul class="primary-nav__list">
+          <ul class="primary-nav__list" data-nav-list>
             {
               nav.map((item) => (
-                <li class:list={['primary-nav__list-item', 'has-children', item.active && 'is-current']} data-nav-item>
+                <li class:list={['primary-nav__list-item', 'has-children', item.active && 'is-current']} data-nav-item data-nav-list-item>
                   <button
                     type="button"
                     class="primary-nav__list-item-link"
@@ -106,16 +116,41 @@ const nav = [
                     aria-controls={`menu-${item.id}`}
                     aria-haspopup="true"
                     data-nav-trigger
+                    data-dropdown-toggle={item.id}
                   >
                     <span class="primary-nav__list-item-label">{item.label}</span>
                     <svg class="primary-nav__list-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
                       <path fill="currentColor" d="m8.7 12.4 7-6.8a1 1 0 0 0 0-1.4 1 1 0 0 0-1.4 0L8 10.3 1.7 4.2a1 1 0 0 0-1.4 0 1 1 0 0 0 0 1.4l7 6.8c.4.3 1 .3 1.4 0Z"></path>
                     </svg>
                   </button>
-                  <div id={`menu-${item.id}`} class="primary-nav__lvl-2-wrap" aria-hidden="true" data-nav-panel>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="site-header__cta site-header__cta--menu" data-nav-list-item>
+            <a class="site-header__tel" href={PRIMARY_PHONE.href}
+              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
+            >
+            <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+          <div class="primary-nav__dropdown" data-dropdown-wrapper>
+            <div class="primary-nav__dropdown-container" data-dropdown-container>
+              <div class="primary-nav__dropdown-bg" data-dropdown-bg></div>
+              {
+                nav.map((item) => (
+                  <div
+                    id={`menu-${item.id}`}
+                    class="primary-nav__lvl-2-wrap"
+                    aria-hidden="true"
+                    data-nav-panel
+                    data-nav-content={item.id}
+                    data-panel-state=""
+                    role="region"
+                    aria-label={`${item.label} menu`}
+                  >
                     <ul class="primary-nav__list-lvl-2" data-nav-panel-list>
                       {item.columns.map((col) => (
-                        <li class:list={['primary-nav__list-lvl-2-item', col.twoCol && 'has-two-column-list']}>
+                        <li class:list={['primary-nav__list-lvl-2-item', col.twoCol && 'has-two-column-list']} data-menu-fade>
                           <span class="primary-nav__list-lvl-2-link">{col.heading}</span>
                           <ul class:list={['primary-nav__list-lvl-3', col.twoCol && 'primary-nav__list-lvl-3--two']}>
                             {col.links.map((l) => (
@@ -133,7 +168,7 @@ const nav = [
                         </li>
                       ))}
                       {item.featured && (
-                        <li class="primary-nav__list-lvl-2-item has-nav-widget">
+                        <li class="primary-nav__list-lvl-2-item has-nav-widget" data-menu-fade>
                           <div class="primary-nav-widget">
                             <div class="primary-nav-widget__content">
                               <div class="primary-nav-widget__content-inner">
@@ -165,15 +200,9 @@ const nav = [
                       )}
                     </ul>
                   </div>
-                </li>
-              ))
-            }
-          </ul>
-          <div class="site-header__cta site-header__cta--menu">
-            <a class="site-header__tel" href={PRIMARY_PHONE.href}
-              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
-            >
-            <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
+                ))
+              }
+            </div>
           </div>
         </div>
       </nav>
@@ -194,6 +223,7 @@ const nav = [
           aria-expanded="false"
           aria-controls="primary-nav-inner"
           data-mobile-toggle
+          data-burger-toggle
         >
           <span class="sr-only" data-mobile-label>Open menu</span>
           <svg class="primary-nav__toggle-lines" width="34" height="24" viewBox="0 0 34 24" aria-hidden="true" focusable="false">
@@ -211,227 +241,11 @@ const nav = [
 <div
   class="primary-nav__backdrop primary-nav__backdrop--hidden"
   data-nav-backdrop
+  data-menu-backdrop
   hidden
   style="-webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px)"
 ></div>
 
 <script>
-  const header = document.querySelector<HTMLElement>('[data-header]');
-  const items = [...document.querySelectorAll<HTMLElement>('[data-nav-item]')];
-  const backdrop = document.querySelector<HTMLElement>('[data-nav-backdrop]');
-  if (backdrop) document.body.appendChild(backdrop);
-  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
-  const inner = document.querySelector<HTMLElement>('[data-nav-inner]');
-  const desktopMq = window.matchMedia('(min-width: 80em)');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isHomeHeader = header?.hasAttribute('data-home') ?? false;
-  const CLOSE_MS = reduceMotion ? 0 : 160;
-
-  const isDesktop = () => desktopMq.matches;
-
-  let closeTimer = 0;
-  let lockY = 0;
-  const cancelClose = () => window.clearTimeout(closeTimer);
-
-  const eventInMobileDrawer = (target: EventTarget | null) =>
-    !isDesktop() && target instanceof Element && !!target.closest('[data-nav-inner]');
-
-  const preventScroll = (e: Event) => {
-    if (eventInMobileDrawer(e.target)) return;
-    e.preventDefault();
-  };
-
-  const preventScrollKeys = (e: KeyboardEvent) => {
-    if (!['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Spacebar'].includes(e.key)) return;
-    if (e.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
-    if (eventInMobileDrawer(e.target)) return;
-    e.preventDefault();
-  };
-
-  const holdScroll = () => {
-    if (window.scrollY === lockY) return;
-    window.scrollTo({ top: lockY, left: 0, behavior: 'auto' });
-  };
-
-  const setScrollLock = (lock: boolean) => {
-    const root = document.documentElement;
-    if (lock) {
-      if (root.classList.contains('has-scroll-lock')) return;
-      lockY = window.scrollY;
-      root.classList.add('has-scroll-lock');
-      window.addEventListener('wheel', preventScroll, { passive: false });
-      window.addEventListener('touchmove', preventScroll, { passive: false });
-      window.addEventListener('keydown', preventScrollKeys);
-      window.addEventListener('scroll', holdScroll);
-      return;
-    }
-    root.classList.remove('has-scroll-lock');
-    window.removeEventListener('wheel', preventScroll);
-    window.removeEventListener('touchmove', preventScroll);
-    window.removeEventListener('keydown', preventScrollKeys);
-    window.removeEventListener('scroll', holdScroll);
-  };
-
-  const setBackdrop = (on: boolean) => {
-    if (!backdrop) return;
-    backdrop.classList.toggle('primary-nav__backdrop--hidden', !on);
-    backdrop.hidden = !on;
-  };
-
-  const setItemOpen = (item: HTMLElement, open: boolean) => {
-    const trigger = item.querySelector<HTMLElement>('[data-nav-trigger]');
-    const panel = item.querySelector<HTMLElement>('[data-nav-panel]');
-    item.classList.toggle('is-open', open);
-    if (open) item.classList.remove('is-escaped');
-    trigger?.setAttribute('aria-expanded', String(open));
-    if (panel) panel.setAttribute('aria-hidden', String(!open));
-  };
-
-  const closeAll = (except?: HTMLElement) => {
-    items.forEach((item) => {
-      if (item !== except) setItemOpen(item, false);
-    });
-  };
-
-  const anyOpen = () => items.some((item) => item.classList.contains('is-open'));
-
-  const syncChrome = () => {
-    const mobileOpen = toggle?.getAttribute('aria-expanded') === 'true';
-    const open = (isDesktop() && anyOpen()) || (!isDesktop() && mobileOpen);
-    header?.classList.toggle('is-open', open);
-    setBackdrop(open);
-    setScrollLock(open);
-  };
-
-  const openItem = (item: HTMLElement) => {
-    cancelClose();
-    closeAll(item);
-    setItemOpen(item, true);
-    syncChrome();
-  };
-
-  const closeMenus = (escaped = false) => {
-    cancelClose();
-    if (escaped) {
-      items.forEach((item) => {
-        if (item.classList.contains('is-open')) item.classList.add('is-escaped');
-      });
-    }
-    closeAll();
-    syncChrome();
-  };
-
-  const scheduleClose = () => {
-    cancelClose();
-    closeTimer = window.setTimeout(() => {
-      closeAll();
-      syncChrome();
-    }, CLOSE_MS);
-  };
-
-  items.forEach((item) => {
-    const trigger = item.querySelector<HTMLElement>('[data-nav-trigger]');
-    if (!trigger) return;
-
-    item.addEventListener('mouseenter', (e) => {
-      if (!isDesktop()) return;
-      if (item.classList.contains('is-escaped')) {
-        const from = e.relatedTarget as Node | null;
-        if (from && item.contains(from)) return;
-        item.classList.remove('is-escaped');
-      }
-      openItem(item);
-    });
-    item.addEventListener('mouseleave', () => {
-      item.classList.remove('is-escaped');
-    });
-    item.querySelector<HTMLElement>('[data-nav-panel]')?.addEventListener('mouseenter', () => {
-      if (!isDesktop()) return;
-      cancelClose();
-    });
-
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      const expanded = trigger.getAttribute('aria-expanded') === 'true';
-      if (isDesktop()) {
-        if (!expanded) openItem(item);
-        return;
-      }
-      if (expanded) {
-        setItemOpen(item, false);
-        syncChrome();
-      } else openItem(item);
-    });
-  });
-
-  header?.addEventListener('mouseenter', cancelClose);
-  header?.addEventListener('mouseleave', (e) => {
-    if (!isDesktop()) return;
-    const next = e.relatedTarget as HTMLElement | null;
-    if (next?.closest('[data-nav-panel], [data-header]')) return;
-    scheduleClose();
-  });
-
-  header?.addEventListener('focusin', cancelClose);
-  header?.addEventListener('focusout', (e) => {
-    if (!isDesktop()) return;
-    const next = e.relatedTarget as Node | null;
-    if (!next || !header.contains(next)) scheduleClose();
-  });
-
-  document.addEventListener('pointerdown', (e) => {
-    const target = e.target as Node;
-    if (header?.contains(target)) return;
-    closeMenus();
-    if (!isDesktop()) setMobile(false);
-  });
-
-  backdrop?.addEventListener('click', () => {
-    closeMenus();
-    if (!isDesktop()) setMobile(false);
-  });
-
-  const setMobile = (open: boolean) => {
-    if (!toggle || !inner) return;
-    toggle.setAttribute('aria-expanded', String(open));
-    inner.classList.toggle('is-open', open);
-    header?.classList.toggle('is-open', open);
-    const label = toggle.querySelector('[data-mobile-label]');
-    if (label) label.textContent = open ? 'Close menu' : 'Open menu';
-    if (!open) closeAll();
-    syncChrome();
-  };
-
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
-    setMobile(open);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (toggle?.getAttribute('aria-expanded') === 'true') {
-      setMobile(false);
-      toggle.focus();
-      return;
-    }
-    if (!anyOpen()) return;
-    const openItemEl = items.find((item) => item.classList.contains('is-open'));
-    closeMenus(true);
-    openItemEl?.querySelector<HTMLElement>('[data-nav-trigger]')?.focus();
-  });
-
-  const onBreakpoint = () => {
-    closeMenus();
-    setMobile(false);
-  };
-  desktopMq.addEventListener('change', onBreakpoint);
-
-  const setCompact = () => {
-    const scrolled = window.scrollY > 24;
-    header?.classList.toggle('is-compact', scrolled);
-    if (isHomeHeader) header?.classList.toggle('is-color-theme-dark', !scrolled);
-    items.forEach((item) => item.classList.remove('is-escaped'));
-  };
-  setCompact();
-  window.addEventListener('scroll', setCompact, { passive: true });
+  import '@/scripts/nav';
 </script>
