@@ -269,6 +269,15 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 - **12 options**, one per industry name. Picking an option swaps the featured panel (title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still).
 - **A11y:** the field’s accessible name is the visible value (`aria-labelledby` on the button and listbox). Placeholder is “Select your sector”; choosing an option replaces it with that sector’s name and sets `aria-selected` on the option so the selection is announced. `aria-expanded`, `aria-haspopup=listbox`, `aria-controls`. Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
 
+### Home Why choose us (Private Wealth two-up + tickertape)
+
+Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up-content` + `.bx-tickertape` (`frontend.css` / `frontend.js`) plus `/tmp/bxhero/bxhome.html`. Home only: `.pilot-why-*` in `PilotWhy.astro`. See `docs/refs/bx-private-wealth.md`.
+
+- Dark band `--bx-black` `#14101f`. Eyebrow + short rule, serif H2 left (32 / 40 / 48), indented 18px body, circle-arrow “Learn how it works” → `/how-it-works`.
+- Right card (`color-mix(#fff 8%, #14101f)`): three rows, hairlines, decorative circle arrows (not links).
+- Giant serif marquee “**Apply** for funding” at 125px/s, whole strip → `/apply`. Pauses under `prefers-reduced-motion`.
+- Fine-print footnote for †. Scroll-in uses the headers preset (title / body / CTA / card).
+
 ### Cards
 
 - Insights / blog (home): Life Sciences horizontal-static-list (`.pilot-news-*`, `docs/refs/bx-life-sciences-news.md`). Other cards: 16:9 crop, zoom 1.06, square corners, no shadow, category + title.

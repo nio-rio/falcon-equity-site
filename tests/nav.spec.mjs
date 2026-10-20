@@ -680,6 +680,7 @@ for (const vp of VIEWPORTS) {
           reveal.roots.includes('pilot-stats') &&
           reveal.roots.includes('pilot-ll-section') &&
           reveal.roots.includes('pilot-tabs') &&
+          reveal.roots.includes('pilot-why') &&
           reveal.roots.includes('pilot-news') &&
           !reveal.roots.includes('pilot-hero') &&
           !reveal.roots.includes('pilot-ann') &&
@@ -696,6 +697,58 @@ for (const vp of VIEWPORTS) {
           reveal.sideLabels[1] === 'Approval for qualified applicants' &&
           reveal.sideValues[1] === '98%',
         detail: JSON.stringify(reveal),
+      });
+
+      const why = await page.evaluate(() => {
+        const section = document.querySelector('#why-choose-us');
+        const tabs = document.querySelector('.pilot-tabs');
+        const news = document.querySelector('.pilot-news');
+        const eyebrow = section?.querySelector('.pilot-why-eyebrow')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        const heading = section?.querySelector('#why-heading')?.textContent.trim() || '';
+        const how = section?.querySelector('a[href="/how-it-works"]');
+        const rows = [...(section?.querySelectorAll('.pilot-why-row') || [])].map((row) => ({
+          title: row.querySelector('.pilot-why-row-title')?.textContent.trim() || '',
+          body: row.querySelector('.pilot-why-row-body')?.textContent.trim() || '',
+          hasIcon: Boolean(row.querySelector('.circle-arrow')),
+          isLink: row.tagName === 'A' || Boolean(row.querySelector('a')),
+        }));
+        const tape = section?.querySelector('.pilot-why-tape');
+        const note = section?.querySelector('.pilot-why-note')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        return {
+          eyebrow,
+          heading,
+          howLabel: how?.textContent.replace(/\s+/g, ' ').trim() || '',
+          rows,
+          tapeHref: tape?.getAttribute('href') || '',
+          tapeLabel: tape?.getAttribute('aria-label') || '',
+          note,
+          afterTabs: Boolean(tabs && section && tabs.nextElementSibling === section),
+          beforeNews: Boolean(news && section && section.nextElementSibling === news),
+          bg: section ? getComputedStyle(section).backgroundColor : null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-why-choose-us',
+        ok:
+          why.afterTabs &&
+          why.beforeNews &&
+          /why choose us/i.test(why.eyebrow) &&
+          why.heading === 'Work with Falcon from application to funding.' &&
+          why.howLabel.includes('Learn how it works') &&
+          why.rows.length === 3 &&
+          why.rows[0].title === 'Easy process' &&
+          why.rows[0].body.includes('without going through a third party') &&
+          why.rows[1].title === 'Same-Day Funding' &&
+          why.rows[1].body.includes('same day') &&
+          why.rows[2].title === 'No hard credit pulls' &&
+          why.rows[2].body.includes('without affecting your credit score') &&
+          why.rows.every((row) => row.hasIcon && !row.isLink) &&
+          why.tapeHref === '/apply' &&
+          why.tapeLabel === 'Apply for funding' &&
+          why.note.includes('Funding timing depends on approval') &&
+          why.bg === 'rgb(20, 16, 31)',
+        detail: JSON.stringify(why),
       });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
@@ -1746,11 +1799,15 @@ for (const vp of VIEWPORTS) {
         const label = document.querySelector('.pilot-stats-feat-label');
         const title = document.querySelector('.pilot-ll-head h2');
         const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
+        const whyTitle = document.querySelector('.pilot-why-title');
+        const tape = document.querySelector('.pilot-why-tape-track');
         return {
           hasJs: document.documentElement.classList.contains('has-js'),
           labelOpacity: label ? getComputedStyle(label).opacity : null,
           titleOpacity: title ? getComputedStyle(title).opacity : null,
           mediaOpacity: media ? getComputedStyle(media).opacity : null,
+          whyOpacity: whyTitle ? getComputedStyle(whyTitle).opacity : null,
+          tapeAnimation: tape ? getComputedStyle(tape).animationName : null,
         };
       });
       log({
@@ -1760,7 +1817,9 @@ for (const vp of VIEWPORTS) {
           reduced.hasJs === false &&
           reduced.labelOpacity === '1' &&
           reduced.titleOpacity === '1' &&
-          (reduced.mediaOpacity == null || reduced.mediaOpacity === '1'),
+          (reduced.mediaOpacity == null || reduced.mediaOpacity === '1') &&
+          reduced.whyOpacity === '1' &&
+          (reduced.tapeAnimation === 'none' || reduced.tapeAnimation === ''),
         detail: JSON.stringify(reduced),
       });
       await reducedCtx.close();

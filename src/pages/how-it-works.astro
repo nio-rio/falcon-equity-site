@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'How it works', path: '/how-it-works' },
+];
+---
+
+<BaseLayout
+  title="How it works"
+  description="How Falcon Equity Group reviews a business funding application and funds approved files."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    title="How it works"
+    lead="One short application. A specialist reviews your file. Approved products can fund in as little as 24-48 hours."
+  />
+  {/* TODO: Ling — expand this stub into the full how-it-works page. */}
+</BaseLayout>

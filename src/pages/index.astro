@@ -5,6 +5,7 @@ import PilotStats from '@/components/pilot/PilotStats.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
 import PilotIndustryTabs from '@/components/pilot/PilotIndustryTabs.astro';
+import PilotWhy from '@/components/pilot/PilotWhy.astro';
 import PilotNews from '@/components/pilot/PilotNews.astro';
 import { getHomeServices } from '@/data/services';
 import { STATS } from '@/data/site';
@@ -76,6 +77,8 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
   <PilotTestimonial />
 
   <PilotIndustryTabs />
+
+  <PilotWhy />
 
   <PilotNews posts={insights} />
 

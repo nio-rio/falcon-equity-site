@@ -108,7 +108,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 | --- | --- |
 | `content__inner` + 12-col grid | `.container-site` + `.bx-grid` |
 | `#slide-1-2` home hero | Home `.home-hero` (existing copy only, no slider) |
-| Private Wealth split (title / indented CTA / right list) | Home services |
+| Private Wealth split (title / indented CTA / right list) | Home Why choose us (`.pilot-why-*`) |
 | Insights article card | `PostCard` |
 | Insights black subscribe CTA | `InsightsCta` |
 | “Learn more about…” circle arrow | `ArrowCta` |
