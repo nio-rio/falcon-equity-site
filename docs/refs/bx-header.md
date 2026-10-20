@@ -20,7 +20,7 @@ Live `blackstone.com` is Cloudflare-blocked here. Values are from archived home 
 
 Nav hover is a 1px `currentColor` underline (`background-size` 0→100% in 0.3s). The yellow on “What We Do” in capture screenshots is a user annotation, not a hover style.
 
-Theme does **not** change on scroll. Compact height does.
+Blackstone does **not** change theme on scroll. Falcon home is dark on the hero and switches to the inner white bar after a short scroll so the header stays readable on light sections.
 
 ## Bar
 

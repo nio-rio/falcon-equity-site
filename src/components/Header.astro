@@ -81,7 +81,11 @@ const nav = [
 ];
 ---
 
-<header class:list={['site-header', isHome && 'is-color-theme-dark']} data-header>
+<header
+  class:list={['site-header', isHome && 'is-color-theme-dark']}
+  data-header
+  data-home={isHome ? '' : undefined}
+>
   <div class="site-header__container" data-header-bar>
     <div class="site-header__inner container-site">
       <a href="/" class="site-header__logo" aria-label="Falcon Equity Group home">
@@ -184,8 +188,8 @@ const nav = [
       </nav>
     </div>
   </div>
-  <div class="primary-nav__backdrop primary-nav__backdrop--hidden" data-nav-backdrop hidden></div>
 </header>
+<div class="primary-nav__backdrop primary-nav__backdrop--hidden" data-nav-backdrop hidden></div>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
@@ -194,8 +198,14 @@ const nav = [
   const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
   const inner = document.querySelector<HTMLElement>('[data-nav-inner]');
   const desktopMq = window.matchMedia('(min-width: 80em)');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isHomeHeader = header?.hasAttribute('data-home') ?? false;
+  const CLOSE_MS = reduceMotion ? 0 : 160;
 
   const isDesktop = () => desktopMq.matches;
+
+  let closeTimer = 0;
+  const cancelClose = () => window.clearTimeout(closeTimer);
 
   const setScrollLock = (lock: boolean) => {
     document.documentElement.classList.toggle('has-scroll-lock', lock);
@@ -213,6 +223,7 @@ const nav = [
     const trigger = item.querySelector<HTMLElement>('[data-nav-trigger]');
     const panel = item.querySelector<HTMLElement>('[data-nav-panel]');
     item.classList.toggle('is-open', open);
+    if (open) item.classList.remove('is-escaped');
     trigger?.setAttribute('aria-expanded', String(open));
     if (panel) panel.setAttribute('aria-hidden', String(!open));
   };
@@ -234,16 +245,29 @@ const nav = [
   };
 
   const openItem = (item: HTMLElement) => {
-    item.classList.remove('is-escaped');
+    cancelClose();
     closeAll(item);
     setItemOpen(item, true);
     syncChrome();
   };
 
-  const closeItem = (item: HTMLElement) => {
-    item.classList.remove('is-escaped');
-    setItemOpen(item, false);
+  const closeMenus = (escaped = false) => {
+    cancelClose();
+    if (escaped) {
+      items.forEach((item) => {
+        if (item.classList.contains('is-open')) item.classList.add('is-escaped');
+      });
+    }
+    closeAll();
     syncChrome();
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer = window.setTimeout(() => {
+      closeAll();
+      syncChrome();
+    }, CLOSE_MS);
   };
 
   items.forEach((item) => {
@@ -251,57 +275,56 @@ const nav = [
     if (!trigger) return;
 
     item.addEventListener('mouseenter', () => {
-      if (!isDesktop()) return;
+      if (!isDesktop() || item.classList.contains('is-escaped')) return;
       openItem(item);
     });
     item.addEventListener('mouseleave', () => {
+      item.classList.remove('is-escaped');
+    });
+    item.querySelector<HTMLElement>('[data-nav-panel]')?.addEventListener('mouseenter', () => {
       if (!isDesktop()) return;
-      closeItem(item);
+      cancelClose();
     });
 
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
-      const open = trigger.getAttribute('aria-expanded') !== 'true';
-      if (open) openItem(item);
-      else {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      if (isDesktop()) {
+        if (!expanded) openItem(item);
+        return;
+      }
+      if (expanded) {
         setItemOpen(item, false);
         syncChrome();
-      }
-    });
-
-    item.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && (item.classList.contains('is-open') || item.contains(document.activeElement))) {
-        e.preventDefault();
-        item.classList.add('is-escaped');
-        closeAll();
-        syncChrome();
-        trigger.focus();
-      }
-    });
-
-    item.addEventListener('focusin', () => {
-      if (!isDesktop() || item.classList.contains('is-escaped')) return;
-      openItem(item);
-    });
-
-    item.addEventListener('focusout', (e) => {
-      if (!isDesktop()) return;
-      const next = e.relatedTarget as Node | null;
-      if (!next || !item.contains(next)) closeItem(item);
+      } else openItem(item);
     });
   });
 
-  document.addEventListener('click', (e) => {
+  header?.addEventListener('mouseenter', cancelClose);
+  header?.addEventListener('mouseleave', (e) => {
+    if (!isDesktop()) return;
+    const next = e.relatedTarget as HTMLElement | null;
+    if (next?.closest('[data-nav-panel], [data-header]')) return;
+    scheduleClose();
+  });
+
+  header?.addEventListener('focusin', cancelClose);
+  header?.addEventListener('focusout', (e) => {
+    if (!isDesktop()) return;
+    const next = e.relatedTarget as Node | null;
+    if (!next || !header.contains(next)) scheduleClose();
+  });
+
+  document.addEventListener('pointerdown', (e) => {
     const target = e.target as Node;
     if (header?.contains(target)) return;
-    closeAll();
-    syncChrome();
+    closeMenus();
+    if (!isDesktop()) setMobile(false);
   });
 
   backdrop?.addEventListener('click', () => {
-    closeAll();
-    if (toggle) setMobile(false);
-    syncChrome();
+    closeMenus();
+    if (!isDesktop()) setMobile(false);
   });
 
   const setMobile = (open: boolean) => {
@@ -327,20 +350,22 @@ const nav = [
       toggle.focus();
       return;
     }
-    if (anyOpen()) {
-      closeAll();
-      syncChrome();
-    }
+    if (!anyOpen()) return;
+    const openItemEl = items.find((item) => item.classList.contains('is-open'));
+    closeMenus(true);
+    openItemEl?.querySelector<HTMLElement>('[data-nav-trigger]')?.focus();
   });
 
   const onBreakpoint = () => {
-    closeAll();
+    closeMenus();
     setMobile(false);
   };
   desktopMq.addEventListener('change', onBreakpoint);
 
   const setCompact = () => {
-    header?.classList.toggle('is-compact', window.scrollY > 8);
+    const scrolled = window.scrollY > 24;
+    header?.classList.toggle('is-compact', scrolled);
+    if (isHomeHeader) header?.classList.toggle('is-color-theme-dark', !scrolled);
   };
   setCompact();
   window.addEventListener('scroll', setCompact, { passive: true });

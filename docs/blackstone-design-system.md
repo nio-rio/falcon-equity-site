@@ -166,7 +166,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 ### Nav + dropdowns
 
-- Sticky bar. **Home** (`body.is-home`): black, white type, outlined white-on-black logo (`is-color-theme-dark`). **Inner pages:** white, black type, filled black logo box with white mark. Theme does not change on scroll. Yellow highlights in reference screenshots are annotations, not hover.
+- Sticky bar (`z-index: 50`). **Home** at the top of the hero: black, white type, outlined white-on-black logo (`is-color-theme-dark`). After scroll, and on **inner pages:** white, black type, filled black logo box with white mark. Yellow highlights in reference screenshots are annotations, not hover.
 - Heights follow the compact bar in the nav captures (**108px** at 80em). Logo box **122×48** then **152×60**.
 - Desktop `80em+`: top-level 16px, 24px gaps, 12px chevron. Hover and open item use a 1px `currentColor` underline (0.3s). Chevron flips 180° while `aria-expanded`.
 - Full-width mega-menu (`top: 100%`) of real pages only: Services (2-col), Industries (2-col), Resources (Blog / Tools / Help + Apply promo), Our Firm (Our Firm / Contact). Column heading 20px/500; links 16px, 16px gaps; 48px pad-top; column-gap **88 / 96px**.
