@@ -5,7 +5,7 @@ Pilot landing for the Blackstone rebuild. **Content only.** Do not change design
 **Page:** `/`  
 **Pair with:** `docs/redesign/content-merchant-cash-advance.md` (the one service-page pilot).
 
-Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, testimonials, quotes, or extra figures. Placeholders must be marked `[PLACEHOLDER: …]` because of FTC risk. Real applicant / Jotform data (including SSNs) is never copy.
+Numbers on this page come from `STATS` in `src/data/site.ts` (confirmed by Ling). Do not copy Kandy Capital. Do not invent people, quotes, or extra figures. The home testimonial is the consented JJJ Enterprise Trucking quote. Real applicant / Jotform data (including SSNs) is never copy.
 
 ---
 
@@ -18,8 +18,8 @@ Rendered by `src/pages/index.astro`.
 Dark band, split H1, 16:9 then 21:9 media, caption row under the still.
 
 - **H1 line 1:** Fuel Success with
-- **H1 line 2:** Fast Business Funding *(nested 8-col offset from 1024; wraps as one phrase below)*
-- **Aside:** Falcon Equity Group delivers fast business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. We move at your pace.
+- **H1 line 2:** Fast Funding *(nested 8-col offset from 1024; wraps as one phrase below)*
+- **Aside:** Unlock rapid financial solutions tailored to your business needs.
 - **Media:** `hero-falcon.jpg` — A peregrine falcon launching from a branch with its wings spread wide
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
@@ -59,12 +59,13 @@ Order follows `getHomeServices()`: featured-1 (MCA) first, then the five non-fea
 
 - **CTA:** Learn more → `/services`
 
-### 4. Testimonials
+### 4. Testimonial
 
-- **Eyebrow:** Testimonials
-- **H2:** When our customers succeed, so do we.
-- **Cards:** three entries in `TESTIMONIALS`, each already marked as a placeholder (`[Client quote — …]`, `$[Amount] funded`, `[Business name]`, `[Owner name], [Title]`, `[Industry]`, `[Product]`).
-- **Render rule:** `Testimonials.astro` filters out any quote containing `[`, so **this section does not appear**. That is correct. Do not invent replacements.
+- **Eyebrow:** Testimonial
+- **Quote (verbatim):** After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life!
+- **Credit:** JJJ Enterprise Trucking (business only; no owner-name line)
+- **Media:** existing trucking/transport still (`trucking-factoring-vs-business-loan.jpg`)
+- **Layout:** EARNINGS announcement (quote left, 3:4 still, credit bottom-right)
 
 ### 5. Process
 
@@ -80,9 +81,7 @@ No photos (Blackstone: process is type).
 
 ### 6. CTA band
 
-- **H2:** Get funding today
-- **Body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval. *(same paragraph as the hero caption)*
-- **Buttons:** Get Funding Today → `/apply`; Direct `+1 (917) 245-5277`
+Removed. Do not restore a pre-footer Get-funding band.
 
 ### Nearby copy, not currently on home
 
@@ -110,7 +109,7 @@ Usable later without inventing:
 
 ## Proposed order
 
-Keep hero, services, process, and CTA. Restyle the existing stats into a BXCI featured band. **Add three complementary sections:** industries grid, BREIT founder quote, Insights/blog strip. **Do not render testimonials** until Ling has real, consented quotes.
+Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonial is the consented JJJ Enterprise Trucking quote. **No pre-footer CTA band.**
 
 | # | Section | Status | Blackstone / BREIT model |
 | --- | --- | --- | --- |
@@ -121,7 +120,7 @@ Keep hero, services, process, and CTA. Restyle the existing stats into a BXCI fe
 | 5 | How it works | Keep | BX process-as-type; three columns |
 | 6 | Founder quote | **Add** | `breit.com` quote split |
 | 7 | Insights | **Add** | `blackstone.com/insights/` strip |
-| 8 | CTA | Keep | Falcon lilac `.bg-cta` (not BX yellow) |
+| 8 | CTA | **Removed** | Pre-footer band deleted sitewide |
 
 That is three additions (industries, quote, insights) plus a stats restyle. A fourth candidate, "When to apply" from `WHEN_TO_APPLY`, is parked below — only add it if the services list stays names-and-ranges and needs a narrative. Prefer showing the existing teasers over adding another section.
 
@@ -134,8 +133,8 @@ Visual density: **one photo in the hero.** Industries and Insights may use 16:9 
 - **Pattern:** Blackstone home slide + BREIT promo-carousel caption. Split H1 (span 8 + aside start 9 span 4), full-width still, caption row (H2 cols 1–6, body+Learn more start 8 span 5, top-aligned).
 - **Purpose:** Name the firm in a sentence, then the speed claim that is Falcon's actual offer.
 - **Eyebrow:** none
-- **Headline (H1):** Fuel Success with / Fast Business Funding
-- **Aside:** Falcon Equity Group delivers fast business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. We move at your pace.
+- **Headline (H1):** Fuel Success with / Fast Funding
+- **Aside:** Unlock rapid financial solutions tailored to your business needs.
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
 - **Caption CTA:** Learn more → `/apply` *(or "Get Funding Today" if Ling wants one label on every primary)*
@@ -181,6 +180,7 @@ Industry pages already use `$100M+` / `15` / `24-48h` in this layout. Home shoul
 
 - **Pattern:** Blackstone Insights image cards: 16:9 crop, square corners, zoom 1.06, category-or-name + title, no boxed chrome. Three cards per row (`bx-lg-span-4`).
 - **Purpose:** Show that Falcon funds operating companies in specific trades, then send people to `/industries`. Home currently has no industry surface.
+- **Eyebrow:** Industries
 - **Eyebrow:** Industries
 - **Headline (H2):** Sectors we fund.
 - **Body:** We fund businesses across these twelve sectors, and others with steady revenue. *(existing `/industries` lead)*
@@ -241,13 +241,7 @@ Industry pages already use `$100M+` / `15` / `24-48h` in this layout. Home shoul
 
 ### 8. CTA
 
-- **Pattern:** Falcon lilac `.bg-cta`, not BX yellow and not the Insights black subscribe split (that split is for `/blog`).
-- **Purpose:** Close.
-- **Eyebrow:** none
-- **Headline (H2):** Get funding today
-- **Body (trimmed so it does not clone the hero caption):** A specialist reviews your file promptly. Call or apply when you are ready.
-- **Buttons:** Get Funding Today → `/apply`; Direct `+1 (917) 245-5277`
-- **Gap mark:** the trimmed body is the only new sentence on home. If Ling wants zero new copy, reuse the hero caption paragraph and accept the repeat.
+Removed sitewide. Header Apply remains the primary conversion control (black button). Hero caption still has “Apply for funding”.
 
 ---
 
@@ -259,7 +253,7 @@ Industry pages already use `$100M+` / `15` / `24-48h` in this layout. Home shoul
 
 **Qualify** four cards. Better on `/faq` and `/apply`, which already use `APPLICATION_DOCS`.
 
-**Testimonials.** Code already hides placeholders. When real consented quotes exist, a three-up under the quote split could return. Until then: no section, no `[PLACEHOLDER]` on a public preview if it can be read as a review. The data file may keep the marked stubs.
+**Extra testimonials.** The unused `TESTIMONIALS` stubs in `content.ts` stay out of the public page. Do not invent additional reviews.
 
 **Explore more.** Removed from industry and service pages. Not a home section.
 

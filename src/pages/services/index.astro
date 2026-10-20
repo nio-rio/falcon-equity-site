@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import ServiceBlock from '@/components/ServiceBlock.astro';
 import ChartTable from '@/components/ChartTable.astro';
-import CtaBand from '@/components/CtaBand.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import { SERVICES, rangeAmount } from '@/data/services';
 import { parseUsdMax } from '@/lib/money';
@@ -83,5 +82,4 @@ const chartSeries = SERVICES.flatMap((s) => {
     </div>
   </section>
 
-  <CtaBand />
 </BaseLayout>

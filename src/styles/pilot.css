@@ -566,6 +566,184 @@
   color: var(--bx-on-dark);
 }
 
+/* Home stats — Tac Opps `.bx-stat-featured`. Measured 1440 / 1280.
+   docs/refs/bx-tac-opps-stats.md. 16-col / 16px. */
+.pilot-stats {
+  background: #fff;
+  color: #000;
+  padding-top: 2.5rem;
+  padding-bottom: 5rem;
+}
+
+.pilot-stats-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-stats-feat,
+.pilot-stats-side-label,
+.pilot-stats-side-value {
+  min-width: 0;
+}
+
+.pilot-stats-feat-label,
+.pilot-stats-feat-value,
+.pilot-stats-side-label,
+.pilot-stats-side-value p {
+  margin: 0;
+}
+
+.pilot-stats-feat-label {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: #000;
+}
+
+.pilot-stats-feat-value {
+  margin-top: 2.5rem;
+  padding-bottom: 3rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 5rem;
+  line-height: 1.4;
+  letter-spacing: 0.008em;
+  color: #000;
+  white-space: nowrap;
+}
+
+.pilot-stats-side-label {
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: #000;
+}
+
+.pilot-stats-side-value p {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: #000;
+  padding-bottom: 1rem;
+}
+
+.pilot-stats-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #000;
+}
+
+@media (min-width: 48em) {
+  .pilot-stats {
+    padding-top: 2.5rem;
+    padding-bottom: 6rem;
+  }
+
+  .pilot-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas:
+      'feat feat feat feat feat feat feat feat'
+      't1 t1 t1 . . t2 t2 t2'
+      'v1 v1 v1 . . v2 v2 v2';
+  }
+
+  .pilot-stats-feat {
+    grid-area: feat;
+  }
+
+  .pilot-stats-feat-label {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+
+  .pilot-stats-feat-value {
+    margin-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    font-size: 11rem;
+    line-height: 1;
+  }
+
+  .pilot-stats-side-label {
+    margin-top: 0;
+  }
+
+  .pilot-stats-side-label--1 {
+    grid-area: t1;
+  }
+
+  .pilot-stats-side-label--2 {
+    grid-area: t2;
+  }
+
+  .pilot-stats-side-value--1 {
+    grid-area: v1;
+  }
+
+  .pilot-stats-side-value--2 {
+    grid-area: v2;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-stats {
+    padding-top: 48px;
+    padding-bottom: 144px;
+  }
+
+  .pilot-stats-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas:
+      'feat feat feat feat feat feat feat feat . t1 t1 t1 . t2 t2 t2'
+      'feat feat feat feat feat feat feat feat . v1 v1 v1 . v2 v2 v2';
+    align-items: start;
+  }
+
+  .pilot-stats-feat-value {
+    margin-top: 56px;
+    padding-bottom: 0;
+    font-size: 9rem;
+    line-height: 1.4;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-stats {
+    padding-top: 56px;
+    padding-bottom: 160px;
+  }
+
+  .pilot-stats-feat-value {
+    margin-top: 64px;
+    font-size: 10rem;
+    line-height: 224px;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 48px;
+    line-height: 72px;
+  }
+}
+
 /* Home testimonial — Blackstone `.bx-announcement` (home “EARNINGS”).
    Live blackstone.com is Cloudflare-blocked here; values from blackstone-v2
    frontend.css at 80em/90em (same rules getComputedStyle would return). */
@@ -742,7 +920,7 @@
   }
 }
 
-/* BMACX featured-content panel + black dropdown — home Industries only.
+/* BMACX featured-content panel + light BX select — home Industries only.
    Source: bmacx.com “The Latest from BMACX” (dropdown + featured panel).
    Live site Cloudflare-blocked; values from frontend.css at 80em / 90em. */
 .pilot-tabs {
@@ -757,6 +935,10 @@
   flex-direction: column;
   gap: 1.5rem;
   padding-bottom: 2.5rem;
+}
+
+.pilot-tabs-heading .pilot-eyebrow + h2 {
+  margin-top: var(--bx-space-40);
 }
 
 .pilot-tabs-head h2 {
@@ -788,29 +970,22 @@
   width: 100%;
 }
 
-.pilot-tabs-select-label {
-  display: block;
-  margin: 0 0 0.75rem;
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: var(--bx-fs-16);
-  line-height: 1.5;
-  color: #000;
-}
-
+/* Sector field: light gray fill, 2px ink bottom, in-field label, chevron. */
 .pilot-tabs-drop {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 4rem;
   padding: 1.5rem;
   border: 0;
-  background: #000;
-  color: #fff;
+  border-bottom: 2px solid #000;
+  border-radius: 0;
+  background: var(--color-tint);
+  color: #000;
   font-family: var(--font-sans);
-  font-size: var(--bx-fs-16);
+  font-size: var(--bx-fs-20);
   font-weight: 400;
+  line-height: 1.5;
   text-align: left;
   cursor: pointer;
 }
@@ -838,7 +1013,9 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background: #000;
+  background: var(--color-tint);
+  color: #000;
+  border-bottom: 2px solid #000;
 }
 
 .pilot-tabs-menu button {
@@ -847,26 +1024,22 @@
   padding: 0.75rem 1.5rem;
   border: 0;
   background: none;
-  color: #fff;
+  color: #000;
   font-family: var(--font-sans);
-  font-size: var(--bx-fs-16);
+  font-size: var(--bx-fs-20);
   font-weight: 400;
+  line-height: 1.5;
   text-align: left;
   cursor: pointer;
 }
 
 .pilot-tabs-menu button[aria-selected='true'] {
-  box-shadow: inset 2px 0 0 #fff;
+  box-shadow: inset 2px 0 0 #000;
 }
 
 .pilot-tabs-menu button:hover,
 .pilot-tabs-menu button:focus-visible {
-  background: #fff;
-  color: #000;
-}
-
-.pilot-tabs-menu button[aria-selected='true']:is(:hover, :focus-visible) {
-  box-shadow: inset 2px 0 0 #000;
+  background: var(--bx-highlight-light-active);
 }
 
 .pilot-tabs-menu button:focus-visible {
@@ -986,8 +1159,11 @@
     align-items: start;
   }
 
-  .pilot-tabs-head h2 {
+  .pilot-tabs-heading {
     grid-column: 1 / span 7;
+  }
+
+  .pilot-tabs-head h2 {
     font-size: 2rem;
   }
 
@@ -1049,8 +1225,11 @@
     padding-bottom: 3.5rem;
   }
 
-  .pilot-tabs-head h2 {
+  .pilot-tabs-heading {
     grid-column: 1 / span 8;
+  }
+
+  .pilot-tabs-head h2 {
     font-size: 2.5rem;
   }
 
@@ -1125,7 +1304,7 @@
   column-gap: var(--bx-gutter);
   row-gap: var(--bx-space-12);
   padding-block: var(--bx-space-32);
-  border-top: 0.063rem solid #000;
+  border-top: 2px solid #000;
   color: #000;
   text-decoration: none;
   opacity: 1;
@@ -1133,10 +1312,10 @@
 }
 
 .pilot-ll li:last-child .pilot-ll-row {
-  border-bottom: 0.063rem solid #000;
+  border-bottom: 2px solid #000;
 }
 
-/* BMACX `.bx-link-list__animated:after`: 1px bottom rule, scaleX, origin left.
+/* BMACX `.bx-link-list__animated:after`: 2px bottom rule, scaleX, origin left.
    Hover draws 0.5s ease-out. Mouse-out snaps off (no reverse animation);
    the static divider stays at 40% under the draw so rows stay split. */
 .pilot-ll-row::after {
@@ -1146,8 +1325,8 @@
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: -0.063rem;
-  border-bottom: solid 0.063rem #000;
+  bottom: -2px;
+  border-bottom: solid 2px #000;
   transform: scaleX(0);
   transform-origin: left;
   transition: none;
@@ -1155,7 +1334,7 @@
 }
 
 .pilot-ll li:last-child .pilot-ll-row::after {
-  bottom: -0.063rem;
+  bottom: -2px;
 }
 
 .pilot-ll-row:is(:hover, :focus-visible)::after {
@@ -1213,7 +1392,7 @@
 
 .pilot-ll-range {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 1em;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--bx-fs-14);
@@ -1401,6 +1580,348 @@
 .pilot-card:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 6px;
+}
+
+/* Home Insights — BX Life Sciences horizontal-static-list.
+   Measured 1440 / 1280; docs/refs/bx-life-sciences-news.md. 16-col / 16px. */
+.pilot-news {
+  background: #fff;
+  color: #000;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.pilot-news-head {
+  padding-bottom: 2.5rem;
+}
+
+.pilot-news-head .pilot-eyebrow {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+}
+
+.pilot-news-head .pilot-eyebrow--line::after {
+  width: 3rem;
+  height: 2px;
+  margin-left: 1rem;
+}
+
+.pilot-news-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #000;
+}
+
+.pilot-news-grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4.5rem;
+}
+
+.pilot-news-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.pilot-news-media {
+  overflow: hidden;
+  width: 100%;
+  max-width: 20.5rem;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 2rem;
+  background: var(--color-tint);
+}
+
+.pilot-news-media .media,
+.pilot-news-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pilot-news-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pilot-news-title {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  letter-spacing: 0.008em;
+  color: #000;
+}
+
+.pilot-news-excerpt {
+  margin: 0 0 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #000;
+}
+
+.pilot-news-more {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  color: #000;
+}
+
+.pilot-news-more-label {
+  display: inline-block;
+  margin-right: 1rem;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.688rem;
+  letter-spacing: 0.016em;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.063rem;
+  transition: background-size 0.3s;
+  vertical-align: -0.1em;
+}
+
+.pilot-news-icon {
+  display: inline-block;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  color: #000;
+  transition: transform 0.3s;
+}
+
+.pilot-news-icon-fill {
+  opacity: 0;
+}
+
+.pilot-news-icon-arrow,
+.pilot-news-icon-fill {
+  transition: opacity 0.3s;
+}
+
+.pilot-news-card:hover .pilot-news-more-label,
+.pilot-news-card:focus-visible .pilot-news-more-label {
+  background-size: 100% 0.063rem;
+}
+
+.pilot-news-card:hover .pilot-news-icon,
+.pilot-news-card:focus-visible .pilot-news-icon {
+  transform: scale(1.1666666667);
+}
+
+.pilot-news-card:hover .pilot-news-icon-fill,
+.pilot-news-card:focus-visible .pilot-news-icon-fill {
+  opacity: 1;
+}
+
+.pilot-news-card:hover .pilot-news-icon-arrow,
+.pilot-news-card:focus-visible .pilot-news-icon-arrow {
+  opacity: 0;
+}
+
+.pilot-news-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+@media (min-width: 26em) {
+  .pilot-news-media {
+    max-width: 23rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .pilot-news {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .pilot-news-head {
+    padding-bottom: 3rem;
+  }
+
+  .pilot-news-head h2 {
+    font-size: 2.5rem;
+    line-height: 1.5;
+  }
+
+  .pilot-news-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 5rem;
+  }
+
+  .pilot-news-card:nth-child(odd) {
+    grid-column: 1 / span 4;
+    padding-right: 1.5rem;
+  }
+
+  .pilot-news-card:nth-child(even) {
+    grid-column: 5 / span 4;
+    padding-left: 1.5rem;
+  }
+
+  .pilot-news-media {
+    max-width: 19.5rem;
+  }
+
+  .pilot-news-title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-news {
+    padding-top: 48px;
+    padding-bottom: 112px;
+  }
+
+  .pilot-news-head {
+    padding-bottom: 48px;
+  }
+
+  .pilot-news-head .pilot-eyebrow {
+    font-size: 16px;
+    padding-bottom: 56px;
+  }
+
+  .pilot-news-head .pilot-eyebrow--line::after {
+    width: 56px;
+    margin-left: 24px;
+  }
+
+  .pilot-news-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .pilot-news-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 88px;
+    padding-top: 48px;
+  }
+
+  .pilot-news-card:nth-child(odd),
+  .pilot-news-card:nth-child(even) {
+    grid-column: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .pilot-news-card:nth-of-type(3n-2) {
+    grid-column: 1 / span 5;
+    padding-left: 0;
+    padding-right: 24px;
+  }
+
+  .pilot-news-card:nth-of-type(3n-1) {
+    grid-column: 6 / span 6;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .pilot-news-card:nth-of-type(3n) {
+    grid-column: 12 / span 5;
+    padding-left: 24px;
+    padding-right: 0;
+  }
+
+  .pilot-news-media {
+    width: 20rem;
+    height: 11.25rem;
+    max-width: none;
+    aspect-ratio: auto;
+    margin-bottom: 32px;
+  }
+
+  .pilot-news-title {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 24px;
+  }
+
+  .pilot-news-excerpt {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-news {
+    padding-top: 56px;
+    padding-bottom: 120px;
+  }
+
+  .pilot-news-head {
+    padding-bottom: 56px;
+  }
+
+  .pilot-news-head .pilot-eyebrow {
+    padding-bottom: 64px;
+  }
+
+  .pilot-news-head .pilot-eyebrow--line::after {
+    width: 64px;
+  }
+
+  .pilot-news-head h2 {
+    font-size: 48px;
+    line-height: 72px;
+  }
+
+  .pilot-news-grid {
+    row-gap: 104px;
+    padding-top: 48px;
+  }
+
+  .pilot-news-card:nth-of-type(3n-2) {
+    padding-right: 32px;
+  }
+
+  .pilot-news-card:nth-of-type(3n-1) {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .pilot-news-card:nth-of-type(3n) {
+    padding-left: 32px;
+  }
+
+  .pilot-news-media {
+    width: 22rem;
+    height: 12.375rem;
+  }
+
+  .pilot-news-title {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .pilot-news-excerpt {
+    font-size: 18px;
+    line-height: 27px;
+    margin-bottom: 40px;
+  }
 }
 
 /* Process — type only. */
@@ -1639,23 +2160,6 @@
   }
 }
 
-/* Falcon lilac CTA — not BX yellow. */
-.pilot-cta {
-  background: rgb(190, 171, 214);
-  color: var(--color-ink);
-}
-
-.pilot-cta .container-site {
-  padding-block: var(--bx-section);
-}
-
-.pilot-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
-  margin-top: var(--bx-space-40);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .pilot-arrow-label,
   .pilot-circle,
@@ -1664,6 +2168,10 @@
   .pilot-card-media img,
   .pilot-card-media .media,
   .pilot-card-title-text,
+  .pilot-news-more-label,
+  .pilot-news-icon,
+  .pilot-news-icon-arrow,
+  .pilot-news-icon-fill,
   .pilot-ll-row,
   .pilot-ll-icon,
   .pilot-ll-icon-arrow,
@@ -1677,7 +2185,7 @@
     transform: none;
   }
 
-  /* Drop the draw overlay; static 1px rules already mark each edge. */
+  /* Drop the draw overlay; static 2px rules already mark each edge. */
   .pilot-ll-row::after {
     display: none;
   }
@@ -1698,6 +2206,11 @@
 
   .pilot-card:hover .pilot-card-media img,
   .pilot-card:hover .pilot-card-media .media {
+    transform: none;
+  }
+
+  .pilot-news-card:hover .pilot-news-icon,
+  .pilot-news-card:focus-visible .pilot-news-icon {
     transform: none;
   }
 }

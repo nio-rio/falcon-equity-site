@@ -5,6 +5,7 @@ import ContactPoints from '@/components/ContactPoints.astro';
 import ContactLine from '@/components/ContactLine.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -53,7 +54,9 @@ const crumbs = [
             <p>
               One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
             </p>
-            <a href="/apply" class="btn-primary mt-6">Get Funding Today</a>
+            <div class="mt-6">
+              <ArrowCta href="/apply" label="Get Funding Today" />
+            </div>
             <p class="mt-6">
               <ContactLine icon="phone" href={SITE.phones.direct.href}>
                 {SITE.phones.direct.display}

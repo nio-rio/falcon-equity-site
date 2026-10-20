@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import QuoteSplit from '@/components/QuoteSplit.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
-import CtaBand from '@/components/CtaBand.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Principles from '@/components/Principles.astro';
+import PilotQuote from '@/components/pilot/PilotQuote.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import dwight from '@/assets/images/dwight-holly.webp';
+import '@/styles/pilot.css';
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -32,18 +32,16 @@ const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
   description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ in funding deployed. Meet founder Dwight Holly and the teams behind each file."
   schema={[breadcrumbSchema(crumbs), founderSchema]}
 >
-  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner.">
-    <div class="page-hero-media">
-      <QuoteSplit
-        quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
-        name={SITE.founder.name}
-        role={SITE.founder.title}
-        image={dwight}
-        imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
-      />
-      {/* Dwight should confirm the attribution before launch. */}
-    </div>
-  </PageHero>
+  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
+
+  <PilotQuote
+    quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
+    name={SITE.founder.name}
+    role={SITE.founder.title}
+    image={dwight}
+    imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
+  />
+  {/* Dwight should confirm the attribution before launch. */}
 
   <section class="section bg-white" aria-labelledby="people-cta-heading">
     <div class="container-site">
@@ -75,6 +73,4 @@ const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
   </section>
 
   <Principles id="values-heading" eyebrow="Values" title="Our values" items={values} />
-
-  <CtaBand />
 </BaseLayout>

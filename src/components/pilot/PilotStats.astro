@@ -1,0 +1,47 @@
+---
+/**
+ * Home stats — Blackstone Tactical Opportunities `.bx-stat-featured`.
+ * Measured at 1440 / 1280; see docs/refs/bx-tac-opps-stats.md.
+ * Home only (`.pilot-stats-*`). Other landings keep HeroStats.
+ */
+import { compactStatValue } from '@/lib/statDisplay';
+
+export type PilotStat = {
+  label: string;
+  value: string;
+};
+
+interface Props {
+  featured: PilotStat;
+  side: PilotStat[];
+}
+
+const { featured, side } = Astro.props;
+const featuredValue = compactStatValue(featured.label, featured.value);
+const sideStats = side.slice(0, 2).map((stat) => ({
+  label: stat.label,
+  value: compactStatValue(stat.label, stat.value),
+}));
+---
+
+<section class="pilot-stats" aria-label="Published figures">
+  <div class="container-site">
+    <div class="pilot-stats-grid">
+      <div class="pilot-stats-feat">
+        <p class="pilot-stats-feat-label">{featured.label}</p>
+        <p class="pilot-stats-feat-value">{featuredValue}</p>
+      </div>
+      {
+        sideStats.map((stat, i) => (
+          <>
+            <p class={`pilot-stats-side-label pilot-stats-side-label--${i + 1}`}>{stat.label}</p>
+            <div class={`pilot-stats-side-value pilot-stats-side-value--${i + 1}`}>
+              <p>{stat.value}</p>
+              <span class="pilot-stats-rule" aria-hidden="true" />
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</section>

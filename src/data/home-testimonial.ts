@@ -1,9 +1,8 @@
-/** Home testimonial slot. Swap this object when a real, consented quote exists. */
+/** Home testimonial. Consented client quote; credit the business only. */
 export const HOME_TESTIMONIAL = {
   eyebrow: 'Testimonial',
-  quote: '[PLACEHOLDER: client quote, real and consented, pending]',
-  name: '[PLACEHOLDER: Owner name]',
-  business: '[PLACEHOLDER: Business name]',
-  imageIntent: 'Portrait still of the client’s industry (empty restaurant kitchen). Labeled until a consented photo is supplied.',
-  imageAlt: 'Image placeholder: portrait still of the client’s industry, pending a consented photo',
+  quote:
+    'After covid, I thought my startup was out of options. Falcon Equity Group turned things around with their debt consolidation solution, saving me 40% on payments and freeing up cash flow. Their expertise and care gave my business a new lease on life!',
+  business: 'JJJ Enterprise Trucking',
+  imageAlt: 'Abstract winding road representing trucking and transport.',
 } as const;

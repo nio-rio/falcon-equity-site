@@ -1,6 +1,6 @@
 # Design tokens (Goldman Sachs, measured 19 Oct 2026)
 
-Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Falcon maps these values 1:1 except typeface (At Gambit + Inter) and color (white / ink / `#5b21b6` / tint `#F7F7FA`).
+Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Historical note: Falcon no longer uses `#5b21b6` button fills. Current buttons are ink/white (see `docs/blackstone-design-system.md`).
 
 ## Type
 

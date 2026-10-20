@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import FaqList from '@/components/FaqList.astro';
-import CtaBand from '@/components/CtaBand.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import { FAQS } from '@/data/content';
 import { SERVICES } from '@/data/services';
@@ -63,5 +62,4 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
     </div>
   </section>
 
-  <CtaBand />
 </BaseLayout>

@@ -2,13 +2,14 @@
 /**
  * Blackstone home `.bx-announcement` (“EARNINGS”): eyebrow + serif title left,
  * 3:4 portrait in the middle columns, small copy right and bottom-aligned.
- * Home testimonial only. Copy comes from HOME_TESTIMONIAL (placeholders).
+ * Home testimonial only.
  */
 import Media from '@/components/Media.astro';
 import PilotEyebrow from './PilotEyebrow.astro';
 import { HOME_TESTIMONIAL } from '@/data/home-testimonial';
+import trucking from '@/assets/blog/trucking-factoring-vs-business-loan.jpg';
 
-const { eyebrow, quote, name, business, imageIntent, imageAlt } = HOME_TESTIMONIAL;
+const { eyebrow, quote, business, imageAlt } = HOME_TESTIMONIAL;
 ---
 
 <section class="pilot-ann" aria-labelledby="testimonial-quote">
@@ -19,11 +20,16 @@ const { eyebrow, quote, name, business, imageIntent, imageAlt } = HOME_TESTIMONI
         <p>{quote}</p>
       </blockquote>
       <div class="pilot-ann-media">
-        <Media intent={imageIntent} alt={imageAlt} labeled ratio="3 / 4" sizes="(min-width: 80em) 304px, 50vw" />
+        <Media
+          image={trucking}
+          intent="trucking and transport still"
+          alt={imageAlt}
+          ratio="3 / 4"
+          sizes="(min-width: 80em) 304px, 50vw"
+        />
       </div>
       <div class="pilot-ann-meta">
         <p>
-          <span class="pilot-ann-name">{name}</span><br />
           <span class="pilot-ann-business">{business}</span>
         </p>
       </div>

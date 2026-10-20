@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
 import { SERVICES } from '@/data/services';
 ---
 
@@ -13,9 +14,9 @@ import { SERVICES } from '@/data/services';
         </div>
         <div class="bx-span-4 bx-lg-span-5">
           <p class="page-hero-lead">The page has moved or does not exist.</p>
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="/" class="btn-primary">Home</a>
-            <a href="/apply" class="btn-outline-dark">Apply</a>
+          <div class="mt-8 flex flex-col gap-6">
+            <ArrowCta href="/" label="Home" />
+            <ArrowCta href="/apply" label="Apply" />
           </div>
         </div>
       </div>

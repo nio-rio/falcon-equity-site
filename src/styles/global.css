@@ -77,7 +77,7 @@
   --color-brand-dark: var(--falcon-accent-hover);
   --color-brand-light: #666666;
   --color-tint: var(--bx-slate-3);
-  --color-cta: #a072c5;
+  --color-cta: #000000;
   --color-featured: var(--falcon-featured);
   --font-display: var(--bx-font-display);
   --font-sans: var(--bx-font-sans);
@@ -217,13 +217,14 @@
 
   .btn-primary,
   .btn-accent {
-    background: var(--color-accent);
+    background: #000;
     color: #fff;
   }
 
   .btn-primary:hover,
   .btn-accent:hover {
-    background: var(--color-accent-hover);
+    background: #202020;
+    color: #fff;
   }
 
   .btn-on-dark {
@@ -299,9 +300,6 @@
 
 }
 
-.bg-cta{
-  background-color: rgb(190, 171, 214);
-}
 
 /* Shared responsive tables: grid on desktop, stacked blocks below 768px. */
 .r-table-wrap {

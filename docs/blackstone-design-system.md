@@ -11,7 +11,7 @@ Studied 19 Oct 2026 from:
 
 Live `blackstone.com` is behind Cloudflare in this environment, so computed CSS was read from the **blackstone-v2** bundle on Wayback `20260925104209` (`/_static` `main` CSS, cached at `/tmp/bxcss/main.raw.css`) plus screenshots from earlier passes. BREIT quote layout is from live `breit.com` frames plus the same type tokens.
 
-Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans) and **Falcon purple buttons**. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
+Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans). Buttons are ink/white, not purple and not BX yellow pills. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
 
 **Source of tokens in this repo:** `src/styles/tokens.css` (only). Tailwind `@theme` in `global.css` aliases those variables. Site-wide chrome lives in `src/styles/blackstone.css`. The **home + Merchant Cash Advance pilot** uses a separate namespaced layer: `src/styles/pilot.css` (`.pilot-*`) and `src/components/pilot/`. Other pages keep building on the existing components.
 
@@ -38,12 +38,12 @@ From `:root` in the v2 bundle.
 | `--c-copy` | `var(--c-black)` | ink |
 | `--c-background` | `var(--c-white)` | page |
 | `--c-links` | `var(--c-black)` | inherit |
-| `--c-button-background` | `var(--c-black)` | **not used** — Falcon `--color-accent` `#5b21b6` |
+| `--c-button-background` | `var(--c-black)` | Falcon `.btn-primary` fill (ink, not purple) |
 | `--c-button-copy` | `var(--c-white)` | white on accent |
 
 Semantic on-dark copy: white `/ 0.88` body, `/ 0.82` secondary, `/ 0.16` rules.
 
-**Falcon-only:** `--color-accent` `#5b21b6`, `--color-accent-hover` `#4c1d95`, `--color-cta` `#a072c5`, `.bg-cta` `rgb(190, 171, 214)`, `--color-featured` `#443869`. Do not replace these with BX yellow or black pills.
+Buttons and accent fills are **ink / white** (BX-style). No purple or violet fills. Circle-arrow text links are preferred in body copy; `.btn-primary` is a black square with white type where a real button is needed (header Apply). Do not use BX yellow.
 
 ---
 
@@ -158,7 +158,7 @@ Classes are unprefixed (`bx-lg-span-6`, not `lg:bx-span-6`).
 | Header dropdown | show/hide; chevron 180° |
 | Reduced motion | transitions/animations off (`prefers-reduced-motion`) |
 
-BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:focus-visible` is 2px `--color-accent` (white on dark).
+BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:focus-visible` is 2px ink (white on dark).
 
 ---
 
@@ -196,7 +196,7 @@ BX yellow 5px outline on `.bx-button:focus-visible` is **not** used. Falcon `:fo
 
 | Class | Rest | Hover | Notes |
 | --- | --- | --- | --- |
-| `.btn-primary` / `.btn-accent` | `#5b21b6` fill, white type, 13×24, square | `#4c1d95` | Falcon exception |
+| `.btn-primary` / `.btn-accent` | `#000` fill, white type, 13×24, square | `#202020` | Ink, not purple |
 | `.btn-on-dark` | white fill, ink type | tint | |
 | `.btn-outline-dark` | 1px grey-ink border | ink fill, white type | Lives in `global.css` |
 | `.btn-outline-light` | 1px white | white fill, ink type | |
@@ -217,7 +217,7 @@ Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 va
 | Right column | cols **14–16**, row-span 2, `justify-content: flex-end`, padding-bottom **48px** | padding-bottom **56px** |
 | Right type | body sans 16px (press links on BX) | same |
 
-`.pilot-ann-*` on home only. Copy is `HOME_TESTIMONIAL` placeholders; do not invent a person or quote.
+`.pilot-ann-*` on home only. Copy is the consented JJJ Enterprise Trucking quote in `HOME_TESTIMONIAL`; credit the business only (no owner name).
 
 ### Link underline draw
 
@@ -232,12 +232,12 @@ Live `blackstone.com` is Cloudflare-blocked in this environment, so 1280/1440 va
 Home Services only: `.pilot-ll-*` in `PilotLinkList.astro`. Measured from `bmacx.com` `wp-block-blackstone-v2-link-list` / `.bx-link-list` (Wayback `20261001234616`, `blackstone-v2` `frontend.css` + `frontend.js` `tabsscript`).
 
 - **H2:** display light (Falcon serif role), then **32 / 40 / 48px** space before the first rule (`--spacing-32/40/48`).
-- **Rows:** full content width. **1px (`0.063rem`) black** rules top and bottom of the stack. Padding **32px** mobile, **40px** ≥768.
+- **Rows:** full content width. **2px black** rules top and bottom of the stack. Padding **32px** mobile, **40px** ≥768.
 - **Desktop 12-col:** title + gray range cols **1–6**; teaser (16px, 2-line clamp) start **8** span 4, top-aligned with the title; circle arrow col **12**, vertically centered.
-- **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line.
+- **Title:** sans **400**, **24px** mobile / **28px** ≥768, black. Range under the title: **14px**, `--color-muted`, one line, **~1em** below the title.
 - **Circle:** BMACX 40×40 SVG (border + arrow + evenodd fill). Rest = outlined circle + black arrow (`fill` opacity 0). Hover/focus = fill opacity 1, arrow opacity 0, icon **scale(1.1666666667)**. Transitions: transform **0.3s**, opacity **0.3s**.
 - **Siblings:** list `:hover` / `:focus-within` sets other rows to **opacity 0.36** (BMACX `.bx-link-list__title-animation`). Hovered/focused row stays 1.
-- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid .063rem #000`, `transform: scaleX(0)`, `transform-origin: left`. Hover/focus draws `scaleX(1)` over **0.5s ease-out**. Mouse-out **snaps** `::after` off (`transition: none` at rest) — no reverse draw. While the line runs, the static divider on that edge stays at **40%** black (`rgba(0,0,0,0.4)`) so rows stay split. `prefers-reduced-motion` hides `::after` and leaves the 1px rules in place.
+- **Bottom line:** each row `::after` is BMACX `.bx-link-list__animated:after` — `border-bottom: solid 2px #000`, `transform: scaleX(0)`, `transform-origin: left`. Hover/focus draws `scaleX(1)` over **0.5s ease-out**. Mouse-out **snaps** `::after` off (`transition: none` at rest) — no reverse draw. While the line runs, the static divider on that edge stays at **40%** black (`rgba(0,0,0,0.4)`) so rows stay split. `prefers-reduced-motion` hides `::after` and leaves the 2px rules in place.
 - **A11y:** the whole row is the link; `:focus-visible` is 2px `--color-accent` (not BX yellow); Space activates the row; `prefers-reduced-motion` drops scale, line animation, and transitions.
 - Does **not** restyle `.pilot-circle` / `.pilot-arrow`.
 
@@ -249,8 +249,8 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | --- | --- | --- |
 | Section pad | **144px** | **160px** |
 | Heading row | 16 col, 16px gap; H2 cols **1–7** serif 300 **32px** / 0.008em; intro cols **10–16** sans 300 **20px** lh 1.5 | H2 cols **1–8** **40px**; intro cols **11–16** |
-| Dropdown | BMACX black bar **64px**, cols **1–6**; label “Select your sector” 16px sans 300 above | cols **1–5** |
-| Menu | black list, hover/focus invert white; 12 industry options | same |
+| Dropdown | Light gray (`--color-tint`) field, in-field “Select your sector” 20px, padding **1.5rem**, chevron right, **2px** ink bottom only; cols **1–6** | cols **1–5** |
+| Menu | same gray fill + 2px ink bottom; simple hover tint; 12 industry options | same |
 | Panel | copy cols **1–6**; image cols **8–16** | copy cols **1–5**; image cols **8–16** |
 | Panel title | serif 300 **32px**, pb **32px** | same (40px only at 120em) |
 | Panel body | sans **18px**, pb **48px** | same |
@@ -258,11 +258,11 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 | Panel in | `fadeInUp` 0.5s (0 → 40px / opacity 1) | same |
 
 - **12 options**, one per industry name. Picking an option swaps the featured panel (title, existing `blurb`, circle-arrow “Learn more” to `/industries/{slug}`, labeled 16:9 still).
-- **A11y:** visible “Select your sector” label, `aria-haspopup=listbox`, `role=listbox/option`, Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
+- **A11y:** in-field “Select your sector” is the accessible name (`aria-label` + visible text), `aria-haspopup=listbox`, `role=listbox/option`, Arrow / Home / End / Escape, visible focus (2px Falcon accent). `prefers-reduced-motion` drops the panel motion.
 
 ### Cards
 
-- Insights / blog: 16:9 crop, zoom 1.06, square corners, no shadow, category + title.
+- Insights / blog (home): Life Sciences horizontal-static-list (`.pilot-news-*`, `docs/refs/bx-life-sciences-news.md`). Other cards: 16:9 crop, zoom 1.06, square corners, no shadow, category + title.
 - No boxed chrome; hairlines or whitespace separate.
 - `.tile-card` is tint padding for partner / credit-prep tiles (not a BX card).
 
@@ -274,17 +274,18 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 
 ### Stats
 
-`HeroStats` (`.stats-bx`, scoped in the component). BXCI `.bx-stat-featured` from the v2 bundle:
+Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats (measured 1440 / 1280; `docs/refs/bx-tac-opps-stats.md`). MCA and industry landings keep `HeroStats`.
 
-- Featured label: sans 300, **24px** (&lt;768) / **32px** (≥768). Not the 13px eyebrow.
-- Featured value: display 300, **5rem / 11rem / 9rem / 10rem** at 375 / 768 / 1280 / 1440, `line-height: 1`, **40–64px** gap under the label. One line; published ranges compact to `$10K-$1M`.
-- Side pair from **768**: two columns, sans 16px label, display **32 / 40 / 48px** value, **1px** rule under the value. Desktop ≥1280 sits them to the right of the featured figure (8+3+3 of 16 mapped to 6 + 2 + 2 of 12).
-- No footnote superscripts, Note, or numbered list.
-- Skip when amounts are non-numeric (`Tailored to your business`). Home and MCA pilots reuse this component (not the old compact `.stats-grid` strip).
+- **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. Featured spans both rows so small labels align to the **top** of the featured label.
+- Featured label: sans 300, **24px** / **32px** from 768, lh 1.5. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, margin-top **40 / 56 / 56 / 64px**, lh **1.4** (224px at 1440).
+- Side labels: sans 300 **16px**, lh 24, margin-bottom **32px**. Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px**, **1px** black rule under the number.
+- Section pad: **48 / 144** at 1280, **56 / 160** at 1440.
+- Home featured figure is **`$100M+` Funding deployed**; sides are average funding time and 98% for qualified applicants.
+- No footnote superscripts, Note, or numbered list. Skip when amounts are non-numeric (`Tailored to your business`).
 
 ### Quote
 
-`.quote-split` (About): 3:4 portrait cols 1–4, quote start 6 span 7, **sans** light, name 700 small, role muted, bottom-right. **Live Dwight copy only.** `.page-hero-media figure:not(.bx-grid)` so the split keeps `display:grid`. Do not render placeholder testimonials.
+`.pilot-quote` on **About** (moved off home): BREIT split, 3:4 portrait cols 1–4, quote start 6 span 7, **sans** light, name 700 small, role muted, bottom-right. Credit **Dwight Holly, Founder & CFO**. Live Dwight copy only. `.quote-split` remains in `blackstone.css` unused on About.
 
 ### Tables / charts
 
@@ -292,7 +293,7 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 
 ### CTA band
 
-Falcon `.bg-cta` lilac + ink type (Ling). Not BX yellow. Insights subscribe uses a **black** split (`.insights-cta`) like BX Insights.
+Removed sitewide. Do not restore a pre-footer Get-funding band. Blog still uses the black Insights split (`.insights-cta`) with a circle-arrow, not a button.
 
 ### Footer
 
@@ -307,9 +308,9 @@ BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. F
 ## Falcon exceptions (do not “fix” toward BX)
 
 1. Fonts: At Gambit + Inter.
-2. Buttons: purple squares, not black pills / yellow focus.
-3. `.bg-cta` and `.btn-outline-dark` stay in `global.css`.
-4. No fabricated people, quotes, numbers, or testimonials.
+2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy.
+3. `.btn-outline-dark` stays in `global.css`. No purple fills.
+4. No fabricated people, quotes, numbers, or testimonials. The home testimonial is the consented JJJ Enterprise Trucking quote.
 5. Compact header (not BX’s 7–12rem).
 
 ---
@@ -338,9 +339,9 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-falcon.jpg`); 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); BREIT quote portrait; 3 published insight covers | Process (removed from home), services list, CTA — type only. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-falcon.jpg`); testimonial trucking still; 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list, pre-footer CTA (removed) — type only. Founder quote lives on About. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
-| Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ, CTA — type only |
+| Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. No pre-footer CTA. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
 | Industry landing | Hero placeholder + What we do 3:4 | Accordion, FAQ, principles — type only. Related article thumbs are a listing, not decoration |
 | Directory (industries, blog, services rows) | Grid thumbs *are* the page | No second full-bleed hero |
@@ -356,24 +357,25 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | File | Role |
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
-| `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, Falcon buttons, `.bg-cta` |
-| `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). Reused on the pilot. |
+| `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
+| `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
+| `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
 | `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image in container 487/542. Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
-| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6, teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. Focus-visible: 2px Falcon accent. Reduced-motion: no scale/transitions. |
-| `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 labeled industry still cols 9–12, name/business cols 14–16 bottom-aligned. Placeholders only. |
-| `src/data/home-testimonial.ts` | Single object for the home testimonial slot |
-| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: heading/intro split, “Select your sector” listbox dropdown at every breakpoint, featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotLinkList.astro` | Home Services rows: title + gray range cols 1–6 (**~1em** under the title), teaser start 8 (16px, 2 lines), circle arrow col 12 centered. Hover: hovered row black + filled circle; siblings 36% opacity. Icon scale 1.1667 and fill/arrow opacity **0.3s**. Bottom `::after` draws `scaleX` 0.5s ease-out, origin left; mouse-out **snaps** off (no reverse). Static divider under the draw stays **40%**. **2px** rules. Focus-visible: 2px ink. Reduced-motion: no scale/transitions. |
+| `src/components/pilot/PilotTestimonial.astro` | Home EARNINGS-style announcement: eyebrow + serif quote left, 3:4 trucking still cols 9–12, business name cols 14–16 bottom-aligned. JJJ Enterprise Trucking quote; no owner line. |
+| `src/data/home-testimonial.ts` | Consented home testimonial copy |
+| `src/components/pilot/PilotIndustryTabs.astro` | Home Industries: Industries eyebrow + heading/intro split, light-gray “Select your sector” listbox, featured panel (title + blurb + Learn more / 16:9 still). |
+| `src/components/pilot/PilotNews.astro` | Home Insights from Life Sciences horizontal-static-list. Measured 1440 / 1280. |
 | `src/components/pilot/PilotWhatWeDo.astro` | BXCI black band: H2 span 10, 3:4 portrait cols 1–6, stacked items start 8 |
 | `src/components/pilot/PilotImageCard.astro` | Insights 16:9 card: zoom 1.06, category kicker (no 48px rule), title draw, optional body |
 | `src/components/pilot/PilotProcess.astro` | Three numbered columns, type only |
 | `src/components/pilot/PilotQuote.astro` | BREIT split: 3:4 portrait span 4, sans-light quote start 6 span 7, name/role bottom-right |
 | `src/components/pilot/PilotAccordion.astro` | FAQ (slate hairline, outline→filled circle) or `variant="strategies"` (black rules, plain chevron closed) |
-| `src/components/pilot/PilotCta.astro` | Falcon lilac band, not BX yellow |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |
 | `docs/redesign/content-home.md` | Approved home copy outline |
@@ -381,6 +383,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Business Funding` 64/72 with nested-8 offset; aside the two-sentence funding line, cols 11–16 end-aligned) → BXCI featured stats (24-48h, `$100M+`, 98% for qualified applicants) → **Services** rows (title + range cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** (EARNINGS layout; quote/name/business are `[PLACEHOLDER: …]` until a consented quote exists) → **Industries** dropdown (“Select your sector”; panel = title + blurb + Learn more / labeled 16:9 still) → BREIT quote (Dwight Holly, Founder & CFO) → 3 published Insights cards → Falcon lilac CTA. No Process. No Explore more.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`$100M+` big; 24-48h and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** (EARNINGS layout; JJJ Enterprise Trucking quote, business credit only, trucking still) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts). No Process. No Explore more. No pre-footer CTA. Founder quote is on About.
 
-**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ → CTA. Other service URLs still use `src/pages/services/[slug].astro`.
+**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. No pre-footer CTA. Other service URLs still use `src/pages/services/[slug].astro`.

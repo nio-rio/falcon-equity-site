@@ -1,6 +1,6 @@
 /* Blackstone / BREIT motion, grid, and chrome. Loaded after global.css.
    Tokens live in tokens.css.
-   Leave .bg-cta and .btn-outline-dark in global.css. */
+   Leave .btn-outline-dark in global.css. */
 
 html {
   scroll-padding-top: 5rem;
@@ -714,7 +714,7 @@ body.is-home .site-header .header-bar > nav > ul > li > button:hover {
 }
 
 .site-header nav a.btn-primary:hover {
-  background: var(--color-accent-hover);
+  background: #202020;
   color: #fff;
 }
 
@@ -1627,13 +1627,6 @@ a:focus-visible .media-zoom .image-slot {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   color: var(--color-muted);
-}
-
-.cta-band-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
 }
 
 .footer-cols {

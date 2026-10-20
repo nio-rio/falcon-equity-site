@@ -1,17 +1,21 @@
 ---
 /**
- * BMACX featured-content panel + black dropdown (home Industries).
+ * BMACX featured-content panel + light-gray sector select (home Industries).
  * Sector picker at every breakpoint; panel is title + blurb + Learn more / 16:9 still.
  */
 import Media from '@/components/Media.astro';
 import PilotArrow from './PilotArrow.astro';
+import PilotEyebrow from './PilotEyebrow.astro';
 import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 ---
 
 <section class="pilot-tabs" aria-labelledby="industries-heading">
   <div class="container-site">
     <div class="pilot-tabs-head">
-      <h2 id="industries-heading">Sectors we fund.</h2>
+      <div class="pilot-tabs-heading">
+        <PilotEyebrow>Industries</PilotEyebrow>
+        <h2 id="industries-heading">Sectors we fund.</h2>
+      </div>
       <p class="pilot-tabs-intro">
         We fund businesses across these twelve sectors, and others with steady revenue.
       </p>
@@ -19,16 +23,15 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
 
     <div class="pilot-tabs-nav">
       <div class="pilot-tabs-dropwrap">
-        <span class="pilot-tabs-select-label" id="industry-select-label">Select your sector</span>
         <button
           type="button"
           class="pilot-tabs-drop"
-          aria-labelledby="industry-select-label industry-select-value"
+          aria-label="Select your sector"
           aria-expanded="false"
           aria-controls="industry-select-menu"
           aria-haspopup="listbox"
         >
-          <span class="pilot-tabs-drop-label" id="industry-select-value">{INDUSTRIES[0].name}</span>
+          <span class="pilot-tabs-drop-label" id="industry-select-value">Select your sector</span>
           <svg width="14" height="8" viewBox="0 0 14 8" aria-hidden="true">
             <path
               d="M7 8 1.35 2.29a.9.9 0 0 1 1.28-1.27L7 5.4l4.37-4.38a.9.9 0 1 1 1.28 1.27L7 8Z"
@@ -36,7 +39,7 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
             />
           </svg>
         </button>
-        <ul class="pilot-tabs-menu" id="industry-select-menu" role="listbox" aria-labelledby="industry-select-label" hidden>
+        <ul class="pilot-tabs-menu" id="industry-select-menu" role="listbox" aria-label="Select your sector" hidden>
           {
             INDUSTRIES.map((ind, i) => (
               <li role="presentation">
@@ -93,7 +96,6 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
     const panels = [...root.querySelectorAll<HTMLElement>('.pilot-tabs-panel')];
     const options = [...root.querySelectorAll<HTMLButtonElement>('.pilot-tabs-menu [role="option"]')];
     const drop = root.querySelector<HTMLButtonElement>('.pilot-tabs-drop');
-    const dropLabel = root.querySelector<HTMLElement>('.pilot-tabs-drop-label');
     const menu = root.querySelector<HTMLElement>('.pilot-tabs-menu');
     const dropwrap = root.querySelector('.pilot-tabs-dropwrap');
     let current = 0;
@@ -108,7 +110,6 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
       options.forEach((opt, i) => {
         opt.setAttribute('aria-selected', i === index ? 'true' : 'false');
       });
-      if (dropLabel) dropLabel.textContent = options[index]?.textContent?.trim() ?? '';
     };
 
     const closeMenu = () => {

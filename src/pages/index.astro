@@ -1,20 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import HeroStats from '@/components/HeroStats.astro';
 import PilotHero from '@/components/pilot/PilotHero.astro';
-import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
-import PilotArrow from '@/components/pilot/PilotArrow.astro';
-import PilotImageCard from '@/components/pilot/PilotImageCard.astro';
+import PilotStats from '@/components/pilot/PilotStats.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
 import PilotIndustryTabs from '@/components/pilot/PilotIndustryTabs.astro';
-import PilotQuote from '@/components/pilot/PilotQuote.astro';
-import PilotCta from '@/components/pilot/PilotCta.astro';
+import PilotNews from '@/components/pilot/PilotNews.astro';
 import { getHomeServices } from '@/data/services';
-import { STATS, SITE } from '@/data/site';
+import { STATS } from '@/data/site';
 import { getPublicPosts } from '@/lib/blog';
 import heroFalcon from '@/assets/images/hero-falcon.jpg';
-import dwight from '@/assets/images/dwight-holly.webp';
 import '@/styles/pilot.css';
 
 const homeServices = getHomeServices();
@@ -36,8 +31,8 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
 <BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
   <PilotHero
     line1="Fuel Success with"
-    line2="Fast Business Funding"
-    aside="Unlock rapid financial solutions tailored to your business needs. We provide swift, strategic funding that empowers entrepreneurs to seize opportunities and drive growth."
+    line2="Fast Funding"
+    aside="Unlock rapid financial solutions tailored to your business needs."
     captionTitle="Apply to get same-day funding"
     captionBody="One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval."
     captionHref="/apply"
@@ -46,10 +41,10 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
     imageAlt="A peregrine falcon launching from a branch with its wings spread wide"
   />
 
-  <HeroStats
-    featured={{ label: fundingTime.label, value: fundingTime.value }}
+  <PilotStats
+    featured={{ label: deployed.label, value: deployed.value }}
     side={[
-      { label: deployed.label, value: deployed.value },
+      { label: fundingTime.label, value: fundingTime.value },
       { label: approval.label, value: approval.value },
     ]}
   />
@@ -69,50 +64,5 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
 
   <PilotIndustryTabs />
 
-  <PilotQuote
-    quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
-    name={SITE.founder.name}
-    role={SITE.founder.title}
-    image={dwight}
-    imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
-  />
-
-  {
-    insights.length > 0 && (
-      <section class="pilot-section" aria-labelledby="insights-heading">
-        <div class="container-site">
-          <div class="bx-grid">
-            <div class="pilot-section-head bx-span-4 bx-lg-span-10">
-              <PilotEyebrow>Insights</PilotEyebrow>
-              <h2 id="insights-heading">Guides for getting funded.</h2>
-            </div>
-            <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-              Short guides on getting approved, comparing options, costs, and cash flow.
-            </p>
-            <div class="bx-full">
-              <div class="bx-grid">
-                {insights.map((post) => (
-                  <div class="bx-span-4 bx-lg-span-4">
-                    <PilotImageCard
-                      href={`/blog/${post.id}`}
-                      title={post.data.title}
-                      kicker={post.data.category}
-                      image={post.data.cover}
-                      imageAlt={post.data.coverAlt || ''}
-                      intent={post.data.coverAlt || 'editorial photograph for this article'}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div class="bx-span-4 bx-lg-start-7 bx-lg-span-6">
-              <PilotArrow href="/blog" label="View all" />
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <PilotCta body="A specialist reviews your file promptly. Call or apply when you are ready." />
+  <PilotNews posts={insights} />
 </BaseLayout>

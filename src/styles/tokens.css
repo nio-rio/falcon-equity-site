@@ -20,11 +20,11 @@
   --bx-on-dark-muted: rgb(255 255 255 / 0.82);
   --bx-on-dark-rule: rgb(255 255 255 / 0.16);
 
-  /* Falcon brand exceptions (not BX yellow / black pills). */
-  --falcon-accent: #5b21b6;
-  --falcon-accent-hover: #4c1d95;
-  --falcon-cta: rgb(190, 171, 214);
-  --falcon-featured: #443869;
+  /* Buttons and accent fills are ink (Blackstone), not Falcon purple. */
+  --falcon-accent: #000000;
+  --falcon-accent-hover: #202020;
+  --falcon-cta: #000000;
+  --falcon-featured: #000000;
 
   --color-ink: var(--bx-black);
   --color-ink-soft: var(--bx-variant-black);
@@ -36,7 +36,7 @@
   --color-brand: var(--falcon-accent);
   --color-brand-dark: var(--falcon-accent-hover);
   --color-brand-light: #666666;
-  --color-cta: #a072c5;
+  --color-cta: #000000;
   --color-featured: var(--falcon-featured);
 
   --bx-font-display: 'At Gambit', 'Manrope', sans-serif;

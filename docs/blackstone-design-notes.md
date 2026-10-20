@@ -30,7 +30,7 @@ Implemented as `--bx-*` tokens and `.bx-grid` / `.bx-span-*` / `.bx-lg-span-*` /
 | `--c-slate-2` | `#d5d8df` | `--color-line` | Bundle |
 | `--c-slate-3` / `--c-highlight-light` | `#f4f5f7` | `--color-tint` | Bundle |
 | `--c-yellow` | `#fdf147` | not used as CTA fill | Bundle (focus/highlight only) |
-| Falcon CTA | `#5b21b6` | `--color-accent` | Existing Falcon purple; not BX yellow |
+| Falcon CTA | `#000` | `--color-accent` | Ink buttons / circle-arrows; not purple, not BX yellow |
 
 **Breakpoints.** `768px` (tablet, 8 columns), `1024px` (desktop, 12 columns), `1440px` (80px page margin).
 

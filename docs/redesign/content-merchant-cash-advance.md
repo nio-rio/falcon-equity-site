@@ -232,7 +232,7 @@ Do not add "How much can I get?" or "What are the terms?" — those are the stat
 
 ### 7. CTA
 
-- **Pattern:** Falcon `.bg-cta` lilac band (not BX yellow). H2 span 10, body start 7.
+- **Pre-footer CTA:** removed sitewide. Do not restore a lilac or purple band.
 - **Purpose:** Close. One apply path.
 - **Eyebrow:** none (CTA is not an eyebrow section)
 - **Headline (H2):** Get funding today
