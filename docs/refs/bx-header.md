@@ -27,10 +27,10 @@ Blackstone does **not** change theme on scroll. Falcon home is dark on the hero 
 | Token | Mobile | 26em | 48em (768) | 80em (1280) | 90em (1440) |
 | --- | --- | --- | --- | --- | --- |
 | `--h-site-header` (CSS unfixed) | **7rem** (112px) | **8rem** | **8.75rem** (140px) | **12.75rem** (204px) | same |
-| Applied bar (captures / `--fixed`) | **6.375rem** | same | **6.75rem** (108px) | **6.75rem** | same |
+| Applied bar (Falcon / `--fixed`) | **6.375rem** (102px) | same | **6.75rem** (108px) | **6.75rem** | same |
 | `--h-site-header--fixed` (scrolled) | **6.375rem** | same | **6.75rem** (108px) | same | same |
 | Logo box `--w` × `--h` (BX) | **7.625 × 3rem** | same | **9.5 × 3.75rem** (152×60) | same | same |
-| Falcon logo (live lockup, not 1.25×) | mark **2rem (32px)** + At Gambit **1.3rem (20.8px)** / 600 / lh 1.5, gap **1rem (16px)** | same until **30em** | mark **2.3rem (36.8px)** + **1.5rem (24px)** / 600, gap **1.5rem (24px)** | same | same |
+| Falcon logo (live lockup, not 1.25×) | mark **2rem (32px)** + At Gambit **1.3rem (20.8px)** / 600 / lh 1.5, gap **1rem (16px)** | same through tablet (`<80em`) | same | mark **2.3rem (36.8px)** + **1.5rem (24px)** / 600, gap **1.5rem (24px)** | same |
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
@@ -71,7 +71,7 @@ Falcon keeps the 5px blur and `.32` alpha; the overlay tint base is Martinique D
 
 ## Mobile (`max-width: 79.9375em`)
 
-Toggle **2.125 × 1.5rem**, lines/cross swap at `aria-expanded`. Inner is absolute, full width, `top: 100%`, bg `--c-background`, `max-height: calc(100dvh - header)`, scroll. Items get a 1px `#d5d8df` top rule and 16px vertical padding. Chevron **16px**.
+Toggle **2.125 × 1.5rem**. Hamburger and X stack in that box; only lines show when `aria-expanded=false`, only the cross when `true`. Inner is absolute, full width, `top: 100%`, bg `--c-background`, `max-height: calc(100dvh - header)`, scroll. Items get a 1px `#d5d8df` top rule and 16px vertical padding. Chevron **16px**.
 
 ## Falcon mapping
 

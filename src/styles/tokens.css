@@ -112,9 +112,9 @@
   --pilot-section-y-stack: 2.5rem;
   --bx-bp-md: 768px;
   --bx-bp-lg: 1024px;
-  --bx-header: 7rem;
+  --bx-header: 6.375rem;
   --bx-header-fixed: 6.375rem;
-  /* Live falconequity.ai logo (match, not 1.25×). Mobile ≤479px. */
+  /* Live falconequity.ai mobile lockup. Keep through tablet (<80em). */
   --logo-mark: 2rem;
   --logo-word: 1.3rem;
   --logo-nav-gap: 1rem;
@@ -124,15 +124,6 @@
 @media (min-width: 26em) {
   :root {
     --bx-max: 23rem;
-    --bx-header: 8rem;
-  }
-}
-
-@media (min-width: 30em) {
-  :root {
-    --logo-mark: 2.3rem;
-    --logo-word: 1.5rem;
-    --logo-nav-gap: 1.5rem;
   }
 }
 
@@ -145,7 +136,7 @@
     --pilot-section-y: 6rem;
     --pilot-section-y-stack: 2.5rem;
     --bx-max: 43rem;
-    --bx-header: 8.75rem;
+    --bx-header: 6.75rem;
     --bx-header-fixed: 6.75rem;
     --pilot-heading-to-items: var(--bx-space-48);
   }
@@ -165,6 +156,9 @@
     --bx-max: 71rem;
     /* Captures show the compact bar (~108px), which is BX `--h-site-header--fixed`. */
     --bx-header: 6.75rem;
+    --logo-mark: 2.3rem;
+    --logo-word: 1.5rem;
+    --logo-nav-gap: 1.5rem;
     --pilot-heading-to-items: var(--bx-space-96);
     --pilot-section-y: 9rem;
     --pilot-section-y-stack: 3rem;

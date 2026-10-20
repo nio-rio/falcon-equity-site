@@ -21,7 +21,7 @@ flex `row-reverse` (legal right, copyright left).
 | Nav | cols **5–16**, `display:flex`, `justify-content:flex-end` | same |
 | Top padding | **48px** / **112px** | **56px** / **120px** |
 | Nav column gap | **112px** | **120px** |
-| Logo (live lockup) | mark **2.3rem (36.8px)** + At Gambit **1.5rem (24px)** / **400** / lh 1.5, gap **1.2rem (19.2px)**. ≤479px: mark **32px**, word **20.8px**, same gap. | same |
+| Logo (live lockup) | mark **2rem (32px)** + At Gambit **1.3rem (20.8px)** / **400** / lh 1.5, gap **1.2rem (19.2px)** through tablet. Desktop `80em+`: mark **36.8px**, word **24px**. | same |
 | Column title | sans **18px**/500, tracking **0.02rem**, lh 1.5 | **20px** |
 | List margin-top | **24px** | **32px** |
 | Link | sans **16px**/300, item gap **16px** | **18px** |

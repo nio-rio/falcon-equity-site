@@ -125,6 +125,57 @@ const closeMenu = async (page, mode) => {
   }
 };
 
+const readToggleIcons = (page) =>
+  page.evaluate(() => {
+    const shown = (el) => {
+      if (!el) return false;
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return (
+        cs.display !== 'none' &&
+        cs.visibility !== 'hidden' &&
+        Number(cs.opacity) > 0 &&
+        r.width > 1 &&
+        r.height > 1
+      );
+    };
+    const toggle = document.querySelector('[data-mobile-toggle]');
+    const lines = toggle?.querySelector('.primary-nav__toggle-lines');
+    const cross = toggle?.querySelector('.primary-nav__toggle-cross');
+    const tr = toggle?.getBoundingClientRect();
+    const lr = lines?.getBoundingClientRect();
+    const cr = cross?.getBoundingClientRect();
+    const linesOn = shown(lines);
+    const crossOn = shown(cross);
+    return {
+      expanded: toggle?.getAttribute('aria-expanded') || null,
+      label: toggle?.querySelector('[data-mobile-label]')?.textContent.trim() || '',
+      toggleDisplay: toggle ? getComputedStyle(toggle).display : null,
+      toggleW: tr ? Math.round(tr.width * 10) / 10 : null,
+      toggleH: tr ? Math.round(tr.height * 10) / 10 : null,
+      linesOn,
+      crossOn,
+      bothOn: linesOn && crossOn,
+      sideBySide:
+        linesOn &&
+        crossOn &&
+        lr &&
+        cr &&
+        Math.abs(lr.left - cr.left) > 4,
+    };
+  });
+
+const toggleIconsOk = (icons, open) =>
+  icons.expanded === String(open) &&
+  icons.linesOn === !open &&
+  icons.crossOn === open &&
+  !icons.bothOn &&
+  !icons.sideBySide &&
+  icons.toggleDisplay !== 'none' &&
+  icons.toggleW != null &&
+  icons.toggleW <= 40 &&
+  icons.label === (open ? 'Close menu' : 'Open menu');
+
 const isBlur5 = (value) =>
   typeof value === 'string' && /blur\(\s*5px\s*\)/.test(value) && !/saturate/i.test(value);
 
@@ -902,7 +953,7 @@ for (const vp of VIEWPORTS) {
       (logoBox.bg === 'rgba(0, 0, 0, 0)' || logoBox.bg === 'transparent' || logoBox.bg === 'none');
     log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
 
-    const liveLogo = vp.width < 480
+    const liveLogo = vp.width < 1280
       ? { mark: 32, word: '20.8px', weight: '600', lh: '31.2px', gap: 16 }
       : { mark: 36.8, word: '24px', weight: '600', lh: '36px', gap: 24 };
     const logoLive =
@@ -1226,7 +1277,7 @@ for (const vp of VIEWPORTS) {
         lines: word ? word.getClientRects().length : 0,
       };
     });
-    const liveFooter = vp.width < 480
+    const liveFooter = vp.width < 1280
       ? { mark: 32, word: '20.8px', lh: '31.2px' }
       : { mark: 36.8, word: '24px', lh: '36px' };
     log({
@@ -1702,10 +1753,26 @@ for (const vp of VIEWPORTS) {
       const visibleToggle = await toggle.isVisible();
       log({ ...tag, check: 'hamburger-visible', ok: visibleToggle });
 
+      const iconsClosed = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-closed',
+        ok: toggleIconsOk(iconsClosed, false),
+        detail: JSON.stringify(iconsClosed),
+      });
+
       await toggle.click();
       await page.waitForTimeout(200);
       const innerOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open') && getComputedStyle(el).display !== 'none');
       log({ ...tag, check: 'mobile-opens', ok: innerOpen });
+
+      const iconsOpen = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-open',
+        ok: toggleIconsOk(iconsOpen, true),
+        detail: JSON.stringify(iconsOpen),
+      });
 
       await page.locator('.site-header__cta--menu .site-header__tel').hover();
       await page.waitForTimeout(200);
@@ -1803,6 +1870,13 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(150);
       const closedToggle = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
       log({ ...tag, check: 'mobile-toggle-closes', ok: closedToggle });
+      const iconsClosedAgain = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-closed-after-js',
+        ok: toggleIconsOk(iconsClosedAgain, false),
+        detail: JSON.stringify(iconsClosedAgain),
+      });
 
       await toggle.focus();
       await page.keyboard.press('Enter');

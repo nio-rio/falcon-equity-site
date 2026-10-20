@@ -795,9 +795,11 @@ html.has-scroll-lock .site-header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 2.125rem;
   height: 1.5rem;
   padding: 0;
+  overflow: hidden;
   border: 0;
   background: none;
   color: inherit;
@@ -811,12 +813,22 @@ html.has-scroll-lock .site-header {
   height: 1.5rem;
 }
 
-.primary-nav__toggle-cross,
-.primary-nav__toggle[aria-expanded='true'] .primary-nav__toggle-lines {
+/* `.primary-nav__toggle svg` is more specific than a lone class, so both
+   icons used to stay `display:block` when closed and sit side by side. */
+.primary-nav__toggle svg.primary-nav__toggle-lines,
+.primary-nav__toggle svg.primary-nav__toggle-cross {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.primary-nav__toggle svg.primary-nav__toggle-cross,
+.primary-nav__toggle[aria-expanded='true'] svg.primary-nav__toggle-lines {
   display: none;
 }
 
-.primary-nav__toggle[aria-expanded='true'] .primary-nav__toggle-cross {
+.primary-nav__toggle svg.primary-nav__toggle-lines,
+.primary-nav__toggle[aria-expanded='true'] svg.primary-nav__toggle-cross {
   display: block;
 }
 
