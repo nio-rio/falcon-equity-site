@@ -33,7 +33,7 @@ Blackstone does **not** change theme on scroll. Falcon home is dark on the hero 
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
-Falcon uses **sticky**. Desktop bar height is `--h-site-header--fixed` (**108px**), matching the three nav captures (light inner, dark home, featured card). The 12.75rem unfixed token exists in BX CSS but is not what those screenshots show.
+Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock body scroll (`has-scroll-lock`).
 
 ## Nav (desktop, `min-width: 80em`)
 
