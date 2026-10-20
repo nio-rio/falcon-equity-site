@@ -2320,7 +2320,10 @@ for (const vp of VIEWPORTS) {
   const page = await context.newPage();
   await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
   const heights = [];
-  for (let width = 768; width <= 1440; width += 20) {
+  const widths = [];
+  for (let width = 768; width <= 1440; width += 20) widths.push(width);
+  if (!widths.includes(1440)) widths.push(1440);
+  for (const width of widths) {
     await page.setViewportSize({ width, height: 900 });
     await page.waitForTimeout(40);
     const wrap = await readBarWrap(page);
