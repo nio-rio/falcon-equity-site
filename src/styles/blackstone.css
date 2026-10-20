@@ -578,11 +578,15 @@ a:focus-visible .link-draw,
   width: var(--bx-header-logo-w);
   height: var(--bx-header-logo-h);
   padding: 0.45rem 0.6rem;
-  border: 1px solid currentColor;
-  color: inherit;
+  border: 1px solid #000;
+  color: #fff;
   text-decoration: none;
-  background: transparent;
+  background: #000;
   overflow: hidden;
+}
+
+.site-header.is-color-theme-dark .site-header__logo {
+  border-color: #fff;
 }
 
 .site-header__logo:hover,

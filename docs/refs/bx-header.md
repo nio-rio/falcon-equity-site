@@ -15,8 +15,10 @@ Live `blackstone.com` is Cloudflare-blocked here. Values are from archived home 
 | `--c-background` | `#000` | `#fff` |
 | `--c-copy` / `--c-graphics` | `#fff` | `#000` |
 | `--c-background-highlight` (promo card) | `#121317` | `#f4f5f7` (`--c-slate-3`) |
-| Logo | outlined white box | boxed black mark |
+| Logo | black box, **1px white** outline, white mark | filled **black** box, white mark |
 | Open item | 1px currentColor underline + chevron 180° | chevron 180° |
+
+Nav hover is a 1px `currentColor` underline (`background-size` 0→100% in 0.3s). The yellow on “What We Do” in capture screenshots is a user annotation, not a hover style.
 
 Theme does **not** change on scroll. Compact height does.
 
