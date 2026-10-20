@@ -721,6 +721,17 @@ html.has-scroll-lock .site-header {
   cursor: pointer;
 }
 
+/* Live-sized lockup + phone + hamburger overflow 390. Phone stays in the open menu. */
+.site-header__tel--bar {
+  display: none;
+}
+
+@media (min-width: 48em) {
+  .site-header__tel--bar {
+    display: inline-flex;
+  }
+}
+
 .site-header__tel-label {
   color: inherit;
   font: inherit;

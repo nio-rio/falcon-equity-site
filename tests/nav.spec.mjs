@@ -167,11 +167,11 @@ const readFilters = (page) =>
     };
   });
 
-const readTypeChrome = (page) =>
-  page.evaluate(() => {
-    const tel = document.querySelector('.site-header__tel--bar');
+const readTypeChrome = (page, telSel = '.site-header__tel--bar') =>
+  page.evaluate((sel) => {
+    const tel = document.querySelector(sel);
     const menu = document.querySelector('.primary-nav__list-item-link');
-    const telLabel = document.querySelector('.site-header__tel--bar .site-header__tel-label');
+    const telLabel = tel?.querySelector('.site-header__tel-label');
     const menuLabel = document.querySelector('.primary-nav__list-item-label');
     const typeOf = (el) => {
       const cs = getComputedStyle(el);
@@ -211,7 +211,7 @@ const readTypeChrome = (page) =>
       menuLabel: labelOf(menuLabel),
       telChrome: chromeOf(tel),
     };
-  });
+  }, telSel);
 
 const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
@@ -1432,6 +1432,8 @@ for (const vp of VIEWPORTS) {
         await page.waitForTimeout(150);
       }
     } else {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForTimeout(150);
       const toggle = page.locator('[data-mobile-toggle]');
       const visibleToggle = await toggle.isVisible();
       log({ ...tag, check: 'hamburger-visible', ok: visibleToggle });
@@ -1441,9 +1443,9 @@ for (const vp of VIEWPORTS) {
       const innerOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open') && getComputedStyle(el).display !== 'none');
       log({ ...tag, check: 'mobile-opens', ok: innerOpen });
 
-      await page.locator('.site-header__tel--bar').hover();
+      await page.locator('.site-header__cta--menu .site-header__tel').hover();
       await page.waitForTimeout(200);
-      const mobileHover = await readTypeChrome(page);
+      const mobileHover = await readTypeChrome(page, '.site-header__cta--menu .site-header__tel');
       log({
         ...tag,
         check: 'tel-hover-matches-menu',
