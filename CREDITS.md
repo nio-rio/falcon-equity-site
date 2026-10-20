@@ -21,7 +21,8 @@ Avoid images marked **Unsplash+** or **Getty Images**; those require a paid lice
 
 | File | Description |
 | --- | --- |
-| `src/assets/brand/falcon-logo-full.svg` | Official full logo lockup (mark + wordmark, viewBox `0 0 159 22`). Used inline in the header and footer. |
+| `src/assets/brand/falcon-mark.svg` | Geometric mark from the live falconequity.ai nav/footer (viewBox `0 0 41 40`, `currentColor`). Inlined with the HTML wordmark. |
+| `src/assets/brand/falcon-logo-full.svg` | Archived full image lockup (mark + wordmark, viewBox `0 0 159 22`). Not used in the header or footer. |
 | `public/brand/falcon-logo-dark.png` | Official dark lockup PNG, kept for print or email use |
 | `public/brand/falcon-logo-white.png` | Official white lockup PNG, kept for dark backgrounds |
 | `public/favicon.png` | Favicon, from the current falconequity.ai Webflow site |

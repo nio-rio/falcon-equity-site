@@ -650,11 +650,38 @@ html.has-scroll-lock .site-header {
   opacity: 0.85;
 }
 
-.site-header__logo-mark {
+/* Live falconequity.ai: SVG mark + HTML wordmark in At Gambit. */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--logo-nav-gap);
+  color: inherit;
+}
+
+.brand-logo--footer {
+  gap: var(--logo-footer-gap);
+}
+
+.brand-logo__mark {
   display: block;
-  width: auto;
-  height: var(--bx-header-logo-h);
-  max-height: none;
+  flex: none;
+  width: var(--logo-mark);
+  height: var(--logo-mark);
+}
+
+.brand-logo__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--logo-word);
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.brand-logo--footer .brand-logo__wordmark {
+  font-weight: 400;
 }
 
 .site-header__nav {
@@ -1467,15 +1494,9 @@ h2.primary-nav-widget__title {
 }
 
 .site-footer__logo-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   color: #fff;
-}
-
-.site-footer__logo {
-  display: block;
-  height: auto;
-  width: 13.125rem;
-  color: inherit;
 }
 
 .site-footer__nav {
@@ -1565,10 +1586,6 @@ h2.primary-nav-widget__title {
 }
 
 @media (min-width: 26em) {
-  .site-footer__logo {
-    width: 14.6875rem;
-  }
-
   .site-footer__bottom {
     padding-top: 4.5rem;
     padding-bottom: 4.5rem;
@@ -1582,10 +1599,6 @@ h2.primary-nav-widget__title {
       'brand brand brand brand brand brand brand brand'
       'nav nav nav nav nav nav nav nav';
     padding-bottom: var(--bx-space-80);
-  }
-
-  .site-footer__logo {
-    width: 12.5625rem;
   }
 
   .site-footer__nav {
@@ -1618,10 +1631,6 @@ h2.primary-nav-widget__title {
     grid-template-areas: 'brand brand brand brand nav nav nav nav nav nav nav nav nav nav nav nav';
     padding-top: var(--bx-space-48);
     padding-bottom: var(--bx-space-112);
-  }
-
-  .site-footer__logo {
-    width: 14.6875rem;
   }
 
   .site-footer__nav {

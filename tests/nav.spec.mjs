@@ -637,15 +637,35 @@ for (const vp of VIEWPORTS) {
 
     const logoBox = await page.evaluate(() => {
       const el = document.querySelector('.site-header__logo');
-      const mark = document.querySelector('.site-header__logo-mark');
+      const mark = el?.querySelector('.brand-logo__mark');
+      const word = el?.querySelector('.brand-logo__wordmark');
       const cs = getComputedStyle(el);
-      const r = mark.getBoundingClientRect();
+      const markR = mark?.getBoundingClientRect();
+      const wordR = word?.getBoundingClientRect();
+      const wordCs = word ? getComputedStyle(word) : null;
+      const markCs = mark ? getComputedStyle(mark) : null;
+      const lines = word ? word.getClientRects().length : 0;
       return {
         pad: cs.padding,
         border: cs.borderTopWidth,
         bg: cs.backgroundColor,
-        w: Math.round(r.width * 10) / 10,
-        h: Math.round(r.height * 10) / 10,
+        label: el?.getAttribute('aria-label') || '',
+        href: el?.getAttribute('href') || '',
+        markTag: mark?.tagName || null,
+        markFill: mark?.querySelector('path')?.getAttribute('fill') || null,
+        markW: markR ? Math.round(markR.width * 10) / 10 : null,
+        markH: markR ? Math.round(markR.height * 10) / 10 : null,
+        word: word?.textContent.trim() || '',
+        wordSize: wordCs?.fontSize || null,
+        wordWeight: wordCs?.fontWeight || null,
+        wordFamily: wordCs?.fontFamily || null,
+        wordTracking: wordCs?.letterSpacing || null,
+        wordLh: wordCs?.lineHeight || null,
+        wordW: wordR ? Math.round(wordR.width * 10) / 10 : null,
+        wordH: wordR ? Math.round(wordR.height * 10) / 10 : null,
+        gap: markR && wordR ? Math.round((wordR.left - markR.right) * 10) / 10 : null,
+        lines,
+        markColor: markCs?.color || null,
       };
     });
     const logoBare =
@@ -654,14 +674,32 @@ for (const vp of VIEWPORTS) {
       (logoBox.bg === 'rgba(0, 0, 0, 0)' || logoBox.bg === 'transparent' || logoBox.bg === 'none');
     log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
 
-    const expectedLogo = vp.width < 768 ? { w: 152.5, h: 21.1 } : { w: 190, h: 26.3 };
-    const logoSized =
-      Math.abs(logoBox.w - expectedLogo.w) <= 2 && Math.abs(logoBox.h - expectedLogo.h) <= 2;
+    const liveLogo = vp.width < 480
+      ? { mark: 32, word: '20.8px', weight: '600', lh: '31.2px', gap: 16 }
+      : { mark: 36.8, word: '24px', weight: '600', lh: '36px', gap: 24 };
+    const logoLive =
+      logoBox.label === 'Falcon Equity Group' &&
+      logoBox.href === '/' &&
+      logoBox.markTag === 'svg' &&
+      logoBox.markFill === 'currentColor' &&
+      logoBox.word === 'Falcon Equity Group' &&
+      logoBox.lines === 1 &&
+      /At Gambit/i.test(logoBox.wordFamily || '') &&
+      logoBox.wordSize === liveLogo.word &&
+      logoBox.wordWeight === liveLogo.weight &&
+      (logoBox.wordTracking === 'normal' || logoBox.wordTracking === '0px') &&
+      logoBox.wordLh === liveLogo.lh &&
+      logoBox.markW != null &&
+      Math.abs(logoBox.markW - liveLogo.mark) <= 1 &&
+      logoBox.markH != null &&
+      Math.abs(logoBox.markH - liveLogo.mark) <= 1 &&
+      logoBox.gap != null &&
+      Math.abs(logoBox.gap - liveLogo.gap) <= 1.5;
     log({
       ...tag,
-      check: 'logo-125',
-      ok: logoSized,
-      detail: `got ${logoBox.w}x${logoBox.h} expected ${expectedLogo.w}x${expectedLogo.h}`,
+      check: 'logo-live-lockup',
+      ok: logoLive,
+      detail: `got mark ${logoBox.markW}x${logoBox.markH} ${logoBox.wordSize}/${logoBox.wordWeight} lh=${logoBox.wordLh} gap=${logoBox.gap} expected mark ${liveLogo.mark} ${liveLogo.word}/${liveLogo.weight} lh=${liveLogo.lh} gap=${liveLogo.gap}`,
     });
 
     const noHairline = async () =>
@@ -899,6 +937,56 @@ for (const vp of VIEWPORTS) {
         ctaChrome.footerBg === MARTINIQUE_DARKER &&
         ctaChrome.ctaBg === ctaChrome.footerBg,
       detail: JSON.stringify({ ctaBg: ctaChrome.ctaBg, footerBg: ctaChrome.footerBg }),
+    });
+    const footerLogo = await page.evaluate(() => {
+      const link = document.querySelector('.site-footer__logo-link');
+      const mark = link?.querySelector('.brand-logo__mark');
+      const word = link?.querySelector('.brand-logo__wordmark');
+      const markR = mark?.getBoundingClientRect();
+      const wordR = word?.getBoundingClientRect();
+      const wordCs = word ? getComputedStyle(word) : null;
+      return {
+        label: link?.getAttribute('aria-label') || '',
+        href: link?.getAttribute('href') || '',
+        markTag: mark?.tagName || null,
+        markFill: mark?.querySelector('path')?.getAttribute('fill') || null,
+        markW: markR ? Math.round(markR.width * 10) / 10 : null,
+        markH: markR ? Math.round(markR.height * 10) / 10 : null,
+        word: word?.textContent.trim() || '',
+        wordSize: wordCs?.fontSize || null,
+        wordWeight: wordCs?.fontWeight || null,
+        wordFamily: wordCs?.fontFamily || null,
+        wordTracking: wordCs?.letterSpacing || null,
+        wordLh: wordCs?.lineHeight || null,
+        gap: markR && wordR ? Math.round((wordR.left - markR.right) * 10) / 10 : null,
+        lines: word ? word.getClientRects().length : 0,
+      };
+    });
+    const liveFooter = vp.width < 480
+      ? { mark: 32, word: '20.8px', lh: '31.2px' }
+      : { mark: 36.8, word: '24px', lh: '36px' };
+    log({
+      ...tag,
+      check: 'footer-logo-live-lockup',
+      ok:
+        footerLogo.label === 'Falcon Equity Group' &&
+        footerLogo.href === '/' &&
+        footerLogo.markTag === 'svg' &&
+        footerLogo.markFill === 'currentColor' &&
+        footerLogo.word === 'Falcon Equity Group' &&
+        footerLogo.lines === 1 &&
+        /At Gambit/i.test(footerLogo.wordFamily || '') &&
+        footerLogo.wordSize === liveFooter.word &&
+        footerLogo.wordWeight === '400' &&
+        (footerLogo.wordTracking === 'normal' || footerLogo.wordTracking === '0px') &&
+        footerLogo.wordLh === liveFooter.lh &&
+        footerLogo.markW != null &&
+        Math.abs(footerLogo.markW - liveFooter.mark) <= 1 &&
+        footerLogo.markH != null &&
+        Math.abs(footerLogo.markH - liveFooter.mark) <= 1 &&
+        footerLogo.gap != null &&
+        Math.abs(footerLogo.gap - 19.2) <= 1.5,
+      detail: JSON.stringify(footerLogo),
     });
     const footerNav = await page.evaluate(() => {
       const cols = [...document.querySelectorAll('.site-footer__col')];

@@ -82,7 +82,7 @@ Headings use **At Gambit** (trial webfont, weights 300/400/600/700, self-hosted 
 
 ## Logo
 
-The official lockup is `src/assets/brand/falcon-logo-full.svg` (159×22). `src/components/Logo.astro` inlines it, swaps the fill to `currentColor`, and keeps the native proportions so it works on the light header and the dark footer.
+The live lockup is an inline SVG mark (`src/assets/brand/falcon-mark.svg`, `currentColor`) plus the HTML wordmark “Falcon Equity Group” in At Gambit. `src/components/Logo.astro` renders both so the mark follows the light/dark header and the dark footer.
 
 ## Blog
 
