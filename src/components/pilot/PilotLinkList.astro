@@ -37,13 +37,11 @@ const { id = 'services-heading', eyebrow, title, items } = Astro.props;
         items.map((item) => (
           <li>
             <a class="pilot-ll-row" href={item.href}>
-              <span class="pilot-ll-copy">
+              <span class="pilot-ll-main">
                 <span class="pilot-ll-title">{item.name}</span>
-                <span class="pilot-ll-meta">
-                  <span class="pilot-ll-desc">{item.teaser}</span>
-                  <span class="pilot-ll-range">{item.rangeLine}</span>
-                </span>
+                <span class="pilot-ll-range">{item.rangeLine}</span>
               </span>
+              <span class="pilot-ll-desc">{item.teaser}</span>
               <span class="pilot-ll-btn" aria-hidden="true">
                 <svg class="pilot-ll-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                   <path

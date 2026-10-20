@@ -43,7 +43,7 @@ All five Ling-confirmed figures, equal weight, no featured number:
 
 - **Eyebrow:** Services
 - **H2:** How we can bring you victory.
-- **Rows** (name + `rangeLine` + circle arrow), home teasers live in data but are **not shown** on this list:
+- **Rows** (name + `rangeLine` left, teaser middle, circle arrow right):
 
 | Name | Range line shown | Teaser in data (unused on home today) |
 | --- | --- | --- |
