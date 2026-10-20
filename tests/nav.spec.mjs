@@ -1206,6 +1206,12 @@ for (const vp of VIEWPORTS) {
       });
       log({ ...tag, check: 'industry-menu-esc', ok: industry.reopened === 'true' && industry.afterEsc === 'false', detail: JSON.stringify({ reopened: industry.reopened, afterEsc: industry.afterEsc }) });
       log({ ...tag, check: 'industry-menu-outside', ok: industry.afterOutside === 'false', detail: industry.afterOutside });
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForFunction(
+        () =>
+          window.scrollY < 8 &&
+          document.querySelector('[data-header]')?.classList.contains('is-color-theme-dark'),
+      );
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
