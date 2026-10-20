@@ -716,7 +716,9 @@ for (const vp of VIEWPORTS) {
       detail: JSON.stringify(footerNav),
     });
     const xHover = page.locator('.site-footer a[href="https://x.com/FalconEquitynyc"]');
+    await xHover.scrollIntoViewIfNeeded();
     await xHover.hover();
+    await page.waitForTimeout(400);
     const xHoverSize = await xHover.evaluate((el) => getComputedStyle(el).backgroundSize);
     log({
       ...tag,
@@ -724,6 +726,7 @@ for (const vp of VIEWPORTS) {
       ok: xHoverSize === '100% 1px',
       detail: xHoverSize,
     });
+    await page.locator('.site-header__logo').hover();
     log({
       ...tag,
       check: 'site-cta-lead-body-font',
