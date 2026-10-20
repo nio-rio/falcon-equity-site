@@ -8,7 +8,7 @@
    16-col / 16px gutter is scoped here; site `.bx-grid` stays 12/24. */
 .pilot-hero {
   position: relative;
-  background: #000;
+  background: var(--bx-black);
   color: #fff;
   padding-top: 2rem;
   padding-bottom: 4rem;
@@ -355,7 +355,7 @@
   font-weight: 400;
   letter-spacing: var(--bx-ls-eyebrow);
   text-transform: uppercase;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-eyebrow--line {
@@ -499,7 +499,7 @@
 
 /* BXCI What we do — black band, portrait 1–6, list start 8. */
 .pilot-what {
-  background: #000;
+  background: var(--bx-black);
   color: #fff;
 }
 
@@ -524,7 +524,7 @@
 
 .pilot-what .media--labeled,
 .pilot-what .image-slot--labeled {
-  background: #1a1a1a;
+  background: var(--bx-black);
 }
 
 .pilot-what .media-label,
@@ -578,7 +578,7 @@
    docs/refs/bx-tac-opps-stats.md. 16-col / 16px. */
 .pilot-stats {
   background: #fff;
-  color: #000;
+  color: var(--bx-black);
   padding-top: 2.5rem;
   padding-bottom: 5rem;
 }
@@ -607,7 +607,7 @@
   font-size: 1.5rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-stats-feat-value {
@@ -618,7 +618,7 @@
   font-size: 5rem;
   line-height: 1.4;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
   white-space: nowrap;
 }
 
@@ -630,7 +630,7 @@
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-stats-side-value p {
@@ -639,7 +639,7 @@
   font-size: 2.5rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
   padding-bottom: 1rem;
 }
 
@@ -647,7 +647,7 @@
   display: block;
   width: 100%;
   height: 1px;
-  background: #000;
+  background: var(--bx-black);
 }
 
 @media (min-width: 48em) {
@@ -757,7 +757,7 @@
    frontend.css at 80em/90em (same rules getComputedStyle would return). */
 .pilot-ann {
   background: #fff;
-  color: #000;
+  color: var(--bx-black);
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
@@ -778,7 +778,7 @@
   font-size: 2rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-ann-media {
@@ -805,7 +805,7 @@
   font-weight: 400;
   font-size: var(--bx-fs-16);
   line-height: 1.5;
-  color: #000;
+  color: var(--bx-black);
 }
 
 @media (min-width: 48em) {
@@ -933,7 +933,7 @@
    Live site Cloudflare-blocked; values from frontend.css at 80em / 90em. */
 .pilot-tabs {
   background: #fff;
-  color: #000;
+  color: var(--bx-black);
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
@@ -956,7 +956,7 @@
   font-size: 2rem;
   line-height: 1.25;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-tabs-intro {
@@ -965,7 +965,7 @@
   font-weight: 300;
   font-size: var(--bx-fs-20);
   line-height: 1.5;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-tabs-nav {
@@ -986,10 +986,10 @@
   width: 100%;
   padding: 1.5rem;
   border: 0;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid var(--bx-black);
   border-radius: 0;
   background: var(--color-tint);
-  color: #000;
+  color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
   font-weight: 400;
@@ -1022,8 +1022,8 @@
   padding: 0;
   list-style: none;
   background: var(--color-tint);
-  color: #000;
-  border-bottom: 2px solid #000;
+  color: var(--bx-black);
+  border-bottom: 2px solid var(--bx-black);
 }
 
 .pilot-tabs-menu button {
@@ -1032,7 +1032,7 @@
   padding: 0.75rem 1.5rem;
   border: 0;
   background: none;
-  color: #000;
+  color: var(--bx-black);
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
   font-weight: 400;
@@ -1042,7 +1042,7 @@
 }
 
 .pilot-tabs-menu button[aria-selected='true'] {
-  box-shadow: inset 2px 0 0 #000;
+  box-shadow: inset 2px 0 0 var(--bx-black);
 }
 
 .pilot-tabs-menu button:hover,
@@ -1080,7 +1080,7 @@
   font-size: 2rem;
   line-height: 1.25;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-tabs-body {
@@ -1089,7 +1089,7 @@
   font-weight: 300;
   font-size: var(--bx-fs-18);
   line-height: 1.5;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-tabs-media {
@@ -1268,7 +1268,7 @@
 .pilot-ll-section {
   padding-block: var(--bx-section);
   background: #fff;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-ll-head {
@@ -1300,15 +1300,15 @@
   column-gap: var(--bx-gutter);
   row-gap: var(--bx-space-12);
   padding-block: var(--bx-space-32);
-  border-top: 2px solid #000;
-  color: #000;
+  border-top: 2px solid var(--bx-black);
+  color: var(--bx-black);
   text-decoration: none;
   opacity: 1;
   transition: opacity 0.3s;
 }
 
 .pilot-ll li:last-child .pilot-ll-row {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid var(--bx-black);
 }
 
 /* BMACX `.bx-link-list__animated:after`: 2px bottom rule, scaleX, origin left.
@@ -1322,7 +1322,7 @@
   left: 0;
   width: 100%;
   bottom: -2px;
-  border-bottom: solid 2px #000;
+  border-bottom: solid 2px var(--bx-black);
   transform: scaleX(0);
   transform-origin: left;
   transition: none;
@@ -1340,11 +1340,11 @@
 }
 
 .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
-  border-top-color: rgba(0, 0, 0, 0.4);
+  border-top-color: rgba(20, 16, 31, 0.4);
 }
 
 .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
-  border-bottom-color: rgba(0, 0, 0, 0.4);
+  border-bottom-color: rgba(20, 16, 31, 0.4);
 }
 
 @media (min-width: 768px) {
@@ -1383,7 +1383,7 @@
   font-weight: 400;
   font-size: var(--bx-fs-24);
   line-height: 1.25;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-ll-range {
@@ -1403,7 +1403,7 @@
   font-weight: 400;
   font-size: var(--bx-fs-16);
   line-height: 1.5;
-  color: #000;
+  color: var(--bx-black);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -1462,7 +1462,7 @@
   display: block;
   width: var(--bx-space-32);
   height: var(--bx-space-32);
-  color: #000;
+  color: var(--bx-black);
   transition: transform 0.3s;
 }
 
@@ -1546,7 +1546,7 @@
   font-weight: 400;
   letter-spacing: var(--bx-ls-eyebrow);
   text-transform: uppercase;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-card-title {
@@ -1582,7 +1582,7 @@
    Measured 1440 / 1280; docs/refs/bx-life-sciences-news.md. 16-col / 16px. */
 .pilot-news {
   background: #fff;
-  color: #000;
+  color: var(--bx-black);
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
@@ -1610,7 +1610,7 @@
   font-size: 2rem;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-news-grid {
@@ -1657,7 +1657,7 @@
   font-size: 1.25rem;
   line-height: 2rem;
   letter-spacing: 0.008em;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-news-excerpt {
@@ -1666,14 +1666,14 @@
   font-weight: 300;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-news-more {
   display: inline-flex;
   align-items: center;
   margin-top: auto;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .pilot-news-more-label {
@@ -1697,7 +1697,7 @@
   flex: none;
   width: 40px;
   height: 40px;
-  color: #000;
+  color: var(--bx-black);
   transition: transform 0.3s;
 }
 
@@ -2055,8 +2055,8 @@
 }
 
 .pilot-acc-item.is-open .pilot-acc-icon {
-  background-color: #0a0a0a;
-  border-color: #0a0a0a;
+  background-color: var(--bx-black);
+  border-color: var(--bx-black);
   color: #fff;
   transform: rotate(180deg);
 }
@@ -2131,9 +2131,9 @@
 .pilot-acc--strategies .pilot-acc-item.is-open .pilot-acc-icon {
   width: 2rem;
   height: 2rem;
-  border: 1px solid #0a0a0a;
+  border: 1px solid var(--bx-black);
   border-radius: 50%;
-  background-color: #0a0a0a;
+  background-color: var(--bx-black);
   color: #fff;
 }
 
@@ -2181,11 +2181,11 @@
   }
 
   .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
-    border-top-color: #000;
+    border-top-color: var(--bx-black);
   }
 
   .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
-    border-bottom-color: #000;
+    border-bottom-color: var(--bx-black);
   }
 
   .pilot-card:hover .pilot-card-media img,

@@ -77,7 +77,7 @@
   --color-brand-dark: var(--falcon-accent-hover);
   --color-brand-light: #666666;
   --color-tint: var(--bx-slate-3);
-  --color-cta: #000000;
+  --color-cta: var(--bx-martinique-darker);
   --color-featured: var(--falcon-featured);
   --font-display: var(--bx-font-display);
   --font-sans: var(--bx-font-sans);
@@ -112,13 +112,12 @@
     font-size: clamp(2.75rem, 8.83vw + 0.6rem, 6.25rem);
     line-height: 1;
   }
-  /* Blackstone .bx-headers-one__title: --fw-light, --fs-32 / 40 / 48 at 0 / 48em / 90em.
-     Tech-and-innovations screenshot ~44–48px desktop, 1.25 line-height, #000/#111. */
+  /* Blackstone .bx-headers-one__title: --fw-light, --fs-32 / 40 / 48 at 0 / 48em / 90em. */
   h2 {
     font-weight: 300;
     font-size: 2rem;
     line-height: 1.25;
-    color: #000;
+    color: var(--bx-black);
   }
 
   @media (min-width: 768px) {
@@ -193,7 +192,7 @@
     font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #000;
+    color: var(--bx-black);
   }
 
   .btn-primary,
@@ -217,7 +216,7 @@
 
   .btn-primary,
   .btn-accent {
-    background: #000;
+    background: var(--bx-black);
     color: #fff;
   }
 

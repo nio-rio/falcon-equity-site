@@ -67,7 +67,7 @@ background-color: rgba(0,0,0,.32);
 position: fixed; inset: 0;
 ```
 
-Falcon matches those values. Overlay is a `document.body` child (`z-index: 40`) so transform/filter/isolation on the header cannot clip the blur; header stays `z-index: 50`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390. It also asserts overlay `blur(5px)` (no saturate) and header/panel `none` in each state, that the bar phone (`tel:+19172455277`) matches a primary menu link’s font, size, weight, color, and 1px `currentColor` hover underline, that the open panel’s first column left equals the logo left (±1px), and that the `#d5d8df` 1px divider is visible only while a menu is open.
+Falcon keeps the 5px blur and `.32` alpha; the overlay tint base is Martinique Darker (`rgba(20,16,31,.32)` / `--bx-overlay`) instead of pure black. Overlay is a `document.body` child (`z-index: 40`) so transform/filter/isolation on the header cannot clip the blur; header stays `z-index: 50`. The dark header/panel fill is also Martinique Darker. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390. It also asserts overlay `blur(5px)` (no saturate) and header/panel `none` in each state, that the bar phone (`tel:+19172455277`) matches a primary menu link’s font, size, weight, color, and 1px `currentColor` hover underline, that the open panel’s first column left equals the logo left (±1px), and that the `#d5d8df` 1px divider is visible only while a menu is open.
 
 ## Mobile (`max-width: 79.9375em`)
 
@@ -80,6 +80,6 @@ Real pages only, grouped like the captures:
 - **Our Firm** — two headings (`Our Firm` / `Contact`), light-inner pattern
 - **Services** — two-col product list
 - **Industries** — two-col list
-- **Resources** — Blog / Tools / Help plus the Apply promo card (`#121317`, title, apply-page sentence, Learn More + white circle-arrow, MCA still)
+- **Resources** — Blog / Tools / Help plus the Apply promo card (Martinique Darker, title, apply-page sentence, Learn More + white circle-arrow, MCA still)
 
 Home header is dark with an outlined logo and an underlined open item. Inner pages are white with a filled black logo tile. No invented social, people, or stats.

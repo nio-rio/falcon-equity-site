@@ -217,19 +217,34 @@ const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
 const SLATE_2 = 'rgb(213, 216, 223)';
+const MARTINIQUE_DARKER = 'rgb(20, 16, 31)';
+const MARTINIQUE = 'rgb(51, 42, 78)';
+const LILAC = 'rgb(243, 242, 251)';
+const CTA_PHRASES = [
+  'purchase inventory',
+  'cover payroll',
+  'expand or renovate',
+  'launch marketing campaigns',
+  'stabilize cash flow',
+  'upgrade equipment',
+  'hire more employees',
+  'consolidate business debt',
+];
+const CTA_SR =
+  'Need funding to purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, or consolidate business debt';
 const APPLY_LIGHT = {
-  color: 'rgb(0, 0, 0)',
-  textBg: 'rgb(255, 255, 255)',
-  arrow: 'rgb(255, 255, 255)',
-  arrowBg: 'rgb(0, 0, 0)',
-  focus: '#ffffff',
+  color: MARTINIQUE,
+  textBg: LILAC,
+  arrow: LILAC,
+  arrowBg: MARTINIQUE,
+  focus: '#f3f2fb',
 };
 const APPLY_DARK = {
-  color: 'rgb(255, 255, 255)',
-  textBg: 'rgb(0, 0, 0)',
-  arrow: 'rgb(0, 0, 0)',
-  arrowBg: 'rgb(255, 255, 255)',
-  focus: '#000000',
+  color: LILAC,
+  textBg: MARTINIQUE,
+  arrow: MARTINIQUE,
+  arrowBg: LILAC,
+  focus: '#332a4e',
 };
 
 const readButton040 = (page, sel) =>
@@ -269,6 +284,18 @@ const normFocus = (c) => {
   const n = String(c || '')
     .replace(/\s/g, '')
     .toLowerCase();
+  if (
+    n === '#f3f2fb' ||
+    n === 'rgb(243,242,251)' ||
+    n === 'var(--bx-lilac)'
+  )
+    return '#f3f2fb';
+  if (
+    n === '#332a4e' ||
+    n === 'rgb(51,42,78)' ||
+    n === 'var(--bx-martinique)'
+  )
+    return '#332a4e';
   if (n === '#fff' || n === '#ffffff' || n === 'rgb(255,255,255)' || n === 'white') return '#ffffff';
   if (n === '#000' || n === '#000000' || n === 'rgb(0,0,0)' || n === 'black') return '#000000';
   return n;
@@ -358,7 +385,12 @@ for (const vp of VIEWPORTS) {
     });
 
     if (pg.name === 'home') {
-      log({ ...tag, check: 'home-theme-dark-at-top', ok: theme.dark, detail: `bg=${theme.bg}` });
+      log({
+        ...tag,
+        check: 'home-theme-dark-at-top',
+        ok: theme.dark && theme.bg === MARTINIQUE_DARKER,
+        detail: `bg=${theme.bg}`,
+      });
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
     }
@@ -560,8 +592,13 @@ for (const vp of VIEWPORTS) {
         ),
         href: btn?.getAttribute('href') || null,
         bg: cs?.backgroundColor || null,
+        ctaBg: cta ? getComputedStyle(cta).backgroundColor : null,
+        footerBg: footer ? getComputedStyle(footer).backgroundColor : null,
         radius: cs?.borderRadius || null,
         color: cs?.color || null,
+        phrases: [...document.querySelectorAll('.site-cta__copy:first-of-type [data-cta-phrase]')].map(
+          (el) => el.textContent.trim(),
+        ),
         tailCount: document.querySelectorAll('.site-cta__tail').length,
         srText: sr?.textContent?.trim() || '',
         leadText: lead?.textContent?.trim() || '',
@@ -600,13 +637,28 @@ for (const vp of VIEWPORTS) {
         !ctaChrome.hasTailEl &&
         ctaChrome.tailCount === 0 &&
         ctaChrome.leadText === 'Need funding to' &&
-        ctaChrome.srText.startsWith('Need funding to') &&
+        ctaChrome.srText === CTA_SR &&
         !ctaChrome.srText.includes('for your business'),
       detail: JSON.stringify({
         leadText: ctaChrome.leadText,
         srText: ctaChrome.srText,
         tailCount: ctaChrome.tailCount,
       }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-phrases',
+      ok: JSON.stringify(ctaChrome.phrases) === JSON.stringify(CTA_PHRASES),
+      detail: JSON.stringify(ctaChrome.phrases),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-matches-footer',
+      ok:
+        ctaChrome.ctaBg === MARTINIQUE_DARKER &&
+        ctaChrome.footerBg === MARTINIQUE_DARKER &&
+        ctaChrome.ctaBg === ctaChrome.footerBg,
+      detail: JSON.stringify({ ctaBg: ctaChrome.ctaBg, footerBg: ctaChrome.footerBg }),
     });
     log({
       ...tag,
@@ -752,7 +804,7 @@ for (const vp of VIEWPORTS) {
       const backdropOn = await page.evaluate(() => {
         const b = document.querySelector('[data-nav-backdrop]');
         const cs = getComputedStyle(b);
-        return !b.hidden && cs.display !== 'none' && cs.backgroundColor.includes('0, 0, 0');
+        return !b.hidden && cs.display !== 'none' && cs.backgroundColor.includes('20, 16, 31');
       });
       log({ ...tag, check: 'backdrop-on-when-open', ok: backdropOn });
 

@@ -400,7 +400,7 @@ a:focus-visible .link-draw,
 /* Home hero — Blackstone #slide-1-2: black band, split H1, image, caption row. */
 .home-hero {
   position: relative;
-  background: #0a0a0a;
+  background: var(--bx-black);
   color: #fff;
   padding-block: 3rem 4rem;
 }
@@ -536,8 +536,8 @@ a:focus-visible .link-draw,
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   background: #fff;
-  color: #000;
-  --nav-copy: #000;
+  color: var(--bx-black);
+  --nav-copy: var(--bx-black);
   --nav-bg: #fff;
   --nav-highlight: var(--bx-slate-3);
   --nav-rule: var(--bx-slate-2);
@@ -575,10 +575,10 @@ html.has-scroll-lock .site-header {
 }
 
 .site-header.is-color-theme-dark {
-  background: #000;
+  background: var(--bx-black);
   color: #fff;
   --nav-copy: #fff;
-  --nav-bg: #000;
+  --nav-bg: var(--bx-black);
   --nav-highlight: var(--bx-highlight-dark);
   --nav-rule: var(--bx-slate-2);
 }
@@ -756,8 +756,7 @@ html.has-scroll-lock .site-header {
   display: block;
 }
 
-/* Live blackstone.com 2026-10-20: overlay is blur(5px) + rgba(0,0,0,.32).
-   Header bar and mega-panel compute backdrop-filter: none (opaque rgb). */
+/* Overlay: blur(5px) + Martinique Darker at .32 alpha. Header/panel stay opaque. */
 .primary-nav__backdrop {
   position: fixed;
   inset: 0;
@@ -766,7 +765,7 @@ html.has-scroll-lock .site-header {
   isolation: auto;
   transform: none;
   filter: none;
-  background-color: rgba(0, 0, 0, 0.32);
+  background-color: var(--bx-overlay);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
@@ -911,7 +910,7 @@ html.has-scroll-lock .site-header {
 
 .primary-nav-widget {
   display: none;
-  background: #121317;
+  background: var(--bx-black);
   color: #fff;
 }
 
@@ -971,14 +970,14 @@ html.has-scroll-lock .site-header {
   height: 2.5rem;
   background: #fff;
   border-color: #fff;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .primary-nav-widget .arrow-cta:hover .circle-arrow,
 .primary-nav-widget .arrow-cta:focus-visible .circle-arrow {
   background: #fff;
   border-color: #fff;
-  color: #000;
+  color: var(--bx-black);
 }
 
 .primary-nav__list-item-link:focus-visible,
@@ -1246,12 +1245,11 @@ html.has-scroll-lock .site-header {
 }
 
 /* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
-   Measured 2026-10-20 on https://govwell.com/ at 1440: dark band #202020,
+   Band shares `--color-surface-dark` with the footer (Martinique Darker).
    7-line wrap, mask 5%/40-60%/95%, stepped translateY, ~400ms cubic ease
    + ~1200ms hold. Lead and phrases are Inter (body). Pitch is 4.5rem
    (1.5× the prior 3rem) so the wheel is 31.5rem. Active phrase is plain
-   white; neighbors above #636363; rest white/0.5. White pill 12px 24px /
-   16px / radius 100rem. */
+   white; neighbors above #636363; rest white/0.5. Apply is button-040 light. */
 .site-cta {
   --site-cta-line: 4.5rem;
   --site-cta-wheel: calc(var(--site-cta-line) * 7);
@@ -1259,7 +1257,7 @@ html.has-scroll-lock .site-header {
   --site-cta-lead: rgb(255 255 255 / 0.5);
   --site-cta-active: #fff;
   --site-cta-past: #636363;
-  background: var(--bx-variant-black);
+  background: var(--color-surface-dark);
   color: #fff;
   font-family: var(--font-sans);
 }
@@ -1431,7 +1429,7 @@ html.has-scroll-lock .site-header {
 
 /* Site footer — Blackstone `.site-footer` at 80em / 90em. See docs/refs/bx-footer.md. */
 .site-footer {
-  background: #000;
+  background: var(--color-surface-dark);
   color: #fff;
   flex-shrink: 0;
   width: 100%;
@@ -1861,8 +1859,8 @@ html.has-scroll-lock .site-header {
 }
 
 .bx-acc-item.is-open .bx-acc-icon {
-  background-color: #0a0a0a;
-  border-color: #0a0a0a;
+  background-color: var(--bx-black);
+  border-color: var(--bx-black);
   color: #fff;
   transform: rotate(180deg);
 }
@@ -1926,9 +1924,9 @@ html.has-scroll-lock .site-header {
 .bx-accordion--strategies .bx-acc-item.is-open .bx-acc-icon {
   width: 2rem;
   height: 2rem;
-  border: 1px solid #0a0a0a;
+  border: 1px solid var(--bx-black);
   border-radius: 50%;
-  background-color: #0a0a0a;
+  background-color: var(--bx-black);
   color: #fff;
 }
 
@@ -1975,7 +1973,7 @@ html.has-scroll-lock .site-header {
 
 /* BXCI “What we do”: black band, 10-col statement, portrait left (1–6), list right (8–12). */
 .what-we-do {
-  background: #0a0a0a;
+  background: var(--bx-black);
   color: #fff;
 }
 
@@ -1993,7 +1991,7 @@ html.has-scroll-lock .site-header {
 
 .what-we-do-media {
   min-height: 20rem;
-  background: #111;
+  background: var(--bx-black);
   align-self: start;
 }
 
@@ -2042,7 +2040,7 @@ html.has-scroll-lock .site-header {
 }
 
 .statement-band {
-  background: #0a0a0a;
+  background: var(--bx-black);
   color: #fff;
 }
 
@@ -2074,7 +2072,7 @@ html.has-scroll-lock .site-header {
 
 .statement-media {
   min-height: 16rem;
-  background: #111;
+  background: var(--bx-black);
 }
 
 .statement-media img,
@@ -2097,7 +2095,7 @@ html.has-scroll-lock .site-header {
 }
 
 .insights-cta {
-  background: #0a0a0a;
+  background: var(--bx-black);
   color: #fff;
 }
 
@@ -2115,7 +2113,7 @@ html.has-scroll-lock .site-header {
 
 .insights-cta-media {
   min-height: 16rem;
-  background: #111;
+  background: var(--bx-black);
 }
 
 .insights-cta-media img,

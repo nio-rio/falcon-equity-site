@@ -31,8 +31,9 @@
   .button-040:is(:hover, :focus-visible) .button-040__text-wrap, [data-hover]:is(:hover, :focus-visible) .button-040 .button-040__text-wrap { translate: 0 0 0; transition: translate 0.735s 0.05s var(--button-040-ease-hover); }
 }
 
-/* Falcon palette (ink / white only — no purple). Light sits on dark
-   surfaces; dark sits on white. Nav follows `.is-color-theme-dark`. */
+/* Falcon palette via --button-040-* only (Lilac / Martinique — no purple,
+   not Martinique Darker). Light sits on dark surfaces; dark sits on white.
+   Nav follows `.is-color-theme-dark`. */
 .button-040 {
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -45,34 +46,34 @@
 }
 
 .button-040--light {
-  --button-040-color: #000000;
-  --button-040-color-background: #ffffff;
-  --button-040-color-arrow: #ffffff;
-  --button-040-color-arrow-background: #000000;
-  --button-040-color-focus: #ffffff;
+  --button-040-color: var(--bx-martinique);
+  --button-040-color-background: var(--bx-lilac);
+  --button-040-color-arrow: var(--bx-lilac);
+  --button-040-color-arrow-background: var(--bx-martinique);
+  --button-040-color-focus: var(--bx-lilac);
 }
 
 .button-040--dark {
-  --button-040-color: #ffffff;
-  --button-040-color-background: #000000;
-  --button-040-color-arrow: #000000;
-  --button-040-color-arrow-background: #ffffff;
-  --button-040-color-focus: #000000;
+  --button-040-color: var(--bx-lilac);
+  --button-040-color-background: var(--bx-martinique);
+  --button-040-color-arrow: var(--bx-martinique);
+  --button-040-color-arrow-background: var(--bx-lilac);
+  --button-040-color-focus: var(--bx-martinique);
 }
 
 .site-header .button-040 {
   font-size: 0.875rem;
-  --button-040-color: #ffffff;
-  --button-040-color-background: #000000;
-  --button-040-color-arrow: #000000;
-  --button-040-color-arrow-background: #ffffff;
-  --button-040-color-focus: #000000;
+  --button-040-color: var(--bx-lilac);
+  --button-040-color-background: var(--bx-martinique);
+  --button-040-color-arrow: var(--bx-martinique);
+  --button-040-color-arrow-background: var(--bx-lilac);
+  --button-040-color-focus: var(--bx-martinique);
 }
 
 .site-header.is-color-theme-dark .button-040 {
-  --button-040-color: #000000;
-  --button-040-color-background: #ffffff;
-  --button-040-color-arrow: #ffffff;
-  --button-040-color-arrow-background: #000000;
-  --button-040-color-focus: #ffffff;
+  --button-040-color: var(--bx-martinique);
+  --button-040-color-background: var(--bx-lilac);
+  --button-040-color-arrow: var(--bx-lilac);
+  --button-040-color-arrow-background: var(--bx-martinique);
+  --button-040-color-focus: var(--bx-lilac);
 }
