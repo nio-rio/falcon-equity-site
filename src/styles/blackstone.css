@@ -640,7 +640,7 @@ a:focus-visible .link-draw,
 .primary-nav__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 2;
   pointer-events: auto;
   background-color: rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(5px);
@@ -924,7 +924,9 @@ a:focus-visible .link-draw,
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    z-index: 4;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
     padding: 0;
     background: var(--nav-bg);
     color: var(--nav-copy);
