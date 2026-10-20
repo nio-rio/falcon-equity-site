@@ -1460,6 +1460,10 @@ for (const vp of VIEWPORTS) {
     const ctaN = await page.locator('[data-site-cta]').count();
     log({ ...tag, check: 'site-cta-once', ok: ctaN === 1, detail: `count=${ctaN}` });
     await page.waitForSelector('.site-cta__phrase.is-active');
+    await page.waitForFunction(() => {
+      const active = document.querySelector('.site-cta__phrase.is-active');
+      return Boolean(active) && getComputedStyle(active).color === 'rgb(255, 255, 255)';
+    });
     const ctaChrome = await page.evaluate(() => {
       const cta = document.querySelector('[data-site-cta]');
       const footer = document.querySelector('.site-footer');
