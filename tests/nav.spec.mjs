@@ -694,9 +694,19 @@ for (const vp of VIEWPORTS) {
           detail: JSON.stringify(after),
         });
 
-        await page.emulateMedia({ reducedMotion: 'reduce' });
-        await page.waitForTimeout(200);
-        const reduced = await page.evaluate(() => {
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForFunction(() => {
+          const h = document.querySelector('[data-header]');
+          return h?.classList.contains('is-color-theme-dark');
+        });
+
+        const reducedCtx = await browser.newContext({
+          viewport: { width: vp.width, height: vp.height },
+          reducedMotion: 'reduce',
+        });
+        const reducedPage = await reducedCtx.newPage();
+        await reducedPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+        const reduced = await reducedPage.evaluate(() => {
           const label = document.querySelector('.pilot-stats-feat-label');
           const title = document.querySelector('.pilot-ll-head h2');
           const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
@@ -717,12 +727,7 @@ for (const vp of VIEWPORTS) {
             (reduced.mediaOpacity == null || reduced.mediaOpacity === '1'),
           detail: JSON.stringify(reduced),
         });
-        await page.emulateMedia({ reducedMotion: 'no-preference' });
-        await page.evaluate(() => window.scrollTo(0, 0));
-        await page.waitForFunction(() => {
-          const h = document.querySelector('[data-header]');
-          return h?.classList.contains('is-color-theme-dark');
-        });
+        await reducedCtx.close();
       }
     } else {
       log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
