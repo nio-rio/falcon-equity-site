@@ -1610,7 +1610,7 @@ h2.primary-nav-widget__title {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--bx-space-32) var(--bx-space-24);
+    gap: var(--bx-space-40);
     padding-block: 0;
     text-align: left;
   }

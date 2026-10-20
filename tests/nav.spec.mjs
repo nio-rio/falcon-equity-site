@@ -1323,7 +1323,9 @@ for (const vp of VIEWPORTS) {
         (el) => !el.classList.contains('is-active') && !el.classList.contains('is-past'),
       );
       const cs = btn ? getComputedStyle(btn) : null;
-      const heading = [...document.querySelectorAll('h2')].find((el) => !el.classList.contains('sr-only'));
+      const heading = [...document.querySelectorAll('h2')].find(
+        (el) => !el.classList.contains('sr-only') && !el.classList.contains('primary-nav-widget__title'),
+      );
       const headingCs = heading ? getComputedStyle(heading) : null;
       const bodyFont = getComputedStyle(document.body).fontFamily;
       const leadCs = lead ? getComputedStyle(lead) : null;
