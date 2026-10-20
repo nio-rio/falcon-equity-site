@@ -11,6 +11,7 @@ interface Props {
   labeled?: boolean;
   priority?: boolean;
   sizes?: string;
+  widths?: number[];
   class?: string;
 }
 
@@ -22,6 +23,7 @@ const {
   labeled = false,
   priority = false,
   sizes = '100vw',
+  widths = [640, 960, 1280, 1920, 2560],
   class: className,
 } = Astro.props;
 const label = `Image placeholder: ${intent} (${ratio.replace(/\s/g, '')})`;
@@ -34,7 +36,7 @@ const accessibleName = alt || label;
       <Picture
         src={image}
         alt={alt ?? ''}
-        widths={[640, 960, 1280, 1920, 2560]}
+        widths={widths}
         sizes={sizes}
         formats={['avif', 'webp']}
         class="media-img"
