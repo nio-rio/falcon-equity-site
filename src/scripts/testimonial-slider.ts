@@ -75,33 +75,50 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
     nameSplit: null,
   }));
 
-  const splitOne = (el: HTMLElement | null, active: boolean) => {
+  const splitVars = (el: HTMLElement): SplitText.Vars => ({
+    type: 'lines',
+    mask: 'lines',
+    linesClass: 'pilot-ann-line',
+    autoSplit: true,
+    onSplit(self) {
+      if (isAnimating) return;
+      const item = el.closest('[data-testimonial-item]');
+      const on = item?.classList.contains('is--active');
+      gsap.set(self.lines, { yPercent: on ? 0 : 110 });
+    },
+  });
+
+  const splitOne = (el: HTMLElement | null) => {
     if (!el || reduce) return null;
-    return SplitText.create(el, {
-      type: 'lines',
-      mask: 'lines',
-      linesClass: 'pilot-ann-line',
-      autoSplit: true,
-      onSplit(self) {
-        gsap.set(self.lines, { yPercent: active ? 0 : 110 });
-      },
-    });
+    return SplitText.create(el, splitVars(el));
   };
 
-  slides.forEach((slide, i) => {
-    const active = i === index;
-    slide.textSplit = splitOne(slide.textEl, active);
-    slide.nameSplit = splitOne(slide.nameEl, active);
-    if (slide.imgEl) {
-      gsap.set(slide.imgEl, { clipPath: reduce ? 'none' : active ? CLIP_ON : CLIP_OFF });
-    }
-    gsap.set(slide.item, { autoAlpha: active ? 1 : 0 });
-  });
+  const withVisible = (el: HTMLElement, fn: () => void) => {
+    const { visibility, opacity } = el.style;
+    el.style.visibility = 'visible';
+    el.style.opacity = '1';
+    fn();
+    el.style.visibility = visibility;
+    el.style.opacity = opacity;
+  };
 
   const linesOf = (slide: Slide) => [
     ...(slide.textSplit?.lines ?? []),
     ...(slide.nameSplit?.lines ?? []),
   ];
+
+  slides.forEach((slide, i) => {
+    const active = i === index;
+    withVisible(slide.item, () => {
+      slide.textSplit = splitOne(slide.textEl);
+      slide.nameSplit = splitOne(slide.nameEl);
+    });
+    if (!active) gsap.set(linesOf(slide), { yPercent: 110 });
+    if (slide.imgEl) {
+      gsap.set(slide.imgEl, { clipPath: reduce ? 'none' : active ? CLIP_ON : CLIP_OFF });
+    }
+    gsap.set(slide.item, { autoAlpha: active ? 1 : 0 });
+  });
 
   const updateChrome = () => {
     items.forEach((el, i) => {
@@ -160,6 +177,8 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
     }
 
     gsap.set(incoming.item, { autoAlpha: 1 });
+    if (incoming.textEl) incoming.textSplit?.split(splitVars(incoming.textEl));
+    if (incoming.nameEl) incoming.nameSplit?.split(splitVars(incoming.nameEl));
     const inLines = linesOf(incoming);
     const outLines = linesOf(outgoing);
     if (inLines.length) gsap.set(inLines, { yPercent: 110 });

@@ -136,14 +136,30 @@ for (const vp of VIEWPORTS) {
     }),
   });
 
+  await page.locator('.pilot-ann').screenshot({ path: `${OUT}/testimonial-${vp.name}.png` });
+
   if (vp.name === '1440') {
     await page.locator('[data-next]').click();
     await page.waitForTimeout(1600);
     const after = await page.evaluate(() => {
       const item = document.querySelector('[data-testimonial-item].is--active');
+      const quote = item?.querySelector('[data-testimonial-text]');
+      const lines = [...(item?.querySelectorAll('.pilot-ann-line') ?? [])];
+      const linesAtRest =
+        lines.length > 0 &&
+        lines.every((el) => {
+          const t = getComputedStyle(el).transform;
+          if (t === 'none') return true;
+          const m = t.match(/matrix\(([^)]+)\)/);
+          if (!m) return false;
+          const ty = Number(m[1].split(',')[5]);
+          return Number.isFinite(ty) && Math.abs(ty) < 2;
+        });
       return {
-        quote: item?.querySelector('[data-testimonial-text]')?.textContent.replace(/\s+/g, ' ').trim() || '',
+        quote: quote?.textContent.replace(/\s+/g, ' ').trim() || '',
         business: item?.querySelector('[data-testimonial-split]')?.textContent.trim() || '',
+        lineCount: lines.length,
+        linesAtRest,
       };
     });
     log({
@@ -153,12 +169,13 @@ for (const vp of VIEWPORTS) {
         after.business === 'Retail business' &&
         after.quote.includes('game-changer for my retail business') &&
         after.quote.startsWith('“') &&
-        after.quote.endsWith('”'),
+        after.quote.endsWith('”') &&
+        after.linesAtRest,
       detail: JSON.stringify(after),
     });
+    await page.locator('.pilot-ann').screenshot({ path: `${OUT}/testimonial-1440-next.png` });
   }
 
-  await page.locator('.pilot-ann').screenshot({ path: `${OUT}/testimonial-${vp.name}.png` });
   await context.close();
 }
 
