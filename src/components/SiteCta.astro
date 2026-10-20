@@ -1,4 +1,6 @@
 ---
+import Button040 from './Button040.astro';
+
 const phrases = [
   'manage cash flow',
   'buy equipment',
@@ -29,7 +31,7 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
           </span>
         </span>
       </p>
-      <a class="site-cta__btn" href="/apply">Apply for funding</a>
+      <Button040 class="site-cta__btn" href="/apply" label="Apply for funding" variant="light" />
     </div>
   </div>
 </section>

@@ -217,6 +217,75 @@ const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
 const SLATE_2 = 'rgb(213, 216, 223)';
+const APPLY_LIGHT = {
+  color: 'rgb(0, 0, 0)',
+  textBg: 'rgb(255, 255, 255)',
+  arrow: 'rgb(255, 255, 255)',
+  arrowBg: 'rgb(0, 0, 0)',
+  focus: '#ffffff',
+};
+const APPLY_DARK = {
+  color: 'rgb(255, 255, 255)',
+  textBg: 'rgb(0, 0, 0)',
+  arrow: 'rgb(0, 0, 0)',
+  arrowBg: 'rgb(255, 255, 255)',
+  focus: '#000000',
+};
+
+const readButton040 = (page, sel) =>
+  page.evaluate((selector) => {
+    const btn = document.querySelector(selector);
+    if (!btn) return null;
+    const textWrap = btn.querySelector('.button-040__text-wrap');
+    const text = btn.querySelector('.button-040__text');
+    const dup = btn.querySelector('.button-040__icon-wrap.is--duplicate');
+    const icon = dup?.querySelector('.button-040__icon');
+    const svgs = [...btn.querySelectorAll('svg')];
+    const cs = getComputedStyle(btn);
+    const tcs = textWrap ? getComputedStyle(textWrap) : null;
+    const dcs = dup ? getComputedStyle(dup) : null;
+    const ics = icon ? getComputedStyle(icon) : null;
+    const header = document.querySelector('[data-header]');
+    const hr = header?.getBoundingClientRect();
+    const br = btn.getBoundingClientRect();
+    return {
+      href: btn.getAttribute('href'),
+      aria: btn.getAttribute('aria-label'),
+      visible: text?.textContent?.trim() || '',
+      color: cs.color,
+      textBg: tcs?.backgroundColor || null,
+      radius: tcs?.borderRadius || null,
+      arrow: ics?.color || null,
+      arrowBg: dcs?.backgroundColor || null,
+      focus: cs.getPropertyValue('--button-040-color-focus').trim(),
+      height: br.height,
+      headerH: hr?.height ?? null,
+      svgCount: svgs.length,
+      svgsHidden: svgs.length > 0 && svgs.every((s) => s.getAttribute('aria-hidden') === 'true'),
+    };
+  }, sel);
+
+const normFocus = (c) => {
+  const n = String(c || '')
+    .replace(/\s/g, '')
+    .toLowerCase();
+  if (n === '#fff' || n === '#ffffff' || n === 'rgb(255,255,255)' || n === 'white') return '#ffffff';
+  if (n === '#000' || n === '#000000' || n === 'rgb(0,0,0)' || n === 'black') return '#000000';
+  return n;
+};
+
+const button040Matches = (got, expected) =>
+  Boolean(got) &&
+  got.href === '/apply' &&
+  got.aria === 'Apply for funding' &&
+  got.visible === 'Apply for funding' &&
+  got.color === expected.color &&
+  got.textBg === expected.textBg &&
+  got.arrow === expected.arrow &&
+  got.arrowBg === expected.arrowBg &&
+  normFocus(got.focus) === expected.focus &&
+  got.svgsHidden &&
+  got.svgCount === 2;
 
 const readPanelChrome = (page) =>
   page.evaluate(() => {
@@ -364,7 +433,10 @@ for (const vp of VIEWPORTS) {
     log({
       ...tag,
       check: 'logo-no-overlap',
-      ok: !overlap.logoTools && !overlap.logoNav,
+      ok:
+        !overlap.logoTools &&
+        !overlap.logoNav &&
+        (vp.mode !== 'desktop' || !overlap.navTools),
       detail: JSON.stringify(overlap),
     });
 
@@ -413,6 +485,35 @@ for (const vp of VIEWPORTS) {
 
     const applyHref = await page.locator('a.site-header__apply[href="/apply"]').first().getAttribute('href');
     log({ ...tag, check: 'apply-href', ok: applyHref === '/apply' });
+    const applyCount = await page.locator('.site-header [data-button-040][href="/apply"]').count();
+    const applySel =
+      vp.mode === 'desktop' ? '.site-header__apply--bar' : '.site-header__cta--menu [data-button-040]';
+    const apply040 = await readButton040(page, applySel);
+    const applyExpected = theme.dark ? APPLY_LIGHT : APPLY_DARK;
+    log({
+      ...tag,
+      check: 'apply-040-present',
+      ok: applyCount >= 2 && apply040?.href === '/apply',
+      detail: JSON.stringify({ applyCount, href: apply040?.href }),
+    });
+    log({
+      ...tag,
+      check: 'apply-040-theme',
+      ok: button040Matches(apply040, applyExpected),
+      detail: JSON.stringify({ dark: theme.dark, apply040, expected: applyExpected }),
+    });
+    if (vp.mode === 'desktop') {
+      log({
+        ...tag,
+        check: 'apply-040-fits-bar',
+        ok:
+          apply040 != null &&
+          apply040.headerH != null &&
+          apply040.height > 0 &&
+          apply040.height <= apply040.headerH - 8,
+        detail: JSON.stringify({ height: apply040?.height, headerH: apply040?.headerH }),
+      });
+    }
 
     const ctaN = await page.locator('[data-site-cta]').count();
     log({ ...tag, check: 'site-cta-once', ok: ctaN === 1, detail: `count=${ctaN}` });
@@ -420,7 +521,7 @@ for (const vp of VIEWPORTS) {
     const ctaChrome = await page.evaluate(() => {
       const cta = document.querySelector('[data-site-cta]');
       const footer = document.querySelector('.site-footer');
-      const btn = document.querySelector('.site-cta__btn');
+      const btn = document.querySelector('.site-cta [data-button-040]');
       const lead = document.querySelector('.site-cta__lead');
       const tail = document.querySelector('.site-cta__tail');
       const sr = document.querySelector('#site-cta-heading');
@@ -485,15 +586,12 @@ for (const vp of VIEWPORTS) {
       ok: ctaChrome.beforeFooter,
       detail: JSON.stringify(ctaChrome),
     });
+    const cta040 = await readButton040(page, '.site-cta [data-button-040]');
     log({
       ...tag,
-      check: 'site-cta-white-pill',
-      ok:
-        ctaChrome.href === '/apply' &&
-        ctaChrome.bg === 'rgb(255, 255, 255)' &&
-        (ctaChrome.radius === '100rem' || parseFloat(ctaChrome.radius) >= 100) &&
-        ctaChrome.color === 'rgb(32, 32, 32)',
-      detail: JSON.stringify(ctaChrome),
+      check: 'site-cta-apply-040',
+      ok: button040Matches(cta040, APPLY_LIGHT),
+      detail: JSON.stringify(cta040),
     });
     log({
       ...tag,
@@ -787,6 +885,13 @@ for (const vp of VIEWPORTS) {
           };
         });
         log({ ...tag, check: 'home-theme-light-on-scroll', ok: !scrolled.dark, detail: JSON.stringify(scrolled) });
+        const applyScrolled = await readButton040(page, applySel);
+        log({
+          ...tag,
+          check: 'apply-040-theme-scrolled',
+          ok: button040Matches(applyScrolled, APPLY_DARK),
+          detail: JSON.stringify(applyScrolled),
+        });
         const typeScrolled = await readTypeChrome(page);
         log({
           ...tag,

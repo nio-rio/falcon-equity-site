@@ -1,6 +1,7 @@
 /* Blackstone / BREIT motion, grid, and chrome. Loaded after global.css.
    Tokens live in tokens.css.
    Leave .btn-outline-dark in global.css. */
+@import './button-040.css';
 
 html {
   scroll-padding-top: var(--bx-header);
@@ -704,35 +705,6 @@ html.has-scroll-lock .site-header {
 
 .site-header__apply {
   display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 0.65rem 1.15rem;
-  border: 1px solid #000;
-  background: #000;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.25;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.site-header.is-color-theme-dark .site-header__apply {
-  border-color: #fff;
-  background: #fff;
-  color: #000;
-}
-
-.site-header__apply:hover,
-.site-header__apply:focus-visible {
-  background: #202020;
-  color: #fff;
-}
-
-.site-header.is-color-theme-dark .site-header__apply:hover,
-.site-header.is-color-theme-dark .site-header__apply:focus-visible {
-  background: #f4f5f7;
-  color: #000;
 }
 
 .site-header__cta--menu {
@@ -1012,7 +984,7 @@ html.has-scroll-lock .site-header {
 .primary-nav__list-item-link:focus-visible,
 .primary-nav__toggle:focus-visible,
 .site-header__logo:focus-visible,
-.site-header__apply:focus-visible,
+.site-header__apply:not(.button-040):focus-visible,
 .site-header__tel:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
@@ -1366,35 +1338,8 @@ html.has-scroll-lock .site-header {
 }
 
 .site-cta__btn {
-  display: inline-flex;
   flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid #fff;
-  border-radius: 100rem;
-  background: #fff;
-  color: var(--bx-variant-black);
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
-.site-cta__btn:hover,
-.site-cta__btn:focus-visible {
-  border-color: #dadada;
-  background: #dadada;
-  color: var(--bx-variant-black);
-}
-
-.site-cta__btn:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
+  align-self: center;
 }
 
 .site-cta.is-static .site-cta__wheel {
@@ -1472,8 +1417,7 @@ html.has-scroll-lock .site-header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-cta__phrase,
-  .site-cta__btn {
+  .site-cta__phrase {
     transition: none;
   }
 

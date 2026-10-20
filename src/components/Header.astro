@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import Logo from './Logo.astro';
 import CircleArrow from './CircleArrow.astro';
+import Button040 from './Button040.astro';
 import { SERVICES } from '@/data/services';
 import { INDUSTRIES } from '@/data/industries';
 import { FIRM_LINKS, PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
@@ -172,7 +173,7 @@ const nav = [
             <a class="site-header__tel" href={PRIMARY_PHONE.href}
               ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
             >
-            <a class="site-header__apply" href="/apply">Apply for funding</a>
+            <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
           </div>
         </div>
       </nav>
@@ -181,7 +182,12 @@ const nav = [
         <a class="site-header__tel site-header__tel--bar" href={PRIMARY_PHONE.href}
           ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
         >
-        <a class="site-header__apply site-header__apply--bar" href="/apply">Apply for funding</a>
+        <Button040
+          class="site-header__apply site-header__apply--bar"
+          href="/apply"
+          label="Apply for funding"
+          variant="dark"
+        />
         <button
           type="button"
           class="primary-nav__toggle"
