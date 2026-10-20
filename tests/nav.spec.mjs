@@ -422,7 +422,15 @@ for (const vp of VIEWPORTS) {
       const btn = document.querySelector('.site-cta__btn');
       const cs = btn ? getComputedStyle(btn) : null;
       return {
-        beforeFooter: Boolean(cta && footer && cta.nextElementSibling === footer),
+        beforeFooter: Boolean(
+          cta &&
+            footer &&
+            (() => {
+              let n = cta.nextElementSibling;
+              while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+              return n === footer;
+            })(),
+        ),
         href: btn?.getAttribute('href') || null,
         bg: cs?.backgroundColor || null,
         radius: cs?.borderRadius || null,
@@ -964,7 +972,10 @@ const sitemapPaths = async () => {
       ? await page.evaluate(() => {
           const cta = document.querySelector('[data-site-cta]');
           const footer = document.querySelector('.site-footer');
-          return Boolean(cta && footer && cta.nextElementSibling === footer);
+          if (!cta || !footer) return false;
+          let n = cta.nextElementSibling;
+          while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+          return n === footer;
         })
       : false;
     log({
