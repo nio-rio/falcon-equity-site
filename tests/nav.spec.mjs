@@ -860,6 +860,8 @@ for (const vp of VIEWPORTS) {
           tapeHref: tape?.getAttribute('href') || '',
           tapeLabel: tape?.getAttribute('aria-label') || '',
           note,
+          hasDagger: Boolean(section?.textContent.includes('†')),
+          hasTimingNote: Boolean(section?.textContent.includes('Funding timing depends on approval')),
           afterTabs: Boolean(tabs && section && nextBand(tabs) === section),
           beforeNews: Boolean(news && section && nextBand(section) === news),
           bg: section ? getComputedStyle(section).backgroundColor : null,
@@ -879,13 +881,16 @@ for (const vp of VIEWPORTS) {
           why.rows[0].body.includes('without going through a third party') &&
           why.rows[1].title === 'Same-Day Funding' &&
           why.rows[1].body.includes('same day') &&
+          !why.rows[1].body.includes('†') &&
           why.rows[2].title === 'No hard credit pulls' &&
           why.rows[2].body.includes('without affecting your credit score') &&
           why.rows.every((row) => !row.hasIcon && !row.isLink) &&
           why.rows.map((row) => row.step).join(',') === '1,2,3' &&
           why.tapeHref === '/apply' &&
           why.tapeLabel === 'Apply for funding' &&
-          why.note.includes('Funding timing depends on approval') &&
+          why.note === '' &&
+          why.hasDagger === false &&
+          why.hasTimingNote === false &&
           why.bg === 'rgb(20, 16, 31)',
         detail: JSON.stringify(why),
       });

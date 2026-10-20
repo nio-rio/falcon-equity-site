@@ -33,4 +33,5 @@ flex `row-reverse` (legal right, copyright left).
 Falcon maps this onto `.site-footer` with the Falcon lockup and two nav columns
 (Quick Links, Get in Touch). The X profile is a Get in Touch text link, not a
 Social column. Real Falcon URLs only. No funding/broker disclaimer — the previous footer
-did not have one.
+did not have one. If a disclaimer is ever legally required, it belongs here in the
+footer, never under a CTA. Nothing near a call to action should give the user second thoughts.

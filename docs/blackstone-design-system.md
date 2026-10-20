@@ -284,7 +284,8 @@ Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up
 - Dark band `--bx-black` `#14101f`. Eyebrow + short rule, serif H2 left (32 / 40 / 48), indented 18px body, circle-arrow “Learn how it works” → `/how-it-works`.
 - Right card (`color-mix(#fff 8%, #14101f)`): three rows, hairlines, step numbers 1–3 in At Gambit (not links; no circle arrows).
 - Giant serif marquee “**Apply** for funding” at 125px/s, whole strip → `/apply`. Pauses under `prefers-reduced-motion`.
-- Fine-print footnote for †. Scroll-in uses the headers preset (title / body / CTA / card).
+- No funding-timing footnote and no † after “same day.” Scroll-in uses the headers preset (title / body / CTA / card).
+- **Disclaimers:** nothing near a call to action should give the user second thoughts. If a disclaimer is ever legally needed, it belongs in the footer, never under a CTA. Do not park it under Why choose us, the Apply tape, or `.site-cta`.
 
 ### Cards
 
@@ -319,11 +320,11 @@ Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats
 
 ### CTA band
 
-Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both in the site heading face (`--font-display` / `--bx-fw-light`, same as home section h2s; no “for your business” tail). Gap from the sentence to Apply is `--bx-space-40` (one step up from 32). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, Martinique Lighter `#605a7b` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. Noticeably larger than the nav Apply: 1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em (height 3em). `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
+Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Band background is `--color-surface-dark` (same token as the footer: Martinique Darker `#14101f`). Modeled on Govwell’s `.section_cta`: sentence “Need funding to” + eight rotating phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt), both in the site heading face (`--font-display` / `--bx-fw-light`, same as home section h2s; no “for your business” tail). Gap from the sentence to Apply is `--bx-space-40` (one step up from 32). Screen-reader heading lists them in that order with “or” before the last. Pitch is **4.5rem** (1.5× the prior 3rem) in a 7-line wrap so the active line shares a baseline with the lead. Plain white on the active line, Martinique Lighter `#605a7b` on lines above, white/50 on the rest. Apply is Ling’s `.button-040` light variant (Lilac pill, Martinique type and arrow-circle) → `/apply`. Noticeably larger than the nav Apply: 1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em (height 3em). `prefers-reduced-motion` collapses to a static line. Blog still uses the Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band. Nothing near a call to action should give the user second thoughts: disclaimers go in the footer, never under a CTA.
 
 ### Footer
 
-Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-left (cols 1–4 of 16). Two columns on the right — Quick Links and Get in Touch. The X profile sits in Get in Touch as a text link (`site-footer__link`), not a separate Social column. Real Falcon URLs only (X is the only social; no invented LinkedIn/Instagram). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). The Govwell-style `.site-cta` wheel sits immediately above this footer. The previous footer had no funding/broker disclaimer; none added.
+Martinique Darker band (`--color-surface-dark`), white type. Falcon lockup top-left (cols 1–4 of 16). Two columns on the right — Quick Links and Get in Touch. The X profile sits in Get in Touch as a text link (`site-footer__link`), not a separate Social column. Real Falcon URLs only (X is the only social; no invented LinkedIn/Instagram). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). The Govwell-style `.site-cta` wheel sits immediately above this footer. The previous footer had no funding/broker disclaimer; none added. If a disclaimer is ever legally required, it belongs here in the footer — never under a CTA or next to Apply.
 
 ### Forms
 
@@ -337,6 +338,7 @@ BX: floating 14px light label, 16px inset, focus lifts label. Falcon apply uses 
 2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy. Exception: nav Apply and the pre-footer `.site-cta` use Ling’s `.button-040` pill (sliding text + arrow-circle). Light on dark surfaces, dark on the white header. No purple.
 3. `.btn-outline-dark` stays in `global.css`. No purple fills.
 4. No fabricated people, quotes, numbers, or testimonials. Home testimonials are the three Ling-supplied quotes; placeholder credits (`Falcon client`) stay marked until real names are confirmed.
+5. Nothing near a call to action should give the user second thoughts. Disclaimers go in the footer, never under a CTA.
 
 ---
 
