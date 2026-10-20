@@ -378,38 +378,82 @@ const readNavWidget = (page) =>
     };
   });
 
+const contrastRecord = (fg, bg, fontPx = 16, weight = 400, ui = false) => {
+  const ratio = contrastRatio(fg, bg);
+  const min = ui ? 3 : aaMin(fontPx, weight);
+  return {
+    ratio: roundRatio(ratio),
+    min,
+    ok: ratio + 1e-6 >= min,
+    fontPx: Number.isFinite(fontPx) ? roundRatio(fontPx) : null,
+    weight,
+  };
+};
+
 const widgetPasses = (got, expected) => {
   const ratios = {};
-  if (!got?.visible || got.count !== 1) return { ok: false, ratios, reason: 'missing-widget' };
+  if (!got?.visible || got.count !== 1) {
+    return { ok: false, colorsOk: false, contrastOk: false, ratios, reason: 'missing-widget' };
+  }
   const checkText = (name, node, required) => {
     if (!node) {
-      ratios[name] = null;
+      ratios[name] = required ? { ratio: 0, min: 4.5, ok: false } : null;
       return !required;
     }
-    const ratio = contrastRatio(node.color, got.bg);
-    const min = aaMin(parseFloat(node.fontSize), node.fontWeight);
-    ratios[name] = roundRatio(ratio);
-    return ratio + 1e-6 >= min && node.color === expected.copy;
+    const rec = contrastRecord(node.color, got.bg, parseFloat(node.fontSize), node.fontWeight);
+    rec.colorOk = node.color === expected.copy;
+    ratios[name] = rec;
+    return rec.ok;
   };
   const titleOk = checkText('title', got.title, true);
   const bodyOk = checkText('body', got.body, true);
   const linkOk = checkText('link', got.link, true);
   const labelOk = checkText('label', got.label, true);
   const eyebrowOk = checkText('eyebrow', got.eyebrow, false);
-  const circleCard = got.circle ? contrastRatio(got.circle.bg, got.bg) : 0;
-  const arrowCircle = got.circle ? contrastRatio(got.circle.color, got.circle.bg) : 0;
-  ratios.circleOnCard = roundRatio(circleCard);
-  ratios.arrowOnCircle = roundRatio(arrowCircle);
+  const circleOnCard = got.circle
+    ? contrastRecord(got.circle.bg, got.bg, 24, 400, true)
+    : { ratio: 0, min: 3, ok: false };
+  const arrowOnCircle = got.circle
+    ? contrastRecord(got.circle.color, got.circle.bg, 24, 400, true)
+    : { ratio: 0, min: 3, ok: false };
+  ratios.circleOnCard = circleOnCard;
+  ratios.arrowOnCircle = arrowOnCircle;
   const colorsOk =
     got.bg === expected.bg &&
     got.circle?.bg === expected.circleBg &&
     got.circle?.color === expected.circleFg &&
     got.link?.href === '/apply' &&
     got.title?.text === 'Apply for funding' &&
-    got.label?.text === 'Learn More';
-  const contrastOk = titleOk && bodyOk && linkOk && labelOk && eyebrowOk && circleCard >= 3 && arrowCircle >= 3;
-  return { ok: colorsOk && contrastOk, ratios };
+    got.label?.text === 'Learn More' &&
+    ratios.title?.colorOk &&
+    ratios.body?.colorOk &&
+    ratios.link?.colorOk &&
+    ratios.label?.colorOk &&
+    (got.eyebrow == null || ratios.eyebrow?.colorOk);
+  const contrastOk =
+    titleOk && bodyOk && linkOk && labelOk && eyebrowOk && circleOnCard.ok && arrowOnCircle.ok;
+  return { ok: colorsOk && contrastOk, colorsOk, contrastOk, ratios };
 };
+
+const widgetContrastReports = [];
+const recordWidgetContrast = (tag, state, themeName, check) => {
+  widgetContrastReports.push({
+    vp: tag.vp,
+    page: tag.page,
+    state,
+    theme: themeName,
+    ok: check.contrastOk,
+    ratios: check.ratios,
+  });
+};
+
+const formatWidgetDetail = (themeName, got, check) =>
+  JSON.stringify({
+    theme: themeName,
+    bg: got?.bg || null,
+    dark: got?.dark ?? null,
+    ratios: check.ratios,
+  });
 
 const button040Matches = (got, expected) =>
   Boolean(got) &&
@@ -837,6 +881,15 @@ for (const vp of VIEWPORTS) {
       detail: xHoverSize,
     });
     await page.locator('.site-header__logo').hover();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(200);
+    if (pg.name === 'home') {
+      await page.waitForFunction(
+        () =>
+          window.scrollY < 8 &&
+          document.querySelector('[data-header]')?.classList.contains('is-color-theme-dark'),
+      );
+    }
     log({
       ...tag,
       check: 'site-cta-lead-body-font',
@@ -1051,31 +1104,32 @@ for (const vp of VIEWPORTS) {
       await resourcesTrigger.hover();
       await page.waitForTimeout(200);
       const expectedWidget = theme.dark ? WIDGET_DARK : WIDGET_LIGHT;
+      const themeName = theme.dark ? 'dark' : 'light';
       const widgetRest = await readNavWidget(page);
       const widgetRestCheck = widgetPasses(widgetRest, expectedWidget);
+      recordWidgetContrast(tag, 'rest', themeName, widgetRestCheck);
       log({
         ...tag,
         check: 'nav-widget-theme',
-        ok: widgetRestCheck.ok && widgetRest.dark === theme.dark,
-        detail: JSON.stringify({
-          theme: theme.dark ? 'dark' : 'light',
-          ratios: widgetRestCheck.ratios,
-          got: widgetRest,
-        }),
+        ok: widgetRestCheck.colorsOk && widgetRest.dark === theme.dark,
+        detail: formatWidgetDetail(themeName, widgetRest, widgetRestCheck),
+      });
+      log({
+        ...tag,
+        check: 'nav-widget-contrast',
+        ok: widgetRestCheck.contrastOk,
+        detail: formatWidgetDetail(themeName, widgetRest, widgetRestCheck),
       });
       await page.locator('#menu-resources .arrow-cta').hover();
       await page.waitForTimeout(300);
       const widgetHover = await readNavWidget(page);
       const widgetHoverCheck = widgetPasses(widgetHover, expectedWidget);
+      recordWidgetContrast(tag, 'hover', themeName, widgetHoverCheck);
       log({
         ...tag,
         check: 'nav-widget-contrast-hover',
         ok: widgetHoverCheck.ok,
-        detail: JSON.stringify({
-          theme: theme.dark ? 'dark' : 'light',
-          ratios: widgetHoverCheck.ratios,
-          got: widgetHover,
-        }),
+        detail: formatWidgetDetail(themeName, widgetHover, widgetHoverCheck),
       });
 
       const second = page.locator('[data-nav-item]').nth(1);
@@ -1175,21 +1229,29 @@ for (const vp of VIEWPORTS) {
         await page.waitForTimeout(200);
         const widgetScrolled = await readNavWidget(page);
         const widgetScrolledCheck = widgetPasses(widgetScrolled, WIDGET_LIGHT);
+        recordWidgetContrast(tag, 'rest-scrolled', 'light', widgetScrolledCheck);
         log({
           ...tag,
           check: 'nav-widget-theme-scrolled',
-          ok: widgetScrolledCheck.ok && widgetScrolled.dark === false,
-          detail: JSON.stringify({ ratios: widgetScrolledCheck.ratios, got: widgetScrolled }),
+          ok: widgetScrolledCheck.colorsOk && widgetScrolled.dark === false,
+          detail: formatWidgetDetail('light', widgetScrolled, widgetScrolledCheck),
+        });
+        log({
+          ...tag,
+          check: 'nav-widget-contrast-scrolled',
+          ok: widgetScrolledCheck.contrastOk,
+          detail: formatWidgetDetail('light', widgetScrolled, widgetScrolledCheck),
         });
         await page.locator('#menu-resources .arrow-cta').hover();
         await page.waitForTimeout(300);
         const widgetScrolledHover = await readNavWidget(page);
         const widgetScrolledHoverCheck = widgetPasses(widgetScrolledHover, WIDGET_LIGHT);
+        recordWidgetContrast(tag, 'hover-scrolled', 'light', widgetScrolledHoverCheck);
         log({
           ...tag,
           check: 'nav-widget-contrast-hover-scrolled',
           ok: widgetScrolledHoverCheck.ok,
-          detail: JSON.stringify({ ratios: widgetScrolledHoverCheck.ratios, got: widgetScrolledHover }),
+          detail: formatWidgetDetail('light', widgetScrolledHover, widgetScrolledHoverCheck),
         });
         await page.keyboard.press('Escape');
         await page.evaluate(() => window.scrollTo(0, 0));
@@ -1492,6 +1554,20 @@ const sitemapPaths = async () => {
 await browser.close();
 
 const failed = results.filter((r) => !r.ok);
+console.log('\n==== NAV WIDGET CONTRAST ====');
+const ratioKeys = ['title', 'body', 'eyebrow', 'link', 'label', 'circleOnCard', 'arrowOnCircle'];
+for (const row of widgetContrastReports) {
+  console.log(`[${row.vp}/${row.page}] ${row.theme} ${row.state}${row.ok ? '' : ' FAIL'}`);
+  for (const key of ratioKeys) {
+    const rec = row.ratios?.[key];
+    if (!rec) {
+      console.log(`  ${key}: n/a`);
+      continue;
+    }
+    const mark = rec.ok ? 'PASS' : 'FAIL';
+    console.log(`  ${key}: ${rec.ratio}:1 (min ${rec.min}:1) ${mark}`);
+  }
+}
 console.log('\n==== SUMMARY ====');
 console.log(`total=${results.length} pass=${results.length - failed.length} fail=${failed.length}`);
 if (failed.length) {
