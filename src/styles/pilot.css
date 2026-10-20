@@ -887,6 +887,7 @@
 .pilot-tabs-menu {
   position: absolute;
   z-index: 10;
+  top: 100%;
   left: 0;
   right: 0;
   margin: 0;
@@ -910,8 +911,7 @@
 }
 
 .pilot-tabs-menu button:hover,
-.pilot-tabs-menu button:focus-visible,
-.pilot-tabs-menu button[aria-selected='true'] {
+.pilot-tabs-menu button:focus-visible {
   background: #fff;
   color: #000;
 }
@@ -1060,8 +1060,8 @@
     display: grid;
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
+    row-gap: 0;
     align-items: start;
-    gap: 0;
   }
 
   .pilot-tabs-copy {
