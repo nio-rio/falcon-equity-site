@@ -290,11 +290,11 @@ Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats
 
 ### CTA band
 
-Removed sitewide. Do not restore a pre-footer Get-funding band. Blog still uses the black Insights split (`.insights-cta`) with a circle-arrow, not a button.
+Sitewide pre-footer wheel (`.site-cta`) sits in `BaseLayout` directly above the footer. Modeled on Govwell’s `.section_cta`: dark `--bx-variant-black` band, At Gambit sentence (“Need funding to” + six rotating phrases + “for your business”), gold `--bx-yellow` on the active line, `#636363` on lines above, white/50 on the rest, 21em masked wheel, white pill “Apply for funding” → `/apply` (not purple). `prefers-reduced-motion` collapses to a static line. Blog still uses the black Insights split (`.insights-cta`) with a circle-arrow in-page; that is not the old Get-funding band.
 
 ### Footer
 
-Black band, white type. Falcon lockup top-left (cols 1–4 of 16). Three columns on the right — Quick Links, Social, Get in Touch — with real Falcon URLs only (X is the only social). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). No pre-footer CTA. No invented social accounts. The previous footer had no funding/broker disclaimer; none added.
+Black band, white type. Falcon lockup top-left (cols 1–4 of 16). Three columns on the right — Quick Links, Social, Get in Touch — with real Falcon URLs only (X is the only social). Thin 1px white rule, then copyright + Privacy / Terms. Measured from Blackstone `.site-footer` at 80em / 90em (`docs/refs/bx-footer.md`). The Govwell-style `.site-cta` wheel sits immediately above this footer. No invented social accounts. The previous footer had no funding/broker disclaimer; none added.
 
 ### Forms
 
@@ -305,7 +305,7 @@ BX: floating 14px light label, 16px inset, focus lifts label, error `#ea4334`. F
 ## Falcon exceptions (do not “fix” toward BX)
 
 1. Fonts: At Gambit + Inter.
-2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy.
+2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy. Exception: the pre-footer `.site-cta` uses a white pill like Govwell, still not purple.
 3. `.btn-outline-dark` stays in `global.css`. No purple fills.
 4. No fabricated people, quotes, numbers, or testimonials. The home testimonial is the consented JJJ Enterprise Trucking quote.
 
@@ -335,9 +335,9 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial trucking still; 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list, pre-footer CTA (removed) — type only. Founder quote lives on About. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial trucking still; 12 industry 16:9 **labeled** stills (one visible in the dropdown panel); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
-| Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. No pre-footer CTA. |
+| Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. Pre-footer `.site-cta` comes from the layout. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
 | Industry landing | Hero placeholder + What we do 3:4 | Accordion, FAQ, principles — type only. Related article thumbs are a listing, not decoration |
 | Directory (industries, blog, services rows) | Grid thumbs *are* the page | No second full-bleed hero |
@@ -354,7 +354,8 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | --- | --- |
 | `src/styles/tokens.css` | Colors, type, space, grid tokens |
 | `src/styles/global.css` | Fonts, Tailwind `@theme`, base type, ink buttons |
-| `src/components/Header.astro` | Sitewide Blackstone header: unboxed 1.25× logo, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Measures in `docs/refs/bx-header.md`. |
+| `src/components/Header.astro` | Sitewide Blackstone header: unboxed 1.25× logo, 80em mega-menus of real pages, home dark / inner light, Apply promo card, blur+dim backdrop. Open menus use a 1px `#d5d8df` container-width divider; panel content shares `--bx-max` with the logo/Apply row. Measures in `docs/refs/bx-header.md`. |
+| `src/components/SiteCta.astro` | Sitewide pre-footer wheel above the footer. Govwell structure, Falcon copy/fonts/palette, white pill Apply. |
 | `src/components/Footer.astro` | Sitewide Blackstone footer: logo left, Quick Links / Social / Get in Touch, 1px rule, copyright + Privacy / Terms. Measures in `docs/refs/bx-footer.md`. |
 | `src/components/HeroStats.astro` | Scoped BXCI featured stats (`.stats-bx`). MCA and industry landings. |
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
@@ -381,6 +382,6 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 ### Pilot pages
 
-**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`$100M+` big; 24-48h and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** (EARNINGS layout; JJJ Enterprise Trucking quote, business credit only, trucking still) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts). No Process. No Explore more. No pre-footer CTA. Founder quote is on About.
+**Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`$100M+` big; 24-48h and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** (EARNINGS layout; JJJ Enterprise Trucking quote, business credit only, trucking still) → **Industries** (Industries eyebrow + “Sectors we fund.”; light-gray “Select your sector” field with 2px bottom; panel = title + blurb + Learn more / labeled 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
 
-**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. No pre-footer CTA. Other service URLs still use `src/pages/services/[slug].astro`.
+**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro`.

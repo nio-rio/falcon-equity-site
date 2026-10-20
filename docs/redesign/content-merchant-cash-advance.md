@@ -232,7 +232,7 @@ Do not add "How much can I get?" or "What are the terms?" — those are the stat
 
 ### 7. CTA
 
-- **Pre-footer CTA:** removed sitewide. Do not restore a lilac or purple band.
+- **Pre-footer CTA:** layout `.site-cta` wheel (Govwell-style). Do not restore a lilac or purple band.
 - **Purpose:** Close. One apply path.
 - **Eyebrow:** none (CTA is not an eyebrow section)
 - **Headline (H2):** Get funding today

@@ -112,7 +112,7 @@ const nav = [
                     </svg>
                   </button>
                   <div id={`menu-${item.id}`} class="primary-nav__lvl-2-wrap" aria-hidden="true" data-nav-panel>
-                    <ul class="primary-nav__list-lvl-2 container-site">
+                    <ul class="primary-nav__list-lvl-2" data-nav-panel-list>
                       {item.columns.map((col) => (
                         <li class:list={['primary-nav__list-lvl-2-item', col.twoCol && 'has-two-column-list']}>
                           <span class="primary-nav__list-lvl-2-link">{col.heading}</span>

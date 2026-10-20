@@ -81,7 +81,7 @@ No photos (Blackstone: process is type).
 
 ### 6. CTA band
 
-Removed. Do not restore a pre-footer Get-funding band.
+Sitewide Govwell-style wheel in the layout, above the footer. Lead “Need funding to”, six rotating uses, tail “for your business”, white pill “Apply for funding”.
 
 ### Nearby copy, not currently on home
 
@@ -109,7 +109,7 @@ Usable later without inventing:
 
 ## Proposed order
 
-Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonial is the consented JJJ Enterprise Trucking quote. **No pre-footer CTA band.**
+Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (`$100M+` large). Industries uses a sector dropdown. Founder quote lives on About. Home testimonial is the consented JJJ Enterprise Trucking quote. Pre-footer CTA is the layout `.site-cta` wheel (not the old Get-funding band).
 
 | # | Section | Status | Blackstone / BREIT model |
 | --- | --- | --- | --- |
@@ -120,7 +120,7 @@ Keep hero, services, and Insights. Restyle stats to the Tac Opps featured band (
 | 5 | How it works | Keep | BX process-as-type; three columns |
 | 6 | Founder quote | **Add** | `breit.com` quote split |
 | 7 | Insights | **Add** | `blackstone.com/insights/` strip |
-| 8 | CTA | **Removed** | Pre-footer band deleted sitewide |
+| 8 | CTA | **Layout wheel** | Govwell-style rotating phrase band above the footer |
 
 That is three additions (industries, quote, insights) plus a stats restyle. A fourth candidate, "When to apply" from `WHEN_TO_APPLY`, is parked below — only add it if the services list stays names-and-ranges and needs a narrative. Prefer showing the existing teasers over adding another section.
 

@@ -1,0 +1,150 @@
+---
+const phrases = [
+  'manage cash flow',
+  'buy equipment',
+  'grow my business',
+  'cover business expenses',
+  'hire more staff',
+  'expand to a new location',
+];
+const lead = 'Need funding to';
+const tail = 'for your business';
+const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(-1)} ${tail}`;
+---
+
+<section class="site-cta" data-site-cta aria-labelledby="site-cta-heading">
+  <div class="site-cta__inner container-site">
+    <div class="site-cta__content">
+      <h2 id="site-cta-heading" class="sr-only">{srSentence}</h2>
+      <p class="site-cta__sentence" aria-hidden="true">
+        <span class="site-cta__lead">{lead}</span>
+        <span class="site-cta__wheel" data-cta-wheel aria-live="off">
+          <span class="site-cta__track" data-cta-track data-cta-count={phrases.length}>
+            {[0, 1].map(() => (
+              <span class="site-cta__copy">
+                {phrases.map((phrase) => (
+                  <span class="site-cta__phrase" data-cta-phrase>{phrase}</span>
+                ))}
+              </span>
+            ))}
+          </span>
+        </span>
+        <span class="site-cta__tail">{tail}</span>
+      </p>
+      <a class="site-cta__btn" href="/apply">Apply for funding</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const HOLD_MS = 1200;
+  const EASE_MS = 400;
+  const STEP_MS = HOLD_MS + EASE_MS;
+  const EASE = 'cubic-bezier(0.45, 0, 0.55, 1)';
+
+  const init = (root: HTMLElement) => {
+    const wheel = root.querySelector<HTMLElement>('[data-cta-wheel]');
+    const track = root.querySelector<HTMLElement>('[data-cta-track]');
+    if (!wheel || !track) return;
+
+    const count = Number(track.dataset.ctaCount || 0);
+    const phrases = [...track.querySelectorAll<HTMLElement>('[data-cta-phrase]')];
+    if (!count || phrases.length < count * 2) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let stepIndex = 0;
+    let timer = 0;
+    let colorRaf = 0;
+    let resizing = 0;
+
+    const lineHeight = () => phrases[0]?.getBoundingClientRect().height || 48;
+
+    const colorize = () => {
+      const wr = wheel.getBoundingClientRect();
+      const mid = wr.top + wr.height / 2;
+      phrases.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const c = r.top + r.height / 2;
+        const dist = c - mid;
+        el.classList.toggle('is-active', Math.abs(dist) <= r.height * 0.5);
+        el.classList.toggle('is-past', dist < -r.height * 0.5);
+      });
+    };
+
+    const stopColor = () => {
+      cancelAnimationFrame(colorRaf);
+      colorRaf = 0;
+    };
+
+    const runColor = (ms: number) => {
+      stopColor();
+      const start = performance.now();
+      const tick = (now: number) => {
+        colorize();
+        if (now - start < ms) colorRaf = requestAnimationFrame(tick);
+      };
+      colorRaf = requestAnimationFrame(tick);
+    };
+
+    const setY = (y: number, animate: boolean) => {
+      track.style.transition = animate ? `transform ${EASE_MS}ms ${EASE}` : 'none';
+      track.style.transform = `translate3d(0, ${y}px, 0)`;
+    };
+
+    const snap = (i: number) => {
+      stepIndex = i;
+      setY(-stepIndex * lineHeight(), false);
+      colorize();
+    };
+
+    const step = () => {
+      if (reduce.matches) return;
+      stepIndex += 1;
+      setY(-stepIndex * lineHeight(), true);
+      runColor(EASE_MS + 32);
+      if (stepIndex >= count) {
+        window.setTimeout(() => snap(stepIndex - count), EASE_MS);
+      }
+    };
+
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+      stopColor();
+    };
+
+    const start = () => {
+      stop();
+      if (reduce.matches) {
+        root.classList.add('is-static');
+        snap(0);
+        phrases.forEach((el, i) => {
+          el.classList.toggle('is-active', i === 0);
+          el.classList.remove('is-past');
+        });
+        return;
+      }
+      root.classList.remove('is-static');
+      snap(stepIndex % count);
+      timer = window.setInterval(step, STEP_MS);
+    };
+
+    reduce.addEventListener('change', start);
+    window.addEventListener(
+      'resize',
+      () => {
+        window.clearTimeout(resizing);
+        resizing = window.setTimeout(() => snap(stepIndex % count), 80);
+      },
+      { passive: true },
+    );
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    start();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-site-cta]').forEach(init);
+</script>

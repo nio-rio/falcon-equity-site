@@ -34,7 +34,7 @@ Blackstone does **not** change theme on scroll. Falcon home is dark on the hero 
 | Default padding | container `2rem` top/bottom when `.bx-default-header__padding` | | | | |
 | Fixed bar | `position: fixed; top: 0; transition: transform .3s ease-out` | | | | |
 
-Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock page scroll (`html.has-scroll-lock`) with wheel/touch preventDefault — not `overflow: hidden` on html/body, which would trap the fixed bar off-screen after scroll. The bar has **no bottom border, box-shadow, or hairline**. The logo is the unboxed lockup at **1.25×** the prior height (`width: auto`).
+Falcon uses **`position: fixed`** like Blackstone (`position: fixed; top: 0`). Desktop bar height is `--h-site-header--fixed` (**108px**). A spacer holds document flow. Mega-menu panels use `top: 100%` of the bar, not a viewport offset, so they stay attached after scroll. Open menus lock page scroll (`html.has-scroll-lock`) with wheel/touch preventDefault — not `overflow: hidden` on html/body, which would trap the fixed bar off-screen after scroll. The resting bar has **no bottom border, box-shadow, or hairline**. While a dropdown is open, Blackstone draws a **1px `#d5d8df`** rule on the mega list (`--container-width`, same box as the logo/Apply row) — not a full-bleed header border. Falcon matches that with `.primary-nav__list-lvl-2 { border-top: 1px solid var(--nav-rule) }` at `80em+`. The logo is the unboxed lockup at **1.25×** the prior height (`width: auto`).
 
 ## Nav (desktop, `min-width: 80em`)
 
@@ -47,7 +47,7 @@ Hamburger `display: none`. Inner is `position: static; display: flex`.
 | Chevron | **12px**, `margin-left: 8px`, `vertical-align: -0.5px`; `rotate(180deg)` when `aria-expanded=true` | same |
 | Link hover | 1px `currentColor` underline, `background-size` **0 → 100%** in **0.3s** (mobile sets `background-image: none`) | same |
 | Mega wrap | `position: absolute; top: 100%; left: 0; width: 100%`; bg `--c-background` | same |
-| Mega list | flex, `border-top: 1px solid #d5d8df`, pad-bottom **48px**, column-gap **88px** | column-gap **96px** |
+| Mega list | flex, `border-top: 1px solid #d5d8df` (`--c-slate-2`) on `max-width: var(--container-width)` (Falcon `--bx-max`), not full-bleed; pad-bottom **48px**, column-gap **88px**. Line shows only while a panel is open. | column-gap **96px** |
 | Column | max **20rem**, min **5rem**, pad-top **48px** | same |
 | Two-col list | max **36.5rem**, `column-count: 2` | same |
 | Column heading | sans **20px**/500 | same |
@@ -67,7 +67,7 @@ background-color: rgba(0,0,0,.32);
 position: fixed; inset: 0;
 ```
 
-Falcon matches those values. Overlay is a `document.body` child (`z-index: 40`) so transform/filter/isolation on the header cannot clip the blur; header stays `z-index: 50`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390. It also asserts overlay `blur(5px)` (no saturate) and header/panel `none` in each state, and that the bar phone (`tel:+19172455277`) matches a primary menu link’s font, size, weight, color, and 1px `currentColor` hover underline.
+Falcon matches those values. Overlay is a `document.body` child (`z-index: 40`) so transform/filter/isolation on the header cannot clip the blur; header stays `z-index: 50`. `.has-scroll-lock` plus wheel/touch preventDefault pins the header while a panel is open. Playwright coverage: `tests/nav.spec.mjs` (`npm run test:nav`) opens a menu at scrollY 0 / 800 / 2000, scrolls while open, and opens after scrolling on `/` and `/about` at 1440, 1280, 1024, 768, and 390. It also asserts overlay `blur(5px)` (no saturate) and header/panel `none` in each state, that the bar phone (`tel:+19172455277`) matches a primary menu link’s font, size, weight, color, and 1px `currentColor` hover underline, that the open panel’s first column left equals the logo left (±1px), and that the `#d5d8df` 1px divider is visible only while a menu is open.
 
 ## Mobile (`max-width: 79.9375em`)
 

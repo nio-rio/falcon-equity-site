@@ -216,6 +216,51 @@ const readTypeChrome = (page) =>
 const openCount = (page) =>
   page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
 
+const SLATE_2 = 'rgb(213, 216, 223)';
+
+const readPanelChrome = (page) =>
+  page.evaluate(() => {
+    const logo = document.querySelector('.site-header__logo');
+    const apply = document.querySelector('.site-header__apply--bar');
+    const heading = document.querySelector(
+      '[data-nav-item].is-open .primary-nav__list-lvl-2-link, [data-nav-inner].is-open .primary-nav__list-lvl-2-link',
+    );
+    const list = document.querySelector(
+      '[data-nav-item].is-open [data-nav-panel-list], [data-nav-inner].is-open [data-nav-panel-list]',
+    );
+    const panel =
+      document.querySelector('[data-nav-item].is-open [data-nav-panel]') ||
+      document.querySelector('[data-nav-inner].is-open');
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]');
+    const lr = logo.getBoundingClientRect();
+    const hr = heading?.getBoundingClientRect();
+    const pr = list?.getBoundingClientRect();
+    const ar = apply?.getBoundingClientRect();
+    const listCs = list ? getComputedStyle(list) : null;
+    const panelCs = panel ? getComputedStyle(panel) : null;
+    const headerCs = getComputedStyle(header);
+    const barCs = getComputedStyle(bar);
+    const panelVisible = panelCs && panelCs.display !== 'none';
+    return {
+      logoLeft: Math.round(lr.left * 10) / 10,
+      colLeft: hr ? Math.round(hr.left * 10) / 10 : null,
+      listLeft: pr ? Math.round(pr.left * 10) / 10 : null,
+      listRight: pr ? Math.round(pr.right * 10) / 10 : null,
+      applyRight: ar ? Math.round(ar.right * 10) / 10 : null,
+      applyDisplay: apply ? getComputedStyle(apply).display : null,
+      borderTopWidth: listCs?.borderTopWidth ?? null,
+      borderTopColor: listCs?.borderTopColor ?? null,
+      borderTopStyle: listCs?.borderTopStyle ?? null,
+      panelVisible: Boolean(panelVisible),
+      headerBorder: headerCs.borderBottomWidth,
+      barBorder: barCs.borderBottomWidth,
+      dark: header.classList.contains('is-color-theme-dark'),
+    };
+  });
+
+const parseSitemapLocs = (xml) => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+
 for (const vp of VIEWPORTS) {
   for (const pg of PAGES) {
     const context = await browser.newContext({
@@ -369,6 +414,46 @@ for (const vp of VIEWPORTS) {
     const applyHref = await page.locator('a.site-header__apply[href="/apply"]').first().getAttribute('href');
     log({ ...tag, check: 'apply-href', ok: applyHref === '/apply' });
 
+    const ctaN = await page.locator('[data-site-cta]').count();
+    log({ ...tag, check: 'site-cta-once', ok: ctaN === 1, detail: `count=${ctaN}` });
+    const ctaChrome = await page.evaluate(() => {
+      const cta = document.querySelector('[data-site-cta]');
+      const footer = document.querySelector('.site-footer');
+      const btn = document.querySelector('.site-cta__btn');
+      const cs = btn ? getComputedStyle(btn) : null;
+      return {
+        beforeFooter: Boolean(cta && footer && cta.nextElementSibling === footer),
+        href: btn?.getAttribute('href') || null,
+        bg: cs?.backgroundColor || null,
+        radius: cs?.borderRadius || null,
+        color: cs?.color || null,
+      };
+    });
+    log({
+      ...tag,
+      check: 'site-cta-above-footer',
+      ok: ctaChrome.beforeFooter,
+      detail: JSON.stringify(ctaChrome),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-white-pill',
+      ok:
+        ctaChrome.href === '/apply' &&
+        ctaChrome.bg === 'rgb(255, 255, 255)' &&
+        (ctaChrome.radius === '100rem' || parseFloat(ctaChrome.radius) >= 100) &&
+        ctaChrome.color === 'rgb(32, 32, 32)',
+      detail: JSON.stringify(ctaChrome),
+    });
+
+    const dividerClosed = await readPanelChrome(page);
+    log({
+      ...tag,
+      check: 'divider-hidden-when-closed',
+      ok: !dividerClosed.panelVisible && dividerClosed.headerBorder === '0px' && dividerClosed.barBorder === '0px',
+      detail: JSON.stringify(dividerClosed),
+    });
+
     if (vp.mode === 'desktop') {
       const first = page.locator('[data-nav-item]').first();
       const trigger = first.locator('[data-nav-trigger]');
@@ -408,6 +493,38 @@ for (const vp of VIEWPORTS) {
       const hoverOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
       const panelVisible = await panel.evaluate((el) => getComputedStyle(el).display !== 'none');
       log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
+
+      const openChrome = await readPanelChrome(page);
+      const aligned =
+        openChrome.colLeft != null && Math.abs(openChrome.colLeft - openChrome.logoLeft) <= 1;
+      log({
+        ...tag,
+        check: 'panel-aligns-logo',
+        ok: aligned,
+        detail: JSON.stringify(openChrome),
+      });
+      const applyAligned =
+        openChrome.applyDisplay === 'none' ||
+        (openChrome.applyRight != null &&
+          openChrome.listRight != null &&
+          Math.abs(openChrome.listRight - openChrome.applyRight) <= 1);
+      log({
+        ...tag,
+        check: 'panel-aligns-apply',
+        ok: applyAligned,
+        detail: JSON.stringify(openChrome),
+      });
+      log({
+        ...tag,
+        check: 'divider-open-color',
+        ok:
+          openChrome.panelVisible &&
+          openChrome.borderTopWidth === '1px' &&
+          openChrome.borderTopStyle === 'solid' &&
+          openChrome.borderTopColor === SLATE_2 &&
+          openChrome.headerBorder === '0px',
+        detail: JSON.stringify(openChrome),
+      });
 
       const chevron = await trigger.locator('.primary-nav__list-item-icon').evaluate((el) => getComputedStyle(el).transform);
       log({ ...tag, check: 'chevron-flips-on-open', ok: chevron !== 'none' && chevron !== 'matrix(1, 0, 0, 1, 0, 0)', detail: chevron });
@@ -634,6 +751,30 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(150);
       const acc1 = await page.locator('[data-nav-item]').first().evaluate((el) => el.classList.contains('is-open'));
       log({ ...tag, check: 'mobile-accordion-opens', ok: acc1 });
+      const mobileChrome = await readPanelChrome(page);
+      log({
+        ...tag,
+        check: 'panel-aligns-logo',
+        ok: mobileChrome.colLeft != null && Math.abs(mobileChrome.colLeft - mobileChrome.logoLeft) <= 1,
+        detail: JSON.stringify(mobileChrome),
+      });
+      const mobileRule = await page.evaluate(() => {
+        const item = document.querySelector('[data-nav-inner].is-open .primary-nav__list-item');
+        if (!item) return null;
+        const cs = getComputedStyle(item);
+        return { width: cs.borderTopWidth, color: cs.borderTopColor, style: cs.borderTopStyle };
+      });
+      log({
+        ...tag,
+        check: 'divider-open-color',
+        ok:
+          mobileChrome.panelVisible &&
+          mobileChrome.headerBorder === '0px' &&
+          mobileChrome.barBorder === '0px' &&
+          mobileRule?.width === '1px' &&
+          mobileRule?.color === SLATE_2,
+        detail: JSON.stringify({ ...mobileChrome, mobileRule }),
+      });
       await shot(page, `${vp.name}-${pg.name}-mobile-accordion`);
 
       await page.locator('[data-nav-trigger]').nth(1).click();
@@ -758,6 +899,77 @@ for (const vp of VIEWPORTS) {
     log({ ...tag, check: 'no-console-errors', ok: errors.length === 0, detail: errors.join(' | ') });
     await context.close();
   }
+}
+
+const sitemapPaths = async () => {
+  const paths = new Set();
+  try {
+    const indexXml = await fetch(`${BASE}/sitemap-index.xml`).then((r) => r.text());
+    let maps = parseSitemapLocs(indexXml).filter((u) => /sitemap/i.test(u));
+    if (!maps.length) maps = [`${BASE}/sitemap-0.xml`];
+    if (indexXml.includes('<url>')) {
+      for (const loc of parseSitemapLocs(indexXml)) {
+        try {
+          paths.add(new URL(loc).pathname);
+        } catch {
+          paths.add(loc);
+        }
+      }
+    }
+    for (const map of maps) {
+      const url = map.startsWith('http') ? map.replace(/^https?:\/\/[^/]+/, BASE) : `${BASE}${map}`;
+      const xml = await fetch(url).then((r) => r.text()).catch(() => '');
+      for (const loc of parseSitemapLocs(xml)) {
+        try {
+          paths.add(new URL(loc).pathname);
+        } catch {
+          paths.add(loc);
+        }
+      }
+    }
+  } catch (err) {
+    console.log(`WARN sitemap crawl: ${err}`);
+  }
+  paths.add('/');
+  paths.add('/about');
+  paths.add('/404');
+  return [...paths];
+};
+
+{
+  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const page = await context.newPage();
+  const routes = await sitemapPaths();
+  log({
+    vp: 'all',
+    page: 'sitemap',
+    check: 'site-cta-route-count',
+    ok: routes.length > 2,
+    detail: `routes=${routes.length}`,
+  });
+  for (const route of routes) {
+    const candidates = route.endsWith('.html') ? [route] : [route, `${route === '/' ? '/index.html' : `${route}.html`}`];
+    let html = '';
+    let used = route;
+    for (const candidate of candidates) {
+      const res = await page.goto(`${BASE}${candidate}`, { waitUntil: 'domcontentloaded' }).catch(() => null);
+      if (res && res.ok()) {
+        html = await page.content();
+        used = candidate;
+        break;
+      }
+    }
+    const matches = html.match(/data-site-cta/g) || [];
+    const footerAfter = /data-site-cta[\s\S]*site-footer/.test(html);
+    log({
+      vp: 'all',
+      page: used,
+      check: 'site-cta-once-every-page',
+      ok: matches.length === 1 && footerAfter,
+      detail: `count=${matches.length} beforeFooter=${footerAfter}`,
+    });
+  }
+  await context.close();
 }
 
 await browser.close();

@@ -811,7 +811,8 @@ html.has-scroll-lock .site-header {
   width: 100%;
   max-height: calc(100dvh - var(--bx-header));
   overflow: auto;
-  padding-inline: var(--bx-margin);
+  /* Same content inset as `.container-site` / the logo. */
+  padding-inline: max(var(--bx-margin), calc((100% - var(--bx-max)) / 2));
   background: var(--nav-bg);
   color: var(--nav-copy);
   isolation: auto;
@@ -885,7 +886,7 @@ html.has-scroll-lock .site-header {
 
 .primary-nav__list-lvl-2 {
   list-style: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0 0 var(--bx-space-40);
 }
 
@@ -1154,8 +1155,13 @@ html.has-scroll-lock .site-header {
   .primary-nav__list-lvl-2 {
     display: flex;
     column-gap: var(--column-gap);
+    width: 100%;
+    max-width: var(--bx-max);
+    margin-inline: auto;
+    padding-inline: 0;
     padding-bottom: var(--bx-space-48);
-    border-top: 0;
+    /* Live blackstone.com mega list: 1px --c-slate-2 (#d5d8df) on --container-width, only while open. */
+    border-top: 1px solid var(--nav-rule);
   }
 
   .primary-nav__list-lvl-2-item {
@@ -1265,6 +1271,217 @@ html.has-scroll-lock .site-header {
 .process-body {
   margin-top: 0.75rem;
   color: var(--color-ink-soft);
+}
+
+/* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
+   Measured 2026-10-20 on https://govwell.com/ at 1440: dark band #202020,
+   21em wrap, mask 5%/40-60%/95%, 48px (3rem) stepped translateY, ~400ms
+   cubic ease + ~1200ms hold, active #feaf0e / neighbors #636363 / rest
+   white/0.5, white pill 12px 24px / 16px / radius 100rem. */
+.site-cta {
+  --site-cta-line: 3rem;
+  --site-cta-type: 1.5rem;
+  --site-cta-lead: rgb(255 255 255 / 0.5);
+  --site-cta-active: var(--bx-yellow);
+  --site-cta-past: #636363;
+  background: var(--bx-variant-black);
+  color: #fff;
+  font-family: var(--font-display);
+}
+
+.site-cta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bx-space-32);
+  padding-block: var(--bx-space-64);
+  text-align: center;
+}
+
+.site-cta__sentence {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--site-cta-lead);
+  font-family: var(--font-display);
+  font-size: var(--site-cta-type);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.site-cta__lead,
+.site-cta__tail {
+  color: var(--site-cta-lead);
+}
+
+.site-cta__wheel {
+  display: block;
+  flex: none;
+  width: max-content;
+  max-width: 100%;
+  height: 21em;
+  margin-block: -10rem;
+  overflow: hidden;
+  font-size: 1rem;
+  -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+  mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+}
+
+.site-cta__track,
+.site-cta__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+}
+
+.site-cta__phrase {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  color: var(--site-cta-lead);
+  font-family: var(--font-display);
+  font-size: var(--site-cta-type);
+  font-weight: 400;
+  line-height: var(--site-cta-line);
+  white-space: nowrap;
+  transition: color 400ms cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.site-cta__phrase.is-past {
+  color: var(--site-cta-past);
+}
+
+.site-cta__phrase.is-active {
+  color: var(--site-cta-active);
+}
+
+.site-cta__btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #fff;
+  border-radius: 100rem;
+  background: #fff;
+  color: var(--bx-variant-black);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.site-cta__btn:hover,
+.site-cta__btn:focus-visible {
+  border-color: #dadada;
+  background: #dadada;
+  color: var(--bx-variant-black);
+}
+
+.site-cta__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.site-cta.is-static .site-cta__wheel {
+  height: var(--site-cta-line);
+  margin-block: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.site-cta.is-static .site-cta__track {
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (min-width: 48em) {
+  .site-cta {
+    --site-cta-type: 2rem;
+  }
+
+  .site-cta__wheel {
+    margin-block: -10rem;
+  }
+}
+
+@media (min-width: 62em) {
+  .site-cta {
+    --site-cta-type: 2.25rem;
+  }
+
+  .site-cta__wheel {
+    margin-block: -9.5rem;
+    -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+    mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+  }
+
+  .site-cta__content {
+    padding-block: var(--bx-space-64);
+  }
+}
+
+@media (min-width: 80em) {
+  .site-cta {
+    --site-cta-type: 2.5rem;
+  }
+
+  .site-cta__content {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem 1rem;
+    padding-block: 0;
+    text-align: left;
+  }
+
+  .site-cta__sentence {
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .site-cta__wheel {
+    height: 21em;
+    margin-block: 0;
+    -webkit-mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
+    mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
+  }
+
+  .site-cta__track,
+  .site-cta__copy {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 90em) {
+  .site-cta {
+    --site-cta-type: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-cta__phrase,
+  .site-cta__btn {
+    transition: none;
+  }
+
+  .site-cta__wheel {
+    height: var(--site-cta-line);
+    margin-block: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 /* Site footer — Blackstone `.site-footer` at 80em / 90em. See docs/refs/bx-footer.md. */
