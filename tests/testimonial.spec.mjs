@@ -115,7 +115,7 @@ for (const vp of VIEWPORTS) {
     check: 'slide-image',
     ok:
       geom.imgAlt === 'Overhead view of a row of white and red semi-trucks parked in a freight yard.' &&
-      /trucking|1-trucking/i.test(geom.imgSrc),
+      /invoice-factoring-trucking|trucking/i.test(geom.imgSrc),
     detail: JSON.stringify({ imgAlt: geom.imgAlt, imgSrc: geom.imgSrc }),
   });
   log({

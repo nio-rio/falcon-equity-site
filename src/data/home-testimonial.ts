@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
-import trucking from '@/assets/testimonials/1-trucking.webp';
-import dentist from '@/assets/testimonials/2-dentist.webp';
-import kitchen from '@/assets/testimonials/3-kitchen.webp';
+import trucking from '@/assets/testimonials/invoice-factoring-trucking.webp';
+import dentist from '@/assets/testimonials/healthcare-working-capital.webp';
+import kitchen from '@/assets/testimonials/restaurant-working-capital.webp';
 
 /** Home testimonial. Consented client quote; credit the business only. */
 export type HomeTestimonial = {

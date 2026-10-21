@@ -1418,7 +1418,8 @@ for (const vp of VIEWPORTS) {
           firstStill?.hidden === false &&
           firstStill?.alt.includes('folded jeans') &&
           firstStill?.objectFit === 'cover' &&
-          (firstStill?.loading === 'eager' || firstStill?.fetchPriority === 'high') &&
+          firstStill?.loading === 'lazy' &&
+          firstStill?.fetchPriority !== 'high' &&
           firstStill?.hasAvif === true &&
           firstStill?.hasWebp === true &&
           restStills.every(

@@ -1161,7 +1161,7 @@ html.has-scroll-lock .site-header {
   row-gap: var(--bx-space-32);
 }
 
-h2.primary-nav-widget__title {
+.primary-nav-widget__title {
   margin: 0;
   font-family: var(--font-sans);
   font-size: var(--bx-fs-20);
@@ -1171,7 +1171,7 @@ h2.primary-nav-widget__title {
   color: var(--nav-widget-copy);
 }
 
-.primary-nav-widget__content p {
+.primary-nav-widget__content-inner > p:not(.primary-nav-widget__title) {
   margin: var(--bx-space-16) 0 0;
   font-size: var(--bx-fs-18);
   line-height: 1.5;

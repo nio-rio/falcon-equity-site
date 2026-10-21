@@ -3,7 +3,7 @@
  * BMACX featured-content panel + sector select (home Industries).
  * Heading row holds the picker (stacked under the H2 on small screens,
  * top-right across from “Sectors we fund.” from 80em). Panel is title +
- * blurb + Learn more / Ling 16:9 still (first eager, inactive lazy).
+ * blurb + Learn more / Ling 16:9 still (all lazy; only the home hero is high-priority).
  */
 import Media from '@/components/Media.astro';
 import PilotArrow from './PilotArrow.astro';
@@ -78,7 +78,7 @@ import { INDUSTRY_STILLS } from '@/data/industry-stills';
             <div class="pilot-tabs-copy">
               <h3 class="pilot-tabs-title" id={`industry-title-${ind.slug}`}>{ind.name}</h3>
               <p class="pilot-tabs-body">{ind.blurb}</p>
-              <PilotArrow href={`/industries/${ind.slug}`} label="Learn more" />
+              <PilotArrow href={`/industries/${ind.slug}`} label="Learn more" accessibleName={`${ind.name} funding`} />
             </div>
             <div class="pilot-tabs-media">
               <Media
@@ -89,8 +89,7 @@ import { INDUSTRY_STILLS } from '@/data/industry-stills';
                 sizes="(min-width: 80em) 704px, 100vw"
                 widths={[480, 768, 1120, 1400]}
                 fallbackFormat="webp"
-                priority={i === 0}
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading="lazy"
               />
             </div>
           </div>

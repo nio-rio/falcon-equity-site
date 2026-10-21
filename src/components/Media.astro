@@ -12,6 +12,7 @@ interface Props {
   priority?: boolean;
   loading?: 'eager' | 'lazy';
   fallbackFormat?: 'avif' | 'webp' | 'png' | 'jpg' | 'jpeg';
+  quality?: number;
   sizes?: string;
   widths?: number[];
   class?: string;
@@ -25,7 +26,8 @@ const {
   labeled = false,
   priority = false,
   loading,
-  fallbackFormat,
+  fallbackFormat = 'webp',
+  quality = 80,
   sizes = '100vw',
   widths = [640, 960, 1280, 1920, 2560],
   class: className,
@@ -44,6 +46,7 @@ const accessibleName = alt || label;
         sizes={sizes}
         formats={['avif', 'webp']}
         fallbackFormat={fallbackFormat}
+        quality={quality}
         class="media-img"
         priority={priority}
         loading={loading}

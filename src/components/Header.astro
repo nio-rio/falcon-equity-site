@@ -172,14 +172,14 @@ const nav = [
                           <div class="primary-nav-widget">
                             <div class="primary-nav-widget__content">
                               <div class="primary-nav-widget__content-inner">
-                                <h2 class="primary-nav-widget__title">Apply for funding</h2>
+                                <p class="primary-nav-widget__title">Apply for funding</p>
                                 <p>
                                   One short application. A specialist reviews your file promptly. Many products fund
                                   within 24-48 hours of approval.
                                 </p>
                               </div>
                               <div class="primary-nav-widget__cta">
-                                <a href="/apply" class="arrow-cta">
+                                <a href="/apply" class="arrow-cta" aria-label="Start your application">
                                   <span class="arrow-cta-label">Learn More</span>
                                   <CircleArrow />
                                 </a>
@@ -188,10 +188,13 @@ const nav = [
                             <div class="primary-nav-widget__media">
                               <Picture
                                 src={applyStill}
-                                alt=""
+                                alt="Illustrated point-of-sale terminal, coins, and payment card on a purple background."
                                 widths={[320, 480, 640]}
                                 sizes="(min-width: 90em) 14rem, 12.5rem"
                                 formats={['avif', 'webp']}
+                                fallbackFormat="webp"
+                                quality={80}
+                                loading="lazy"
                                 class="primary-nav-widget__img"
                               />
                             </div>

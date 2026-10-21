@@ -8,7 +8,7 @@ byline: Falcon Equity Group
 excerpt: 'Fast funding starts with a ready file. Use this checklist to gather what underwriters need so nothing slows you down.'
 description: 'A practical checklist of the documents and details you need to get business funding in as little as 24–48 hours.'
 cover: ../../assets/blog/24-48-hour-funding-checklist.jpg
-coverAlt: ''
+coverAlt: 'Abstract frosted-glass checklist with a clock on a green background.'
 takeaways:
   - 'A complete file on day one is what makes 24–48 hour funding possible after approval.'
   - 'Six months of business bank statements, as complete PDFs, are the most important item for most products.'

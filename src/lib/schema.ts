@@ -2,6 +2,9 @@ import { SITE } from '@/data/site';
 
 const orgId = `${SITE.url}/#organization`;
 
+/** Home JSON-LD is Organization / FinancialService only. Do not add Review
+ *  or aggregateRating — testimonials are credited as “Falcon client”. */
+
 export const organizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': ['FinancialService', 'Organization'],
@@ -9,7 +12,12 @@ export const organizationSchema = () => ({
   name: SITE.name,
   legalName: SITE.legalName,
   url: SITE.url,
-  logo: `${SITE.url}/apple-touch-icon.png`,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE.url}${SITE.logo}`,
+    width: 512,
+    height: 512,
+  },
   image: `${SITE.url}/og-default.jpg`,
   description: SITE.description,
   email: SITE.email,
@@ -33,11 +41,6 @@ export const organizationSchema = () => ({
       availableLanguage: 'en',
     },
   ],
-  founder: {
-    '@type': 'Person',
-    name: SITE.founder.name,
-    jobTitle: SITE.founder.title,
-  },
   sameAs: [SITE.social.x],
 });
 
@@ -98,7 +101,7 @@ export const articleSchema = (post: {
     '@id': orgId,
     '@type': 'Organization',
     name: SITE.name,
-    logo: { '@type': 'ImageObject', url: `${SITE.url}/apple-touch-icon.png` },
+    logo: { '@type': 'ImageObject', url: `${SITE.url}${SITE.logo}`, width: 512, height: 512 },
   },
   mainEntityOfPage: `${SITE.url}/blog/${post.slug}`,
 });

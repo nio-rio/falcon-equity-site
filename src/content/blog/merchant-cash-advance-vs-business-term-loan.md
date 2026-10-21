@@ -8,7 +8,7 @@ byline: Falcon Equity Group
 excerpt: 'Both put capital in your account fast. But they work very differently. Here is a plain-English comparison to help you pick the right one.'
 description: 'Merchant cash advance or business term loan? Compare speed, requirements, repayment and best uses to choose the right funding for your business.'
 cover: ../../assets/blog/merchant-cash-advance-vs-business-term-loan.jpg
-coverAlt: ''
+coverAlt: 'Abstract overlapping frosted circles on a purple background.'
 takeaways:
   - 'An MCA is a purchase of future receivables, not a loan. A term loan is a lump sum with a set repayment schedule.'
   - 'MCA amounts run $5,000 – $5,000,000 with 3 – 18 month terms. Term loans run $10,000 – $2,000,000 with 6 – 36 month terms.'

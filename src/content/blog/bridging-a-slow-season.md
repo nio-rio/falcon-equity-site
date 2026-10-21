@@ -8,7 +8,7 @@ byline: Falcon Equity Group
 excerpt: 'A slow season is a timing problem, not a profitability problem. Here is how to size the gap in dollars, fund it properly, and keep your reserves for real emergencies.'
 description: 'How seasonal businesses can forecast a slow-season cash gap, choose funding that matches how revenue returns, and avoid the mistakes that turn a dip into a crisis.'
 cover: ../../assets/blog/bridging-a-slow-season.jpg
-coverAlt: ''
+coverAlt: 'Abstract frosted-glass wave on a warm orange background.'
 takeaways:
   - 'A slow season is usually a timing problem. Size the gap from a 13-week cash forecast, not a round number.'
   - 'Fund the trough. Too little leads to a second position; too much means paying for money you hold rather than use.'

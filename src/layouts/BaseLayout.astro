@@ -28,7 +28,9 @@ const isHome = cleanPath(Astro.url.pathname) === '/';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#14101f" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href="/fonts/AtGambit-Light.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/AtGambit-Regular.woff2" as="font" type="font/woff2" crossorigin />
