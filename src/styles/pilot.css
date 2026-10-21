@@ -589,23 +589,8 @@
 
 .pilot-stats-feat,
 .pilot-stats-side,
-.pilot-stats-feat-value-wrap,
 .pilot-stats-side-value {
   min-width: 0;
-}
-
-/* Labels share one top line; numbers/rules share one bottom line.
-   Extra height sits in the label→number gap (`margin-top: auto` on
-   the value wrap). 12px gap is the minimum. Stacked mobile keeps that gap.
-   line-height: 1 on labels so a 32px featured label does not sit lower
-   than the 16px side labels through half-leading. */
-.pilot-stats-feat,
-.pilot-stats-side {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: var(--bx-space-12);
 }
 
 .pilot-stats-feat-label,
@@ -619,20 +604,14 @@
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 1.5;
   letter-spacing: 0.008em;
   color: var(--bx-black);
-  padding: 0;
-}
-
-.pilot-stats-feat-value-wrap {
-  display: flex;
-  flex-direction: column;
 }
 
 .pilot-stats-feat-value {
-  margin-top: 0;
-  padding-bottom: 1rem;
+  margin-top: var(--bx-space-12);
+  padding-bottom: 3rem;
   font-family: var(--font-display);
   font-weight: 300;
   font-size: 5rem;
@@ -647,12 +626,11 @@
 }
 
 .pilot-stats-side-label {
-  margin-bottom: 0;
-  padding: 0;
+  margin-bottom: var(--bx-space-12);
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: 1rem;
-  line-height: 1;
+  line-height: 1.5;
   letter-spacing: 0.008em;
   color: var(--bx-black);
 }
@@ -682,15 +660,9 @@
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: 16px;
-    align-items: stretch;
-    row-gap: 2.5rem;
     grid-template-areas:
       'feat feat feat feat feat feat feat feat'
       's1 s1 s1 . . s2 s2 s2';
-  }
-
-  .pilot-stats-side-value {
-    margin-top: auto;
   }
 
   .pilot-stats-feat {
@@ -699,10 +671,11 @@
 
   .pilot-stats-feat-label {
     font-size: 2rem;
-    line-height: 1;
+    line-height: 1.5;
   }
 
   .pilot-stats-feat-value {
+    padding-bottom: 3.5rem;
     font-size: 11rem;
   }
 
@@ -728,15 +701,11 @@
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
     grid-template-areas: 'feat feat feat feat feat feat feat feat . s1 s1 s1 . s2 s2 s2';
-    align-items: stretch;
-    row-gap: 0;
-  }
-
-  .pilot-stats-feat-value-wrap {
-    margin-top: auto;
+    align-items: start;
   }
 
   .pilot-stats-feat-value {
+    padding-bottom: 0;
     font-size: 9rem;
   }
 

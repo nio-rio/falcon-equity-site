@@ -304,10 +304,10 @@ Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up
 
 Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats (measured 1440 / 1280; `docs/refs/bx-tac-opps-stats.md`). MCA and industry landings keep `HeroStats`.
 
-- **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. Each block is a flex column: labels share one top line (featured + both sides; `line-height: 1` so the 32px featured label is not pushed down by half-leading), numbers and 1px rules share one bottom line — including a matching rule under `24-48h` — and extra height sits in the label→number gap (`margin-top: auto` on the value wrap, row `align-items: stretch`). The 12px gap is the minimum. When stats stack on small screens the gap stays 12px.
-- Featured label: sans 300, **24px** / **32px** from 768, lh **1**. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, gap **12px**, lh **1**, padding-bottom **16px**, **1px** rule under the number (same bottom line as the small stats).
-- Side labels: sans 300 **16px**, lh **1**. Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px**, **1px** black rule under the number.
-- MCA / industry `HeroStats` uses the same 12px minimum label→number (featured was 40 / 56 / 64; side label was 32) and the same top-aligned labels / bottom-aligned numbers.
+- **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. Each side field is label + number + rule in one cell so the 12px label→number gap is not inflated by a spanning featured row.
+- Featured label: sans 300, **24px** / **32px** from 768, lh 1.5. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, margin-top **12px** (`--bx-space-12`; BX 40 / 56 / 56 / 64 minus 3rem, floored), lh **1**.
+- Side labels: sans 300 **16px**, lh 24, margin-bottom **12px**. Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px** unchanged, **1px** black rule under the number.
+- MCA / industry `HeroStats` uses the same 12px label→number (featured was 40 / 56 / 64; side label was 32).
 - Section pad: **48 / 144** at 1280, **56 / 160** at 1440.
 - Home featured figure is **`24-48h` Average funding time**; sides are **`$100M+` Funding deployed** then 98% for qualified applicants.
 - No footnote superscripts, Note, or numbered list. Skip when amounts are non-numeric (`Tailored to your business`).

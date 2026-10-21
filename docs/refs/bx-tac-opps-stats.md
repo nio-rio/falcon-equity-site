@@ -45,11 +45,3 @@ Falcon home maps this onto `.pilot-stats-*` with `24-48h` as the featured figure
 Label → number is **12px** on featured and side (`--bx-space-12`: BX 40 / 56 / 56 / 64
 minus 3rem, floored). Side fields stack in one grid cell so desktop does not inherit
 the featured row height. Number → rule (side value padding-bottom **16px**) is unchanged.
-Side (and featured) blocks are flex columns with labels at the top (`line-height: 1`
-so the 32px featured label is not 8px lower than the 16px side labels) and
-`margin-top: auto` on the number-plus-rule wrap. Falcon adds a matching 1px rule
-under the featured figure so all three rules share one bottom line; BX only
-underlined the small values. The 48em / 80em grid uses `align-items: stretch`.
-Extra height from a wrapping label such as “Approval for qualified applicants”
-goes into the shorter column’s label→number gap. The 12px gap is the minimum;
-stacked mobile keeps that 12px gap.

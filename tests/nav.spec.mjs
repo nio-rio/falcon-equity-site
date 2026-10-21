@@ -1086,101 +1086,32 @@ for (const vp of VIEWPORTS) {
         const featValue = document.querySelector('.pilot-stats-feat-value');
         const sideLabel = document.querySelector('.pilot-stats-side-label');
         const sideValue = document.querySelector('.pilot-stats-side-value p');
-        const sideRule = document.querySelector('.pilot-stats-side .pilot-stats-rule');
-        const featBlock = document.querySelector('.pilot-stats-feat');
-        const sideBlock = document.querySelector('.pilot-stats-side');
+        const sideRule = document.querySelector('.pilot-stats-rule');
         const featCs = featValue ? getComputedStyle(featValue) : null;
+        const sideLabelCs = sideLabel ? getComputedStyle(sideLabel) : null;
         const sideValueCs = sideValue ? getComputedStyle(sideValue) : null;
         return {
-          featGap: featBlock ? Math.round(parseFloat(getComputedStyle(featBlock).gap)) : null,
-          sideGap: sideBlock ? Math.round(parseFloat(getComputedStyle(sideBlock).gap)) : null,
           featLabelToNumber: boxGap(featLabel, featValue),
+          featMt: featCs ? Math.round(parseFloat(featCs.marginTop)) : null,
           featPb: featCs ? Math.round(parseFloat(featCs.paddingBottom)) : null,
           sideLabelToNumber: boxGap(sideLabel, sideValue),
+          sideMb: sideLabelCs ? Math.round(parseFloat(sideLabelCs.marginBottom)) : null,
           sideValuePb: sideValueCs ? Math.round(parseFloat(sideValueCs.paddingBottom)) : null,
           sideNumberToRuleBox: boxGap(sideValue, sideRule),
         };
       });
-      const stackedStats = vp.width < 768;
       log({
         ...tag,
         check: 'home-stats-label-number-gap',
         ok:
-          statsGaps.featGap === 12 &&
-          statsGaps.sideGap === 12 &&
-          (stackedStats
-            ? Math.abs((statsGaps.featLabelToNumber ?? -1) - 12) <= 1 &&
-              Math.abs((statsGaps.sideLabelToNumber ?? -1) - 12) <= 1
-            : (statsGaps.featLabelToNumber ?? 0) >= 12 && (statsGaps.sideLabelToNumber ?? 0) >= 12) &&
+          statsGaps.featMt === 12 &&
+          Math.abs((statsGaps.featLabelToNumber ?? -1) - 12) <= 1 &&
+          statsGaps.sideMb === 12 &&
+          Math.abs((statsGaps.sideLabelToNumber ?? -1) - 12) <= 1 &&
           statsGaps.sideValuePb === 16 &&
           statsGaps.sideNumberToRuleBox === 0,
         detail: JSON.stringify(statsGaps),
       });
-      if (vp.width >= 768) {
-        const statsAlign = await page.evaluate(() => {
-          const values = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
-            el.getBoundingClientRect(),
-          );
-          const rules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')].map((el) =>
-            el.getBoundingClientRect(),
-          );
-          const labels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
-            el.getBoundingClientRect(),
-          );
-          const featLabel = document.querySelector('.pilot-stats-feat-label')?.getBoundingClientRect();
-          const featRule = document.querySelector('.pilot-stats-feat .pilot-stats-rule')?.getBoundingClientRect();
-          const allLabelTops = [
-            featLabel ? Math.round(featLabel.top * 10) / 10 : null,
-            ...labels.map((r) => Math.round(r.top * 10) / 10),
-          ].filter((n) => n != null);
-          const tops = (rects) => rects.map((r) => Math.round(r.top * 10) / 10);
-          const bottoms = (rects) => rects.map((r) => Math.round(r.bottom * 10) / 10);
-          const labelTops = tops(labels);
-          const valueBottoms = bottoms(values);
-          const ruleBottoms = bottoms(rules);
-          const labelGaps = labels.map((lab, i) =>
-            values[i] ? Math.round(values[i].top - lab.bottom) : null,
-          );
-          const withFeat = window.innerWidth >= 1280;
-          const featLabelTop = featLabel ? Math.round(featLabel.top * 10) / 10 : null;
-          const featRuleBottom = featRule ? Math.round(featRule.bottom * 10) / 10 : null;
-          return {
-            labelTops,
-            allLabelTops,
-            valueBottoms,
-            ruleBottoms,
-            labelGaps,
-            labelTopSpread: labelTops.length > 1 ? Math.abs(labelTops[0] - labelTops[1]) : 0,
-            allLabelSpread: withFeat && allLabelTops.length > 1
-              ? Math.max(...allLabelTops) - Math.min(...allLabelTops)
-              : 0,
-            valueSpread: valueBottoms.length > 1 ? Math.abs(valueBottoms[0] - valueBottoms[1]) : 0,
-            ruleSpread: ruleBottoms.length > 1 ? Math.abs(ruleBottoms[0] - ruleBottoms[1]) : 0,
-            featLabelTop,
-            featRuleBottom,
-            featLabelSpread: withFeat && featLabelTop != null && labelTops.length
-              ? Math.max(...labelTops.map((t) => Math.abs(t - featLabelTop)))
-              : 0,
-            featRuleSpread: withFeat && featRuleBottom != null && ruleBottoms.length
-              ? Math.max(...ruleBottoms.map((b) => Math.abs(b - featRuleBottom)))
-              : 0,
-            withFeat,
-          };
-        });
-        log({
-          ...tag,
-          check: 'home-stats-numbers-align',
-          ok:
-            statsAlign.valueBottoms.length >= 2 &&
-            statsAlign.labelTopSpread <= 1 &&
-            statsAlign.allLabelSpread <= 1 &&
-            statsAlign.valueSpread <= 1 &&
-            statsAlign.ruleSpread <= 1 &&
-            statsAlign.labelGaps.every((g) => g != null && g >= 12) &&
-            (!statsAlign.withFeat || (statsAlign.featLabelSpread <= 1 && statsAlign.featRuleSpread <= 1)),
-          detail: JSON.stringify(statsAlign),
-        });
-      }
 
       const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');
@@ -2957,72 +2888,30 @@ const sitemapPaths = async () => {
         if (!a || !b) return null;
         return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
       };
-      const feat = document.querySelector('.stats-bx__featured');
-      const field = document.querySelector('.stats-bx__field');
       const featLabel = document.querySelector('.stats-bx__label--featured');
       const featValue = document.querySelector('.stats-bx__value--featured');
       const sideLabel = document.querySelector('.stats-bx__field .stats-bx__label');
       const sideValue = document.querySelector('.stats-bx__field .stats-bx__value');
       return {
-        featGap: feat ? Math.round(parseFloat(getComputedStyle(feat).gap)) : null,
-        sideGap: field ? Math.round(parseFloat(getComputedStyle(field).gap)) : null,
+        featMt: featValue ? Math.round(parseFloat(getComputedStyle(featValue).marginTop)) : null,
         featBox: boxGap(featLabel, featValue),
+        sideMb: sideLabel ? Math.round(parseFloat(getComputedStyle(sideLabel).marginBottom)) : null,
         sideBox: boxGap(sideLabel, sideValue),
         sidePb: sideValue ? Math.round(parseFloat(getComputedStyle(sideValue).paddingBottom)) : null,
       };
     });
-    const stackedHero = vp.width < 768;
     log({
       vp: vp.name,
       page: 'mca',
       check: 'hero-stats-label-number-gap',
       ok:
-        gaps.featGap === 12 &&
-        gaps.sideGap === 12 &&
-        (stackedHero
-          ? Math.abs((gaps.featBox ?? -1) - 12) <= 1 && Math.abs((gaps.sideBox ?? -1) - 12) <= 1
-          : (gaps.featBox ?? 0) >= 12 && (gaps.sideBox ?? 0) >= 12) &&
+        gaps.featMt === 12 &&
+        Math.abs((gaps.featBox ?? -1) - 12) <= 1 &&
+        gaps.sideMb === 12 &&
+        Math.abs((gaps.sideBox ?? -1) - 12) <= 1 &&
         gaps.sidePb === 16,
       detail: JSON.stringify(gaps),
     });
-    if (vp.width >= 768) {
-      const align = await page.evaluate(() => {
-        const fields = [...document.querySelectorAll('.stats-bx__field')];
-        const values = fields.map((f) => f.querySelector('.stats-bx__value')?.getBoundingClientRect()).filter(Boolean);
-        const labels = fields.map((f) => f.querySelector('.stats-bx__label')?.getBoundingClientRect()).filter(Boolean);
-        const featLabel = document.querySelector('.stats-bx__label--featured')?.getBoundingClientRect();
-        const featValue = document.querySelector('.stats-bx__value--featured')?.getBoundingClientRect();
-        const bottoms = values.map((r) => Math.round(r.bottom * 10) / 10);
-        const tops = labels.map((r) => Math.round(r.top * 10) / 10);
-        const withFeat = window.innerWidth >= 1280;
-        return {
-          tops,
-          bottoms,
-          labelTopSpread: tops.length > 1 ? Math.abs(tops[0] - tops[1]) : 0,
-          spread: bottoms.length > 1 ? Math.abs(bottoms[0] - bottoms[1]) : 0,
-          labelGaps: labels.map((lab, i) => (values[i] ? Math.round(values[i].top - lab.bottom) : null)),
-          featLabelSpread: withFeat && featLabel && tops.length
-            ? Math.max(...tops.map((t) => Math.abs(t - Math.round(featLabel.top * 10) / 10)))
-            : 0,
-          featValueSpread: withFeat && featValue && bottoms.length
-            ? Math.max(...bottoms.map((b) => Math.abs(b - Math.round(featValue.bottom * 10) / 10)))
-            : 0,
-          withFeat,
-        };
-      });
-      log({
-        vp: vp.name,
-        page: 'mca',
-        check: 'hero-stats-numbers-align',
-        ok:
-          align.bottoms.length >= 2 &&
-          align.labelTopSpread <= 1 &&
-          align.spread <= 1 &&
-          align.labelGaps.every((g) => g != null && g >= 12) &&
-          (!align.withFeat || (align.featLabelSpread <= 1 && align.featValueSpread <= 1)),
-        detail: JSON.stringify(align),
-      });
-    }
     await context.close();
   }
 }
