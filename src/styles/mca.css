@@ -150,6 +150,8 @@
 }
 
 .mca-strategies li {
+  display: flex;
+  flex-direction: column;
   padding: var(--bx-space-32);
   background: var(--color-tint);
 }
@@ -168,10 +170,12 @@
 }
 
 .mca-strategies p:not(.mca-strategies-num) {
+  flex: 1;
   margin-top: var(--bx-space-16);
   color: var(--color-ink-soft);
   font-size: var(--type-body-size);
   line-height: var(--type-body-lh);
+  min-height: calc(3 * var(--type-body-lh));
 }
 
 .mca-band--tint {
