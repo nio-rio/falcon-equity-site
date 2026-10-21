@@ -844,6 +844,7 @@ for (const vp of VIEWPORTS) {
         const news = document.querySelector('.pilot-news');
         const eyebrow = section?.querySelector('.pilot-why-eyebrow')?.textContent.replace(/\s+/g, ' ').trim() || '';
         const heading = section?.querySelector('#why-heading')?.textContent.trim() || '';
+        const copy = section?.querySelector('.pilot-why-copy')?.textContent.replace(/\s+/g, ' ').trim() || '';
         const how = section?.querySelector('a[href="/how-it-works"]');
         const rows = [...(section?.querySelectorAll('.pilot-why-row') || [])].map((row) => ({
           title: row.querySelector('.pilot-why-row-title')?.textContent.trim() || '',
@@ -857,6 +858,8 @@ for (const vp of VIEWPORTS) {
         return {
           eyebrow,
           heading,
+          copy,
+          howHref: how?.getAttribute('href') || '',
           howLabel: how?.textContent.replace(/\s+/g, ' ').trim() || '',
           rows,
           tapeHref: tape?.getAttribute('href') || '',
@@ -876,8 +879,11 @@ for (const vp of VIEWPORTS) {
           why.afterTabs &&
           why.beforeNews &&
           /why choose us/i.test(why.eyebrow) &&
-          why.heading === 'Work with Falcon from application to funding.' &&
-          why.howLabel.includes('Learn how it works') &&
+          why.heading === 'Capital, without the runaround.' &&
+          why.copy ===
+            'No brokers in the middle and no hard pull just to see where you stand. Just a direct line to the people who fund you.' &&
+          why.howHref === '/how-it-works' &&
+          why.howLabel.includes('See how it works') &&
           why.rows.length === 3 &&
           why.rows[0].title === 'Easy process' &&
           why.rows[0].body.includes('without going through a third party') &&

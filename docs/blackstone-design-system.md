@@ -281,7 +281,7 @@ Live `bmacx.com` is Cloudflare-blocked; values from blackstone-v2 `.bx-tabs__dro
 
 Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up-content` + `.bx-tickertape` (`frontend.css` / `frontend.js`) plus `/tmp/bxhero/bxhome.html`. Home only: `.pilot-why-*` in `PilotWhy.astro`. See `docs/refs/bx-private-wealth.md`.
 
-- Dark band `--bx-black` `#14101f`. Eyebrow + short rule, serif H2 left (32 / 40 / 48), indented 18px body, circle-arrow “Learn how it works” → `/how-it-works`.
+- Dark band `--bx-black` `#14101f`. Eyebrow + short rule, serif H2 left (32 / 40 / 48) “Capital, without the runaround.”, indented 18px body (“No brokers in the middle… people who fund you.”), circle-arrow “See how it works” → `/how-it-works`.
 - Right card (`color-mix(#fff 8%, #14101f)`): three rows, hairlines, step numbers 1–3 in At Gambit (not links; no circle arrows).
 - Giant serif marquee “**Apply** for funding” at 125px/s, whole strip → `/apply`. Pauses under `prefers-reduced-motion`.
 - No funding-timing footnote and no † after “same day.” Scroll-in uses the headers preset (title / body / CTA / card).
