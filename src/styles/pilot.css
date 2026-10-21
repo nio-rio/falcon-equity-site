@@ -50,6 +50,7 @@
   max-width: 100%;
   margin-top: 2.5rem;
   overflow: hidden;
+  /* 1600/686 is ~154px at 390 — too short. Keep 16/9 below 48em. */
   aspect-ratio: 16 / 9;
 }
 
@@ -72,9 +73,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* 2:1 still. 16:9 (mobile–1024) crops the sides; 21:9 (80em/90em) crops top/bottom.
-     50% 40% keeps the advisor centered and both clients’ faces in frame. */
-  object-position: 50% 40%;
+  /* Native 1600/686 from 48em is uncropped. Below 48em the 16/9 box
+     crops the sides; 33% 50% keeps the falcon in the left third. */
+  object-position: 33% 50%;
 }
 
 .pilot-hero-caption {
@@ -155,6 +156,7 @@
 
   .pilot-hero-media {
     margin-top: 4rem;
+    aspect-ratio: 1600 / 686;
   }
 
   .pilot-hero-caption-title h2 {
@@ -218,8 +220,8 @@
 
   .pilot-hero-media {
     margin-top: 112px;
-    aspect-ratio: auto;
-    height: 487px;
+    aspect-ratio: 1600 / 686;
+    height: auto;
   }
 
   .pilot-hero-caption {
@@ -276,7 +278,8 @@
 
   .pilot-hero-media {
     margin-top: 120px;
-    height: 542px;
+    aspect-ratio: 1600 / 686;
+    height: auto;
   }
 
   .pilot-hero-caption {

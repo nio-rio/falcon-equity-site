@@ -10,7 +10,7 @@ import PilotNews from '@/components/pilot/PilotNews.astro';
 import { getHomeServices } from '@/data/services';
 import { STATS } from '@/data/site';
 import { getPublicPosts } from '@/lib/blog';
-import heroMeeting from '@/assets/images/hero-meeting.webp';
+import heroFalcon from '@/assets/images/hero-falcon.webp';
 import '@/styles/pilot.css';
 
 const homeServices = getHomeServices();
@@ -51,8 +51,8 @@ const approval = STATS.find((s) => s.label === 'Approval for qualified applicant
     captionBody="One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval."
     captionHref="/apply"
     captionLabel="Apply for funding"
-    image={heroMeeting}
-    imageAlt="Advisor smiling as she reviews documents with two clients at a conference table"
+    image={heroFalcon}
+    imageAlt="Peregrine falcon perched on a weathered branch"
   />
 
   <PilotStats

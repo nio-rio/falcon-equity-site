@@ -1077,6 +1077,58 @@ for (const vp of VIEWPORTS) {
         detail: JSON.stringify(spacing),
       });
 
+      const heroStill = await page.evaluate(() => {
+        const box = document.querySelector('.pilot-hero-media');
+        const img = document.querySelector('.pilot-hero-media img');
+        const picture = document.querySelector('.pilot-hero-media picture');
+        const sources = [...(picture?.querySelectorAll('source') || [])].map((source) => ({
+          type: source.getAttribute('type') || '',
+          srcset: source.getAttribute('srcset') || '',
+        }));
+        const r = box?.getBoundingClientRect();
+        const imgCs = img ? getComputedStyle(img) : null;
+        const srcset = [
+          ...sources.map((source) => source.srcset),
+          img?.getAttribute('srcset') || '',
+        ].join(' ');
+        return {
+          alt: img?.getAttribute('alt') || '',
+          loading: img?.getAttribute('loading') || '',
+          fetchPriority: (img?.getAttribute('fetchpriority') || '').toLowerCase(),
+          src: img?.currentSrc || img?.getAttribute('src') || '',
+          hasAvif: sources.some((source) => source.type === 'image/avif'),
+          hasWebp:
+            sources.some((source) => source.type === 'image/webp') ||
+            /\.webp(?:\?|$)/.test(img?.getAttribute('src') || ''),
+          srcsetCount: (srcset.match(/\s+\d+w/g) || []).length,
+          boxW: r ? Math.round(r.width) : null,
+          boxH: r ? Math.round(r.height) : null,
+          ratio: r && r.height ? Math.round((r.width / r.height) * 100) / 100 : null,
+          objectFit: imgCs?.objectFit || null,
+          objectPosition: imgCs?.objectPosition || null,
+        };
+      });
+      const nativeRatio = 1600 / 686;
+      const mobileHero = vp.width < 768;
+      const expectedRatio = mobileHero ? 16 / 9 : nativeRatio;
+      log({
+        ...tag,
+        check: 'home-hero-falcon-still',
+        ok:
+          heroStill.alt === 'Peregrine falcon perched on a weathered branch' &&
+          (heroStill.loading === 'eager' || heroStill.fetchPriority === 'high') &&
+          heroStill.fetchPriority === 'high' &&
+          heroStill.hasAvif &&
+          heroStill.hasWebp &&
+          heroStill.srcsetCount >= 3 &&
+          heroStill.objectFit === 'cover' &&
+          /^33%\s+50%$/.test(heroStill.objectPosition || '') &&
+          heroStill.ratio != null &&
+          Math.abs(heroStill.ratio - expectedRatio) <= 0.04 &&
+          !/hero-meeting/.test(heroStill.src),
+        detail: JSON.stringify({ ...heroStill, expectedRatio: Math.round(expectedRatio * 100) / 100 }),
+      });
+
       const statsGaps = await page.evaluate(() => {
         const boxGap = (a, b) => {
           if (!a || !b) return null;

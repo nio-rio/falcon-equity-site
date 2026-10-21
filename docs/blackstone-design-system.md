@@ -368,7 +368,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 hero (`hero-meeting.webp`, advisor with two clients at a table); testimonial stills (trucks / dentist / chef, 3:4 crop); 12 industry 16:9 Ling stills (one visible in the dropdown panel; inactive tabs lazy); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the falcon still. |
+| Home (pilot) | 1 hero (`hero-falcon.webp`, peregrine on a branch, 1600×686); testimonial stills (trucks / dentist / chef, 3:4 crop); 12 industry 16:9 Ling stills (one visible in the dropdown panel; inactive tabs lazy); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the unused meeting still or the archived falcon crops. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. Pre-footer `.site-cta` comes from the layout. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
@@ -395,7 +395,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotStats.astro` | Home Tac Opps featured stats on the 16-col grid. |
 | `src/styles/blackstone.css` | Grid utilities + components for non-pilot pages |
 | `src/styles/pilot.css` | Namespaced `.pilot-*` layer for `/` and `/services/merchant-cash-advance` |
-| `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image in container 487/542 (`hero-meeting.webp` advisor + two clients, AVIF/WebP, object-position 50% 40%). Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
+| `src/components/pilot/PilotHero.astro` | Home hero, Ling-approved BX measures (80em / 90em fixed steps, no clamp). Scoped 16-col / 16px grid. H1 64/72 nested-8, line 2 indent 1/2 cols. Aside cols 11–16 `align-self:end`. Image is Ling’s `hero-falcon.webp` (1600×686, AVIF/WebP srcset, eager/high). Box is **1600 / 686** from 48em (uncropped; ~487 / 542 at 1136 / 1264). Below 48em the 16/9 box stays so the still is not ~154px tall; `object-position: 33% 50%` keeps the falcon in the left third. Caption top-aligned: title cols 1–7/1–8, body 456/504 flush right, “Apply for funding” 18px + 40px circle / 44px tall. |
 | `src/components/pilot/PilotPageHero.astro` | Inner-page hero: H1 span 7, lead span 5, one 16:9 still |
 | `src/components/pilot/PilotEyebrow.astro` | Left = 48×2px rule to the right; `align="center"` = rule above the label |
 | `src/components/pilot/PilotArrow.astro` | Circle-arrow + drawn underline (350ms). `tone="light"` inverts the hover fill |
