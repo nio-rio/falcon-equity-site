@@ -45,6 +45,14 @@ const faqs = [
     q: 'What happens after I sign?',
     a: 'Funds are sent to the business account confirmed on your voided check. Your agreement sets the repayment schedule, and one specialist stays with the file if anything needs adjusting afterwards.',
   },
+  {
+    q: 'Are there industries or states you cannot fund?',
+    a: 'No. Falcon keeps no restricted-industry or restricted-state list, so an application is judged on the business rather than its sector or location. Underwriting and approval still apply.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Falcon charges a 0% agreement fee. Any product-specific cost is set out in your agreement before you sign, and no specific rate is published on this site.',
+  },
 ];
 ---
 
@@ -159,7 +167,10 @@ const faqs = [
       { value: 'Six months, complete PDFs', label: 'Bank statements' },
     ]}
     lookAt="What we look at, in plain terms: how long you have been operating, what lands in the business account each month, whether deposits are steady or lumpy, any open advances and their payment schedule, and — for loan products — credit."
-    note="These are published criteria, not a promise. Final decisions are made in underwriting and approval is never guaranteed."
+    note={[
+      'These are published criteria, not a promise. Final decisions are made in underwriting and approval is never guaranteed.',
+      'No restricted industries or states: Falcon has no restricted-industry or restricted-state list. Underwriting looks at the business, not the geography.',
+    ]}
   />
 
   <section class="pilot-section" aria-labelledby="hiw-faq-heading">

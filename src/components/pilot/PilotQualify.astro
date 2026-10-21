@@ -9,10 +9,11 @@ interface Props {
   title: string;
   cells: readonly GlanceCell[];
   lookAt?: string;
-  note?: string;
+  note?: string | readonly string[];
 }
 
 const { id = 'qualify-heading', eyebrow = 'Eligibility', title, cells, lookAt, note } = Astro.props;
+const notes = note == null ? [] : typeof note === 'string' ? [note] : [...note];
 ---
 
 <section class="pilot-section" aria-labelledby={id}>
@@ -26,13 +27,13 @@ const { id = 'qualify-heading', eyebrow = 'Eligibility', title, cells, lookAt, n
   </div>
   <PilotGlance cells={cells} labelledBy={id} variant="requirements" />
   {
-    (lookAt || note) && (
+    (lookAt || notes.length > 0) && (
       <div class="container-site">
         <div class="bx-grid">
           {lookAt && <p class="pilot-section-body bx-span-4 bx-lg-span-10">{lookAt}</p>}
-          {note && (
+          {notes.map((line) => (
             <p class="pilot-section-note bx-span-4 bx-lg-span-10">
-              {splitInlineLinks(note).map((part) =>
+              {splitInlineLinks(line).map((part) =>
                 part.href ? (
                   <a class="link" href={part.href}>
                     {part.text}
@@ -42,7 +43,7 @@ const { id = 'qualify-heading', eyebrow = 'Eligibility', title, cells, lookAt, n
                 ),
               )}
             </p>
-          )}
+          ))}
         </div>
       </div>
     )
