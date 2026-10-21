@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
 import Icon from '@/components/Icon.astro';
 import { getService, STANDARD_STEPS } from '@/data/services';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -70,16 +71,67 @@ const steps = [
     title: STANDARD_STEPS[0].title,
     body: STANDARD_STEPS[0].body,
     note: 'You provide: six months of business bank statements, photo ID, a voided check and a debt schedule.',
+    intent: 'Abstract still for the apply step, no people',
   },
   {
     title: STANDARD_STEPS[1].title,
     body: STANDARD_STEPS[1].body,
     note: 'You get: a call about amounts, remittance and timing before anything is signed.',
+    intent: 'Abstract still for the review step, no people',
   },
   {
     title: STANDARD_STEPS[2].title,
     body: `Once approved, review and sign your agreement. Merchant cash advances can fund the ${speed.toLowerCase()}.`,
     note: 'You see: the total purchased amount and the remittance percentage on the agreement.',
+    intent: 'Abstract still for the fund step, no people',
+  },
+];
+
+const termRows = [
+  {
+    title: 'Typical amounts',
+    body: `${spec.amounts}. Final amounts depend on underwriting.`,
+  },
+  {
+    title: 'Terms',
+    body: `${spec.terms}. Remittances follow your sales under the agreement, not a fixed loan payment.`,
+  },
+  {
+    title: 'Requirements',
+    body: 'Underwriting looks at time in business, monthly revenue and an active business bank account.',
+    items: spec.requirements,
+  },
+  {
+    title: 'How remittance works',
+    body: 'You remit an agreed share of daily or weekly sales until the purchased amount is delivered. The percentage and the total purchased amount are disclosed before you sign.',
+  },
+  {
+    title: "Who it's for",
+    body: spec.whoFor,
+  },
+  {
+    title: 'What it costs',
+    body: 'Falcon charges a 0% agreement fee. Rates are competitive. No specific rate is published on this page.',
+  },
+];
+
+const fitRows = [
+  {
+    title: 'A good fit',
+    body: spec.whoFor,
+    items: [spec.requirements[2], 'Revenue and bank activity carry the most weight.'],
+  },
+  {
+    title: 'The cost is a planned, repeating one.',
+    body: 'Rent, payroll cycles and inventory bought on a schedule suit a line of credit, where you draw what you need and pay for what you use.',
+  },
+  {
+    title: 'The purchase is an asset.',
+    body: 'Equipment, vehicles and fixtures have a working life, so a collateral or asset loan spreads the cost over the years they earn.',
+  },
+  {
+    title: 'You are already carrying several advances.',
+    body: 'Stacking a new position on top of existing daily payments is how files get into trouble.',
   },
 ];
 
@@ -105,17 +157,22 @@ const trustStats = [deployed, helped, years, fundingTime];
     </script>
   </Fragment>
 
-  <section class="mca-hero on-dark" aria-labelledby="page-hero-heading" data-band="dark">
+  <section class="mca-hero" aria-labelledby="page-hero-heading" data-band="light">
     <div class="container-site">
-      <Eyebrow>Services</Eyebrow>
-      <h1 id="page-hero-heading">{service.name}</h1>
-      <p class="mca-hero-lead">{service.headline}</p>
-      <div class="mca-hero-cta">
-        <ArrowCta href="/apply" label="Apply for this product" tone="light" />
-        <p class="mca-hero-phone">
-          Direct{' '}
-          <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
-        </p>
+      <div class="mca-grid mca-hero-head">
+        <div class="mca-hero-title">
+          <h1 id="page-hero-heading">{service.name}</h1>
+        </div>
+        <div class="mca-hero-copy">
+          <p class="mca-hero-lead">{service.headline}</p>
+          <div class="mca-hero-cta">
+            <ArrowCta href="/apply" label="Apply for this product" />
+            <p class="mca-hero-phone">
+              Direct{' '}
+              <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
+            </p>
+          </div>
+        </div>
       </div>
       <div class="mca-hero-media">
         <Media
@@ -131,205 +188,241 @@ const trustStats = [deployed, helped, years, fundingTime];
     </div>
   </section>
 
-  <section class="mca-band" aria-labelledby="answer-heading" data-band="light" data-reveal-root>
+  <section class="mca-band mca-stats" aria-label="At a glance" data-band="light" data-reveal-root>
     <div class="container-site">
-      <h2 id="answer-heading" class="sr-only">Direct answer</h2>
-      <p class="mca-statement" data-reveal>
-        A merchant cash advance is a purchase of future receivables, not a loan. A business with $10K+ in monthly
-        revenue and 3+ months in operation receives a lump sum from $5,000 to $5,000,000, then repays it through an
-        agreed share of sales over 3 to 18 months.
-      </p>
-      <ul class="mca-facts" aria-label="At a glance">
-        <li data-reveal>
-          <p class="mca-facts-label">Amounts</p>
-          <p class="mca-facts-value">{spec.amounts}</p>
-        </li>
-        <li data-reveal>
-          <p class="mca-facts-label">Funding after approval and signature</p>
-          <p class="mca-facts-value">{speed}</p>
-        </li>
-        <li data-reveal>
-          <p class="mca-facts-label">Fee</p>
-          <p class="mca-facts-value">0% agreement fee</p>
-        </li>
-        <li data-reveal>
-          <p class="mca-facts-label">Rates</p>
-          <p class="mca-facts-value">Competitive</p>
-        </li>
-      </ul>
+      <div class="mca-grid mca-stats-grid">
+        <div class="mca-stat-feat" data-reveal>
+          <p class="mca-stat-label">Amounts</p>
+          <p class="mca-stat-feat-value">{spec.amounts}</p>
+        </div>
+        <div class="mca-stat-side" data-reveal>
+          <p class="mca-stat-label">Funding after approval and signature</p>
+          <p class="mca-stat-side-value">{speed}</p>
+        </div>
+        <div class="mca-stat-side" data-reveal>
+          <p class="mca-stat-label">Fee</p>
+          <p class="mca-stat-side-value">0% agreement fee</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="mca-band" aria-labelledby="what-heading" data-band="light" data-reveal-root>
+  <section class="mca-band mca-do on-dark" aria-labelledby="what-heading" data-band="dark" data-reveal-root>
     <div class="container-site">
-      <div class="mca-split">
-        <div class="mca-split-media" data-reveal-media>
+      <div class="mca-grid">
+        <div class="mca-do-head" data-reveal>
+          <Eyebrow>What we do</Eyebrow>
+          <h2 id="what-heading">
+            A merchant cash advance is a purchase of future receivables, not a loan. A business with $10K+ in monthly
+            revenue and 3+ months in operation receives a lump sum from $5,000 to $5,000,000, then repays it through an
+            agreed share of sales over 3 to 18 months.
+          </h2>
+        </div>
+        <div class="mca-do-media" data-reveal-media>
           <Media
             labeled
             intent="Abstract geometric still, no people"
             ratio="4 / 5"
-            sizes="(min-width: 1024px) 40vw, 100vw"
+            sizes="(min-width: 1024px) 42vw, 100vw"
           />
         </div>
-        <div class="mca-split-copy" data-reveal>
-          <Eyebrow>What we do</Eyebrow>
-          <h2 id="what-heading">What is a merchant cash advance?</h2>
-          <p>
-            A merchant cash advance converts a share of future sales into cash today. You receive a lump sum, then remit
-            an agreed percentage of daily or weekly sales until the purchased amount is delivered. It is a purchase of
-            receivables, not a loan, so there is no fixed instalment schedule.
-          </p>
-        </div>
-      </div>
-      <ul class="mca-pillars" data-reveal data-reveal-after>
-        {
-          uses.map((use) => (
-            <li>
-              <h3>{use.title}</h3>
-              <p>{use.body}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section class="mca-band" aria-labelledby="overview-heading" data-band="light" data-reveal-root>
-    <div class="container-site">
-      <Eyebrow>Terms</Eyebrow>
-      <h2 id="overview-heading" data-reveal>What you can expect.</h2>
-      <ul class="mca-strategies" data-reveal data-reveal-after>
-        <li>
-          <p class="mca-strategies-num">01</p>
-          <h3>Typical amounts</h3>
-          <p>{spec.amounts}. Final amounts depend on underwriting.</p>
-        </li>
-        <li>
-          <p class="mca-strategies-num">02</p>
-          <h3>Terms</h3>
-          <p>{spec.terms}. Remittances follow your sales under the agreement, not a fixed loan payment.</p>
-        </li>
-        <li>
-          <p class="mca-strategies-num">03</p>
-          <h3>What it costs</h3>
-          <p>
-            Falcon charges a 0% agreement fee. Rates are competitive. No specific rate is published on this page.
-          </p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="mca-band mca-band--tint" aria-labelledby="fit-heading" data-band="light" data-reveal-root>
-    <div class="container-site">
-      <Eyebrow>Fit</Eyebrow>
-      <h2 id="fit-heading" data-reveal>When this is not the right product.</h2>
-      <p class="mca-fit-lead" data-reveal>
-        A cash advance is the fastest option and the most expensive. Three cases where something else fits better.
-      </p>
-      <div class="mca-roles" data-reveal data-reveal-after>
-        <div>
-          <h3>A good fit</h3>
-          <ul>
-            <li>{spec.whoFor}</li>
-            <li>{spec.requirements[2]}.</li>
-            <li>Revenue and bank activity carry the most weight.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Wrong choice</h3>
-          <ul>
-            <li>
-              <strong>The cost is a planned, repeating one.</strong>
-              {' '}Rent, payroll cycles and inventory bought on a schedule suit a line of credit, where you draw what you
-              need and pay for what you use.
-            </li>
-            <li>
-              <strong>The purchase is an asset.</strong>
-              {' '}Equipment, vehicles and fixtures have a working life, so a collateral or asset loan spreads the cost
-              over the years they earn.
-            </li>
-            <li>
-              <strong>You are already carrying several advances.</strong>
-              {' '}Stacking a new position on top of existing daily payments is how files get into trouble.
-            </li>
-          </ul>
-        </div>
+        <ul class="mca-do-list" data-reveal data-reveal-after>
+          {
+            uses.map((use) => (
+              <li>
+                <h3>{use.title}</h3>
+                <p>{use.body}</p>
+              </li>
+            ))
+          }
+          <li class="mca-do-cta">
+            <ArrowCta href="/apply" label="Apply for this product" tone="light" />
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="mca-band" aria-labelledby="process-heading" data-band="light" data-reveal-root>
+  <section class="mca-band mca-terms" aria-labelledby="overview-heading" data-band="light" data-reveal-root>
     <div class="container-site">
-      <Eyebrow>Process</Eyebrow>
-      <h2 id="process-heading" data-reveal>How you get approved.</h2>
-      <ol class="mca-rail" data-reveal data-reveal-after>
-        {
-          steps.map((step, i) => (
-            <li>
-              <p class="mca-rail-num">{String(i + 1).padStart(2, '0')}</p>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-              <p class="mca-rail-note">{step.note}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <section class="mca-band" aria-labelledby="mca-faq-heading" data-band="light" data-reveal-root>
-    <div class="container-site">
-      <Eyebrow>FAQ</Eyebrow>
-      <h2 id="mca-faq-heading" data-reveal>Cash advance questions</h2>
-      <div class="bx-accordion mca-faq" data-accordion data-reveal data-reveal-after>
-        {
-          faqs.map((item, i) => (
-            <div class="bx-acc-item" data-acc-item>
-              <h3>
-                <button
-                  type="button"
-                  class="bx-acc-trigger"
-                  aria-expanded="false"
-                  aria-controls={`mca-faq-panel-${i}`}
-                  id={`mca-faq-trigger-${i}`}
-                  data-acc-trigger
-                >
-                  <span>{item.q}</span>
-                  <span class="bx-acc-icon" aria-hidden="true">
-                    <Icon name="chevron-down" size={16} />
-                  </span>
-                </button>
-              </h3>
-              <div class="bx-acc-panel" id={`mca-faq-panel-${i}`} role="region" aria-labelledby={`mca-faq-trigger-${i}`}>
-                <div class="bx-acc-panel-inner">
-                  <p>{item.a}</p>
+      <div class="mca-grid">
+        <div class="mca-block-head" data-reveal>
+          <Eyebrow>Terms</Eyebrow>
+          <h2 id="overview-heading">What you can expect from a Falcon cash advance, in amounts, timing and cost.</h2>
+        </div>
+        <div class="mca-acc mca-acc--lines mca-full" data-accordion data-reveal data-reveal-after>
+          {
+            termRows.map((row, i) => (
+              <div class="mca-acc-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="mca-acc-trigger"
+                    aria-expanded="false"
+                    aria-controls={`mca-term-panel-${i}`}
+                    id={`mca-term-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{row.title}</span>
+                    <span class="mca-acc-icon" aria-hidden="true">
+                      <Icon name="chevron-down" size={16} />
+                    </span>
+                  </button>
+                </h3>
+                <div class="mca-acc-panel" id={`mca-term-panel-${i}`} role="region" aria-labelledby={`mca-term-trigger-${i}`}>
+                  <div class="mca-acc-inner">
+                    <p>{row.body}</p>
+                    {row.items ? (
+                      <ul>
+                        {row.items.map((item) => (
+                          <li>{item}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="mca-band mca-trust" aria-label="Published figures" data-band="light" data-reveal-root>
+  <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-reveal-root>
     <div class="container-site">
-      <div class="mca-trust-row" data-reveal>
-        <ul class="mca-trust-stats">
+      <div class="mca-grid">
+        <div class="mca-block-head" data-reveal>
+          <Eyebrow>Fit</Eyebrow>
+          <h2 id="fit-heading">When this is not the right product.</h2>
+        </div>
+        <p class="mca-block-body" data-reveal>
+          A cash advance is the fastest option and the most expensive. Three cases where something else fits better.
+        </p>
+        <div class="mca-acc mca-acc--lines mca-full" data-accordion data-reveal data-reveal-after>
+          {
+            fitRows.map((row, i) => (
+              <div class="mca-acc-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="mca-acc-trigger"
+                    aria-expanded="false"
+                    aria-controls={`mca-fit-panel-${i}`}
+                    id={`mca-fit-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{row.title}</span>
+                    <span class="mca-acc-icon" aria-hidden="true">
+                      <Icon name="chevron-down" size={16} />
+                    </span>
+                  </button>
+                </h3>
+                <div class="mca-acc-panel" id={`mca-fit-panel-${i}`} role="region" aria-labelledby={`mca-fit-trigger-${i}`}>
+                  <div class="mca-acc-inner">
+                    <p>{row.body}</p>
+                    {row.items ? (
+                      <ul>
+                        {row.items.map((item) => (
+                          <li>{item.endsWith('.') ? item : `${item}.`}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-process on-dark" aria-labelledby="process-heading" data-band="dark" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-grid">
+        <div class="mca-block-head" data-reveal>
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">How you get approved, from the first statements to a signed agreement.</h2>
+        </div>
+        <p class="mca-block-body" data-reveal>
+          One specialist owns the file. Timing depends on how quickly documents arrive; merchant cash advances can fund
+          the {speed.toLowerCase()} after approval and signature.
+        </p>
+        <ol class="mca-programs mca-full" data-reveal data-reveal-after>
+          {
+            steps.map((step) => (
+              <li>
+                <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+                <p class="mca-programs-note">{step.note}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-news" aria-labelledby="mca-faq-heading" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-grid">
+        <div class="mca-block-head" data-reveal>
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="mca-faq-heading">Cash advance questions</h2>
+        </div>
+        <div class="mca-news-list mca-full" data-accordion data-reveal data-reveal-after>
+          {
+            faqs.map((item, i) => (
+              <div class="mca-news-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="mca-news-trigger"
+                    aria-expanded="false"
+                    aria-controls={`mca-faq-panel-${i}`}
+                    id={`mca-faq-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{item.q}</span>
+                    <CircleArrow />
+                  </button>
+                </h3>
+                <div class="mca-acc-panel" id={`mca-faq-panel-${i}`} role="region" aria-labelledby={`mca-faq-trigger-${i}`}>
+                  <div class="mca-acc-inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-touch on-dark" aria-labelledby="mca-touch-heading" data-band="dark" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-grid mca-touch-grid">
+        <div class="mca-touch-copy" data-reveal>
+          <h2 id="mca-touch-heading">Get in touch with the funding desk.</h2>
+          <p class="mca-touch-phone">
+            Direct{' '}
+            <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
+          </p>
+          <ArrowCta href={PRIMARY_PHONE.href} label="Call the desk" tone="light" />
+        </div>
+        <ul class="mca-touch-stats" data-reveal data-reveal-after>
           {
             trustStats.map((stat) => (
               <li>
-                <p class="mca-trust-value">{stat.value}</p>
-                <p class="mca-trust-label">{stat.label}</p>
+                <p class="mca-touch-value">{stat.value}</p>
+                <p class="mca-touch-label">{stat.label}</p>
               </li>
             ))
           }
         </ul>
-        <p class="mca-trust-phone">
-          Direct{' '}
-          <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
-        </p>
       </div>
     </div>
   </section>
