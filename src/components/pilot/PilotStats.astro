@@ -33,15 +33,15 @@ const sideStats = side.slice(0, 2).map((stat) => ({
       </div>
       {
         sideStats.map((stat, i) => (
-          <>
-            <p class={`pilot-stats-side-label pilot-stats-side-label--${i + 1}`} data-reveal-stat>
+          <div class={`pilot-stats-side pilot-stats-side--${i + 1}`}>
+            <p class="pilot-stats-side-label" data-reveal-stat>
               {stat.label}
             </p>
-            <div class={`pilot-stats-side-value pilot-stats-side-value--${i + 1}`}>
+            <div class="pilot-stats-side-value">
               <p data-reveal-stat="value">{stat.value}</p>
               <span class="pilot-stats-rule" data-reveal-line aria-hidden="true" />
             </div>
-          </>
+          </div>
         ))
       }
     </div>

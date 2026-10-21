@@ -1003,18 +1003,16 @@ for (const vp of VIEWPORTS) {
           sideNumberToRuleBox: boxGap(sideValue, sideRule),
         };
       });
-      const featMt = vp.width >= 1440 ? 16 : 8;
-      const stacked = vp.width < 1280;
       log({
         ...tag,
         check: 'home-stats-label-number-gap',
         ok:
-          statsGaps.featMt === featMt &&
-          Math.abs((statsGaps.featLabelToNumber ?? -1) - featMt) <= 1 &&
-          statsGaps.sideMb === 8 &&
+          statsGaps.featMt === 12 &&
+          Math.abs((statsGaps.featLabelToNumber ?? -1) - 12) <= 1 &&
+          statsGaps.sideMb === 12 &&
+          Math.abs((statsGaps.sideLabelToNumber ?? -1) - 12) <= 1 &&
           statsGaps.sideValuePb === 16 &&
-          statsGaps.sideNumberToRuleBox === 0 &&
-          (!stacked || Math.abs((statsGaps.sideLabelToNumber ?? -1) - 8) <= 1),
+          statsGaps.sideNumberToRuleBox === 0,
         detail: JSON.stringify(statsGaps),
       });
 
@@ -2568,6 +2566,50 @@ const sitemapPaths = async () => {
   paths.add('/404');
   return [...paths];
 };
+
+{
+  const heroVps = [
+    { name: '390', width: 390, height: 844 },
+    { name: '768', width: 768, height: 1024 },
+    { name: '1280', width: 1280, height: 800 },
+    { name: '1440', width: 1440, height: 900 },
+  ];
+  for (const vp of heroVps) {
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
+    const page = await context.newPage();
+    await page.goto(`${BASE}/services/merchant-cash-advance`, { waitUntil: 'domcontentloaded' });
+    const gaps = await page.evaluate(() => {
+      const boxGap = (a, b) => {
+        if (!a || !b) return null;
+        return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
+      };
+      const featLabel = document.querySelector('.stats-bx__label--featured');
+      const featValue = document.querySelector('.stats-bx__value--featured');
+      const sideLabel = document.querySelector('.stats-bx__field .stats-bx__label');
+      const sideValue = document.querySelector('.stats-bx__field .stats-bx__value');
+      return {
+        featMt: featValue ? Math.round(parseFloat(getComputedStyle(featValue).marginTop)) : null,
+        featBox: boxGap(featLabel, featValue),
+        sideMb: sideLabel ? Math.round(parseFloat(getComputedStyle(sideLabel).marginBottom)) : null,
+        sideBox: boxGap(sideLabel, sideValue),
+        sidePb: sideValue ? Math.round(parseFloat(getComputedStyle(sideValue).paddingBottom)) : null,
+      };
+    });
+    log({
+      vp: vp.name,
+      page: 'mca',
+      check: 'hero-stats-label-number-gap',
+      ok:
+        gaps.featMt === 12 &&
+        Math.abs((gaps.featBox ?? -1) - 12) <= 1 &&
+        gaps.sideMb === 12 &&
+        Math.abs((gaps.sideBox ?? -1) - 12) <= 1 &&
+        gaps.sidePb === 16,
+      detail: JSON.stringify(gaps),
+    });
+    await context.close();
+  }
+}
 
 {
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
