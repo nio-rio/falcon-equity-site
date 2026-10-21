@@ -1073,6 +1073,12 @@ html.has-scroll-lock .site-header {
   color: var(--nav-copy);
 }
 
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
+  .primary-nav__inner.is-drilled .primary-nav__lvl-2-wrap {
+    padding-inline: var(--bx-margin);
+  }
+}
+
 .site-header.is-compact .primary-nav__inner {
   max-height: calc(100dvh - var(--bx-header-fixed));
 }

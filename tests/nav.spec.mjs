@@ -2585,7 +2585,10 @@ for (const vp of VIEWPORTS) {
       log({
         ...tag,
         check: 'panel-aligns-logo',
-        ok: mobileChrome.colLeft != null && Math.abs(mobileChrome.colLeft - mobileChrome.logoLeft) <= 1,
+        ok: (() => {
+          const alignLeft = mobileChrome.listLeft ?? mobileChrome.colLeft;
+          return alignLeft != null && Math.abs(alignLeft - mobileChrome.logoLeft) <= 1;
+        })(),
         detail: JSON.stringify(mobileChrome),
       });
       const mobileRule = await page.evaluate(() => {
