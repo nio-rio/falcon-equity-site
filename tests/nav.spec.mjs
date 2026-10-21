@@ -1121,7 +1121,9 @@ for (const vp of VIEWPORTS) {
           const values = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
             el.getBoundingClientRect(),
           );
-          const rules = [...document.querySelectorAll('.pilot-stats-rule')].map((el) => el.getBoundingClientRect());
+          const rules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')].map((el) =>
+            el.getBoundingClientRect(),
+          );
           const labels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
             el.getBoundingClientRect(),
           );
