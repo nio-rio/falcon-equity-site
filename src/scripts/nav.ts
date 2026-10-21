@@ -629,16 +629,22 @@ export function initNav() {
     items.forEach((item) => item.classList.remove('is-escaped'));
   };
 
+  const headerBar = () => header?.querySelector<HTMLElement>('[data-header-bar]') ?? header;
+
   const applyHomeThemeFromHero = () => {
     if (!isHomeHeader || !header) return;
     const hero = document.querySelector<HTMLElement>('[data-home-hero]');
     if (!hero) return;
-    const headerBottom = header.getBoundingClientRect().bottom;
+    const bar = headerBar();
+    if (!bar) return;
+    const barBottom = bar.getBoundingClientRect().bottom;
     const heroBottom = hero.getBoundingClientRect().bottom;
-    header.classList.toggle('is-color-theme-dark', heroBottom > headerBottom + 0.5);
+    // Stay dark until the hero’s bottom has fully passed the visible bar.
+    header.classList.toggle('is-color-theme-dark', heroBottom >= barBottom);
   };
 
   let heroThemeObs: IntersectionObserver | null = null;
+  let lastBarH = 0;
   const watchHomeHeroTheme = () => {
     heroThemeObs?.disconnect();
     heroThemeObs = null;
@@ -650,7 +656,9 @@ export function initNav() {
     }
     applyHomeThemeFromHero();
     if (typeof IntersectionObserver === 'undefined') return;
-    const h = Math.max(1, Math.round(header.getBoundingClientRect().height));
+    const bar = headerBar();
+    const h = Math.max(1, Math.round(bar?.getBoundingClientRect().height ?? 0));
+    lastBarH = h;
     heroThemeObs = new IntersectionObserver(applyHomeThemeFromHero, {
       root: null,
       rootMargin: `-${h}px 0px 0px 0px`,
@@ -659,11 +667,25 @@ export function initNav() {
     heroThemeObs.observe(hero);
   };
 
+  const syncBarHeightObserver = () => {
+    const bar = headerBar();
+    const h = Math.max(1, Math.round(bar?.getBoundingClientRect().height ?? 0));
+    if (h !== lastBarH) watchHomeHeroTheme();
+    else applyHomeThemeFromHero();
+  };
+
   setCompact();
   watchHomeHeroTheme();
   window.addEventListener('scroll', setCompact, { passive: true });
   window.addEventListener('scroll', applyHomeThemeFromHero, { passive: true });
   window.addEventListener('resize', watchHomeHeroTheme);
+  if (typeof ResizeObserver !== 'undefined') {
+    const bar = headerBar();
+    if (bar) {
+      const barSizeObs = new ResizeObserver(syncBarHeightObserver);
+      barSizeObs.observe(bar);
+    }
+  }
 
   if (state.isMobile) setupMobile();
   else resetDesktop();

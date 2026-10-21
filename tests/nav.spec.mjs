@@ -164,14 +164,17 @@ const readBarWrap = (page) =>
 const readHomeTheme = (page) =>
   page.evaluate(() => {
     const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]') || header;
     const hero = document.querySelector('[data-home-hero]');
-    const hr = header?.getBoundingClientRect();
+    const br = bar?.getBoundingClientRect();
     const er = hero?.getBoundingClientRect();
     return {
       dark: header?.classList.contains('is-color-theme-dark') || false,
       compact: header?.classList.contains('is-compact') || false,
-      headerBottom: hr ? Math.round(hr.bottom * 10) / 10 : null,
+      headerBottom: br ? Math.round(br.bottom * 10) / 10 : null,
+      barH: br ? Math.round(br.height * 10) / 10 : null,
       heroBottom: er ? Math.round(er.bottom * 10) / 10 : null,
+      overlap: br && er ? Math.round((er.bottom - br.bottom) * 10) / 10 : null,
       y: Math.round(window.scrollY),
     };
   });
@@ -200,12 +203,12 @@ const scrollPageTo = async (page, y) => {
 const scrollOverHomeHero = async (page) => {
   const y = await page.evaluate(() => {
     const hero = document.querySelector('[data-home-hero]');
-    const header = document.querySelector('[data-header]');
-    if (!hero || !header) return 40;
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 40;
     const heroTop = hero.getBoundingClientRect().top + window.scrollY;
     const heroH = hero.getBoundingClientRect().height;
-    const headerH = header.getBoundingClientRect().height;
-    return Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - headerH - 48);
+    const barH = bar.getBoundingClientRect().height;
+    return Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - barH - 48);
   });
   await scrollPageTo(page, Math.max(y, 40));
 };
@@ -213,13 +216,26 @@ const scrollOverHomeHero = async (page) => {
 const scrollPastHomeHero = async (page) => {
   const y = await page.evaluate(() => {
     const hero = document.querySelector('[data-home-hero]');
-    const header = document.querySelector('[data-header]');
-    if (!hero || !header) return 1;
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 1;
     return Math.ceil(
-      hero.getBoundingClientRect().bottom + window.scrollY - header.getBoundingClientRect().height + 16,
+      hero.getBoundingClientRect().bottom + window.scrollY - bar.getBoundingClientRect().height + 16,
     );
   });
   await scrollPageTo(page, Math.max(y, 1));
+};
+
+/** offset > 0 keeps that many px of hero below the bar (still dark). offset < 0 is past. */
+const scrollHeroToBarOffset = async (page, offset) => {
+  const y = await page.evaluate((off) => {
+    const hero = document.querySelector('[data-home-hero]');
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 0;
+    const heroDocBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+    const barH = bar.getBoundingClientRect().height;
+    return Math.round(heroDocBottom - barH - off);
+  }, offset);
+  await scrollPageTo(page, Math.max(y, 0));
 };
 
 const closeMenu = async (page, mode) => {
@@ -1070,7 +1086,7 @@ for (const vp of VIEWPORTS) {
         const featValue = document.querySelector('.pilot-stats-feat-value');
         const sideLabel = document.querySelector('.pilot-stats-side-label');
         const sideValue = document.querySelector('.pilot-stats-side-value p');
-        const sideRule = document.querySelector('.pilot-stats-rule');
+        const sideRule = document.querySelector('.pilot-stats-side .pilot-stats-rule');
         const featBlock = document.querySelector('.pilot-stats-feat');
         const sideBlock = document.querySelector('.pilot-stats-side');
         const featCs = featValue ? getComputedStyle(featValue) : null;
@@ -1110,7 +1126,11 @@ for (const vp of VIEWPORTS) {
             el.getBoundingClientRect(),
           );
           const featLabel = document.querySelector('.pilot-stats-feat-label')?.getBoundingClientRect();
-          const featValue = document.querySelector('.pilot-stats-feat-value')?.getBoundingClientRect();
+          const featRule = document.querySelector('.pilot-stats-feat .pilot-stats-rule')?.getBoundingClientRect();
+          const allLabelTops = [
+            featLabel ? Math.round(featLabel.top * 10) / 10 : null,
+            ...labels.map((r) => Math.round(r.top * 10) / 10),
+          ].filter((n) => n != null);
           const tops = (rects) => rects.map((r) => Math.round(r.top * 10) / 10);
           const bottoms = (rects) => rects.map((r) => Math.round(r.bottom * 10) / 10);
           const labelTops = tops(labels);
@@ -1120,21 +1140,27 @@ for (const vp of VIEWPORTS) {
             values[i] ? Math.round(values[i].top - lab.bottom) : null,
           );
           const withFeat = window.innerWidth >= 1280;
+          const featLabelTop = featLabel ? Math.round(featLabel.top * 10) / 10 : null;
+          const featRuleBottom = featRule ? Math.round(featRule.bottom * 10) / 10 : null;
           return {
             labelTops,
+            allLabelTops,
             valueBottoms,
             ruleBottoms,
             labelGaps,
             labelTopSpread: labelTops.length > 1 ? Math.abs(labelTops[0] - labelTops[1]) : 0,
+            allLabelSpread: withFeat && allLabelTops.length > 1
+              ? Math.max(...allLabelTops) - Math.min(...allLabelTops)
+              : 0,
             valueSpread: valueBottoms.length > 1 ? Math.abs(valueBottoms[0] - valueBottoms[1]) : 0,
             ruleSpread: ruleBottoms.length > 1 ? Math.abs(ruleBottoms[0] - ruleBottoms[1]) : 0,
-            featLabelTop: featLabel ? Math.round(featLabel.top * 10) / 10 : null,
-            featValueBottom: featValue ? Math.round(featValue.bottom * 10) / 10 : null,
-            featLabelSpread: withFeat && featLabel && labelTops.length
-              ? Math.max(...labelTops.map((t) => Math.abs(t - Math.round(featLabel.top * 10) / 10)))
+            featLabelTop,
+            featRuleBottom,
+            featLabelSpread: withFeat && featLabelTop != null && labelTops.length
+              ? Math.max(...labelTops.map((t) => Math.abs(t - featLabelTop)))
               : 0,
-            featRuleSpread: withFeat && featValue && ruleBottoms.length
-              ? Math.max(...ruleBottoms.map((b) => Math.abs(b - Math.round(featValue.bottom * 10) / 10)))
+            featRuleSpread: withFeat && featRuleBottom != null && ruleBottoms.length
+              ? Math.max(...ruleBottoms.map((b) => Math.abs(b - featRuleBottom)))
               : 0,
             withFeat,
           };
@@ -1145,6 +1171,7 @@ for (const vp of VIEWPORTS) {
           ok:
             statsAlign.valueBottoms.length >= 2 &&
             statsAlign.labelTopSpread <= 1 &&
+            statsAlign.allLabelSpread <= 1 &&
             statsAlign.valueSpread <= 1 &&
             statsAlign.ruleSpread <= 1 &&
             statsAlign.labelGaps.every((g) => g != null && g >= 12) &&
@@ -2310,6 +2337,22 @@ for (const vp of VIEWPORTS) {
           ok: scrolled.dark === false && scrolled.heroBottom <= scrolled.headerBottom + 1,
           detail: JSON.stringify(scrolled),
         });
+        await scrollHeroToBarOffset(page, 8);
+        const stillDark = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-until-hero-clears-bar',
+          ok: stillDark.dark === true && stillDark.overlap >= 0,
+          detail: JSON.stringify(stillDark),
+        });
+        await scrollHeroToBarOffset(page, -2);
+        const justPast = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-once-hero-clears-bar',
+          ok: justPast.dark === false && justPast.overlap < 0,
+          detail: JSON.stringify(justPast),
+        });
         const applyScrolled = await readButton040(page, applySel);
         log({
           ...tag,
@@ -2557,6 +2600,22 @@ for (const vp of VIEWPORTS) {
           check: 'home-theme-light-on-scroll',
           ok: pastHero.dark === false && pastHero.heroBottom <= pastHero.headerBottom + 1,
           detail: JSON.stringify(pastHero),
+        });
+        await scrollHeroToBarOffset(page, 8);
+        const stillDark = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-until-hero-clears-bar',
+          ok: stillDark.dark === true && stillDark.overlap >= 0,
+          detail: JSON.stringify(stillDark),
+        });
+        await scrollHeroToBarOffset(page, -2);
+        const justPast = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-once-hero-clears-bar',
+          ok: justPast.dark === false && justPast.overlap < 0,
+          detail: JSON.stringify(justPast),
         });
         const typeScrolled = await readTypeChrome(page);
         log({

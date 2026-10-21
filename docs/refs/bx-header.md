@@ -20,7 +20,7 @@ Live `blackstone.com` is Cloudflare-blocked here. Values are from archived home 
 
 Nav hover is a 1px `currentColor` underline (`background-size` 0→100% in 0.3s). The yellow on “What We Do” in capture screenshots is a user annotation, not a hover style.
 
-Blackstone does **not** change theme on scroll. Falcon home stays dark while any part of `[data-home-hero]` is still under the bar (`IntersectionObserver` with `rootMargin` = header height). It switches to the inner white bar only once the hero’s bottom edge has passed under the header, and returns to dark when scrolling back into the hero.
+Blackstone does **not** change theme on scroll. Falcon home stays dark while any part of `[data-home-hero]` is still under the **visible bar** (`IntersectionObserver` with `rootMargin` = `[data-header-bar]` height, rebuilt when that height changes). It switches to the inner white bar only once the hero’s bottom edge has fully passed the bar’s bottom edge, and returns to dark when scrolling back into the hero.
 
 ## Bar
 
