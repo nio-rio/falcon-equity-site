@@ -2,3 +2,8 @@
 # /resources/credit-repair-loan-prep, /privacy-policy, /terms-conditions)
 # keep the same URLs in the new site, so they need no rules.
 /resources/business-loan-calculator  /resources/loan-calculator  301
+
+# Pretty URLs 301 /path/ → /path with a 98-byte "Document moved" body.
+# Crawlers that do not follow that (or resolve Location against /) then see
+# the home <title>. Force a 200 rewrite so /contact/ serves contact.html.
+/*/  /:splat  200!

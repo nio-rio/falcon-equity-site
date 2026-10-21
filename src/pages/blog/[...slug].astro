@@ -45,7 +45,7 @@ const {
   takeaways,
   faq,
 } = post.data;
-const documentTitle = seoTitle || title;
+const documentTitle = seoTitle ?? title;
 const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Blog', path: '/blog' },

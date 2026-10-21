@@ -1,6 +1,6 @@
 ---
 title: 'Consolidation of Positions: how stacked advances can cost you less'
-seoTitle: 'Consolidation of Positions'
+seoTitle: 'Consolidation of Positions | Falcon Equity Group'
 date: 2026-10-19
 updated: 2026-10-19
 category: Cash Flow & Debt

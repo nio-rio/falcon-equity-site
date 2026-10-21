@@ -13,7 +13,8 @@
     "check": "astro check",
     "astro": "astro",
     "test:nav": "node tests/nav.spec.mjs",
-    "test:testimonial": "node tests/testimonial.spec.mjs"
+    "test:testimonial": "node tests/testimonial.spec.mjs",
+    "test:titles": "node tests/titles.spec.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

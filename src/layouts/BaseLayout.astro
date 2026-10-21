@@ -11,21 +11,17 @@ import Header from '@/components/Header.astro';
 import SiteCta from '@/components/SiteCta.astro';
 import Footer from '@/components/Footer.astro';
 import { organizationSchema, webPageSchema } from '@/lib/schema';
-import { SITE } from '@/data/site';
+import { toDocumentTitle } from '@/lib/documentTitle';
 import { cleanPath } from '@/lib/paths';
 
 interface Props extends SEOProps {
   schema?: Record<string, unknown>[];
 }
 
-const { schema = [], ...seo } = Astro.props;
+const { schema = [], title, ...seo } = Astro.props;
 const path = cleanPath(Astro.url.pathname);
 const isHome = path === '/';
-const pageName = seo.title
-  ? seo.title.includes('|')
-    ? seo.title
-    : `${seo.title} | ${SITE.name}`
-  : `${SITE.name} | Fast Funding in 24–48 Hours`;
+const pageName = toDocumentTitle(title);
 const jsonLd = [
   organizationSchema(),
   ...(seo.noindex ? [] : [webPageSchema(path, pageName)]),
@@ -49,7 +45,7 @@ const jsonLd = [
     <link rel="preload" href="/fonts/Archivo-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="Falcon Equity Group Blog" href="/rss.xml" />
-    <SEO {...seo} />
+    <SEO {...seo} title={title} documentTitle={pageName} />
     <JsonLd data={jsonLd} />
     <slot name="head" />
   </head>

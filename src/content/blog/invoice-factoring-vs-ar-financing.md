@@ -1,6 +1,6 @@
 ---
 title: 'Invoice factoring vs. AR financing: paid on day 3 instead of day 60'
-seoTitle: 'Invoice Factoring vs. AR Financing'
+seoTitle: 'Invoice Factoring vs. AR Financing | Falcon Equity Group'
 date: 2026-10-19
 updated: 2026-10-19
 category: Compare Options

@@ -19,3 +19,11 @@
   for = "/*"
   [context.branch-deploy.headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# Pretty URLs 301 /path/ → /path with a "Document moved" body. Rewrite instead
+# so /contact/ and /blog/.../ serve the canonical HTML (force beats Pretty URLs).
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 200
+  force = true

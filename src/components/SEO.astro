@@ -1,9 +1,14 @@
 ---
 import { SITE } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
+import { HOME_DOCUMENT_TITLE, toDocumentTitle } from '@/lib/documentTitle';
 
 export interface SEOProps {
+  /** Page title passed from layouts. Prefer `documentTitle` for the <title> tag. */
   title?: string;
+  /** Exact <title> / og:title text. BaseLayout always sets this so a `title`
+   *  prop cannot be swallowed by the HTML <title> element. */
+  documentTitle?: string;
   description?: string;
   image?: string;
   imageAlt?: string;
@@ -15,6 +20,7 @@ export interface SEOProps {
 
 const {
   title,
+  documentTitle,
   description = SITE.description,
   image = '/og-default.jpg',
   imageAlt = 'Falcon Equity Group: fast business funding',
@@ -24,11 +30,7 @@ const {
   modifiedTime,
 } = Astro.props as SEOProps;
 
-const fullTitle = title
-  ? title.includes('|')
-    ? title
-    : `${title} | ${SITE.name}`
-  : `${SITE.name} | Fast Funding in 24–48 Hours`;
+const fullTitle = documentTitle || toDocumentTitle(title) || HOME_DOCUMENT_TITLE;
 const canonical = new URL(cleanPath(Astro.url.pathname), Astro.site ?? SITE.url).href;
 const imageUrl = new URL(image, Astro.site ?? SITE.url).href;
 const preview =
