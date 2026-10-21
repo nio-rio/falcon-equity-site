@@ -51,14 +51,19 @@
   margin: 0;
   max-width: none;
   color: var(--color-ink);
+  font-size: var(--type-h1-size);
+  font-weight: var(--type-h1-weight);
+  line-height: var(--type-h1-lh);
+  letter-spacing: var(--type-h1-ls);
+  text-wrap: wrap;
 }
 
 .mca-hero-lead {
   margin: 0;
   max-width: none;
   color: var(--color-ink-soft);
-  font-size: var(--type-lead-size);
-  line-height: var(--type-lead-lh);
+  font-size: var(--bx-fs-18);
+  line-height: 1.5;
 }
 
 .mca-hero-cta {
@@ -88,9 +93,15 @@
 }
 
 .mca-stat-feat,
-.mca-stat-side {
+.mca-stat-sides {
   grid-column: 1 / -1;
   min-width: 0;
+}
+
+.mca-stat-sides {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-32);
 }
 
 .mca-stat-label {
@@ -204,6 +215,15 @@
 .mca-process .mca-block-head h2,
 .mca-touch h2 {
   color: var(--color-white);
+}
+
+.mca-process .mca-block-head h2 {
+  font-size: var(--bx-fs-40);
+  line-height: 1.2;
+}
+
+.mca-touch .eyebrow + h2 {
+  margin-top: var(--bx-space-40);
 }
 
 .mca-process .mca-block-body {
@@ -324,9 +344,27 @@
   list-style: none;
 }
 
+.mca-programs-num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1;
+  color: var(--color-white-a50);
+}
+
 .mca-programs h3 {
-  margin-top: var(--bx-space-24);
+  margin-top: var(--bx-space-16);
   color: var(--color-white);
+}
+
+.mca-program-stills {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .mca-programs p {
@@ -352,7 +390,7 @@
   color: var(--color-white-a82);
 }
 
-/* —— FAQ: BXCI News & Insights header + title rows with circle arrows —— */
+/* —— FAQ: BXCI News list layout, Terms/Fit chevrons (not circle arrows) —— */
 
 .mca-news-list {
   display: flex;
@@ -407,24 +445,14 @@
   cursor: pointer;
 }
 
-.mca-news-trigger .circle-arrow {
-  transition:
-    background-color 250ms ease,
-    color 250ms ease,
-    border-color 250ms ease,
-    transform 250ms ease;
-}
-
-.mca-news-item:hover .circle-arrow,
-.mca-news-item:focus-within .circle-arrow,
-.mca-news-item.is-open .circle-arrow {
+.mca-news-item.is-open .mca-acc-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
   background: var(--color-ink);
-  border-color: var(--color-ink);
   color: var(--color-white);
-}
-
-.mca-news-item.is-open .circle-arrow {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 .mca-news-item .mca-acc-inner > p {
@@ -497,8 +525,13 @@
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
-  .mca-stat-side {
-    grid-column: span 4;
+  .mca-stat-sides {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--bx-gutter);
+  }
+
+  .mca-hero-lead {
+    font-size: var(--bx-fs-20);
   }
 
   .mca-stat-feat-value {
@@ -507,7 +540,11 @@
   }
 
   .mca-stat-side-value {
-    font-size: var(--bx-fs-40);
+    font-size: var(--bx-fs-32);
+  }
+
+  .mca-process .mca-block-head h2 {
+    font-size: var(--bx-fs-48);
   }
 
   .mca-acc-trigger {
@@ -529,17 +566,24 @@
   }
 
   .mca-hero-head {
-    row-gap: 0;
-    align-items: center;
+    row-gap: var(--bx-space-32);
+    align-items: start;
   }
 
   .mca-hero-title {
-    grid-column: 1 / span 7;
+    grid-column: 1 / -1;
+    min-width: 0;
   }
 
   .mca-hero-copy {
     grid-column: 8 / span 5;
     padding-top: 0;
+    min-width: 0;
+  }
+
+  .mca-hero h1 {
+    text-wrap: nowrap;
+    font-size: var(--type-h1-size);
   }
 
   .mca-hero-media {
@@ -547,15 +591,14 @@
   }
 
   .mca-stat-feat {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 8;
   }
 
-  .mca-stat-side:nth-child(2) {
-    grid-column: 7 / span 3;
-  }
-
-  .mca-stat-side:nth-child(3) {
-    grid-column: 10 / span 3;
+  .mca-stat-sides {
+    grid-column: 9 / span 4;
+    grid-template-columns: 1fr;
+    align-content: end;
+    gap: var(--bx-space-32);
   }
 
   .mca-stat-feat-value {
@@ -596,13 +639,10 @@
     max-width: 50%;
   }
 
-  .mca-programs {
+  .mca-programs,
+  .mca-program-stills {
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--bx-gutter);
-  }
-
-  .mca-programs li:last-child {
-    grid-column: auto;
   }
 
   .mca-touch-copy {
@@ -616,17 +656,40 @@
 }
 
 @media (min-width: 1440px) {
+  .mca-hero h1 {
+    text-wrap: nowrap;
+    font-size: var(--type-h1-size);
+  }
+
+  .mca-hero-lead {
+    font-size: var(--bx-fs-24);
+    line-height: 1.45;
+  }
+
   .mca-stat-feat .mca-stat-label {
     font-size: var(--bx-fs-32);
+  }
+
+  .mca-stat-feat {
+    grid-column: 1 / span 8;
+  }
+
+  .mca-stat-sides {
+    grid-column: 9 / span 4;
   }
 
   .mca-stat-feat-value {
     font-size: var(--bx-fs-80);
     margin-top: var(--bx-space-48);
+    white-space: nowrap;
   }
 
   .mca-stat-side-value {
-    font-size: var(--bx-fs-48);
+    font-size: var(--bx-fs-32);
+  }
+
+  .mca-process .mca-block-head h2 {
+    font-size: var(--bx-fs-64);
   }
 
   .mca-hero-media {

@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
-import CircleArrow from '@/components/CircleArrow.astro';
 import Icon from '@/components/Icon.astro';
 import { getService, STANDARD_STEPS } from '@/data/services';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -195,13 +194,15 @@ const trustStats = [deployed, helped, years, fundingTime];
           <p class="mca-stat-label">Amounts</p>
           <p class="mca-stat-feat-value">{spec.amounts}</p>
         </div>
-        <div class="mca-stat-side" data-reveal>
-          <p class="mca-stat-label">Funding after approval and signature</p>
-          <p class="mca-stat-side-value">{speed}</p>
-        </div>
-        <div class="mca-stat-side" data-reveal>
-          <p class="mca-stat-label">Agreement fee</p>
-          <p class="mca-stat-side-value">0%</p>
+        <div class="mca-stat-sides" data-reveal>
+          <div class="mca-stat-side">
+            <p class="mca-stat-label">Funding after approval and signature</p>
+            <p class="mca-stat-side-value">{speed}</p>
+          </div>
+          <div class="mca-stat-side">
+            <p class="mca-stat-label">Fee</p>
+            <p class="mca-stat-side-value">0% agreement fee</p>
+          </div>
         </div>
       </div>
     </div>
@@ -351,9 +352,9 @@ const trustStats = [deployed, helped, years, fundingTime];
         </p>
         <ol class="mca-programs mca-full" data-reveal data-reveal-after>
           {
-            steps.map((step) => (
+            steps.map((step, i) => (
               <li>
-                <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
+                <p class="mca-programs-num">{String(i + 1).padStart(2, '0')}</p>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
                 <p class="mca-programs-note">{step.note}</p>
@@ -361,6 +362,15 @@ const trustStats = [deployed, helped, years, fundingTime];
             ))
           }
         </ol>
+        <ul class="mca-program-stills mca-full" data-reveal data-reveal-after>
+          {
+            steps.map((step) => (
+              <li>
+                <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>
@@ -386,7 +396,9 @@ const trustStats = [deployed, helped, years, fundingTime];
                     data-acc-trigger
                   >
                     <span>{item.q}</span>
-                    <CircleArrow />
+                    <span class="mca-acc-icon" aria-hidden="true">
+                      <Icon name="chevron-down" size={16} />
+                    </span>
                   </button>
                 </h3>
                 <div class="mca-acc-panel" id={`mca-faq-panel-${i}`} role="region" aria-labelledby={`mca-faq-trigger-${i}`}>
@@ -406,6 +418,7 @@ const trustStats = [deployed, helped, years, fundingTime];
     <div class="container-site">
       <div class="mca-grid mca-touch-grid">
         <div class="mca-touch-copy" data-reveal>
+          <Eyebrow>Get in touch</Eyebrow>
           <h2 id="mca-touch-heading">Get in touch with the funding desk.</h2>
           <p class="mca-touch-phone">
             Direct{' '}

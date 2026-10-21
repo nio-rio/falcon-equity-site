@@ -1,15 +1,14 @@
 # HANDOVER.md — current state
 
-Last updated: Oct 21, 2026, ~5:00 PM ET. Update this file at the end of every session.
+Last updated: Oct 21, 2026, ~5:15 PM ET. Update this file at the end of every session.
 
 ## Where things stand
-- Branch `cursor/falcon-astro-site-e383` (PR #1). Latest commit before this file was added: `da88d78` "Tighten MCA stats columns and open FAQ news rows." (Oct 21, 4:49 PM ET).
+- Branch `cursor/falcon-astro-site-e383` (PR #1). Home is unchanged.
 - The home page (`/`) is approved and frozen. `/apply` stays as it is.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
-- Merchant Cash Advance page: plan in `docs/mca-structure-plan.md` (commit `52741f7`). Built at `src/pages/services/merchant-cash-advance.astro` with styles in `src/styles/mca.css`, starting in `3901d66` ("from the v2 spec"). `5330e24` and `da88d78` then rebuilt the sections to match the live Blackstone layouts.
-- MCA plan: Ling skipped plan approval ("just build this one page, I decide better when I see it"). She saw 43b5ba6/41fe878 and said it didn't look like the Blackstone references; it was rebuilt from live Blackstone section geometry in 5330e24/da88d78. As of Oct 21 ~5 PM ET, Vera is QAing da88d78 and Ling has not yet reviewed or approved it.
+- Merchant Cash Advance page: plan in `docs/mca-structure-plan.md` (commit `52741f7`). Built at `src/pages/services/merchant-cash-advance.astro` with styles in `src/styles/mca.css`. `5330e24` / `da88d78` matched live Blackstone layouts. Vera QA of `da88d78` passed function; the follow-up commit on this branch answers her major/minor notes (FAQ chevrons, hero type, glance figure, process stills, Get in touch eyebrow). Funding speed is still `Same day` from `services.ts`. Ling has not approved the page.
 
-## MCA page structure (da88d78)
+## MCA page structure
 Hero → Glance → What we do → Terms → Fit → Process → FAQ → Get in touch → SiteCta.
 
 | Section | Blackstone reference |
@@ -20,7 +19,7 @@ Hero → Glance → What we do → Terms → Fit → Process → FAQ → Get in 
 | Terms | Credit & Insurance Credit strategies accordion |
 | Fit | Technology & Innovations Our roles |
 | Process | Charitable Foundation Our programs |
-| FAQ | Credit & Insurance News & Insights rows |
+| FAQ | Credit & Insurance News list layout, Terms/Fit chevrons |
 | Get in touch | Insights subscribe CTA |
 
 ## Standing rules
