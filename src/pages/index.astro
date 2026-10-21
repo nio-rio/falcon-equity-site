@@ -29,7 +29,13 @@ const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
 const approval = STATS.find((s) => s.label === 'Approval for qualified applicants')!;
 ---
 
-<BaseLayout description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours.">
+<BaseLayout
+  description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours."
+  image="/og-home.jpg"
+  imageAlt="Peregrine falcon perched on a weathered branch"
+  imageWidth={1200}
+  imageHeight={630}
+>
   <Fragment slot="head">
     <script is:inline>
       (function () {
