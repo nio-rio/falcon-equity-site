@@ -650,6 +650,15 @@ html.has-scroll-lock .site-header {
   }
 }
 
+/* Hamburger layouts keep brand | nav | tools. The closed nav is 0-wide
+   but still consumes the 24px flex gap on both sides, which clips the
+   hamburger at 320. Drop the unused gaps; space-between does the rest. */
+@media (max-width: 89.9375em) {
+  .site-header__inner {
+    gap: 0;
+  }
+}
+
 .site-header__brand {
   position: relative;
   display: flex;
@@ -761,9 +770,11 @@ html.has-scroll-lock .site-header {
   margin-left: auto;
 }
 
-/* Phone → Apply: keep the tools gap, then add ~0.7em so the pill stands apart. */
-.site-header__tel + .site-header__apply {
-  margin-inline-start: 0.7em;
+/* Phone → Apply: extra 0.7em only while the phone is actually on the bar. */
+@media (min-width: 50em) {
+  .site-header__tel--bar + .site-header__apply--bar {
+    margin-inline-start: 0.7em;
+  }
 }
 
 .site-header__tel {

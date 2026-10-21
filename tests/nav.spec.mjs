@@ -2626,16 +2626,20 @@ for (const vp of VIEWPORTS) {
   widths.sort((a, b) => a - b);
   for (const width of widths) {
     await page.setViewportSize({ width, height: 900 });
-    await page.waitForTimeout(40);
+    await page.waitForTimeout(350);
     const wrap = await readBarWrap(page);
     heights.push(wrap.barH);
     if (width >= 768) tabletHeights.push(wrap.barH);
     const expectBarH = width < 768 ? 102 : 108;
-    const overlap = await page.evaluate(() => {
+    const clip = await page.evaluate(() => {
       const logo = document.querySelector('.site-header__logo')?.getBoundingClientRect();
       const tools = document.querySelector('.site-header__tools')?.getBoundingClientRect();
-      if (!logo || !tools) return true;
-      return logo.right > tools.left + 1;
+      const inner = document.querySelector('.site-header__inner')?.getBoundingClientRect();
+      if (!logo || !tools || !inner) return { overlap: true, clipRight: true };
+      return {
+        overlap: logo.right > tools.left + 1,
+        clipRight: tools.right > inner.right + 1,
+      };
     });
     const apply040 = applyOnBar(width) ? await readButton040(page, '.site-header__apply--bar') : null;
     const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
@@ -2663,12 +2667,13 @@ for (const vp of VIEWPORTS) {
         wrap.apply === applyOnBar(width) &&
         wrap.tel === phoneOnBar(width) &&
         wrap.burger === width < NAV_DESKTOP_MIN &&
-        overlap === false &&
+        clip.overlap === false &&
+        clip.clipRight === false &&
         applySizeOk,
       detail: JSON.stringify({
         ...wrap,
         expectBarH,
-        overlap,
+        ...clip,
         compact: compactApply,
         fontSize: apply040?.fontSize,
         height: sizedH,
