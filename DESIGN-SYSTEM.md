@@ -25,12 +25,18 @@ Do **not** add hex greys, reds, extra typefaces, or a parallel spacing scale. Do
 
 ## Non-negotiable rules
 
-1. **Palette.** Solids are white plus the Martinique and Lilac ramps below. No reds. No cool greys as hex. Error states use **Martinique** (`--color-error`).
+1. **Palette.** Solids are **white (`#ffffff`, kept because home uses it)** plus the Martinique and Lilac ramps below. No reds. No cool greys as hex. Error states use **Martinique** (`--color-error`). `#000` / `#0000` appear only inside `mask-image` gradients on `.site-cta__wheel` (`src/styles/blackstone.css`) — masks, never painted colour, and the only allowed pure-black exception.
 2. **No fabricated numbers, quotes, names, or testimonials.** Publish only Ling-confirmed stats, the three home quotes, and service specs from the live `#services` block (in code: `src/data/services.ts`). Placeholder credits stay `Falcon client` until real business names are confirmed. Do not invent owner names, portraits, dollar results, rates, or a customer-satisfaction figure.
 3. **Nothing near a CTA may give the user second thoughts.** No disclaimer, footnote, asterisk, or legal line under Apply, the Why marquee, the hero caption, or `.site-cta`. Legal copy belongs in the **footer** (`src/components/Footer.astro`).
 4. **Service numbers are copied word for word** from the live home `#services` spec (Who / Amounts / Terms / Requirements). See [Service figures](#service-figures-from-services). Do not round, convert en-dashes, or rewrite ranges.
 5. **Links inherit** the surrounding text color. Never purple, never a separate link hue.
 6. **Prefer existing components** over new ones. New pages compose Header, Footer, SiteCta, Button040, Media, Pilot\* patterns, ResponsiveTable.
+7. **Decorative elements must not look clickable.** Steps use **numbers**, not arrows (see Why choose us). Circle-arrows and 040 pills are the clickable wayfinding; rules, step numerals, and stills are not.
+8. **Divider rules survive animations.** Static 2px (services) and 1.5px (Why rows) rules stay in place while a hover draw runs and after it snaps off. Do not hide or restyle the standing rule to make the animation work.
+9. **Testimonials are real quotes only.** They must fit on one screen; trim for length rather than shrinking type or stacking a second screen of quote. No invented quotes, names, or amounts.
+10. **Scroll-ins start early, are staggered, and follow reading order.** Default start is `top 90%`; stagger is 400ms (150ms per services row). Controls play before content (`data-reveal-after` on the following block). Skip hero, testimonial slider, and the CTA wheel.
+11. **Styling is learned from the home page only.** Do not restyle toward Goldman or Blackstone. Mapping notes in `docs/` are provenance.
+12. **Never invent facts or numbers.** If a figure, name, quote, rate, or testimonial is not in `src/data/` (or the live `#services` spec), it does not ship.
 
 ---
 
@@ -42,17 +48,21 @@ Defined in `src/styles/tokens.css`. Tailwind `@theme` aliases the same names so 
 
 | Token | Hex | CSS | Tailwind | Use |
 | --- | --- | --- | --- | --- |
-| White | `#ffffff` | `--color-white` / `--bx-white` | `bg-white` / `text-white` | Page, light type on dark, square on-dark buttons |
+| White | `#ffffff` | `--color-white` / `--bx-white` | `bg-white` / `text-white` | **Allowed.** Page, light type on dark, square on-dark buttons. Home uses it. |
 | Martinique | `#332a4e` | `--color-martinique` / `--bx-martinique` | `bg-martinique` | Button-040 dark pill, light-variant type and arrow circle, **errors** |
 | Martinique Dark | `#28213e` | `--color-martinique-dark` | `bg-martinique-dark` | Soft ink, square-button hover, default 040 arrow fill |
 | Martinique Darker | `#14101f` | `--color-martinique-darker` / `--bx-black` | `bg-martinique-darker` / `bg-ink` | Site black: header/hero/footer/CTA band, body ink, square buttons |
-| Martinique Darkest | `#0f0c17` | `--color-martinique-darkest` | `bg-martinique-darkest` | Reserved (ink in alpha greys). Do not swap in for Darker masks |
+| Martinique Darkest | `#0f0c17` | `--color-martinique-darkest` | `bg-martinique-darkest` | Ink in alpha greys (`--ink-a*`). Do not swap in for Darker fills |
 | Martinique Light | `#524a68` | `--color-martinique-light` | `text-martinique-light` / `text-muted` | Muted copy on light |
 | Martinique Lighter | `#605a7b` | `--color-martinique-lighter` | `text-martinique-lighter` | CTA wheel “past” lines, `--color-brand-light` |
-| Lilac | `#f3f2fb` | `--color-lilac` | `bg-lilac` / `bg-tint` | Tints, button-040 light pill |
+| Martinique Lightest | `#696286` | `--color-martinique-lightest` | `text-martinique-lightest` | **Approved, not on home.** |
+| Lilac lightest | `#fdfdfe` | `--color-lilac-lightest` | `bg-lilac-lightest` | **Approved, not on home.** |
+| Lilac lighter | `#fcfcfe` | `--color-lilac-lighter` | `bg-lilac-lighter` | **Approved, not on home.** |
 | Lilac Light | `#f6f5fc` | `--color-lilac-light` | `bg-lilac-light` | Soft washes, Industries field + list |
+| Lilac | `#f3f2fb` | `--color-lilac` | `bg-lilac` / `bg-tint` | Tints, button-040 light pill |
 | Lilac Dark | `#e5e4f2` | `--color-lilac-dark` | `bg-lilac-dark` | Light-nav divider, unselected Industries hover |
 | Lilac Darker | `#c4bfe1` | `--color-lilac-darker` | `bg-lilac-darker` / `border-line` | Hairlines, Apply arrow circle on dark 040, selected Industries row |
+| Lilac darkest | `#a6a0c3` | `--color-lilac-darkest` | `bg-lilac-darkest` | **Approved, not on home.** |
 
 `--color-error` **is** `--color-martinique`. Do not introduce `#b80000`, `#ea4334`, or any red.
 
@@ -65,7 +75,9 @@ Do not pick a new grey. On **light** surfaces, mix **Martinique Darkest** `rgb(1
 | `--ink-a72` / `--color-ink-a72` | `rgb(15 12 23 / 0.72)` | Strong secondary on light |
 | `--ink-a65` | `rgb(15 12 23 / 0.65)` | |
 | `--ink-a63` | `rgb(15 12 23 / 0.63)` | |
-| `--ink-a36` | `rgb(15 12 23 / 0.36)` | `--bx-grey-300`, muted rules |
+| `--ink-a40` / `--color-ink-a40` | `rgb(15 12 23 / 0.4)` | Services hover: standing divider at 40% while the draw runs |
+| `--ink-a36` | `rgb(15 12 23 / 0.36)` | `--bx-grey-300`, `.btn-outline-dark` border |
+| `--ink-a32` / `--bx-overlay` | `rgb(15 12 23 / 0.32)` | Nav page overlay |
 | `--ink-a16` | `rgb(15 12 23 / 0.16)` | Hairline on light |
 | `--ink-a9` | `rgb(15 12 23 / 0.09)` | |
 | `--ink-a4` | `rgb(15 12 23 / 0.04)` | |
@@ -77,7 +89,9 @@ Do not pick a new grey. On **light** surfaces, mix **Martinique Darkest** `rgb(1
 | `--white-a16` / `--bx-on-dark-rule` | `rgb(255 255 255 / 0.16)` | Rules on dark |
 | `--white-a12` | `rgb(255 255 255 / 0.12)` | |
 
-`--bx-overlay` is `rgb(20 16 31 / 0.32)` for the nav page overlay only.
+`--bx-overlay` is `--ink-a32` (`rgb(15 12 23 / 0.32)`) for the nav page overlay only. Do not mix Darker (`#14101f`) into alphas — Darkest (`#0f0c17`) on light, white on dark.
+
+**Mask exception:** `.site-cta__wheel` uses `#000` / `#0000` inside `mask-image` / `-webkit-mask-image` only (`src/styles/blackstone.css`). Those stops are never painted. Do not use `#000` as a fill.
 
 ### Semantic (do not retarget)
 
@@ -116,9 +130,9 @@ Wired in `src/styles/global.css` `@layer base` from `--type-*` in `tokens.css`. 
 | **H3** | display | 400 | 24px | 1.25 | normal | `--type-h3-*` (`text-h3`) |
 | **H4** | display | 500 | 20px | 1.2 | normal | `--type-h4-*` |
 | **H5 / H6** | sans | 500 | 16 / 14 | 1.4 | normal | `--type-h5-*` / `--type-h6-*` |
-| **Body** | sans | 400 | 16px | 1.5 (24px) | normal | `--type-body-*` (`text-body`) |
+| **Body** | sans | 400 | 16px | **1.5rem (24px)** — a length, not a unitless 1.5 | normal | `--type-body-*` (`text-body`) |
 | **Lead** | sans | 400 | 16px | 1.6 | normal | `--type-lead-*` (`text-lead`) |
-| **Eyebrow** | sans | 400 | 13px | 1.5 | 0.08em, uppercase | `--type-eyebrow-*` (`text-eyebrow`) |
+| **Eyebrow** | sans | 400 | 13px | 1.5 | 0.08em, uppercase | `--type-eyebrow-*` (`text-eyebrow`). Rule: **48×2px**, 16px from the label, **to the right** (`.pilot-eyebrow--line::after` in `src/styles/pilot.css`). Centered headings: rule **above**. |
 | **Caption / meta** | sans | 400 | 14px | 1.45 | normal | `--type-caption-*` |
 | **Button 040** | sans | 400 | 16px default; nav 17px | 1 | normal | `.button-040` |
 | **Square button** | sans | 500 | 16 / 20 | 20px | normal | `.btn-primary` |
@@ -164,6 +178,8 @@ Scale primitives (`--bx-fs-12` … `--bx-fs-176`) stay in `tokens.css` for compo
 | Gutter | `--bx-gutter` | 16px | 24px | 24px | 24px |
 | Header | `--bx-header` | 102px | 108px | 108px | 108px |
 | Hairline | `--bx-rule` | 1px | | | |
+| Eyebrow rule | `.pilot-eyebrow--line::after` | **48×2px**, 16px gap, `currentColor` | same | same | same |
+| Why row rules | `.pilot-why-row` | **1.5px** `--bx-on-dark-rule` (`--white-a16`) under rows 1–2 (`1.5px` / `0.094rem`) | same | same | same |
 
 Home bands use `[data-band="light"|"dark"]`. Adjacent bands of the **same** theme collapse the follower’s top pad to `--pilot-section-y-stack` (`src/styles/blackstone.css`). Different-theme neighbors keep full pad on both sides.
 
@@ -271,7 +287,7 @@ Home composition: `src/pages/index.astro`. Chrome (header / SiteCta / footer) co
 ### Header
 
 **Where:** `src/components/Header.astro`, `src/styles/blackstone.css`, `src/scripts/nav.ts`.  
-Fixed bar, spacer below. Home stays **dark** while `.pilot-hero` is under the bar (`IntersectionObserver` on `[data-home-hero]`). Inner pages: white bar, ink type. Logo: live lockup (`src/components/Logo.astro`) — mark `currentColor` + “Falcon Equity Group” in At Gambit. Mega-menus of real pages only. Overlay: `blur(5px)` + `--bx-overlay`. No hairline under the bar.
+Fixed bar, spacer below. The home nav stays **dark until the hero has fully passed out from under the nav**: `IntersectionObserver` on `[data-home-hero]` uses `threshold: 0` and `rootMargin` equal to the visible bar height (`nav.ts`), and the bar is dark while the hero’s bottom edge is still at or below the bar’s bottom. Inner pages: white bar, ink type. Logo: live lockup (`src/components/Logo.astro`) — mark `currentColor` + “Falcon Equity Group” in At Gambit. Mega-menus of real pages only. Overlay: `blur(5px)` + `--bx-overlay` (`--ink-a32`). No hairline under the bar.
 
 **Do:** phone `+1 (917) 245-5277` from `src/data/site.ts`. **Don’t:** invent social links in the nav.
 
@@ -313,9 +329,9 @@ Copy **exactly** — including spaced en-dashes. Source: `ServiceSpec` in `src/d
 ### Testimonials
 
 **Where:** `src/components/pilot/PilotTestimonial.astro`, `src/data/home-testimonial.ts`, `src/scripts/testimonial-slider.ts`.  
-EARNINGS layout: eyebrow + serif quote (typographic quotes, ink, no red) + 3:4 still + `Falcon client` credit + prev/next circle-arrows. Three Ling quotes, in order. Stills: `invoice-factoring-trucking`, `healthcare-working-capital`, `restaurant-working-capital`. Autoplay 5s; reduced motion crossfade.
+EARNINGS layout: eyebrow + serif quote (typographic quotes, ink, no red) + 3:4 still + `Falcon client` credit + prev/next circle-arrows. Three Ling quotes, in order. Stills: `invoice-factoring-trucking`, `healthcare-working-capital`, `restaurant-working-capital`. Autoplay 5s; reduced motion crossfade. Quotes must **fit on one screen**; trim length rather than wrapping to a second viewport of quote.
 
-**Do:** credit the business only. **Don’t:** invent names, amounts, or extra quotes.
+**Do:** credit the business only; keep the quote on one screen. **Don’t:** invent names, amounts, or extra quotes.
 
 ### Industries
 
@@ -327,7 +343,7 @@ Dropdown at every breakpoint (not a tab row). Lilac Light field, placeholder “
 ### Why choose us
 
 **Where:** `src/components/pilot/PilotWhy.astro`.  
-Dark band. Eyebrow + H2 “Capital, without the runaround.” + body + circle-arrow “See how it works” → `/how-it-works`. Right card: three numbered steps (not links). Marquee “**Apply** for funding” → `/apply`, 125px/s, pauses on reduced motion.
+Dark band. Eyebrow + H2 “Capital, without the runaround.” + body + circle-arrow “See how it works” → `/how-it-works`. Right card: three **numbered** steps (At Gambit numerals, not arrows, not links). Rows 1–2 sit on **1.5px** `--bx-on-dark-rule` dividers. Marquee “**Apply** for funding” → `/apply`, 125px/s, pauses on reduced motion.
 
 **Don’t:** add a funding-timing footnote or † after “same day.”
 
@@ -405,11 +421,12 @@ Home density: **one** full-bleed hero + testimonial stills + one visible industr
 | Accordion | `grid-template-rows` 350ms; icon 250ms | `src/scripts/accordion.ts` |
 | Image zoom | `scale(1.06)` ~350ms | news / image cards |
 | Header dropdown | Osmo timings; chevron 0.3s | `src/scripts/nav.ts`, `docs/refs/osmo-mega-nav.md` |
-| Home scroll-in | GSAP `y: 20` + autoAlpha **800ms**, stagger **400ms**, start `top 90%`, once. Services: `top 85%`, 150ms/row. Stats fade 0.75s + line `scaleX` 1.125s. News curtain 1s + image 0.5s / 0.4s delay. **Skip** hero, testimonial slider, CTA wheel. | `src/scripts/scroll-in.ts` |
+| Home scroll-in | GSAP `y: 20` + autoAlpha **800ms**, stagger **400ms**, start `top 90%` (early), once, reading order. Controls before content (`data-reveal-after`). Services: `top 85%`, 150ms/row. Stats fade 0.75s + line `scaleX` 1.125s. News curtain 1s + image 0.5s / 0.4s delay. **Skip** hero, testimonial slider, CTA wheel. | `src/scripts/scroll-in.ts` |
 | Testimonial | SplitText + circular clip; autoplay 5s | `src/scripts/testimonial-slider.ts` |
 | CTA wheel | 1200ms hold + 400ms ease | `SiteCta.astro` |
 | Why marquee | 125px/s | `PilotWhy.astro` |
 | Reduced motion | Animations/transitions ~off; 040 swap off; wheel static; marquee paused; scroll-in skipped | `global.css` `@layer base` |
+| No JS / failed JS | Reveals stay **visible**. Hide styles apply only under `html.has-js` + `prefers-reduced-motion: no-preference` (`src/styles/pilot.css`). The home inline script adds `has-js` and removes it after 2.5s if `scroll-in.ts` never sets `__pilotRevealReady`. Without JS, `has-js` is never added. | `src/pages/index.astro`, `src/scripts/scroll-in.ts` |
 
 Focus: `2px solid var(--color-accent)` (white on `.on-dark`). Not BX yellow.
 

@@ -121,14 +121,20 @@
   --color-martinique-darkest: var(--bx-martinique-darkest);
   --color-martinique-light: var(--bx-martinique-light);
   --color-martinique-lighter: var(--bx-martinique-lighter);
+  --color-martinique-lightest: var(--bx-martinique-lightest);
   --color-lilac: var(--bx-lilac);
+  --color-lilac-lightest: var(--bx-lilac-lightest);
+  --color-lilac-lighter: var(--bx-lilac-lighter);
   --color-lilac-light: var(--bx-lilac-light);
   --color-lilac-dark: var(--bx-lilac-dark);
   --color-lilac-darker: var(--bx-lilac-darker);
+  --color-lilac-darkest: var(--bx-lilac-darkest);
   --color-ink-a72: var(--ink-a72);
   --color-ink-a65: var(--ink-a65);
   --color-ink-a63: var(--ink-a63);
+  --color-ink-a40: var(--ink-a40);
   --color-ink-a36: var(--ink-a36);
+  --color-ink-a32: var(--ink-a32);
   --color-ink-a16: var(--ink-a16);
   --color-ink-a9: var(--ink-a9);
   --color-ink-a4: var(--ink-a4);
@@ -329,7 +335,7 @@
   .btn-outline-dark {
     border: 1px solid var(--color-ink);
     color: var(--color-ink);
-    border-color: rgb(140, 140, 140);
+    border-color: var(--ink-a36);
   }
 
   .btn-outline-dark:hover {

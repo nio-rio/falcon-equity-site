@@ -994,7 +994,7 @@ html.has-scroll-lock .site-header {
   display: block;
 }
 
-/* Overlay: blur(5px) + Martinique Darker at .32 alpha. Header/panel stay opaque. */
+/* Overlay: blur(5px) + Martinique Darkest at .32 (`--ink-a32`). Header/panel stay opaque. */
 .primary-nav__backdrop {
   position: fixed;
   inset: 0;
@@ -1673,6 +1673,7 @@ html.has-scroll-lock .site-header {
   margin-block: calc((var(--site-cta-wheel) - var(--site-cta-line)) / -2);
   overflow: hidden;
   font-size: 1rem;
+  /* #000 / #0000 in mask-image only — never painted. Allowed exception (DESIGN-SYSTEM.md). */
   -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
   mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
 }
@@ -1750,6 +1751,7 @@ html.has-scroll-lock .site-header {
   }
 
   .site-cta__wheel {
+    /* Mask stops only; see DESIGN-SYSTEM.md. */
     -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
     mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
   }
@@ -1791,6 +1793,7 @@ html.has-scroll-lock .site-header {
   .site-cta__wheel {
     height: var(--site-cta-wheel);
     margin-block: 0;
+    /* Mask stops only; see DESIGN-SYSTEM.md. */
     -webkit-mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
     mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
   }

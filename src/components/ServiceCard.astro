@@ -174,7 +174,7 @@ const featuredSrc =
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(to bottom, var(--color-featured) 0%, rgb(0 0 0 / 0) 40%);
+    background: linear-gradient(to bottom, var(--color-featured) 0%, transparent 40%);
   }
 
   .bento-card-media img {
@@ -188,7 +188,7 @@ const featuredSrc =
 
   @media (min-width: 640px) {
     .bento-card-media::before {
-      background: linear-gradient(to right, var(--color-featured) 0%, rgb(0 0 0 / 0) 40%);
+      background: linear-gradient(to right, var(--color-featured) 0%, transparent 40%);
     }
   }
 </style>

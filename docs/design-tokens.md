@@ -43,7 +43,7 @@ Section interiors are whitespace-led rather than padded boxes. Falcon uses `64px
 
 Primary (hero “Explore Insights”): white fill, black text, 16px/20px, 9×11px padding, no radius, no shadow.
 Outline (“Client Login”): 1px light border, transparent fill, 16px.
-Falcon primary uses saturated `#5b21b6` on white pages; hero uses Goldman’s white fill.
+~~Falcon primary uses saturated `#5b21b6` on white pages; hero uses Goldman’s white fill.~~ **Retired.** Current primaries are ink/white squares or button-040 Lilac/Martinique. See [`/DESIGN-SYSTEM.md`](../DESIGN-SYSTEM.md).
 
 ## Home hero
 
@@ -62,12 +62,12 @@ No min/max height constraints beyond those intrinsic heights. One primary CTA in
 
 | Goldman | Falcon |
 | --- | --- |
-| White page, `rgba(0,0,0,0.95)` type | `#ffffff` / `#0a0a0a` |
-| Body `rgba(0,0,0,0.8)` | `#333333` |
+| White page, `rgba(0,0,0,0.95)` type | `#ffffff` / ~~`#0a0a0a`~~ **retired** → Martinique Darker `#14101f` |
+| Body `rgba(0,0,0,0.8)` | ~~`#333333`~~ **retired** → Martinique Dark `#28213e` |
 | Muted `rgba(0,0,0,0.6)` | leftover `#666666` → Martinique Lighter `#605a7b` |
 | Pale panel `rgb(247, 247, 250)` | leftover `#F7F7FA` → Lilac Light `#f6f5fc` |
-| Subscribe to Briefings band `rgb(114, 151, 197)` (HSL 213° / 42% / 61%) | Hue rotated to lilac: `#A072C5` (`rgb(160, 114, 197)`, HSL 273° / 42% / 61%). CTA bands use this with dark ink text. Ink on `#A072C5` is **5.4:1** (AA for body). |
-| Links / selected UI | `#5b21b6` (`#4c1d95` hover) |
+| Subscribe to Briefings band `rgb(114, 151, 197)` (HSL 213° / 42% / 61%) | ~~Hue-rotated `#A072C5`~~ **retired.** CTA band is Martinique Darker. |
+| Links / selected UI | ~~`#5b21b6` (`#4c1d95` hover)~~ **retired.** Links inherit; no purple. |
 
 Contrast (Lilac Light `#f6f5fc`): ink ~19:1 AAA. Historical Goldman `#5b21b6` / `#A072C5` fills are no longer used; current buttons are ink/white or button-040 Lilac/Martinique.
 

@@ -1750,11 +1750,11 @@
 }
 
 .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
-  border-top-color: rgba(20, 16, 31, 0.4);
+  border-top-color: var(--ink-a40);
 }
 
 .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
-  border-bottom-color: rgba(20, 16, 31, 0.4);
+  border-bottom-color: var(--ink-a40);
 }
 
 @media (min-width: 768px) {

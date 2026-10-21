@@ -12,11 +12,15 @@
   --bx-martinique-darkest: #0f0c17;
   --bx-martinique-light: #524a68;
   --bx-martinique-lighter: #605a7b;
+  --bx-martinique-lightest: #696286;
   --bx-black: var(--bx-martinique-darker);
+  --bx-lilac-lightest: #fdfdfe;
+  --bx-lilac-lighter: #fcfcfe;
   --bx-lilac: #f3f2fb;
   --bx-lilac-darker: #c4bfe1;
   --bx-lilac-dark: #e5e4f2;
   --bx-lilac-light: #f6f5fc;
+  --bx-lilac-darkest: #a6a0c3;
   --bx-white: #ffffff;
   --bx-variant-black: var(--bx-martinique-dark);
   --bx-highlight-dark: var(--bx-martinique-darker);
@@ -29,10 +33,14 @@
   --color-martinique-darkest: var(--bx-martinique-darkest);
   --color-martinique-light: var(--bx-martinique-light);
   --color-martinique-lighter: var(--bx-martinique-lighter);
+  --color-martinique-lightest: var(--bx-martinique-lightest);
   --color-lilac: var(--bx-lilac);
+  --color-lilac-lightest: var(--bx-lilac-lightest);
+  --color-lilac-lighter: var(--bx-lilac-lighter);
   --color-lilac-light: var(--bx-lilac-light);
   --color-lilac-dark: var(--bx-lilac-dark);
   --color-lilac-darker: var(--bx-lilac-darker);
+  --color-lilac-darkest: var(--bx-lilac-darkest);
   /* Errors use Martinique, never red. */
   --color-error: var(--bx-martinique);
 
@@ -40,7 +48,9 @@
   --ink-a72: rgb(15 12 23 / 0.72);
   --ink-a65: rgb(15 12 23 / 0.65);
   --ink-a63: rgb(15 12 23 / 0.63);
+  --ink-a40: rgb(15 12 23 / 0.4);
   --ink-a36: rgb(15 12 23 / 0.36);
+  --ink-a32: rgb(15 12 23 / 0.32);
   --ink-a16: rgb(15 12 23 / 0.16);
   --ink-a9: rgb(15 12 23 / 0.09);
   --ink-a4: rgb(15 12 23 / 0.04);
@@ -54,7 +64,9 @@
   --color-ink-a72: var(--ink-a72);
   --color-ink-a65: var(--ink-a65);
   --color-ink-a63: var(--ink-a63);
+  --color-ink-a40: var(--ink-a40);
   --color-ink-a36: var(--ink-a36);
+  --color-ink-a32: var(--ink-a32);
   --color-ink-a16: var(--ink-a16);
   --color-ink-a9: var(--ink-a9);
   --color-ink-a4: var(--ink-a4);
@@ -75,7 +87,7 @@
   --bx-on-dark: var(--white-a88);
   --bx-on-dark-muted: var(--white-a82);
   --bx-on-dark-rule: var(--white-a16);
-  --bx-overlay: rgb(20 16 31 / 0.32);
+  --bx-overlay: var(--ink-a32);
 
   /* Square buttons stay Darker ink, not purple. Button-040 uses Martinique/Lilac. */
   --falcon-accent: var(--bx-martinique-darker);
@@ -129,7 +141,8 @@
   --type-h6-lh: 1.4;
   --type-h6-weight: 500;
   --type-body-size: 1rem;
-  --type-body-lh: 1.5;
+  /* Length, not a unitless ratio: descendants inherit 24px, not 1.5× their own size. */
+  --type-body-lh: 1.5rem;
   --type-body-weight: 400;
   --type-lead-size: 1rem;
   --type-lead-lh: 1.6;
