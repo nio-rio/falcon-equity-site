@@ -6,7 +6,7 @@ Every third-party asset used on the site, with its source and license. No paid a
 
 | File | Subject | Author | Source | License |
 | --- | --- | --- | --- | --- |
-| `src/assets/images/hero-falcon.webp` | Peregrine falcon perched on a weathered branch (1600×686, ~2.33:1). | Ling (site photo) | Home hero still | Used with permission |
+| `src/assets/images/hero-falcon.webp` | Peregrine falcon perched on a weathered branch (1800×771, ~2.33:1). | Ling (site photo) | Home hero still | Used with permission |
 | `src/assets/images/hero-meeting.webp` | Advisor meeting with two clients at a table (1774×887, 2:1). Previous home hero, kept in the repo unused. | Ling (site photo) | Unused | Used with permission |
 | `src/assets/images/hero-falcon.png` | Peregrine falcon in profile, close-up on a warm green-gold background. Previous home hero, kept in the repo unused. | Ling (site photo) | Unused (OG generator source) | Used with permission |
 | `src/assets/images/hero-falcon.jpg` | Previous launching-falcon still, kept in the repo unused. | Frank Cone | [Pexels photo 5247930](https://www.pexels.com/photo/a-falcon-flying-from-a-tree-branch-5247930/) | [Pexels License](https://www.pexels.com/license/) |

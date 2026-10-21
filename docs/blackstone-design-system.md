@@ -368,7 +368,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 | Page | Visuals | Skip |
 | --- | --- | --- |
-| Home (pilot) | 1 full-bleed hero (`hero-falcon.webp`, peregrine on a branch, 1800/771 box); testimonial stills (trucks / dentist / chef, 3:4 crop); 12 industry 16:9 Ling stills (one visible in the dropdown panel; inactive tabs lazy); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the unused meeting still or the archived falcon crops. |
+| Home (pilot) | 1 full-bleed hero (`hero-falcon.webp`, peregrine on a branch, 1800×771); testimonial stills (trucks / dentist / chef, 3:4 crop); 12 industry 16:9 Ling stills (one visible in the dropdown panel; inactive tabs lazy); 3 published insight covers | Process (removed), services list — type only. Pre-footer `.site-cta` wheel is layout chrome. Founder quote lives on About. Do not reuse the unused meeting still or the archived falcon crops. |
 | Inner landing (FAQ, apply, legal, 404, calculator) | 0 | No decorative hero |
 | Service landing (MCA pilot) | Hero still + What we do 3:4 **labeled** placeholder (not a second crop of the hero) | Overview accordion, process, FAQ — type only. Pre-footer `.site-cta` comes from the layout. |
 | Service landing (other products) | Hero still + statement-band 4:3 (same product photo, second crop) | Overview, FAQ, use cases — type only |
