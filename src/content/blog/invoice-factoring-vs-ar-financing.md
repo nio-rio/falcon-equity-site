@@ -6,7 +6,7 @@ category: Compare Options
 author: Falcon Equity Group
 byline: Falcon Equity Group
 excerpt: 'Both turn unpaid invoices into cash, but they solve different problems. Here is how factoring and receivables financing differ, and how to pick the one that fits your book.'
-description: 'A plain comparison of invoice factoring and accounts receivable financing: how each works, what lenders look at, and which fits a business waiting 45–60 days to get paid.'
+description: 'Invoice factoring vs accounts receivable financing: how each works, what lenders look at, and which fits a business waiting 45–60 days to get paid.'
 cover: ../../assets/blog/invoice-factoring-vs-ar-financing.jpg
 coverAlt: ''
 takeaways:

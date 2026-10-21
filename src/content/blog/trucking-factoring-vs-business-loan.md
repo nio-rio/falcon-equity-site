@@ -1,6 +1,6 @@
 ---
 title: 'Trucking factoring vs. a business loan: which one fits your fleet?'
-description: 'Freight factoring solves slow-paying brokers. Truck loans solve equipment. How carriers and owner-operators decide, and when to use both.'
+description: 'Freight factoring solves slow-paying brokers. Truck loans solve equipment. How carriers and owner-operators decide, and when Falcon uses both.'
 seoTitle: 'Trucking Factoring vs. a Business Loan'
 excerpt: 'Factoring fixes a timing problem. A loan fixes a capital problem. Knowing which one you have saves money and headaches.'
 date: 2026-10-19

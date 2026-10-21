@@ -6,7 +6,7 @@ category: Cash Flow & Debt
 author: Falcon Equity Group
 byline: Falcon Equity Group
 excerpt: 'A slow season is a timing problem, not a profitability problem. Here is how to size the gap in dollars, fund it properly, and keep your reserves for real emergencies.'
-description: 'How seasonal businesses can forecast a slow-season cash gap, choose funding that matches how revenue returns, and avoid the mistakes that turn a dip into a crisis.'
+description: 'How seasonal businesses can forecast a slow-season cash gap, choose funding that matches how revenue returns, and avoid turning a dip into a crisis.'
 cover: ../../assets/blog/bridging-a-slow-season.jpg
 coverAlt: 'Abstract frosted-glass wave on a warm orange background.'
 takeaways:

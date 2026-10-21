@@ -6,7 +6,7 @@ category: Cash Flow & Debt
 author: Falcon Equity Group
 byline: Falcon Equity Group
 excerpt: 'Juggling two, three or four daily payments? Here is how consolidating stacked advances into one position works, what it can save, and when it makes sense.'
-description: 'How consolidating stacked merchant cash advances into one position can lower your daily payment, free up cash flow and simplify your books.'
+description: 'How consolidating stacked merchant cash advances into one Falcon position can lower the daily payment, free up cash flow and simplify the books.'
 cover: ../../assets/blog/consolidation-of-positions-stacked-advances.jpg
 coverAlt: ''
 takeaways:

@@ -10,7 +10,8 @@ import JsonLd from '@/components/JsonLd.astro';
 import Header from '@/components/Header.astro';
 import SiteCta from '@/components/SiteCta.astro';
 import Footer from '@/components/Footer.astro';
-import { organizationSchema } from '@/lib/schema';
+import { organizationSchema, webPageSchema } from '@/lib/schema';
+import { SITE } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 
 interface Props extends SEOProps {
@@ -18,7 +19,18 @@ interface Props extends SEOProps {
 }
 
 const { schema = [], ...seo } = Astro.props;
-const isHome = cleanPath(Astro.url.pathname) === '/';
+const path = cleanPath(Astro.url.pathname);
+const isHome = path === '/';
+const pageName = seo.title
+  ? seo.title.includes('|')
+    ? seo.title
+    : `${seo.title} | ${SITE.name}`
+  : `${SITE.name} | Fast Funding in 24–48 Hours`;
+const jsonLd = [
+  organizationSchema(),
+  ...(seo.noindex ? [] : [webPageSchema(path, pageName)]),
+  ...schema,
+];
 ---
 
 <!doctype html>
@@ -38,7 +50,7 @@ const isHome = cleanPath(Astro.url.pathname) === '/';
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="Falcon Equity Group Blog" href="/rss.xml" />
     <SEO {...seo} />
-    <JsonLd data={[organizationSchema(), ...schema]} />
+    <JsonLd data={jsonLd} />
     <slot name="head" />
   </head>
   <body class:list={['flex min-h-screen flex-col', isHome && 'is-home']}>

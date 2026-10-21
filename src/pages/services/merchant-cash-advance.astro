@@ -6,6 +6,7 @@ import PilotWhatWeDo from '@/components/pilot/PilotWhatWeDo.astro';
 import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
 import PilotAccordion from '@/components/pilot/PilotAccordion.astro';
 import PilotProcess from '@/components/pilot/PilotProcess.astro';
+import ProductTermsTable from '@/components/ProductTermsTable.astro';
 import { getService, STANDARD_STEPS } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import '@/styles/pilot.css';
@@ -87,20 +88,29 @@ const faqs = [
           <h2 id="overview-heading">What you can expect.</h2>
         </div>
         <div class="bx-full">
-          <PilotAccordion
-            variant="strategies"
-            idPrefix="mca-terms"
-            items={[
-              { q: "Who it's for", a: spec.whoFor },
-              { q: 'Amounts', a: spec.amounts },
-              { q: 'Terms', a: spec.terms },
-              { q: 'Requirements', bullets: spec.requirements },
-              {
-                q: 'How remittance works',
-                a: 'An MCA is a purchase of future receivables. You remit an agreed share of sales until the purchased amount is delivered. It is not a loan.',
-              },
-            ]}
+          <ProductTermsTable
+            name={service.name}
+            amounts={spec.amounts}
+            terms={spec.terms}
+            speed={service.speed}
+            labelledBy="overview-heading"
           />
+          <div class="mt-10">
+            <PilotAccordion
+              variant="strategies"
+              idPrefix="mca-terms"
+              items={[
+                { q: "Who it's for", a: spec.whoFor },
+                { q: 'Amounts', a: spec.amounts },
+                { q: 'Terms', a: spec.terms },
+                { q: 'Requirements', bullets: spec.requirements },
+                {
+                  q: 'How remittance works',
+                  a: 'An MCA is a purchase of future receivables. You remit an agreed share of sales until the purchased amount is delivered. It is not a loan.',
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
     </div>

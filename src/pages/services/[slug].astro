@@ -14,6 +14,7 @@ import FeatureSplit from '@/components/FeatureSplit.astro';
 import ServiceSpec from '@/components/ServiceSpec.astro';
 import HeroStats from '@/components/HeroStats.astro';
 import { SERVICES, type Service } from '@/data/services';
+import ProductTermsTable from '@/components/ProductTermsTable.astro';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 
 export const getStaticPaths = (() =>
@@ -84,6 +85,26 @@ const accordionItems =
       />
     )
   }
+
+  <section class="section bg-white" aria-labelledby="product-terms-heading">
+    <div class="container-site">
+      <div class="bx-grid">
+        <div class="section-head bx-span-4 bx-lg-span-10">
+          <Eyebrow>Terms</Eyebrow>
+          <h2 id="product-terms-heading">Typical amounts and terms.</h2>
+        </div>
+        <div class="bx-full">
+          <ProductTermsTable
+            name={service.name}
+            amounts={amountValue}
+            terms={termValue}
+            speed={service.speed}
+            labelledBy="product-terms-heading"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
   <StatementBand image={service.image} items={bandItems} />
 

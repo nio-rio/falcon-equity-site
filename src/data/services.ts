@@ -224,7 +224,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Collateral & Asset Loans',
     seoDescription:
-      'Collateral and asset loans from $10,000 to $1,000,000 with 12 – 60 month terms.',
+      'Collateral and asset loans from Falcon Equity Group: $10,000 to $1,000,000, 12 – 60 month terms, for equipment, vehicles and other business assets.',
   },
   {
     slug: 'business-line-of-credit',
@@ -293,7 +293,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Business Line of Credit',
     seoDescription:
-      'Business lines of credit from $10,000 to $500,000, revolving, with same-day funding.',
+      'Business lines of credit from Falcon Equity Group: $10,000 to $500,000, revolving, with same-day funding after approval when the file is complete.',
   },
   {
     slug: 'merchant-cash-advance',
@@ -361,7 +361,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Merchant Cash Advance',
     seoDescription:
-      'Merchant cash advances and working capital bridges from $5,000 to $5,000,000, with same-day funding and 3 – 18 month terms.',
+      'Merchant cash advances from Falcon Equity Group: $5,000 to $5,000,000, 3 – 18 month terms, with same-day funding after approval and a signed agreement.',
   },
   {
     slug: 'business-term-loan',
@@ -433,7 +433,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Business Term Loan',
     seoDescription:
-      'Business term loans from $10,000 to $2,000,000 with 6 – 36 month terms.',
+      'Business term loans from Falcon Equity Group: $10,000 to $2,000,000 with 6 – 36 month terms for growth, equipment, or day-to-day operations.',
   },
   {
     slug: 'invoice-factoring-tool',
@@ -500,7 +500,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Invoice Factoring',
     seoDescription:
-      'Invoice factoring from $10,000 to $3,000,000 as an ongoing facility. Turn outstanding B2B invoices into cash.',
+      'Invoice factoring from Falcon Equity Group: $10,000 to $3,000,000 as an ongoing facility that turns outstanding B2B invoices into working cash.',
   },
   {
     slug: 'consolidation-of-positions',
@@ -652,7 +652,7 @@ export const SERVICES: Service[] = [
     ],
     seoTitle: 'Decentralized Business Financing',
     seoDescription:
-      'Decentralized business financing from Falcon Equity Group: crypto onboarding and crypto custodial services for modern businesses.',
+      'Decentralized business financing from Falcon Equity Group: crypto onboarding and crypto custodial services, sized during a specialist consultation.',
   },
 ];
 

@@ -1,6 +1,6 @@
 ---
 title: 'Retail inventory financing: how to fund holiday stock without starving the store'
-description: 'How retail stores finance holiday and seasonal inventory with a credit line, cash advance or term loan, and what each one really costs.'
+description: 'How retail stores finance holiday and seasonal inventory with a credit line, cash advance or term loan, and what each Falcon option really costs.'
 seoTitle: 'Retail Inventory Financing for the Holiday Season'
 excerpt: 'Holiday stock gets paid for months before it sells. Here is how to choose the right inventory financing and size it so it pays for itself.'
 date: 2026-10-19

@@ -1,6 +1,6 @@
 ---
 title: 'Daycare business loans: how childcare and education centers qualify'
-description: 'What for-profit daycares, preschools, tutoring centers and private schools need to qualify for business loans, and how SBA options compare.'
+description: 'What for-profit daycares, preschools, tutoring centers and private schools need to qualify for business loans, and how SBA-backed options compare.'
 seoTitle: 'Daycare Business Loans: How Childcare Centers Qualify'
 excerpt: 'Tuition comes in on one schedule and rent, staff and licensing costs on another. Here is how education businesses qualify for funding that fits.'
 date: 2026-10-19

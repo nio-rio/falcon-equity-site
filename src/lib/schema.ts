@@ -2,6 +2,22 @@ import { PRIMARY_PHONE, SITE } from '@/data/site';
 
 const orgId = `${SITE.url}/#organization`;
 
+export const webPageSchema = (pathname: string, name: string) => {
+  const path = pathname || '/';
+  const url = path === '/' ? SITE.url : `${SITE.url}${path}`;
+  const type = path === '/about' ? 'AboutPage' : path === '/contact' ? 'ContactPage' : 'WebPage';
+  return {
+    '@context': 'https://schema.org',
+    '@type': type,
+    '@id': `${url}#webpage`,
+    url,
+    name,
+    about: { '@id': orgId },
+    isPartOf: { '@id': orgId },
+    publisher: { '@id': orgId },
+  };
+};
+
 /** Home JSON-LD is Organization / FinancialService only. Do not add Review
  *  or aggregateRating — testimonials are credited as “Falcon client”. */
 

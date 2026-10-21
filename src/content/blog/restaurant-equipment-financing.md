@@ -1,6 +1,6 @@
 ---
 title: 'Restaurant equipment financing: what it costs and when it beats a cash advance'
-description: 'How restaurant equipment financing works, what lenders need and how it compares with a merchant cash advance on cost, term and speed.'
+description: 'How restaurant equipment financing works, what lenders need, and how it compares with a merchant cash advance on cost, term and funding speed.'
 seoTitle: 'Restaurant Equipment Financing vs. a Cash Advance'
 excerpt: 'When the walk-in dies on a Friday, the fastest money is rarely the cheapest. Here is how to finance kitchen equipment without wrecking cash flow.'
 date: 2026-10-19

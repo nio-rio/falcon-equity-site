@@ -1,0 +1,25 @@
+---
+import ResponsiveTable from './ResponsiveTable.astro';
+
+interface Props {
+  name: string;
+  amounts: string;
+  terms: string;
+  speed?: string;
+  labelledBy?: string;
+}
+
+const { name, amounts, terms, speed, labelledBy } = Astro.props;
+const rows = [
+  ['Amounts', amounts],
+  ['Terms', terms],
+  ...(speed ? [['Funding speed', speed]] : []),
+];
+---
+
+<ResponsiveTable
+  caption={`${name}: typical amounts and terms`}
+  labelledBy={labelledBy}
+  headers={['Figure', 'Typical']}
+  rows={rows}
+/>

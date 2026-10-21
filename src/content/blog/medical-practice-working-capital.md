@@ -1,6 +1,6 @@
 ---
 title: 'Medical practice working capital: covering the gap while claims get paid'
-description: 'How medical, dental and therapy practices cover payroll and supplies while insurance claims process, and which financing fits each need.'
+description: 'How medical, dental and therapy practices cover payroll and supplies while insurance claims process, and which Falcon financing fits each need.'
 seoTitle: 'Medical Practice Working Capital for Claim Delays'
 excerpt: 'Practices get paid after the care, sometimes long after. Here is how to fund the gap without taking on the wrong kind of debt.'
 date: 2026-10-19

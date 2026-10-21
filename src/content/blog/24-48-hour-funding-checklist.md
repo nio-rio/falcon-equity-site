@@ -6,7 +6,7 @@ category: Getting Approved
 author: Falcon Equity Group
 byline: Falcon Equity Group
 excerpt: 'Fast funding starts with a ready file. Use this checklist to gather what underwriters need so nothing slows you down.'
-description: 'A practical checklist of the documents and details you need to get business funding in as little as 24–48 hours.'
+description: 'A practical checklist of the documents and details you need to get business funding in as little as 24–48 hours, so the file is complete on day one.'
 cover: ../../assets/blog/24-48-hour-funding-checklist.jpg
 coverAlt: 'Abstract frosted-glass checklist with a clock on a green background.'
 takeaways:

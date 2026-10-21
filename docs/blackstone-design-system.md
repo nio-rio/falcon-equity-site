@@ -413,6 +413,7 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 | `src/components/pilot/PilotQuote.astro` | BREIT split: 3:4 portrait span 4, sans-light quote start 6 span 7, name/role bottom-right |
 | `src/components/pilot/PilotAccordion.astro` | FAQ (slate hairline, outline→filled circle) or `variant="strategies"` (black rules, plain chevron closed) |
 | `src/components/Media.astro` | Real asset or labeled placeholder |
+| `src/components/ProductTermsTable.astro` | Semantic amounts/terms table on each product page (`.r-table`) |
 | `docs/blackstone-design-notes.md` | Earlier pass notes; this file is the system |
 | `docs/refs/bx-scroll-in.md` | Measured BXCI / blackstone-v2 scroll-in values (GSAP start, durations, curtain, stats). |
 | `docs/redesign/content-home.md` | Approved home copy outline |
@@ -422,4 +423,12 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 
 **Home** (`/`): Blackstone promo-header + carousel hero (static falcon; H1 `Fuel Success with` / `Fast Funding` 64/72 with nested-8 offset; aside “Unlock rapid financial solutions tailored to your business needs.”, cols 11–16 end-aligned) → Tac Opps featured stats (`24-48h` big; `$100M+` and 98% for qualified applicants on the right, 16-col) → **Services** rows (title + range ~1em under the title cols 1–6, teaser start 8, circle arrow col 12; sibling-hover 36%; 2px rules; bottom line draws `scaleX` 0.5s ease-out and snaps off on mouse-out, static divider 40% while drawing) → **Testimonial** slider (EARNINGS layout; three Ling quotes, `Falcon client` placeholder credits, abstract stills; arrows enabled) → **Industries** (Industries eyebrow + “Sectors we fund.”; Lilac Light “Select your sector” field across from the H2, stacked under it on small screens; panel = title + blurb + Learn more / Ling 16:9 still) → Life Sciences-style Insights (`PilotNews`, 3 published posts) → layout `.site-cta` wheel above the footer. No Process. No Explore more. Founder quote is on About.
 
-**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview strategies accordion (Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro`.
+**Merchant Cash Advance** (`/services/merchant-cash-advance`): inner hero → BXCI What we do (uses, labeled 3:4) → product stats → Overview (semantic amounts/terms table, then strategies accordion: Who / Amounts / Terms / Requirements from the live spec, plus remittance) → process → FAQ. Pre-footer `.site-cta` comes from the layout. Other service URLs still use `src/pages/services/[slug].astro` (same table).
+
+### SEO / AEO
+
+- Sitemap entries include `lastmod` (blog `updated`/`date`; other URLs use the build time).
+- `/llms.txt` lists products, industries, NAP, and published figures only.
+- Every indexable page emits `WebPage` / `AboutPage` / `ContactPage` JSON-LD linked to the Organization `@id`. No Review markup, no founder on the Organization, no opening hours.
+- `robots.txt` names GPTBot, PerplexityBot, ClaudeBot, Google-Extended, and other AI crawlers as allowed.
+- Primary public number is `+1 (917) 245-5277` (JSON-LD, contact, apply, header).

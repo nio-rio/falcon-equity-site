@@ -528,7 +528,7 @@ export const INDUSTRIES: Industry[] = [
     uses: ['Bulk inventory orders', 'Paid acquisition campaigns', 'Fulfillment and warehousing'],
     seoTitle: 'E-Commerce Business Loans & Inventory Funding | Falcon',
     seoDescription:
-      'Funding for online stores: inventory, ad spend and fulfillment. Credit lines up to $500K, sales-based advances up to $5M. Apply in minutes.',
+      'Funding for online stores: inventory, ad spend and fulfillment. Credit lines up to $500K, sales-based advances up to $5M. Apply with Falcon Equity Group.',
     h1: 'E-commerce business loans',
     subtitle: 'Fund inventory and ad spend ahead of demand, without waiting on marketplace payouts.',
     needs: [

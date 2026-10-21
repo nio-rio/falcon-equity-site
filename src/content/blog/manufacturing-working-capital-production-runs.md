@@ -1,6 +1,6 @@
 ---
 title: 'Working capital for manufacturers: funding the materials before the invoice'
-description: 'How small manufacturers fund raw materials, big production runs and net-terms customers with factoring, equipment loans and credit lines.'
+description: 'How small manufacturers fund raw materials, large production runs and net-terms customers with factoring, equipment loans and Falcon credit lines.'
 seoTitle: 'Working Capital for Manufacturers: Fund Production'
 excerpt: 'A big order is good news until you have to buy the materials. Here is how manufacturers fund production without draining the business.'
 date: 2026-10-19

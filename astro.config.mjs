@@ -7,11 +7,26 @@ import tailwindcss from '@tailwindcss/vite';
 import { satteri } from '@astrojs/markdown-satteri';
 import { tableDataLabelsPlugin } from './src/lib/table-labels.js';
 
+const blogDir = join('src', 'content', 'blog');
+const blogFiles = readdirSync(blogDir).filter((file) => /\.mdx?$/.test(file));
 const draftBlogSlugs = new Set(
-  readdirSync(join('src', 'content', 'blog'))
-    .filter((file) => /\.mdx?$/.test(file))
-    .filter((file) => /^draft:\s*true\s*$/m.test(readFileSync(join('src', 'content', 'blog', file), 'utf8')))
+  blogFiles
+    .filter((file) => /^draft:\s*true\s*$/m.test(readFileSync(join(blogDir, file), 'utf8')))
     .map((file) => file.replace(/\.mdx?$/, '')),
+);
+const blogLastmod = new Map(
+  blogFiles.flatMap((file) => {
+    const raw = readFileSync(join(blogDir, file), 'utf8');
+    if (/^draft:\s*true\s*$/m.test(raw)) return [];
+    const slug = file.replace(/\.mdx?$/, '');
+    /** @param {string} key */
+    const pick = (key) => raw.match(new RegExp(`^${key}:\\s*'?([^'\\n]+)'?`, 'm'))?.[1]?.trim();
+    const value = pick('updated') || pick('date');
+    if (!value) return [];
+    const date = new Date(value);
+    if (Number.isNaN(date.valueOf())) return [];
+    return [[`/blog/${slug}`, date.toISOString()]];
+  }),
 );
 
 export default defineConfig({
@@ -39,6 +54,18 @@ export default defineConfig({
           return false;
         }
         return true;
+      },
+      serialize(item) {
+        let pathname = '/';
+        try {
+          pathname = new URL(item.url).pathname.replace(/\/+$/, '') || '/';
+        } catch {
+          pathname = '/';
+        }
+        return {
+          ...item,
+          lastmod: blogLastmod.get(pathname) ?? new Date().toISOString(),
+        };
       },
     }),
   ],

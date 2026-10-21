@@ -15,9 +15,12 @@ const productFaqs = SERVICES.map((s) => ({ service: s, faqs: s.faqs }));
 ---
 
 <BaseLayout
-  title="FAQ"
-  description="Answers about Falcon Equity Group business funding: speed, requirements, credit, consolidation and each product."
-  schema={[breadcrumbSchema(crumbs), faqSchema(FAQS)]}
+  title="Business Funding FAQ"
+  description="Answers about Falcon Equity Group business funding: speed, documents, credit scores, consolidation of stacked advances, and how each product is reviewed."
+  schema={[
+    breadcrumbSchema(crumbs),
+    faqSchema([...FAQS, ...SERVICES.flatMap((s) => s.faqs)]),
+  ]}
 >
   <PageHero title="FAQ" lead="General questions first, then by product." />
 

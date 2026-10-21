@@ -16,11 +16,11 @@ export const BLOG_CATEGORY_SLUG: Record<BlogCategory, string> = {
 
 export const BLOG_CATEGORY_DESCRIPTION: Record<BlogCategory, string> = {
   'Getting Approved':
-    'What to gather before you apply, how underwriters read bank statements, and how to show up with a complete file.',
+    'What to gather before you apply for Falcon funding: six months of bank statements, a photo ID, and how underwriters read that complete file.',
   'Compare Options':
-    'Plain-English comparisons of merchant cash advances, term loans, and invoice factoring so you can match the product to the job.',
+    'Plain-English comparisons of merchant cash advances, term loans, and invoice factoring so you can match a Falcon product to the job at hand.',
   'Costs & Rates':
-    'How to read a factor rate, test equipment break-even, and compare a quote to another offer on the table.',
+    'How to read a merchant cash advance factor rate, test equipment break-even, and compare a Falcon quote with another offer before you sign it.',
   'Cash Flow & Debt':
-    'Bridging a slow season and consolidating stacked advances so daily payments stop draining the account.',
+    'Bridging a slow season and consolidating stacked merchant cash advances so daily or weekly payments stop draining the business bank account.',
 };
