@@ -1,28 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
-import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
-import PilotArrow from '@/components/pilot/PilotArrow.astro';
-import PilotGlance from '@/components/pilot/PilotGlance.astro';
-import PilotAccordion from '@/components/pilot/PilotAccordion.astro';
-import PilotProcess from '@/components/pilot/PilotProcess.astro';
-import PilotTrust from '@/components/pilot/PilotTrust.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
+import Icon from '@/components/Icon.astro';
 import { getService, STANDARD_STEPS } from '@/data/services';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { PRIMARY_PHONE } from '@/data/site';
-import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
-import '@/styles/pilot.css';
+import { PRIMARY_PHONE, STATS } from '@/data/site';
+import '@/styles/mca.css';
 
 const service = getService('merchant-cash-advance');
 if (!service || !service.spec) throw new Error('Merchant Cash Advance spec is missing');
 
 const spec = service.spec;
-
-const crumbs = [
-  { name: 'Home', path: '/' },
-  { name: 'Services', path: '/#services' },
-  { name: service.name, path: `/services/${service.slug}` },
-];
+const speed = service.options?.[0]?.speed ?? service.speed ?? 'Same day';
 
 const faqs = [
   {
@@ -39,7 +30,7 @@ const faqs = [
   },
   {
     q: 'How fast can I get funded?',
-    a: 'Timing depends on how quickly documents are provided. Once you are approved and the agreement is signed, merchant cash advances can fund the same day.',
+    a: `Timing depends on how quickly documents are provided. Once you are approved and the agreement is signed, merchant cash advances can fund the ${speed.toLowerCase()}.`,
   },
   {
     q: 'Does my credit score matter?',
@@ -54,97 +45,214 @@ const faqs = [
     a: 'Six months of business bank statements, a government-issued photo ID, a voided check and a schedule of any open advances or loans.',
   },
 ];
+
+const uses = [
+  {
+    title: 'Seizing a time-sensitive inventory deal',
+    body: "An advance based on future sales can fund an inventory buy while the supplier's price still stands, often the same day after approval.",
+  },
+  {
+    title: 'Bridging a slow season',
+    body: 'Payroll, rent and insurance still run in the off-season. A working-capital bridge covers that stretch until peak work returns.',
+  },
+  {
+    title: 'Funding a marketing push',
+    body: 'Revenue-based capital can fund a campaign before a busy stretch, when the spend lands ahead of the sales it creates.',
+  },
+  {
+    title: 'Covering urgent repairs or replacements',
+    body: 'Use this when a repair or replacement cannot wait on retained earnings.',
+  },
+];
+
+const steps = [
+  {
+    title: STANDARD_STEPS[0].title,
+    body: STANDARD_STEPS[0].body,
+    note: 'You provide: six months of business bank statements, photo ID, a voided check and a debt schedule.',
+  },
+  {
+    title: STANDARD_STEPS[1].title,
+    body: STANDARD_STEPS[1].body,
+    note: 'You get: a call about amounts, remittance and timing before anything is signed.',
+  },
+  {
+    title: STANDARD_STEPS[2].title,
+    body: `Once approved, review and sign your agreement. Merchant cash advances can fund the ${speed.toLowerCase()}.`,
+    note: 'You see: the total purchased amount and the remittance percentage on the agreement.',
+  },
+];
+
+const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
+const years = STATS.find((s) => s.label === 'Years of experience')!;
+const helped = STATS.find((s) => s.label === 'Businesses helped')!;
+const fundingTime = STATS.find((s) => s.label === 'Average funding time')!;
+const trustStats = [deployed, helped, years, fundingTime];
 ---
 
-<BaseLayout
-  title="Merchant cash advance up to $5,000,000 | Falcon Equity Group"
-  description="A merchant cash advance from $5,000 to $5,000,000 with 3 – 18 month terms. Repayment follows your sales. 3+ months in business and $10K+ monthly revenue."
-  schema={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(faqs)]}
-  disclosure={PAGE_DISCLOSURE}
->
-  <section class="pilot-page-hero pilot-page-hero--split pilot-on-dark" aria-labelledby="page-hero-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-page-hero-copy bx-span-4 bx-lg-span-7">
-          <PilotEyebrow>Services</PilotEyebrow>
-          <h1 id="page-hero-heading">{service.name}</h1>
-          <p class="pilot-page-hero-lead">{service.headline}</p>
-          <div class="pilot-page-hero-cta">
-            <PilotArrow href="/apply" label="Apply for this product" tone="light" />
-            <p class="pilot-page-hero-phone">
-              Direct{' '}
-              <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
-            </p>
-          </div>
-        </div>
-        <div class="pilot-page-hero-media bx-span-4 bx-lg-span-8 bx-lg-start-9">
-          <Media
-            image={service.image}
-            alt="Card terminal and till on a shop counter, close crop."
-            intent={`${service.name} still`}
-            ratio="16 / 9"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
+<BaseLayout title="Merchant Cash Advance" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
 
-  <section class="pilot-section" aria-labelledby="answer-heading">
+  <section class="mca-hero on-dark" aria-labelledby="page-hero-heading" data-band="dark">
     <div class="container-site">
-      <div class="bx-grid">
-        <h2 id="answer-heading" class="sr-only">Direct answer</h2>
-        <p class="pilot-answer-lead pilot-answer-lead--statement bx-span-4 bx-lg-span-12">
-          A merchant cash advance is a purchase of future receivables, not a loan. A business with $10K+ in monthly
-          revenue and 3+ months in operation receives a lump sum from $5,000 to $5,000,000, then repays it through an
-          agreed share of sales over 3 to 18 months.
+      <Eyebrow>Services</Eyebrow>
+      <h1 id="page-hero-heading">{service.name}</h1>
+      <p class="mca-hero-lead">{service.headline}</p>
+      <div class="mca-hero-cta">
+        <ArrowCta href="/apply" label="Apply for this product" tone="light" />
+        <p class="mca-hero-phone">
+          Direct{' '}
+          <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
         </p>
       </div>
+      <div class="mca-hero-media">
+        <Media
+          image={service.image}
+          alt="Abstract 3D render of a card terminal, stacked coins and a payment card on a purple field."
+          intent={`${service.name} still`}
+          ratio="16 / 9"
+          sizes="100vw"
+          priority={true}
+          loading="eager"
+        />
+      </div>
     </div>
   </section>
 
-  <PilotGlance
-    cells={[
-      { value: spec.amounts, label: 'Amounts' },
-      { value: 'Same day', label: 'Funding after approval and signature' },
-      { value: '0% agreement fee', label: 'No specific rate is published' },
-      { value: 'Competitive', label: 'Rates' },
-    ]}
-  />
-
-  <section class="pilot-section" aria-labelledby="what-heading">
+  <section class="mca-band" aria-labelledby="answer-heading" data-band="light" data-reveal-root>
     <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-lg-span-6">
-          <PilotEyebrow>What we do</PilotEyebrow>
-          <h2 id="what-heading">What is a merchant cash advance?</h2>
+      <h2 id="answer-heading" class="sr-only">Direct answer</h2>
+      <p class="mca-statement" data-reveal>
+        A merchant cash advance is a purchase of future receivables, not a loan. A business with $10K+ in monthly
+        revenue and 3+ months in operation receives a lump sum from $5,000 to $5,000,000, then repays it through an
+        agreed share of sales over 3 to 18 months.
+      </p>
+      <ul class="mca-facts" aria-label="At a glance">
+        <li data-reveal>
+          <p class="mca-facts-label">Amounts</p>
+          <p class="mca-facts-value">{spec.amounts}</p>
+        </li>
+        <li data-reveal>
+          <p class="mca-facts-label">Funding after approval and signature</p>
+          <p class="mca-facts-value">{speed}</p>
+        </li>
+        <li data-reveal>
+          <p class="mca-facts-label">Fee</p>
+          <p class="mca-facts-value">0% agreement fee</p>
+        </li>
+        <li data-reveal>
+          <p class="mca-facts-label">Rates</p>
+          <p class="mca-facts-value">Competitive</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mca-band" aria-labelledby="what-heading" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-split">
+        <div class="mca-split-media" data-reveal-media>
+          <Media
+            labeled
+            intent="Abstract geometric still, no people"
+            ratio="4 / 5"
+            sizes="(min-width: 1024px) 40vw, 100vw"
+          />
         </div>
-        <div class="pilot-section-body bx-span-4 bx-lg-span-8 bx-lg-start-9">
+        <div class="mca-split-copy" data-reveal>
+          <Eyebrow>What we do</Eyebrow>
+          <h2 id="what-heading">What is a merchant cash advance?</h2>
           <p>
             A merchant cash advance converts a share of future sales into cash today. You receive a lump sum, then remit
             an agreed percentage of daily or weekly sales until the purchased amount is delivered. It is a purchase of
             receivables, not a loan, so there is no fixed instalment schedule.
           </p>
-          <ul class="pilot-plain-list">
+        </div>
+      </div>
+      <ul class="mca-pillars" data-reveal data-reveal-after>
+        {
+          uses.map((use) => (
             <li>
-              <strong>Seizing a time-sensitive inventory deal.</strong>{' '}
-              An advance based on future sales can fund an inventory buy while the supplier's price still stands, often
-              the same day after approval.
+              <h3>{use.title}</h3>
+              <p>{use.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="mca-band" aria-labelledby="overview-heading" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <Eyebrow>Terms</Eyebrow>
+      <h2 id="overview-heading" data-reveal>What you can expect.</h2>
+      <ul class="mca-strategies" data-reveal data-reveal-after>
+        <li>
+          <p class="mca-strategies-num">01</p>
+          <h3>Typical amounts</h3>
+          <p>{spec.amounts}. Final amounts depend on underwriting.</p>
+        </li>
+        <li>
+          <p class="mca-strategies-num">02</p>
+          <h3>Terms</h3>
+          <p>{spec.terms}. Remittances follow your sales under the agreement, not a fixed loan payment.</p>
+        </li>
+        <li>
+          <p class="mca-strategies-num">03</p>
+          <h3>What it costs</h3>
+          <p>
+            Falcon charges a 0% agreement fee. Rates are competitive. Your specialist discloses the total purchased
+            amount and the remittance percentage before you sign, and no specific rate is published on this page.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mca-band mca-band--tint" aria-labelledby="fit-heading" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <Eyebrow>Fit</Eyebrow>
+      <h2 id="fit-heading" data-reveal>When this is not the right product.</h2>
+      <p class="mca-fit-lead" data-reveal>
+        A cash advance is the fastest option and the most expensive. Three cases where something else fits better.
+      </p>
+      <div class="mca-roles" data-reveal data-reveal-after>
+        <div>
+          <h3>A good fit</h3>
+          <ul>
+            <li>{spec.whoFor}</li>
+            <li>{spec.requirements[2]}.</li>
+            <li>Revenue and bank activity carry the most weight.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Wrong choice</h3>
+          <ul>
+            <li>
+              <strong>The cost is a planned, repeating one.</strong>
+              {' '}Rent, payroll cycles and inventory bought on a schedule suit a line of credit, where you draw what you
+              need and pay for what you use.
             </li>
             <li>
-              <strong>Bridging a slow season.</strong>{' '}
-              Payroll, rent and insurance still run in the off-season. A working-capital bridge covers that stretch until
-              peak work returns.
+              <strong>The purchase is an asset.</strong>
+              {' '}Equipment, vehicles and fixtures have a working life, so a collateral or asset loan spreads the cost
+              over the years they earn.
             </li>
             <li>
-              <strong>Funding a marketing push.</strong>{' '}
-              Revenue-based capital can fund a campaign before a busy stretch, when the spend lands ahead of the sales it
-              creates.
-            </li>
-            <li>
-              <strong>Covering urgent repairs or replacements.</strong>{' '}
-              Use this when a repair or replacement cannot wait on retained earnings.
+              <strong>You are already carrying several advances.</strong>
+              {' '}Stacking a new position on top of existing daily payments is how files get into trouble.
             </li>
           </ul>
         </div>
@@ -152,116 +260,84 @@ const faqs = [
     </div>
   </section>
 
-  <section class="pilot-section" aria-labelledby="overview-heading">
+  <section class="mca-band" aria-labelledby="process-heading" data-band="light" data-reveal-root>
     <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
-          <PilotEyebrow>Terms</PilotEyebrow>
-          <h2 id="overview-heading">What you can expect.</h2>
-        </div>
-        <ul class="pilot-term-grid bx-full">
-          <li class="tile-card">
-            <h3>Typical amounts</h3>
-            <p>{spec.amounts}. Final amounts depend on underwriting.</p>
-          </li>
-          <li class="tile-card">
-            <h3>Terms</h3>
-            <p>
-              {spec.terms}. Remittances follow your sales under the agreement, not a fixed loan payment.
-            </p>
-          </li>
-          <li class="tile-card">
-            <h3>What it costs</h3>
-            <p>
-              Falcon charges a 0% agreement fee. Rates are competitive. Your specialist discloses the total purchased
-              amount and the remittance percentage before you sign, and no specific rate is published on this page.
-            </p>
-          </li>
+      <Eyebrow>Process</Eyebrow>
+      <h2 id="process-heading" data-reveal>How you get approved.</h2>
+      <ol class="mca-rail" data-reveal data-reveal-after>
+        {
+          steps.map((step, i) => (
+            <li>
+              <p class="mca-rail-num">{String(i + 1).padStart(2, '0')}</p>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+              <p class="mca-rail-note">{step.note}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="mca-band" aria-labelledby="mca-faq-heading" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <Eyebrow>FAQ</Eyebrow>
+      <h2 id="mca-faq-heading" data-reveal>Cash advance questions</h2>
+      <div class="bx-accordion mca-faq" data-accordion data-reveal data-reveal-after>
+        {
+          faqs.map((item, i) => (
+            <div class="bx-acc-item" data-acc-item>
+              <h3>
+                <button
+                  type="button"
+                  class="bx-acc-trigger"
+                  aria-expanded="false"
+                  aria-controls={`mca-faq-panel-${i}`}
+                  id={`mca-faq-trigger-${i}`}
+                  data-acc-trigger
+                >
+                  <span>{item.q}</span>
+                  <span class="bx-acc-icon" aria-hidden="true">
+                    <Icon name="chevron-down" size={16} />
+                  </span>
+                </button>
+              </h3>
+              <div class="bx-acc-panel" id={`mca-faq-panel-${i}`} role="region" aria-labelledby={`mca-faq-trigger-${i}`}>
+                <div class="bx-acc-panel-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-trust" aria-label="Published figures" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-trust-row" data-reveal>
+        <ul class="mca-trust-stats">
+          {
+            trustStats.map((stat) => (
+              <li>
+                <p class="mca-trust-value">{stat.value}</p>
+                <p class="mca-trust-label">{stat.label}</p>
+              </li>
+            ))
+          }
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="pilot-section pilot-section--tint" aria-labelledby="fit-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
-          <PilotEyebrow>Fit</PilotEyebrow>
-          <h2 id="fit-heading">When this is not the right product.</h2>
-        </div>
-        <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          A cash advance is the fastest option and the most expensive. Three cases where something else fits better.
+        <p class="mca-trust-phone">
+          Direct{' '}
+          <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
         </p>
-        <div class="pilot-fit-split bx-full">
-          <div>
-            <h3>A good fit</h3>
-            <ul class="pilot-plain-list">
-              <li>{spec.whoFor.replace(/\.$/, '')}.</li>
-              <li>Seizing a time-sensitive inventory deal.</li>
-              <li>Bridging a slow season.</li>
-              <li>Funding a marketing push.</li>
-              <li>Covering urgent repairs or replacements.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Wrong choice</h3>
-            <ul class="pilot-plain-list">
-              <li>
-                <strong>The cost is a planned, repeating one.</strong>{' '}
-                Rent, payroll cycles and inventory bought on a schedule suit a line of credit, where you draw what you
-                need and pay for what you use.
-              </li>
-              <li>
-                <strong>The purchase is an asset.</strong>{' '}
-                Equipment, vehicles and fixtures have a working life, so a collateral or asset loan spreads the cost over
-                the years they earn.
-              </li>
-              <li>
-                <strong>You are already carrying several advances.</strong>{' '}
-                Stacking a new position on top of existing daily payments is how files get into trouble. Consolidation of
-                Positions exists for that case.
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <PilotProcess
-    title="How you get approved."
-    steps={[
-      {
-        title: STANDARD_STEPS[0].title,
-        body: STANDARD_STEPS[0].body,
-        note: 'You provide: six months of business bank statements, photo ID, a voided check and a debt schedule.',
-      },
-      {
-        title: STANDARD_STEPS[1].title,
-        body: STANDARD_STEPS[1].body,
-        note: 'You get: a call about amounts, remittance and timing before anything is signed.',
-      },
-      {
-        title: STANDARD_STEPS[2].title,
-        body: STANDARD_STEPS[2].body,
-        note: 'You see: the total purchased amount and the remittance percentage on the agreement.',
-      },
-    ]}
-  />
-
-  <section class="pilot-section" aria-labelledby="mca-faq-heading">
-    <div class="container-site">
-      <div class="bx-grid">
-        <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
-          <PilotEyebrow>FAQ</PilotEyebrow>
-          <h2 id="mca-faq-heading">Cash advance questions</h2>
-        </div>
-        <div class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
-          <PilotAccordion items={faqs} idPrefix="mca-faq" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <PilotTrust />
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+  </script>
 </BaseLayout>

@@ -37,7 +37,7 @@ if (h1Of('dist/apply.html') !== 'Apply') {
 }
 
 const mcaTitle = titleOf('dist/services/merchant-cash-advance.html');
-if (mcaTitle !== 'Merchant cash advance up to $5,000,000 | Falcon Equity Group') {
+if (mcaTitle !== 'Merchant Cash Advance | Falcon Equity Group') {
   throw new Error(`MCA <title> was ${JSON.stringify(mcaTitle)}`);
 }
 if (h1Of('dist/services/merchant-cash-advance.html') !== 'Merchant Cash Advance') {
