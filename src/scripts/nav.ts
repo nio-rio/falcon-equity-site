@@ -351,11 +351,11 @@ export function initNav() {
     header?.classList.remove('is-drilled');
     inner?.classList.remove('is-drilled');
     setBurger(false);
+    setScrollLock(false);
+    setFocusTrap(false);
     const tl = gsap.timeline({
       onComplete() {
         setBackdropEl(false);
-        setScrollLock(false);
-        setFocusTrap(false);
         setupMobile();
         state.mobileTl = null;
       },

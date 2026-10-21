@@ -176,31 +176,50 @@ const readHomeTheme = (page) =>
     };
   });
 
+const releaseNavScroll = (page) =>
+  page.evaluate(() => {
+    document.documentElement.classList.remove('has-scroll-lock');
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+  });
+
+const scrollPageTo = async (page, y) => {
+  const top = Math.max(0, Math.round(y));
+  await releaseNavScroll(page);
+  await page.evaluate((n) => {
+    const root = document.scrollingElement || document.documentElement;
+    window.scrollTo({ top: n, left: 0, behavior: 'auto' });
+    root.scrollTop = n;
+    document.documentElement.scrollTop = n;
+    document.body.scrollTop = n;
+  }, top);
+  await page.waitForFunction((n) => Math.abs(window.scrollY - n) <= 2, top, { timeout: 1500 }).catch(() => {});
+  await page.waitForTimeout(80);
+};
+
 const scrollOverHomeHero = async (page) => {
-  await page.evaluate(() => {
+  const y = await page.evaluate(() => {
     const hero = document.querySelector('[data-home-hero]');
     const header = document.querySelector('[data-header]');
-    if (!hero || !header) return;
+    if (!hero || !header) return 40;
     const heroTop = hero.getBoundingClientRect().top + window.scrollY;
     const heroH = hero.getBoundingClientRect().height;
     const headerH = header.getBoundingClientRect().height;
-    const y = Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - headerH - 48);
-    window.scrollTo(0, Math.max(Math.round(y), 40));
+    return Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - headerH - 48);
   });
-  await page.waitForTimeout(250);
+  await scrollPageTo(page, Math.max(y, 40));
 };
 
 const scrollPastHomeHero = async (page) => {
-  await page.evaluate(() => {
+  const y = await page.evaluate(() => {
     const hero = document.querySelector('[data-home-hero]');
     const header = document.querySelector('[data-header]');
-    if (!hero || !header) return;
-    const y = Math.ceil(
+    if (!hero || !header) return 1;
+    return Math.ceil(
       hero.getBoundingClientRect().bottom + window.scrollY - header.getBoundingClientRect().height + 16,
     );
-    window.scrollTo(0, Math.max(y, 1));
   });
-  await page.waitForTimeout(250);
+  await scrollPageTo(page, Math.max(y, 1));
 };
 
 const closeMenu = async (page, mode) => {
@@ -2250,6 +2269,7 @@ for (const vp of VIEWPORTS) {
       log({ ...tag, check: 'keyboard-tab-into-panel', ok: /primary-nav__list-lvl-3-link|arrow-cta/.test(focused), detail: focused });
       await page.keyboard.press('Escape');
       await page.waitForTimeout(400);
+      await closeMenu(page, vp.mode);
 
       if (pg.name === 'home') {
         await scrollOverHomeHero(page);
@@ -2496,6 +2516,8 @@ for (const vp of VIEWPORTS) {
       const kbOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open'));
       log({ ...tag, check: 'mobile-keyboard-enter-opens', ok: kbOpen });
       await page.keyboard.press('Escape');
+      await page.waitForTimeout(400);
+      await closeMenu(page, vp.mode);
 
       if (pg.name === 'home') {
         await scrollOverHomeHero(page);
