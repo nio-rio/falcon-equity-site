@@ -196,7 +196,7 @@ const scrollPastHomeHero = async (page) => {
     const header = document.querySelector('[data-header]');
     if (!hero || !header) return;
     const y = Math.ceil(
-      hero.getBoundingClientRect().bottom + window.scrollY - header.getBoundingClientRect().height + 8,
+      hero.getBoundingClientRect().bottom + window.scrollY - header.getBoundingClientRect().height + 16,
     );
     window.scrollTo(0, Math.max(y, 1));
   });
