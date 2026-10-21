@@ -1081,11 +1081,15 @@ for (const vp of VIEWPORTS) {
         const box = document.querySelector('.pilot-hero-media');
         const img = document.querySelector('.pilot-hero-media img');
         const picture = document.querySelector('.pilot-hero-media picture');
+        const heading = document.querySelector('#hero-heading');
+        const container = document.querySelector('.pilot-hero .container-site');
         const sources = [...(picture?.querySelectorAll('source') || [])].map((source) => ({
           type: source.getAttribute('type') || '',
           srcset: source.getAttribute('srcset') || '',
         }));
         const r = box?.getBoundingClientRect();
+        const headingR = heading?.getBoundingClientRect();
+        const containerR = container?.getBoundingClientRect();
         const imgCs = img ? getComputedStyle(img) : null;
         const srcset = [
           ...sources.map((source) => source.srcset),
@@ -1103,12 +1107,17 @@ for (const vp of VIEWPORTS) {
           srcsetCount: (srcset.match(/\s+\d+w/g) || []).length,
           boxW: r ? Math.round(r.width) : null,
           boxH: r ? Math.round(r.height) : null,
+          boxLeft: r ? Math.round(r.left) : null,
           ratio: r && r.height ? Math.round((r.width / r.height) * 100) / 100 : null,
           objectFit: imgCs?.objectFit || null,
           objectPosition: imgCs?.objectPosition || null,
+          headingLeft: headingR ? Math.round(headingR.left) : null,
+          containerLeft: containerR ? Math.round(containerR.left) : null,
+          scrollW: document.documentElement.scrollWidth,
+          innerW: window.innerWidth,
         };
       });
-      const nativeRatio = 1600 / 686;
+      const nativeRatio = 1800 / 771;
       const mobileHero = vp.width < 768;
       const expectedRatio = mobileHero ? 16 / 9 : nativeRatio;
       log({
@@ -1122,9 +1131,13 @@ for (const vp of VIEWPORTS) {
           heroStill.hasWebp &&
           heroStill.srcsetCount >= 3 &&
           heroStill.objectFit === 'cover' &&
-          /^33%\s+50%$/.test(heroStill.objectPosition || '') &&
+          /^30%\s+50%$/.test(heroStill.objectPosition || '') &&
           heroStill.ratio != null &&
           Math.abs(heroStill.ratio - expectedRatio) <= 0.04 &&
+          heroStill.boxLeft === 0 &&
+          Math.abs((heroStill.boxW ?? 0) - vp.width) <= 1 &&
+          (heroStill.headingLeft ?? 0) > 0 &&
+          (heroStill.scrollW ?? 9999) <= (heroStill.innerW ?? 0) + 1 &&
           !/hero-meeting/.test(heroStill.src),
         detail: JSON.stringify({ ...heroStill, expectedRatio: Math.round(expectedRatio * 100) / 100 }),
       });

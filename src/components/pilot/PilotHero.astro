@@ -27,17 +27,19 @@ const { line1, line2, aside, captionTitle, captionBody, captionHref, captionLabe
       </h1>
       <p class="pilot-hero-aside">{aside}</p>
     </div>
-    <div class="pilot-hero-media">
-      <Media
-        image={image}
-        alt={imageAlt}
-        intent={imageAlt}
-        ratio="1600 / 686"
-        sizes="(min-width: 90em) 1264px, (min-width: 80em) 1136px, (min-width: 48em) 100vw, 100vw"
-        widths={[640, 960, 1280, 1600]}
-        priority
-      />
-    </div>
+  </div>
+  <div class="pilot-hero-media">
+    <Media
+      image={image}
+      alt={imageAlt}
+      intent={imageAlt}
+      ratio="1800 / 771"
+      sizes="100vw"
+      widths={[640, 960, 1280, 1600, 1800]}
+      priority
+    />
+  </div>
+  <div class="container-site">
     <div class="pilot-hero-grid pilot-hero-caption">
       <div class="pilot-hero-caption-title">
         <h2>{captionTitle}</h2>

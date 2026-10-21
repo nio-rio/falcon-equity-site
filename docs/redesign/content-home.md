@@ -15,12 +15,12 @@ Rendered by `src/pages/index.astro`.
 
 ### 1. Hero — Blackstone home slide (`#slide-1-2`)
 
-Dark band, split H1, 16:9 media below 48em then 1600/686 uncropped, caption row under the still.
+Dark band, split H1, full-bleed still (16:9 below 48em, 1800/771 from 48em), caption row under the still.
 
 - **H1 line 1:** Fuel Success with
 - **H1 line 2:** Fast Funding *(nested 8-col offset from 1024; wraps as one phrase below)*
 - **Aside:** Unlock rapid financial solutions tailored to your business needs.
-- **Media:** `hero-falcon.webp` — Peregrine falcon perched on a weathered branch (1600×686). Alt: “Peregrine falcon perched on a weathered branch”. Box is 1600/686 from 48em (uncropped). Below 48em stays 16:9 with `object-position: 33% 50%` so the falcon stays in frame.
+- **Media:** `hero-falcon.webp` — Peregrine falcon perched on a weathered branch. Full-bleed (edge to edge, not in the page container). Alt: “Peregrine falcon perched on a weathered branch”. Box is 1800/771 from 48em. Below 48em stays 16:9 with `object-position: 30% 50%` so the falcon stays in frame. Copy stays on the container.
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
 - **Caption CTA:** Learn more → `/apply`
