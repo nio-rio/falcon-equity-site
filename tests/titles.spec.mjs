@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const decode = (value) =>
@@ -109,8 +109,42 @@ for (const item of cases) {
   }
 }
 
+const blogDir = resolve('dist/blog');
+const blogFiles = readdirSync(blogDir).filter((name) => name.endsWith('.html'));
+if (blogFiles.length < 8) {
+  throw new Error(`Expected at least 8 built posts in dist/blog, found ${blogFiles.length}`);
+}
+
+const encodedTitleOf = (file) => {
+  const html = readFileSync(resolve('dist/blog', file), 'utf8');
+  const match = html.match(/<title>([\s\S]*?)<\/title>/i);
+  if (!match) throw new Error(`No <title> in dist/blog/${file}`);
+  return match[1].trim();
+};
+
+const over = [];
+for (const file of blogFiles) {
+  const encoded = encodedTitleOf(file);
+  const decoded = decode(encoded);
+  if (encoded.length > 60 || decoded.length > 60) {
+    over.push(`${file}: encoded ${encoded.length} decoded ${decoded.length} ${encoded}`);
+  }
+  if (decoded === 'Falcon Equity Group | Fast Funding in 24–48 Hours') {
+    throw new Error(`dist/blog/${file} served the home <title>`);
+  }
+}
+if (over.length) {
+  throw new Error(`Post <title>s over 60 characters:\n${over.join('\n')}`);
+}
+
 console.log(
-  cases
-    .map((item) => `${item.file}: ${item.title.length} ${item.title}`)
-    .join('\n'),
+  [
+    ...cases.map((item) => `${item.file}: ${item.title.length} ${item.title}`),
+    ...blogFiles
+      .sort()
+      .map((file) => {
+        const encoded = encodedTitleOf(file);
+        return `dist/blog/${file}: ${encoded.length} ${decode(encoded)}`;
+      }),
+  ].join('\n'),
 );

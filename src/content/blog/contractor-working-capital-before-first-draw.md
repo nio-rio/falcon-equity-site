@@ -1,7 +1,7 @@
 ---
 title: 'Contractor working capital: how to fund a job before the first draw'
 description: 'How contractors fund materials, payroll and mobilization before progress payments arrive, using a credit line, factoring or equipment financing.'
-seoTitle: 'Contractor Working Capital Before the First Draw'
+seoTitle: 'Contractor Funding Before First Draw | Falcon Equity Group'
 excerpt: 'On most jobs, the money goes out before it comes in. Here is how to fund that gap without overextending the company.'
 date: 2026-10-19
 updated: 2026-10-19

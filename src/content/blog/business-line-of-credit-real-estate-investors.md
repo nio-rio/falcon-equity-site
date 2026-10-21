@@ -1,7 +1,7 @@
 ---
 title: 'Business line of credit for real estate investors: what it can and can''t do'
 description: 'How real estate investors, brokerages and property managers use a business line of credit for carrying costs and overruns, and where it doesn''t fit.'
-seoTitle: 'Business Line of Credit for Real Estate Investors'
+seoTitle: 'Real Estate Investor Credit Line | Falcon Equity Group'
 excerpt: 'A credit line won''t buy the building. It can keep the business running between closings. Here is where it fits in a real estate operation.'
 date: 2026-10-19
 updated: 2026-10-19

@@ -1,7 +1,7 @@
 ---
 title: 'E-commerce inventory financing: options, costs and how to avoid stockouts'
 description: 'How online sellers finance inventory and ad spend with a credit line, sales-based advance or term loan, and how to weigh cost against margin.'
-seoTitle: 'E-Commerce Inventory Financing: Options and Costs'
+seoTitle: 'E-Commerce Inventory Financing | Falcon Equity Group'
 excerpt: 'You pay the factory months before the customer pays you. Here is how to fund inventory without letting financing eat the margin.'
 date: 2026-10-19
 updated: 2026-10-19

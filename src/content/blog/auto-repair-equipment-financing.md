@@ -1,7 +1,7 @@
 ---
 title: 'Auto repair equipment financing: lifts, diagnostics and ADAS tools'
 description: 'How repair and collision shops finance lifts, scan tools and ADAS equipment, match terms to tech life and know when a credit line fits better.'
-seoTitle: 'Auto Repair Equipment Financing: Lifts, Scan & ADAS'
+seoTitle: 'Auto Repair Equipment Financing | Falcon Equity Group'
 excerpt: 'More bays and better diagnostics mean more billable hours, if the payment fits. Here is how to finance shop equipment the smart way.'
 date: 2026-10-19
 updated: 2026-10-19

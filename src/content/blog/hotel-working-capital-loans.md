@@ -1,7 +1,7 @@
 ---
 title: 'Hotel working capital loans: how seasonal properties get approved'
 description: 'How boutique hotels and inns qualify for working capital, finance FF&E refreshes, and plan off-season cash flow without overborrowing with Falcon.'
-seoTitle: 'Hotel Working Capital Loans for Seasonal Properties'
+seoTitle: 'Hotel Working Capital Loans | Falcon Equity Group'
 excerpt: 'Seasonal deposits can look risky to a lender until you explain them. Here is how hotels and hospitality businesses get approved and choose the right funding.'
 date: 2026-10-19
 updated: 2026-10-19

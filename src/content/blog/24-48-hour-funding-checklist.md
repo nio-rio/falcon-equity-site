@@ -1,5 +1,6 @@
 ---
 title: 'Your 24–48 hour funding checklist'
+seoTitle: 'Your 24–48 Hour Funding Checklist | Falcon Equity Group'
 date: 2026-10-19
 updated: 2026-10-19
 category: Getting Approved

@@ -1,7 +1,7 @@
 ---
 title: 'How professional services firms get approved for a line of credit'
 description: 'What agencies, consultancies, law and accounting firms need to qualify for a business line of credit, and when invoice factoring fits better.'
-seoTitle: 'Line of Credit for Professional Services Firms'
+seoTitle: 'Professional Services Line of Credit | Falcon Equity Group'
 excerpt: 'No inventory, no equipment, just people and receivables. Here is how lenders evaluate a services firm and how to get your file ready.'
 date: 2026-10-19
 updated: 2026-10-19
