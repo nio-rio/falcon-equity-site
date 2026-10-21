@@ -642,11 +642,17 @@ html.has-scroll-lock .site-header {
   height: 100%;
 }
 
-/* Below 48em `.container-site` caps at 23rem, which is too narrow for
-   logo + Apply + hamburger. The bar uses the full viewport + --bx-margin. */
-@media (max-width: 47.99em) {
+/* 33–48em `.container-site` is 23rem, too narrow for logo + Apply +
+   hamburger. Uncap the bar and match the drawer inset to --bx-margin
+   so the open panel still lines up with the logo. Below 33em keep the
+   cap — Apply is in the drawer and the logo must stay with the list. */
+@media (min-width: 33em) and (max-width: 47.99em) {
   .site-header__inner.container-site {
     max-width: none;
+  }
+
+  .primary-nav__inner {
+    padding-inline: var(--bx-margin);
   }
 }
 
