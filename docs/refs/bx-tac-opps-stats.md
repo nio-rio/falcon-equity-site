@@ -45,7 +45,10 @@ Falcon home maps this onto `.pilot-stats-*` with `24-48h` as the featured figure
 Label → number is **12px** on featured and side (`--bx-space-12`: BX 40 / 56 / 56 / 64
 minus 3rem, floored). Side fields stack in one grid cell so desktop does not inherit
 the featured row height. Number → rule (side value padding-bottom **16px**) is unchanged.
-Side (and featured) blocks are flex columns with `justify-content: flex-end`; the
-48em / 80em grid uses `align-items: end` so a wrapping label such as “Approval for
-qualified applicants” cannot drop its number or rule below `$100M+`. Each label
-stays 12px above its own number.
+Side (and featured) blocks are flex columns with labels at the top and
+`margin-top: auto` on the number (plus rule). The 48em / 80em grid uses
+`align-items: stretch` so every label starts on the same top line — including
+“Average funding time” next to the two side labels — and every number and rule
+sits on the same bottom line. Extra height from a wrapping label such as
+“Approval for qualified applicants” goes into the shorter column’s label→number
+gap. The 12px gap is the minimum; stacked mobile keeps that 12px gap.

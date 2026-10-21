@@ -71,7 +71,8 @@ const sideStats = side.slice(0, 2).map((stat) => ({
   .stats-bx__field {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap: var(--bx-space-12);
   }
 
   .stats-bx__label,
@@ -102,7 +103,7 @@ const sideStats = side.slice(0, 2).map((stat) => ({
   }
 
   .stats-bx__value--featured {
-    margin-top: var(--bx-space-12); /* BX 40 minus 3rem, floored */
+    margin-top: 0;
     padding-bottom: 3rem; /* --spacing-48 */
     font-size: 5rem; /* --fs-80 */
     line-height: 1;
@@ -123,7 +124,7 @@ const sideStats = side.slice(0, 2).map((stat) => ({
   }
 
   .stats-bx__label:not(.stats-bx__label--featured) {
-    margin-bottom: var(--bx-space-12); /* BX 32 minus 3rem, floored */
+    margin-bottom: 0;
   }
 
   @media (min-width: 768px) {
@@ -132,7 +133,6 @@ const sideStats = side.slice(0, 2).map((stat) => ({
     }
 
     .stats-bx__value--featured {
-      margin-top: var(--bx-space-12);
       padding-bottom: 3.5rem;
       font-size: 11rem; /* --fs-176 */
     }
@@ -144,7 +144,11 @@ const sideStats = side.slice(0, 2).map((stat) => ({
     .stats-bx__side {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       column-gap: 1.5rem;
-      align-items: end;
+      align-items: stretch;
+    }
+
+    .stats-bx__field .stats-bx__value {
+      margin-top: auto;
     }
 
     .stats-bx__side:has(:only-child) {
@@ -156,12 +160,12 @@ const sideStats = side.slice(0, 2).map((stat) => ({
     .stats-bx__inner {
       grid-template-columns: minmax(0, 35rem) minmax(0, 1fr);
       column-gap: 1.5rem;
-      align-items: end;
+      align-items: stretch;
       row-gap: 0;
     }
 
     .stats-bx__value--featured {
-      margin-top: var(--bx-space-12);
+      margin-top: auto;
       padding-bottom: 0;
       font-size: 9rem;
     }
@@ -178,7 +182,6 @@ const sideStats = side.slice(0, 2).map((stat) => ({
     }
 
     .stats-bx__value--featured {
-      margin-top: var(--bx-space-12);
       font-size: 10rem;
     }
 

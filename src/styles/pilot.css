@@ -593,13 +593,15 @@
   min-width: 0;
 }
 
-/* Bottom-align so a wrapping side label cannot drop its number/rule
-   below the other column. Label stays 12px above its number. */
+/* Labels share one top line; numbers/rules share one bottom line.
+   Extra height sits in the label→number gap (`margin-top: auto` on
+   the value). 12px gap is the minimum. Stacked mobile keeps that gap. */
 .pilot-stats-feat,
 .pilot-stats-side {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  gap: var(--bx-space-12);
 }
 
 .pilot-stats-feat-label,
@@ -619,7 +621,7 @@
 }
 
 .pilot-stats-feat-value {
-  margin-top: var(--bx-space-12);
+  margin-top: 0;
   padding-bottom: 3rem;
   font-family: var(--font-display);
   font-weight: 300;
@@ -635,7 +637,7 @@
 }
 
 .pilot-stats-side-label {
-  margin-bottom: var(--bx-space-12);
+  margin-bottom: 0;
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: 1rem;
@@ -669,10 +671,14 @@
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: 16px;
-    align-items: end;
+    align-items: stretch;
     grid-template-areas:
       'feat feat feat feat feat feat feat feat'
       's1 s1 s1 . . s2 s2 s2';
+  }
+
+  .pilot-stats-side-value {
+    margin-top: auto;
   }
 
   .pilot-stats-feat {
@@ -711,10 +717,11 @@
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
     grid-template-areas: 'feat feat feat feat feat feat feat feat . s1 s1 s1 . s2 s2 s2';
-    align-items: end;
+    align-items: stretch;
   }
 
   .pilot-stats-feat-value {
+    margin-top: auto;
     padding-bottom: 0;
     font-size: 9rem;
   }
