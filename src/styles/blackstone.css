@@ -650,10 +650,6 @@ html.has-scroll-lock .site-header {
   .site-header__inner.container-site {
     max-width: none;
   }
-
-  .primary-nav__inner {
-    padding-inline: var(--bx-margin);
-  }
 }
 
 /* Hamburger layouts keep brand | nav | tools. The closed nav is 0-wide
@@ -960,6 +956,14 @@ html.has-scroll-lock .site-header {
   filter: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+}
+
+/* After the bar uncaps at 33em, keep the drawer on --bx-margin so
+   list items still share the logo’s left edge. */
+@media (min-width: 33em) and (max-width: 47.99em) {
+  .primary-nav__inner {
+    padding-inline: var(--bx-margin);
+  }
 }
 
 .primary-nav__inner.is-open {
