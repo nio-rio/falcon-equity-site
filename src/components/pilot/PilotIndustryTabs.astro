@@ -3,12 +3,13 @@
  * BMACX featured-content panel + sector select (home Industries).
  * Heading row holds the picker (stacked under the H2 on small screens,
  * top-right across from “Sectors we fund.” from 80em). Panel is title +
- * blurb + Learn more / 16:9 still.
+ * blurb + Learn more / Ling 16:9 still (first eager, inactive lazy).
  */
 import Media from '@/components/Media.astro';
 import PilotArrow from './PilotArrow.astro';
 import PilotEyebrow from './PilotEyebrow.astro';
-import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
+import { INDUSTRIES } from '@/data/industries';
+import { INDUSTRY_STILLS } from '@/data/industry-stills';
 ---
 
 <section class="pilot-tabs" aria-labelledby="industries-heading" data-band="light" data-reveal-root>
@@ -81,11 +82,14 @@ import { INDUSTRIES, INDUSTRY_PLACEHOLDERS } from '@/data/industries';
             </div>
             <div class="pilot-tabs-media">
               <Media
-                intent={INDUSTRY_PLACEHOLDERS[ind.slug].hero.intent}
-                alt={INDUSTRY_PLACEHOLDERS[ind.slug].hero.alt}
-                labeled
+                image={INDUSTRY_STILLS[ind.slug].image}
+                intent={INDUSTRY_STILLS[ind.slug].imageIntent}
+                alt={INDUSTRY_STILLS[ind.slug].imageAlt}
                 ratio="16 / 9"
                 sizes="(min-width: 80em) 704px, 100vw"
+                widths={[480, 768, 1120, 1400]}
+                priority={i === 0}
+                loading={i === 0 ? 'eager' : 'lazy'}
               />
             </div>
           </div>

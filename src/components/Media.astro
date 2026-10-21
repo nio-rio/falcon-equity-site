@@ -10,6 +10,7 @@ interface Props {
   ratio?: string;
   labeled?: boolean;
   priority?: boolean;
+  loading?: 'eager' | 'lazy';
   sizes?: string;
   widths?: number[];
   class?: string;
@@ -22,6 +23,7 @@ const {
   ratio = '16 / 9',
   labeled = false,
   priority = false,
+  loading,
   sizes = '100vw',
   widths = [640, 960, 1280, 1920, 2560],
   class: className,
@@ -41,6 +43,7 @@ const accessibleName = alt || label;
         formats={['avif', 'webp']}
         class="media-img"
         priority={priority}
+        loading={loading}
       />
     </figure>
   ) : labeled ? (

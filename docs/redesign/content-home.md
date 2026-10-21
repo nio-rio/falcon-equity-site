@@ -198,7 +198,7 @@ Industry pages already use `$100M+` / `15` / `24-48h` in this layout. Home shoul
   | Healthcare | Practices run on reimbursements that arrive on someone else’s schedule. We help close the gap. |
   | Professional Services | Agencies, firms and consultancies grow by hiring ahead of demand. Capital that funds your next hire. |
 
-- **Media:** labeled 16:9 placeholders from `INDUSTRY_PLACEHOLDERS` (empty of people). Do not generate people. Do not reuse the falcon hero.
+- **Media:** Ling 16:9 stills from `INDUSTRY_STILLS` (`src/assets/industries/`). Cover crop in the existing tab frame. First tab eager; inactive tabs lazy. Industry landing heroes stay labeled placeholders. Do not reuse the falcon hero.
 - **CTA:** View all industries → `/industries`
 - **Do not add:** an Explore more row of other industries under this grid.
 

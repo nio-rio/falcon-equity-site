@@ -1031,6 +1031,22 @@ for (const vp of VIEWPORTS) {
         const title = document.querySelector('.pilot-tabs-title');
         const panels = document.querySelector('.pilot-tabs-panels');
         const media = document.querySelector('.pilot-tabs-media .media');
+        const stills = [...document.querySelectorAll('.pilot-tabs-panel')].map((panel) => {
+          const img = panel.querySelector('.pilot-tabs-media img');
+          const slot = panel.querySelector('.pilot-tabs-media .media');
+          const box = slot?.getBoundingClientRect();
+          return {
+            slug: panel.id.replace('industry-panel-', ''),
+            hidden: panel.hidden,
+            alt: img?.getAttribute('alt') || '',
+            loading: img?.getAttribute('loading') || '',
+            fetchPriority: (img?.getAttribute('fetchpriority') || '').toLowerCase(),
+            src: img?.currentSrc || img?.getAttribute('src') || '',
+            objectFit: img ? getComputedStyle(img).objectFit : null,
+            ratio: slot ? getComputedStyle(slot).aspectRatio : null,
+            boxAspect: box && box.height ? Math.round((box.width / box.height) * 100) / 100 : null,
+          };
+        });
         const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
         if (drop) {
           const top = drop.getBoundingClientRect().top + window.scrollY - headerH - 16;
@@ -1099,6 +1115,7 @@ for (const vp of VIEWPORTS) {
           dropLeft: dropR ? Math.round(dropR.left) : null,
           headingRight: headingR ? Math.round(headingR.right) : null,
           fieldBg,
+          stills,
         };
         first?.click();
         const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
@@ -1179,6 +1196,40 @@ for (const vp of VIEWPORTS) {
           !industry.open.scrollbar.includes('rgb(128, 128, 128)'),
         detail: JSON.stringify({ mediaBg: industry.open.mediaBg, scrollbar: industry.open.scrollbar }),
       });
+      const stills = industry.open.stills || [];
+      const firstStill = stills[0];
+      const restStills = stills.slice(1);
+      log({
+        ...tag,
+        check: 'industry-tab-stills',
+        ok:
+          stills.length === 12 &&
+          firstStill?.slug === 'retail' &&
+          firstStill?.hidden === false &&
+          firstStill?.alt.includes('folded jeans') &&
+          firstStill?.objectFit === 'cover' &&
+          Math.abs((firstStill?.boxAspect ?? 0) - 16 / 9) <= 0.08 &&
+          (firstStill?.loading === 'eager' || firstStill?.fetchPriority === 'high') &&
+          /\.(avif|webp)/.test(firstStill?.src || '') &&
+          restStills.every(
+            (still) =>
+              still.hidden === true &&
+              still.loading === 'lazy' &&
+              still.alt.length > 20 &&
+              still.objectFit === 'cover' &&
+              /\.(avif|webp)/.test(still.src),
+          ),
+        detail: JSON.stringify(
+          stills.map((still) => ({
+            slug: still.slug,
+            hidden: still.hidden,
+            loading: still.loading,
+            fetchPriority: still.fetchPriority,
+            alt: still.alt.slice(0, 48),
+            src: still.src.split('/').pop(),
+          })),
+        ),
+      });
       log({
         ...tag,
         check: 'industry-menu-selects',
@@ -1192,6 +1243,27 @@ for (const vp of VIEWPORTS) {
           industry.picked.selectedBg === LILAC_DARKER &&
           parseFloat(industry.picked.check || '0') >= 2,
         detail: JSON.stringify(industry.picked),
+      });
+      const swapped = await page.evaluate(() => {
+        document.querySelector('#industry-option-transportation-logistics')?.click();
+        const panel = document.querySelector('#industry-panel-transportation-logistics');
+        const img = panel?.querySelector('.pilot-tabs-media img');
+        return {
+          hidden: panel?.hidden ?? null,
+          active: panel?.classList.contains('is-active') ?? false,
+          alt: img?.getAttribute('alt') || '',
+          loading: img?.getAttribute('loading') || '',
+        };
+      });
+      log({
+        ...tag,
+        check: 'industry-tab-swap-still',
+        ok:
+          swapped.hidden === false &&
+          swapped.active === true &&
+          swapped.alt.includes('tractor-trailers') &&
+          swapped.loading === 'lazy',
+        detail: JSON.stringify(swapped),
       });
       const dropBtn = page.locator('.pilot-tabs-drop');
       await dropBtn.click();
