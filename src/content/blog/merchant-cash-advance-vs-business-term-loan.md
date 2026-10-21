@@ -1,5 +1,6 @@
 ---
 title: 'Merchant Cash Advance vs. Business Term Loan: which wins for your business?'
+seoTitle: 'Merchant Cash Advance vs. Term Loan'
 date: 2026-10-19
 updated: 2026-10-19
 category: Compare Options

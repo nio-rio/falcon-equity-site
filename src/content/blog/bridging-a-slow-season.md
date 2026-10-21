@@ -1,5 +1,6 @@
 ---
 title: 'Bridging a slow season without burning your savings'
+seoTitle: 'Bridging a Slow Season'
 date: 2026-10-19
 updated: 2026-10-19
 category: Cash Flow & Debt

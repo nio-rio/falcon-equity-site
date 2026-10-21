@@ -1,5 +1,6 @@
 ---
 title: 'Equipment financing that pays for itself: run the break-even first'
+seoTitle: 'Equipment Financing Break-Even'
 date: 2026-10-19
 updated: 2026-10-19
 category: Costs & Rates

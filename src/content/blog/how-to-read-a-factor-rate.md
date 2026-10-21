@@ -1,5 +1,6 @@
 ---
 title: 'How to read a factor rate (and convert it to an APR yourself)'
+seoTitle: 'How to Read a Factor Rate'
 date: 2026-10-19
 updated: 2026-10-19
 category: Costs & Rates

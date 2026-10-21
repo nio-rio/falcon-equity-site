@@ -1,5 +1,6 @@
 ---
 title: 'What your bank statements say before anyone reads your application'
+seoTitle: 'What Your Bank Statements Say'
 date: 2026-10-19
 updated: 2026-10-19
 category: Getting Approved

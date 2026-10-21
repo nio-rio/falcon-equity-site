@@ -449,7 +449,7 @@ export const INDUSTRIES: Industry[] = [
     icon: 'hard-hat',
     blurb: 'Win the bid, then mobilize. Capital for materials, crews and machinery before the first draw lands.',
     uses: ['Materials and mobilization', 'Heavy equipment', 'Payroll between progress payments'],
-    seoTitle: 'Construction Business Loans & Contractor Funding | Falcon',
+    seoTitle: 'Construction Business Loans and Contractor Funding | Falcon',
     seoDescription:
       'Working capital and equipment financing for contractors: mobilize before the first draw, cover payroll during retainage and buy machinery. Up to $3M.',
     h1: 'Construction business loans',
@@ -680,7 +680,7 @@ export const INDUSTRIES: Industry[] = [
     icon: 'factory',
     blurb: 'Big orders need raw materials and machine time up front. We help you say yes to the contract.',
     uses: ['Raw materials for large orders', 'Production equipment', 'Scaling the workforce'],
-    seoTitle: 'Manufacturing Business Loans & Equipment Funding | Falcon',
+    seoTitle: 'Manufacturing Business Loans and Equipment Funding | Falcon',
     seoDescription:
       'Fund raw materials, large production runs and new machinery. Equipment loans up to $1M, factoring up to $3M for net-terms customers, lines to $500K.',
     h1: 'Manufacturing business loans',

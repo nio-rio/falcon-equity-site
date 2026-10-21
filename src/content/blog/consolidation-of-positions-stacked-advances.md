@@ -1,5 +1,6 @@
 ---
 title: 'Consolidation of Positions: how stacked advances can cost you less'
+seoTitle: 'Consolidation of Positions'
 date: 2026-10-19
 updated: 2026-10-19
 category: Cash Flow & Debt
