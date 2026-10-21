@@ -642,11 +642,12 @@ html.has-scroll-lock .site-header {
   height: 100%;
 }
 
-/* 33–48em `.container-site` is 23rem, too narrow for logo + Apply +
-   hamburger. Uncap the bar and match the drawer inset to --bx-margin
-   so the open panel still lines up with the logo. Below 33em keep the
-   cap — Apply is in the drawer and the logo must stay with the list. */
-@media (min-width: 33em) and (max-width: 47.99em) {
+/* 23.4375–48em `.container-site` is 20.5/23rem, too narrow for logo +
+   compact Apply + hamburger. Uncap the bar and match the drawer inset
+   to --bx-margin so the open panel still lines up with the logo. Below
+   375px keep the cap — Apply is in the drawer and the logo stays with
+   the list. */
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
   .site-header__inner.container-site {
     max-width: none;
   }
@@ -800,9 +801,11 @@ html.has-scroll-lock .site-header {
 }
 
 /* Ling CTA rule: Apply stays on the bar as long as it fits. Drop the
-   phone first, then compact Apply, then move Apply into the menu.
-   Phone → menu below 50em. Apply compact 33–38em. Apply → menu below 33em.
-   Phone always remains in the open drawer. */
+   phone first, then compact Apply next to the hamburger, then move
+   Apply into the menu only when logo + Apply + hamburger cannot fit.
+   Phone → menu below 50em. Extra-compact Apply from 375px. Compact
+   full-label 33–38em. Apply → menu below 375px. Phone always remains
+   in the open drawer. */
 .site-header__tel--bar {
   display: none;
 }
@@ -830,14 +833,74 @@ html.has-scroll-lock .site-header {
   display: none;
 }
 
-/* Full-label Apply on the bar from 33em (logo + Apply + hamburger). */
-@media (min-width: 33em) {
+.button-040__text-compact {
+  display: none;
+}
+
+/* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger). */
+@media (min-width: 23.4375em) {
   .site-header .site-header__apply--bar {
     display: inline-flex;
+    font-size: 0.75rem;
+    --button-040-height: 2.5em;
+    --button-040-padding-x: 0.5em;
+    --button-040-border-radius: 2.5em;
+    --button-040-translate-x: 0;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-full {
+    display: none;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-compact {
+    display: inline;
+  }
+
+  .site-header .site-header__apply--bar .button-040__icon-wrap:not(.is--duplicate) {
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-wrap {
+    padding-inline-end: calc(var(--button-040-height) * 0.85);
+  }
+
+  .site-header__tools {
+    gap: 0.5rem;
+  }
+}
+
+/* Full-label compact Apply from 33em (logo + Apply + hamburger). */
+@media (min-width: 33em) {
+  .site-header .site-header__apply--bar {
     font-size: 0.875rem;
     --button-040-height: 2.5em;
     --button-040-padding-x: 0.85em;
     --button-040-border-radius: 2.5em;
+    --button-040-translate-x: calc((var(--button-040-height) + var(--button-040-gap, 0em)) * -1);
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-full {
+    display: inline;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-compact {
+    display: none;
+  }
+
+  .site-header .site-header__apply--bar .button-040__icon-wrap:not(.is--duplicate) {
+    width: auto;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-wrap {
+    padding-inline-end: var(--button-040-padding-x);
+  }
+
+  .site-header__tools {
+    gap: 0.75rem;
   }
 }
 
@@ -851,13 +914,18 @@ html.has-scroll-lock .site-header {
 }
 
 .site-header__cta--menu {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(var(--bx-space-16) + 0.7em);
-  margin-top: var(--bx-space-24);
-  padding: var(--bx-space-24) 0 var(--bx-space-40);
-  border-top: 1px solid var(--nav-rule);
+  gap: var(--bx-space-16);
+  margin-top: 0;
+  padding: var(--bx-space-16) 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--nav-rule);
+  background: var(--nav-bg);
 }
 
 .site-header__cta--menu .site-header__tel + .site-header__apply {
@@ -868,7 +936,7 @@ html.has-scroll-lock .site-header {
   display: inline-flex;
 }
 
-@media (min-width: 33em) {
+@media (min-width: 23.4375em) {
   .site-header__cta--menu .site-header__apply {
     display: none;
   }
@@ -958,9 +1026,9 @@ html.has-scroll-lock .site-header {
   backdrop-filter: none;
 }
 
-/* After the bar uncaps at 33em, keep the drawer on --bx-margin so
+/* After the bar uncaps at 375px, keep the drawer on --bx-margin so
    list items still share the logo’s left edge. */
-@media (min-width: 33em) and (max-width: 47.99em) {
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
   .primary-nav__inner {
     padding-inline: var(--bx-margin);
   }

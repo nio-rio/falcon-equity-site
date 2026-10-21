@@ -105,6 +105,12 @@ const nav = [
 
       <nav class="site-header__nav primary-nav" aria-label="Main">
         <div id="primary-nav-inner" class="primary-nav__inner" data-nav-inner>
+          <div class="site-header__cta site-header__cta--menu" data-nav-list-item>
+            <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
+            <a class="site-header__tel" href={PRIMARY_PHONE.href}
+              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
+            >
+          </div>
           <ul class="primary-nav__list" data-nav-list>
             {
               nav.map((item) => (
@@ -127,12 +133,6 @@ const nav = [
               ))
             }
           </ul>
-          <div class="site-header__cta site-header__cta--menu" data-nav-list-item>
-            <a class="site-header__tel" href={PRIMARY_PHONE.href}
-              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
-            >
-            <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
-          </div>
           <div class="primary-nav__dropdown" data-dropdown-wrapper>
             <div class="primary-nav__dropdown-container" data-dropdown-container>
               <div class="primary-nav__dropdown-bg" data-dropdown-bg></div>
@@ -218,6 +218,7 @@ const nav = [
           class="site-header__apply site-header__apply--bar"
           href="/apply"
           label="Apply for funding"
+          compactLabel="Apply"
           variant="dark"
         />
         <button

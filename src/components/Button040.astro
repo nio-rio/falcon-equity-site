@@ -2,11 +2,13 @@
 interface Props {
   href: string;
   label: string;
+  /** Optional shorter visible label; `label` stays the accessible name. */
+  compactLabel?: string;
   variant: 'light' | 'dark';
   class?: string;
 }
 
-const { href, label, variant, class: className } = Astro.props;
+const { href, label, compactLabel, variant, class: className } = Astro.props;
 ---
 
 <a
@@ -19,7 +21,18 @@ const { href, label, variant, class: className } = Astro.props;
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="button-040__icon"><path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path><path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path></svg>
   </span>
   <span class="button-040__text-wrap">
-    <span class="button-040__text">{label}</span>
+    <span class="button-040__text">
+      {
+        compactLabel ? (
+          <>
+            <span class="button-040__text-full">{label}</span>
+            <span class="button-040__text-compact">{compactLabel}</span>
+          </>
+        ) : (
+          label
+        )
+      }
+    </span>
   </span>
   <span class="button-040__icon-wrap is--duplicate">
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="button-040__icon"><path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path><path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path></svg>

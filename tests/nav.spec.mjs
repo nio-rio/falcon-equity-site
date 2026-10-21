@@ -37,13 +37,15 @@ const VIEWPORTS = [
 ];
 
 /** Ling nav CTA rule: Apply stays on the bar as long as it fits. */
-const NAV_APPLY_BAR_MIN = 528; // 33em — compact Apply + hamburger
+const NAV_APPLY_BAR_MIN = 375; // extra-compact “Apply” + hamburger
+const NAV_APPLY_COMPACT_MIN = 528; // 33em — compact “Apply for funding”
 const NAV_APPLY_FULL_MIN = 608; // 38em — full-size Apply
 const NAV_PHONE_BAR_MIN = 800; // 50em — phone joins Apply on the bar
 const NAV_DESKTOP_MIN = 1440; // 90em — inline links, no hamburger
 
 const applyOnBar = (width) => width >= NAV_APPLY_BAR_MIN;
-const applyCompact = (width) => width >= NAV_APPLY_BAR_MIN && width < NAV_APPLY_FULL_MIN;
+const applyShort = (width) => width >= NAV_APPLY_BAR_MIN && width < NAV_APPLY_COMPACT_MIN;
+const applyCompact = (width) => width >= NAV_APPLY_COMPACT_MIN && width < NAV_APPLY_FULL_MIN;
 const phoneOnBar = (width) => width >= NAV_PHONE_BAR_MIN;
 
 const PAGES = [
@@ -446,6 +448,9 @@ const readButton040 = (page, sel) =>
     if (!btn) return null;
     const textWrap = btn.querySelector('.button-040__text-wrap');
     const text = btn.querySelector('.button-040__text');
+    const full = btn.querySelector('.button-040__text-full');
+    const compact = btn.querySelector('.button-040__text-compact');
+    const shownLabel = [compact, full].find((el) => el && getComputedStyle(el).display !== 'none');
     const dup = btn.querySelector('.button-040__icon-wrap.is--duplicate');
     const icon = dup?.querySelector('.button-040__icon');
     const svgs = [...btn.querySelectorAll('svg')];
@@ -459,7 +464,7 @@ const readButton040 = (page, sel) =>
     return {
       href: btn.getAttribute('href'),
       aria: btn.getAttribute('aria-label'),
-      visible: text?.textContent?.trim() || '',
+      visible: shownLabel?.textContent?.trim() || text?.textContent?.trim() || '',
       color: cs.color,
       textBg: tcs?.backgroundColor || null,
       radius: tcs?.borderRadius || null,
@@ -643,7 +648,7 @@ const button040Matches = (got, expected) =>
   Boolean(got) &&
   got.href === '/apply' &&
   got.aria === 'Apply for funding' &&
-  got.visible === 'Apply for funding' &&
+  (got.visible === 'Apply for funding' || got.visible === 'Apply') &&
   got.color === expected.color &&
   got.textBg === expected.textBg &&
   got.arrow === expected.arrow &&
@@ -1713,11 +1718,19 @@ for (const vp of VIEWPORTS) {
       });
     }
     const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const shortApply = applyShort(vp.width);
     const compactApply = applyCompact(vp.width);
     log({
       ...tag,
       check: 'apply-040-larger',
-      ok: compactApply
+      ok: shortApply
+        ? apply040 != null &&
+          apply040.fontSize >= 11 &&
+          apply040.fontSize <= 13 &&
+          sizedH >= 28 &&
+          sizedH <= 36 &&
+          apply040.visible === 'Apply'
+        : compactApply
         ? apply040 != null &&
           apply040.fontSize >= 13.5 &&
           apply040.fontSize <= 15 &&
@@ -2884,7 +2897,7 @@ for (const vp of VIEWPORTS) {
   const tabletHeights = [];
   const widths = [];
   for (let width = 320; width <= 1440; width += 16) widths.push(width);
-  for (const extra of [390, 528, 607, 608, 768, 799, 800, 1024, 1280, 1439, 1440]) {
+  for (const extra of [320, 375, 390, 400, 528, 607, 608, 768, 799, 800, 1024, 1280, 1439, 1440]) {
     if (!widths.includes(extra)) widths.push(extra);
   }
   widths.sort((a, b) => a - b);
@@ -2907,10 +2920,18 @@ for (const vp of VIEWPORTS) {
     });
     const apply040 = applyOnBar(width) ? await readButton040(page, '.site-header__apply--bar') : null;
     const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const shortApply = applyShort(width);
     const compactApply = applyCompact(width);
     const applySizeOk = !applyOnBar(width)
       ? true
-      : compactApply
+      : shortApply
+        ? apply040 != null &&
+          apply040.fontSize >= 11 &&
+          apply040.fontSize <= 13 &&
+          sizedH >= 28 &&
+          sizedH <= 36 &&
+          apply040.visible === 'Apply'
+        : compactApply
         ? apply040 != null &&
           apply040.fontSize >= 13.5 &&
           apply040.fontSize <= 15 &&
