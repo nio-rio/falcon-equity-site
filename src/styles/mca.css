@@ -213,7 +213,7 @@
 /* —— Terms / Fit accordion: BXCI Credit strategies + Tech Our roles —— */
 
 .mca-acc {
-  margin: 0;
+  margin: var(--bx-space-24) 0 0;
 }
 
 .mca-acc--lines {
@@ -281,7 +281,8 @@
   transition: grid-template-rows 350ms ease;
 }
 
-.mca-acc-item.is-open .mca-acc-panel {
+.mca-acc-item.is-open .mca-acc-panel,
+.mca-news-item.is-open .mca-acc-panel {
   grid-template-rows: 1fr;
 }
 
@@ -529,7 +530,7 @@
 
   .mca-hero-head {
     row-gap: 0;
-    align-items: start;
+    align-items: center;
   }
 
   .mca-hero-title {
@@ -538,7 +539,7 @@
 
   .mca-hero-copy {
     grid-column: 8 / span 5;
-    padding-top: 0.35em;
+    padding-top: 0;
   }
 
   .mca-hero-media {
@@ -550,11 +551,11 @@
   }
 
   .mca-stat-side:nth-child(2) {
-    grid-column: 8 / span 2;
+    grid-column: 7 / span 3;
   }
 
   .mca-stat-side:nth-child(3) {
-    grid-column: 11 / span 2;
+    grid-column: 10 / span 3;
   }
 
   .mca-stat-feat-value {
@@ -584,6 +585,10 @@
 
   .mca-block-body {
     grid-column: 7 / span 6;
+  }
+
+  .mca-acc {
+    margin-top: var(--bx-space-32);
   }
 
   .mca-acc-inner > p,
