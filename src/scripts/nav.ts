@@ -57,7 +57,13 @@ export function initNav() {
     name ? document.querySelector<HTMLElement>(`[data-nav-content="${name}"]`) : null;
   const getToggle = (name: string | null) =>
     name ? document.querySelector<HTMLElement>(`[data-dropdown-toggle="${name}"]`) : null;
-  const getFade = (el: HTMLElement | null) => (el ? el.querySelectorAll<HTMLElement>('[data-menu-fade]') : []);
+  const getFade = (el: HTMLElement | null) => {
+    if (!el) return [] as HTMLElement[];
+    return [...el.querySelectorAll<HTMLElement>('[data-menu-fade]')].filter((node) => {
+      const cs = getComputedStyle(node);
+      return cs.display !== 'none';
+    });
+  };
   const getNavItems = () => inner?.querySelectorAll<HTMLElement>(':scope > [data-nav-list] [data-nav-list-item], :scope > [data-nav-list-item]') ?? [];
   const getIndex = (name: string | null) => {
     const t = getToggle(name);
@@ -376,6 +382,9 @@ export function initNav() {
     syncItemOpen(panelName);
     inner?.classList.add('is-drilled');
     header?.classList.add('is-drilled');
+    if (inner) inner.scrollTop = 0;
+    if (dropContainer) dropContainer.scrollTop = 0;
+    el.scrollTop = 0;
     const navItems = getNavItems();
     const panelFade = getFade(el);
     const tl = gsap.timeline();

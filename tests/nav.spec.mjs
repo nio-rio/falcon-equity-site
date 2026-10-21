@@ -1756,6 +1756,48 @@ for (const vp of VIEWPORTS) {
         icon: apply040?.icon,
       }),
     });
+    if (applyOnBar(vp.width)) {
+      const applyFit = await page.evaluate(() => {
+        const btn = document.querySelector('.site-header__apply--bar');
+        const logo = document.querySelector('.site-header__logo');
+        const burger = document.querySelector('[data-mobile-toggle]');
+        const text =
+          [...(btn?.querySelectorAll('.button-040__text-compact, .button-040__text-full, .button-040__text') || [])].find(
+            (el) => getComputedStyle(el).display !== 'none',
+          ) || null;
+        const circle = btn?.querySelector('.button-040__icon-wrap.is--duplicate');
+        if (!btn || !text) return null;
+        const br = btn.getBoundingClientRect();
+        const tr = text.getBoundingClientRect();
+        const cr = circle?.getBoundingClientRect();
+        const ccs = circle ? getComputedStyle(circle) : null;
+        const circleOn = Boolean(ccs && ccs.display !== 'none' && cr && cr.width > 1);
+        const logoR = logo?.getBoundingClientRect();
+        const burgerR = burger && getComputedStyle(burger).display !== 'none' ? burger.getBoundingClientRect() : null;
+        return {
+          text: text.textContent.trim(),
+          textRight: Math.round(tr.right * 10) / 10,
+          btnRight: Math.round(br.right * 10) / 10,
+          circleOn,
+          circleLeft: cr ? Math.round(cr.left * 10) / 10 : null,
+          overlapCircle: circleOn && tr.right > cr.left + 0.5,
+          overlapLogo: Boolean(logoR && br.left < logoR.right - 1),
+          overlapBurger: Boolean(burgerR && br.right > burgerR.left + 1),
+        };
+      });
+      log({
+        ...tag,
+        check: 'apply-040-text-readable',
+        ok:
+          applyFit != null &&
+          applyFit.text.length > 0 &&
+          applyFit.overlapCircle === false &&
+          applyFit.overlapLogo === false &&
+          applyFit.overlapBurger === false &&
+          applyFit.textRight <= applyFit.btnRight + 0.5,
+        detail: JSON.stringify(applyFit),
+      });
+    }
     if (phoneOnBar(vp.width) && applyOnBar(vp.width)) {
       const telApply = await page.evaluate(() => {
         const tel = document.querySelector('.site-header__tel--bar');
@@ -2915,10 +2957,31 @@ for (const vp of VIEWPORTS) {
       const logo = document.querySelector('.site-header__logo')?.getBoundingClientRect();
       const tools = document.querySelector('.site-header__tools')?.getBoundingClientRect();
       const inner = document.querySelector('.site-header__inner')?.getBoundingClientRect();
+      const btn = document.querySelector('.site-header__apply--bar');
+      const burger = document.querySelector('[data-mobile-toggle]');
+      const text = btn
+        ? [...btn.querySelectorAll('.button-040__text-compact, .button-040__text-full, .button-040__text')].find(
+            (el) => getComputedStyle(el).display !== 'none',
+          )
+        : null;
+      const circle = btn?.querySelector('.button-040__icon-wrap.is--duplicate');
       if (!logo || !tools || !inner) return { overlap: true, clipRight: true };
+      const br = btn?.getBoundingClientRect();
+      const tr = text?.getBoundingClientRect();
+      const cr = circle?.getBoundingClientRect();
+      const ccs = circle ? getComputedStyle(circle) : null;
+      const circleOn = Boolean(ccs && ccs.display !== 'none' && cr && cr.width > 1);
+      const burgerR = burger && getComputedStyle(burger).display !== 'none' ? burger.getBoundingClientRect() : null;
+      const btnCs = btn ? getComputedStyle(btn) : null;
+      const applyShown = Boolean(btnCs && btnCs.display !== 'none' && br && br.width > 1);
       return {
         overlap: logo.right > tools.left + 1,
         clipRight: tools.right > inner.right + 1,
+        applyShown,
+        text: text?.textContent.trim() || '',
+        overlapCircle: Boolean(applyShown && circleOn && tr && cr && tr.right > cr.left + 0.5),
+        overlapBurger: Boolean(applyShown && br && burgerR && br.right > burgerR.left + 1),
+        textFits: Boolean(!applyShown || (tr && br && tr.right <= br.right + 0.5)),
       };
     });
     const apply040 = applyOnBar(width) ? await readButton040(page, '.site-header__apply--bar') : null;
@@ -2957,6 +3020,9 @@ for (const vp of VIEWPORTS) {
         wrap.burger === width < NAV_DESKTOP_MIN &&
         clip.overlap === false &&
         clip.clipRight === false &&
+        clip.overlapCircle === false &&
+        clip.overlapBurger === false &&
+        clip.textFits === true &&
         applySizeOk,
       detail: JSON.stringify({
         ...wrap,
@@ -2976,6 +3042,85 @@ for (const vp of VIEWPORTS) {
     detail: JSON.stringify({ heights: [...new Set(tabletHeights)] }),
   });
   await context.close();
+}
+
+{
+  const shortHeights = [
+    { name: '384x640', width: 384, height: 640 },
+    { name: '384x300', width: 384, height: 300 },
+    { name: '384x160', width: 384, height: 160 },
+  ];
+  const panelLabels = ['Industries', 'Resources', 'Our Firm'];
+  for (const vp of shortHeights) {
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
+    const page = await context.newPage();
+    await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(250);
+    await page.locator('[data-mobile-toggle]').click();
+    await page.waitForTimeout(400);
+    for (const label of panelLabels) {
+      const trigger = page.locator('[data-dropdown-toggle]').filter({ hasText: label });
+      await trigger.click({ force: true });
+      await page.waitForTimeout(500);
+      const drilled = await page.evaluate((panelLabel) => {
+        const triggerEl = [...document.querySelectorAll('[data-dropdown-toggle]')].find((el) =>
+          el.textContent.includes(panelLabel),
+        );
+        const id = triggerEl?.getAttribute('data-dropdown-toggle');
+        const panel = document.querySelector(`[data-nav-content="${id}"]`);
+        const container = document.querySelector('[data-dropdown-container]');
+        const inner = document.querySelector('[data-nav-inner]');
+        const cs = panel ? getComputedStyle(panel) : null;
+        const ccs = container ? getComputedStyle(container) : null;
+        const links = [...(panel?.querySelectorAll('.primary-nav__list-lvl-3-link') || [])].map((a) => {
+          const r = a.getBoundingClientRect();
+          const acs = getComputedStyle(a);
+          return {
+            text: a.textContent.trim(),
+            inView:
+              r.width > 1 &&
+              r.height > 1 &&
+              r.bottom > 0 &&
+              r.top < window.innerHeight &&
+              r.right > 0 &&
+              r.left < window.innerWidth &&
+              acs.visibility !== 'hidden' &&
+              acs.display !== 'none' &&
+              Number(acs.opacity) > 0.05,
+          };
+        });
+        const overflowX = `${cs?.overflowX || ''}|${ccs?.overflowX || ''}`;
+        return {
+          drilled: inner?.classList.contains('is-drilled') ?? false,
+          panelOn: Boolean(cs && cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05),
+          innerScrollTop: inner?.scrollTop ?? null,
+          overflowX,
+          canScrollY: Boolean(
+            panel && (panel.scrollHeight > panel.clientHeight + 1 || container?.scrollHeight > container.clientHeight + 1),
+          ),
+          linkCount: links.length,
+          visibleLinks: links.filter((l) => l.inView).length,
+          firstVisible: links.find((l) => l.inView)?.text || null,
+        };
+      }, label);
+      log({
+        vp: vp.name,
+        page: 'home',
+        check: `short-drill-${label.toLowerCase().replace(/\s+/g, '-')}`,
+        ok:
+          drilled.drilled &&
+          drilled.panelOn &&
+          drilled.innerScrollTop === 0 &&
+          drilled.linkCount > 0 &&
+          drilled.visibleLinks > 0 &&
+          /clip|hidden/.test(drilled.overflowX),
+        detail: JSON.stringify(drilled),
+      });
+      await page.locator('[data-mobile-back]').click();
+      await page.waitForTimeout(400);
+    }
+    await context.close();
+  }
 }
 
 const sitemapPaths = async () => {

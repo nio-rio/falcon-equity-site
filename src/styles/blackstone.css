@@ -837,13 +837,14 @@ html.has-scroll-lock .site-header {
   display: none;
 }
 
-/* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger). */
+/* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger).
+   Drop the arrow circle so the full word stays readable in ~70px. */
 @media (min-width: 23.4375em) {
   .site-header .site-header__apply--bar {
     display: inline-flex;
     font-size: 0.75rem;
     --button-040-height: 2.5em;
-    --button-040-padding-x: 0.5em;
+    --button-040-padding-x: 0.85em;
     --button-040-border-radius: 2.5em;
     --button-040-translate-x: 0;
   }
@@ -856,14 +857,13 @@ html.has-scroll-lock .site-header {
     display: inline;
   }
 
-  .site-header .site-header__apply--bar .button-040__icon-wrap:not(.is--duplicate) {
-    width: 0;
-    min-width: 0;
-    overflow: hidden;
+  .site-header .site-header__apply--bar .button-040__icon-wrap {
+    display: none;
   }
 
   .site-header .site-header__apply--bar .button-040__text-wrap {
-    padding-inline-end: calc(var(--button-040-height) * 0.85);
+    padding-inline: var(--button-040-padding-x);
+    translate: 0;
   }
 
   .site-header__tools {
@@ -889,6 +889,10 @@ html.has-scroll-lock .site-header {
     display: none;
   }
 
+  .site-header .site-header__apply--bar .button-040__icon-wrap {
+    display: flex;
+  }
+
   .site-header .site-header__apply--bar .button-040__icon-wrap:not(.is--duplicate) {
     width: auto;
     min-width: 0;
@@ -897,6 +901,7 @@ html.has-scroll-lock .site-header {
 
   .site-header .site-header__apply--bar .button-040__text-wrap {
     padding-inline-end: var(--button-040-padding-x);
+    translate: var(--button-040-translate-x) 0 0;
   }
 
   .site-header__tools {
@@ -1044,7 +1049,9 @@ html.has-scroll-lock .site-header {
 }
 
 .primary-nav__inner.is-drilled .site-header__cta--menu {
+  display: none;
   visibility: hidden;
+  pointer-events: none;
 }
 
 .primary-nav__inner.is-drilled .primary-nav__dropdown {
@@ -1053,11 +1060,14 @@ html.has-scroll-lock .site-header {
   inset: 0;
   z-index: 2;
   pointer-events: auto;
+  overflow-x: clip;
+  overflow-y: auto;
 }
 
 .primary-nav__inner.is-drilled .primary-nav__dropdown-container {
   height: 100%;
-  overflow: auto;
+  overflow-x: clip;
+  overflow-y: auto;
 }
 
 .primary-nav__inner.is-drilled .primary-nav__dropdown-bg {
@@ -1071,6 +1081,8 @@ html.has-scroll-lock .site-header {
   padding-inline: max(var(--bx-margin), calc((100% - var(--bx-max)) / 2));
   background: var(--nav-bg);
   color: var(--nav-copy);
+  overflow-x: clip;
+  overflow-y: auto;
 }
 
 @media (min-width: 23.4375em) and (max-width: 47.99em) {
