@@ -8,7 +8,6 @@ export const SITE = {
     'Falcon Equity Group delivers fast business funding from New York City: merchant cash advances, lines of credit, term loans, invoice factoring, consolidation and digital asset solutions. Funding in as little as 24–48 hours.',
   email: 'information@falconequity.ai',
   phones: {
-    office: { label: 'Office', display: '+1 (917) 645-3826', href: 'tel:+19176453826' },
     direct: { label: 'Direct', display: '+1 (917) 245-5277', href: 'tel:+19172455277' },
     fax: { label: 'Fax', display: '+1 (917) 810-2494', href: 'tel:+19178102494' },
   },

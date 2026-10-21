@@ -1,4 +1,4 @@
-import { SITE } from '@/data/site';
+import { PRIMARY_PHONE, SITE } from '@/data/site';
 
 const orgId = `${SITE.url}/#organization`;
 
@@ -21,7 +21,7 @@ export const organizationSchema = () => ({
   image: `${SITE.url}/og-default.jpg`,
   description: SITE.description,
   email: SITE.email,
-  telephone: SITE.phones.office.href.replace('tel:', ''),
+  telephone: PRIMARY_PHONE.href.replace('tel:', ''),
   faxNumber: SITE.phones.fax.href.replace('tel:', ''),
   address: {
     '@type': 'PostalAddress',
@@ -35,7 +35,7 @@ export const organizationSchema = () => ({
     {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      telephone: SITE.phones.office.href.replace('tel:', ''),
+      telephone: PRIMARY_PHONE.href.replace('tel:', ''),
       email: SITE.email,
       areaServed: 'US',
       availableLanguage: 'en',
