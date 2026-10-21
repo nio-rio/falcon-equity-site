@@ -591,6 +591,7 @@
 }
 
 .pilot-stats-feat,
+.pilot-stats-sides,
 .pilot-stats-side,
 .pilot-stats-side-value {
   min-width: 0;
@@ -665,7 +666,8 @@
     column-gap: 16px;
     grid-template-areas:
       'feat feat feat feat feat feat feat feat'
-      's1 s1 s1 . . s2 s2 s2';
+      'sides sides sides sides sides sides sides sides';
+    align-items: start;
   }
 
   .pilot-stats-feat {
@@ -682,16 +684,29 @@
     font-size: 11rem;
   }
 
+  /* Shared rows: label row = taller label, then both numbers / rules. */
+  .pilot-stats-sides {
+    grid-area: sides;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-rows: auto auto;
+    align-items: start;
+  }
+
   .pilot-stats-side {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 2;
     margin-top: 0;
   }
 
   .pilot-stats-side--1 {
-    grid-area: s1;
+    grid-column: 1 / span 3;
   }
 
   .pilot-stats-side--2 {
-    grid-area: s2;
+    grid-column: 6 / span 3;
   }
 
   .pilot-stats-side-value p {
@@ -703,8 +718,20 @@
   .pilot-stats-grid {
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
-    grid-template-areas: 'feat feat feat feat feat feat feat feat . s1 s1 s1 . s2 s2 s2';
+    grid-template-areas: 'feat feat feat feat feat feat feat feat . sides sides sides sides sides sides sides';
     align-items: start;
+  }
+
+  .pilot-stats-sides {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .pilot-stats-side--1 {
+    grid-column: 1 / span 3;
+  }
+
+  .pilot-stats-side--2 {
+    grid-column: 5 / span 3;
   }
 
   .pilot-stats-feat-value {

@@ -304,7 +304,7 @@ Live `blackstone.com` is Cloudflare-gated; values from blackstone-v2 `.bx-two-up
 
 Home uses `.pilot-stats-*` (`PilotStats.astro`) matching Tac Opps featured stats (measured 1440 / 1280; `docs/refs/bx-tac-opps-stats.md`). MCA and industry landings keep `HeroStats`.
 
-- **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. Each side field is label + number + rule in one cell so the 12px label→number gap is not inflated by a spanning featured row.
+- **Home grid (16 col, 16px):** featured cols **1–8**; gap col 9; side 1 cols **10–12**; gap col 13; side 2 cols **14–16**. From 48em the two small stats share a 2-row subgrid so the label row is the taller label; `$100M+` / `98%` and their rules sit on one row. Labels stay top-aligned with **Average funding time** (main row `align-items: start`). 12px is the minimum label→number gap (the shorter label’s extra space sits in that row). Stacked mobile is unchanged. Do not bottom-align.
 - Featured label: sans 300, **24px** / **32px** from 768, lh 1.5. Featured value: display 300, **5rem / 11rem / 9rem / 10rem**, margin-top **12px** (`--bx-space-12`; BX 40 / 56 / 56 / 64 minus 3rem, floored), lh **1**.
 - Side labels: sans 300 **16px**, lh 24, margin-bottom **12px**. Side values: **40px** at 1280 / **48px** at 1440, padding-bottom **16px** unchanged, **1px** black rule under the number.
 - MCA / industry `HeroStats` uses the same 12px label→number (featured was 40 / 56 / 64; side label was 32).

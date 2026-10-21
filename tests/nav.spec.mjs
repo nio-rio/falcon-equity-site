@@ -1136,22 +1136,26 @@ for (const vp of VIEWPORTS) {
         };
         const featLabel = document.querySelector('.pilot-stats-feat-label');
         const featValue = document.querySelector('.pilot-stats-feat-value');
-        const sideLabel = document.querySelector('.pilot-stats-side-label');
-        const sideValue = document.querySelector('.pilot-stats-side-value p');
-        const sideRule = document.querySelector('.pilot-stats-rule');
+        const sideLabels = [...document.querySelectorAll('.pilot-stats-side-label')];
+        const sideValues = [...document.querySelectorAll('.pilot-stats-side-value p')];
+        const sideRules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')];
         const featCs = featValue ? getComputedStyle(featValue) : null;
-        const sideLabelCs = sideLabel ? getComputedStyle(sideLabel) : null;
-        const sideValueCs = sideValue ? getComputedStyle(sideValue) : null;
+        const sideLabelCs = sideLabels[0] ? getComputedStyle(sideLabels[0]) : null;
+        const sideValueCs = sideValues[0] ? getComputedStyle(sideValues[0]) : null;
+        const sideGaps = sideLabels.map((lab, i) => boxGap(lab, sideValues[i]));
         return {
           featLabelToNumber: boxGap(featLabel, featValue),
           featMt: featCs ? Math.round(parseFloat(featCs.marginTop)) : null,
           featPb: featCs ? Math.round(parseFloat(featCs.paddingBottom)) : null,
-          sideLabelToNumber: boxGap(sideLabel, sideValue),
+          sideLabelToNumber: sideGaps[0] ?? null,
+          sideGaps,
           sideMb: sideLabelCs ? Math.round(parseFloat(sideLabelCs.marginBottom)) : null,
           sideValuePb: sideValueCs ? Math.round(parseFloat(sideValueCs.paddingBottom)) : null,
-          sideNumberToRuleBox: boxGap(sideValue, sideRule),
+          sideNumberToRuleBox: boxGap(sideValues[0], sideRules[0]),
         };
       });
+      const stackedStats = vp.width < 768;
+      const minSideGap = Math.min(...(statsGaps.sideGaps || []).filter((n) => n != null));
       log({
         ...tag,
         check: 'home-stats-label-number-gap',
@@ -1159,11 +1163,58 @@ for (const vp of VIEWPORTS) {
           statsGaps.featMt === 12 &&
           Math.abs((statsGaps.featLabelToNumber ?? -1) - 12) <= 1 &&
           statsGaps.sideMb === 12 &&
-          Math.abs((statsGaps.sideLabelToNumber ?? -1) - 12) <= 1 &&
+          (stackedStats
+            ? (statsGaps.sideGaps || []).every((g) => Math.abs((g ?? -1) - 12) <= 1)
+            : minSideGap >= 11) &&
           statsGaps.sideValuePb === 16 &&
           statsGaps.sideNumberToRuleBox === 0,
         detail: JSON.stringify(statsGaps),
       });
+      if (!stackedStats) {
+        const statsPair = await page.evaluate(() => {
+          const round = (n) => Math.round(n * 10) / 10;
+          const labels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const values = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const rules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const featLabel = document.querySelector('.pilot-stats-feat-label')?.getBoundingClientRect();
+          const labelTops = labels.map((r) => round(r.top));
+          const valueTops = values.map((r) => round(r.top));
+          const ruleBottoms = rules.map((r) => round(r.bottom));
+          const withFeat = window.innerWidth >= 1280;
+          const featTop = featLabel ? round(featLabel.top) : null;
+          return {
+            labelTops,
+            valueTops,
+            ruleBottoms,
+            labelSpread: labelTops.length > 1 ? Math.abs(labelTops[0] - labelTops[1]) : 0,
+            valueSpread: valueTops.length > 1 ? Math.abs(valueTops[0] - valueTops[1]) : 0,
+            ruleSpread: ruleBottoms.length > 1 ? Math.abs(ruleBottoms[0] - ruleBottoms[1]) : 0,
+            featTop,
+            featLabelSpread:
+              withFeat && featTop != null && labelTops.length
+                ? Math.max(...labelTops.map((t) => Math.abs(t - featTop)))
+                : 0,
+            withFeat,
+          };
+        });
+        log({
+          ...tag,
+          check: 'home-stats-side-pair-align',
+          ok:
+            statsPair.valueTops.length >= 2 &&
+            statsPair.labelSpread <= 1 &&
+            statsPair.valueSpread <= 1 &&
+            statsPair.ruleSpread <= 1 &&
+            (!statsPair.withFeat || statsPair.featLabelSpread <= 1),
+          detail: JSON.stringify(statsPair),
+        });
+      }
 
       const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');

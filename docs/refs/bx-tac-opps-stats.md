@@ -43,5 +43,8 @@ small value (`.bx-stat__animateFeatureStat:before`).
 
 Falcon home maps this onto `.pilot-stats-*` with `24-48h` as the featured figure.
 Label → number is **12px** on featured and side (`--bx-space-12`: BX 40 / 56 / 56 / 64
-minus 3rem, floored). Side fields stack in one grid cell so desktop does not inherit
-the featured row height. Number → rule (side value padding-bottom **16px**) is unchanged.
+minus 3rem, floored). From 48em the two small stats share a 2-row subgrid: the label
+row takes the taller label so both numbers and 1px rules stay on one line when
+“Approval for qualified applicants” wraps. Featured stays in its own cell (not
+spanning those rows) so the 12px featured gap is unchanged. Stacked mobile is
+unchanged. Number → rule (side value padding-bottom **16px**) is unchanged.

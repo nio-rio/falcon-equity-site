@@ -31,19 +31,21 @@ const sideStats = side.slice(0, 2).map((stat) => ({
         <p class="pilot-stats-feat-label" data-reveal-stat>{featured.label}</p>
         <p class="pilot-stats-feat-value" data-reveal-stat="value">{featuredValue}</p>
       </div>
-      {
-        sideStats.map((stat, i) => (
-          <div class={`pilot-stats-side pilot-stats-side--${i + 1}`}>
-            <p class="pilot-stats-side-label" data-reveal-stat>
-              {stat.label}
-            </p>
-            <div class="pilot-stats-side-value">
-              <p data-reveal-stat="value">{stat.value}</p>
-              <span class="pilot-stats-rule" data-reveal-line aria-hidden="true" />
+      <div class="pilot-stats-sides">
+        {
+          sideStats.map((stat, i) => (
+            <div class={`pilot-stats-side pilot-stats-side--${i + 1}`}>
+              <p class="pilot-stats-side-label" data-reveal-stat>
+                {stat.label}
+              </p>
+              <div class="pilot-stats-side-value">
+                <p data-reveal-stat="value">{stat.value}</p>
+                <span class="pilot-stats-rule" data-reveal-line aria-hidden="true" />
+              </div>
             </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
