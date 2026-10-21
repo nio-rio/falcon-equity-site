@@ -1835,6 +1835,15 @@ html.has-scroll-lock .site-header {
   width: 100%;
 }
 
+.site-footer__disclosure {
+  margin: 0 0 var(--bx-space-40);
+  max-width: 46rem;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  color: var(--white-a82);
+}
+
 .site-footer__top {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

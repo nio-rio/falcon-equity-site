@@ -225,7 +225,7 @@ Header inner **drops the content cap** from 375px–48em so logo + Apply + hambu
 | `light` | Lilac `#f3f2fb` | Martinique | Martinique | Lilac | Dark header, `.site-cta` |
 | `dark` | Martinique `#332a4e` | Lilac | Lilac Darker `#c4bfe1` | Martinique | White header, drawer Apply |
 
-Hover (fine pointer, motion allowed): ghost circle scales in from the left, duplicate scales out, text translates to rest, arrow rotates 0°. `prefers-reduced-motion` skips the swap.
+Root control fill is `transparent` (not `#0000`). Hover (fine pointer, motion allowed): ghost circle scales in from the left, duplicate scales out, text translates to rest, arrow rotates 0°. `prefers-reduced-motion` skips the swap.
 
 **Do:** one Apply per band; label **Apply for funding** (accessible name always the full phrase). **Don’t:** put a square `.btn-primary` next to 040. **Don’t** add a second CTA in the hero.
 
@@ -288,6 +288,8 @@ Home composition: `src/pages/index.astro`. Chrome (header / SiteCta / footer) co
 
 **Where:** `src/components/Header.astro`, `src/styles/blackstone.css`, `src/scripts/nav.ts`.  
 Fixed bar, spacer below. The home nav stays **dark until the hero has fully passed out from under the nav**: `IntersectionObserver` on `[data-home-hero]` uses `threshold: 0` and `rootMargin` equal to the visible bar height (`nav.ts`), and the bar is dark while the hero’s bottom edge is still at or below the bar’s bottom. Inner pages: white bar, ink type. Logo: live lockup (`src/components/Logo.astro`) — mark `currentColor` + “Falcon Equity Group” in At Gambit. Mega-menus of real pages only. Overlay: `blur(5px)` + `--bx-overlay` (`--ink-a32`). No hairline under the bar.
+
+Top-level items: Services, Industries, **How It Works** (plain link to `/how-it-works`, no dropdown), Resources, Our Firm. Adding How It Works is the only allowed home-page change.
 
 **Do:** phone `+1 (917) 245-5277` from `src/data/site.ts`. **Don’t:** invent social links in the nav.
 
@@ -355,7 +357,7 @@ Three published posts (ids in `index.astro`). Heading→cards = `--pilot-heading
 ### Footer
 
 **Where:** `src/components/Footer.astro`, `src/styles/blackstone.css`.  
-Darker band, white type. Lockup left; Quick Links + Get in Touch (email, phone, address, X). 1px white rule; copyright; Privacy / Terms. **This is the only legal home.** Real URLs only (X is the only social).
+Darker band, white type. Lockup left; Quick Links + Get in Touch (email, phone, address, X). 1px white rule; copyright; Privacy / Terms. **This is the only legal home.** Real URLs only (X is the only social). Inner pages may pass `disclosure` into `BaseLayout` / `Footer` (`.site-footer__disclosure`, `--white-a82`). Home omits it so the footer stays unchanged. Never put that line under SiteCta or any Apply.
 
 ---
 
@@ -450,6 +452,33 @@ Focus: `2px solid var(--color-accent)` (white on `.on-dark`). Not BX yellow.
 | Data | `src/data/services.ts`, `site.ts`, `home-testimonial.ts` | Figures and quotes |
 
 Inner-page pilots (`PilotPageHero`, `PilotWhatWeDo`, `PilotAccordion`, `PilotProcess`, `PilotQuote`) follow the same tokens; they are not the home composition.
+
+---
+
+## Inner-page patterns (round 1)
+
+Used on `/services/merchant-cash-advance`, `/industries/retail`, `/how-it-works`, and `/about`. Same tokens as home. New CSS lives in `src/styles/pilot.css` under `.pilot-*`. Do not restyle toward Blackstone or OnDeck — those sites supplied **layout order** only.
+
+| Pattern | Component | Anatomy | Do / don’t |
+| --- | --- | --- | --- |
+| Inner hero | `PilotPageHero.astro` | H1 span 7, lead span 5, optional circle-arrow CTA, 16:9 still. Labeled placeholder when there is no asset. | One Apply-style arrow in the hero is allowed on inner pages. **Don’t** add 040 in the hero. **Don’t** invent people in the still. |
+| Answer first | `PilotAnswer.astro` | Eyebrow **In short**, 1-paragraph direct answer, four takeaways as a list with 8×2px ticks (not arrows, not links). | Visible content, not a schema experiment. **Don’t** put a CTA under the answer. |
+| At a glance / requirements | `PilotGlance.astro` | Four cells. Figures variant: display 24px value, 14px muted label. Requirements variant: body-size value. Stacked → 2-col → 4-col. Hairline band. | Copy amounts **word for word** (`$5,000 – $5,000,000`). **Don’t** run `compactStatValue`. Cells are not links. |
+| Fit / “not this product” | `PilotFit.astro` | Tinted section, numbered `01` columns (At Gambit), type only. | Numbers, not arrows. **Don’t** claim consolidation savings. |
+| Process notes | `PilotProcess.astro` `note` | Italic 14px muted line under each step body. | Factual hand-off only (“you provide…”, “you get…”). |
+| Intent cards | `PilotIntent.astro` | Four **links** to real product routes. Title, body, italic product hint, circle-arrow. | The card is the clickable; the hint is not a nested link. Soft hints, no amounts. |
+| Documents | `PilotDocs.astro` | Numbered `01–04` rows. | Numbers, not document-icon buttons. |
+| Eligibility | `PilotQualify.astro` | Heading + requirements glance + optional “what we look at” + note (markdown links allowed). | Published criteria only. **Don’t** add credit-pull claims. |
+| Product list | `PilotProductList.astro` | Numbered rows, verbatim amounts, circle-arrow to the live service route. | Seven products on About. Decentralized stays consultative — no invented spec. |
+| Text band | `PilotTextBand.astro` | Numbered columns for use cases, values, Why Falcon. Optional trailing circle-arrow. | No photos, no awards. |
+| Trust row | `PilotTrust.astro` | Confirmed STATS (`$100M+`, `300+`, `15`) + 24-48 hours line + Direct phone + human line. | Phone is a real `tel:` link. **Don’t** add Apply here — SiteCta follows. **Don’t** put the disclosure under this band. |
+| FAQ links | `PilotAccordion.astro` | `[label](/path)` in answers becomes a `.link`. | Internal, `tel:`, or `mailto:` only (`src/lib/inlineLinks.ts`). |
+| Tables | `ResponsiveTable.astro` | Desktop table; stacked cards &lt;768 with `data-label`. | Product names in the retail table are links to real service routes. |
+| Disclosure | `PAGE_DISCLOSURE` in `src/data/disclosure.ts` | Small type **in the footer**, above the lockup. | Never under a CTA, SiteCta, or trust row. Omit on home. |
+
+**About stats** reuse `PilotStats` with `$100M+` featured and `15` / `300+` on the sides. No satisfaction figure. No 98% (home only).
+
+**Retail** is a dedicated page (`src/pages/industries/retail.astro`). Other industry slugs keep the existing `[slug].astro` template until those pages are rebuilt.
 
 ---
 

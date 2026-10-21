@@ -1,0 +1,55 @@
+---
+import Icon from '@/components/Icon.astro';
+import PilotEyebrow from './PilotEyebrow.astro';
+
+export type IntentCard = {
+  title: string;
+  body: string;
+  hint: string;
+  href: string;
+};
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  items: readonly IntentCard[];
+}
+
+const { id = 'intent-heading', eyebrow = 'Start here', title, lead, items } = Astro.props;
+---
+
+<section class="pilot-section" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
+        <PilotEyebrow>{eyebrow}</PilotEyebrow>
+        <h2 id={id}>{title}</h2>
+      </div>
+      {
+        lead && (
+          <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{lead}</p>
+        )
+      }
+      <ul class="pilot-intent-grid bx-full">
+        {
+          items.map((item) => (
+            <li>
+              <a class="pilot-intent-card" href={item.href}>
+                <h3 class="pilot-intent-title">{item.title}</h3>
+                <p class="pilot-intent-body">{item.body}</p>
+                <p class="pilot-intent-hint">{item.hint}</p>
+                <span class="pilot-intent-go" aria-hidden="true">
+                  <span class="pilot-circle">
+                    <Icon name="arrow-right" size={16} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

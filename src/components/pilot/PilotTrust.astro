@@ -1,0 +1,55 @@
+---
+import { PRIMARY_PHONE, STATS } from '@/data/site';
+
+interface Props {
+  id?: string;
+  title?: string;
+  body?: string;
+  human?: string;
+}
+
+const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
+const years = STATS.find((s) => s.label === 'Years of experience')!;
+const helped = STATS.find((s) => s.label === 'Businesses helped')!;
+
+const {
+  id = 'trust-heading',
+  title = 'Get funding today',
+  body = 'One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.',
+  human = 'One specialist owns your file from application to funding. Call the direct line above and ask for the funding desk.',
+} = Astro.props;
+---
+
+<section class="pilot-section" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
+        <h2 id={id}>{title}</h2>
+      </div>
+      <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{body}</p>
+      <ul class="pilot-trust-stats bx-full">
+        <li>
+          <p class="pilot-trust-value">{deployed.value}</p>
+          <p class="pilot-trust-label">{deployed.label}</p>
+        </li>
+        <li>
+          <p class="pilot-trust-value">{helped.value}</p>
+          <p class="pilot-trust-label">{helped.label}</p>
+        </li>
+        <li>
+          <p class="pilot-trust-value">{years.value}</p>
+          <p class="pilot-trust-label">{years.label}</p>
+        </li>
+        <li>
+          <p class="pilot-trust-value">24-48 hours</p>
+          <p class="pilot-trust-label">Many products fund after approval</p>
+        </li>
+      </ul>
+      <p class="pilot-trust-phone bx-span-4 bx-lg-span-6">
+        Direct{' '}
+        <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
+      </p>
+      <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{human}</p>
+    </div>
+  </div>
+</section>

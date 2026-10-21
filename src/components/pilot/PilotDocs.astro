@@ -1,0 +1,59 @@
+---
+import PilotEyebrow from './PilotEyebrow.astro';
+
+export type DocItem = {
+  title: string;
+  body: string;
+};
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  items: readonly DocItem[];
+  also?: string;
+  extra?: string;
+}
+
+const { id = 'docs-heading', eyebrow = 'Before you apply', title, lead, items, also, extra } = Astro.props;
+---
+
+<section class="pilot-section" aria-labelledby={id}>
+  <div class="container-site">
+    <div class="bx-grid">
+      <div class="pilot-section-head bx-span-4 bx-md-full bx-lg-span-10">
+        <PilotEyebrow>{eyebrow}</PilotEyebrow>
+        <h2 id={id}>{title}</h2>
+      </div>
+      {
+        lead && (
+          <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">{lead}</p>
+        )
+      }
+      <ol class="pilot-docs-list bx-full">
+        {
+          items.map((item, i) => (
+            <li class="pilot-docs-item">
+              <p class="pilot-step-num">{String(i + 1).padStart(2, '0')}</p>
+              <div>
+                <h3 class="pilot-step-title">{item.title}</h3>
+                <p class="pilot-step-body">{item.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      {
+        also && (
+          <p class="pilot-section-body bx-span-4 bx-lg-span-10">{also}</p>
+        )
+      }
+      {
+        extra && (
+          <p class="pilot-section-body bx-span-4 bx-lg-span-10">{extra}</p>
+        )
+      }
+    </div>
+  </div>
+</section>

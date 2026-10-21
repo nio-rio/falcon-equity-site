@@ -19,7 +19,7 @@ import { strategiesForIndustry } from '@/lib/productStrategies';
 
 export const getStaticPaths = (async () => {
   const posts = await getPublishedPosts();
-  return INDUSTRIES.map((industry) => {
+  return INDUSTRIES.filter((industry) => industry.slug !== 'retail').map((industry) => {
     const matched = posts.filter((post) => post.data.industry === industry.slug);
     const extras = (industry.relatedPostIds ?? [])
       .map((id) => posts.find((post) => post.id === id))

@@ -1,12 +1,18 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/PageHero.astro';
-import ArrowCta from '@/components/ArrowCta.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
-import Principles from '@/components/Principles.astro';
+import PilotPageHero from '@/components/pilot/PilotPageHero.astro';
+import PilotAnswer from '@/components/pilot/PilotAnswer.astro';
+import PilotStats from '@/components/pilot/PilotStats.astro';
+import PilotProductList from '@/components/pilot/PilotProductList.astro';
 import PilotQuote from '@/components/pilot/PilotQuote.astro';
+import PilotEyebrow from '@/components/pilot/PilotEyebrow.astro';
+import PilotTextBand from '@/components/pilot/PilotTextBand.astro';
+import PilotArrow from '@/components/pilot/PilotArrow.astro';
 import { TEAM_ROLES, VALUES } from '@/data/content';
-import { SITE } from '@/data/site';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { INDUSTRIES } from '@/data/industries';
+import { getService } from '@/data/services';
+import { SITE, STATS } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 import dwight from '@/assets/images/dwight-holly.webp';
 import '@/styles/pilot.css';
@@ -24,53 +30,214 @@ const founderSchema = {
   worksFor: { '@id': `${SITE.url}/#organization` },
 };
 
-const values = VALUES.map((v) => ({ title: v.name, body: v.body }));
+const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
+const years = STATS.find((s) => s.label === 'Years of experience')!;
+const helped = STATS.find((s) => s.label === 'Businesses helped')!;
+const phone = SITE.phones.direct;
+
+const requireSpec = (slug: string) => {
+  const service = getService(slug);
+  if (!service) throw new Error(`Missing service ${slug}`);
+  return service;
+};
+
+const mca = requireSpec('merchant-cash-advance');
+const loc = requireSpec('business-line-of-credit');
+const term = requireSpec('business-term-loan');
+const collateral = requireSpec('collateral-asset-loans');
+const factoring = requireSpec('invoice-factoring-tool');
+const consolidation = requireSpec('consolidation-of-positions');
+const digital = requireSpec('decentralized-business-financing');
+
+const founderBio = SITE.founder.bio.endsWith('.') ? SITE.founder.bio : `${SITE.founder.bio}.`;
 ---
 
 <BaseLayout
   title="About Us"
   description="Falcon Equity Group is a New York City business funding firm with 15 years of experience and $100M+ deployed. Meet Dwight Holly and the teams on each file."
   schema={[breadcrumbSchema(crumbs), founderSchema]}
+  disclosure={PAGE_DISCLOSURE}
 >
-  <PageHero title="About" lead="We’re more than a funding provider. We’re your partner." />
+  <PilotPageHero
+    title="About Falcon Equity Group"
+    lead="We're more than a funding provider. We're your partner."
+    intent="Lower Manhattan office windows looking toward the harbour, morning light."
+    imageAlt="Lower Manhattan office windows looking toward the harbour, morning light."
+  />
+
+  <PilotAnswer
+    answer="Falcon Equity Group is a business funding firm based at 11 Broadway in New York. In 15 years it has deployed more than $100M to 300+ businesses, offering seven products from $5,000 to $5,000,000: merchant cash advances, lines of credit, term loans, invoice factoring, consolidation, asset-backed loans and digital asset services."
+    takeaways={[
+      'New York based, with one specialist assigned to each file rather than a call queue.',
+      'Seven products, so the recommendation follows the use of proceeds instead of a single product being sold to everyone.',
+      'Many products fund within 24-48 hours of approval; real-estate secured loans take longer.',
+      'Every file is underwritten individually. Approval is never guaranteed.',
+    ]}
+  />
+
+  <PilotStats
+    featured={{ label: deployed.label, value: deployed.value }}
+    side={[
+      { label: years.label, value: years.value },
+      { label: helped.label, value: helped.value },
+    ]}
+  />
+
+  <PilotProductList
+    title="Seven ways to fund a business."
+    lead="One application goes to a specialist who matches the product to the need: speed, a repeating gap, an asset, an unpaid invoice or a set of stacked payments."
+    items={[
+      {
+        name: mca.name,
+        href: `/services/${mca.slug}`,
+        body: `${mca.spec?.amounts} over ${mca.spec?.terms}, repaid from a share of sales. Fastest, and the most expensive.`,
+      },
+      {
+        name: loc.name,
+        href: `/services/${loc.slug}`,
+        body: `${loc.spec?.amounts}, ${loc.spec?.terms.toLowerCase()}. Draw what you need and pay interest on what you use.`,
+      },
+      {
+        name: term.name,
+        href: `/services/${term.slug}`,
+        body: `${term.spec?.amounts} over ${term.spec?.terms}, for a defined project.`,
+      },
+      {
+        name: collateral.name,
+        href: `/services/${collateral.slug}`,
+        body: `${collateral.spec?.amounts} over ${collateral.spec?.terms} against equipment, vehicles or other business assets.`,
+      },
+      {
+        name: factoring.name,
+        href: `/services/${factoring.slug}`,
+        body: `${factoring.spec?.amounts} on an ${factoring.spec?.terms.toLowerCase()}, against invoices already earned.`,
+      },
+      {
+        name: consolidation.name,
+        href: `/services/${consolidation.slug}`,
+        body: `${consolidation.spec?.amounts} over ${consolidation.spec?.terms}, replacing several daily or weekly payments with one position.`,
+      },
+      {
+        name: digital.name,
+        href: `/services/${digital.slug}`,
+        body: 'Crypto onboarding and custodial services. Consultative, with no published amounts or terms.',
+      },
+    ]}
+  />
 
   <PilotQuote
     quote="“Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the complex financial landscape to ensure your wealth works for you.”"
     name={SITE.founder.name}
     role={SITE.founder.title}
+    bio={founderBio}
     image={dwight}
     imageAlt="Portrait of Dwight Holly, Founder and CFO of Falcon Equity Group"
   />
-  {/* Dwight should confirm the attribution before launch. */}
 
-  <section class="section bg-white" aria-labelledby="people-cta-heading">
+  <section class="pilot-section" aria-labelledby="people-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-6">
-          <h2 id="people-cta-heading" class="sr-only">Our people</h2>
-          <ArrowCta href="#people-heading" label="Learn more about our people" />
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Our people</PilotEyebrow>
+          <h2 id="people-heading">The people behind each file.</h2>
+        </div>
+        <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          A file moves through specialists rather than a queue: a funding advisor, an underwriter, and a client success manager who stays with you after funding.
+        </p>
+        <ul class="pilot-people-grid bx-full">
+          {TEAM_ROLES.map((title) => (
+            <li>{title}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <PilotTextBand
+    id="values-heading"
+    eyebrow="Values"
+    title="What we hold to."
+    items={VALUES.map((value) => ({ title: value.name, body: value.body }))}
+  />
+
+  <section class="pilot-section" aria-labelledby="industries-heading">
+    <div class="container-site">
+      <div class="bx-grid">
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Industries</PilotEyebrow>
+          <h2 id="industries-heading">Who we fund.</h2>
+        </div>
+        <p class="pilot-section-body bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          We fund operating businesses in twelve sectors, and others with steady revenue. The work is the same in each: read the file, match the product to the use of proceeds, and say so when a product is the wrong instrument.
+        </p>
+        <ul class="pilot-sector-list bx-full">
+          {
+            INDUSTRIES.map((item) => (
+              <li>
+                <a class="link" href={`/industries/${item.slug}`}>
+                  {item.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="pilot-section-cta bx-span-4">
+          <PilotArrow href="/industries" label="See industry funding" />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section bg-white" aria-labelledby="people-heading">
+  <PilotTextBand
+    id="why-heading"
+    eyebrow="Why Falcon"
+    title="What you get that a rate table cannot show."
+    items={[
+      {
+        title: 'One specialist per file',
+        body: 'The person who reads your application is the person who calls you, and the same name stays on the file after funding.',
+      },
+      {
+        title: 'Seven products, one application',
+        body: 'Speed, a revolving gap, an asset, an unpaid invoice or stacked payments each have a different instrument. You are not pushed into the only product a lender sells.',
+      },
+      {
+        title: 'Revenue first, credit second',
+        body: 'Bank activity and time in business decide most files; a credit score matters most on term loans and consolidation.',
+      },
+      {
+        title: 'Digital asset capability',
+        body: 'Crypto onboarding and custodial services sit alongside the debt products, for businesses holding digital assets.',
+      },
+    ]}
+  />
+
+  <section class="pilot-section" aria-labelledby="contact-heading">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="section-head bx-span-4 bx-lg-span-10">
-          <Eyebrow>Our people</Eyebrow>
-          <h2 id="people-heading">The people of Falcon.</h2>
+        <div class="pilot-section-head bx-span-4 bx-lg-span-10">
+          <PilotEyebrow>Contact</PilotEyebrow>
+          <h2 id="contact-heading">Talk to a specialist.</h2>
         </div>
-        {
-          TEAM_ROLES.map((title) => (
-            <div class="bx-span-2 bx-md-span-4 bx-lg-span-3">
-              <p class="font-medium text-ink">{title}</p>
-            </div>
-          ))
-        }
+        <ul class="pilot-contact-list bx-span-4 bx-lg-span-6">
+          <li>
+            <a class="link" href={SITE.address.mapUrl} rel="noopener" target="_blank">
+              {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+              <span class="sr-only"> (opens Google Maps in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </li>
+          <li>
+            Direct <a class="link" href={phone.href}>{phone.display}</a>
+          </li>
+        </ul>
+        <div class="pilot-cta-stack bx-span-4 bx-lg-span-6 bx-lg-start-7">
+          <PilotArrow href="/apply" label="Get Funding Today" />
+          <PilotArrow href="/services" label="See all services" />
+        </div>
       </div>
     </div>
   </section>
-
-  <Principles id="values-heading" eyebrow="Values" title="Our values" items={values} />
 </BaseLayout>

@@ -324,6 +324,10 @@
   color: var(--color-ink-soft);
 }
 
+.pilot-page-hero-cta {
+  margin-top: var(--bx-space-24);
+}
+
 .pilot-page-hero-media {
   margin-top: var(--bx-space-40);
 }
@@ -2321,6 +2325,14 @@
   line-height: 1.6;
 }
 
+.pilot-step-note {
+  margin-top: var(--bx-space-16);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
 /* BREIT quote split. */
 .pilot-quote {
   display: grid;
@@ -2718,5 +2730,301 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Inner-page patterns — answer, glance, fit, trust, intent, docs. */
+.pilot-answer-lead {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.pilot-answer-list {
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-answer-list li {
+  position: relative;
+  padding-left: var(--bx-space-24);
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-answer-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-answer-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 8px;
+  height: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+
+.pilot-glance {
+  padding-block: var(--bx-space-40);
+  background: #fff;
+  border-block: 1px solid var(--color-line);
+}
+
+.pilot-section .pilot-glance {
+  margin-top: var(--bx-space-40);
+  padding-block: var(--bx-space-32);
+  border-bottom: 0;
+}
+
+.pilot-glance-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-glance-cell {
+  min-width: 0;
+}
+
+.pilot-glance-value,
+.pilot-glance-label {
+  margin: 0;
+}
+
+.pilot-glance-value {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.pilot-glance--copy .pilot-glance-value {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+}
+
+.pilot-glance-label {
+  margin-top: var(--bx-space-8);
+  font-size: var(--bx-fs-14);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.pilot-section-note {
+  margin-top: var(--bx-space-24);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.pilot-fit-list,
+.pilot-docs-list,
+.pilot-product-list,
+.pilot-text-band,
+.pilot-intent-grid,
+.pilot-trust-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-40);
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-fit-item,
+.pilot-docs-item,
+.pilot-product-item,
+.pilot-text-band li {
+  min-width: 0;
+}
+
+.pilot-docs-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--bx-space-16);
+  align-items: start;
+}
+
+.pilot-docs-item .pilot-step-title {
+  margin-top: 0;
+}
+
+.pilot-intent-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pilot-intent-title {
+  margin: 0;
+}
+
+.pilot-intent-body {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-intent-hint {
+  margin-top: var(--bx-space-16);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.pilot-intent-go {
+  display: inline-flex;
+  margin-top: auto;
+  padding-top: var(--bx-space-24);
+}
+
+.pilot-intent-card:hover .pilot-intent-title,
+.pilot-intent-card:focus-visible .pilot-intent-title {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+}
+
+.pilot-intent-card:hover .pilot-circle,
+.pilot-intent-card:focus-visible .pilot-circle {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.pilot-trust-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--bx-fs-32);
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.pilot-trust-label {
+  margin: var(--bx-space-8) 0 0;
+  font-size: var(--bx-fs-14);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.pilot-trust-phone {
+  margin-top: var(--bx-space-40);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-product-item .pilot-arrow {
+  margin-top: var(--bx-space-24);
+}
+
+.pilot-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bx-space-24);
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-people-grid,
+.pilot-sector-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--bx-space-16) var(--bx-gutter);
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-people-grid li,
+.pilot-sector-list a {
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.pilot-contact-list {
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-contact-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-quote-bio {
+  display: block;
+  margin-top: var(--bx-space-8);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  color: var(--color-muted);
+}
+
+.pilot-acc-panel-inner a {
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .pilot-glance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-fit-list,
+  .pilot-intent-grid,
+  .pilot-product-list,
+  .pilot-text-band,
+  .pilot-trust-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-people-grid,
+  .pilot-sector-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-glance-grid,
+  .pilot-trust-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pilot-fit-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pilot-intent-grid,
+  .pilot-text-band:has(> :nth-child(4)) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pilot-text-band:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pilot-product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-page-hero-cta {
+    margin-top: 0;
   }
 }

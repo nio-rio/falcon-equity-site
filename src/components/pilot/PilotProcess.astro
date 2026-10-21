@@ -5,7 +5,7 @@ interface Props {
   id?: string;
   eyebrow?: string;
   title: string;
-  steps: readonly { title: string; body: string }[];
+  steps: readonly { title: string; body: string; note?: string }[];
 }
 
 const { id = 'process-heading', eyebrow = 'Process', title, steps } = Astro.props;
@@ -26,6 +26,7 @@ const { id = 'process-heading', eyebrow = 'Process', title, steps } = Astro.prop
                 <p class="pilot-step-num">{String(i + 1).padStart(2, '0')}</p>
                 <h3 class="pilot-step-title">{step.title}</h3>
                 <p class="pilot-step-body">{step.body}</p>
+                {step.note && <p class="pilot-step-note">{step.note}</p>}
               </div>
             ))
           }

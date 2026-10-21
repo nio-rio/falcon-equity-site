@@ -1,5 +1,6 @@
 ---
 import Icon from '@/components/Icon.astro';
+import { splitInlineLinks } from '@/lib/inlineLinks';
 
 export type PilotAccItem = {
   q: string;
@@ -37,7 +38,19 @@ const { items, variant = 'faq', idPrefix } = Astro.props;
         </h3>
         <div class="pilot-acc-panel" id={`${idPrefix}-panel-${i}`} role="region" aria-labelledby={`${idPrefix}-trigger-${i}`}>
           <div class="pilot-acc-panel-inner">
-            {item.a && <p>{item.a}</p>}
+            {item.a && (
+              <p>
+                {splitInlineLinks(item.a).map((part) =>
+                  part.href ? (
+                    <a class="link" href={part.href}>
+                      {part.text}
+                    </a>
+                  ) : (
+                    part.text
+                  ),
+                )}
+              </p>
+            )}
             {item.bullets && item.bullets.length > 0 && (
               <ul>
                 {item.bullets.map((bullet) => (

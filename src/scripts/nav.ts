@@ -520,6 +520,14 @@ export function initNav() {
     });
   });
 
+  document.querySelectorAll<HTMLElement>('[data-nav-plain]').forEach((link) => {
+    link.addEventListener('mouseenter', () => {
+      if (state.isMobile) return;
+      clearTimers();
+      closeDropdown();
+    });
+  });
+
   dropWrapper?.addEventListener('mouseenter', handleWrapperEnter);
   dropWrapper?.addEventListener('mouseleave', handleWrapperLeave);
 

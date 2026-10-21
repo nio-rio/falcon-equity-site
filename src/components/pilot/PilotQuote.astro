@@ -6,11 +6,12 @@ interface Props {
   quote: string;
   name: string;
   role: string;
+  bio?: string;
   image: ImageMetadata;
   imageAlt: string;
 }
 
-const { quote, name, role, image, imageAlt } = Astro.props;
+const { quote, name, role, bio, image, imageAlt } = Astro.props;
 ---
 
 <section class="pilot-section" aria-label={`Quote from ${name}`}>
@@ -31,6 +32,7 @@ const { quote, name, role, image, imageAlt } = Astro.props;
         <figcaption class="pilot-quote-attr">
           <span class="pilot-quote-name">{name}</span>
           <span class="pilot-quote-role">{role}</span>
+          {bio && <span class="pilot-quote-bio">{bio}</span>}
         </figcaption>
       </div>
     </figure>
