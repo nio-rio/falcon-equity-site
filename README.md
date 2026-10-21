@@ -78,7 +78,7 @@ The footer is black with white or gray text. Copyright, Privacy Policy and Terms
 
 ## Type
 
-Headings use **At Gambit** (trial webfont, weights 300/400/600/700, self-hosted as woff2 in `public/fonts`, `font-display: swap`). The trial file only has A–Z, a–z, 0–9, space, and `! , - . : ; ?`. Missing characters (`$ % & ' " + / ( )`, en-dashes, apostrophes) fall back to **Manrope**. Body text uses **Inter** via `@fontsource-variable/inter`.
+Headings use **At Gambit** (trial webfont, weights 300/400/600/700, self-hosted as woff2 in `public/fonts`, `font-display: swap`). The trial file only has A–Z, a–z, 0–9, space, and `! , - . : ; ?`. Missing characters (`$ % & ' " + / ( )`, en-dashes, apostrophes) fall back to **Manrope**. Body, nav, buttons, and labels use **Archivo** (variable woff2, OFL 1.1, self-hosted in `public/fonts`, `font-display: swap`, latin file preloaded). A metric-matched Arial fallback (`Archivo Fallback`) avoids CLS while the woff2 loads.
 
 ## Logo
 

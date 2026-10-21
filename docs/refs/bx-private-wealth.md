@@ -4,7 +4,7 @@ Source: `blackstone.com` home `#private-wealth` (two-up + tickertape). Live
 `blackstone.com` is Cloudflare-gated here; values from blackstone-v2
 `frontend.css` / `frontend.js` plus `/tmp/bxhero/bxhome.html`.
 
-Falcon mapping: home **Why choose us** (`.pilot-why-*`). At Gambit + Inter,
+Falcon mapping: home **Why choose us** (`.pilot-why-*`). At Gambit + Archivo,
 `--bx-black` `#14101f`. Rows are not links; Falcon uses step numbers 1–3
 instead of BX’s decorative circle arrows.
 

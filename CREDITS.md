@@ -42,5 +42,5 @@ Created by `scripts/generate-images.mjs` from brand colors, the official logo an
 
 - **At Gambit** (trial): Light/Regular/Semibold/Bold woff2 in `public/fonts`. Used for headings. Trial glyph set is A–Z, a–z, 0–9, space, and `! , - . : ; ?`. Buy the webfont license before launch.
 - [Manrope](https://fonts.google.com/specimen/Manrope) by Mikhail Sharanda: SIL Open Font License 1.1, via `@fontsource/manrope` (weights 600, 700). Fallback for heading characters At Gambit does not include.
-- [Inter](https://rsms.me/inter/) by Rasmus Andersson: SIL Open Font License 1.1, via `@fontsource-variable/inter`. Used for body text.
+- [Archivo](https://fonts.google.com/specimen/Archivo) by Omnibus-Type: SIL Open Font License 1.1. Self-hosted variable woff2 (latin + latin-ext, weight axis) in `public/fonts`. Used for body, nav, buttons, labels, and other sans roles. License file: `public/fonts/OFL-Archivo.txt`.
 - [Lucide](https://lucide.dev) icons: ISC License, via `@lucide/astro`

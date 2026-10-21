@@ -84,7 +84,7 @@ No photos (Blackstone: process is type).
 
 ### 6. CTA band
 
-Sitewide Govwell-style wheel in the layout, above the footer. Lead “Need funding to” and eight rotating uses (purchase inventory through consolidate business debt), both body/Inter, 4.5rem pitch, plain white when active, Lilac/Martinique “Apply for funding”. No “for your business” tail. Band matches the footer (`--color-surface-dark`).
+Sitewide Govwell-style wheel in the layout, above the footer. Lead “Need funding to” and eight rotating uses (purchase inventory through consolidate business debt), both heading face (At Gambit), 4.5rem pitch, plain white when active, Lilac/Martinique “Apply for funding”. No “for your business” tail. Band matches the footer (`--color-surface-dark`).
 
 ### Nearby copy, not currently on home
 

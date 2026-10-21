@@ -66,7 +66,7 @@
   --color-surface-dark: var(--bx-martinique-darker);
 
   --bx-font-display: 'At Gambit', 'Manrope', sans-serif;
-  --bx-font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bx-font-sans: 'Archivo', 'Archivo Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--bx-font-display);
   --font-sans: var(--bx-font-sans);
 

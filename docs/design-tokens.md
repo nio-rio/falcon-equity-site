@@ -19,7 +19,7 @@ Goldman uses **GS Serif** (hero and section titles, weight 300–400) and **GS S
 | Button | 16px / 20px | 16px / 20px | 16px / 20px | 500 | Padding 9px 11px, square corners |
 | Nav link | 16px | 16px | — | 400 | |
 
-Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicode-range`). Inter for body, nav, buttons, small print.
+Falcon: At Gambit 300/400/600/700 for all headings (Manrope fallback via `unicode-range`). Archivo for body, nav, buttons, small print.
 
 ## Layout
 

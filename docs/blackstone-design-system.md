@@ -11,7 +11,7 @@ Studied 19 Oct 2026 from:
 
 Live `blackstone.com` is behind Cloudflare in this environment, so computed CSS was read from the **blackstone-v2** bundle on Wayback `20260925104209` (`/_static` `main` CSS, cached at `/tmp/bxcss/main.raw.css`) plus screenshots from earlier passes. BREIT quote layout is from live `breit.com` frames plus the same type tokens.
 
-Falcon keeps **At Gambit + Inter** (not Sanomat / Guardian Sans). Buttons are ink/white, not purple and not BX yellow pills. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
+Falcon keeps **At Gambit + Archivo** (not Sanomat / Guardian Sans). Buttons are ink/white, not purple and not BX yellow pills. **Blackstone wins** on grid, spacing, dividers, eyebrows, cards, link motion, accordions, stats, quote split, and tables.
 
 **Source of tokens in this repo:** `src/styles/tokens.css` (only). Tailwind `@theme` in `global.css` aliases those variables. Site-wide chrome lives in `src/styles/blackstone.css`. The **home + Merchant Cash Advance pilot** uses a separate namespaced layer: `src/styles/pilot.css` (`.pilot-*`) and `src/components/pilot/`. Other pages keep building on the existing components.
 
@@ -66,7 +66,7 @@ Square `.btn-primary` fills stay **Martinique Darker / white**. Nav and CTA Appl
 ## Type
 
 **BX families:** `--f-serif: "Sanomat"` (titles), `--f-sans: "Guardian Sans"` (UI, eyebrows, quotes, accordion titles).  
-**Falcon:** `--font-display` = At Gambit (+ Manrope fallback), `--font-sans` = Inter Variable. Display maps to serif *roles*; sans maps to Guardian *roles*.
+**Falcon:** `--font-display` = At Gambit (+ Manrope fallback), `--font-sans` = Archivo variable (latin + latin-ext, `font-display: swap`, metric-matched Arial fallback). Display maps to serif *roles*; sans maps to Guardian *roles*.
 
 Weights from bundle: `--fw-light: 300`, `--fw-regular: 400`, `--fw-medium: 500`, `--fw-bold: 700`.
 
@@ -104,7 +104,7 @@ BX media: `22.5em` (~360), `48em` (768), `80em` (1280), `90em` (1440), `120em` (
 | **Body** | sans | 400 | 16px (do not bump to 18) | 1.5–1.6 | normal | `--c-variant-black`. BX accordion panel is `--fs-18` light; Falcon FAQ stays 16 |
 | **Lead / section-body** | sans | 400 | 16px | 1.6 | normal | `--color-ink-soft` |
 | **Caption / meta** | sans | 400 | 12–14px | 1.45 | normal / 0.08em if uppercase | Dates, chart tabs, quote role |
-| **Quote** (BREIT) | **sans** | 300 | clamp 1.75–3rem | 1.25 | normal | Screenshot: Inter, not serif. Name 14px/700; role 14px/400 muted, bottom-right |
+| **Quote** (BREIT) | **sans** | 300 | clamp 1.75–3rem | 1.25 | normal | Screenshot: Archivo, not serif. Name 14px/700; role 14px/400 muted, bottom-right |
 | **Stat value** | display | 300 | 32px+ (featured larger) | 1 | normal | BXCI featured stat; `--fs-32` side values |
 | **Accordion title** | sans | 300 | 24px | 1.25 | normal | Strategies / FAQ row |
 | **Nav** | sans | 400 | 16px top-level; mega heading 20px/500 | 1 | normal | Open = 1px underline + chevron 180° |
@@ -336,7 +336,7 @@ BX: floating 14px light label, 16px inset, focus lifts label. Falcon apply uses 
 
 ## Falcon exceptions (do not “fix” toward BX)
 
-1. Fonts: At Gambit + Inter.
+1. Fonts: At Gambit + Archivo.
 2. Buttons: black squares (not BX pills / yellow focus). Prefer circle-arrow text links in body copy. Exception: nav Apply and the pre-footer `.site-cta` use Ling’s `.button-040` pill (sliding text + arrow-circle). Light on dark surfaces, dark on the white header. No purple.
 3. `.btn-outline-dark` stays in `global.css`. No purple fills.
 4. No fabricated people, quotes, numbers, or testimonials. Home testimonials are the three Ling-supplied quotes; placeholder credits (`Falcon client`) stay marked until real names are confirmed.
