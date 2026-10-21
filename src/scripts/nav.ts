@@ -625,13 +625,45 @@ export function initNav() {
   });
 
   const setCompact = () => {
-    const scrolled = window.scrollY > 24;
-    header?.classList.toggle('is-compact', scrolled);
-    if (isHomeHeader) header?.classList.toggle('is-color-theme-dark', !scrolled);
+    header?.classList.toggle('is-compact', window.scrollY > 24);
     items.forEach((item) => item.classList.remove('is-escaped'));
   };
+
+  const applyHomeThemeFromHero = () => {
+    if (!isHomeHeader || !header) return;
+    const hero = document.querySelector<HTMLElement>('[data-home-hero]');
+    if (!hero) return;
+    const headerBottom = header.getBoundingClientRect().bottom;
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    header.classList.toggle('is-color-theme-dark', heroBottom > headerBottom + 0.5);
+  };
+
+  let heroThemeObs: IntersectionObserver | null = null;
+  const watchHomeHeroTheme = () => {
+    heroThemeObs?.disconnect();
+    heroThemeObs = null;
+    if (!isHomeHeader || !header) return;
+    const hero = document.querySelector<HTMLElement>('[data-home-hero]');
+    if (!hero) {
+      header.classList.add('is-color-theme-dark');
+      return;
+    }
+    applyHomeThemeFromHero();
+    if (typeof IntersectionObserver === 'undefined') return;
+    const h = Math.max(1, Math.round(header.getBoundingClientRect().height));
+    heroThemeObs = new IntersectionObserver(applyHomeThemeFromHero, {
+      root: null,
+      rootMargin: `-${h}px 0px 0px 0px`,
+      threshold: 0,
+    });
+    heroThemeObs.observe(hero);
+  };
+
   setCompact();
+  watchHomeHeroTheme();
   window.addEventListener('scroll', setCompact, { passive: true });
+  window.addEventListener('scroll', applyHomeThemeFromHero, { passive: true });
+  window.addEventListener('resize', watchHomeHeroTheme);
 
   if (state.isMobile) setupMobile();
   else resetDesktop();

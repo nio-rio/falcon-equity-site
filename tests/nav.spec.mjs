@@ -161,6 +161,48 @@ const readBarWrap = (page) =>
     };
   });
 
+const readHomeTheme = (page) =>
+  page.evaluate(() => {
+    const header = document.querySelector('[data-header]');
+    const hero = document.querySelector('[data-home-hero]');
+    const hr = header?.getBoundingClientRect();
+    const er = hero?.getBoundingClientRect();
+    return {
+      dark: header?.classList.contains('is-color-theme-dark') || false,
+      compact: header?.classList.contains('is-compact') || false,
+      headerBottom: hr ? Math.round(hr.bottom * 10) / 10 : null,
+      heroBottom: er ? Math.round(er.bottom * 10) / 10 : null,
+      y: Math.round(window.scrollY),
+    };
+  });
+
+const scrollOverHomeHero = async (page) => {
+  await page.evaluate(() => {
+    const hero = document.querySelector('[data-home-hero]');
+    const header = document.querySelector('[data-header]');
+    if (!hero || !header) return;
+    const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+    const heroH = hero.getBoundingClientRect().height;
+    const headerH = header.getBoundingClientRect().height;
+    const y = Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - headerH - 48);
+    window.scrollTo(0, Math.max(Math.round(y), 40));
+  });
+  await page.waitForTimeout(250);
+};
+
+const scrollPastHomeHero = async (page) => {
+  await page.evaluate(() => {
+    const hero = document.querySelector('[data-home-hero]');
+    const header = document.querySelector('[data-header]');
+    if (!hero || !header) return;
+    const y = Math.ceil(
+      hero.getBoundingClientRect().bottom + window.scrollY - header.getBoundingClientRect().height + 8,
+    );
+    window.scrollTo(0, Math.max(y, 1));
+  });
+  await page.waitForTimeout(250);
+};
+
 const closeMenu = async (page, mode) => {
   await page.keyboard.press('Escape');
   await page.waitForTimeout(150);
@@ -1035,6 +1077,40 @@ for (const vp of VIEWPORTS) {
           statsGaps.sideNumberToRuleBox === 0,
         detail: JSON.stringify(statsGaps),
       });
+      if (vp.width >= 768) {
+        const statsAlign = await page.evaluate(() => {
+          const values = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const rules = [...document.querySelectorAll('.pilot-stats-rule')].map((el) => el.getBoundingClientRect());
+          const labels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const bottoms = (rects) => rects.map((r) => Math.round(r.bottom * 10) / 10);
+          const valueBottoms = bottoms(values);
+          const ruleBottoms = bottoms(rules);
+          const labelGaps = labels.map((lab, i) =>
+            values[i] ? Math.round(values[i].top - lab.bottom) : null,
+          );
+          return {
+            valueBottoms,
+            ruleBottoms,
+            labelGaps,
+            valueSpread: valueBottoms.length > 1 ? Math.abs(valueBottoms[0] - valueBottoms[1]) : 0,
+            ruleSpread: ruleBottoms.length > 1 ? Math.abs(ruleBottoms[0] - ruleBottoms[1]) : 0,
+          };
+        });
+        log({
+          ...tag,
+          check: 'home-stats-numbers-align',
+          ok:
+            statsAlign.valueBottoms.length >= 2 &&
+            statsAlign.valueSpread <= 1 &&
+            statsAlign.ruleSpread <= 1 &&
+            statsAlign.labelGaps.every((g) => g != null && Math.abs(g - 12) <= 1),
+          detail: JSON.stringify(statsAlign),
+        });
+      }
 
       const industry = await page.evaluate(() => {
         const section = document.querySelector('.pilot-tabs');
@@ -2176,17 +2252,22 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(400);
 
       if (pg.name === 'home') {
-        await page.evaluate(() => window.scrollTo(0, 600));
-        await page.waitForTimeout(200);
-        const scrolled = await page.evaluate(() => {
-          const h = document.querySelector('[data-header]');
-          return {
-            dark: h.classList.contains('is-color-theme-dark'),
-            compact: h.classList.contains('is-compact'),
-            bg: getComputedStyle(h).backgroundColor,
-          };
+        await scrollOverHomeHero(page);
+        const overHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-over-hero',
+          ok: overHero.dark === true && overHero.heroBottom > overHero.headerBottom,
+          detail: JSON.stringify(overHero),
         });
-        log({ ...tag, check: 'home-theme-light-on-scroll', ok: !scrolled.dark, detail: JSON.stringify(scrolled) });
+        await scrollPastHomeHero(page);
+        const scrolled = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-on-scroll',
+          ok: scrolled.dark === false && scrolled.heroBottom <= scrolled.headerBottom + 1,
+          detail: JSON.stringify(scrolled),
+        });
         const applyScrolled = await readButton040(page, applySel);
         log({
           ...tag,
@@ -2242,6 +2323,14 @@ for (const vp of VIEWPORTS) {
           detail: formatWidgetDetail('light', widgetScrolledHover, widgetScrolledHoverCheck),
         });
         await page.keyboard.press('Escape');
+        await scrollOverHomeHero(page);
+        const backHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-on-scroll-back',
+          ok: backHero.dark === true && backHero.heroBottom > backHero.headerBottom,
+          detail: JSON.stringify(backHero),
+        });
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(150);
       }
@@ -2409,8 +2498,22 @@ for (const vp of VIEWPORTS) {
       await page.keyboard.press('Escape');
 
       if (pg.name === 'home') {
-        await page.evaluate(() => window.scrollTo(0, 600));
-        await page.waitForTimeout(200);
+        await scrollOverHomeHero(page);
+        const overHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-over-hero',
+          ok: overHero.dark === true && overHero.heroBottom > overHero.headerBottom,
+          detail: JSON.stringify(overHero),
+        });
+        await scrollPastHomeHero(page);
+        const pastHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-on-scroll',
+          ok: pastHero.dark === false && pastHero.heroBottom <= pastHero.headerBottom + 1,
+          detail: JSON.stringify(pastHero),
+        });
         const typeScrolled = await readTypeChrome(page);
         log({
           ...tag,
@@ -2429,6 +2532,14 @@ for (const vp of VIEWPORTS) {
           check: 'overlay-blur-5px-scrolled',
           ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
           detail: JSON.stringify(filtersScrolled),
+        });
+        await scrollOverHomeHero(page);
+        const backHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-on-scroll-back',
+          ok: backHero.dark === true && backHero.heroBottom > backHero.headerBottom,
+          detail: JSON.stringify(backHero),
         });
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.waitForTimeout(150);
@@ -2765,6 +2876,29 @@ const sitemapPaths = async () => {
         gaps.sidePb === 16,
       detail: JSON.stringify(gaps),
     });
+    if (vp.width >= 768) {
+      const align = await page.evaluate(() => {
+        const fields = [...document.querySelectorAll('.stats-bx__field')];
+        const values = fields.map((f) => f.querySelector('.stats-bx__value')?.getBoundingClientRect()).filter(Boolean);
+        const labels = fields.map((f) => f.querySelector('.stats-bx__label')?.getBoundingClientRect()).filter(Boolean);
+        const bottoms = values.map((r) => Math.round(r.bottom * 10) / 10);
+        return {
+          bottoms,
+          spread: bottoms.length > 1 ? Math.abs(bottoms[0] - bottoms[1]) : 0,
+          labelGaps: labels.map((lab, i) => (values[i] ? Math.round(values[i].top - lab.bottom) : null)),
+        };
+      });
+      log({
+        vp: vp.name,
+        page: 'mca',
+        check: 'hero-stats-numbers-align',
+        ok:
+          align.bottoms.length >= 2 &&
+          align.spread <= 1 &&
+          align.labelGaps.every((g) => g != null && Math.abs(g - 12) <= 1),
+        detail: JSON.stringify(align),
+      });
+    }
     await context.close();
   }
 }
