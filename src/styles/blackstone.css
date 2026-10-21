@@ -642,6 +642,14 @@ html.has-scroll-lock .site-header {
   height: 100%;
 }
 
+/* Below 48em `.container-site` caps at 23rem, which is too narrow for
+   logo + Apply + hamburger. The bar uses the full viewport + --bx-margin. */
+@media (max-width: 47.99em) {
+  .site-header__inner.container-site {
+    max-width: none;
+  }
+}
+
 .site-header__brand {
   position: relative;
   display: flex;
@@ -778,12 +786,15 @@ html.has-scroll-lock .site-header {
   cursor: pointer;
 }
 
-/* Live-sized lockup + phone + hamburger overflow 390. Phone stays in the open menu. */
+/* Ling CTA rule: Apply stays on the bar as long as it fits. Drop the
+   phone first, then compact Apply, then move Apply into the menu.
+   Phone → menu below 50em. Apply compact 33–38em. Apply → menu below 33em.
+   Phone always remains in the open drawer. */
 .site-header__tel--bar {
   display: none;
 }
 
-@media (min-width: 48em) {
+@media (min-width: 50em) {
   .site-header__tel--bar {
     display: inline-flex;
   }
@@ -806,6 +817,26 @@ html.has-scroll-lock .site-header {
   display: none;
 }
 
+/* Full-label Apply on the bar from 33em (logo + Apply + hamburger). */
+@media (min-width: 33em) {
+  .site-header .site-header__apply--bar {
+    display: inline-flex;
+    font-size: 0.875rem;
+    --button-040-height: 2.5em;
+    --button-040-padding-x: 0.85em;
+    --button-040-border-radius: 2.5em;
+  }
+}
+
+@media (min-width: 38em) {
+  .site-header .site-header__apply--bar {
+    font-size: 1.0625rem;
+    --button-040-height: 3em;
+    --button-040-padding-x: 1.25em;
+    --button-040-border-radius: 3em;
+  }
+}
+
 .site-header__cta--menu {
   display: flex;
   flex-direction: column;
@@ -822,6 +853,12 @@ html.has-scroll-lock .site-header {
 
 .site-header__cta--menu .site-header__apply {
   display: inline-flex;
+}
+
+@media (min-width: 33em) {
+  .site-header__cta--menu .site-header__apply {
+    display: none;
+  }
 }
 
 .site-header__cta--menu .site-header__tel {

@@ -36,6 +36,16 @@ const VIEWPORTS = [
   { name: '390', width: 390, height: 844, mode: 'mobile' },
 ];
 
+/** Ling nav CTA rule: Apply stays on the bar as long as it fits. */
+const NAV_APPLY_BAR_MIN = 528; // 33em — compact Apply + hamburger
+const NAV_APPLY_FULL_MIN = 608; // 38em — full-size Apply
+const NAV_PHONE_BAR_MIN = 800; // 50em — phone joins Apply on the bar
+const NAV_DESKTOP_MIN = 1440; // 90em — inline links, no hamburger
+
+const applyOnBar = (width) => width >= NAV_APPLY_BAR_MIN;
+const applyCompact = (width) => width >= NAV_APPLY_BAR_MIN && width < NAV_APPLY_FULL_MIN;
+const phoneOnBar = (width) => width >= NAV_PHONE_BAR_MIN;
+
 const PAGES = [
   { name: 'home', path: '/' },
   { name: 'inner', path: '/about' },
@@ -133,6 +143,8 @@ const readBarWrap = (page) =>
     const chromeBottoms = chrome.map((el) => Math.round(el.getBoundingClientRect().bottom));
     const barR = bar?.getBoundingClientRect();
     const chromeSpread = chromeTops.length ? Math.max(...chromeTops) - Math.min(...chromeTops) : 0;
+    const inner = document.querySelector('.site-header__inner');
+    const tools = document.querySelector('.site-header__tools');
     return {
       barH: barR ? Math.round(barR.height * 10) / 10 : null,
       burger: visible(burger),
@@ -144,6 +156,8 @@ const readBarWrap = (page) =>
       chromeTop: chromeTops.length ? Math.min(...chromeTops) : null,
       chromeBottom: chromeBottoms.length ? Math.max(...chromeBottoms) : null,
       wrap: getComputedStyle(document.querySelector('[data-nav-list]')).flexWrap,
+      innerWrap: inner ? getComputedStyle(inner).flexWrap : null,
+      toolsWrap: tools ? getComputedStyle(tools).flexWrap : null,
     };
   });
 
@@ -1344,9 +1358,12 @@ for (const vp of VIEWPORTS) {
         barWrap.barH === expectBarH &&
         barWrap.itemRows <= 1 &&
         barWrap.chromeAligned &&
-        (vp.mode === 'desktop'
-          ? barWrap.burger === false && barWrap.wrap === 'nowrap'
-          : barWrap.burger === true),
+        barWrap.wrap === 'nowrap' &&
+        barWrap.innerWrap === 'nowrap' &&
+        barWrap.toolsWrap === 'nowrap' &&
+        barWrap.apply === applyOnBar(vp.width) &&
+        barWrap.tel === phoneOnBar(vp.width) &&
+        (vp.mode === 'desktop' ? barWrap.burger === false : barWrap.burger === true),
       detail: JSON.stringify({ ...barWrap, expectBarH, mode: vp.mode }),
     });
 
@@ -1472,8 +1489,9 @@ for (const vp of VIEWPORTS) {
     const applyHref = await page.locator('a.site-header__apply[href="/apply"]').first().getAttribute('href');
     log({ ...tag, check: 'apply-href', ok: applyHref === '/apply' });
     const applyCount = await page.locator('.site-header [data-button-040][href="/apply"]').count();
-    const applySel =
-      vp.mode === 'desktop' ? '.site-header__apply--bar' : '.site-header__cta--menu [data-button-040]';
+    const applySel = applyOnBar(vp.width)
+      ? '.site-header__apply--bar'
+      : '.site-header__cta--menu [data-button-040]';
     const apply040 = await readButton040(page, applySel);
     const applyExpected = theme.dark ? APPLY_LIGHT : APPLY_DARK;
     log({
@@ -1488,7 +1506,7 @@ for (const vp of VIEWPORTS) {
       ok: button040Matches(apply040, applyExpected),
       detail: JSON.stringify({ dark: theme.dark, apply040, expected: applyExpected }),
     });
-    if (vp.mode === 'desktop') {
+    if (applyOnBar(vp.width)) {
       log({
         ...tag,
         check: 'apply-040-fits-bar',
@@ -1501,18 +1519,29 @@ for (const vp of VIEWPORTS) {
       });
     }
     const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const compactApply = applyCompact(vp.width);
     log({
       ...tag,
       check: 'apply-040-larger',
-      ok:
-        apply040 != null &&
-        apply040.fontSize >= 16 &&
-        sizedH >= 44 &&
-        apply040.padX != null &&
-        apply040.padX >= 16 &&
-        apply040.icon != null &&
-        Math.abs(apply040.icon - apply040.fontSize) <= 1.5,
+      ok: compactApply
+        ? apply040 != null &&
+          apply040.fontSize >= 13.5 &&
+          apply040.fontSize <= 15 &&
+          sizedH >= 32 &&
+          sizedH <= 40 &&
+          apply040.padX != null &&
+          apply040.padX >= 10 &&
+          apply040.icon != null &&
+          Math.abs(apply040.icon - apply040.fontSize) <= 1.5
+        : apply040 != null &&
+          apply040.fontSize >= 16 &&
+          sizedH >= 44 &&
+          apply040.padX != null &&
+          apply040.padX >= 16 &&
+          apply040.icon != null &&
+          Math.abs(apply040.icon - apply040.fontSize) <= 1.5,
       detail: JSON.stringify({
+        compact: compactApply,
         fontSize: apply040?.fontSize,
         height: apply040?.height,
         computedH: apply040?.computedH,
@@ -1520,11 +1549,17 @@ for (const vp of VIEWPORTS) {
         icon: apply040?.icon,
       }),
     });
-    if (vp.mode === 'desktop') {
+    if (phoneOnBar(vp.width) && applyOnBar(vp.width)) {
       const telApply = await page.evaluate(() => {
         const tel = document.querySelector('.site-header__tel--bar');
         const apply = document.querySelector('.site-header__apply--bar');
         if (!tel || !apply) return null;
+        const vis = (el) => {
+          const cs = getComputedStyle(el);
+          const r = el.getBoundingClientRect();
+          return cs.display !== 'none' && r.width > 1;
+        };
+        if (!vis(tel) || !vis(apply)) return null;
         const gap = apply.getBoundingClientRect().left - tel.getBoundingClientRect().right;
         const em = parseFloat(getComputedStyle(apply).fontSize);
         return { gap: Math.round(gap * 10) / 10, em, min: Math.round(0.7 * em * 10) / 10 };
@@ -2578,38 +2613,74 @@ for (const vp of VIEWPORTS) {
 }
 
 {
-  const context = await browser.newContext({ viewport: { width: 768, height: 900 } });
+  const context = await browser.newContext({ viewport: { width: 320, height: 900 } });
   const page = await context.newPage();
   await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
   const heights = [];
+  const tabletHeights = [];
   const widths = [];
-  for (let width = 768; width <= 1440; width += 20) widths.push(width);
-  if (!widths.includes(1440)) widths.push(1440);
+  for (let width = 320; width <= 1440; width += 16) widths.push(width);
+  for (const extra of [390, 528, 607, 608, 768, 799, 800, 1024, 1280, 1439, 1440]) {
+    if (!widths.includes(extra)) widths.push(extra);
+  }
+  widths.sort((a, b) => a - b);
   for (const width of widths) {
     await page.setViewportSize({ width, height: 900 });
     await page.waitForTimeout(40);
     const wrap = await readBarWrap(page);
     heights.push(wrap.barH);
-    const desktop = width >= 1440;
+    if (width >= 768) tabletHeights.push(wrap.barH);
+    const expectBarH = width < 768 ? 102 : 108;
+    const overlap = await page.evaluate(() => {
+      const logo = document.querySelector('.site-header__logo')?.getBoundingClientRect();
+      const tools = document.querySelector('.site-header__tools')?.getBoundingClientRect();
+      if (!logo || !tools) return true;
+      return logo.right > tools.left + 1;
+    });
+    const apply040 = applyOnBar(width) ? await readButton040(page, '.site-header__apply--bar') : null;
+    const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const compactApply = applyCompact(width);
+    const applySizeOk = !applyOnBar(width)
+      ? true
+      : compactApply
+        ? apply040 != null &&
+          apply040.fontSize >= 13.5 &&
+          apply040.fontSize <= 15 &&
+          sizedH >= 32 &&
+          sizedH <= 40
+        : apply040 != null && apply040.fontSize >= 16 && sizedH >= 44;
     log({
       vp: String(width),
       page: 'home',
       check: 'nav-width-step',
       ok:
-        wrap.barH === 108 &&
+        wrap.barH === expectBarH &&
         wrap.itemRows <= 1 &&
         wrap.chromeAligned &&
         wrap.wrap === 'nowrap' &&
-        (desktop ? wrap.burger === false && wrap.apply === true && wrap.tel === true : wrap.burger === true),
-      detail: JSON.stringify(wrap),
+        wrap.innerWrap === 'nowrap' &&
+        wrap.toolsWrap === 'nowrap' &&
+        wrap.apply === applyOnBar(width) &&
+        wrap.tel === phoneOnBar(width) &&
+        wrap.burger === width < NAV_DESKTOP_MIN &&
+        overlap === false &&
+        applySizeOk,
+      detail: JSON.stringify({
+        ...wrap,
+        expectBarH,
+        overlap,
+        compact: compactApply,
+        fontSize: apply040?.fontSize,
+        height: sizedH,
+      }),
     });
   }
   log({
     vp: '768-1440',
     page: 'home',
     check: 'nav-bar-height-constant',
-    ok: heights.length > 0 && heights.every((h) => h === 108),
-    detail: JSON.stringify({ heights: [...new Set(heights)] }),
+    ok: tabletHeights.length > 0 && tabletHeights.every((h) => h === 108),
+    detail: JSON.stringify({ heights: [...new Set(tabletHeights)] }),
   });
   await context.close();
 }

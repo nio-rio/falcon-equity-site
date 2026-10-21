@@ -71,7 +71,7 @@ Falcon keeps the 5px blur and `.32` alpha; the overlay tint base is Martinique D
 
 ## Mobile (`max-width: 89.9375em`)
 
-Toggle **2.125 × 1.5rem**. Hamburger and X stack in that box; only lines show when `aria-expanded=false`, only the cross when `true`. Inner is absolute, full width, `top: 100%`, bg `--c-background`, `max-height: calc(100dvh - header)`, scroll. Items get a 1px top rule (BX `#d5d8df`; Falcon light uses Lilac Dark `#e5e4f2`) and 16px vertical padding. Chevron **16px**.
+Toggle **2.125 × 1.5rem**. Hamburger and X stack in that box; only lines show when `aria-expanded=false`, only the cross when `true`. Inner is absolute, full width, `top: 100%`, bg `--c-background`, `max-height: calc(100dvh - header)`, scroll. Items get a 1px top rule (BX `#d5d8df`; Falcon light uses Lilac Dark `#e5e4f2`) and 16px vertical padding. Chevron **16px**. Ling CTA rule: Apply stays on the bar next to the hamburger from **33em**; compact **33–38em**; phone joins from **50em**; Apply moves into the drawer only below **33em**. The header inner ignores the 23rem content cap below 48em so that row can fit. Never wrap.
 
 ## Falcon mapping
 

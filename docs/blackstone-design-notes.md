@@ -104,6 +104,7 @@ On a 4-column mobile grid, spans ≥4 fill the row and `bx-lg-start-*` is ignore
 12. **FAQ accordion.** Full-width rows, thin rules. Closed: muted title + outline circle chevron. Open: ink title + filled black circle (chevron rotates). Height animates with `grid-template-rows`.
 13. **Credit strategies accordion.** Same rows as FAQ, but **black** rules and a **plain chevron** when closed. Open state matches FAQ (filled black circle). Panel copy is ~50% width, then square bullets, amount/term line, and two circle-arrow links.
 14. **Disclaimers stay off CTAs.** Nothing near a call to action should give the user second thoughts. If a disclaimer is ever legally needed, it belongs in the footer, never under a CTA (including Why choose us, the Apply tape, and `.site-cta`).
+15. **Nav Apply stays visible as long as it fits.** The header row is `nowrap`. Shrinking: phone leaves the bar first (**below 50em / 800px**, stays in the drawer), then Apply goes compact (**33–38em / 528–607px**), then Apply moves into the hamburger (**below 33em / 528px**). Never hide Apply before the phone. Never wrap the bar.
 
 ## Components mapped
 
