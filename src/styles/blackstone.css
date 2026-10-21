@@ -1085,6 +1085,26 @@ html.has-scroll-lock .site-header {
   overflow-y: auto;
 }
 
+/* Short windows (~500% zoom on an 800px-tall display) only have a sliver
+   of drawer. Pull the first link into view and keep the list scrollable. */
+@media (max-height: 12.5em) {
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2 {
+    padding-bottom: var(--bx-space-16);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2-item {
+    padding-top: var(--bx-space-8);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2-item + .primary-nav__list-lvl-2-item {
+    margin-top: var(--bx-space-12);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-3 {
+    margin-top: var(--bx-space-8);
+  }
+}
+
 @media (min-width: 23.4375em) and (max-width: 47.99em) {
   .primary-nav__inner.is-drilled .primary-nav__lvl-2-wrap {
     padding-inline: var(--bx-margin);

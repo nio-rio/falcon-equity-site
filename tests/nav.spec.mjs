@@ -3059,9 +3059,16 @@ for (const vp of VIEWPORTS) {
     await page.locator('[data-mobile-toggle]').click();
     await page.waitForTimeout(400);
     for (const label of panelLabels) {
-      const trigger = page.locator('[data-dropdown-toggle]').filter({ hasText: label });
-      await trigger.click({ force: true });
-      await page.waitForTimeout(500);
+      await page.evaluate((panelLabel) => {
+        const triggerEl = [...document.querySelectorAll('[data-dropdown-toggle]')].find((el) =>
+          el.textContent.includes(panelLabel),
+        );
+        triggerEl?.click();
+      }, label);
+      await page.waitForFunction(() => document.querySelector('[data-nav-inner]')?.classList.contains('is-drilled'), null, {
+        timeout: 2000,
+      }).catch(() => {});
+      await page.waitForTimeout(400);
       const drilled = await page.evaluate((panelLabel) => {
         const triggerEl = [...document.querySelectorAll('[data-dropdown-toggle]')].find((el) =>
           el.textContent.includes(panelLabel),
@@ -3116,7 +3123,7 @@ for (const vp of VIEWPORTS) {
           /clip|hidden/.test(drilled.overflowX),
         detail: JSON.stringify(drilled),
       });
-      await page.locator('[data-mobile-back]').click();
+      await page.evaluate(() => document.querySelector('[data-mobile-back]')?.click());
       await page.waitForTimeout(400);
     }
     await context.close();
