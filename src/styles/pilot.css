@@ -593,6 +593,15 @@
   min-width: 0;
 }
 
+/* Bottom-align so a wrapping side label cannot drop its number/rule
+   below the other column. Label stays 12px above its number. */
+.pilot-stats-feat,
+.pilot-stats-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .pilot-stats-feat-label,
 .pilot-stats-feat-value,
 .pilot-stats-side-label,
@@ -660,6 +669,7 @@
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: 16px;
+    align-items: end;
     grid-template-areas:
       'feat feat feat feat feat feat feat feat'
       's1 s1 s1 . . s2 s2 s2';
@@ -701,7 +711,7 @@
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
     grid-template-areas: 'feat feat feat feat feat feat feat feat . s1 s1 s1 . s2 s2 s2';
-    align-items: start;
+    align-items: end;
   }
 
   .pilot-stats-feat-value {
