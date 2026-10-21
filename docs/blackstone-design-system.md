@@ -430,5 +430,5 @@ Blackstone typically uses **hero + 1–3** stills. Do not add a picture to every
 - Sitemap entries include `lastmod` (blog `updated`/`date`; other URLs use the build time).
 - `/llms.txt` lists products, industries, NAP, and published figures only.
 - Every indexable page emits `WebPage` / `AboutPage` / `ContactPage` JSON-LD linked to the Organization `@id`. No Review markup, no founder on the Organization, no opening hours.
-- `robots.txt` names GPTBot, PerplexityBot, ClaudeBot, Google-Extended, and other AI crawlers as allowed.
+- `robots.txt` names GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended, Bingbot, CCBot, meta-webindexer, Applebot-Extended, and other AI crawlers as allowed.
 - Primary public number is `+1 (917) 245-5277` (JSON-LD, contact, apply, header).
