@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { satteri } from '@astrojs/markdown-satteri';
 import { tableDataLabelsPlugin } from './src/lib/table-labels.js';
 
-const livePaths = new Set(['/', '/apply']);
+const livePaths = new Set(['/', '/apply', '/services/merchant-cash-advance']);
 
 const serviceSlugs = [
   'collateral-asset-loans',
@@ -59,7 +59,10 @@ const retired = {
   '/resources/business-loan-calculator': '/apply',
 };
 
-for (const slug of serviceSlugs) retired[`/services/${slug}`] = '/';
+for (const slug of serviceSlugs) {
+  if (slug === 'merchant-cash-advance') continue;
+  retired[`/services/${slug}`] = '/';
+}
 for (const slug of industrySlugs) retired[`/industries/${slug}`] = '/';
 for (const slug of blogSlugs) retired[`/blog/${slug}`] = '/';
 for (const slug of blogCategories) retired[`/blog/category/${slug}`] = '/';

@@ -1,0 +1,35 @@
+---
+export type GlanceCell = {
+  value: string;
+  label: string;
+};
+
+interface Props {
+  cells: readonly GlanceCell[];
+  labelledBy?: string;
+  variant?: 'figures' | 'requirements';
+}
+
+const { cells, labelledBy, variant = 'figures' } = Astro.props;
+const shown = cells.slice(0, 4);
+---
+
+<div
+  class:list={['pilot-glance', variant === 'requirements' && 'pilot-glance--copy']}
+  role="group"
+  aria-labelledby={labelledBy}
+  aria-label={labelledBy ? undefined : 'At a glance'}
+>
+  <div class="container-site">
+    <ul class="pilot-glance-grid">
+      {
+        shown.map((cell) => (
+          <li class="pilot-glance-cell">
+            <p class="pilot-glance-value">{cell.value}</p>
+            <p class="pilot-glance-label">{cell.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

@@ -3028,3 +3028,122 @@
     margin-top: 0;
   }
 }
+
+/* MCA v2 — dark split hero, statement, term tiles, two-list fit. Tokens only. */
+.pilot-page-hero--split {
+  background: var(--bx-black);
+  color: #fff;
+  padding-block: var(--bx-section);
+}
+
+.pilot-page-hero--split h1 {
+  color: #fff;
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-page-hero--split .pilot-page-hero-lead {
+  margin-top: var(--bx-space-24);
+  color: var(--bx-on-dark);
+}
+
+.pilot-page-hero--split .pilot-page-hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bx-space-24);
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-page-hero-phone {
+  margin: 0;
+  color: var(--bx-on-dark);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-page-hero--split .link {
+  color: inherit;
+}
+
+.pilot-page-hero--split .pilot-page-hero-media {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-answer-lead--statement {
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  color: var(--color-ink);
+}
+
+.pilot-plain-list {
+  margin: var(--bx-space-32) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-plain-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-term-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-24);
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-term-grid h3 {
+  margin: 0;
+}
+
+.pilot-term-grid p {
+  margin-top: var(--bx-space-16);
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-fit-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-40);
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-fit-split h3 {
+  margin: 0;
+}
+
+.pilot-fit-split .pilot-plain-list {
+  margin-top: var(--bx-space-24);
+}
+
+@media (min-width: 768px) {
+  .pilot-term-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-fit-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-page-hero--split .bx-grid {
+    align-items: center;
+  }
+
+  .pilot-page-hero--split .pilot-page-hero-media {
+    margin-top: 0;
+  }
+
+  .pilot-page-hero--split .pilot-page-hero-cta {
+    margin-top: var(--bx-space-40);
+  }
+
+  .pilot-term-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

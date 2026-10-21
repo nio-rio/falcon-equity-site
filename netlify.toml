@@ -67,7 +67,32 @@
   status = 301
 
 [[redirects]]
-  from = "/services/*"
+  from = "/services/collateral-asset-loans"
+  to = "/#services"
+  status = 301
+
+[[redirects]]
+  from = "/services/business-line-of-credit"
+  to = "/#services"
+  status = 301
+
+[[redirects]]
+  from = "/services/business-term-loan"
+  to = "/#services"
+  status = 301
+
+[[redirects]]
+  from = "/services/invoice-factoring-tool"
+  to = "/#services"
+  status = 301
+
+[[redirects]]
+  from = "/services/consolidation-of-positions"
+  to = "/#services"
+  status = 301
+
+[[redirects]]
+  from = "/services/decentralized-business-financing"
   to = "/#services"
   status = 301
 

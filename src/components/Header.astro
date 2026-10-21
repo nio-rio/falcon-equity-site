@@ -42,7 +42,13 @@ const nav: NavItem[] = [
       {
         heading: 'Services',
         twoCol: true,
-        links: [{ label: 'Overview', href: '/#services' }, ...SERVICES.map((s) => ({ label: s.name, href: '/#services' }))],
+        links: [
+          { label: 'Overview', href: '/#services' },
+          ...SERVICES.map((s) => ({
+            label: s.name,
+            href: s.slug === 'merchant-cash-advance' ? `/services/${s.slug}` : '/#services',
+          })),
+        ],
       },
     ],
     featured: false,

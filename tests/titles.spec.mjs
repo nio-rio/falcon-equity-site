@@ -36,4 +36,12 @@ if (h1Of('dist/apply.html') !== 'Apply') {
   throw new Error(`Apply <h1> was ${JSON.stringify(h1Of('dist/apply.html'))}`);
 }
 
-console.log(`${home}\n${applyTitle}`);
+const mcaTitle = titleOf('dist/services/merchant-cash-advance.html');
+if (mcaTitle !== 'Merchant cash advance up to $5,000,000 | Falcon Equity Group') {
+  throw new Error(`MCA <title> was ${JSON.stringify(mcaTitle)}`);
+}
+if (h1Of('dist/services/merchant-cash-advance.html') !== 'Merchant Cash Advance') {
+  throw new Error(`MCA <h1> was ${JSON.stringify(h1Of('dist/services/merchant-cash-advance.html'))}`);
+}
+
+console.log(`${home}\n${applyTitle}\n${mcaTitle}`);
