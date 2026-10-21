@@ -11,31 +11,27 @@ Apply: https://falconequity.ai/apply
 
 Published figures: $100M+ funding deployed; 15 years of experience; 300+ businesses helped; 24-48h average funding time; 98% approval for qualified applicants. Falcon clients save 30–50% on average on daily or weekly payments when consolidating stacked positions.
 
-## Products
+## Live pages
 
-- Merchant Cash Advance — https://falconequity.ai/services/merchant-cash-advance — $5,000 – $5,000,000; 3 – 18 months
-- Business Line of Credit — https://falconequity.ai/services/business-line-of-credit — $10,000 – $500,000; revolving
-- Business Term Loan — https://falconequity.ai/services/business-term-loan — $10,000 – $2,000,000; 6 – 36 months
-- Collateral & Asset Loans — https://falconequity.ai/services/collateral-asset-loans — $10,000 – $1,000,000; 12 – 60 months
-- Invoice Factoring — https://falconequity.ai/services/invoice-factoring-tool — $10,000 – $3,000,000; ongoing facility
-- Consolidation of Positions — https://falconequity.ai/services/consolidation-of-positions — $10,000 – $2,000,000; 6 – 36 months
-- Decentralized Business Financing — https://falconequity.ai/services/decentralized-business-financing — tailored; consultative
+- Home: https://falconequity.ai
+- Apply: https://falconequity.ai/apply
 
-Rates are quoted individually. Do not invent interest rates or factor rates.
+## Products (home #services)
 
-## Industries
+Figures copied word for word from the live `#services` spec. Do not invent rates.
 
-Retail, trucking and logistics, restaurants, real estate, healthcare, construction, e-commerce, auto repair, manufacturing, professional services, education, hospitality. Index: https://falconequity.ai/industries
+- Merchant Cash Advance — https://falconequity.ai/#services — $5,000 – $5,000,000; 3 – 18 months
+- Business Line of Credit — https://falconequity.ai/#services — $10,000 – $500,000; revolving
+- Business Term Loan — https://falconequity.ai/#services — $10,000 – $2,000,000; 6 – 36 months
+- Collateral & Asset Loans — https://falconequity.ai/#services — $10,000 – $1,000,000; 12 – 60 months
+- Invoice Factoring — https://falconequity.ai/#services — $10,000 – $3,000,000; ongoing facility
+- Consolidation of Positions — https://falconequity.ai/#services — $10,000 – $2,000,000; 6 – 36 months
+- Decentralized Business Financing — https://falconequity.ai/#services — tailored; consultative
 
-## Other pages
+Falcon charges a 0% agreement fee. No specific rate is published.
 
-- About: https://falconequity.ai/about
-- How it works: https://falconequity.ai/how-it-works
-- FAQ: https://falconequity.ai/faq
-- Blog: https://falconequity.ai/blog
-- Partners: https://falconequity.ai/partners
-- Contact: https://falconequity.ai/contact
-- Loan calculator: https://falconequity.ai/resources/loan-calculator
-- Credit repair & loan prep: https://falconequity.ai/resources/credit-repair-loan-prep
-- Privacy: https://falconequity.ai/privacy-policy
-- Terms: https://falconequity.ai/terms-conditions
+## Industries (home #industries-heading)
+
+Retail, trucking and logistics, restaurants, real estate, healthcare, construction, e-commerce, auto repair, manufacturing, professional services, education, hospitality.
+
+Falcon has no restricted-industry or restricted-state list.

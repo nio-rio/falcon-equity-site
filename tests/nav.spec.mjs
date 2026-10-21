@@ -50,7 +50,7 @@ const phoneOnBar = (width) => width >= NAV_PHONE_BAR_MIN;
 
 const PAGES = [
   { name: 'home', path: '/' },
-  { name: 'inner', path: '/about' },
+  { name: 'inner', path: '/apply' },
 ];
 
 const results = [];
@@ -941,7 +941,7 @@ for (const vp of VIEWPORTS) {
         const eyebrow = section?.querySelector('.pilot-why-eyebrow')?.textContent.replace(/\s+/g, ' ').trim() || '';
         const heading = section?.querySelector('#why-heading')?.textContent.trim() || '';
         const copy = section?.querySelector('.pilot-why-copy')?.textContent.replace(/\s+/g, ' ').trim() || '';
-        const how = section?.querySelector('a[href="/how-it-works"]');
+        const how = section?.querySelector('a[href="/#why-choose-us"]');
         const rows = [...(section?.querySelectorAll('.pilot-why-row') || [])].map((row) => ({
           title: row.querySelector('.pilot-why-row-title')?.textContent.trim() || '',
           body: row.querySelector('.pilot-why-row-body')?.textContent.trim() || '',
@@ -978,7 +978,7 @@ for (const vp of VIEWPORTS) {
           why.heading === 'Capital, without the runaround.' &&
           why.copy ===
             'No brokers in the middle and no hard pull just to see where you stand. Just a direct line to the people who fund you.' &&
-          why.howHref === '/how-it-works' &&
+          why.howHref === '/#why-choose-us' &&
           why.howLabel.includes('See how it works') &&
           why.rows.length === 3 &&
           why.rows[0].title === 'Easy process' &&
@@ -2058,7 +2058,7 @@ for (const vp of VIEWPORTS) {
       return {
         titles: cols.map((col) => col.querySelector('.site-footer__col-title')?.textContent.trim() || ''),
         x: styleOf(git?.querySelector('a[href="https://x.com/FalconEquitynyc"]')),
-        contact: styleOf(git?.querySelector('a[href="/contact"]')),
+        contact: styleOf(git?.querySelector('a[href="/#main"]')),
       };
     });
     const xMatchesContact =
@@ -3160,54 +3160,10 @@ const sitemapPaths = async () => {
     console.log(`WARN sitemap crawl: ${err}`);
   }
   paths.add('/');
-  paths.add('/about');
+  paths.add('/apply');
   paths.add('/404');
   return [...paths];
 };
-
-{
-  const heroVps = [
-    { name: '390', width: 390, height: 844 },
-    { name: '768', width: 768, height: 1024 },
-    { name: '1280', width: 1280, height: 800 },
-    { name: '1440', width: 1440, height: 900 },
-  ];
-  for (const vp of heroVps) {
-    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
-    const page = await context.newPage();
-    await page.goto(`${BASE}/services/merchant-cash-advance`, { waitUntil: 'domcontentloaded' });
-    const gaps = await page.evaluate(() => {
-      const boxGap = (a, b) => {
-        if (!a || !b) return null;
-        return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
-      };
-      const featLabel = document.querySelector('.stats-bx__label--featured');
-      const featValue = document.querySelector('.stats-bx__value--featured');
-      const sideLabel = document.querySelector('.stats-bx__field .stats-bx__label');
-      const sideValue = document.querySelector('.stats-bx__field .stats-bx__value');
-      return {
-        featMt: featValue ? Math.round(parseFloat(getComputedStyle(featValue).marginTop)) : null,
-        featBox: boxGap(featLabel, featValue),
-        sideMb: sideLabel ? Math.round(parseFloat(getComputedStyle(sideLabel).marginBottom)) : null,
-        sideBox: boxGap(sideLabel, sideValue),
-        sidePb: sideValue ? Math.round(parseFloat(getComputedStyle(sideValue).paddingBottom)) : null,
-      };
-    });
-    log({
-      vp: vp.name,
-      page: 'mca',
-      check: 'hero-stats-label-number-gap',
-      ok:
-        gaps.featMt === 12 &&
-        Math.abs((gaps.featBox ?? -1) - 12) <= 1 &&
-        gaps.sideMb === 12 &&
-        Math.abs((gaps.sideBox ?? -1) - 12) <= 1 &&
-        gaps.sidePb === 16,
-      detail: JSON.stringify(gaps),
-    });
-    await context.close();
-  }
-}
 
 {
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });

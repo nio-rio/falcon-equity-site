@@ -52,40 +52,40 @@ export const PRIMARY_PHONE = SITE.phones.direct;
 export type NavLink = { label: string; href: string; description?: string };
 
 export const RESOURCE_LINKS: NavLink[] = [
-  { label: 'Blog', href: '/blog', description: 'Practical funding guides' },
-  { label: 'Loan Calculator', href: '/resources/loan-calculator', description: 'Estimate payments in seconds' },
+  { label: 'Blog', href: '/#insights-heading', description: 'Practical funding guides' },
+  { label: 'Loan Calculator', href: '/apply', description: 'Estimate payments in seconds' },
   {
     label: 'Credit Repair & Loan Prep',
-    href: '/resources/credit-repair-loan-prep',
+    href: '/apply',
     description: 'Get your file loan-ready',
   },
-  { label: 'FAQ', href: '/faq', description: 'Straight answers' },
+  { label: 'FAQ', href: '/#why-choose-us', description: 'Straight answers' },
 ];
 
 export const FIRM_LINKS: NavLink[] = [
-  { label: 'About', href: '/about' },
-  { label: 'Partners', href: '/partners' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: '/#main' },
+  { label: 'Partners', href: '/#main' },
+  { label: 'Contact', href: '/#main' },
 ];
 
 export const COMPANY_LINKS: NavLink[] = [
-  { label: 'About', href: '/about' },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Partners', href: '/partners' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: '/#main' },
+  { label: 'Industries', href: '/#industries-heading' },
+  { label: 'Partners', href: '/#main' },
+  { label: 'Contact', href: '/#main' },
   { label: 'Apply', href: '/apply' },
 ];
 
 export const LEGAL_LINKS: NavLink[] = [
-  { label: 'Privacy Policy', href: '/privacy-policy' },
-  { label: 'Terms & Conditions', href: '/terms-conditions' },
+  { label: 'Privacy Policy', href: '/#main' },
+  { label: 'Terms & Conditions', href: '/#main' },
 ];
 
-/** Footer Quick Links — real pages only. */
+/** Footer Quick Links — home anchors plus the live apply page. */
 export const FOOTER_QUICK_LINKS: NavLink[] = [
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/#main' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Industries', href: '/#industries-heading' },
+  { label: 'Blog', href: '/#insights-heading' },
   { label: 'Apply', href: '/apply' },
 ];

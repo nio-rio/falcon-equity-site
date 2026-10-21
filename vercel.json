@@ -6,10 +6,22 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/resources/business-loan-calculator",
-      "destination": "/resources/loan-calculator",
-      "permanent": true
-    }
+    { "source": "/about", "destination": "/", "permanent": true },
+    { "source": "/contact", "destination": "/", "permanent": true },
+    { "source": "/partners", "destination": "/", "permanent": true },
+    { "source": "/privacy-policy", "destination": "/", "permanent": true },
+    { "source": "/terms-conditions", "destination": "/", "permanent": true },
+    { "source": "/how-it-works", "destination": "/#why-choose-us", "permanent": true },
+    { "source": "/faq", "destination": "/#why-choose-us", "permanent": true },
+    { "source": "/services", "destination": "/#services", "permanent": true },
+    { "source": "/services/:path*", "destination": "/#services", "permanent": true },
+    { "source": "/industries", "destination": "/#industries-heading", "permanent": true },
+    { "source": "/industries/:path*", "destination": "/#industries-heading", "permanent": true },
+    { "source": "/blog", "destination": "/#insights-heading", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/#insights-heading", "permanent": true },
+    { "source": "/resources/loan-calculator", "destination": "/apply", "permanent": true },
+    { "source": "/resources/credit-repair-loan-prep", "destination": "/apply", "permanent": true },
+    { "source": "/resources/business-loan-calculator", "destination": "/apply", "permanent": true },
+    { "source": "/resources/:path*", "destination": "/apply", "permanent": true }
   ]
 }

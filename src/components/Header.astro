@@ -5,7 +5,7 @@ import CircleArrow from './CircleArrow.astro';
 import Button040 from './Button040.astro';
 import { SERVICES } from '@/data/services';
 import { INDUSTRIES } from '@/data/industries';
-import { FIRM_LINKS, PRIMARY_PHONE, RESOURCE_LINKS } from '@/data/site';
+import { PRIMARY_PHONE } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 import applyStill from '@/assets/services/merchant-cash-advance.jpg';
 
@@ -42,7 +42,7 @@ const nav: NavItem[] = [
       {
         heading: 'Services',
         twoCol: true,
-        links: [{ label: 'Overview', href: '/services' }, ...SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))],
+        links: [{ label: 'Overview', href: '/#services' }, ...SERVICES.map((s) => ({ label: s.name, href: '/#services' }))],
       },
     ],
     featured: false,
@@ -56,8 +56,8 @@ const nav: NavItem[] = [
         heading: 'Industries',
         twoCol: true,
         links: [
-          { label: 'Overview', href: '/industries' },
-          ...INDUSTRIES.map((i) => ({ label: i.name, href: `/industries/${i.slug}` })),
+          { label: 'Overview', href: '/#industries-heading' },
+          ...INDUSTRIES.map((i) => ({ label: i.name, href: '/#industries-heading' })),
         ],
       },
     ],
@@ -66,39 +66,39 @@ const nav: NavItem[] = [
   {
     id: 'how-it-works',
     label: 'How It Works',
-    active: isActive('/how-it-works'),
-    href: '/how-it-works',
+    active: false,
+    href: '/#why-choose-us',
   },
   {
     id: 'resources',
     label: 'Resources',
-    active: RESOURCE_LINKS.some((l) => isActive(l.href)) || path.startsWith('/resources'),
+    active: false,
     columns: [
-      { heading: 'Blog', links: [{ label: 'View all', href: '/blog' }] },
+      { heading: 'Blog', links: [{ label: 'View all', href: '/#insights-heading' }] },
       {
         heading: 'Tools',
         links: [
-          { label: 'Loan Calculator', href: '/resources/loan-calculator' },
-          { label: 'Credit Repair & Loan Prep', href: '/resources/credit-repair-loan-prep' },
+          { label: 'Loan Calculator', href: '/apply' },
+          { label: 'Credit Repair & Loan Prep', href: '/apply' },
         ],
       },
-      { heading: 'Help', links: [{ label: 'FAQ', href: '/faq' }] },
+      { heading: 'Help', links: [{ label: 'FAQ', href: '/#why-choose-us' }] },
     ] satisfies NavColumn[],
     featured: true,
   },
   {
     id: 'firm',
     label: 'Our Firm',
-    active: FIRM_LINKS.some((l) => isActive(l.href)),
+    active: false,
     columns: [
       {
         heading: 'Our Firm',
         links: [
-          { label: 'About', href: '/about' },
-          { label: 'Partners', href: '/partners' },
+          { label: 'About', href: '/#main' },
+          { label: 'Partners', href: '/#main' },
         ],
       },
-      { heading: 'Contact', links: [{ label: 'Contact', href: '/contact' }] },
+      { heading: 'Contact', links: [{ label: 'Contact', href: '/#main' }] },
     ] satisfies NavColumn[],
     featured: false,
   },
