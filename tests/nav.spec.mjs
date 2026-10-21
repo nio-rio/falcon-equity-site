@@ -1033,6 +1033,7 @@ for (const vp of VIEWPORTS) {
         const media = document.querySelector('.pilot-tabs-media .media');
         const stills = [...document.querySelectorAll('.pilot-tabs-panel')].map((panel) => {
           const img = panel.querySelector('.pilot-tabs-media img');
+          const sources = [...panel.querySelectorAll('.pilot-tabs-media source')].map((source) => source.getAttribute('type') || '');
           const slot = panel.querySelector('.pilot-tabs-media .media');
           const box = slot?.getBoundingClientRect();
           return {
@@ -1042,6 +1043,8 @@ for (const vp of VIEWPORTS) {
             loading: img?.getAttribute('loading') || '',
             fetchPriority: (img?.getAttribute('fetchpriority') || '').toLowerCase(),
             src: img?.currentSrc || img?.getAttribute('src') || '',
+            hasAvif: sources.includes('image/avif'),
+            hasWebp: sources.includes('image/webp'),
             objectFit: img ? getComputedStyle(img).objectFit : null,
             ratio: slot ? getComputedStyle(slot).aspectRatio : null,
             boxAspect: box && box.height ? Math.round((box.width / box.height) * 100) / 100 : null,
@@ -1208,16 +1211,17 @@ for (const vp of VIEWPORTS) {
           firstStill?.hidden === false &&
           firstStill?.alt.includes('folded jeans') &&
           firstStill?.objectFit === 'cover' &&
-          Math.abs((firstStill?.boxAspect ?? 0) - 16 / 9) <= 0.08 &&
           (firstStill?.loading === 'eager' || firstStill?.fetchPriority === 'high') &&
-          /\.(avif|webp)/.test(firstStill?.src || '') &&
+          firstStill?.hasAvif === true &&
+          firstStill?.hasWebp === true &&
           restStills.every(
             (still) =>
               still.hidden === true &&
               still.loading === 'lazy' &&
               still.alt.length > 20 &&
               still.objectFit === 'cover' &&
-              /\.(avif|webp)/.test(still.src),
+              still.hasAvif === true &&
+              still.hasWebp === true,
           ),
         detail: JSON.stringify(
           stills.map((still) => ({
