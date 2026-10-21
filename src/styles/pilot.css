@@ -1,6 +1,6 @@
 /* Pilot design layer — home + Merchant Cash Advance only.
-   Classes are prefixed `pilot-` so other pages keep the existing Blackstone pass.
-   Tokens and `.container-site` / `.bx-grid` stay the site grid (Blackstone content__inner).
+   Canonical spec: /DESIGN-SYSTEM.md. Classes are prefixed `pilot-`.
+   Tokens and `.container-site` / `.bx-grid` stay the site grid.
    Spacing is the priority: section 64/88/120, eyebrow→H2 40, H2→body 48, what-we-do 80/56. */
 
 /* Home hero — Ling-approved Blackstone promo-header + carousel measures.

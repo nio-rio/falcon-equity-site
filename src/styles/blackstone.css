@@ -1,5 +1,5 @@
-/* Blackstone / BREIT motion, grid, and chrome. Loaded after global.css.
-   Tokens live in tokens.css.
+/* Site chrome (header, footer, grid, SiteCta). Loaded after global.css.
+   Canonical spec: /DESIGN-SYSTEM.md. Tokens live in tokens.css.
    Leave .btn-outline-dark in global.css. */
 @import './button-040.css';
 

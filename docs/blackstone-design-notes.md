@@ -1,6 +1,6 @@
 # Blackstone / BREIT design notes
 
-Full system: `docs/blackstone-design-system.md`.
+Canonical Falcon system: [`/DESIGN-SYSTEM.md`](../DESIGN-SYSTEM.md). Mapping notes: `docs/blackstone-design-system.md`.
 
 Studied 19 Oct 2026 from live pages (`breit.com`, `breit.com/performance/`, `blackstone.com/insights/`, `blackstone.com/the-firm/`, `blackstone.com/our-businesses/credit-and-insurance-bxci/`, `blackstone.com/#slide-1-2`) plus Ling’s attached frames, including the Private Wealth column overlay. Falcon keeps At Gambit + Archivo and the existing purple/tint tokens. **Blackstone wins** on spacing, dividers, hovers, eyebrows, cards, link motion, and the site-wide grid. Hard exceptions: no fabricated people, quotes, or numbers.
 

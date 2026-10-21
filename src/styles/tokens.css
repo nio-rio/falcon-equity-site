@@ -1,8 +1,11 @@
-/* Single source for Blackstone-v2 tokens + Falcon semantic aliases.
-   Values from blackstone-v2 CSS, Wayback 20260925104209 /_static bundle. */
+/* Falcon design tokens. Canonical docs: /DESIGN-SYSTEM.md
+   Hex and alpha values are the Ling-approved home palette. `--bx-*` names
+   remain so existing CSS stays pixel-identical. New pages must use the
+   canonical `--color-*` / `--type-*` aliases (or the Tailwind `@theme`
+   utilities they expose). Do not add reds, greys-as-hex, or new solids. */
 
 :root {
-  /* Martinique + Lilac scale (Ling). Listed greys become these solids. */
+  /* Martinique + Lilac scale (Ling). The only solids on the site. */
   --bx-martinique: #332a4e;
   --bx-martinique-dark: #28213e;
   --bx-martinique-darker: #14101f;
@@ -18,7 +21,22 @@
   --bx-variant-black: var(--bx-martinique-dark);
   --bx-highlight-dark: var(--bx-martinique-darker);
 
-  /* Neutrals: Darkest over light, white over dark. Alpha matches original grey Y. */
+  /* Canonical Falcon names — aliases, not new colors. */
+  --color-white: var(--bx-white);
+  --color-martinique: var(--bx-martinique);
+  --color-martinique-dark: var(--bx-martinique-dark);
+  --color-martinique-darker: var(--bx-martinique-darker);
+  --color-martinique-darkest: var(--bx-martinique-darkest);
+  --color-martinique-light: var(--bx-martinique-light);
+  --color-martinique-lighter: var(--bx-martinique-lighter);
+  --color-lilac: var(--bx-lilac);
+  --color-lilac-light: var(--bx-lilac-light);
+  --color-lilac-dark: var(--bx-lilac-dark);
+  --color-lilac-darker: var(--bx-lilac-darker);
+  /* Errors use Martinique, never red. */
+  --color-error: var(--bx-martinique);
+
+  /* Neutrals: Darkest over light, white over dark. Named alpha tokens only. */
   --ink-a72: rgb(15 12 23 / 0.72);
   --ink-a65: rgb(15 12 23 / 0.65);
   --ink-a63: rgb(15 12 23 / 0.63);
@@ -33,6 +51,20 @@
   --white-a34: rgb(255 255 255 / 0.34);
   --white-a16: rgb(255 255 255 / 0.16);
   --white-a12: rgb(255 255 255 / 0.12);
+  --color-ink-a72: var(--ink-a72);
+  --color-ink-a65: var(--ink-a65);
+  --color-ink-a63: var(--ink-a63);
+  --color-ink-a36: var(--ink-a36);
+  --color-ink-a16: var(--ink-a16);
+  --color-ink-a9: var(--ink-a9);
+  --color-ink-a4: var(--ink-a4);
+  --color-ink-a3: var(--ink-a3);
+  --color-white-a88: var(--white-a88);
+  --color-white-a82: var(--white-a82);
+  --color-white-a50: var(--white-a50);
+  --color-white-a34: var(--white-a34);
+  --color-white-a16: var(--white-a16);
+  --color-white-a12: var(--white-a12);
 
   --bx-slate-1: var(--bx-martinique-light);
   --bx-slate-2: var(--bx-lilac-darker);
@@ -69,6 +101,44 @@
   --bx-font-sans: 'Archivo', 'Archivo Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--bx-font-display);
   --font-sans: var(--bx-font-sans);
+  --font-heading: var(--bx-font-display);
+  --font-body: var(--bx-font-sans);
+
+  /* Type roles from the approved home / global base. Home hero overrides
+     these locally (see DESIGN-SYSTEM.md). Sizes step in the media queries. */
+  --type-h1-size: clamp(2.75rem, 8.83vw + 0.6rem, 6.25rem);
+  --type-h1-lh: 1;
+  --type-h1-ls: normal;
+  --type-h1-weight: 300;
+  --type-h2-size: 2rem;
+  --type-h2-lh: 1.25;
+  --type-h2-ls: normal;
+  --type-h2-weight: 300;
+  --type-h3-size: var(--bx-fs-24);
+  --type-h3-lh: var(--bx-lh-title);
+  --type-h3-ls: normal;
+  --type-h3-weight: 400;
+  --type-h4-size: var(--bx-fs-20);
+  --type-h4-lh: 1.2;
+  --type-h4-ls: normal;
+  --type-h4-weight: 500;
+  --type-h5-size: var(--bx-fs-16);
+  --type-h5-lh: 1.4;
+  --type-h5-weight: 500;
+  --type-h6-size: var(--bx-fs-14);
+  --type-h6-lh: 1.4;
+  --type-h6-weight: 500;
+  --type-body-size: 1rem;
+  --type-body-lh: 1.5;
+  --type-body-weight: 400;
+  --type-lead-size: 1rem;
+  --type-lead-lh: 1.6;
+  --type-eyebrow-size: 0.8125rem;
+  --type-eyebrow-lh: 1.5;
+  --type-eyebrow-ls: 0.08em;
+  --type-eyebrow-weight: 400;
+  --type-caption-size: 0.875rem;
+  --type-caption-lh: 1.45;
 
   --bx-fs-12: 0.75rem;
   --bx-fs-14: 0.875rem;
@@ -156,6 +226,7 @@
     --bx-header: 6.75rem;
     --bx-header-fixed: 6.75rem;
     --pilot-heading-to-items: var(--bx-space-48);
+    --type-h2-size: 2.5rem;
   }
 }
 
@@ -189,6 +260,7 @@
     --pilot-heading-to-items: var(--bx-space-104);
     --pilot-section-y: 10rem;
     --pilot-section-y-stack: 3.5rem;
+    --type-h2-size: 3rem;
   }
 }
 

@@ -1,6 +1,8 @@
 # Design tokens (Goldman Sachs, measured 19 Oct 2026)
 
-Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Historical note: Falcon no longer uses `#5b21b6` button fills. Current buttons are ink/white (see `docs/blackstone-design-system.md`).
+> **Canonical Falcon system:** [`/DESIGN-SYSTEM.md`](../DESIGN-SYSTEM.md). This file is a historical Goldman measurement. Purple fills (`#5b21b6`, `#A072C5`) are retired. Current palette is white + Martinique / Lilac only.
+
+Computed styles from https://www.goldmansachs.com/ in headless Chrome at 1440, 1024, 768 and 390 CSS pixels. Historical note: Falcon no longer uses `#5b21b6` button fills. Current buttons are ink/white or button-040 Lilac/Martinique.
 
 ## Type
 
