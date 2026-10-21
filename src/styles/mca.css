@@ -255,6 +255,10 @@
   margin-top: var(--bx-space-40);
 }
 
+.mca-faq .bx-acc-trigger {
+  color: var(--color-ink);
+}
+
 .mca-faq .bx-acc-panel-inner p {
   max-width: none;
 }
