@@ -838,7 +838,9 @@ html.has-scroll-lock .site-header {
 }
 
 /* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger).
-   Drop the arrow circle so the full word stays readable in ~70px. */
+   Drop the arrow circle so the full word stays readable in ~70px.
+   Do not set `translate` on the text wrap — that override beats Ling's
+   hover slide and leaked through every wider breakpoint. */
 @media (min-width: 23.4375em) {
   .site-header .site-header__apply--bar {
     display: inline-flex;
@@ -846,6 +848,15 @@ html.has-scroll-lock .site-header {
     --button-040-height: 2.5em;
     --button-040-padding-x: 0.85em;
     --button-040-border-radius: 2.5em;
+  }
+
+  .site-header__tools {
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 23.4375em) and (max-width: 32.99em) {
+  .site-header .site-header__apply--bar {
     --button-040-translate-x: 0;
   }
 
@@ -860,25 +871,17 @@ html.has-scroll-lock .site-header {
   .site-header .site-header__apply--bar .button-040__icon-wrap {
     display: none;
   }
-
-  .site-header .site-header__apply--bar .button-040__text-wrap {
-    padding-inline: var(--button-040-padding-x);
-    translate: 0;
-  }
-
-  .site-header__tools {
-    gap: 0.5rem;
-  }
 }
 
-/* Full-label compact Apply from 33em (logo + Apply + hamburger). */
+/* Full-label compact Apply from 33em (logo + Apply + hamburger).
+   Arrow is visible: leave 040 internals (ghost icon, translated pill,
+   duplicate circle, hover translate) to button-040.css. */
 @media (min-width: 33em) {
   .site-header .site-header__apply--bar {
     font-size: 0.875rem;
     --button-040-height: 2.5em;
     --button-040-padding-x: 0.85em;
     --button-040-border-radius: 2.5em;
-    --button-040-translate-x: calc((var(--button-040-height) + var(--button-040-gap, 0em)) * -1);
   }
 
   .site-header .site-header__apply--bar .button-040__text-full {
@@ -891,17 +894,6 @@ html.has-scroll-lock .site-header {
 
   .site-header .site-header__apply--bar .button-040__icon-wrap {
     display: flex;
-  }
-
-  .site-header .site-header__apply--bar .button-040__icon-wrap:not(.is--duplicate) {
-    width: auto;
-    min-width: 0;
-    overflow: visible;
-  }
-
-  .site-header .site-header__apply--bar .button-040__text-wrap {
-    padding-inline-end: var(--button-040-padding-x);
-    translate: var(--button-040-translate-x) 0 0;
   }
 
   .site-header__tools {

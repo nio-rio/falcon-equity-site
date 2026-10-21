@@ -238,15 +238,15 @@ Apply stays on the bar as long as it fits. Drop chrome in this order:
 | Width | Phone | Apply |
 | --- | --- | --- |
 | **&lt; 375px** (`&lt; 23.4375em`) | In the drawer | **In the drawer**, sticky at the **top** of the menu, full label + icons. Never at the end of the list. |
-| **375px – 33em** (528px) | Drawer only | **On the bar**, extra-compact. Visible label **`Apply`**. **No arrow** (both `.button-040__icon-wrap` hidden) so the word is fully readable in ~70px. `0.75rem` / `2.5em` height / `0.85em` pad / `translate: 0`. Drawer Apply hidden. |
-| **33em – 38em** (528–608px) | Drawer only | **On the bar**, compact **full** label `Apply for funding`, icons restored, `0.875rem` / `2.5em` / `0.85em`. |
+| **375px – 33em** (528px) | Drawer only | **On the bar**, extra-compact. Visible label **`Apply`**. **No arrow** (both `.button-040__icon-wrap` hidden) so the word is fully readable in ~70px. `0.75rem` / `2.5em` height / `0.85em` pad. Zero the `--button-040-translate-x` token only — do not set `translate` on `.button-040__text-wrap` (that beats the hover slide). Drawer Apply hidden. |
+| **33em – 38em** (528–608px) | Drawer only | **On the bar**, compact **full** label `Apply for funding`, icons restored, `0.875rem` / `2.5em` / `0.85em`. Same 040 markup and hover slide as SiteCta. |
 | **≥ 38em** | Drawer until 50em | On the bar at nav size: `1.0625rem` / `3em` / `1.25em`. |
 | **≥ 50em** (800px) | **On the bar** (16px, inherit, 1px underline, no icon) | On the bar. Extra `0.7em` between phone and pill. |
 | **≥ 90em** | On the bar | On the bar with desktop nav. |
 
 Hamburger until `90em`. Opening a menu locks page scroll without `overflow: hidden` on html/body. Drilled mobile submenus: reset scroll on open, clip overflow-x, overflow-y auto, hide the covering drawer CTA while drilled.
 
-**Do:** keep extra-compact **without** the arrow at 375–33em. **Don’t:** overlap Apply with the logo or hamburger. **Don’t** hide Apply before the phone. **Don’t** wrap the header row.
+**Do:** keep extra-compact **without** the arrow at 375–33em. When the arrow is visible, keep Ling’s original 040 internals (ghost icon + translated pill + duplicate circle) so hover matches SiteCta. **Don’t:** overlap Apply with the logo or hamburger. **Don’t** hide Apply before the phone. **Don’t** wrap the header row. **Don’t** set `translate` or collapse the ghost wrap on `.site-header__apply--bar` — those overrides beat the hover slide.
 
 ### Square buttons (secondary)
 
