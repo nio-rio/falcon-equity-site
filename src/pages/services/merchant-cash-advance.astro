@@ -3,23 +3,21 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
-import Icon from '@/components/Icon.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { PRIMARY_PHONE } from '@/data/site';
 import '@/styles/mca.css';
 
 const facts = [
   {
-    title: "Who it's for",
-    body: 'Businesses that bring in $10K+ a month and have been open at least 3 months.',
+    label: "Who It's For",
+    value: 'Businesses that bring in $10K+ a month and have been open at least 3 months.',
   },
   {
-    title: 'Typical amounts',
-    body: "$5,000 – $5,000,000. The final number depends on your sales, how long you've been open and your bank activity.",
+    label: 'Typical Amounts',
+    value: '$5,000 – $5,000,000',
   },
   {
-    title: 'Terms',
-    body: '3 – 18 months. You pay a set share of your sales, so slow weeks cost less and busy weeks cost more, instead of a fixed loan payment.',
+    label: 'Terms',
+    value: '3 – 18 months',
   },
 ];
 
@@ -147,52 +145,58 @@ const faqs = [
   </section>
 
   <section class="mca-band mca-facts" aria-label="Term facts" data-band="light" data-mca-section="facts" data-reveal-root>
-    <div class="container-site">
-      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+    <div class="mca-ir-frame" data-reveal>
+      <div class="mca-facts-cta">
+        <Button040 href="/apply" label="Apply for funding" variant="dark" />
+      </div>
+      <div class="mca-stat-grid">
         {
           facts.map((fact) => (
-            <article class="mca-card">
-              <h3 class="mca-card-title">{fact.title}</h3>
-              <p class="mca-card-body">{fact.body}</p>
-            </article>
+            <div class="mca-stat">
+              <p class="mca-stat-label">{fact.label}</p>
+              <p class="mca-stat-value">{fact.value}</p>
+            </div>
           ))
         }
-      </div>
-      <div class="mca-shell mca-facts-close" data-reveal>
-        <div class="mca-req">
-          <h2 class="mca-req-title">Requirements</h2>
-          <ul class="mca-req-list">
-            {requirements.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-        <div class="mca-cta">
-          <Button040 href="/apply" label="Apply for funding" variant="dark" />
-          <p class="mca-phone">
-            Direct{' '}
-            <a class="link" href={PRIMARY_PHONE.href}>{PRIMARY_PHONE.display}</a>
-          </p>
-        </div>
+        {
+          requirements.map((item) => (
+            <div class="mca-stat">
+              <p class="mca-stat-label">Requirements</p>
+              <p class="mca-stat-value">{item}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <section class="mca-band mca-helps" aria-labelledby="helps-heading" data-band="light" data-mca-section="helps" data-reveal-root>
     <div class="container-site">
-      <div class="mca-shell" data-reveal>
-        <div class="mca-kicker">
+      <div class="mca-shell mca-helps-head" data-reveal>
+        <div class="mca-block-head">
           <Eyebrow>What it helps</Eyebrow>
-          <h2 id="helps-heading" class="sr-only">What it helps</h2>
+          <h2 id="helps-heading">When a cash advance is the right fit.</h2>
         </div>
       </div>
-      <div class="mca-shell mca-cards mca-cards--4" data-reveal>
-        {
-          helps.map((item) => (
-            <article class="mca-card">
-              <h3 class="mca-card-title">{item.title}</h3>
-              <p class="mca-card-body">{item.body}</p>
-            </article>
-          ))
-        }
+      <div class="mca-shell mca-helps-split" data-reveal>
+        <div class="mca-helps-image">
+          <Media
+            labeled
+            intent="Abstract still of inventory, sales or equipment, no people"
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="mca-helps-list">
+          {
+            helps.map((item) => (
+              <article class="mca-help">
+                <h3 class="mca-help-title">{item.title}</h3>
+                <p class="mca-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
       </div>
       <div class="mca-shell" data-reveal>
         <div class="mca-cta mca-cta--after">
@@ -234,20 +238,16 @@ const faqs = [
           <Eyebrow>Process</Eyebrow>
           <h2 id="process-heading">How it works, from the first bank statement to signed paperwork.</h2>
         </div>
-        <p class="mca-block-lead">
-          One specialist handles your file from start to finish. How fast you're funded depends on how quickly your
-          documents come in. Once you're approved and signed, it can be the same day.
-        </p>
       </div>
       <div class="mca-shell mca-cards mca-cards--stills" data-reveal>
         {
           steps.map((step) => (
             <article class="mca-card mca-step">
-              <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
               <p class="mca-step-num">{step.num}</p>
               <h3 class="mca-card-title">{step.title}</h3>
               <p class="mca-card-body">{step.body}</p>
-              <p class="mca-card-body">{step.note}</p>
+              <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
+              <p class="mca-card-body mca-step-note">{step.note}</p>
             </article>
           ))
         }
@@ -283,8 +283,12 @@ const faqs = [
                   data-acc-trigger
                 >
                   <span>{item.q}</span>
-                  <span class="mca-faq-icon" aria-hidden="true">
-                    <Icon name="chevron-down" size={16} />
+                  <span class="mca-faq-caret" aria-hidden="true">
+                    <span class="mca-faq-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="mca-faq-caret-svg">
+                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
                   </span>
                 </button>
               </h3>

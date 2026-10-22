@@ -3,24 +3,23 @@
 Last updated: Oct 22, 2026. Update this file at the end of every session.
 
 ## Where things stand
-- Branch `cursor/falcon-astro-site-e383` (PR #1). Home is unchanged. MCA measurement rebuild is on `cursor/mca-bx-measure-554e`.
-- The home page (`/`) is approved and frozen. `/apply` stays as it is.
+- Branch `cursor/falcon-astro-site-e383` (PR #1). Never merge PR #1. Preview: https://deploy-preview-1--falcon-equity-site.netlify.app/
+- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em). `/apply` stays as it is.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
-- Merchant Cash Advance page: Ling's 2026-10-21 edited Notion outline (wording, sections, order). After `1223c04`, rebuilt again from **live** Blackstone computed styles at 1440 / 1024 / 390. Measurements live in `docs/section-library/measurements/{BXCI-01,BXCI-07,DC-03,LS-07,DC-06}.md`. MCA uses a measured `.mca-shell` (4×70 / 8×72 / 16×64, gap 16, widths 328 / 688 / 1264). Fonts stay At Gambit + Archivo; colors stay Falcon tokens. Styles stay in `src/styles/mca.css` (`mca-*` only).
-
-## MCA page structure
-Hero → Term facts + requirements + Apply → What it helps → Fit → Process → FAQ → SiteCta.
+- Merchant Cash Advance page: Ling’s 2026-10-22 v2 outline. Sections rebuilt from live Blackstone numbers:
 
 | MCA section | Library id | Why the shape fits |
 | --- | --- | --- |
 | Hero (H1 + lead) | BXCI-01 | One heading + one supporting paragraph. No still, no eyebrow. |
-| Term facts (Who / Amounts / Terms) | BXCI-07 | Three title + paragraph cards, no images. Sentences, not giant figures (not BXCI-03). |
-| Requirements + Apply + Direct | attached under BXCI-07 | Three-item list + one Apply + phone link. No matching library id; kept in her Hero close. |
-| What it helps (4 uses + Apply) | BXCI-07 | Same title + paragraph cards, adapted to four items in a 2×2. No stills (not BXCI-04). |
-| When a cash advance isn't the right fit | DC-03 | Eyebrow + H2 + intro + three title + paragraph cards. |
-| Process (3 steps + 3 stills + Apply) | LS-07 | Three 16:9 stills with title + excerpt. Numbers and a second note line added; no people. |
-| FAQ (7 expandable) | DC-06 | Seven accordion questions. No lead or PDF. Dark band like the reference. |
-| Shared Apply CTA | SiteCta | Same band as home. Not restyled. |
+| Term facts (2×3 stats + Apply) | IR-03 | Stats part of IR share-information: featured left slot (Apply) + 3-col hairline grid, two rows. Label above value. |
+| What it helps (still + 4 pillars + Apply) | LS-04 (light FO) | Family-offices light vertical-list: 8 / skip 2 / 6, 3:4 still, stacked title/body. Intro dropped. |
+| When a cash advance isn’t the right fit | BXCI-07 | Eyebrow + H2 + intro + three title + paragraph cards, 5 / 6 / 5. |
+| Process (3 steps + 3 stills + Apply) | LS-07 | Three 16:9 stills. Order: number, title, description, image, You provide/get/see. Intro dropped; heading→steps 104 / 88 / 72. |
+| FAQ (7 expandable) | BXCI-05 motion on DC-06 type | Dark band and 24/36 titles from DC-06. Caret rotate 0.3s and hover rule draw 0.5s linear from BXCI-05. |
+| Shared Apply CTA | SiteCta | Same band as home. Not restyled (already ≥ nav). |
+
+- MCA disclosure (“Funding is subject to underwriting…”) is MCA-only, in the footer-bottom under the divider, styled like `.site-footer__copy`. Home has no disclosure.
+- Measurements: `docs/section-library/measurements/{BXCI-01,BXCI-05,BXCI-07,DC-03,DC-06,IR-03,LS-04,LS-07}.md`. MCA classes stay in `src/styles/mca.css` (`mca-*` only).
 
 ## Standing rules
 - Each new page uses its own page-prefixed classes (e.g. `mca-*`), not home component classes. Share only `.container-site`, Header / Footer / SiteCta and design tokens. Merge duplicate classes in one cleanup pass after all designs are approved.
@@ -29,9 +28,10 @@ Hero → Term facts + requirements + Apply → What it helps → Fit → Process
 - Never merge PR #1 or switch the domain without Ling's approval.
 - Vera QAs only fully built pages.
 - When referencing Blackstone, pick by **content shape** from `docs/section-library/LIBRARY.md`, then open that section on the live page at 1440 / 1024 / 390, write `docs/section-library/measurements/<id>.md`, and rebuild with those exact numbers (fonts → display/Archivo, colors → Falcon tokens).
+- Fee wording **0% agreement fee**. Rates **competitive**. No disclaimers under CTAs.
 
 ## Next steps
-1. Ling reviews the rebuilt MCA page on the preview and asks for changes. Vera (the QA bot) checks finished builds only.
+1. Ling reviews this MCA build on deploy-preview-1.
 2. Only after Ling approves MCA, do these one at a time, each with a structure plan approved first: **How It Works** (`/how-it-works`), **About** (Dwight Holly, Founder & CFO), and one industry page, **Retail**.
 3. Other services, industries and the blog come later, and only when Ling asks.
 

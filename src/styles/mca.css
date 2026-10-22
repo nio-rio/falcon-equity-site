@@ -1,5 +1,7 @@
-/* Merchant Cash Advance only. Numbers from live Blackstone
-   docs/section-library/measurements/{BXCI-01,BXCI-07,DC-03,LS-07,DC-06}.md
+/* Merchant Cash Advance only.
+   Numbers from live Blackstone measurements:
+   BXCI-01 hero, IR-03 facts, FO light LS-04 helps, BXCI-07 fit,
+   LS-07 process, DC-06 FAQ type + BXCI-05 accordion motion.
    Fonts → --font-display / --font-sans. Colors → Falcon tokens.
    Do not touch home. */
 
@@ -8,7 +10,10 @@ section.mca-hero[data-band='light'] {
   padding: 40px 0 80px;
 }
 
-section.mca-facts[data-band='light'],
+section.mca-facts[data-band='light'] {
+  padding: 0 0 60px;
+}
+
 section.mca-helps[data-band='light'],
 section.mca-fit[data-band='light'] {
   padding: 40px 0 80px;
@@ -61,8 +66,8 @@ section.mca-faq[data-band='dark'] {
 .mca-cta--after,
 .mca-faq-list,
 .mca-cards > .mca-card,
-.mca-req,
-.mca-facts-close .mca-cta {
+.mca-helps-image,
+.mca-helps-list {
   grid-column: 1 / -1;
 }
 
@@ -133,8 +138,8 @@ section.mca-faq[data-band='dark'] {
   margin-top: 72px;
 }
 
-.mca-facts .mca-cards {
-  margin-top: 0;
+.mca-process .mca-cards {
+  margin-top: 72px;
 }
 
 .mca-card-title {
@@ -157,38 +162,6 @@ section.mca-faq[data-band='dark'] {
   letter-spacing: 0.32px;
 }
 
-.mca-card-body + .mca-card-body {
-  margin-top: 24px;
-}
-
-.mca-facts-close {
-  margin-top: 72px;
-}
-
-.mca-req-title {
-  margin: 0 0 24px;
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 32px;
-  letter-spacing: 0.16px;
-}
-
-.mca-req-list {
-  margin: 0;
-  padding-left: 1.125em;
-  list-style: square;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.mca-req-list li + li {
-  margin-top: 12px;
-}
-
 .mca-cta {
   display: flex;
   flex-wrap: wrap;
@@ -200,8 +173,83 @@ section.mca-faq[data-band='dark'] {
   margin-top: 72px;
 }
 
-.mca-phone {
+/* IR-03 term facts — Q4 1200 frame, not the marketing 16-col shell.
+   Label above value; 2px rule under each value. Left slot = Apply. */
+.mca-ir-frame {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  max-width: calc(100% - 30px);
+  margin-inline: auto;
+}
+
+.mca-facts-cta {
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 2px solid var(--color-ink);
+  padding-top: 60px;
+}
+
+.mca-stat-grid {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  column-gap: 15px;
+  row-gap: 40px;
+  margin-top: 40px;
+}
+
+.mca-stat {
+  min-width: 0;
+  padding: 40px 0 20px;
+  border-bottom: 2px solid var(--color-ink);
+}
+
+.mca-stat-label,
+.mca-stat-value {
   margin: 0;
+  color: var(--color-ink);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+
+.mca-stat-label {
+  margin-bottom: 8px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 22px;
+}
+
+.mca-stat-value {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 48px;
+}
+
+/* FO light LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
+.mca-helps-split {
+  margin-top: 72px;
+  row-gap: 72px;
+}
+
+.mca-helps-image .media,
+.mca-helps-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.mca-help-title {
+  margin: 0 0 24px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 32px;
+  letter-spacing: 0.16px;
+}
+
+.mca-help-body {
+  margin: 0 0 64px;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 18px;
@@ -210,10 +258,15 @@ section.mca-faq[data-band='dark'] {
   letter-spacing: 0.32px;
 }
 
+.mca-help:last-child .mca-help-body {
+  margin-bottom: 0;
+}
+
+/* LS-07 process: number, title, description, image, You provide/get/see. */
 .mca-step .media,
 .mca-step .image-slot {
   width: 100%;
-  margin: 0 0 32px;
+  margin: 24px 0 32px;
   aspect-ratio: 16 / 9;
 }
 
@@ -231,6 +284,11 @@ section.mca-faq[data-band='dark'] {
   margin-top: 0;
 }
 
+.mca-step-note {
+  margin-top: 0;
+}
+
+/* BXCI-05 accordion motion on DC-06 dark FAQ type. */
 .mca-faq-list {
   display: flex;
   flex-direction: column;
@@ -261,6 +319,7 @@ section.mca-faq[data-band='dark'] {
 
 .mca-faq-trigger {
   display: flex;
+  position: relative;
   width: 100%;
   align-items: center;
   justify-content: space-between;
@@ -278,28 +337,49 @@ section.mca-faq[data-band='dark'] {
   cursor: pointer;
 }
 
+.mca-faq-trigger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: solid 0.063rem var(--color-white);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s linear;
+  pointer-events: none;
+}
+
+.mca-faq-caret {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
 .mca-faq-icon {
   display: inline-grid;
   place-items: center;
-  flex: none;
-  width: auto;
-  height: auto;
-  color: var(--color-white);
-  transition: transform 250ms ease, background-color 250ms ease, color 250ms ease, border-color 250ms ease;
-}
-
-.mca-faq-icon svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.mca-faq-item.is-open .mca-faq-icon {
   width: 2rem;
   height: 2rem;
-  border: 1px solid var(--color-white);
-  border-radius: 50%;
-  background: var(--color-white);
-  color: var(--color-surface-dark);
+  border-radius: 24px;
+  color: var(--color-white);
+  background: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.mca-faq-caret,
+.mca-faq-caret-svg {
+  transition: transform 0.3s;
+}
+
+.mca-faq-icon svg,
+.mca-faq-caret-svg {
+  width: 16px;
+  height: 8px;
+}
+
+.mca-faq-item.is-open .mca-faq-caret {
   transform: rotate(180deg);
 }
 
@@ -334,13 +414,63 @@ section.mca-faq[data-band='dark'] {
   color: var(--color-white);
 }
 
-/* 1024 — BX 8 × 72px + 16px, shell 688, sides ~161 */
+@keyframes mca-faq-border-draw {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mca-faq-trigger:hover .mca-faq-icon,
+  .mca-faq-trigger:focus-visible .mca-faq-icon {
+    background: var(--color-white);
+    color: var(--color-surface-dark);
+  }
+
+  .mca-faq-item.is-open .mca-faq-trigger:hover .mca-faq-icon,
+  .mca-faq-item.is-open .mca-faq-trigger:focus-visible .mca-faq-icon {
+    background: rgb(255 255 255 / 0.25);
+    color: var(--color-white);
+  }
+}
+
+@media (min-width: 80em) and (hover: hover) and (pointer: fine) {
+  .mca-faq-trigger:hover::after,
+  .mca-faq-trigger:focus-visible::after {
+    animation: mca-faq-border-draw 0.5s linear both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mca-faq-trigger::after,
+  .mca-faq-caret,
+  .mca-faq-caret-svg,
+  .mca-faq-icon {
+    transition: none;
+  }
+
+  .mca-faq-trigger:hover::after,
+  .mca-faq-trigger:focus-visible::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+/* 1024 — BX 8 × 72px + 16px, shell 688, sides ~161. IR-03 inner 994. */
 @media (min-width: 64em) {
   section.mca-hero[data-band='light'] {
     padding: 56px 0 96px;
   }
 
-  section.mca-facts[data-band='light'],
+  section.mca-facts[data-band='light'] {
+    padding: 0 0 60px;
+  }
+
   section.mca-helps[data-band='light'],
   section.mca-fit[data-band='light'] {
     padding: 40px 0 96px;
@@ -381,14 +511,18 @@ section.mca-faq[data-band='dark'] {
   }
 
   .mca-cards,
-  .mca-facts-close,
   .mca-cta--after,
   .mca-faq-list {
     margin-top: 104px;
   }
 
-  .mca-facts .mca-cards {
-    margin-top: 0;
+  .mca-process .mca-cards {
+    margin-top: 88px;
+  }
+
+  .mca-helps-split {
+    margin-top: 88px;
+    row-gap: 88px;
   }
 
   .mca-cards--3 > .mca-card:nth-child(1) {
@@ -406,18 +540,6 @@ section.mca-faq[data-band='dark'] {
     padding-right: 24px;
   }
 
-  .mca-cards--4 > .mca-card:nth-child(1),
-  .mca-cards--4 > .mca-card:nth-child(3) {
-    grid-column: 1 / span 4;
-    padding-right: 24px;
-  }
-
-  .mca-cards--4 > .mca-card:nth-child(2),
-  .mca-cards--4 > .mca-card:nth-child(4) {
-    grid-column: 5 / span 4;
-    padding-left: 24px;
-  }
-
   .mca-cards--stills > .mca-card:nth-child(1) {
     grid-column: 1 / span 4;
     padding-right: 24px;
@@ -433,29 +555,46 @@ section.mca-faq[data-band='dark'] {
     padding-right: 24px;
   }
 
-  .mca-req {
-    grid-column: 1 / span 4;
-    padding-right: 24px;
-  }
-
-  .mca-facts-close .mca-cta {
-    grid-column: 5 / span 4;
-    padding-left: 24px;
-    align-self: end;
-  }
-
   .mca-cta--after {
     grid-column: 1 / span 4;
   }
+
+  .mca-ir-frame {
+    width: 994px;
+    max-width: calc(100% - 30px);
+  }
+
+  .mca-facts-cta {
+    width: 420px;
+  }
+
+  .mca-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 0;
+  }
+
+  .mca-stat-value {
+    font-size: 44px;
+    line-height: 48px;
+  }
+
+  .mca-help-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
 }
 
-/* 1440 — BX 16 × 64px + 16px, shell 1264, sides ~81 */
+/* 1440 — BX 16 × 64px + 16px, shell 1264, sides ~81. IR-03 inner 1200. */
 @media (min-width: 90em) {
   section.mca-hero[data-band='light'] {
     padding: 48px 0 120px;
   }
 
-  section.mca-facts[data-band='light'],
+  section.mca-facts[data-band='light'] {
+    padding: 0 0 60px;
+  }
+
   section.mca-helps[data-band='light'],
   section.mca-fit[data-band='light'] {
     padding: 56px 0 160px;
@@ -537,8 +676,8 @@ section.mca-faq[data-band='dark'] {
   }
 
   .mca-card-title,
-  .mca-req-title,
-  .mca-step-num {
+  .mca-step-num,
+  .mca-help-title {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0.192px;
@@ -565,31 +704,6 @@ section.mca-faq[data-band='dark'] {
     padding-right: 0;
   }
 
-  .mca-cards--4 > .mca-card:nth-child(1),
-  .mca-cards--4 > .mca-card:nth-child(3) {
-    grid-column: 1 / span 8;
-    padding-right: 32px;
-    padding-left: 0;
-  }
-
-  .mca-cards--4 > .mca-card:nth-child(2),
-  .mca-cards--4 > .mca-card:nth-child(4) {
-    grid-column: 9 / span 8;
-    padding-left: 32px;
-    padding-right: 0;
-  }
-
-  .mca-req {
-    grid-column: 1 / span 8;
-    padding-right: 32px;
-  }
-
-  .mca-facts-close .mca-cta {
-    grid-column: 9 / span 8;
-    padding-left: 32px;
-    align-self: end;
-  }
-
   .mca-cta--after {
     grid-column: 1 / span 8;
   }
@@ -606,6 +720,44 @@ section.mca-faq[data-band='dark'] {
 
   .mca-acc-inner > p {
     max-width: 624px;
+  }
+
+  .mca-ir-frame {
+    width: 1200px;
+    max-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 83px;
+  }
+
+  .mca-facts-cta {
+    width: 420px;
+    flex: none;
+  }
+
+  .mca-stat-grid {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mca-helps-split {
+    margin-top: 104px;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .mca-helps-image {
+    grid-column: 1 / span 8;
+  }
+
+  .mca-helps-list {
+    grid-column: 11 / span 6;
+  }
+
+  .mca-process .mca-cards {
+    margin-top: 104px;
   }
 }
 

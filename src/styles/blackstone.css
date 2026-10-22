@@ -1828,12 +1828,13 @@ html.has-scroll-lock .site-header {
 }
 
 .site-footer__disclosure {
-  margin: 0 0 var(--bx-space-40);
-  max-width: 46rem;
+  margin: var(--bx-space-24) 0 0;
+  max-width: none;
   font-family: var(--font-sans);
-  font-size: var(--bx-fs-14);
+  font-size: var(--bx-fs-18);
+  font-weight: 400;
   line-height: 1.5;
-  color: var(--white-a82);
+  color: #fff;
 }
 
 .site-footer__top {
@@ -1912,14 +1913,17 @@ html.has-scroll-lock .site-header {
 }
 
 .site-footer__bottom {
+  padding-top: var(--bx-space-64);
+  padding-bottom: 4.5rem;
+}
+
+.site-footer__bottom-bar {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: var(--bx-space-16);
   grid-template-areas:
     '. legal legal legal'
     '. copy copy copy';
-  padding-top: var(--bx-space-64);
-  padding-bottom: 4.5rem;
 }
 
 .site-footer__legal {
@@ -1972,10 +1976,13 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__bottom {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-template-areas: 'copy copy copy copy legal legal legal legal';
     padding-top: var(--bx-space-80);
     padding-bottom: var(--bx-space-80);
+  }
+
+  .site-footer__bottom-bar {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-areas: 'copy copy copy copy legal legal legal legal';
   }
 
   .site-footer__legal {
@@ -2004,12 +2011,19 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__bottom {
+    padding-top: var(--bx-space-32);
+    padding-bottom: var(--bx-space-32);
+  }
+
+  .site-footer__bottom-bar {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: baseline;
-    padding-top: var(--bx-space-32);
-    padding-bottom: var(--bx-space-32);
+  }
+
+  .site-footer__disclosure {
+    font-size: var(--bx-fs-16);
   }
 
   .site-footer__legal-list {
@@ -2070,7 +2084,8 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__legal-list .site-footer__link,
-  .site-footer__copy {
+  .site-footer__copy,
+  .site-footer__disclosure {
     font-size: var(--bx-fs-18);
   }
 }

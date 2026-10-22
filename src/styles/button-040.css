@@ -36,9 +36,12 @@
    Nav follows `.is-color-theme-dark`. */
 .button-040 {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 400;
   flex-shrink: 0;
+  --button-040-height: 3em;
+  --button-040-padding-x: 1.25em;
+  --button-040-border-radius: 3em;
 }
 
 .button-040__text {

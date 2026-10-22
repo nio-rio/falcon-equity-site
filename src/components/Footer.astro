@@ -13,11 +13,6 @@ const phone = SITE.phones.direct;
 
 <footer class="site-footer" aria-label="Site footer">
   <div class="container-site site-footer__inner">
-    {
-      disclosure && (
-        <p class="site-footer__disclosure">{disclosure}</p>
-      )
-    }
     <div class="site-footer__top">
       <div class="site-footer__brand">
         <a href="/" class="site-footer__logo-link" aria-label="Falcon Equity Group">
@@ -62,14 +57,21 @@ const phone = SITE.phones.direct;
     </div>
 
     <div class="site-footer__bottom">
-      <nav class="site-footer__legal" aria-label="Legal">
-        <ul class="site-footer__legal-list">
-          {LEGAL_LINKS.map((l) => (
-            <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
-          ))}
-        </ul>
-      </nav>
-      <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
+      <div class="site-footer__bottom-bar">
+        <nav class="site-footer__legal" aria-label="Legal">
+          <ul class="site-footer__legal-list">
+            {LEGAL_LINKS.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
+      </div>
+      {
+        disclosure && (
+          <p class="site-footer__disclosure">{disclosure}</p>
+        )
+      }
     </div>
   </div>
 </footer>
