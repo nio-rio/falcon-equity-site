@@ -8,10 +8,12 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - Home review round (Ling asked for it, 2026-10-22, commit `3c42a69`) — **approved, do not revert**:
   - Testimonial quote (`.pilot-ann-title p`, home only): `1.5rem` / 24px below 48em, i.e. 25% less than the old 2rem / 32px. The 48em / 80em / 90em overrides are deliberately unchanged, so desktop still reads 2.5rem / 2rem / 2.5rem.
   - `--type-h2-weight` is `400` (was `300`) in `tokens.css`, and every H2 reads that token instead of a hard-coded weight: `.pilot-tabs-head h2` on home, plus the FAQ and blog heads in `mca.css` and the five service stylesheets.
-- Service-page type round (Ling, 2026-10-22, commit `f6a8624`) — all six service pages, **approved, do not revert**:
-  - “What it helps”, “Process” and “When … isn’t the right fit” h3 titles (`.mca-help-title` / `.mca-card-title` and each page prefix): 25px / 36px below 80em (was 20px / 32px — 1.25×). 1280+ keeps the approved 24px / 36px. The duplicate 48em `help-title` rule was removed so 768 and 1024 read 25px as well. Mobile H2 stays 32px, so h3 sits clearly under it and never below 20px.
-  - FAQ questions (`.mca-faq-trigger` and each page prefix): 20px / 30px at every width (was 24px / 36px); the duplicate 80em rule was removed.
-  - Measured on the deployed preview at 390 / 768 / 1024 / 1440 across all six pages: h3 25 / 25 / 25 / 24, FAQ 20 / 20 / 20 / 20, H2 32 / 32 / 40 / 48.
+- Service-page type round (Ling, 2026-10-22, commits `f6a8624` + `cd174a0`) — all six service pages, **approved, do not revert**. Ling’s rule: every type change is **mobile only**; desktop and tablet keep their approved sizes.
+  - “What it helps”, “Process” and “When … isn’t the right fit” h3 titles (`.mca-help-title` / `.mca-card-title` and each page prefix): 25px / 36px **below 48em only** (was 20px / 32px — 1.25×). From 48em they are 20px / 32px and at 80em 24px / 36px, exactly as before. Mobile H2 stays 32px, so h3 sits clearly under it and never below 20px.
+  - FAQ questions (`.mca-faq-trigger` and each page prefix): 20px / 30px **below 48em only** (was 24px / 36px everywhere). 24px / 36px from 48em up, unchanged.
+  - Measured on the deployed preview: at 390 h3 25 and FAQ 20; at 768 / 1024 / 1280 h3 20 and FAQ 24; at 1440 both 24 — i.e. every non-mobile value matches the pre-change build.
+- The first pass of that round (`f6a8624`) carried 25px up to 768 and 1024 and dropped FAQ to 20px at every width; Ling corrected it (“for all font size changes, I mean mobile, I like FAQ on desktop”), so `cd174a0` restores 48em and up. Don’t re-widen it.
+- Home tabs h2 (`fdfb56f`): the earlier H2-weight work had also swapped its size ramp for `--type-h2-size`, which pushed 1280 to 3rem and 1440 to 3rem. Sizes are restored to the approved 2rem / 2.5rem / 2rem / 2.5rem at base / 48em / 80em / 90em; only the weight comes from `--type-h2-weight`.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
 - Merchant Cash Advance page: Ling’s 2026-10-22 v4 outline. Sections rebuilt from live Blackstone numbers:
 
