@@ -1878,6 +1878,10 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   border-bottom: 1px solid #fff;
 }
 
+.site-cta + .site-footer .site-footer__top {
+  padding-top: 0;
+}
+
 .site-footer__brand {
   grid-area: brand;
 }
