@@ -850,6 +850,19 @@ section.mca-blog[data-band='light'] {
     font-size: 32px;
     line-height: 38px;
   }
+
+  .mca-help-title,
+  .mca-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  .mca-faq-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
   .mca-shell {
     row-gap: 104px;
   }
