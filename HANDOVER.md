@@ -131,3 +131,21 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - **Pick a section's heading by largest measured font-size**, not by DOM order — the eyebrow is usually the first `h2`/`h3` in the markup and it made the library report 16/24 for 48/72 claims.
 
 **Layout regression note:** `git diff` on this page is a rewrite, not a restyle — `retail.css` was regenerated from the MCA primitives. If a later ticket says "retail looked different yesterday", yesterday was v1 (11 identical bands).
+
+
+## Session 2026-10-22 (evening) — retail page: requirements band removed, sections renumbered
+
+**What Ling asked, in order.** (1) "Combine section 6 and section 9, because product and requirements are related." (2) "After your edit, re-number the section by its order." (3) "Do you really think we need to add requirement to this page? Or should people click to that service to know requirement?" → decision: **strip the requirements content, keep one line.**
+
+**What the page does now (11 bands, was 12).**
+- The old band 11, *What an application needs* (`BMX-10`, five requirement rows, documents, two notes), is **gone**. It is not merged and not restyled.
+- Reason, measured rather than argued: each product card already carries a `Requirements` row that is the verbatim `#services` spec (LOC `6+ months · $10K+ monthly · Active bank account`; MCA `3+ months · $10K+ · Active business bank account`; collateral `Equipment quote or invoice · 6+ months · Active business`). The summary table repeated four of its five rows; the only new lines (`$15K+` revenue, `550+` score) belong to the **term loan**, which is a cross-link on this page, not a card. The documents list was a third copy — FAQ question 7 already answers "What do I need to apply?" with the identical list.
+- What replaced it: `.ret-products-note`, one hairline closing the products band, one sentence (`No restricted industries or states…`) plus the two article links. Kept because that fact is a differentiator and nothing else on the page says it.
+- Bands: header `TF-00` · glance · still `TF-01` · answer `TF-02` · cash pressures `TF-05` · retail year `TF-03`/`PE-05` · situation table (no donor) · products `PE-04`+`BMX-03`+closing line · exits `APM-09` · cases `BMX-03…06` · FAQ `APM-08`/`BMX-09`. Numbered 1–11 in the JSX comments, by order.
+- `needRows`, the `.ret-need-head/rows/row/value/claim` rules and the `ret-need-intro` grouping came out with it; `.ret-need-note` / `.ret-need-links` / `.ret-inline-link` stay because the closing line uses them.
+
+**Docs + Notion.** `docs/retail-structure-plan-v2.md` section map renumbered to 11 bands, band 8 rewritten with the reason. Notion copy contract (`Retail industry page – content outline (stage 1)`, `401eacd0-19c7-8138-92d7-f3a1ecc82710`) is now **7 sections numbered by order** — 1 Hero · 2 Answer first · 3 Which product fits · 4 The three products, with the live spec · 5 When another product fits · 6 FAQ · 7 CTA — with a revision bullet at the top, a decision bullet under Section 4, and the design-note cross-references rewritten (they used to point at section numbers that no longer exist; bands with no copy-contract section are now named, not numbered).
+
+**QA.** `npm run build` passes. Measured over CDP at 390 / 768 / 1024 / 1440 / 1920: `scrollWidth == clientWidth`, **zero** overflowing elements, nine `[data-ret-section]` bands (the requirements band is absent), closing line 105px at 1440 and stacked to 209px at 390 with the links wrapping left. `npm run test:titles` passes. **`npm run test:nav` fails — it also fails on `HEAD` with the same `TimeoutError` ("element is outside of the viewport" while hovering), so it is pre-existing and not from this change; verified by stashing the diff and re-running.**
+
+**Pitfall worth keeping.** A headless screenshot of this page looks blank unless `--force-prefers-reduced-motion` is passed (or `[data-reveal]` is forced with `!important`); the GSAP reveal leaves `opacity: 0` inline and screenshots the band as white space. `browser_vision` in the Hermes browser also resets to `about:blank`, so measure over CDP (Node 22 global `WebSocket` → `Emulation.setDeviceMetricsOverride` + `Page.captureScreenshot` with an element clip) rather than trusting the tool's viewport.

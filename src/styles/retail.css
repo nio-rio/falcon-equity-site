@@ -226,8 +226,7 @@
 .ret-cash-intro,
 .ret-year-intro,
 .ret-situation-intro,
-.ret-products-intro,
-.ret-need-intro {
+.ret-products-intro {
   margin-top: 24px;
   max-width: 52ch;
   color: var(--color-ink-soft);
@@ -721,34 +720,25 @@
 }
 
 /* ---------------------------------------------------------------------------
-   11. What an application needs — BMX-10 (title cols 1–4, rows cols 6–16).
+   8b. The closing line under the products. One hairline, one sentence, two
+       article links. It replaced the "What an application needs" band: the
+       requirement figures already sit in each card's spec, verbatim, so a
+       second copy of them here was redundancy, not information.
    --------------------------------------------------------------------------- */
-.ret-need-head {
-  align-self: start;
-}
-
-.ret-need-rows {
-  display: grid;
-  gap: 0;
-}
-
-.ret-need-row {
-  display: grid;
-  gap: 4px;
-  padding: 20px 0;
+.ret-products-note {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 48px;
+  margin-top: clamp(48px, 6vw, 96px);
+  padding-top: 32px;
   border-top: 1px solid var(--color-line);
 }
 
-.ret-need-row:last-of-type {
-  border-bottom: 1px solid var(--color-line);
-}
-
-.ret-need-value {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
+.ret-products-note .ret-need-note {
+  max-width: 60ch;
 }
 
 .ret-need-notes {
@@ -769,7 +759,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px 32px;
-  margin: 32px 0 0;
+  margin: 0;
 }
 
 .ret-inline-link {
@@ -787,19 +777,9 @@
 }
 
 @media (min-width: 80em) {
-  .ret-need-head {
-    grid-column: 1 / span 4;
-  }
-
-  .ret-need-rows {
-    grid-column: 6 / span 11;
-  }
-
-  .ret-need-row {
-    grid-template-columns: 200px minmax(0, 1fr);
-    column-gap: 32px;
+  .ret-products-note {
     align-items: baseline;
-    padding: 24px 0;
+    margin-top: 96px;
   }
 }
 

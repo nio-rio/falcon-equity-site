@@ -204,14 +204,6 @@ const cases = [
   },
 ];
 
-const needRows = [
-  { label: 'Time in business', value: '3+ months for an advance; 6+ months for a line of credit or a collateral loan' },
-  { label: 'Monthly revenue', value: '$10K+ for an advance or a line of credit; $15K+ for a term loan' },
-  { label: 'Credit score', value: '550+ where a score applies; your sales and bank activity carry the most weight' },
-  { label: 'Bank account', value: 'An active business account, with statements to show how the store trades' },
-  { label: 'Equipment', value: 'A vendor quote or invoice if the money is buying fixtures or a vehicle' },
-];
-
 const faqs = [
   {
     q: 'What can a retail business use funding for?',
@@ -448,7 +440,7 @@ const metaDescription =
     </div>
   </section>
 
-  {/* 8 three products — PE-04 card + BMX-03 spec block */}
+  {/* 8 three products — PE-04 card + BMX-03 spec block, closed by one line */}
   <section class="ret-band ret-band--stacked ret-products" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
     <div class="container-site">
       <div class="ret-grid">
@@ -496,6 +488,20 @@ const metaDescription =
               </article>
             ))
           }
+        </div>
+
+        {/* Requirements are deliberately not repeated here: each card above carries its
+            own Requirements row (verbatim spec) and the product page carries the full set.
+            Only the no-restricted line stays — nothing else on the page says it. */}
+        <div class="ret-products-note" data-reveal>
+          <p class="ret-need-note">
+            No restricted industries or states: Falcon has no restricted-industry or restricted-state list. Underwriting
+            looks at the business, not the sector or the geography.
+          </p>
+          <p class="ret-need-links">
+            <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
+            <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
+          </p>
         </div>
       </div>
     </div>
@@ -558,44 +564,7 @@ const metaDescription =
     </div>
   </section>
 
-  {/* 11 what an application needs — BMX-10: title left, rows right */}
-  <section class="ret-band ret-band--tint ret-need" aria-labelledby="need-heading" data-band="light" data-ret-section="need" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-need-head" data-reveal>
-          <Eyebrow>Are we a match?</Eyebrow>
-          <h2 id="need-heading" class="ret-claim">What a retail application needs</h2>
-          <p class="ret-body ret-need-intro">Published criteria, not a promise. Approval depends on your file.</p>
-        </div>
-        <div class="ret-need-rows" data-reveal>
-          {
-            needRows.map((row) => (
-              <div class="ret-need-row">
-                <p class="ret-label">{row.label}</p>
-                <p class="ret-need-value">{row.value}</p>
-              </div>
-            ))
-          }
-          <div class="ret-need-notes">
-            <p class="ret-need-note">
-              Documents: six months of business bank statements, a government-issued photo ID, a voided check, a list of
-              any current advances or loans, and a quote or invoice for equipment.
-            </p>
-            <p class="ret-need-note">
-              No restricted industries or states: Falcon has no restricted-industry or restricted-state list.
-              Underwriting looks at the business, not the sector or the geography.
-            </p>
-          </div>
-          <p class="ret-need-links">
-            <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
-            <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 12 FAQ — APM-08 / BMX-09: heading left, accordion rows right */}
+  {/* 11 FAQ — APM-08 / BMX-09: heading left, accordion rows right */}
   <section class="ret-band ret-faq" aria-labelledby="faq-heading" data-band="light" data-ret-section="faq" data-reveal-root>
     <div class="container-site">
       <div class="ret-grid">
