@@ -147,7 +147,7 @@ section.mca-faq[data-band='dark'] {
   color: inherit;
   font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 32px;
   letter-spacing: 0.16px;
 }
@@ -243,7 +243,7 @@ section.mca-faq[data-band='dark'] {
   color: var(--color-ink);
   font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 32px;
   letter-spacing: 0.16px;
 }
@@ -313,7 +313,7 @@ section.mca-faq[data-band='dark'] {
   margin: 0;
   font-family: var(--font-display);
   font-size: inherit;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.192px;
 }
 
@@ -329,7 +329,7 @@ section.mca-faq[data-band='dark'] {
   background: none;
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 36px;
   letter-spacing: 0.192px;
   text-align: left;
