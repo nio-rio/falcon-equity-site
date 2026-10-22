@@ -1,0 +1,1622 @@
+/* Retail industry page only (`/industries/retail`).
+   Cloned from mca.css with the `mca-` prefix renamed to `ret-`, per the repo convention
+   (one page-prefixed stylesheet per page; duplicates merged in a later cleanup pass).
+   Sections 3-9 add shapes that do not exist on a service page: ret-rows (values rows),
+   ret-year (calendar rows), ret-situation (the 5-column situation table), ret-spec
+   (product card + spec rows) and ret-need (titled rows). Those live at the end of this file.
+   The tape and blog rules are carried over from MCA and are unused here: this page has no
+   scrolling Apply tape and no "From the blog" band. They come out in the cleanup pass. */
+
+/* Per-section pads beat home [data-band] / stacked-same-theme tokens.
+   Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
+   Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
+   Process top is R − 2px at 1280 / 768 / 390 so Helps → Process measures R
+   (144 / 96 / 80). FAQ bottom stays R − 2px. Fit and Blog bottoms are full R.
+   Helps bottom sits slightly under R for the tape.
+   Hero title sits 50px below the header. */
+section.ret-hero[data-band='light'] {
+  padding: 50px 0 80px;
+}
+
+section.ret-helps[data-band='dark'] {
+  padding: 80px 0 75px;
+}
+
+section.ret-process[data-band='light'] {
+  padding: 78px 0 78px;
+}
+
+section.ret-faq[data-band='light'] {
+  padding: 0 0 78px;
+}
+
+section.ret-fit[data-band='light'] {
+  padding: 0 0 80px;
+}
+
+section.ret-blog[data-band='light'] {
+  padding: 0 0 80px;
+}
+
+.ret-hero,
+.ret-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.ret-helps {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+/* Home Why-choose-us dark type: headings/eyebrow #fff, body --bx-on-dark.
+   Global h2/eyebrow are --bx-black, the same token as this band. */
+.ret-helps h2,
+.ret-helps h3,
+.ret-helps .eyebrow {
+  color: #fff;
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at
+   390 / 768 / 1280 / 1440. Shell fills that content box with 1fr tracks. */
+.ret-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+  justify-content: stretch;
+}
+
+.ret-kicker,
+.ret-block-head,
+.ret-cta--after,
+.ret-faq-list,
+.ret-cards > .ret-card,
+.ret-helps-image,
+.ret-helps-list,
+.ret-blog-copy,
+.ret-blog-media,
+.ret-hero-inner {
+  grid-column: 1 / -1;
+}
+
+/* IR-01 page title: 49/61/400 at 390, margin-bottom 90px to the first rule. */
+.ret-hero h1,
+.ret-hero-title {
+  margin: 0 0 90px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 49px;
+  font-weight: 400;
+  line-height: 61px;
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.ret-hero-lead {
+  margin: 90px 0 0;
+  max-width: 40rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.ret-hero-cta {
+  margin-top: 40px;
+}
+
+.ret-band .eyebrow {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  letter-spacing: 1.12px;
+}
+
+.ret-band .eyebrow--line::after {
+  width: 48px;
+  height: 2px;
+  margin-left: 16px;
+}
+
+.ret-block-head .eyebrow {
+  margin-bottom: 48px;
+}
+
+.ret-block-head h2,
+.ret-faq-head h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: var(--type-h2-weight);
+  line-height: 48px;
+  letter-spacing: 0.256px;
+  text-wrap: balance;
+}
+
+.ret-cards,
+.ret-fit .ret-cards,
+.ret-process .ret-cards {
+  margin-top: var(--space-head-to-content);
+}
+
+.ret-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ret-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-card-body + .ret-card-body {
+  margin-top: 24px;
+}
+
+.ret-fit .ret-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* BXCI-07 / horizontal-static-list card CTA = .bx-singular-link
+   18/27/400 ls 0.288, 40px tall, 1px label draw, icon scale 1.16667. */
+.ret-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.288px;
+}
+
+.ret-card-link-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.ret-card-link-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.ret-card-link-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ret-card-link:hover .ret-card-link-label,
+.ret-card-link:focus-visible .ret-card-link-label {
+  background-size: 100% 1px;
+}
+
+.ret-card-link:hover .ret-card-link-icon,
+.ret-card-link:focus-visible .ret-card-link-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.ret-fit .eyebrow--line {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.ret-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.ret-cta--after {
+  margin-top: 72px;
+}
+
+/* IR-01 + IR-02 stats live in `.ret-shell` (home column). Hairline ABOVE each cell. */
+.ret-hero-inner {
+  min-width: 0;
+}
+
+.ret-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+  row-gap: 40px;
+  margin: 0;
+  width: 100%;
+}
+
+.ret-stat {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  padding: 40px 0 0;
+  border-top: 2px solid var(--color-ink);
+}
+
+.ret-stat-label,
+.ret-stat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+
+.ret-stat-label {
+  margin-bottom: 25px;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.ret-stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 34px;
+}
+
+/* Dark LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
+.ret-helps-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.ret-helps-image .media,
+.ret-helps-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.ret-helps .image-slot--labeled {
+  background: color-mix(in srgb, var(--color-white) 12%, transparent);
+}
+
+.ret-helps .image-slot-label {
+  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+}
+
+.ret-help-title {
+  margin: 0 0 24px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ret-help-body {
+  margin: 0 0 64px;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-help:last-child .ret-help-body {
+  margin-bottom: 0;
+}
+
+/* Home Why-choose-us tickertape, ret-* only. Same SPEED 125 / 3 copies. */
+.ret-helps-tape {
+  display: block;
+  overflow: hidden;
+  margin-top: 5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ret-helps-tape:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: -2px;
+}
+
+.ret-helps-tape-track {
+  display: flex;
+  width: max-content;
+  animation: ret-helps-tape 24s linear infinite;
+}
+
+.ret-helps-tape-item {
+  flex: none;
+  margin-right: 7.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+.ret-helps-tape-item strong {
+  font-weight: 700;
+}
+
+@keyframes ret-helps-tape {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@media (min-width: 26em) {
+  .ret-helps-tape-item {
+    font-size: 4.5rem;
+    margin-right: 8rem;
+  }
+}
+
+/* PWS What you need to know: 01/02/03 are Scene7 number images in a 16:9
+   media box (11.5rem / 10.938rem / 12.375rem). Mapped to display type,
+   weight 300, tracking normal. Image-space under the number is 32px. */
+.ret-step-num {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  /* Mobile: BX's 328x184 number image renders its digit ~112px tall; 184px of
+     At Gambit ink was ~133px. 48em+ restores the 184px box measure. */
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.ret-step .ret-card-title {
+  margin-top: 0;
+}
+
+/* BXCI-05 accordion motion on DC-06 light FAQ type.
+   Base rule 2px ink at 40%. Hover overlay draws 2px ink, 0.5s ease-out,
+   snaps off. Caret 0.3s. */
+.ret-faq-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-head-to-content);
+}
+
+.ret-faq-item {
+  position: relative;
+  color: var(--color-ink);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+
+.ret-faq-item:first-child {
+  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+
+.ret-faq-item::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -2px;
+  border-bottom: solid 2px var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  pointer-events: none;
+}
+
+.ret-faq-item:is(:hover, :focus-within)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.5s ease-out;
+}
+
+.ret-faq-item h3,
+.ret-faq-trigger {
+  color: var(--color-ink);
+}
+
+.ret-faq-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: inherit;
+  font-weight: 400;
+  letter-spacing: 0.192px;
+}
+
+.ret-faq-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 32px;
+  border: 0;
+  background: none;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.192px;
+  text-align: left;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.ret-faq-caret {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.ret-faq-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 24px;
+  color: var(--color-ink);
+  background: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.ret-faq-caret,
+.ret-faq-caret-svg {
+  transition: transform 0.3s;
+}
+
+.ret-faq-icon svg,
+.ret-faq-caret-svg {
+  width: 16px;
+  height: 8px;
+}
+
+.ret-faq-item.is-open .ret-faq-caret {
+  transform: rotate(180deg);
+}
+
+.ret-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  transition: grid-template-rows 350ms ease;
+}
+
+.ret-faq-item.is-open .ret-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.ret-acc-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.ret-acc-inner > p {
+  margin: 0;
+  padding-bottom: 32px;
+  max-width: 38.5rem;
+  color: var(--color-ink-a72);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-faq .ret-block-head h2,
+.ret-faq-head h2 {
+  color: var(--color-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ret-faq-trigger:hover .ret-faq-icon,
+  .ret-faq-trigger:focus-visible .ret-faq-icon {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+
+  .ret-faq-item.is-open .ret-faq-trigger:hover .ret-faq-icon,
+  .ret-faq-item.is-open .ret-faq-trigger:focus-visible .ret-faq-icon {
+    background: rgb(15 12 23 / 0.25);
+    color: var(--color-ink);
+  }
+}
+
+/* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
+   MCA slider: title + Read the article, prev/next under the link. */
+.ret-blog-slider {
+  outline: none;
+  touch-action: pan-y;
+}
+
+.ret-blog-media,
+.ret-blog-media img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.ret-blog-slider:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.ret-blog-split {
+  align-items: start;
+  row-gap: 40px;
+}
+
+.ret-blog-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ret-blog-copy .eyebrow {
+  margin-bottom: 48px;
+}
+
+.ret-blog-copy-slides {
+  display: grid;
+  width: 100%;
+}
+
+.ret-blog-copy-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ret-blog-copy-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.ret-blog-line {
+  color: inherit;
+}
+
+.ret-blog-line-mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.ret-blog-title {
+  margin: 0 0 24px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: 0.256px;
+  text-wrap: balance;
+}
+
+.ret-blog-copy .ret-card-link {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.ret-blog-controls {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.ret-blog-arrow {
+  appearance: none;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.ret-blog-arrow-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.ret-blog-arrow-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ret-blog-arrow:hover .ret-blog-arrow-icon,
+.ret-blog-arrow:focus-visible .ret-blog-arrow-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.ret-blog-arrow:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.ret-blog-media {
+  display: grid;
+  width: 100%;
+}
+
+.ret-blog-media-slide {
+  grid-area: 1 / 1;
+  overflow: hidden;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ret-blog-media-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.ret-blog-media .media,
+.ret-blog-media .image-slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ret-faq-caret,
+  .ret-faq-caret-svg,
+  .ret-faq-icon,
+  .ret-faq-item::after,
+  .ret-card-link-label,
+  .ret-card-link-icon,
+  .ret-blog-arrow-icon,
+  .ret-helps-tape-track {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+
+  .ret-faq-item::after {
+    display: none;
+  }
+}
+
+/* 768 — home 8-col / 688 content, 40px sides. R = 96. */
+@media (min-width: 48em) {
+  section.ret-hero[data-band='light'] {
+    padding: 50px 0 96px;
+  }
+
+  section.ret-helps[data-band='dark'] {
+    padding: 96px 0 88px;
+  }
+
+  section.ret-process[data-band='light'] {
+    padding: 94px 0 94px;
+  }
+
+  section.ret-faq[data-band='light'] {
+    padding: 0 0 94px;
+  }
+
+  section.ret-fit[data-band='light'] {
+    padding: 0 0 96px;
+  }
+
+  section.ret-blog[data-band='light'] {
+    padding: 0 0 96px;
+  }
+
+  .ret-help-title,
+  .ret-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  .ret-faq-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  /* Number: the 184px box measure from 48em up (this round is mobile-only). */
+  .ret-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+
+  .ret-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .ret-helps-tape {
+    margin-top: 6rem;
+  }
+
+  .ret-helps-tape-item {
+    font-size: 6.5rem;
+    margin-right: 8.5rem;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(3) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .ret-cta--after {
+    grid-column: 1 / span 4;
+  }
+
+  .ret-blog-title {
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.32px;
+    margin-bottom: 24px;
+  }
+}
+
+/* 1024 — BX type steps. Shell already 8-col from 48em. */
+@media (min-width: 64em) {
+  .ret-hero h1,
+  .ret-hero-title {
+    font-size: 55px;
+    line-height: 57px;
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .ret-block-head h2,
+  .ret-faq-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.32px;
+  }
+
+  .ret-cta--after {
+    margin-top: 104px;
+  }
+
+  .ret-process .ret-cards {
+    row-gap: 80px;
+  }
+
+  .ret-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
+  .ret-helps-split {
+    row-gap: 88px;
+  }
+
+  .ret-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+    margin: 0;
+  }
+
+  .ret-stat {
+    max-width: 320px;
+  }
+
+  .ret-stat-value {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .ret-shell {
+    row-gap: 104px;
+  }
+
+  .ret-blog-split {
+    row-gap: 40px;
+  }
+}
+
+/* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
+@media (min-width: 80em) {
+  section.ret-hero[data-band='light'] {
+    padding: 50px 0 144px;
+  }
+
+  section.ret-helps[data-band='dark'] {
+    padding: 144px 0 132px;
+  }
+
+  section.ret-process[data-band='light'] {
+    padding: 142px 0 142px;
+  }
+
+  section.ret-faq[data-band='light'] {
+    padding: 0 0 142px;
+  }
+
+  section.ret-fit[data-band='light'] {
+    padding: 0 0 144px;
+  }
+
+  section.ret-blog[data-band='light'] {
+    padding: 0 0 144px;
+  }
+
+  .ret-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 104px;
+  }
+
+  .ret-helps-tape {
+    margin-top: 9rem;
+  }
+
+  .ret-helps-tape-item {
+    font-size: 10.5rem;
+    margin-right: 12rem;
+  }
+
+  .ret-kicker,
+  .ret-block-head,
+  .ret-faq-head .ret-block-head {
+    grid-column: 1 / span 16;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .ret-cards--3 > .ret-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .ret-cta--after {
+    grid-column: 1 / span 8;
+  }
+
+  .ret-helps-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ret-helps-image {
+    grid-column: 1 / span 8;
+  }
+
+  .ret-helps-list {
+    grid-column: 11 / span 6;
+  }
+
+  .ret-faq-list {
+    grid-column: 1 / -1;
+  }
+
+  .ret-blog-split {
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  .ret-blog-copy {
+    grid-column: 1 / span 6;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .ret-blog-media {
+    grid-column: 8 / span 9;
+    align-self: stretch;
+  }
+
+  .ret-blog-title {
+    font-size: 32px;
+    line-height: 48px;
+    letter-spacing: 0.256px;
+    margin-bottom: 32px;
+  }
+
+  .ret-blog-controls {
+    margin-top: auto;
+    padding-top: 32px;
+  }
+}
+
+/* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
+@media (min-width: 90em) {
+  section.ret-hero[data-band='light'] {
+    padding: 50px 0 160px;
+  }
+
+  section.ret-helps[data-band='dark'] {
+    padding: 160px 0 144px;
+  }
+
+  section.ret-process[data-band='light'] {
+    padding: 160px 0;
+  }
+
+  section.ret-faq[data-band='light'],
+  section.ret-fit[data-band='light'],
+  section.ret-blog[data-band='light'] {
+    padding: 0 0 160px;
+  }
+
+  .ret-helps-tape {
+    margin-top: 10rem;
+  }
+
+  .ret-helps-tape-item {
+    font-size: 12rem;
+    margin-right: 13.5rem;
+  }
+
+  .ret-hero h1,
+  .ret-hero-title {
+    font-size: 55px;
+    line-height: 57px;
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .ret-band .eyebrow {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 1.28px;
+  }
+
+  .ret-band .eyebrow--line::after {
+    width: 64px;
+  }
+
+  .ret-block-head .eyebrow,
+  .ret-blog-copy .eyebrow {
+    margin-bottom: 64px;
+  }
+
+  .ret-block-head h2 {
+    font-size: 48px;
+    line-height: 72px;
+    letter-spacing: 0.384px;
+  }
+
+  .ret-faq-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.32px;
+    max-width: 624px;
+  }
+
+  .ret-card-title,
+  .ret-help-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  .ret-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+  .ret-acc-inner > p {
+    max-width: 624px;
+  }
+
+  .ret-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+  }
+
+  /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */
+  .ret-blog-copy {
+    grid-column: 1 / span 5;
+  }
+
+  .ret-blog-media {
+    grid-column: 8 / span 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .ret-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .ret-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* ==========================================================================
+   Retail industry page additions (2026-10-22)
+   Shapes that do not exist on a service page. Section rhythm: white bands pad
+   bottom only and tinted bands pad both sides, so every visible gap between
+   two bands is exactly R (80 / 96 / 144 / 160 at 390 / 768 / 1280 / 1440).
+   ========================================================================== */
+
+.ret-band {
+  --ret-r: 80px;
+  padding: 0 0 var(--ret-r);
+}
+
+.ret-hero {
+  --ret-r: 80px;
+  padding: 0 0 var(--ret-r);
+}
+
+/* Tinted bands carry their own top pad; the band before them ends at R. */
+.ret-year,
+.ret-fit {
+  background: var(--color-lilac);
+  padding-block: var(--ret-r);
+}
+
+/* --- Breadcrumb ---------------------------------------------------------- */
+.ret-crumbs {
+  padding: 24px 0 0;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.24px;
+}
+
+.ret-crumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ret-crumbs-list a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.ret-crumbs-list a:hover,
+.ret-crumbs-list a:focus-visible {
+  border-bottom-color: currentColor;
+}
+
+.ret-crumbs-list [aria-current='page'] {
+  color: var(--color-ink);
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+.ret-hero h1.ret-hero-title {
+  margin: 24px 0 0;
+}
+
+.ret-hero-lead {
+  margin: 24px 0 0;
+  max-width: 44rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.ret-hero .ret-stat-grid {
+  margin-top: 48px;
+}
+
+.ret-hero .ret-stat {
+  padding-top: 24px;
+}
+
+/* Value counts as the figure, label as the caption: the reverse of MCA's
+   product spec cells, because these are page facts, not product fields. */
+.ret-hero .ret-stat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 32px;
+  letter-spacing: normal;
+}
+
+.ret-hero .ret-stat-label {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0.28px;
+}
+
+.ret-hero-cta {
+  margin-top: 40px;
+}
+
+.ret-hero-media {
+  margin-top: 56px;
+}
+
+.ret-hero-media .media,
+.ret-hero-media .image-slot {
+  width: 100%;
+}
+
+/* --- Shared block furniture --------------------------------------------- */
+.ret-block-intro {
+  margin: 24px 0 0;
+  max-width: 52rem;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-inline-link {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: background-size 300ms ease;
+}
+
+.ret-inline-link:hover,
+.ret-inline-link:focus-visible {
+  background-size: 0 1px;
+}
+
+/* --- Answer first ------------------------------------------------------- */
+.ret-answer-lead {
+  margin: 32px 0 0;
+  max-width: 46rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.ret-answer-list {
+  margin: 32px 0 0;
+  padding: 0;
+  max-width: 52rem;
+  list-style: none;
+}
+
+.ret-answer-list li {
+  position: relative;
+  padding-left: 24px;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-answer-list li + li {
+  margin-top: 16px;
+}
+
+.ret-answer-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 2px;
+  background: currentColor;
+}
+
+/* --- TF-06 values rows + PE-04 still column ----------------------------- */
+.ret-cash-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 48px;
+}
+
+.ret-cash-rows {
+  display: grid;
+  grid-column: 1 / -1;
+  row-gap: 0;
+}
+
+.ret-cash-media {
+  grid-column: 1 / -1;
+}
+
+.ret-row {
+  padding: 32px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.ret-row-title {
+  margin: 0 0 12px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ret-row-body {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ret-cash-media .media,
+.ret-cash-media .image-slot {
+  width: 100%;
+}
+
+/* --- The retail year: calendar rows ------------------------------------- */
+.ret-year-rows {
+  margin-top: var(--space-head-to-content);
+  row-gap: 0;
+}
+
+.ret-year-row {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 12px;
+  padding: 32px 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+}
+
+.ret-year-period {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+}
+
+/* --- Situation table ---------------------------------------------------- */
+.ret-table-shell {
+  margin-top: var(--space-head-to-content);
+}
+
+.ret-situation-table {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+.ret-situation-table th,
+.ret-situation-table td {
+  color: var(--color-ink-soft);
+}
+
+.ret-situation-table thead th {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.28px;
+}
+
+.ret-situation-table tbody th {
+  color: var(--color-ink);
+  font-weight: 400;
+}
+
+/* --- Product spec cards ------------------------------------------------- */
+.ret-spec-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ret-spec {
+  margin: 32px 0 32px;
+  width: 100%;
+}
+
+.ret-spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.ret-spec-row dt {
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.28px;
+}
+
+.ret-spec-row dd {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+/* --- Read link (secondary, under a card CTA) ---------------------------- */
+.ret-read {
+  margin-top: 24px;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
+}
+
+.ret-read:hover,
+.ret-read:focus-visible {
+  color: var(--color-ink);
+  border-bottom-color: currentColor;
+}
+
+.ret-fit .ret-card-link {
+  margin-top: 16px;
+}
+
+/* --- Practice cases ----------------------------------------------------- */
+.ret-case-num {
+  margin: 0 0 16px;
+  color: var(--color-muted);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 28px;
+}
+
+.ret-read-next {
+  margin-top: 48px;
+  align-items: baseline;
+  row-gap: 12px;
+}
+
+.ret-read-next-label {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+}
+
+.ret-read-next .ret-inline-link {
+  grid-column: 1 / -1;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 27px;
+}
+
+/* --- What you need (PWS-10 rows) ---------------------------------------- */
+.ret-need-rows {
+  margin-top: var(--space-head-to-content);
+  row-gap: 0;
+}
+
+.ret-need-row {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 8px;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.ret-need-label {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ret-need-note {
+  grid-column: 1 / -1;
+  margin: 24px 0 0;
+  max-width: 52rem;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+.ret-need-links {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 32px;
+  margin: 32px 0 0;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 27px;
+}
+
+/* ==========================================================================
+   Breakpoints
+   ========================================================================== */
+
+@media (min-width: 48em) {
+  .ret-band,
+  .ret-hero {
+    --ret-r: 96px;
+  }
+
+  .ret-hero .ret-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 32px;
+  }
+
+  .ret-hero-media {
+    margin-top: 64px;
+  }
+
+  .ret-spec-row {
+    grid-template-columns: 8rem 1fr;
+    column-gap: 16px;
+  }
+
+  .ret-read-next {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .ret-read-next-label,
+  .ret-read-next .ret-inline-link {
+    grid-column: auto;
+  }
+
+  .ret-need-row {
+    grid-template-columns: 8rem 1fr;
+    column-gap: 32px;
+    align-items: baseline;
+  }
+
+  .ret-year-row {
+    grid-template-columns: 10rem 1fr;
+    column-gap: 32px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ret-band,
+  .ret-hero {
+    --ret-r: 144px;
+  }
+
+  /* PE-04 split: 10 columns of rows, 6 of still. */
+  .ret-cash-rows {
+    grid-column: 1 / span 10;
+  }
+
+  .ret-cash-media {
+    grid-column: 12 / span 5;
+    grid-row: 1;
+  }
+
+  .ret-hero .ret-stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ret-situation-table {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media (min-width: 90em) {
+  .ret-band,
+  .ret-hero {
+    --ret-r: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ret-inline-link,
+  .ret-read {
+    transition: none;
+  }
+}
