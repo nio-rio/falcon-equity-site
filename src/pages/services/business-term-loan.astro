@@ -1,0 +1,337 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import '@/styles/business-term-loan.css';
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'Established businesses seeking structured financing for growth or operations.',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$10,000 – $2,000,000',
+  },
+  {
+    label: 'Terms',
+    value: '6 – 36 months',
+  },
+  {
+    label: 'Requirements',
+    value: '6+ months in business',
+  },
+  {
+    label: 'Requirements',
+    value: '$15K+ monthly revenue',
+  },
+  {
+    label: 'Requirements',
+    value: '550+ credit score',
+  },
+];
+
+const helps = [
+  {
+    title: 'Opening a new location',
+    body: 'A term loan delivers the whole amount up front, so a lease, a fit-out and the first months of rent can be planned together.',
+  },
+  {
+    title: 'Remodeling or upgrading a facility',
+    body: 'A set schedule over 6 to 36 months suits a build that should be paid for over time, not in a season.',
+  },
+  {
+    title: 'Hiring ahead of the work',
+    body: 'Structured capital can cover new payroll while the revenue those people bring in catches up.',
+  },
+  {
+    title: 'Making a large, planned purchase',
+    body: 'When the cost is known and the timing is yours, a fixed schedule is easier to run a business against.',
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If you need to draw, repay and draw again',
+    body: 'A line of credit is revolving: draw what you need, pay for what you use, and the rest stays available.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: 'If what you are buying is the asset itself',
+    body: 'Equipment, vehicles and commercial property can secure their own financing, so the cost is tied to the thing you are buying.',
+    linkLabel: 'Collateral & Asset Loans',
+    href: '/services/collateral-asset-loans',
+  },
+  {
+    title: 'If the money has to arrive today',
+    body: 'A short-term loan is one option inside this product, and a merchant cash advance is built for funding the same day once you are approved and signed.',
+    linkLabel: 'Merchant Cash Advance',
+    href: '/services/merchant-cash-advance',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Apply in minutes',
+    body: 'Fill out one short online application. Tell us what your business does and how much capital you need.',
+    note: 'You provide: six months of business bank statements, a photo ID, a voided check and a list of any current advances or loans.',
+  },
+  {
+    num: '02',
+    title: 'Talk to a specialist',
+    body: 'A Falcon specialist reviews your file, asks for anything that is missing and walks you through your options.',
+    note: 'You get: a call about the amount, the term and the full cost, before anything is signed.',
+  },
+  {
+    num: '03',
+    title: 'Approve and get funded',
+    body: 'Once you are approved, review and sign your agreement. Funding is often about 2 days after approval, and some files fund the same day.',
+    note: 'You see: your amount, your schedule and the full cost, all spelled out on the agreement.',
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = [
+  {
+    q: 'What is the difference between a term loan and a short-term loan?',
+    a: 'Term loans typically run $10,000 – $2,000,000 with 6 – 36 month terms. Funding is often about 2 days after approval; some files fund the same day. Final terms depend on underwriting.',
+  },
+  {
+    q: 'What rate will I get?',
+    a: 'Rates are competitive. They depend on the product, term and your business profile, and no specific rate is published on this page. Your specialist will show you the full cost of any offer before you sign.',
+  },
+  {
+    q: 'What credit score do I need?',
+    a: 'Typically 550 or higher, along with 6+ months in business and $15K+ monthly revenue. Final terms depend on underwriting.',
+  },
+  {
+    q: 'Can I pay it off early?',
+    a: 'Prepayment terms vary by agreement. Your specialist will explain them before you sign.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Falcon charges a 0% agreement fee. The cost of the loan itself is disclosed in full before you sign.',
+  },
+  {
+    q: 'What do I need to apply?',
+    a: 'Six months of business bank statements, a government-issued photo ID, a voided check and a list of any open advances or loans.',
+  },
+];
+---
+
+<BaseLayout title="Business Term Loan" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="btl-hero" aria-labelledby="page-hero-heading" data-band="light" data-btl-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="btl-shell" data-reveal>
+        <div class="btl-hero-inner">
+          <h1 id="page-hero-heading" class="btl-hero-title">Business Term Loan</h1>
+          <div class="btl-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="btl-stat">
+                  <p class="btl-stat-label">{stat.label}</p>
+                  <p class="btl-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="btl-hero-lead">
+            One lump sum, one set schedule, and a cost you can plan around instead of reacting to.
+          </p>
+          <div class="btl-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="btl-band btl-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-btl-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="btl-shell btl-helps-head" data-reveal>
+        <div class="btl-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When a term loan is the right fit.</h2>
+          <p class="btl-help-body btl-helps-intro">
+            Four moments when you know the number, you know the timeline, and you would rather not carry a daily payment.
+          </p>
+        </div>
+      </div>
+      <div class="btl-shell btl-helps-split" data-reveal>
+        <div class="btl-helps-image">
+          <Media
+            labeled
+            intent="Abstract still of an empty storefront mid fit-out, no people"
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="btl-helps-list">
+          {
+            helps.map((item) => (
+              <article class="btl-help">
+                <h3 class="btl-help-title">{item.title}</h3>
+                <p class="btl-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="btl-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="btl-helps-tape-track" data-btl-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="btl-helps-tape-item" data-btl-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="btl-band btl-process" aria-labelledby="process-heading" data-band="light" data-btl-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="btl-shell btl-process-head" data-reveal>
+        <div class="btl-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to get funded.</h2>
+        </div>
+      </div>
+      <div class="btl-shell btl-cards btl-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="btl-card btl-step">
+              <p class="btl-step-num">{step.num}</p>
+              <h3 class="btl-card-title">{step.title}</h3>
+              <p class="btl-card-body">{step.body}</p>
+              <p class="btl-card-body btl-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="btl-shell" data-reveal>
+        <div class="btl-cta btl-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="btl-band btl-faq" aria-labelledby="btl-faq-heading" data-band="light" data-btl-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="btl-shell btl-faq-head" data-reveal>
+        <div class="btl-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="btl-faq-heading">Term loan questions</h2>
+        </div>
+      </div>
+      <div class="btl-shell">
+      <div class="btl-faq-list" data-accordion data-reveal>
+        {
+          faqs.map((item, i) => (
+            <div class="btl-faq-item" data-acc-item>
+              <h3>
+                <button
+                  type="button"
+                  class="btl-faq-trigger"
+                  aria-expanded="false"
+                  aria-controls={`btl-faq-panel-${i}`}
+                  id={`btl-faq-trigger-${i}`}
+                  data-acc-trigger
+                >
+                  <span>{item.q}</span>
+                  <span class="btl-faq-caret" aria-hidden="true">
+                    <span class="btl-faq-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="btl-faq-caret-svg">
+                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              </h3>
+              <div class="btl-acc-panel" id={`btl-faq-panel-${i}`} role="region" aria-labelledby={`btl-faq-trigger-${i}`}>
+                <div class="btl-acc-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="btl-band btl-fit" aria-labelledby="fit-heading" data-band="light" data-btl-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="btl-shell btl-fit-head" data-reveal>
+        <div class="btl-block-head">
+          <Eyebrow>When a term loan isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            A term loan hands you the money once. Here are three situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="btl-shell btl-cards btl-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="btl-card">
+              <h3 class="btl-card-title">{item.title}</h3>
+              <p class="btl-card-body">{item.body}</p>
+              <a class="btl-card-link" href={item.href}>
+                <span class="btl-card-link-label">{item.linkLabel}</span>
+                <span class="btl-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-btl-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-btl-tape]').forEach(arm);
+  </script>
+</BaseLayout>
