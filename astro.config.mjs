@@ -14,6 +14,7 @@ const livePaths = new Set([
   '/services/collateral-asset-loans',
   '/services/business-line-of-credit',
   '/services/business-term-loan',
+  '/services/invoice-factoring-tool',
 ]);
 
 const serviceSlugs = [
@@ -71,6 +72,7 @@ for (const slug of serviceSlugs) {
   if (slug === 'collateral-asset-loans') continue;
   if (slug === 'business-line-of-credit') continue;
   if (slug === 'business-term-loan') continue;
+  if (slug === 'invoice-factoring-tool') continue;
   retired[`/services/${slug}`] = '/';
 }
 for (const slug of industrySlugs) retired[`/industries/${slug}`] = '/';
