@@ -46,6 +46,14 @@ section.mca-blog[data-band='light'] {
   color: var(--color-white);
 }
 
+/* Home Why-choose-us dark type: headings/eyebrow #fff, body --bx-on-dark.
+   Global h2/eyebrow are --bx-black, the same token as this band. */
+.mca-helps h2,
+.mca-helps h3,
+.mca-helps .eyebrow {
+  color: #fff;
+}
+
 /* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at
    390 / 768 / 1280 / 1440. Shell fills that content box with 1fr tracks. */
 .mca-shell {
@@ -311,7 +319,7 @@ section.mca-blog[data-band='light'] {
 
 .mca-help-title {
   margin: 0 0 24px;
-  color: inherit;
+  color: #fff;
   font-family: var(--font-display);
   font-size: 20px;
   font-weight: 400;
@@ -321,7 +329,7 @@ section.mca-blog[data-band='light'] {
 
 .mca-help-body {
   margin: 0 0 64px;
-  color: inherit;
+  color: var(--bx-on-dark);
   font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 300;

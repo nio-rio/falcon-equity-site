@@ -150,3 +150,30 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
 
   document.querySelectorAll<HTMLElement>('[data-site-cta]').forEach(init);
 </script>
+
+<style is:global>
+  /* Ling (via Vera): cut top pad ~40% on every page; bottom stays R.
+     48 / 58 / 86 / 96 at 390 / 768 / 1280 / 1440. Home 0-diff exception. */
+  section.site-cta[data-site-cta] {
+    padding-top: 48px;
+    padding-bottom: var(--pilot-section-y);
+  }
+
+  @media (min-width: 48em) {
+    section.site-cta[data-site-cta] {
+      padding-top: 58px;
+    }
+  }
+
+  @media (min-width: 80em) {
+    section.site-cta[data-site-cta] {
+      padding-top: 86px;
+    }
+  }
+
+  @media (min-width: 90em) {
+    section.site-cta[data-site-cta] {
+      padding-top: 96px;
+    }
+  }
+</style>
