@@ -36,12 +36,29 @@ if (h1Of('dist/apply.html') !== 'Apply') {
   throw new Error(`Apply <h1> was ${JSON.stringify(h1Of('dist/apply.html'))}`);
 }
 
-const mcaTitle = titleOf('dist/services/merchant-cash-advance.html');
-if (mcaTitle !== 'Merchant Cash Advance | Falcon Equity Group') {
-  throw new Error(`MCA <title> was ${JSON.stringify(mcaTitle)}`);
-}
-if (h1Of('dist/services/merchant-cash-advance.html') !== 'Merchant Cash Advance') {
-  throw new Error(`MCA <h1> was ${JSON.stringify(h1Of('dist/services/merchant-cash-advance.html'))}`);
+/** Every service page that has been rebuilt onto its own route. */
+const servicePages = [
+  ['services/merchant-cash-advance', 'Merchant Cash Advance'],
+  ['services/collateral-asset-loans', 'Collateral & Asset Loans'],
+  ['services/business-line-of-credit', 'Business Line of Credit'],
+  ['services/business-term-loan', 'Business Term Loan'],
+  ['services/invoice-factoring-tool', 'Invoice Factoring Tool'],
+  ['services/consolidation-of-positions', 'Consolidation of Positions'],
+];
+
+for (const [route, name] of servicePages) {
+  const file = `dist/${route}.html`;
+  const title = titleOf(file);
+  if (title !== `${name} | Falcon Equity Group`) {
+    throw new Error(`${file} <title> was ${JSON.stringify(title)}`);
+  }
+  const h1 = h1Of(file);
+  if (h1 !== name) {
+    throw new Error(`${file} <h1> was ${JSON.stringify(h1)}`);
+  }
 }
 
-console.log(`${home}\n${applyTitle}\n${mcaTitle}`);
+console.log(`${home}\n${applyTitle}`);
+for (const [route, name] of servicePages) {
+  console.log(`${name} | Falcon Equity Group  <- dist/${route}.html`);
+}
