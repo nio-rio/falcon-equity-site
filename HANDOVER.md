@@ -92,3 +92,39 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - `cd ~/Sites/falcon-equity-site && git checkout cursor/falcon-astro-site-e383 && git pull --rebase`
 - `npm install`, then `npm run dev` (local server), `npm run build` (must pass), `npm run preview`.
 - Preview deploy: https://deploy-preview-1--falcon-equity-site.netlify.app/
+
+## Session 2026-10-22 (later) — retail rebuilt from a live section library
+
+**Why.** Ling reviewed v1 of `/industries/retail`: *"the design is not good, lots of sections doesn't look like Blackstone."* Root cause: v1 was built from **Wayback snapshots** and invented its own rhythm — eleven near-identical `ret-band` stacks, each opening with eyebrow → H2 → intro, then cards or rows. Blackstone never repeats that shape. She asked for the pages to be read in her own browser, the code inspected, and a section library built before anything was designed.
+
+**1. The library is now measured from live pages: `docs/section-library-live/` (9.4 MB).**
+- **52 sections** across 7 sources: the-firm (7), private-equity (8), accessing-private-markets (10), why-blackstone/BMACX (11), ir overview (1), Blackstone home (8), **Falcon home (7)** — the last two added on Ling's instruction, so Falcon's approved home sections sit next to Blackstone's.
+- `LIBRARY.md` — per id: shape in words, measured band colour, pads, heading/body type sizes, still dimensions, item counts, mobile behaviour, "good for", artifact paths. `sections.json` is the machine version.
+- Per id: `img/{id}-d.png`, `img/{id}-m.png`, `html/{id}.html` (the live outerHTML).
+- **How it was captured, because this is the part that failed before:** `blackstone.com` and `bmacx.com` return 403 Cloudflare to curl *and* to my automation browser. A **real Google Chrome** (`channel="chrome"`, persistent profile, offscreen window) passes without any stealth flags. Geometry came from `getComputedStyle` / `getBoundingClientRect` at 1440 + a second pass at 390.
+- Two sources are honestly partial and the library says so: **ir.blackstone.com's modules are JavaScript-populated** (only the overview block was measurable), and **no page has a data-table section**, so the retail comparison table has no donor.
+
+**2. Plan: `docs/retail-structure-plan-v2.md`.** 12 bands, each naming its library id + source URL + the adaptation in words. Rejected candidates are recorded (HOME-07 email capture, HOME-01 carousel, HOME-04 marquee, APM-04 heading-less continuation, accordions on copy we want extractable).
+
+**3. The rebuild.** Band → id: page header `TF-00`; glance figures `IR-00`/`PE-02`; header still `TF-01`; answer-first dark band `TF-02`; four cash pressures `TF-05`; retail year rows `TF-03`/`PE-05`; situation table **no donor** (own `.r-table` in the library's hairline/type conventions); three products `PE-04` + `BMX-03` spec block; exits `APM-09`; cases `BMX-03…06` (number in the figure slot); application requirements `BMX-10`; FAQ `APM-08`/`BMX-09`.
+- Grid `ret-grid` = **4 → 8 → 16 columns, 16px gutter, 1264 container** (the measured Blackstone shell, same as `.mca-shell`). Band pads 80/96/144/160. Same-theme follower collapses to 56px (`ret-band--stacked`, used by Products after the table).
+- **No `Button040` on this page.** The hero Apply is `.arrow-cta` + `CircleArrow` — DESIGN-SYSTEM §Inner-page patterns allows one Apply-style arrow in an inner hero and forbids 040 there; v1 had a 040 pill in the hero.
+- The 4:5 stockroom still was **dropped**: its donor (`TF-05`) carries no image, and the page already has a header still plus three product stills.
+- Copy, figures and schema are unchanged: figures still read from `SERVICES`, `FAQPage` (7) + `BreadcrumbList` (3) + three `Service` nodes.
+- **DESIGN-SYSTEM rule 11 says "do not restyle toward Blackstone".** Resolved as: geometry, band rhythm and section order come from the measured library; colour, typeface, tokens and components stay Falcon's. That is also what CLAUDE.md's "Method: structure first" asks for. If Ling wants that tension written into DESIGN-SYSTEM.md, it is still unresolved there.
+
+**4. QA, measured on the built page** (`npm run preview`, not the static dir):
+- `dist/industries/retail.html` **64 KB**, one real `<h1>`, no `http-equiv="refresh"`, present in `sitemap-0.xml`.
+- `scrollWidth == clientWidth` and **zero** right-edge overflow at **390 / 768 / 1024 / 1440 / 1920**.
+- Three product cards now equal height (809px each) with their links on one baseline.
+- Retired sibling `/industries/healthcare` still stubs out (meta refresh to `/`), so the route lift did not open the family.
+- `tests/titles.spec.mjs` extended with an industry list; passes. `npm run check` still reports **one pre-existing error** in `src/components/pilot/PilotIndustryTabs.astro:175` (`relatedTarget` on `Event`) — not from this work.
+
+**5. Pitfalls for the next builder (all cost time today):**
+- **Never use `python3 -m http.server` on `dist` to review an Astro build.** With `build.format: 'file'`, `/industries/retail` resolves to `404.html` — an entire QA pass ran against the *home page* and looked plausible. Use `npm run preview`.
+- **A full-page screenshot of a GSAP-revealed page is half-blank.** `scroll-in.ts` leaves inline `opacity`/`visibility` on `[data-reveal]`; removing `has-js` is not enough. Force `opacity/visibility/transform` with `!important` before capturing.
+- **The PWS legal gate covers every section on `accessing-private-markets`.** Kill fixed/gate nodes *before* collecting, then re-collect — removing them first shifts `nth-of-type` selectors.
+- **Screenshot loops must recompute the id inside the mobile pass.** v1 of the extractor reused a stale `sid`, so every `-m.png` was the last section's crop saved 7 times. Check the filenames against the ids.
+- **Pick a section's heading by largest measured font-size**, not by DOM order — the eyebrow is usually the first `h2`/`h3` in the markup and it made the library report 16/24 for 48/72 claims.
+
+**Layout regression note:** `git diff` on this page is a rewrite, not a restyle — `retail.css` was regenerated from the MCA primitives. If a later ticket says "retail looked different yesterday", yesterday was v1 (11 identical bands).

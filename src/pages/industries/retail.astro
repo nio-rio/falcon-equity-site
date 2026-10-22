@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import Button040 from '@/components/Button040.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SERVICES } from '@/data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
@@ -11,7 +11,8 @@ import '@/styles/retail.css';
 /**
  * Retail industry page. Copy contract: nio rio Notion
  * "Retail industry page – content outline (stage 1)".
- * Structure plan: docs/retail-structure-plan.md (sections, Blackstone source per section).
+ * Structure: docs/retail-structure-plan-v2.md — every band names the measured
+ * section id it was built from (docs/section-library-live/LIBRARY.md).
  * Figures come from SERVICES (live #services spec) — never re-typed here.
  */
 
@@ -147,14 +148,17 @@ const retailProducts = [
   {
     service: loc,
     fit: 'The default for a repeating buying cycle. Draw what each order needs, repay as the stock sells, and keep the facility for next season.',
+    intent: 'stockroom shelves stacked with boxed inventory',
   },
   {
     service: mca,
     fit: 'For card-heavy stores that need money quickly and cannot wait on a bank. Repayment follows sales, but it costs more than a line of credit, so use it for short, high-turn purchases rather than planned buying.',
+    intent: 'card payment terminal on a shop counter',
   },
   {
     service: collateral,
     fit: 'For the assets behind the shop — refrigeration, fixtures, POS hardware or a delivery van. A fixed term spreads the cost over the years the equipment keeps working.',
+    intent: 'refrigerated display cases along a grocery aisle',
   },
 ];
 
@@ -287,27 +291,29 @@ const metaDescription =
     </div>
   </nav>
 
-  <section class="ret-hero" aria-labelledby="page-hero-heading" data-band="light" data-ret-section="hero" data-reveal-root>
+  {/* 1 page header (TF-00) · 2 glance figures (IR-00 / PE-02) · 3 header still (TF-01) */}
+  <section class="ret-hero" aria-labelledby="page-hero-heading" data-band="light" data-ret-section="header" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell ret-hero-inner" data-reveal>
-        <h1 id="page-hero-heading" class="ret-hero-title">Retail business loans</h1>
-        <p class="ret-hero-lead">
+      <div class="ret-grid ret-hero-grid">
+        <h1 id="page-hero-heading" class="ret-h1" data-reveal>Retail business loans</h1>
+        <p class="ret-body ret-standfirst" data-reveal>
           Stock the shelves before the money comes back. Funding that moves with your selling season, not against it.
         </p>
-        <div class="ret-stat-grid">
+        <a class="arrow-cta ret-hero-apply" href="/apply" data-reveal>
+          <span class="arrow-cta-label">Apply for funding</span>
+          <CircleArrow />
+        </a>
+        <div class="ret-glance" data-reveal>
           {
             glance.map((item) => (
-              <div class="ret-stat">
-                <p class="ret-stat-value">{item.value}</p>
-                <p class="ret-stat-label">{item.label}</p>
+              <div class="ret-glance-cell">
+                <p class="ret-glance-value">{item.value}</p>
+                <p class="ret-glance-label">{item.label}</p>
               </div>
             ))
           }
         </div>
-        <div class="ret-hero-cta">
-          <Button040 href="/apply" label="Apply for funding" variant="dark" />
-        </div>
-        <div class="ret-hero-media">
+        <div class="ret-hero-media" data-reveal>
           <Media
             labeled
             intent="stocked shop shelves seen from the aisle, boxes still on the floor"
@@ -319,280 +325,284 @@ const metaDescription =
     </div>
   </section>
 
-  <section class="ret-band ret-answer" aria-labelledby="answer-heading" data-band="light" data-ret-section="answer" data-reveal-root>
+  {/* 4 answer first — TF-02: dark band, claim left, answer + numbered rows right */}
+  <section class="ret-band ret-band--dark ret-answer" aria-labelledby="answer-heading" data-band="dark" data-ret-section="answer" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell ret-answer-inner" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-answer-head" data-reveal>
           <Eyebrow>In short</Eyebrow>
-          <h2 id="answer-heading">How retail businesses use Falcon.</h2>
+          <h2 id="answer-heading" class="ret-claim">How retail businesses use Falcon.</h2>
         </div>
-        <p class="ret-answer-lead">{answerLead}</p>
-        <ul class="ret-answer-list">
-          {takeaways.map((item) => <li>{item}</li>)}
-        </ul>
+        <div class="ret-answer-side" data-reveal>
+          <p class="ret-body ret-answer-lead">{answerLead}</p>
+          <ol class="ret-takeaways">
+            {
+              takeaways.map((item, i) => (
+                <li class="ret-takeaway">
+                  <span class="ret-takeaway-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
       </div>
     </div>
   </section>
 
+  {/* 5 four cash pressures — TF-05: titled prose columns, no card chrome */}
   <section class="ret-band ret-cash" aria-labelledby="cash-heading" data-band="light" data-ret-section="cash" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-cash-head" data-reveal>
           <Eyebrow>What it costs you</Eyebrow>
-          <h2 id="cash-heading">Four things eat a retailer's cash</h2>
-          <p class="ret-block-intro">
+          <h2 id="cash-heading" class="ret-claim">Four things eat a retailer's cash</h2>
+          <p class="ret-body ret-cash-intro">
             None of this is a spending problem. It is a timing problem — the money goes out months before it comes
             back.
           </p>
         </div>
-      </div>
-      <div class="ret-shell ret-cash-split" data-reveal>
-        <div class="ret-cash-rows">
+        <div class="ret-values">
           {
             pressures.map((item) => (
-              <article class="ret-row">
-                <h3 class="ret-row-title">{item.title}</h3>
-                <p class="ret-row-body">{item.body}</p>
+              <article class="ret-value" data-reveal>
+                <h3 class="ret-value-title">{item.title}</h3>
+                <p class="ret-body ret-body--sm">{item.body}</p>
               </article>
             ))
           }
         </div>
-        <div class="ret-cash-media">
-          <Media
-            labeled
-            intent="retail stockroom, boxes stacked on pallets"
-            ratio="4 / 5"
-            sizes="(min-width: 90em) 424px, (min-width: 64em) 380px, 100vw"
-          />
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="ret-band ret-year" aria-labelledby="year-heading" data-band="light" data-ret-section="year" data-reveal-root>
+  {/* 6 the retail year — TF-03 / PE-05 row geometry, chevrons dropped */}
+  <section class="ret-band ret-band--tint ret-year" aria-labelledby="year-heading" data-band="light" data-ret-section="year" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-year-head" data-reveal>
           <Eyebrow>Why timing matters</Eyebrow>
-          <h2 id="year-heading">Your year has four cash moments</h2>
-          <p class="ret-block-intro">
+          <h2 id="year-heading" class="ret-claim">Your year has four cash moments</h2>
+          <p class="ret-body ret-year-intro">
             Retail cash flow is not flat. These are the four points where the money and the sales drift apart.
           </p>
         </div>
-      </div>
-      <div class="ret-shell ret-year-rows" data-reveal>
-        {
-          year.map((item) => (
-            <article class="ret-year-row">
-              <p class="ret-year-period">{item.period}</p>
-              <div class="ret-year-copy">
-                <h3 class="ret-row-title">{item.title}</h3>
-                <p class="ret-row-body">{item.body}</p>
-              </div>
-            </article>
-          ))
-        }
+        <div class="ret-year-rows">
+          {
+            year.map((item) => (
+              <article class="ret-year-row" data-reveal>
+                <p class="ret-label ret-period">{item.period}</p>
+                <h3 class="ret-year-title">{item.title}</h3>
+                <p class="ret-body ret-body--sm ret-year-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
+  {/* 7 which funding fits — no donor section; our own table in the library's conventions */}
   <section class="ret-band ret-situation" aria-labelledby="situation-heading" data-band="light" data-ret-section="situation" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-situation-head" data-reveal>
           <Eyebrow>Find your situation</Eyebrow>
-          <h2 id="situation-heading">Which funding fits your store right now?</h2>
-          <p class="ret-block-intro">
+          <h2 id="situation-heading" class="ret-claim">Which funding fits your store right now?</h2>
+          <p class="ret-body ret-situation-intro">
             Most owners arrive with a sentence, not a product. Find the sentence that sounds like your month.
           </p>
         </div>
-      </div>
-      <div class="ret-shell ret-table-shell" data-reveal>
-        <div class="r-table-wrap">
-          <table class="r-table ret-situation-table">
-            <caption class="sr-only">Retail situations and the Falcon product that fits each one</caption>
-            <thead>
-              <tr>
-                <th scope="col">If this is your situation</th>
-                <th scope="col">What it means for your cash</th>
-                <th scope="col">Falcon product</th>
-                <th scope="col">Why that one</th>
-                <th scope="col">Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                situations.map((row) => (
-                  <tr>
-                    <th scope="row">{row.if}</th>
-                    <td data-label="What it means">{row.means}</td>
-                    <td data-label="Product">
-                      <a class="ret-inline-link" href={`/services/${row.product.slug}`}>{row.product.name}</a>
-                    </td>
-                    <td data-label="Why that one">{row.why}</td>
-                    <td data-label="Range">{row.range}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+        <div class="ret-table-shell" data-reveal>
+          <div class="r-table-wrap">
+            <table class="r-table ret-situation-table">
+              <caption class="sr-only">Retail situations and the Falcon product that fits each one</caption>
+              <thead>
+                <tr>
+                  <th scope="col">If this is your situation</th>
+                  <th scope="col">What it means for your cash</th>
+                  <th scope="col">Falcon product</th>
+                  <th scope="col">Why that one</th>
+                  <th scope="col">Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  situations.map((row) => (
+                    <tr>
+                      <th scope="row">{row.if}</th>
+                      <td data-label="What it means">{row.means}</td>
+                      <td data-label="Product">
+                        <a class="ret-inline-link" href={`/services/${row.product.slug}`}>{row.product.name}</a>
+                      </td>
+                      <td data-label="Why that one">{row.why}</td>
+                      <td data-label="Range">{row.range}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="ret-band ret-products" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
+  {/* 8 three products — PE-04 card + BMX-03 spec block */}
+  <section class="ret-band ret-band--stacked ret-products" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-products-head" data-reveal>
           <Eyebrow>Products</Eyebrow>
-          <h2 id="products-heading">Three ways to fund a retail business</h2>
-          <p class="ret-block-intro">Same application, same specialist — three different shapes of money.</p>
+          <h2 id="products-heading" class="ret-claim">Three ways to fund a retail business</h2>
+          <p class="ret-body ret-products-intro">Same application, same specialist — three different shapes of money.</p>
         </div>
-      </div>
-      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
-        {
-          retailProducts.map(({ service, fit }) => (
-            <article class="ret-card ret-spec-card">
-              <h3 class="ret-card-title">{service.name}</h3>
-              <p class="ret-card-body">{fit}</p>
-              <dl class="ret-spec">
-                <div class="ret-spec-row">
-                  <dt>Who it's for</dt>
-                  <dd>{service.whoFor}</dd>
+        <div class="ret-product-list">
+          {
+            retailProducts.map(({ service, fit, intent }) => (
+              <article class="ret-product" data-reveal>
+                <div class="ret-product-media">
+                  <Media
+                    labeled
+                    intent={intent}
+                    ratio="16 / 9"
+                    sizes="(min-width: 80em) 400px, (min-width: 64em) 33vw, 100vw"
+                  />
                 </div>
-                <div class="ret-spec-row">
-                  <dt>Amounts</dt>
-                  <dd>{service.spec!.amounts}</dd>
-                </div>
-                <div class="ret-spec-row">
-                  <dt>Terms</dt>
-                  <dd>{service.spec!.terms}</dd>
-                </div>
-                <div class="ret-spec-row">
-                  <dt>Requirements</dt>
-                  <dd>{service.spec!.requirements.join(' · ')}</dd>
-                </div>
-              </dl>
-              <a class="ret-card-link" href={`/services/${service.slug}`}>
-                <span class="ret-card-link-label">{service.name}</span>
-                <span class="ret-card-link-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                  </svg>
-                </span>
-              </a>
-            </article>
-          ))
-        }
+                <h3 class="ret-product-title">{service.name}</h3>
+                <p class="ret-body ret-body--sm">{fit}</p>
+                <dl class="ret-spec">
+                  <div class="ret-spec-row">
+                    <dt>Who it's for</dt>
+                    <dd>{service.whoFor}</dd>
+                  </div>
+                  <div class="ret-spec-row">
+                    <dt>Amounts</dt>
+                    <dd>{service.spec!.amounts}</dd>
+                  </div>
+                  <div class="ret-spec-row">
+                    <dt>Terms</dt>
+                    <dd>{service.spec!.terms}</dd>
+                  </div>
+                  <div class="ret-spec-row">
+                    <dt>Requirements</dt>
+                    <dd>{service.spec!.requirements.join(' · ')}</dd>
+                  </div>
+                </dl>
+                <a class="arrow-cta ret-product-link" href={`/services/${service.slug}`}>
+                  <span class="arrow-cta-label">See {service.name}</span>
+                  <CircleArrow />
+                </a>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="ret-band ret-fit" aria-labelledby="fit-heading" data-band="light" data-ret-section="fit" data-reveal-root>
+  {/* 9 not the right fit — APM-09 two-column link grid */}
+  <section class="ret-band ret-band--tint ret-fit" aria-labelledby="fit-heading" data-band="light" data-ret-section="fit" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell ret-fit-head" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-fit-head" data-reveal>
           <Eyebrow>Not the right fit</Eyebrow>
-          <h2 id="fit-heading">If none of these sounds like your month, it may be a different product.</h2>
+          <h2 id="fit-heading" class="ret-claim">If none of these sounds like your month, it may be a different product.</h2>
         </div>
-      </div>
-      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
-        {
-          exits.map((item) => (
-            <article class="ret-card">
-              <h3 class="ret-card-title">{item.title}</h3>
-              <p class="ret-card-body">{item.body}</p>
-              <a class="ret-read" href={item.read}>
-                <span class="ret-read-label">Read: {item.readLabel}</span>
-              </a>
-              <a class="ret-card-link" href={item.href}>
-                <span class="ret-card-link-label">{item.linkLabel}</span>
-                <span class="ret-card-link-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                  </svg>
-                </span>
-              </a>
-            </article>
-          ))
-        }
+        <div class="ret-exit-list">
+          {
+            exits.map((item) => (
+              <article class="ret-exit" data-reveal>
+                <h3 class="ret-exit-title">{item.title}</h3>
+                <p class="ret-body ret-body--sm">{item.body}</p>
+                <div class="ret-exit-links">
+                  <a class="arrow-cta" href={item.href}>
+                    <span class="arrow-cta-label">{item.linkLabel}</span>
+                    <CircleArrow />
+                  </a>
+                  <a class="ret-read" href={item.read}>Read: {item.readLabel}</a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
+  {/* 10 three files in practice — BMX-03…06 stat card, figure slot holds the number */}
   <section class="ret-band ret-cases" aria-labelledby="cases-heading" data-band="light" data-ret-section="cases" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-cases-head" data-reveal>
           <Eyebrow>How it looks in practice</Eyebrow>
-          <h2 id="cases-heading">Three retail files, three shapes of money</h2>
+          <h2 id="cases-heading" class="ret-claim">Three retail files, three shapes of money</h2>
         </div>
-      </div>
-      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
-        {
-          cases.map((item, i) => (
-            <article class="ret-card ret-case">
-              <p class="ret-case-num">{String(i + 1).padStart(2, '0')}</p>
-              <h3 class="ret-card-title">{item.title}</h3>
-              <p class="ret-card-body">{item.body}</p>
-            </article>
-          ))
-        }
-      </div>
-      <div class="ret-shell ret-read-next" data-reveal>
-        <p class="ret-read-next-label">Read next</p>
-        <a class="ret-inline-link" href="/blog/bridging-a-slow-season">Bridging a slow season</a>
-        <a class="ret-inline-link" href="/blog/equipment-financing-break-even">Equipment financing break-even</a>
+        <div class="ret-case-list">
+          {
+            cases.map((item, i) => (
+              <article class="ret-case" data-reveal>
+                <p class="ret-case-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+                <h3 class="ret-case-title">{item.title}</h3>
+                <p class="ret-body ret-body--sm">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+        <div class="ret-read-next" data-reveal>
+          <p class="ret-label">Read next</p>
+          <a class="ret-inline-link" href="/blog/bridging-a-slow-season">Bridging a slow season</a>
+          <a class="ret-inline-link" href="/blog/equipment-financing-break-even">Equipment financing break-even</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="ret-band ret-need" aria-labelledby="need-heading" data-band="light" data-ret-section="need" data-reveal-root>
+  {/* 11 what an application needs — BMX-10: title left, rows right */}
+  <section class="ret-band ret-band--tint ret-need" aria-labelledby="need-heading" data-band="light" data-ret-section="need" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-need-head" data-reveal>
           <Eyebrow>Are we a match?</Eyebrow>
-          <h2 id="need-heading">What a retail application needs</h2>
-          <p class="ret-block-intro">Published criteria, not a promise. Approval depends on your file.</p>
+          <h2 id="need-heading" class="ret-claim">What a retail application needs</h2>
+          <p class="ret-body ret-need-intro">Published criteria, not a promise. Approval depends on your file.</p>
         </div>
-      </div>
-      <div class="ret-shell ret-need-rows" data-reveal>
-        {
-          needRows.map((row) => (
-            <article class="ret-need-row">
-              <h3 class="ret-need-label">{row.label}</h3>
-              <p class="ret-row-body">{row.value}</p>
-            </article>
-          ))
-        }
-        <p class="ret-need-note">
-          Documents: six months of business bank statements, a government-issued photo ID, a voided check, a list of
-          any current advances or loans, and a quote or invoice for equipment.
-        </p>
-        <p class="ret-need-note">
-          No restricted industries or states: Falcon has no restricted-industry or restricted-state list.
-          Underwriting looks at the business, not the sector or the geography.
-        </p>
-        <p class="ret-need-links">
-          <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
-          <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
-        </p>
+        <div class="ret-need-rows" data-reveal>
+          {
+            needRows.map((row) => (
+              <div class="ret-need-row">
+                <p class="ret-label">{row.label}</p>
+                <p class="ret-need-value">{row.value}</p>
+              </div>
+            ))
+          }
+          <div class="ret-need-notes">
+            <p class="ret-need-note">
+              Documents: six months of business bank statements, a government-issued photo ID, a voided check, a list of
+              any current advances or loans, and a quote or invoice for equipment.
+            </p>
+            <p class="ret-need-note">
+              No restricted industries or states: Falcon has no restricted-industry or restricted-state list.
+              Underwriting looks at the business, not the sector or the geography.
+            </p>
+          </div>
+          <p class="ret-need-links">
+            <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
+            <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
+  {/* 12 FAQ — APM-08 / BMX-09: heading left, accordion rows right */}
   <section class="ret-band ret-faq" aria-labelledby="faq-heading" data-band="light" data-ret-section="faq" data-reveal-root>
     <div class="container-site">
-      <div class="ret-shell ret-faq-head" data-reveal>
-        <div class="ret-block-head">
+      <div class="ret-grid">
+        <div class="ret-faq-head" data-reveal>
           <Eyebrow>FAQ</Eyebrow>
-          <h2 id="faq-heading">Retail funding questions</h2>
+          <h2 id="faq-heading" class="ret-claim">Retail funding questions</h2>
         </div>
-      </div>
-      <div class="ret-shell">
         <div class="ret-faq-list" data-accordion data-reveal>
           {
             faqs.map((item, i) => (

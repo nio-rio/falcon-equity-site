@@ -58,7 +58,25 @@ for (const [route, name] of servicePages) {
   }
 }
 
+/** Rebuilt industry pages. The H1 is the page's label, not the route slug. */
+const industryPages = [['industries/retail', 'Retail business loans']];
+
+for (const [route, h1Expected] of industryPages) {
+  const file = `dist/${route}.html`;
+  const title = titleOf(file);
+  if (title !== `${h1Expected} | Falcon Equity Group`) {
+    throw new Error(`${file} <title> was ${JSON.stringify(title)}`);
+  }
+  const h1 = h1Of(file);
+  if (h1 !== h1Expected) {
+    throw new Error(`${file} <h1> was ${JSON.stringify(h1)}`);
+  }
+}
+
 console.log(`${home}\n${applyTitle}`);
 for (const [route, name] of servicePages) {
   console.log(`${name} | Falcon Equity Group  <- dist/${route}.html`);
+}
+for (const [route, h1Expected] of industryPages) {
+  console.log(`${h1Expected} | Falcon Equity Group  <- dist/${route}.html`);
 }
