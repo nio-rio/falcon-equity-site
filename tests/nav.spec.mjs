@@ -95,15 +95,19 @@ const headerPanelGeom = (page) =>
       headerBottom: Math.round(hr.bottom * 10) / 10,
       visible:
         br.height > 8 &&
-        br.top >= -1 &&
-        br.top <= 2 &&
-        br.bottom > 40 &&
-        cs.position === 'fixed' &&
+        br.bottom > 8 &&
+        br.top < window.innerHeight &&
+        (document.documentElement.classList.contains('has-scroll-lock') ||
+          !header.classList.contains('is-hidden') ||
+          header.classList.contains('is-shown')) &&
         cs.visibility !== 'hidden' &&
         cs.display !== 'none',
       noHairline: noHairline(cs) && noHairline(barCs),
       pos: cs.position,
       locked: document.documentElement.classList.contains('has-scroll-lock'),
+      fixed: header.classList.contains('is-fixed'),
+      hidden: header.classList.contains('is-hidden'),
+      shown: header.classList.contains('is-shown'),
       y: Math.round(window.scrollY),
     };
   });
@@ -170,13 +174,16 @@ const readHomeTheme = (page) =>
     const hero = document.querySelector('[data-home-hero]');
     const br = bar?.getBoundingClientRect();
     const er = hero?.getBoundingClientRect();
+    const hidden = Boolean(header?.classList.contains('is-hidden') && !header.classList.contains('is-shown'));
+    const headerBottom = hidden ? 0 : br ? Math.round(br.bottom * 10) / 10 : null;
     return {
       dark: header?.classList.contains('is-color-theme-dark') || false,
-      compact: header?.classList.contains('is-compact') || false,
-      headerBottom: br ? Math.round(br.bottom * 10) / 10 : null,
+      compact: header?.classList.contains('is-fixed') || false,
+      hidden,
+      headerBottom,
       barH: br ? Math.round(br.height * 10) / 10 : null,
       heroBottom: er ? Math.round(er.bottom * 10) / 10 : null,
-      overlap: br && er ? Math.round((er.bottom - br.bottom) * 10) / 10 : null,
+      overlap: headerBottom != null && er ? Math.round((er.bottom - headerBottom) * 10) / 10 : null,
       y: Math.round(window.scrollY),
     };
   });
@@ -186,6 +193,40 @@ const releaseNavScroll = (page) =>
     document.documentElement.classList.remove('has-scroll-lock');
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
+  });
+
+const revealCompactBar = async (page) => {
+  const hidden = await page.evaluate(
+    () => document.querySelector('[data-header]')?.classList.contains('is-hidden') && !document.querySelector('[data-header]')?.classList.contains('is-shown'),
+  );
+  if (!hidden) return;
+  const y = await page.evaluate(() => {
+    const h = document.querySelector('[data-header]')?.offsetHeight || 0;
+    const floor = 2 * h + 8;
+    return Math.max(floor, window.scrollY - 48);
+  });
+  await scrollPageTo(page, y);
+};
+
+const readScrollNav = (page) =>
+  page.evaluate(() => {
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-nav-bar], [data-header-bar]');
+    const br = bar?.getBoundingClientRect();
+    const hr = header?.getBoundingClientRect();
+    const cs = bar ? getComputedStyle(bar) : null;
+    return {
+      y: Math.round(window.scrollY),
+      inflowH: header?.offsetHeight || 0,
+      fixed: header?.classList.contains('is-fixed') || false,
+      hidden: header?.classList.contains('is-hidden') || false,
+      shown: header?.classList.contains('is-shown') || false,
+      headerH: hr ? Math.round(hr.height) : 0,
+      barH: br ? Math.round(br.height) : 0,
+      barTop: br ? Math.round(br.top * 10) / 10 : null,
+      padTop: cs ? parseFloat(cs.paddingTop) : null,
+      transition: cs?.transitionDuration || '',
+    };
   });
 
 const scrollPageTo = async (page, y) => {
@@ -213,6 +254,7 @@ const scrollOverHomeHero = async (page) => {
     return Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - barH - 48);
   });
   await scrollPageTo(page, Math.max(y, 40));
+  await revealCompactBar(page);
 };
 
 const scrollPastHomeHero = async (page) => {
@@ -225,6 +267,7 @@ const scrollPastHomeHero = async (page) => {
     );
   });
   await scrollPageTo(page, Math.max(y, 1));
+  await revealCompactBar(page);
 };
 
 /** offset > 0 keeps that many px of hero below the bar (still dark). offset < 0 is past. */
@@ -238,6 +281,7 @@ const scrollHeroToBarOffset = async (page, offset) => {
     return Math.round(heroDocBottom - barH - off);
   }, offset);
   await scrollPageTo(page, Math.max(y, 0));
+  await revealCompactBar(page);
 };
 
 const closeMenu = async (page, mode) => {
@@ -1549,12 +1593,14 @@ for (const vp of VIEWPORTS) {
     log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
 
     const barWrap = await readBarWrap(page);
-    const expectBarH = vp.width < 768 ? 102 : 108;
+    const expectBarH = vp.width < 1024 ? 112 : 204;
+    const expectPad = vp.width < 1024 ? 32 : 72;
+    const expectCompact = vp.width < 1024 ? 102 : 108;
     log({
       ...tag,
       check: 'nav-no-wrap',
       ok:
-        barWrap.barH === expectBarH &&
+        Math.abs((barWrap.barH ?? 0) - expectBarH) <= 8 &&
         barWrap.itemRows <= 1 &&
         barWrap.chromeAligned &&
         barWrap.wrap === 'nowrap' &&
@@ -1564,6 +1610,76 @@ for (const vp of VIEWPORTS) {
         barWrap.tel === phoneOnBar(vp.width) &&
         (vp.mode === 'desktop' ? barWrap.burger === false : barWrap.burger === true),
       detail: JSON.stringify({ ...barWrap, expectBarH, mode: vp.mode }),
+    });
+
+    const inflow = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-inflow-top',
+      ok:
+        !inflow.fixed &&
+        inflow.barTop != null &&
+        Math.abs(inflow.barTop - expectPad) <= 2 &&
+        Math.abs(inflow.headerH - expectBarH) <= 8 &&
+        Math.abs((inflow.padTop ?? 0) - expectPad) <= 1,
+      detail: JSON.stringify({ ...inflow, expectPad, expectBarH }),
+    });
+
+    const measuredH = inflow.inflowH || expectBarH;
+    const pastY = measuredH * 2 + 80;
+    await scrollPageTo(page, pastY);
+    await page.waitForTimeout(80);
+    const past = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-hides-past-2x',
+      ok: past.fixed && past.hidden && !past.shown && (past.barTop ?? 0) < -40,
+      detail: JSON.stringify({ ...past, pastY }),
+    });
+
+    await scrollPageTo(page, pastY - 20);
+    await page.waitForTimeout(80);
+    const underTol = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-tolerance-20-stays-hidden',
+      ok: underTol.fixed && underTol.hidden && !underTol.shown,
+      detail: JSON.stringify(underTol),
+    });
+
+    await scrollPageTo(page, pastY - 50);
+    await page.waitForTimeout(80);
+    const shown = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-show-on-up-40',
+      ok:
+        shown.fixed &&
+        shown.shown &&
+        !shown.hidden &&
+        Math.abs(shown.barTop ?? 99) <= 2 &&
+        Math.abs(shown.barH - expectCompact) <= 8,
+      detail: JSON.stringify({ ...shown, expectCompact }),
+    });
+
+    await scrollPageTo(page, pastY);
+    await page.waitForTimeout(80);
+    const hidAgain = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-hide-on-down-40',
+      ok: hidAgain.fixed && hidAgain.hidden && !hidAgain.shown,
+      detail: JSON.stringify(hidAgain),
+    });
+
+    await scrollPageTo(page, 0);
+    await page.waitForTimeout(80);
+    const back = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-inflow-on-return',
+      ok: !back.fixed && back.barTop != null && Math.abs(back.barTop - expectPad) <= 2,
+      detail: JSON.stringify(back),
     });
 
     const liveLogo = vp.width < 1280
@@ -2927,6 +3043,15 @@ for (const vp of VIEWPORTS) {
           reduced.serviceOpacity === '1',
         detail: JSON.stringify(reduced),
       });
+      await scrollPageTo(reducedPage, 500);
+      const reducedNav = await readScrollNav(reducedPage);
+      const instant = /^(0s|0\.0+s)(, (0s|0\.0+s))*$/.test(reducedNav.transition) || reducedNav.transition === '0s';
+      log({
+        ...tag,
+        check: 'nav-reduced-motion-instant',
+        ok: reducedNav.fixed && reducedNav.hidden && instant,
+        detail: JSON.stringify(reducedNav),
+      });
       await reducedCtx.close();
     }
 
@@ -2952,7 +3077,7 @@ for (const vp of VIEWPORTS) {
     const wrap = await readBarWrap(page);
     heights.push(wrap.barH);
     if (width >= 768) tabletHeights.push(wrap.barH);
-    const expectBarH = width < 768 ? 102 : 108;
+    const expectBarH = width < 1024 ? 112 : 204;
     const clip = await page.evaluate(() => {
       const logo = document.querySelector('.site-header__logo')?.getBoundingClientRect();
       const tools = document.querySelector('.site-header__tools')?.getBoundingClientRect();
@@ -3009,7 +3134,7 @@ for (const vp of VIEWPORTS) {
       page: 'home',
       check: 'nav-width-step',
       ok:
-        wrap.barH === expectBarH &&
+        Math.abs((wrap.barH ?? 0) - expectBarH) <= 8 &&
         wrap.itemRows <= 1 &&
         wrap.chromeAligned &&
         wrap.wrap === 'nowrap' &&

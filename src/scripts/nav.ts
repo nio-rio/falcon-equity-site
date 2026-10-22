@@ -37,6 +37,15 @@ export function initNav() {
   const logo = document.querySelector<HTMLElement>('[data-menu-logo]');
   const inner = document.querySelector<HTMLElement>('[data-nav-inner]');
   const isHomeHeader = header?.hasAttribute('data-home') ?? false;
+  const SCROLL_TOL = 40;
+
+  const scrollUi = {
+    anchorY: window.scrollY,
+    ticking: false,
+    onScroll() {},
+    onLock(_lock: boolean) {},
+    show() {},
+  };
 
   const state = {
     isOpen: false,
@@ -122,6 +131,7 @@ export function initNav() {
       window.addEventListener('touchmove', preventScroll, { passive: false });
       window.addEventListener('keydown', preventScrollKeys);
       window.addEventListener('scroll', holdScroll);
+      scrollUi.onLock(true);
       return;
     }
     root.classList.remove('has-scroll-lock');
@@ -129,6 +139,7 @@ export function initNav() {
     window.removeEventListener('touchmove', preventScroll);
     window.removeEventListener('keydown', preventScrollKeys);
     window.removeEventListener('scroll', holdScroll);
+    scrollUi.onLock(false);
   };
 
   const setBackdropEl = (on: boolean) => {
@@ -641,12 +652,34 @@ export function initNav() {
     }
   });
 
-  const setCompact = () => {
-    header?.classList.toggle('is-compact', window.scrollY > 24);
-    items.forEach((item) => item.classList.remove('is-escaped'));
+  const headerBar = () =>
+    header?.querySelector<HTMLElement>('[data-nav-bar], [data-header-bar]') ?? header;
+
+  const inflowH = () => {
+    if (!header) return 0;
+    return header.offsetHeight || Math.round(header.getBoundingClientRect().height);
   };
 
-  const headerBar = () => header?.querySelector<HTMLElement>('[data-header-bar]') ?? header;
+  const clearFixed = () => {
+    if (!header) return;
+    header.classList.remove('is-fixed', 'is-hidden', 'is-shown', 'no-anim');
+    header.style.height = '';
+  };
+
+  const showBar = () => {
+    if (!header?.classList.contains('is-fixed')) return;
+    header.classList.add('is-shown');
+    header.classList.remove('is-hidden');
+    applyHomeThemeFromHero();
+  };
+
+  const hideBar = () => {
+    if (!header?.classList.contains('is-fixed')) return;
+    if (document.documentElement.classList.contains('has-scroll-lock')) return;
+    if (header.classList.contains('is-open')) return;
+    header.classList.add('is-hidden');
+    header.classList.remove('is-shown');
+  };
 
   const applyHomeThemeFromHero = () => {
     if (!isHomeHeader || !header) return;
@@ -654,10 +687,62 @@ export function initNav() {
     if (!hero) return;
     const bar = headerBar();
     if (!bar) return;
-    const barBottom = bar.getBoundingClientRect().bottom;
+    const hidden = header.classList.contains('is-hidden') && !header.classList.contains('is-shown');
+    const barBottom = hidden ? 0 : bar.getBoundingClientRect().bottom;
     const heroBottom = hero.getBoundingClientRect().bottom;
     // Stay dark until the hero’s bottom has fully passed the visible bar.
     header.classList.toggle('is-color-theme-dark', heroBottom >= barBottom);
+  };
+
+  const onNavScroll = () => {
+    if (!header) return;
+    items.forEach((item) => item.classList.remove('is-escaped'));
+    if (document.documentElement.classList.contains('has-scroll-lock')) return;
+    const y = window.scrollY;
+    const h = inflowH();
+    const threshold = 2 * h;
+    if (y < threshold) {
+      if (header.classList.contains('is-fixed') && y <= h) clearFixed();
+      scrollUi.anchorY = y;
+      applyHomeThemeFromHero();
+      return;
+    }
+    if (!header.classList.contains('is-fixed')) {
+      header.style.height = `${h}px`;
+      header.classList.add('is-fixed', 'is-hidden', 'no-anim');
+      requestAnimationFrame(() => header.classList.remove('no-anim'));
+      scrollUi.anchorY = y;
+      applyHomeThemeFromHero();
+      return;
+    }
+    const d = y - scrollUi.anchorY;
+    if (d > SCROLL_TOL) {
+      hideBar();
+      scrollUi.anchorY = y;
+    } else if (d < -SCROLL_TOL) {
+      showBar();
+      scrollUi.anchorY = y;
+    }
+  };
+
+  scrollUi.onScroll = onNavScroll;
+  scrollUi.show = showBar;
+  scrollUi.onLock = (lock) => {
+    if (!header) return;
+    if (lock) {
+      if (window.scrollY > 0 && !header.classList.contains('is-fixed')) {
+        header.style.height = `${inflowH()}px`;
+        header.classList.add('is-fixed', 'is-shown', 'no-anim');
+        header.classList.remove('is-hidden');
+        requestAnimationFrame(() => header.classList.remove('no-anim'));
+      } else {
+        showBar();
+      }
+      applyHomeThemeFromHero();
+      return;
+    }
+    scrollUi.anchorY = window.scrollY;
+    onNavScroll();
   };
 
   let heroThemeObs: IntersectionObserver | null = null;
@@ -691,11 +776,26 @@ export function initNav() {
     else applyHomeThemeFromHero();
   };
 
-  setCompact();
+  onNavScroll();
   watchHomeHeroTheme();
-  window.addEventListener('scroll', setCompact, { passive: true });
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (scrollUi.ticking) return;
+      scrollUi.ticking = true;
+      requestAnimationFrame(() => {
+        onNavScroll();
+        scrollUi.ticking = false;
+      });
+    },
+    { passive: true },
+  );
   window.addEventListener('scroll', applyHomeThemeFromHero, { passive: true });
-  window.addEventListener('resize', watchHomeHeroTheme);
+  header?.addEventListener('focusin', showBar);
+  window.addEventListener('resize', () => {
+    onNavScroll();
+    watchHomeHeroTheme();
+  });
   if (typeof ResizeObserver !== 'undefined') {
     const bar = headerBar();
     if (bar) {

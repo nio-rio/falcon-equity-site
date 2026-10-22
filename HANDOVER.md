@@ -4,7 +4,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 
 ## Where things stand
 - Branch `cursor/falcon-astro-site-e383` (PR #1). Never merge PR #1. Preview: https://deploy-preview-1--falcon-equity-site.netlify.app/
-- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em) and the SiteCta top-pad cut (96 / 86 / 58 / 48). `/apply` stays as it is.
+- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta top-pad cut (96 / 86 / 58 / 48), and the site-wide BXCI hide-on-scroll nav. `/apply` stays as it is.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
 - Merchant Cash Advance page: Ling’s 2026-10-22 v4 outline. Sections rebuilt from live Blackstone numbers:
 
@@ -32,7 +32,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - Fee wording **0% agreement fee**. Rates **competitive**. No disclaimers under CTAs.
 
 ## Next steps
-1. Ling reviews this MCA build on deploy-preview-1.
+1. Ling reviews this MCA build on deploy-preview-1. Site-wide BXCI nav (in-flow 72+60+72 / 32+48+32, hide after 2× height, 40px tolerance, no GSAP) is in this build.
 2. Only after Ling approves MCA, do these one at a time, each with a structure plan approved first: **How It Works** (`/how-it-works`), **About** (Dwight Holly, Founder & CFO), and one industry page, **Retail**.
 3. Other services, industries and the blog come later, and only when Ling asks.
 

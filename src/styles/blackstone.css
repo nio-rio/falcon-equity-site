@@ -533,12 +533,10 @@ a:focus-visible .link-draw,
   }
 }
 
-/* Site header — Blackstone `#masthead` is `position: fixed`, not sticky. */
+/* Site header — BXCI in-flow at the top, compact fixed after 2× height.
+   Hide on scroll down / show on scroll up (nav.ts, no GSAP). */
 .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 50;
   flex-shrink: 0;
   width: 100%;
@@ -558,10 +556,8 @@ a:focus-visible .link-draw,
   --nav-widget-copy: var(--bx-black);
 }
 
-.site-header-spacer {
-  height: var(--bx-header);
-  flex-shrink: 0;
-  pointer-events: none;
+.site-header.is-fixed {
+  height: calc(var(--nav-bar-h) + 2 * var(--nav-pad-top));
 }
 
 /* Do not set overflow:hidden on html/body: that makes a scrolled
@@ -581,14 +577,6 @@ html.has-scroll-lock [data-nav-inner] {
   touch-action: pan-y;
 }
 
-html.has-scroll-lock .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-}
-
 .site-header.is-color-theme-dark {
   background: var(--bx-black);
   color: #fff;
@@ -603,33 +591,64 @@ html.has-scroll-lock .site-header {
 .site-header,
 .site-header__container,
 .site-header.is-open .site-header__container,
-.site-header.is-compact .site-header__container,
+.site-header.is-fixed .site-header__container,
 .site-header.is-color-theme-dark .site-header__container {
   border: 0;
   border-bottom: 0;
   box-shadow: none;
 }
 
-.site-header__container {
+.site-header__container,
+.site-header [data-nav-bar] {
   position: relative;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: var(--bx-header);
+  min-height: var(--nav-bar-h);
+  padding-block: var(--nav-pad-top);
   background: var(--nav-bg);
   color: var(--nav-copy);
   isolation: auto;
-  transform: none;
   filter: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  transition: height 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
-.site-header.is-compact .site-header__container {
-  height: var(--bx-header-fixed);
+.site-header.is-fixed [data-nav-bar] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding-block: var(--nav-pad-fixed);
+  background: var(--nav-bg);
+}
+
+.site-header.is-fixed.is-hidden [data-nav-bar] {
+  transform: translateY(-100%);
+}
+
+.site-header.is-fixed.is-shown [data-nav-bar] {
+  transform: translateY(0);
+  transition-duration: 0.6s;
+}
+
+.site-header.no-anim [data-nav-bar] {
+  transition: none;
+}
+
+html.has-scroll-lock .site-header [data-nav-bar] {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header [data-nav-bar] {
+    transition: none;
+  }
 }
 
 .site-header__inner {
@@ -639,7 +658,13 @@ html.has-scroll-lock .site-header {
   justify-content: space-between;
   gap: var(--bx-space-24);
   width: 100%;
-  height: 100%;
+  min-height: var(--nav-bar-h);
+}
+
+@media (min-width: 64em) {
+  .site-header__inner {
+    height: var(--nav-bar-h);
+  }
 }
 
 /* 23.4375–48em `.container-site` is 20.5/23rem, too narrow for logo +
@@ -1010,7 +1035,7 @@ html.has-scroll-lock .site-header {
   top: 100%;
   left: 0;
   width: 100%;
-  max-height: calc(100dvh - var(--bx-header));
+  max-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-top));
   overflow: auto;
   /* Same content inset as `.container-site` / the logo. */
   padding-inline: max(var(--bx-margin), calc((100% - var(--bx-max)) / 2));
@@ -1033,7 +1058,7 @@ html.has-scroll-lock .site-header {
 
 .primary-nav__inner.is-open {
   display: block;
-  min-height: calc(100dvh - var(--bx-header));
+  min-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-top));
 }
 
 .primary-nav__inner.is-drilled {
@@ -1103,8 +1128,12 @@ html.has-scroll-lock .site-header {
   }
 }
 
-.site-header.is-compact .primary-nav__inner {
-  max-height: calc(100dvh - var(--bx-header-fixed));
+.site-header.is-fixed .primary-nav__inner {
+  max-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-fixed));
+}
+
+.site-header.is-fixed .primary-nav__inner.is-open {
+  min-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-fixed));
 }
 
 .primary-nav__list {
