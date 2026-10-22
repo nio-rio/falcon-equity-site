@@ -341,11 +341,6 @@ section.btl-blog[data-band='light'] {
   margin-bottom: 0;
 }
 
-/* Helps intro line (BTL copy has one; MCA does not). Same type as help body. */
-.btl-helps-intro {
-  margin: var(--bx-space-24) 0 0;
-}
-
 /* Home Why-choose-us tickertape, btl-* only. Same SPEED 125 / 3 copies. */
 .btl-helps-tape {
   display: block;

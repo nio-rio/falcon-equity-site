@@ -17,7 +17,6 @@ CTA
 ## What it helps
 - Label: What it helps
 - Heading: When a term loan is the right fit.
-- Intro: Four moments when you know the number, you know the timeline, and you would rather not carry a daily payment.
 - Opening a new location
 	- A term loan delivers the whole amount up front, so a lease, a fit-out and the first months of rent can be planned together.
 - Remodeling or upgrading a facility

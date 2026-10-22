@@ -17,7 +17,6 @@ CTA
 ## What it helps
 - Label: What it helps
 - Heading: When a line of credit is the right fit.
-- Intro: Four moments when you need money available, not money delivered all at once.
 - Making payroll before invoices land
 	- Draw what you need to cover payroll, repay it when the receivables come in, and the money is available again for next time.
 - Restocking inventory this week

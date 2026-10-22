@@ -17,7 +17,6 @@ CTA
 ## What it helps
 - Label: What it helps
 - Heading: When consolidation is the right fit.
-- Intro: Four moments when the problem is not the amount you owe, it is how many times a week it leaves the account.
 - Replacing several daily payments with one
 	- Each advance takes its own bite. Consolidation pays those positions off and rolls them into a single payment.
 - Lowering what leaves the account each day or week

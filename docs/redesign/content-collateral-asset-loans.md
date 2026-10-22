@@ -17,7 +17,6 @@ CTA
 ## What it helps
 - Label: What it helps
 - Heading: When a collateral or asset loan is the right fit.
-- Intro: Four moments when what you already own is the fastest route to capital.
 - Buying or upgrading equipment and vehicles
 	- The thing you are buying becomes the security behind the loan, so a machine, a vehicle or a fit-out can be paid for out of what it will earn.
 - Opening a second location

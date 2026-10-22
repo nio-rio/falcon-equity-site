@@ -17,7 +17,6 @@ CTA
 ## What it helps
 - Label: What it helps
 - Heading: When factoring is the right fit.
-- Intro: Four moments when the work is done and the wait is the problem.
 - Making payroll while invoices sit unpaid
 	- Sell those receivables and the cash is here now, instead of arriving after payday has already gone out.
 - Taking on a contract bigger than your cash on hand

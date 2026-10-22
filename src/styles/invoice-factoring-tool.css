@@ -341,11 +341,6 @@ section.ift-blog[data-band='light'] {
   margin-bottom: 0;
 }
 
-/* Helps intro line (IFT copy has one; MCA does not). Same type as help body. */
-.ift-helps-intro {
-  margin: var(--bx-space-24) 0 0;
-}
-
 /* Home Why-choose-us tickertape, ift-* only. Same SPEED 125 / 3 copies. */
 .ift-helps-tape {
   display: block;
