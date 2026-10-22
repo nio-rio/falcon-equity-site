@@ -4,7 +4,21 @@ import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
 import '@/styles/business-term-loan.css';
+
+const published = await getPublicPosts();
+/** Published term loan posts only, most relevant first. Drafts stay out. */
+const BTL_BLOG_IDS = [
+  'merchant-cash-advance-vs-business-term-loan',
+  'what-your-bank-statements-say',
+  '24-48-hour-funding-checklist',
+  'equipment-financing-break-even',
+  'how-to-read-a-factor-rate',
+] as const;
+const blogSlides = BTL_BLOG_IDS.map((id) => published.find((post) => post.id === id)).filter(
+  (post): post is (typeof published)[number] => Boolean(post),
+);
 
 const stats = [
   {
@@ -315,10 +329,104 @@ const faqs = [
     </div>
   </section>
 
+  <section class="btl-band btl-blog" aria-label="From the blog" data-band="light" data-btl-section="blog" data-reveal-root>
+    <div class="container-site">
+      <div
+        class="btl-blog-slider"
+        data-blog-slider
+        data-autoplay="true"
+        data-autoplay-duration="5000"
+        data-reveal
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Business term loan articles"
+        tabindex="0"
+      >
+        <div class="btl-shell btl-blog-split">
+          <div class="btl-blog-copy">
+            <Eyebrow>From the blog</Eyebrow>
+            <div class="btl-blog-copy-slides">
+              {
+                blogSlides.map((post, i) => (
+                  <div
+                    class:list={['btl-blog-copy-slide', i === 0 && 'is-active']}
+                    data-blog-copy-slide
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${blogSlides.length}`}
+                    aria-hidden={i === 0 ? 'false' : 'true'}
+                  >
+                    <h2 class="btl-blog-title" data-blog-title>{post.data.title}</h2>
+                    <a class="btl-card-link" href={`/blog/${post.id}`} data-blog-link>
+                      <span class="btl-card-link-label">Read the article</span>
+                      <span class="btl-card-link-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                          <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+            {
+              blogSlides.length > 1 && (
+                <div class="btl-blog-controls">
+                  <button type="button" class="btl-blog-arrow" data-blog-prev aria-label="Previous article">
+                    <span class="btl-blog-arrow-icon" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M10 19L3 12L10 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                        <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                      </svg>
+                    </span>
+                  </button>
+                  <button type="button" class="btl-blog-arrow" data-blog-next aria-label="Next article">
+                    <span class="btl-blog-arrow-icon" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                        <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              )
+            }
+          </div>
+          <div class="btl-blog-media">
+            {
+              blogSlides.map((post, i) => (
+                <div
+                  class:list={['btl-blog-media-slide', i === 0 && 'is-active']}
+                  data-blog-media-slide
+                  aria-hidden={i === 0 ? 'false' : 'true'}
+                  data-blog-img
+                >
+                  <Media
+                    image={post.data.cover}
+                    alt={post.data.coverAlt || post.data.title}
+                    intent={post.data.coverAlt || post.data.title}
+                    labeled={!post.data.cover}
+                    ratio="16 / 9"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    sizes="(min-width: 90em) 704px, (min-width: 80em) 632px, (min-width: 48em) 688px, 100vw"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <p class="sr-only" aria-live="polite" data-blog-live></p>
+      </div>
+    </div>
+  </section>
+
   <script>
     import { bindAccordions } from '@/scripts/accordion';
+    import { bindMcaBlogSlider } from '@/scripts/mca-blog-slider';
     import '@/scripts/scroll-in';
     bindAccordions();
+    bindMcaBlogSlider();
 
     const SPEED = 125;
     const arm = (track: HTMLElement) => {

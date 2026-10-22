@@ -1,5 +1,5 @@
 /* Business Line of Credit only. Copied from mca.css with mca-* → loc-*.
-   This page has no blog band, so the loc-blog-* rules are unused.
+   The blog band uses the loc-blog-* rules plus the shared .mca-blog-line* names at the end.
    Numbers from live Blackstone measurements:
    IR-01 + IR-02 hero (bx-share-information), dark LS-04 helps, BXCI-07 fit,
    PWS What you need to know process, DC-06 FAQ type + BXCI-05 accordion motion,
@@ -1101,4 +1101,16 @@ section.loc-blog[data-band='light'] {
     opacity: 0;
     transform: translateY(20px);
   }
+}
+
+/* Shared slider compatibility. src/scripts/mca-blog-slider.ts writes these
+   class names (SplitText lines + masks) on every page that uses it, so they
+   keep the mca- prefix here. Copied verbatim from mca.css. */
+.mca-blog-line {
+  color: inherit;
+}
+
+.mca-blog-line-mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
