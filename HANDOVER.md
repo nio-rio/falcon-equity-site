@@ -4,7 +4,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 
 ## Where things stand
 - Branch `cursor/falcon-astro-site-e383` (PR #1). Never merge PR #1. Preview: https://deploy-preview-1--falcon-equity-site.netlify.app/
-- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta top-pad cut (96 / 86 / 58 / 48), and the site-wide BXCI hide-on-scroll nav. `/apply` stays as it is.
+- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta top-pad cut (96 / 86 / 58 / 48), the site-wide BXCI hide-on-scroll nav, and heading→content on Services / News / Sectors now using `--space-head-to-content` (72 / 72 / 96 / 104). `/apply` stays as it is.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
 - Merchant Cash Advance page: Ling’s 2026-10-22 v4 outline. Sections rebuilt from live Blackstone numbers:
 
@@ -12,7 +12,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 | --- | --- | --- |
 | Hero (H1 + 2×3 stats + lead + Apply) | IR-01 + IR-02 | Live bx-share-information title + three headline stats with a hairline above each cell. MCA uses two rows of three (term facts + Requirements), label above value. Separate IR-03 facts band removed. Hero sits in `.mca-shell` (home column 328 / 688 / 1136 / 1264). |
 | What it helps (still + 4 pillars + scrolling Apply) | LS-04 (dark) | Life Sciences dark vertical-list: 8 / skip 2 / 6, 3:4 still, stacked title/body. Scrolling Apply tape at the end, mca-* clone of home Why-choose-us. Dark type matches Why: h2/h3/eyebrow `#fff`, body `--bx-on-dark`. Helps bottom pad is slightly under R for the tape overhang. |
-| Process (3 text steps + Apply) | PWS What you need to know | Same 16-col / 5-6-5 text cards as accessing-private-markets. 01/02/03 sized to the live number-image box (184 / 175 / 198). Heading → cards 104 / 88 / 72. Number → title 32px. Sits after dark Helps, so top pad is R. |
+| Process (3 text steps + Apply) | PWS What you need to know | Same 16-col / 5-6-5 text cards as accessing-private-markets. 01/02/03 sized to the live number-image box (184 / 175 / 198). Heading → cards `--space-head-to-content` (104 / 96 / 72 / 72). Number → title 32px. Sits after dark Helps, so top pad is R. |
 | FAQ (7 expandable) | BXCI-05 motion on DC-06 type | Light band. 24/36 titles from DC-06. Caret rotate 0.3s and hover rule draw 0.5s ease-out from BXCI-05, with ink 40% base / ink hover (same 40% as the dark version). Top pad 0, bottom R. |
 | When a cash advance isn’t the right fit | BXCI-07 | After FAQ, before the blog. Eyebrow + long claim + three title + paragraph cards, 5 / 6 / 5, each with a singular-link CTA to another product. Top 0 / bottom R so FAQ→Fit and Fit→blog stay one R. |
 | Blog spotlight | BXCI-08 | Portfolio Spotlight split as a slider: eyebrow + title + “Read the article” left, 16:9 right. Prev/next circle arrows under the link, bottom-aligned to the image at 80em+. Published MCA-relevant posts only, relevance order: vs term loan, factor rate, stacked advances, slow season, 24–48h checklist, bank statements. |

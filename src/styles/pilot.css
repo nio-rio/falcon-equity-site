@@ -1039,7 +1039,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: var(--space-head-to-content);
 }
 
 .pilot-tabs-heading .pilot-eyebrow + h2 {
@@ -1267,10 +1267,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-tabs-head {
-    padding-bottom: 3rem;
-  }
-
   .pilot-tabs-head h2 {
     font-size: 2.5rem;
   }
@@ -1293,7 +1289,6 @@
     display: grid;
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
-    padding-bottom: 3rem;
     align-items: end;
   }
 
@@ -1346,10 +1341,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-tabs-head {
-    padding-bottom: 3.5rem;
-  }
-
   .pilot-tabs-heading {
     grid-column: 1 / span 8;
   }

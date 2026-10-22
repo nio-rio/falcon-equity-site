@@ -140,13 +140,10 @@ section.mca-blog[data-band='light'] {
   text-wrap: balance;
 }
 
-.mca-cards {
-  margin-top: 72px;
-}
-
+.mca-cards,
 .mca-fit .mca-cards,
 .mca-process .mca-cards {
-  margin-top: 72px;
+  margin-top: var(--space-head-to-content);
 }
 
 .mca-card-title {
@@ -299,7 +296,7 @@ section.mca-blog[data-band='light'] {
 
 /* Dark LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
 .mca-helps-split {
-  margin-top: 72px;
+  margin-top: var(--space-head-to-content);
   row-gap: 72px;
 }
 
@@ -413,7 +410,7 @@ section.mca-blog[data-band='light'] {
 .mca-faq-list {
   display: flex;
   flex-direction: column;
-  margin-top: 72px;
+  margin-top: var(--space-head-to-content);
 }
 
 .mca-faq-item {
@@ -792,18 +789,11 @@ section.mca-blog[data-band='light'] {
     letter-spacing: 0.32px;
   }
 
-  .mca-cards,
-  .mca-cta--after,
-  .mca-faq-list {
-    margin-top: 104px;
-  }
-
-  .mca-fit .mca-cards {
+  .mca-cta--after {
     margin-top: 104px;
   }
 
   .mca-process .mca-cards {
-    margin-top: 88px;
     row-gap: 80px;
   }
 
@@ -813,7 +803,6 @@ section.mca-blog[data-band='light'] {
   }
 
   .mca-helps-split {
-    margin-top: 88px;
     row-gap: 88px;
   }
 
@@ -914,7 +903,6 @@ section.mca-blog[data-band='light'] {
   }
 
   .mca-helps-split {
-    margin-top: 104px;
     row-gap: 0;
     align-items: start;
   }
@@ -1037,10 +1025,6 @@ section.mca-blog[data-band='light'] {
     line-height: 12.375rem;
   }
 
-  .mca-faq-list {
-    margin-top: 104px;
-  }
-
   .mca-faq-trigger {
     font-size: 24px;
     line-height: 36px;
@@ -1054,11 +1038,6 @@ section.mca-blog[data-band='light'] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: 0;
     row-gap: 90px;
-  }
-
-  .mca-fit .mca-cards,
-  .mca-process .mca-cards {
-    margin-top: 104px;
   }
 
   /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */

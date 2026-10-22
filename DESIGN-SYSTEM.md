@@ -172,7 +172,7 @@ Scale primitives (`--bx-fs-12` … `--bx-fs-176`) stay in `tokens.css` for compo
 | Home / CTA band pad | `--pilot-section-y` (`p-section`) | 80px | 96px | 144px | 160px |
 | Same-bg follower (collapse) | `--pilot-section-y-stack` (`p-section-stack`) | 40px | 40px | 48px | 56px |
 | Inner-page section | `--bx-section` | 64px | 88px | 120px | 120px |
-| Heading → list/cards | `--pilot-heading-to-items` | 40px | 48px | 96px | 104px |
+| Heading → list/cards | `--space-head-to-content` (`--pilot-heading-to-items`) | 72px | 72px | 96px | 104px |
 | Eyebrow → H2 | `--bx-space-40` | 40px | 40px | 40px | 40px |
 | Outer margin | `--bx-margin` | 15px | 40px | 40px | **80px** |
 | Gutter | `--bx-gutter` | 16px | 24px | 24px | 24px |

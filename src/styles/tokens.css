@@ -195,9 +195,10 @@
   --bx-space-112: 7rem;
   --bx-space-120: 7.5rem;
 
-  /* Life Sciences News & Insights heading → cards (48+48 at 80em, 56+48 at 90em).
-     Shared by home Services (`.pilot-ll-head`) and Insights (`.pilot-news-head`). */
-  --pilot-heading-to-items: var(--bx-space-40);
+  /* Heading block → first content. 72 / 72 / 96 / 104 at 390 / 768 / 1280 / 1440.
+     Shared by MCA sections, home Services, Insights, and Sectors. */
+  --space-head-to-content: 72px;
+  --pilot-heading-to-items: var(--space-head-to-content);
   --bx-rule: 0.0625rem;
   --bx-ease: 0.3s ease;
   --bx-duration: 0.3s;
@@ -240,7 +241,7 @@
     --pilot-section-y: 6rem;
     --pilot-section-y-stack: 2.5rem;
     --bx-max: 43rem;
-    --pilot-heading-to-items: var(--bx-space-48);
+    --space-head-to-content: 72px;
     --type-h2-size: 2.5rem;
   }
 }
@@ -264,7 +265,7 @@
     --logo-mark: 2.3rem;
     --logo-word: 1.5rem;
     --logo-nav-gap: 1.5rem;
-    --pilot-heading-to-items: var(--bx-space-96);
+    --space-head-to-content: 96px;
     --pilot-section-y: 9rem;
     --pilot-section-y-stack: 3rem;
   }
@@ -274,7 +275,7 @@
   :root {
     --bx-margin: 80px;
     --bx-max: 79rem;
-    --pilot-heading-to-items: var(--bx-space-104);
+    --space-head-to-content: 104px;
     --pilot-section-y: 10rem;
     --pilot-section-y-stack: 3.5rem;
     --type-h2-size: 3rem;
