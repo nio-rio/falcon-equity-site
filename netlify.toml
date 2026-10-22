@@ -67,11 +67,6 @@
   status = 301
 
 [[redirects]]
-  from = "/services/consolidation-of-positions"
-  to = "/#services"
-  status = 301
-
-[[redirects]]
   from = "/services/decentralized-business-financing"
   to = "/#services"
   status = 301
