@@ -27,7 +27,9 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 
 - Business Line of Credit page (session 2026-10-22): `/services/business-line-of-credit` is now live, built from `src/pages/services/business-line-of-credit.astro` + `src/styles/business-line-of-credit.css` (commit `31aa33e`, `mca-*` → `loc-*`, no blog band). Copy from `docs/redesign/content-business-line-of-credit.md` as written. Two adaptations for Ling to confirm: the Helps intro line (MCA has none) uses help-body type plus one new `.loc-helps-intro` rule (24px top margin), and the copy's Process button "apply now" is rendered as "Apply for funding" per CLAUDE.md, as on Collateral.
 - Redirect exception (commit `1f1f114`), same three files as Collateral: `astro.config.mjs` skips `business-line-of-credit` in the retired-services loop and lists it in `livePaths`; its rule is removed from `netlify.toml` and `public/_redirects`.
-- Next service pages, one at a time, each with its own redirect lift: **Business Term Loan**, **Invoice Factoring Tool**, **Consolidation of Positions**. (Decentralized Business Financing also still redirects.)
+- Business Term Loan page (session 2026-10-22): `/services/business-term-loan` is now live, built from `src/pages/services/business-term-loan.astro` + `src/styles/business-term-loan.css` (commit `c629af2`, `mca-*` → `btl-*`, no blog band). Copy from `docs/redesign/content-business-term-loan.md` as written; figures match `services.ts` `TERM_SPEC`. Three adaptations for Ling to confirm: the Helps intro line uses `.btl-helps-intro` (same as LOC); the copy's Process button "apply now" is rendered as "Apply for funding" per CLAUDE.md; and the copy file lists the fit section before Process, but the page keeps the MCA order (Hero, Helps, Process, FAQ, Fit).
+- Redirect exception (commit `b73b4f2`), same three files as Collateral: `astro.config.mjs` skips `business-term-loan` in the retired-services loop and lists it in `livePaths`; its rule is removed from `netlify.toml` and `public/_redirects`.
+- Next service pages, one at a time, each with its own redirect lift: **Invoice Factoring Tool**, then **Consolidation of Positions**. (Decentralized Business Financing also still redirects.)
 - `npm run check` reports one existing error in `src/components/pilot/PilotIndustryTabs.astro:171` (`relatedTarget` on `Event`). It isn't from this work and hasn't been fixed.
 
 ## Standing rules
@@ -43,7 +45,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 1. Ling reviews this MCA build on deploy-preview-1. Site-wide BXCI nav (in-flow 72+60+72 / 32+48+32, hide after 2× height, 40px tolerance, no GSAP) is in this build.
 2. Only after Ling approves MCA, do these one at a time, each with a structure plan approved first: **How It Works** (`/how-it-works`), **About** (Dwight Holly, Founder & CFO), and one industry page, **Retail**.
 3. Other services, industries and the blog come later, and only when Ling asks.
-4. Service pages: three more to build (Business Term Loan, Invoice Factoring Tool, Consolidation of Positions), one at a time, each with its own redirect exception in its own commit (same three files as Collateral & Asset Loans). Content outlines are in commit `c11c74c`.
+4. Service pages: two more to build (Invoice Factoring Tool, then Consolidation of Positions), one at a time, each with its own redirect exception in its own commit (same three files as Collateral & Asset Loans). Content outlines are in commit `c11c74c`.
 
 ## Open questions
 - A consolidation savings figure is still in 3 blog posts and in the held drafts. Ling hasn't decided what to do with it. Don't publish it. Ask her.
