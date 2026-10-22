@@ -1,0 +1,338 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import '@/styles/business-line-of-credit.css';
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'Businesses needing flexible, on-demand access to working capital.',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$10,000 – $500,000',
+  },
+  {
+    label: 'Terms',
+    value: 'Revolving',
+  },
+  {
+    label: 'Requirements',
+    value: '6+ months in business',
+  },
+  {
+    label: 'Requirements',
+    value: '$10K+ monthly revenue',
+  },
+  {
+    label: 'Requirements',
+    value: 'Active bank account',
+  },
+];
+
+const helps = [
+  {
+    title: 'Making payroll before invoices land',
+    body: 'Draw what you need to cover payroll, repay it when the receivables come in, and the money is available again for next time.',
+  },
+  {
+    title: 'Restocking inventory this week',
+    body: 'A revolving line lets you draw for stock and pay for only the part you use, then draw again for the next order.',
+  },
+  {
+    title: 'Getting through an uneven year',
+    body: 'Some months carry the year and some do not. Keep the line on standby and draw during the quiet stretches.',
+  },
+  {
+    title: 'Keeping a cushion for the unexpected',
+    body: 'A repair, a deposit or a supplier who needs paying early — the line is already open when something lands.',
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If you need one lump sum for a planned purchase',
+    body: 'A term loan delivers the whole amount with a set repayment schedule, which suits an expansion or a one-time investment.',
+    linkLabel: 'Business Term Loan',
+    href: '/services/business-term-loan',
+  },
+  {
+    title: 'If what you are buying is the asset itself',
+    body: 'Equipment, vehicles and commercial property can secure their own financing, so the cost is tied to the thing you are buying.',
+    linkLabel: 'Collateral & Asset Loans',
+    href: '/services/collateral-asset-loans',
+  },
+  {
+    title: 'If you are carrying more than one advance',
+    body: 'Several daily payments stacking on top of each other is how a good month turns into a bad one. Consolidation rolls them into one payment.',
+    linkLabel: 'Consolidation of Positions',
+    href: '/services/consolidation-of-positions',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Apply in minutes',
+    body: 'Fill out one short online application. Tell us what your business does and how much working capital you need.',
+    note: 'You provide: six months of business bank statements, a photo ID, a voided check and a list of any current advances or loans.',
+  },
+  {
+    num: '02',
+    title: 'Talk to a specialist',
+    body: 'A Falcon specialist reviews your file, asks for anything that is missing and walks you through your options.',
+    note: 'You get: a call about the limit, how drawing and repaying works, and the full cost, before anything is signed.',
+  },
+  {
+    num: '03',
+    title: 'Approve and get funded',
+    body: 'Once you are approved, review and sign your agreement. Funding can happen the same day.',
+    note: 'You see: your limit, the cost of what you draw and the repayment terms, all spelled out on the agreement.',
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = [
+  {
+    q: 'How is a line of credit different from a loan?',
+    a: 'A loan delivers a lump sum up front. A line of credit lets you draw funds as needed up to your limit, and you pay interest only on what you draw.',
+  },
+  {
+    q: 'Can I draw again after I repay?',
+    a: 'Yes. The line is revolving, so repaid amounts become available to draw again, subject to your agreement.',
+  },
+  {
+    q: 'What do I need to qualify?',
+    a: 'Typically 6+ months in business, $10K+ in monthly revenue and an active bank account. Final approval depends on underwriting.',
+  },
+  {
+    q: 'How fast can I get funded?',
+    a: 'Funding can happen the same day once you are approved and have signed. Timing depends on how quickly you send your documents.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Falcon charges a 0% agreement fee. Rates are competitive, and no specific rate is published on this page — you pay for what you draw, and your specialist shows you the cost before you sign.',
+  },
+  {
+    q: 'Is the line secured or unsecured?',
+    a: 'Both options exist. An unsecured line does not put business assets behind it; a secured line does. Your specialist will explain which fits your file.',
+  },
+];
+---
+
+<BaseLayout title="Business Line of Credit" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="loc-hero" aria-labelledby="page-hero-heading" data-band="light" data-loc-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="loc-shell" data-reveal>
+        <div class="loc-hero-inner">
+          <h1 id="page-hero-heading" class="loc-hero-title">Business Line of Credit</h1>
+          <div class="loc-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="loc-stat">
+                  <p class="loc-stat-label">{stat.label}</p>
+                  <p class="loc-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="loc-hero-lead">
+            Money that sits ready. Draw what you need, when you need it, and pay for what you actually use.
+          </p>
+          <div class="loc-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="loc-band loc-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-loc-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="loc-shell loc-helps-head" data-reveal>
+        <div class="loc-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When a line of credit is the right fit.</h2>
+          <p class="loc-help-body loc-helps-intro">
+            Four moments when you need money available, not money delivered all at once.
+          </p>
+        </div>
+      </div>
+      <div class="loc-shell loc-helps-split" data-reveal>
+        <div class="loc-helps-image">
+          <Media
+            labeled
+            intent="Abstract still of a stocked shelf or an open ledger, no people"
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="loc-helps-list">
+          {
+            helps.map((item) => (
+              <article class="loc-help">
+                <h3 class="loc-help-title">{item.title}</h3>
+                <p class="loc-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="loc-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="loc-helps-tape-track" data-loc-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="loc-helps-tape-item" data-loc-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="loc-band loc-process" aria-labelledby="process-heading" data-band="light" data-loc-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="loc-shell loc-process-head" data-reveal>
+        <div class="loc-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to get funded.</h2>
+        </div>
+      </div>
+      <div class="loc-shell loc-cards loc-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="loc-card loc-step">
+              <p class="loc-step-num">{step.num}</p>
+              <h3 class="loc-card-title">{step.title}</h3>
+              <p class="loc-card-body">{step.body}</p>
+              <p class="loc-card-body loc-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="loc-shell" data-reveal>
+        <div class="loc-cta loc-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="loc-band loc-faq" aria-labelledby="loc-faq-heading" data-band="light" data-loc-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="loc-shell loc-faq-head" data-reveal>
+        <div class="loc-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="loc-faq-heading">Line of credit questions</h2>
+        </div>
+      </div>
+      <div class="loc-shell">
+      <div class="loc-faq-list" data-accordion data-reveal>
+        {
+          faqs.map((item, i) => (
+            <div class="loc-faq-item" data-acc-item>
+              <h3>
+                <button
+                  type="button"
+                  class="loc-faq-trigger"
+                  aria-expanded="false"
+                  aria-controls={`loc-faq-panel-${i}`}
+                  id={`loc-faq-trigger-${i}`}
+                  data-acc-trigger
+                >
+                  <span>{item.q}</span>
+                  <span class="loc-faq-caret" aria-hidden="true">
+                    <span class="loc-faq-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="loc-faq-caret-svg">
+                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              </h3>
+              <div class="loc-acc-panel" id={`loc-faq-panel-${i}`} role="region" aria-labelledby={`loc-faq-trigger-${i}`}>
+                <div class="loc-acc-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="loc-band loc-fit" aria-labelledby="fit-heading" data-band="light" data-loc-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="loc-shell loc-fit-head" data-reveal>
+        <div class="loc-block-head">
+          <Eyebrow>When a line of credit isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            A line is built for money you use and repay in pieces. Here are three situations where another Falcon
+            product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="loc-shell loc-cards loc-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="loc-card">
+              <h3 class="loc-card-title">{item.title}</h3>
+              <p class="loc-card-body">{item.body}</p>
+              <a class="loc-card-link" href={item.href}>
+                <span class="loc-card-link-label">{item.linkLabel}</span>
+                <span class="loc-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-loc-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-loc-tape]').forEach(arm);
+  </script>
+</BaseLayout>
