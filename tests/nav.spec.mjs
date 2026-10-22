@@ -1653,7 +1653,7 @@ for (const vp of VIEWPORTS) {
     });
 
     await scrollPageTo(page, pastY - 50);
-    await page.waitForTimeout(80);
+    await page.waitForTimeout(700);
     const shown = await readScrollNav(page);
     log({
       ...tag,
