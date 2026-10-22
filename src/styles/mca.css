@@ -559,19 +559,45 @@ section.mca-blog[data-band='light'] {
   }
 }
 
-/* BXCI-08 featured-content: eyebrow + title + body + singular-link left,
-   16:9 still right. Mobile stacks copy then still. */
+/* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
+   MCA slider: title + Read the article, prev/next under the link. */
+.mca-blog-slider {
+  outline: none;
+  touch-action: pan-y;
+}
+
+.mca-blog-slider:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
 .mca-blog-split {
   align-items: start;
   row-gap: 40px;
+}
+
+.mca-blog-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .mca-blog-copy .eyebrow {
   margin-bottom: 48px;
 }
 
+.mca-blog-copy-slides {
+  width: 100%;
+}
+
+.mca-blog-copy-slide[hidden],
+.mca-blog-media-slide[hidden] {
+  display: none !important;
+}
+
 .mca-blog-title {
-  margin: 0 0 16px;
+  margin: 0 0 24px;
   max-width: none;
   color: var(--color-ink);
   font-family: var(--font-display);
@@ -582,25 +608,87 @@ section.mca-blog[data-band='light'] {
   text-wrap: balance;
 }
 
-.mca-blog-body {
-  margin: 0 0 32px;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
 .mca-blog-copy .mca-card-link {
   margin-top: 0;
   padding-top: 0;
 }
 
+.mca-blog-controls {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.mca-blog-arrow {
+  appearance: none;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.mca-blog-arrow-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.mca-blog-arrow-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mca-blog-arrow:hover .mca-blog-arrow-icon,
+.mca-blog-arrow:focus-visible .mca-blog-arrow-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.mca-blog-arrow:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.mca-blog-media,
+.mca-blog-media-slide,
 .mca-blog-media .media,
 .mca-blog-media .image-slot {
   width: 100%;
+}
+
+.mca-blog-media .media,
+.mca-blog-media .image-slot {
   aspect-ratio: 16 / 9;
+}
+
+.mca-blog-copy-slide.is-active,
+.mca-blog-media-slide.is-active {
+  animation: mca-blog-in 0.35s ease-out;
+}
+
+@keyframes mca-blog-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -610,6 +698,9 @@ section.mca-blog[data-band='light'] {
   .mca-faq-item::after,
   .mca-card-link-label,
   .mca-card-link-icon,
+  .mca-blog-arrow-icon,
+  .mca-blog-copy-slide.is-active,
+  .mca-blog-media-slide.is-active,
   .mca-helps-tape-track {
     transition: none;
     transform: none;
@@ -682,10 +773,6 @@ section.mca-blog[data-band='light'] {
     letter-spacing: 0.32px;
     margin-bottom: 24px;
   }
-
-  .mca-blog-body {
-    margin-bottom: 40px;
-  }
 }
 
 /* 1024 — BX type steps. Shell already 8-col from 48em. */
@@ -754,6 +841,10 @@ section.mca-blog[data-band='light'] {
 
   .mca-shell {
     row-gap: 104px;
+  }
+
+  .mca-blog-split {
+    row-gap: 40px;
   }
 }
 
@@ -842,15 +933,18 @@ section.mca-blog[data-band='light'] {
 
   .mca-blog-split {
     row-gap: 0;
-    align-items: center;
+    align-items: stretch;
   }
 
   .mca-blog-copy {
     grid-column: 1 / span 6;
+    min-height: 0;
+    height: 100%;
   }
 
   .mca-blog-media {
     grid-column: 8 / span 9;
+    align-self: stretch;
   }
 
   .mca-blog-title {
@@ -860,8 +954,9 @@ section.mca-blog[data-band='light'] {
     margin-bottom: 32px;
   }
 
-  .mca-blog-body {
-    margin-bottom: 48px;
+  .mca-blog-controls {
+    margin-top: auto;
+    padding-top: 32px;
   }
 }
 
