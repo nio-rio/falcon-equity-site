@@ -328,14 +328,16 @@ section.mca-faq[data-band='dark'] {
   margin-bottom: 0;
 }
 
-/* PWS What you need to know: 3 text cards. Number is Ling's process copy. */
+/* PWS What you need to know: 01/02/03 are Scene7 number images in a 16:9
+   media box (11.5rem / 10.938rem / 12.375rem). Mapped to display type,
+   weight 300, tracking normal. Image-space under the number is 32px. */
 .mca-step-num {
-  margin: 0 0 16px;
+  margin: 0 0 32px;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 11.5rem;
   font-weight: 300;
-  line-height: 32px;
-  letter-spacing: 0.16px;
+  line-height: 11.5rem;
+  letter-spacing: normal;
   color: var(--color-ink);
 }
 
@@ -566,6 +568,11 @@ section.mca-faq[data-band='dark'] {
     row-gap: 80px;
   }
 
+  .mca-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
   .mca-helps-split {
     margin-top: 88px;
     row-gap: 88px;
@@ -686,11 +693,15 @@ section.mca-faq[data-band='dark'] {
   }
 
   .mca-card-title,
-  .mca-step-num,
   .mca-help-title {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0.192px;
+  }
+
+  .mca-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
   }
 
   .mca-cards--3 > .mca-card:nth-child(1) {
