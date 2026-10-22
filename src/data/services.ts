@@ -692,7 +692,8 @@ const HOME_TEASERS: Record<string, string> = {
 };
 
 const toHomeCard = (service: Service, featured?: 1 | 2): Omit<HomeServiceCard, 'area'> => ({
-  href: service.slug === 'merchant-cash-advance' ? `/services/${service.slug}` : '/#services',
+  href:
+    service.slug === 'decentralized-business-financing' ? '/#services' : `/services/${service.slug}`,
   name: service.name,
   teaser: HOME_TEASERS[service.slug] ?? service.summary,
   rangeLine: service.rangeLine,
