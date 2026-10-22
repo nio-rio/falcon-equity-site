@@ -25,6 +25,11 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - Collateral & Asset Loans page (session 2026-10-22): `/services/collateral-asset-loans` is now live, built from `src/pages/services/collateral-asset-loans.astro` + `src/styles/collateral-asset-loans.css` (commit `037c2fa`). Ling accepted the copy as written ("Active business" without a trailing period, no helps intro line, Process button "Apply for funding", FAQ equipment-quote wording).
 - Redirect exceptions (commit `c450dd4`), approved for this one product only, mirroring MCA: `astro.config.mjs` skips `collateral-asset-loans` in the retired-services loop and lists `/services/collateral-asset-loans` in `livePaths` (sitemap); its rule is removed from `netlify.toml` and `public/_redirects`. No `/services/*` wildcard exists, so nothing else swallows the path. The other five service slugs still redirect; lift each one only in that page's own commit.
 
+- Business Line of Credit page (session 2026-10-22): `/services/business-line-of-credit` is now live, built from `src/pages/services/business-line-of-credit.astro` + `src/styles/business-line-of-credit.css` (commit `31aa33e`, `mca-*` → `loc-*`, no blog band). Copy from `docs/redesign/content-business-line-of-credit.md` as written. Two adaptations for Ling to confirm: the Helps intro line (MCA has none) uses help-body type plus one new `.loc-helps-intro` rule (24px top margin), and the copy's Process button "apply now" is rendered as "Apply for funding" per CLAUDE.md, as on Collateral.
+- Redirect exception (commit `1f1f114`), same three files as Collateral: `astro.config.mjs` skips `business-line-of-credit` in the retired-services loop and lists it in `livePaths`; its rule is removed from `netlify.toml` and `public/_redirects`.
+- Next service pages, one at a time, each with its own redirect lift: **Business Term Loan**, **Invoice Factoring Tool**, **Consolidation of Positions**. (Decentralized Business Financing also still redirects.)
+- `npm run check` reports one existing error in `src/components/pilot/PilotIndustryTabs.astro:171` (`relatedTarget` on `Event`). It isn't from this work and hasn't been fixed.
+
 ## Standing rules
 - Each new page uses its own page-prefixed classes (e.g. `mca-*`), not home component classes. Share only `.container-site`, Header / Footer / SiteCta and design tokens. Merge duplicate classes in one cleanup pass after all designs are approved.
 - Keep all nav and footer links as they are (pages come later).
@@ -38,7 +43,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 1. Ling reviews this MCA build on deploy-preview-1. Site-wide BXCI nav (in-flow 72+60+72 / 32+48+32, hide after 2× height, 40px tolerance, no GSAP) is in this build.
 2. Only after Ling approves MCA, do these one at a time, each with a structure plan approved first: **How It Works** (`/how-it-works`), **About** (Dwight Holly, Founder & CFO), and one industry page, **Retail**.
 3. Other services, industries and the blog come later, and only when Ling asks.
-4. Service pages: four more to build, one at a time, each with its own redirect exception in its own commit (same three files as Collateral & Asset Loans). Content outlines are in commit `c11c74c`.
+4. Service pages: three more to build (Business Term Loan, Invoice Factoring Tool, Consolidation of Positions), one at a time, each with its own redirect exception in its own commit (same three files as Collateral & Asset Loans). Content outlines are in commit `c11c74c`.
 
 ## Open questions
 - A consolidation savings figure is still in 3 blog posts and in the held drafts. Ling hasn't decided what to do with it. Don't publish it. Ask her.
