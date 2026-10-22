@@ -192,6 +192,11 @@
   border-bottom: 1px solid var(--color-white-a16);
 }
 
+.mca-faq-item h3,
+.mca-faq-trigger {
+  color: var(--color-white);
+}
+
 .mca-faq-item h3 {
   margin: 0;
   font-family: var(--font-display);
@@ -215,7 +220,7 @@
   line-height: 1.5;
   letter-spacing: normal;
   text-align: left;
-  color: inherit;
+  color: var(--color-white);
   cursor: pointer;
 }
 
@@ -304,6 +309,14 @@
     grid-column: span 4;
   }
 
+  .mca-cards--stills {
+    grid-template-columns: 1fr;
+  }
+
+  .mca-cards--stills > .mca-card {
+    grid-column: 1 / -1;
+  }
+
   .mca-cards--3 > .mca-card:last-child:nth-child(odd) {
     grid-column: span 4;
   }
@@ -376,19 +389,24 @@
     row-gap: var(--bx-space-64);
   }
 
-  .mca-cards--3 > .mca-card:nth-child(1),
-  .mca-cards--stills > .mca-card:nth-child(1) {
+  .mca-cards--3 > .mca-card:nth-child(1) {
     grid-column: 1 / span 5;
   }
 
-  .mca-cards--3 > .mca-card:nth-child(2),
-  .mca-cards--stills > .mca-card:nth-child(2) {
+  .mca-cards--3 > .mca-card:nth-child(2) {
     grid-column: 6 / span 6;
   }
 
-  .mca-cards--3 > .mca-card:nth-child(3),
-  .mca-cards--stills > .mca-card:nth-child(3) {
+  .mca-cards--3 > .mca-card:nth-child(3) {
     grid-column: 12 / span 5;
+  }
+
+  .mca-cards--stills {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mca-cards--stills > .mca-card {
+    grid-column: span 1;
   }
 
   .mca-cards--4 > .mca-card:nth-child(1),
