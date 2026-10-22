@@ -153,9 +153,9 @@ section.btl-blog[data-band='light'] {
   margin: 0 0 24px;
   color: inherit;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 400;
-  line-height: 32px;
+  line-height: 36px;
   letter-spacing: 0.16px;
 }
 
@@ -321,9 +321,9 @@ section.btl-blog[data-band='light'] {
   margin: 0 0 24px;
   color: #fff;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 400;
-  line-height: 32px;
+  line-height: 36px;
   letter-spacing: 0.16px;
 }
 
@@ -470,9 +470,9 @@ section.btl-blog[data-band='light'] {
   border: 0;
   background: none;
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 36px;
+  line-height: 30px;
   letter-spacing: 0.192px;
   text-align: left;
   color: var(--color-ink);
@@ -851,13 +851,6 @@ section.btl-blog[data-band='light'] {
     font-size: 32px;
     line-height: 38px;
   }
-
-  .btl-help-title {
-    font-size: 20px;
-    line-height: 32px;
-    letter-spacing: 0.16px;
-  }
-
   .btl-shell {
     row-gap: 104px;
   }
@@ -1057,12 +1050,6 @@ section.btl-blog[data-band='light'] {
     font-size: 12.375rem;
     line-height: 12.375rem;
   }
-
-  .btl-faq-trigger {
-    font-size: 24px;
-    line-height: 36px;
-  }
-
   .btl-acc-inner > p {
     max-width: 624px;
   }
