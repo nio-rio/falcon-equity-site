@@ -701,13 +701,18 @@ export function initNav() {
     const y = window.scrollY;
     const h = inflowH();
     const threshold = 2 * h;
-    if (y < threshold) {
-      if (header.classList.contains('is-fixed') && y <= h) clearFixed();
+    if (y <= h) {
+      if (header.classList.contains('is-fixed')) clearFixed();
       scrollUi.anchorY = y;
       applyHomeThemeFromHero();
       return;
     }
     if (!header.classList.contains('is-fixed')) {
+      if (y < threshold) {
+        scrollUi.anchorY = y;
+        applyHomeThemeFromHero();
+        return;
+      }
       header.style.height = `${h}px`;
       header.classList.add('is-fixed', 'is-hidden', 'no-anim');
       requestAnimationFrame(() => header.classList.remove('no-anim'));

@@ -224,6 +224,10 @@ const readScrollNav = (page) =>
       headerH: hr ? Math.round(hr.height) : 0,
       barH: br ? Math.round(br.height) : 0,
       barTop: br ? Math.round(br.top * 10) / 10 : null,
+      innerTop: (() => {
+        const inner = document.querySelector('.site-header__inner');
+        return inner ? Math.round(inner.getBoundingClientRect().top * 10) / 10 : null;
+      })(),
       padTop: cs ? parseFloat(cs.paddingTop) : null,
       transition: cs?.transitionDuration || '',
     };
@@ -1619,7 +1623,8 @@ for (const vp of VIEWPORTS) {
       ok:
         !inflow.fixed &&
         inflow.barTop != null &&
-        Math.abs(inflow.barTop - expectPad) <= 2 &&
+        Math.abs(inflow.barTop) <= 2 &&
+        Math.abs((inflow.innerTop ?? expectPad) - expectPad) <= 2 &&
         Math.abs(inflow.headerH - expectBarH) <= 8 &&
         Math.abs((inflow.padTop ?? 0) - expectPad) <= 1,
       detail: JSON.stringify({ ...inflow, expectPad, expectBarH }),
@@ -1678,7 +1683,7 @@ for (const vp of VIEWPORTS) {
     log({
       ...tag,
       check: 'nav-inflow-on-return',
-      ok: !back.fixed && back.barTop != null && Math.abs(back.barTop - expectPad) <= 2,
+      ok: !back.fixed && back.barTop != null && Math.abs(back.barTop) <= 2 && Math.abs((back.innerTop ?? expectPad) - expectPad) <= 2,
       detail: JSON.stringify(back),
     });
 
