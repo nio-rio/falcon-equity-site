@@ -762,6 +762,18 @@ section.btl-blog[data-band='light'] {
     padding: 0 0 96px;
   }
 
+  .btl-help-title,
+  .btl-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  .btl-faq-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
   .btl-shell {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
@@ -850,18 +862,6 @@ section.btl-blog[data-band='light'] {
   .btl-stat-value {
     font-size: 32px;
     line-height: 38px;
-  }
-
-  .btl-help-title,
-  .btl-card-title {
-    font-size: 20px;
-    line-height: 32px;
-    letter-spacing: 0.16px;
-  }
-
-  .btl-faq-trigger {
-    font-size: 24px;
-    line-height: 36px;
   }
 
   .btl-shell {

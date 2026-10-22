@@ -762,6 +762,18 @@ section.ift-blog[data-band='light'] {
     padding: 0 0 96px;
   }
 
+  .ift-help-title,
+  .ift-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  .ift-faq-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
   .ift-shell {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
@@ -850,18 +862,6 @@ section.ift-blog[data-band='light'] {
   .ift-stat-value {
     font-size: 32px;
     line-height: 38px;
-  }
-
-  .ift-help-title,
-  .ift-card-title {
-    font-size: 20px;
-    line-height: 32px;
-    letter-spacing: 0.16px;
-  }
-
-  .ift-faq-trigger {
-    font-size: 24px;
-    line-height: 36px;
   }
 
   .ift-shell {
