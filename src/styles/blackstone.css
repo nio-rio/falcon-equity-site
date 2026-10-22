@@ -1831,9 +1831,9 @@ html.has-scroll-lock .site-header {
   margin: var(--bx-space-24) 0 0;
   max-width: none;
   font-family: var(--font-sans);
-  font-size: var(--bx-fs-18);
+  font-size: var(--bx-fs-14);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 21px;
   color: #fff;
 }
 
@@ -2037,7 +2037,8 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__disclosure {
-    font-size: var(--bx-fs-16);
+    font-size: var(--bx-fs-14);
+    line-height: 21px;
   }
 
   .site-footer__legal-list {
@@ -2098,9 +2099,13 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__legal-list .site-footer__link,
-  .site-footer__copy,
-  .site-footer__disclosure {
+  .site-footer__copy {
     font-size: var(--bx-fs-18);
+  }
+
+  .site-footer__disclosure {
+    font-size: var(--bx-fs-14);
+    line-height: 21px;
   }
 }
 

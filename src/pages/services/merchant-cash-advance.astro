@@ -4,7 +4,19 @@ import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
 import '@/styles/mca.css';
+
+const posts = await getPublicPosts();
+const blogPost = posts.find((post) => post.id === 'merchant-cash-advance-vs-business-term-loan');
+const blogTitle =
+  blogPost?.data.title ?? '[Placeholder] Merchant cash advance article title';
+const blogSummary = blogPost
+  ? 'When you need capital, two of the most common options are a merchant cash advance (MCA) and a business term loan. Both can fund quickly and help you grow, but they are built for different situations, and choosing the wrong one can cost you.'
+  : '[Placeholder] One or two sentences from the article itself.';
+const blogHref = blogPost ? `/blog/${blogPost.id}` : '#mca-blog-heading';
+const blogImage = blogPost?.data.cover;
+const blogAlt = blogPost?.data.coverAlt || 'Abstract cover for this article';
 
 const stats = [
   {
@@ -94,6 +106,8 @@ const steps = [
   },
 ];
 
+const tapeCopies = 3;
+
 const faqs = [
   {
     q: 'Is a merchant cash advance a loan?',
@@ -142,6 +156,7 @@ const faqs = [
   </Fragment>
 
   <section class="mca-hero" aria-labelledby="page-hero-heading" data-band="light" data-mca-section="hero" data-reveal-root>
+    <div class="container-site">
     <div class="mca-ir-frame" data-reveal>
       <h1 id="page-hero-heading" class="mca-hero-title">Merchant Cash Advance</h1>
       <div class="mca-stat-grid">
@@ -162,9 +177,10 @@ const faqs = [
         <Button040 href="/apply" label="Apply for funding" variant="dark" />
       </div>
     </div>
+    </div>
   </section>
 
-  <section class="mca-band mca-helps" aria-labelledby="helps-heading" data-band="light" data-mca-section="helps" data-reveal-root>
+  <section class="mca-band mca-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-mca-section="helps" data-reveal-root>
     <div class="container-site">
       <div class="mca-shell mca-helps-head" data-reveal>
         <div class="mca-block-head">
@@ -192,12 +208,18 @@ const faqs = [
           }
         </div>
       </div>
-      <div class="mca-shell" data-reveal>
-        <div class="mca-cta mca-cta--after">
-          <Button040 href="/apply" label="Apply for funding" variant="dark" />
-        </div>
-      </div>
     </div>
+    <a class="mca-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="mca-helps-tape-track" data-mca-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="mca-helps-tape-item" data-mca-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
   </section>
 
   <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-mca-section="fit" data-reveal-root>
@@ -261,7 +283,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="mca-band mca-faq on-dark" aria-labelledby="mca-faq-heading" data-band="dark" data-mca-section="faq" data-reveal-root>
+  <section class="mca-band mca-faq" aria-labelledby="mca-faq-heading" data-band="light" data-mca-section="faq" data-reveal-root>
     <div class="container-site">
       <div class="mca-shell mca-faq-head" data-reveal>
         <div class="mca-block-head">
@@ -306,9 +328,54 @@ const faqs = [
     </div>
   </section>
 
+  <section class="mca-band mca-blog" aria-labelledby="mca-blog-heading" data-band="light" data-mca-section="blog" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-blog-split" data-reveal>
+        <div class="mca-blog-copy">
+          <Eyebrow>From the blog</Eyebrow>
+          <h2 id="mca-blog-heading" class="mca-blog-title">{blogTitle}</h2>
+          <p class="mca-blog-body">{blogSummary}</p>
+          <a class="mca-card-link" href={blogHref}>
+            <span class="mca-card-link-label">Read the article</span>
+            <span class="mca-card-link-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+        <div class="mca-blog-media">
+          <Media
+            image={blogImage}
+            alt={blogAlt}
+            intent={blogAlt}
+            labeled={!blogImage}
+            ratio="16 / 9"
+            sizes="(min-width: 90em) 704px, (min-width: 80em) 632px, (min-width: 48em) 688px, 100vw"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script>
     import { bindAccordions } from '@/scripts/accordion';
     import '@/scripts/scroll-in';
     bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-mca-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-mca-tape]').forEach(arm);
   </script>
 </BaseLayout>
