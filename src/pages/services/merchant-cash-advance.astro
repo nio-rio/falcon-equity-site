@@ -213,10 +213,6 @@ const faqs = [
           <Eyebrow>Not for these situations</Eyebrow>
           <h2 id="fit-heading">When a cash advance isn't the right fit.</h2>
         </div>
-        <p class="mca-block-lead">
-          A cash advance is the fastest money you can get, and usually the most expensive. Here are three situations
-          where a different product fits better.
-        </p>
       </div>
       <div class="mca-shell mca-cards mca-cards--3" data-reveal>
         {
@@ -245,8 +241,8 @@ const faqs = [
             <article class="mca-card mca-step">
               <p class="mca-step-num">{step.num}</p>
               <h3 class="mca-card-title">{step.title}</h3>
-              <p class="mca-card-body">{step.body}</p>
               <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
+              <p class="mca-card-body">{step.body}</p>
               <p class="mca-card-body mca-step-note">{step.note}</p>
             </article>
           ))
