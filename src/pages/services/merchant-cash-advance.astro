@@ -54,16 +54,22 @@ const helps = [
 
 const fitItems = [
   {
-    title: 'Skip it if the cost is planned and repeats',
-    body: 'Rent, payroll and regular inventory orders fit a line of credit better: you draw what you need and only pay for what you use.',
+    title: 'If the cost is planned and repeats, try a business line of credit',
+    body: 'Rent, payroll and regular inventory orders come around on a schedule. A line of credit lets you draw what you need, when you need it, and only pay for what you use.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
   },
   {
-    title: "Skip it if you're buying something that lasts",
-    body: 'Equipment, vehicles and fixtures earn for years, so an equipment or asset loan spreads the cost over that time.',
+    title: "If you're buying equipment or a vehicle, try a collateral or asset loan",
+    body: "Equipment, vehicles and fixtures earn for years, so the cost should be spread over that time. Asset-based loans use what you're buying as collateral, so the cost is tied to the equipment rather than to your daily sales.",
+    linkLabel: 'Collateral & Asset Loans',
+    href: '/services/collateral-asset-loans',
   },
   {
-    title: "Skip it if you're already carrying more than one advance",
-    body: 'Adding another daily payment on top of the ones you already have is how businesses get into trouble.',
+    title: "If you're carrying more than one advance, try consolidation",
+    body: 'Two or three daily payments stacking on top of each other is how a good month turns into a bad one. Consolidation pays off the positions you have and rolls them into one payment sized to your sales.',
+    linkLabel: 'Consolidation of Positions',
+    href: '/services/consolidation-of-positions',
   },
 ];
 
@@ -73,21 +79,18 @@ const steps = [
     title: 'Apply in minutes',
     body: 'Fill out one short online application. Tell us what your business does and how much you need.',
     note: 'You provide: six months of business bank statements, a photo ID, a voided check and a list of any current advances or loans.',
-    intent: 'Abstract still for the apply step, no people',
   },
   {
     num: '02',
     title: 'Talk to a specialist',
     body: "A Falcon specialist reviews your file, asks for anything that's missing and walks you through your options.",
     note: "You get: a call about the amount, the share of sales you'd pay and the timing, before anything is signed.",
-    intent: 'Abstract still for the specialist step, no people',
   },
   {
     num: '03',
     title: 'Approve and get funded',
     body: "Once you're approved, review and sign your agreement. Funding can happen the same day.",
     note: "You see: the total amount you're selling and the percentage of sales that goes toward it, both spelled out on the agreement.",
-    intent: 'Abstract still for the funding step, no people',
   },
 ];
 
@@ -201,8 +204,11 @@ const faqs = [
     <div class="container-site">
       <div class="mca-shell mca-fit-head" data-reveal>
         <div class="mca-block-head">
-          <Eyebrow>Not for these situations</Eyebrow>
-          <h2 id="fit-heading">When a cash advance isn't the right fit.</h2>
+          <Eyebrow>When a cash advance isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            A cash advance is the fastest money you can get, and usually the most expensive. Here are three
+            situations where another Falcon product fits better.
+          </h2>
         </div>
       </div>
       <div class="mca-shell mca-cards mca-cards--3" data-reveal>
@@ -211,6 +217,15 @@ const faqs = [
             <article class="mca-card">
               <h3 class="mca-card-title">{item.title}</h3>
               <p class="mca-card-body">{item.body}</p>
+              <a class="mca-card-link" href={item.href}>
+                <span class="mca-card-link-label">{item.linkLabel}</span>
+                <span class="mca-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
             </article>
           ))
         }
@@ -223,16 +238,15 @@ const faqs = [
       <div class="mca-shell mca-process-head" data-reveal>
         <div class="mca-block-head">
           <Eyebrow>Process</Eyebrow>
-          <h2 id="process-heading">How it works, from the first bank statement to signed paperwork.</h2>
+          <h2 id="process-heading">Three steps to get funded.</h2>
         </div>
       </div>
-      <div class="mca-shell mca-cards mca-cards--stills" data-reveal>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
         {
           steps.map((step) => (
             <article class="mca-card mca-step">
               <p class="mca-step-num">{step.num}</p>
               <h3 class="mca-card-title">{step.title}</h3>
-              <Media labeled intent={step.intent} ratio="16 / 9" sizes="(min-width: 1024px) 30vw, 100vw" />
               <p class="mca-card-body">{step.body}</p>
               <p class="mca-card-body mca-step-note">{step.note}</p>
             </article>
