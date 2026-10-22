@@ -157,26 +157,28 @@ const faqs = [
 
   <section class="mca-hero" aria-labelledby="page-hero-heading" data-band="light" data-mca-section="hero" data-reveal-root>
     <div class="container-site">
-    <div class="mca-ir-frame" data-reveal>
-      <h1 id="page-hero-heading" class="mca-hero-title">Merchant Cash Advance</h1>
-      <div class="mca-stat-grid">
-        {
-          stats.map((stat) => (
-            <div class="mca-stat">
-              <p class="mca-stat-label">{stat.label}</p>
-              <p class="mca-stat-value">{stat.value}</p>
-            </div>
-          ))
-        }
+      <div class="mca-shell" data-reveal>
+        <div class="mca-hero-inner">
+          <h1 id="page-hero-heading" class="mca-hero-title">Merchant Cash Advance</h1>
+          <div class="mca-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="mca-stat">
+                  <p class="mca-stat-label">{stat.label}</p>
+                  <p class="mca-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="mca-hero-lead">
+            A merchant cash advance is money now in exchange for a share of your future sales. It's a purchase of
+            future receivables, not a loan, so what you pay follows how your business is doing.
+          </p>
+          <div class="mca-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
       </div>
-      <p class="mca-hero-lead">
-        A merchant cash advance is money now in exchange for a share of your future sales. It's a purchase of
-        future receivables, not a loan, so what you pay follows how your business is doing.
-      </p>
-      <div class="mca-hero-cta">
-        <Button040 href="/apply" label="Apply for funding" variant="dark" />
-      </div>
-    </div>
     </div>
   </section>
 

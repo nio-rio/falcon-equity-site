@@ -7,10 +7,12 @@
    Do not touch home. */
 
 /* Per-section pads beat home [data-band] / stacked-same-theme tokens.
-   R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440). Theme-change meetings
-   use R on the light side. Same-theme followers use stacked 40 / 40 / 48 / 56
-   so light-next-to-light does not double. Helps bottom sits slightly under R
-   for the scrolling-link overhang. IR title sits 50px below the header. */
+   Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
+   Theme-change: R on the light side next to the dark edge.
+   Light-next-to-light: predecessor keeps R bottom, follower top is 0
+   so the gap is R not 2R. Fit→Process top is unchanged (24 at 390/768).
+   Helps bottom sits slightly under R for the tape overhang.
+   Hero title sits 50px below the header. */
 section.mca-hero[data-band='light'] {
   padding: 50px 0 80px;
 }
@@ -23,10 +25,13 @@ section.mca-fit[data-band='light'] {
   padding: 80px 0;
 }
 
-section.mca-process[data-band='light'],
+section.mca-process[data-band='light'] {
+  padding: 24px 0 80px;
+}
+
 section.mca-faq[data-band='light'],
 section.mca-blog[data-band='light'] {
-  padding: 40px 0 80px;
+  padding: 0 0 80px;
 }
 
 .mca-hero,
@@ -62,7 +67,8 @@ section.mca-blog[data-band='light'] {
 .mca-helps-image,
 .mca-helps-list,
 .mca-blog-copy,
-.mca-blog-media {
+.mca-blog-media,
+.mca-hero-inner {
   grid-column: 1 / -1;
 }
 
@@ -239,20 +245,9 @@ section.mca-blog[data-band='light'] {
   margin-top: 72px;
 }
 
-/* IR-01 + IR-02 — Q4 1200 frame at 1440. Below that, fill the home column
-   so the left edge matches the bands underneath. Hairline ABOVE each cell. */
-.mca-ir-frame {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-}
-
-.mca-hero .mca-ir-frame {
-  flex-direction: column;
-  column-gap: 0;
+/* IR-01 + IR-02 stats live in `.mca-shell` (home column). Hairline ABOVE each cell. */
+.mca-hero-inner {
+  min-width: 0;
 }
 
 .mca-stat-grid {
@@ -632,12 +627,12 @@ section.mca-blog[data-band='light'] {
   }
 
   section.mca-process[data-band='light'] {
-    padding: 40px 0 96px;
+    padding: 24px 0 96px;
   }
 
   section.mca-faq[data-band='light'],
   section.mca-blog[data-band='light'] {
-    padding: 40px 0 96px;
+    padding: 0 0 96px;
   }
 
   .mca-shell {
@@ -684,8 +679,14 @@ section.mca-blog[data-band='light'] {
   }
 }
 
-/* 1024 — BX type steps. Shell already 8-col from 48em. */
+/* 1024 — BX type steps. Shell already 8-col from 48em.
+   Process top 40px is the original 64em value; it does not change Fit→Process
+   at 390/768. */
 @media (min-width: 64em) {
+  section.mca-process[data-band='light'] {
+    padding: 40px 0 96px;
+  }
+
   .mca-hero h1,
   .mca-hero-title {
     font-size: 55px;
@@ -773,7 +774,7 @@ section.mca-blog[data-band='light'] {
 
   section.mca-faq[data-band='light'],
   section.mca-blog[data-band='light'] {
-    padding: 48px 0 144px;
+    padding: 0 0 144px;
   }
 
   .mca-shell {
@@ -861,7 +862,7 @@ section.mca-blog[data-band='light'] {
   }
 }
 
-/* 1440 — BX 16-col / 1264, sides ~80. R = 160. IR inner 1200. */
+/* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
 @media (min-width: 90em) {
   section.mca-hero[data-band='light'] {
     padding: 50px 0 160px;
@@ -881,7 +882,7 @@ section.mca-blog[data-band='light'] {
 
   section.mca-faq[data-band='light'],
   section.mca-blog[data-band='light'] {
-    padding: 56px 0 160px;
+    padding: 0 0 160px;
   }
 
   .mca-helps-tape {
@@ -952,16 +953,6 @@ section.mca-blog[data-band='light'] {
 
   .mca-acc-inner > p {
     max-width: 624px;
-  }
-
-  .mca-ir-frame {
-    width: 1200px;
-    max-width: 1200px;
-  }
-
-  .mca-hero .mca-ir-frame {
-    flex-direction: column;
-    column-gap: 0;
   }
 
   .mca-stat-grid {
