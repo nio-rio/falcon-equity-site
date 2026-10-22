@@ -1913,17 +1913,25 @@ html.has-scroll-lock .site-header {
 }
 
 .site-footer__bottom {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--bx-space-16);
   padding-top: var(--bx-space-64);
   padding-bottom: 4.5rem;
 }
 
 .site-footer__bottom-bar {
   display: grid;
+  grid-column: 1 / -1;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: var(--bx-space-16);
   grid-template-areas:
     '. legal legal legal'
     '. copy copy copy';
+}
+
+.site-footer__disclosure {
+  grid-column: 2 / -1;
 }
 
 .site-footer__legal {
@@ -1976,6 +1984,7 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__bottom {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
     padding-top: var(--bx-space-80);
     padding-bottom: var(--bx-space-80);
   }
@@ -1983,6 +1992,10 @@ html.has-scroll-lock .site-header {
   .site-footer__bottom-bar {
     grid-template-columns: repeat(8, minmax(0, 1fr));
     grid-template-areas: 'copy copy copy copy legal legal legal legal';
+  }
+
+  .site-footer__disclosure {
+    grid-column: 1 / -1;
   }
 
   .site-footer__legal {
@@ -2011,6 +2024,7 @@ html.has-scroll-lock .site-header {
   }
 
   .site-footer__bottom {
+    grid-template-columns: 1fr;
     padding-top: var(--bx-space-32);
     padding-bottom: var(--bx-space-32);
   }
