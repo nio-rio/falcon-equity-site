@@ -287,12 +287,28 @@ section.mca-faq[data-band='dark'] {
 }
 
 .mca-faq-item {
-  border-top: 1px solid var(--color-white-a16);
   color: var(--color-white);
 }
 
-.mca-faq-item:last-child {
-  border-bottom: 1px solid var(--color-white-a16);
+/* BXCI-05: hairlines live on the item wrapper as in-flow ::before/::after,
+   so the bottom rule sits under the answer panel when the row opens. */
+.mca-faq-item:first-child::before,
+.mca-faq-item::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  width: 100%;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.5s linear;
+}
+
+.mca-faq-item:first-child::before {
+  border-top: solid 0.063rem var(--color-white);
+}
+
+.mca-faq-item::after {
+  border-bottom: solid 0.063rem var(--color-white);
 }
 
 .mca-faq-item h3,
@@ -310,7 +326,6 @@ section.mca-faq[data-band='dark'] {
 
 .mca-faq-trigger {
   display: flex;
-  position: relative;
   width: 100%;
   align-items: center;
   justify-content: space-between;
@@ -326,19 +341,6 @@ section.mca-faq[data-band='dark'] {
   text-align: left;
   color: var(--color-white);
   cursor: pointer;
-}
-
-.mca-faq-trigger::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-bottom: solid 0.063rem var(--color-white);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.5s linear;
-  pointer-events: none;
 }
 
 .mca-faq-caret {
@@ -408,7 +410,6 @@ section.mca-faq[data-band='dark'] {
 @keyframes mca-faq-border-draw {
   0% {
     transform: scaleX(0);
-    transform-origin: left center;
   }
   100% {
     transform: scaleX(1);
@@ -430,23 +431,24 @@ section.mca-faq[data-band='dark'] {
   }
 }
 
-@media (min-width: 80em) and (hover: hover) and (pointer: fine) {
-  .mca-faq-trigger:hover::after,
-  .mca-faq-trigger:focus-visible::after {
+@media (min-width: 80em) {
+  .mca-faq-item:hover::after {
     animation: mca-faq-border-draw 0.5s linear both;
+    transform-origin: left center;
+    transition-timing-function: ease-out;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mca-faq-trigger::after,
+  .mca-faq-item::after,
+  .mca-faq-item:first-child::before,
   .mca-faq-caret,
   .mca-faq-caret-svg,
   .mca-faq-icon {
     transition: none;
   }
 
-  .mca-faq-trigger:hover::after,
-  .mca-faq-trigger:focus-visible::after {
+  .mca-faq-item:hover::after {
     animation: none;
     transform: scaleX(1);
   }
