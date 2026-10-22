@@ -1,0 +1,337 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import '@/styles/invoice-factoring-tool.css';
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'B2B businesses with outstanding invoices from creditworthy clients.',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$10,000 – $3,000,000',
+  },
+  {
+    label: 'Terms',
+    value: 'Ongoing facility',
+  },
+  {
+    label: 'Requirements',
+    value: 'B2B invoices',
+  },
+  {
+    label: 'Requirements',
+    value: 'Creditworthy customers',
+  },
+  {
+    label: 'Requirements',
+    value: '3+ months in business',
+  },
+];
+
+const helps = [
+  {
+    title: 'Making payroll while invoices sit unpaid',
+    body: 'Sell those receivables and the cash is here now, instead of arriving after payday has already gone out.',
+  },
+  {
+    title: 'Taking on a contract bigger than your cash on hand',
+    body: 'Factoring can fund materials and labour against invoices from customers who are good for the money.',
+  },
+  {
+    title: 'Smoothing clients who pay slowly',
+    body: 'When customers take their time and suppliers do not, an ongoing facility keeps the gap from turning into a crisis.',
+  },
+  {
+    title: 'Growing without taking on more debt',
+    body: 'Factoring is a sale of invoices, not a loan. It brings cash in without adding a repayment to the balance sheet.',
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If you sell to consumers, not businesses',
+    body: 'Factoring needs outstanding B2B invoices from creditworthy commercial or government customers. Consumer sales do not qualify.',
+    linkLabel: 'Merchant Cash Advance',
+    href: '/services/merchant-cash-advance',
+  },
+  {
+    title: 'If your customers already pay you quickly',
+    body: 'There is little point selling an invoice that was about to be paid anyway. A line of credit covers a short gap without discounting the money you are owed.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: 'If you need money for something other than waiting on receivables',
+    body: 'When the cost is a purchase or a project rather than a timing gap, a term loan spreads it over a schedule you choose.',
+    linkLabel: 'Business Term Loan',
+    href: '/services/business-term-loan',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Apply in minutes',
+    body: 'Fill out one short online application. Tell us what your business does and how much funding you need.',
+    note: 'You provide: six months of business bank statements, a photo ID, a voided check, a list of any current advances or loans, and the invoices you want to sell.',
+  },
+  {
+    num: '02',
+    title: 'Talk to a specialist',
+    body: 'A Falcon specialist reviews your file, looks at who owes you the money and walks you through your options.',
+    note: 'You get: a call about which invoices qualify, the discount that applies and the timing, before anything is signed.',
+  },
+  {
+    num: '03',
+    title: 'Approve and get funded',
+    body: 'Once you are approved, review and sign your agreement. Timing depends on the invoices and how quickly documents are provided.',
+    note: 'You see: the discount and the amount you will receive, both spelled out on the agreement.',
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = [
+  {
+    q: 'Is factoring a loan?',
+    a: 'No. Factoring is the sale of your receivables at a discount. Approval leans heavily on the creditworthiness of your customers.',
+  },
+  {
+    q: 'Which invoices qualify?',
+    a: 'Outstanding B2B invoices from creditworthy commercial or government customers are the strongest fit.',
+  },
+  {
+    q: 'Is it a one-time deal?',
+    a: 'It can be ongoing. Many businesses use factoring as a continuing facility that grows with their sales.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Falcon charges a 0% agreement fee. Factoring is priced as a discount on the invoices you sell, which your specialist discloses before you sign. No specific rate is published on this page.',
+  },
+  {
+    q: 'How fast can I get funded?',
+    a: 'Timing depends on the invoices and how quickly you send your documents. Your specialist will tell you what to expect for your file.',
+  },
+  {
+    q: 'What do I need to apply?',
+    a: 'Six months of business bank statements, a government-issued photo ID, a voided check, a list of any open advances or loans, and the outstanding invoices you want to factor.',
+  },
+];
+---
+
+<BaseLayout title="Invoice Factoring Tool" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="ift-hero" aria-labelledby="page-hero-heading" data-band="light" data-ift-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="ift-shell" data-reveal>
+        <div class="ift-hero-inner">
+          <h1 id="page-hero-heading" class="ift-hero-title">Invoice Factoring Tool</h1>
+          <div class="ift-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="ift-stat">
+                  <p class="ift-stat-label">{stat.label}</p>
+                  <p class="ift-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="ift-hero-lead">
+            You already earned the money. It is sitting in someone else's accounts payable, waiting out a net-60.
+          </p>
+          <div class="ift-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ift-band ift-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-ift-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="ift-shell ift-helps-head" data-reveal>
+        <div class="ift-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When factoring is the right fit.</h2>
+          <p class="ift-help-body ift-helps-intro">
+            Four moments when the work is done and the wait is the problem.
+          </p>
+        </div>
+      </div>
+      <div class="ift-shell ift-helps-split" data-reveal>
+        <div class="ift-helps-image">
+          <Media
+            labeled
+            intent="Abstract still of a stack of paper invoices on a desk, no people"
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="ift-helps-list">
+          {
+            helps.map((item) => (
+              <article class="ift-help">
+                <h3 class="ift-help-title">{item.title}</h3>
+                <p class="ift-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="ift-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="ift-helps-tape-track" data-ift-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="ift-helps-tape-item" data-ift-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="ift-band ift-process" aria-labelledby="process-heading" data-band="light" data-ift-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="ift-shell ift-process-head" data-reveal>
+        <div class="ift-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to get funded.</h2>
+        </div>
+      </div>
+      <div class="ift-shell ift-cards ift-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="ift-card ift-step">
+              <p class="ift-step-num">{step.num}</p>
+              <h3 class="ift-card-title">{step.title}</h3>
+              <p class="ift-card-body">{step.body}</p>
+              <p class="ift-card-body ift-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="ift-shell" data-reveal>
+        <div class="ift-cta ift-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ift-band ift-faq" aria-labelledby="ift-faq-heading" data-band="light" data-ift-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="ift-shell ift-faq-head" data-reveal>
+        <div class="ift-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="ift-faq-heading">Invoice factoring questions</h2>
+        </div>
+      </div>
+      <div class="ift-shell">
+      <div class="ift-faq-list" data-accordion data-reveal>
+        {
+          faqs.map((item, i) => (
+            <div class="ift-faq-item" data-acc-item>
+              <h3>
+                <button
+                  type="button"
+                  class="ift-faq-trigger"
+                  aria-expanded="false"
+                  aria-controls={`ift-faq-panel-${i}`}
+                  id={`ift-faq-trigger-${i}`}
+                  data-acc-trigger
+                >
+                  <span>{item.q}</span>
+                  <span class="ift-faq-caret" aria-hidden="true">
+                    <span class="ift-faq-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="ift-faq-caret-svg">
+                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              </h3>
+              <div class="ift-acc-panel" id={`ift-faq-panel-${i}`} role="region" aria-labelledby={`ift-faq-trigger-${i}`}>
+                <div class="ift-acc-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ift-band ift-fit" aria-labelledby="fit-heading" data-band="light" data-ift-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="ift-shell ift-fit-head" data-reveal>
+        <div class="ift-block-head">
+          <Eyebrow>When factoring isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            Factoring is priced against your invoices and your customers, so it only works when those two things are strong. Here are three situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="ift-shell ift-cards ift-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="ift-card">
+              <h3 class="ift-card-title">{item.title}</h3>
+              <p class="ift-card-body">{item.body}</p>
+              <a class="ift-card-link" href={item.href}>
+                <span class="ift-card-link-label">{item.linkLabel}</span>
+                <span class="ift-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-ift-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-ift-tape]').forEach(arm);
+  </script>
+</BaseLayout>
