@@ -1654,7 +1654,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--bx-space-40);
+  gap: calc(var(--bx-space-40) + 1.5rem);
   padding-block: 0;
   text-align: center;
 }
@@ -1797,7 +1797,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--bx-space-40);
+    gap: calc(var(--bx-space-40) + 1.5rem);
     padding-block: 0;
     text-align: left;
   }
