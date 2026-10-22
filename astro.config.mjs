@@ -12,6 +12,7 @@ const livePaths = new Set([
   '/apply',
   '/services/merchant-cash-advance',
   '/services/collateral-asset-loans',
+  '/services/business-line-of-credit',
 ]);
 
 const serviceSlugs = [
@@ -67,6 +68,7 @@ const retired = {
 for (const slug of serviceSlugs) {
   if (slug === 'merchant-cash-advance') continue;
   if (slug === 'collateral-asset-loans') continue;
+  if (slug === 'business-line-of-credit') continue;
   retired[`/services/${slug}`] = '/';
 }
 for (const slug of industrySlugs) retired[`/industries/${slug}`] = '/';
