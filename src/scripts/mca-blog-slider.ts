@@ -63,41 +63,126 @@ function setup(slider: HTMLElement) {
     }
   });
 
+  bindSwipe(slider, (dir) => go(dir));
+
+  paint(index, false);
+  if (reduceMotion()) slider.setAttribute('data-mca-blog-reduce', '');
+}
+
+const AXIS_PX = 8;
+
+function bindSwipe(slider: HTMLElement, onSwipe: (dir: 1 | -1) => void) {
   let startX = 0;
   let startY = 0;
   let tracking = false;
+  let axis: 'x' | 'y' | null = null;
+  let pointerId: number | null = null;
+
+  const fromControl = (target: EventTarget | null) =>
+    target instanceof Element && Boolean(target.closest('button'));
+
+  const begin = (x: number, y: number) => {
+    tracking = true;
+    axis = null;
+    startX = x;
+    startY = y;
+  };
+
+  const move = (x: number, y: number, e: Event) => {
+    if (!tracking) return;
+    const dx = x - startX;
+    const dy = y - startY;
+    if (!axis && (Math.abs(dx) >= AXIS_PX || Math.abs(dy) >= AXIS_PX)) {
+      axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+    }
+    if (axis === 'x') e.preventDefault();
+  };
+
+  const finish = (x: number, y: number) => {
+    if (!tracking) return;
+    const dx = x - startX;
+    const dy = y - startY;
+    const horizontal = axis === 'x' || (axis === null && Math.abs(dx) >= SWIPE_PX && Math.abs(dx) > Math.abs(dy));
+    tracking = false;
+    axis = null;
+    pointerId = null;
+    if (!horizontal || Math.abs(dx) < SWIPE_PX) return;
+    onSwipe(dx < 0 ? 1 : -1);
+    const swallow = (ev: Event) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      slider.removeEventListener('click', swallow, true);
+    };
+    slider.addEventListener('click', swallow, true);
+    window.setTimeout(() => slider.removeEventListener('click', swallow, true), 400);
+  };
+
+  const cancel = () => {
+    tracking = false;
+    axis = null;
+    pointerId = null;
+  };
+
   slider.addEventListener(
-    'pointerdown',
+    'touchstart',
     (e) => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      if (e.target instanceof Element && e.target.closest('a, button')) return;
-      tracking = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      slider.setPointerCapture?.(e.pointerId);
+      if (e.touches.length !== 1 || fromControl(e.target)) return;
+      begin(e.touches[0].clientX, e.touches[0].clientY);
     },
     { passive: true },
   );
   slider.addEventListener(
+    'touchmove',
+    (e) => {
+      if (!tracking || e.touches.length !== 1) return;
+      move(e.touches[0].clientX, e.touches[0].clientY, e);
+    },
+    { passive: false },
+  );
+  slider.addEventListener(
+    'touchend',
+    (e) => {
+      const t = e.changedTouches[0];
+      if (t) finish(t.clientX, t.clientY);
+      else cancel();
+    },
+    { passive: true },
+  );
+  slider.addEventListener('touchcancel', cancel, { passive: true });
+
+  slider.addEventListener(
+    'pointerdown',
+    (e) => {
+      if (e.pointerType === 'touch') return;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (fromControl(e.target)) return;
+      pointerId = e.pointerId;
+      begin(e.clientX, e.clientY);
+    },
+    { passive: true },
+  );
+  slider.addEventListener(
+    'pointermove',
+    (e) => {
+      if (!tracking || e.pointerType === 'touch' || e.pointerId !== pointerId) return;
+      move(e.clientX, e.clientY, e);
+    },
+    { passive: false },
+  );
+  slider.addEventListener(
     'pointerup',
     (e) => {
-      if (!tracking) return;
-      tracking = false;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      if (Math.abs(dx) < SWIPE_PX || Math.abs(dx) < Math.abs(dy)) return;
-      go(dx < 0 ? 1 : -1);
+      if (e.pointerType === 'touch' || e.pointerId !== pointerId) return;
+      finish(e.clientX, e.clientY);
     },
     { passive: true },
   );
   slider.addEventListener(
     'pointercancel',
-    () => {
-      tracking = false;
+    (e) => {
+      if (e.pointerType === 'touch' || e.pointerId !== pointerId) return;
+      cancel();
     },
     { passive: true },
   );
-
-  paint(index, false);
-  if (reduceMotion()) slider.setAttribute('data-mca-blog-reduce', '');
 }

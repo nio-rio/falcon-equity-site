@@ -9,10 +9,9 @@
 /* Per-section pads beat home [data-band] / stacked-same-theme tokens.
    Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
    Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
-   Process top/bottom R after dark Helps. FAQ / Fit / Blog: top 0, bottom R.
-   Light-to-light bottoms are R − 2px at 1280 / 768 / 390 so the 2px accordion
-   rule does not make those gaps read 146 / 98 / 82. Blog bottom stays full R
-   against the dark CTA. Helps bottom sits slightly under R for the tape.
+   Process top is R − 2px at 1280 / 768 / 390 so Helps → Process measures R
+   (144 / 96 / 80). FAQ bottom stays R − 2px. Fit and Blog bottoms are full R.
+   Helps bottom sits slightly under R for the tape.
    Hero title sits 50px below the header. */
 section.mca-hero[data-band='light'] {
   padding: 50px 0 80px;
@@ -23,12 +22,15 @@ section.mca-helps[data-band='dark'] {
 }
 
 section.mca-process[data-band='light'] {
-  padding: 80px 0 78px;
+  padding: 78px 0 78px;
 }
 
-section.mca-faq[data-band='light'],
-section.mca-fit[data-band='light'] {
+section.mca-faq[data-band='light'] {
   padding: 0 0 78px;
+}
+
+section.mca-fit[data-band='light'] {
+  padding: 0 0 80px;
 }
 
 section.mca-blog[data-band='light'] {
@@ -563,6 +565,12 @@ section.mca-blog[data-band='light'] {
   touch-action: pan-y;
 }
 
+.mca-blog-media,
+.mca-blog-media img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .mca-blog-slider:focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 4px;
@@ -720,12 +728,15 @@ section.mca-blog[data-band='light'] {
   }
 
   section.mca-process[data-band='light'] {
-    padding: 96px 0 94px;
+    padding: 94px 0 94px;
   }
 
-  section.mca-faq[data-band='light'],
-  section.mca-fit[data-band='light'] {
+  section.mca-faq[data-band='light'] {
     padding: 0 0 94px;
+  }
+
+  section.mca-fit[data-band='light'] {
+    padding: 0 0 96px;
   }
 
   section.mca-blog[data-band='light'] {
@@ -848,12 +859,15 @@ section.mca-blog[data-band='light'] {
   }
 
   section.mca-process[data-band='light'] {
-    padding: 144px 0 142px;
+    padding: 142px 0 142px;
   }
 
-  section.mca-faq[data-band='light'],
-  section.mca-fit[data-band='light'] {
+  section.mca-faq[data-band='light'] {
     padding: 0 0 142px;
+  }
+
+  section.mca-fit[data-band='light'] {
+    padding: 0 0 144px;
   }
 
   section.mca-blog[data-band='light'] {
