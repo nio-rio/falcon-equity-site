@@ -3,10 +3,10 @@
 Last updated: Oct 22, 2026. Update this file at the end of every session.
 
 ## Where things stand
-- Branch `cursor/falcon-astro-site-e383` (PR #1). Home is unchanged.
+- Branch `cursor/falcon-astro-site-e383` (PR #1). Home is unchanged. MCA measurement rebuild is on `cursor/mca-bx-measure-554e`.
 - The home page (`/`) is approved and frozen. `/apply` stays as it is.
 - Deleted on purpose (commit `5207b6b`): every other route, including the old service pages, industry pages, How It Works, About and the blog routes. Retired URLs redirect (commit `682f24a`, `astro.config.mjs`). The blog markdown is still in `src/content/blog/`.
-- Merchant Cash Advance page: rebuilt from Ling's 2026-10-21 edited Notion outline. Wording, sections and order match that export. Dropped glance/stats, Terms accordion, Get in touch, hero still, and the Lendini "What we look at" strip (she did not say to add it). Layouts picked by content shape from `docs/section-library/LIBRARY.md`. Styles stay in `src/styles/mca.css` (`mca-*` only).
+- Merchant Cash Advance page: Ling's 2026-10-21 edited Notion outline (wording, sections, order). After `1223c04`, rebuilt again from **live** Blackstone computed styles at 1440 / 1024 / 390. Measurements live in `docs/section-library/measurements/{BXCI-01,BXCI-07,DC-03,LS-07,DC-06}.md`. MCA uses a measured `.mca-shell` (4×70 / 8×72 / 16×64, gap 16, widths 328 / 688 / 1264). Fonts stay At Gambit + Archivo; colors stay Falcon tokens. Styles stay in `src/styles/mca.css` (`mca-*` only).
 
 ## MCA page structure
 Hero → Term facts + requirements + Apply → What it helps → Fit → Process → FAQ → SiteCta.
@@ -28,7 +28,7 @@ Hero → Term facts + requirements + Apply → What it helps → Fit → Process
 - Both phone numbers are intended; the main number in the nav is 917-245-5277.
 - Never merge PR #1 or switch the domain without Ling's approval.
 - Vera QAs only fully built pages.
-- When referencing Blackstone, pick by **content shape** from `docs/section-library/LIBRARY.md`, then match that id's geometry with Falcon tokens.
+- When referencing Blackstone, pick by **content shape** from `docs/section-library/LIBRARY.md`, then open that section on the live page at 1440 / 1024 / 390, write `docs/section-library/measurements/<id>.md`, and rebuild with those exact numbers (fonts → display/Archivo, colors → Falcon tokens).
 
 ## Next steps
 1. Ling reviews the rebuilt MCA page on the preview and asks for changes. Vera (the QA bot) checks finished builds only.

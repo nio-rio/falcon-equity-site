@@ -136,7 +136,7 @@ const faqs = [
 
   <section class="mca-hero" aria-labelledby="page-hero-heading" data-band="light" data-mca-section="hero">
     <div class="container-site">
-      <div class="mca-grid mca-hero-grid">
+      <div class="mca-shell mca-hero-grid">
         <h1 id="page-hero-heading" class="mca-hero-title">Merchant Cash Advance</h1>
         <p class="mca-hero-lead">
           A merchant cash advance is money now in exchange for a share of your future sales. It's a purchase of
@@ -148,7 +148,7 @@ const faqs = [
 
   <section class="mca-band mca-facts" aria-label="Term facts" data-band="light" data-mca-section="facts" data-reveal-root>
     <div class="container-site">
-      <div class="mca-grid mca-cards mca-cards--3" data-reveal>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
         {
           facts.map((fact) => (
             <article class="mca-card">
@@ -158,7 +158,7 @@ const faqs = [
           ))
         }
       </div>
-      <div class="mca-grid mca-facts-close" data-reveal>
+      <div class="mca-shell mca-facts-close" data-reveal>
         <div class="mca-req">
           <h2 class="mca-req-title">Requirements</h2>
           <ul class="mca-req-list">
@@ -178,13 +178,13 @@ const faqs = [
 
   <section class="mca-band mca-helps" aria-labelledby="helps-heading" data-band="light" data-mca-section="helps" data-reveal-root>
     <div class="container-site">
-      <div class="mca-grid">
-        <div class="mca-kicker" data-reveal>
+      <div class="mca-shell" data-reveal>
+        <div class="mca-kicker">
           <Eyebrow>What it helps</Eyebrow>
           <h2 id="helps-heading" class="sr-only">What it helps</h2>
         </div>
       </div>
-      <div class="mca-grid mca-cards mca-cards--4" data-reveal>
+      <div class="mca-shell mca-cards mca-cards--4" data-reveal>
         {
           helps.map((item) => (
             <article class="mca-card">
@@ -194,7 +194,7 @@ const faqs = [
           ))
         }
       </div>
-      <div class="mca-grid" data-reveal>
+      <div class="mca-shell" data-reveal>
         <div class="mca-cta mca-cta--after">
           <Button040 href="/apply" label="Apply for funding" variant="dark" />
         </div>
@@ -204,7 +204,7 @@ const faqs = [
 
   <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-mca-section="fit" data-reveal-root>
     <div class="container-site">
-      <div class="mca-grid mca-fit-head" data-reveal>
+      <div class="mca-shell mca-fit-head" data-reveal>
         <div class="mca-block-head">
           <Eyebrow>Not for these situations</Eyebrow>
           <h2 id="fit-heading">When a cash advance isn't the right fit.</h2>
@@ -214,7 +214,7 @@ const faqs = [
           where a different product fits better.
         </p>
       </div>
-      <div class="mca-grid mca-cards mca-cards--3" data-reveal>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
         {
           fitItems.map((item) => (
             <article class="mca-card">
@@ -229,7 +229,7 @@ const faqs = [
 
   <section class="mca-band mca-process" aria-labelledby="process-heading" data-band="light" data-mca-section="process" data-reveal-root>
     <div class="container-site">
-      <div class="mca-grid mca-process-head" data-reveal>
+      <div class="mca-shell mca-process-head" data-reveal>
         <div class="mca-block-head">
           <Eyebrow>Process</Eyebrow>
           <h2 id="process-heading">How it works, from the first bank statement to signed paperwork.</h2>
@@ -239,7 +239,7 @@ const faqs = [
           documents come in. Once you're approved and signed, it can be the same day.
         </p>
       </div>
-      <div class="mca-grid mca-cards mca-cards--stills" data-reveal>
+      <div class="mca-shell mca-cards mca-cards--stills" data-reveal>
         {
           steps.map((step) => (
             <article class="mca-card mca-step">
@@ -252,7 +252,7 @@ const faqs = [
           ))
         }
       </div>
-      <div class="mca-grid" data-reveal>
+      <div class="mca-shell" data-reveal>
         <div class="mca-cta mca-cta--after">
           <Button040 href="/apply" label="Apply for funding" variant="dark" />
         </div>
@@ -262,12 +262,13 @@ const faqs = [
 
   <section class="mca-band mca-faq on-dark" aria-labelledby="mca-faq-heading" data-band="dark" data-mca-section="faq" data-reveal-root>
     <div class="container-site">
-      <div class="mca-grid mca-faq-head" data-reveal>
+      <div class="mca-shell mca-faq-head" data-reveal>
         <div class="mca-block-head">
           <Eyebrow>FAQ</Eyebrow>
           <h2 id="mca-faq-heading">Cash advance questions</h2>
         </div>
       </div>
+      <div class="mca-shell">
       <div class="mca-faq-list" data-accordion data-reveal>
         {
           faqs.map((item, i) => (
@@ -295,6 +296,7 @@ const faqs = [
             </div>
           ))
         }
+      </div>
       </div>
     </div>
   </section>
