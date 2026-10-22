@@ -88,7 +88,7 @@
   margin: 0;
   color: #fff;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: var(--type-h2-weight);
   font-size: 1.5rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
@@ -811,7 +811,9 @@
   margin: 3rem 0 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: 2rem;
+  /* Mobile quote 25% smaller than the 2rem base (2rem -> 1.5rem); the 48em
+     and up overrides below keep the approved desktop sizes unchanged. */
+  font-size: 1.5rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
   color: var(--bx-black);
@@ -1049,10 +1051,10 @@
 .pilot-tabs-head h2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 2rem;
-  line-height: 1.25;
-  letter-spacing: 0.008em;
+  font-weight: var(--type-h2-weight);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: var(--type-h2-ls);
   color: var(--bx-black);
 }
 
@@ -1267,10 +1269,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-tabs-head h2 {
-    font-size: 2.5rem;
-  }
-
   .pilot-tabs-dropwrap {
     max-width: 26.5rem;
   }
@@ -1294,10 +1292,6 @@
 
   .pilot-tabs-heading {
     grid-column: 1 / span 7;
-  }
-
-  .pilot-tabs-head h2 {
-    font-size: 2rem;
   }
 
   .pilot-tabs-nav {
@@ -1345,10 +1339,6 @@
     grid-column: 1 / span 8;
   }
 
-  .pilot-tabs-head h2 {
-    font-size: 2.5rem;
-  }
-
   .pilot-tabs-nav {
     grid-column: 12 / span 5;
   }
@@ -1387,7 +1377,7 @@
 .pilot-why-title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: var(--type-h2-weight);
   font-size: 2rem;
   line-height: 1.5;
   letter-spacing: 0.008em;
@@ -2009,7 +1999,7 @@
 .pilot-news-head h2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: var(--type-h2-weight);
   font-size: 2rem;
   line-height: 1.5;
   letter-spacing: normal;
