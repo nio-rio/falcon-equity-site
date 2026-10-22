@@ -445,6 +445,17 @@
     border: 0;
   }
 
+  /* The clipped thead keeps table-row layout on its rows/cells, which leaves a
+     row as wide as the full 5-column table (~816px on /industries/retail) and
+     pushes the document scrollWidth past the viewport — horizontal scroll on a
+     page whose table otherwise stacks correctly. Collapse the head rows to block
+     so nothing inside the clipped box can be wider than its 1px container. */
+  .r-table thead tr,
+  .r-table thead th {
+    display: block;
+    width: auto;
+  }
+
   .r-table tbody tr {
     display: block;
     width: 100%;
