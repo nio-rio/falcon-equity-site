@@ -40,7 +40,9 @@ export function initNav() {
   const SCROLL_TOL = 40;
 
   const scrollUi = {
-    anchorY: window.scrollY,
+    lastY: window.scrollY,
+    accum: 0,
+    dir: 0,
     ticking: false,
     onScroll() {},
     onLock(_lock: boolean) {},
@@ -703,30 +705,43 @@ export function initNav() {
     const threshold = 2 * h;
     if (y <= h) {
       if (header.classList.contains('is-fixed')) clearFixed();
-      scrollUi.anchorY = y;
+      scrollUi.lastY = y;
+      scrollUi.accum = 0;
+      scrollUi.dir = 0;
       applyHomeThemeFromHero();
       return;
     }
     if (!header.classList.contains('is-fixed')) {
       if (y < threshold) {
-        scrollUi.anchorY = y;
+        scrollUi.lastY = y;
+        scrollUi.accum = 0;
+        scrollUi.dir = 0;
         applyHomeThemeFromHero();
         return;
       }
       header.style.height = `${h}px`;
       header.classList.add('is-fixed', 'is-hidden', 'no-anim');
       requestAnimationFrame(() => header.classList.remove('no-anim'));
-      scrollUi.anchorY = y;
+      scrollUi.lastY = y;
+      scrollUi.accum = 0;
+      scrollUi.dir = 0;
       applyHomeThemeFromHero();
       return;
     }
-    const d = y - scrollUi.anchorY;
-    if (d > SCROLL_TOL) {
+    const dy = y - scrollUi.lastY;
+    scrollUi.lastY = y;
+    const nowDir = dy > 0 ? 1 : dy < 0 ? -1 : 0;
+    if (nowDir && nowDir !== scrollUi.dir) {
+      scrollUi.accum = 0;
+      scrollUi.dir = nowDir;
+    }
+    scrollUi.accum += dy;
+    if (scrollUi.accum > SCROLL_TOL) {
       hideBar();
-      scrollUi.anchorY = y;
-    } else if (d < -SCROLL_TOL) {
+      scrollUi.accum = 0;
+    } else if (scrollUi.accum < -SCROLL_TOL) {
       showBar();
-      scrollUi.anchorY = y;
+      scrollUi.accum = 0;
     }
   };
 
@@ -746,7 +761,9 @@ export function initNav() {
       applyHomeThemeFromHero();
       return;
     }
-    scrollUi.anchorY = window.scrollY;
+    scrollUi.lastY = window.scrollY;
+    scrollUi.accum = 0;
+    scrollUi.dir = 0;
     onNavScroll();
   };
 
