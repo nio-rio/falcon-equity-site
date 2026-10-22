@@ -6,6 +6,8 @@ Every entry below is one real section on one live page, captured in **Google Chr
 
 Artifacts per id: `img/{id}-d.png` (desktop crop), `img/{id}-m.png` (mobile crop), `html/{id}.html` (the live outerHTML, so the markup can be inspected rather than guessed), and this entry's measured values.
 
+Desktop and mobile artifacts are matched to their id by the section's **own selector path**, never by list index — a 390px layout that merges two adjacent blocks would otherwise file a crop under the wrong id. Where a mobile crop is missing, the entry says so rather than borrowing a neighbour's.
+
 ## Sources
 
 | Code | Page | Sections |
@@ -58,7 +60,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `white`, pad `48/120`, height 365px; heading 56/84/300; body 18/27/300; still -; 57 words.
 - **At 390:** height 455px, top pad 40px, single column.
 - **Good for:** An inner-page opening where the answer can sit to the right of the title instead of under it.
-- **Artifacts:** `img/TF-00-d.png`, `img/TF-06-m.png`, `html/TF-00.html`
+- **Artifacts:** `img/TF-00-d.png`, `img/TF-00-m.png`
+  · `html/TF-00.html`
 
 ### `TF-01` — full-bleed still with a credit/caption strip
 
@@ -66,7 +69,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `white`, pad `0/104`, height 646px; heading -; body -; still 1264×542; 0 words.
 - **At 390:** height 477px, top pad 0px, single column.
 - **Good for:** A single proof image with one sentence of context and one link — not a hero.
-- **Artifacts:** `img/TF-01-d.png`, `img/TF-06-m.png`, `html/TF-01.html`
+- **Artifacts:** `img/TF-01-d.png`, `img/TF-01-m.png`
+  · `html/TF-01.html`
 
 ### `TF-02` — dark claim band with three titled rows in the right column
 
@@ -74,7 +78,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `near-black`, pad `160/160`, height 1488px; heading 48/72/300; body 18/27/300; still 624×832; 89 words.
 - **At 390:** height 1610px, top pad 80px, single column.
 - **Good for:** Three short supporting arguments that read *beside* a claim, not under it. The strongest Blackstone signature band.
-- **Artifacts:** `img/TF-02-d.png`, `img/TF-06-m.png`, `html/TF-02.html`
+- **Artifacts:** `img/TF-02-d.png`, `img/TF-02-m.png`
+  · `html/TF-02.html`
 
 ### `TF-03` — titled row directory with chevrons
 
@@ -82,7 +87,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `white`, pad `160/160`, height 1126px; heading 48/72/300; body 18/27/300; still -; 145 words.
 - **At 390:** height 933px, top pad 80px, single column.
 - **Good for:** A directory of four audiences / four answers where the titles alone carry the scan.
-- **Artifacts:** `img/TF-03-d.png`, `img/TF-06-m.png`, `html/TF-03.html`
+- **Artifacts:** `img/TF-03-d.png`, `img/TF-03-m.png`
+  · `html/TF-03.html`
 
 ### `TF-04` — media band only
 
@@ -90,7 +96,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `near-black`, pad `160/160`, height 906px; heading -; body 40/60/300; still 304×405; 68 words.
 - **At 390:** height 1131px, top pad 80px, single column.
 - **Good for:** A breather between two arguments; pacing, not information.
-- **Artifacts:** `img/TF-04-d.png`, `img/TF-06-m.png`, `html/TF-04.html`
+- **Artifacts:** `img/TF-04-d.png`, `img/TF-04-m.png`
+  · `html/TF-04.html`
 
 ### `TF-05` — 3-up titled prose columns, no card chrome
 
@@ -98,7 +105,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `white`, pad `160/160`, height 1174px; heading 24/36/300; body 18/27/300; still -; 133 words.
 - **At 390:** height 1707px, top pad 80px, single column.
 - **Good for:** Three to six short principles or categories that need no images.
-- **Artifacts:** `img/TF-05-d.png`, `img/TF-06-m.png`, `html/TF-05.html`
+- **Artifacts:** `img/TF-05-d.png`, `img/TF-05-m.png`
+  · `html/TF-05.html`
 
 ### `TF-06` — large still with a caption strip
 
@@ -106,7 +114,8 @@ Source: blackstone.com/the-firm/
 - **Measured:** band `near-black`, pad `56/160`, height 927px; heading -; body 16/23/400; still 1264×711; 141 words.
 - **At 390:** height 557px, top pad 40px, single column.
 - **Good for:** Evidence or a place photo with a single deep link.
-- **Artifacts:** `img/TF-06-d.png`, `img/TF-06-m.png`, `html/TF-06.html`
+- **Artifacts:** `img/TF-06-d.png`, `img/TF-06-m.png`
+  · `html/TF-06.html`
 
 ## Blackstone marketing pages — `PE`
 
@@ -129,7 +138,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `48/120`, height 284px; heading 56/84/300; body 18/27/300; still -; 30 words.
 - **At 390:** height 347px, top pad 40px, single column.
 - **Good for:** Inner-page opening with a short lead — the emptier variant.
-- **Artifacts:** `img/PE-00-d.png`, `img/PE-07-m.png`, `html/PE-00.html`
+- **Artifacts:** `img/PE-00-d.png`, `img/PE-00-m.png`
+  · `html/PE-00.html`
 
 ### `PE-01` — full-bleed still
 
@@ -137,7 +147,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `0/104`, height 646px; heading -; body -; still 1264×542; 0 words.
 - **At 390:** height 477px, top pad 0px, single column.
 - **Good for:** Pacing still.
-- **Artifacts:** `img/PE-01-d.png`, `img/PE-07-m.png`, `html/PE-01.html`
+- **Artifacts:** `img/PE-01-d.png`, `img/PE-01-m.png`
+  · `html/PE-01.html`
 
 ### `PE-02` — stat row: label left, two figures right
 
@@ -145,7 +156,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `56/160`, height 621px; heading 32/48/300; body 160/224/300; still -; 24 words.
 - **At 390:** height 744px, top pad 40px, single column.
 - **Good for:** Two or three hard numbers with a section label — the 'at a glance' shape.
-- **Artifacts:** `img/PE-02-d.png`, `img/PE-07-m.png`, `html/PE-02.html`
+- **Artifacts:** `img/PE-02-d.png`, `img/PE-02-m.png`
+  · `html/PE-02.html`
 
 ### `PE-03` — dark claim band with one supporting paragraph
 
@@ -153,7 +165,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `near-black`, pad `160/160`, height 1488px; heading 48/72/300; body 18/27/300; still 624×832; 125 words.
 - **At 390:** height 1793px, top pad 80px, single column.
 - **Good for:** A single claim plus one dense paragraph of support.
-- **Artifacts:** `img/PE-03-d.png`, `img/PE-07-m.png`, `html/PE-03.html`
+- **Artifacts:** `img/PE-03-d.png`, `img/PE-03-m.png`
+  · `html/PE-03.html`
 
 ### `PE-04` — 3-up media cards with circle-arrow links
 
@@ -161,7 +174,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `160/160`, height 2076px; heading 24/36/300; body 18/27/300; still -; 343 words.
 - **At 390:** height 3314px, top pad 80px, single column.
 - **Good for:** Three portfolio cases / three products with imagery and one link each.
-- **Artifacts:** `img/PE-04-d.png`, `img/PE-07-m.png`, `html/PE-04.html`
+- **Artifacts:** `img/PE-04-d.png`, `img/PE-04-m.png`
+  · `html/PE-04.html`
 
 ### `PE-05` — titled row directory (same as TF-03)
 
@@ -169,7 +183,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `16/160`, height 484px; heading 24/36/300; body 18/27/300; still -; 166 words.
 - **At 390:** height 356px, top pad 16px, single column.
 - **Good for:** Three-item version of the row directory.
-- **Artifacts:** `img/PE-05-d.png`, `img/PE-07-m.png`, `html/PE-05.html`
+- **Artifacts:** `img/PE-05-d.png`, `img/PE-05-m.png`
+  · `html/PE-05.html`
 
 ### `PE-06` — news card row
 
@@ -177,7 +192,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `white`, pad `56/160`, height 1183px; heading 24/36/300; body 18/27/300; still -; 248 words.
 - **At 390:** height 2284px, top pad 40px, single column.
 - **Good for:** Article/insight teasers.
-- **Artifacts:** `img/PE-06-d.png`, `img/PE-07-m.png`, `html/PE-06.html`
+- **Artifacts:** `img/PE-06-d.png`, `img/PE-06-m.png`
+  · `html/PE-06.html`
 
 ### `PE-07` — full-bleed still with caption strip
 
@@ -185,7 +201,8 @@ Source: blackstone.com/our-businesses/private-equity/
 - **Measured:** band `near-black`, pad `160/160`, height 723px; heading -; body 40/60/300; still 304×403; 30 words.
 - **At 390:** height 913px, top pad 80px, single column.
 - **Good for:** Pacing still with one link.
-- **Artifacts:** `img/PE-07-d.png`, `img/PE-07-m.png`, `html/PE-07.html`
+- **Artifacts:** `img/PE-07-d.png`, `img/PE-07-m.png`
+  · `html/PE-07.html`
 
 ## Blackstone PWS (perpetual funds) — `APM`
 
@@ -194,95 +211,105 @@ Source: blackstone.com/pws/accessing-private-markets/
 | id | band | pad | height | heading | body | stills | rows/items | words |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `APM-00` | white | 48/64 | 228px | 56/84/300 | 18/27/300 | 0 (-) | 1 headings, 1 paras | 19 |
-| `APM-01` | white | 56/160 | 480px | 16/24/400 | - | 0 (-) | 1 headings | 10 |
-| `APM-02` | near-black | 160/160 | 789px | 40/60/300 | 18/27/300 | 0 (-) | 1 headings, 2 paras, 3 list items | 89 |
-| `APM-03` | white | 160/64 | 352px | 48/72/300 | - | 0 (-) | 1 headings | 4 |
-| `APM-04` | white | 64/160 | 224px | - | - | 0 (-) | - | 0 |
+| `APM-01` | white | 56/160 | 932px | 24/36/300 | 18/27/300 | 3 (352×198) | 4 headings, 3 paras | 121 |
+| `APM-02` | near-black | 160/160 | 1669px | 40/60/300 | 18/27/300 | 1 (1264×586) | 2 headings, 3 paras, 3 list items | 244 |
+| `APM-03` | white | 160/64 | 944px | 48/72/300 | 18/27/300 | 1 (704×397) | 1 headings, 3 paras | 79 |
+| `APM-04` | white | 64/160 | 1020px | - | 18/27/300 | 1 (704×397) | 4 paras | 293 |
 | `APM-05` | near-black | 160/160 | 999px | 48/72/300 | 18/27/300 | 1 (704×397) | 1 headings, 2 paras | 105 |
-| `APM-06` | white | 160/160 | 600px | 40/60/300 | 18/27/300 | 0 (-) | 1 headings, 1 paras | 49 |
-| `APM-07` | white | 56/88 | 540px | 40/60/300 | - | 1 (704×396) | 2 headings | 12 |
+| `APM-06` | white | 160/160 | 1216px | 40/60/300 | 18/27/300 | 1 (1264×433) | 2 headings, 2 paras | 102 |
+| `APM-07` | white | 56/88 | 540px | 40/60/300 | - | 1 (704×396) | 2 headings | 14 |
 | `APM-08` | white | 56/160 | 598px | 48/72/300 | 18/27/300 | 0 (-) | 3 headings, 2 paras | 149 |
-| `APM-09` | near-black | 160/160 | 1346px | 48/72/300 | - | 0 (-) | 9 headings | 39 |
+| `APM-09` | near-black | 160/160 | 1346px | 48/72/300 | - | 0 (-) | 8 headings | 39 |
 
-### `APM-00` — page header (short)
+### `APM-00` — page header with one download action
 
-- **Anatomy (measured):** H1 only, 19 words total in the band.
+- **Anatomy (measured):** H1 at the left edge, a two-line standfirst in the right column, and a single 'Download Brochure' link with a circle-arrow under it. 19 words in the whole band.
 - **Measured:** band `white`, pad `48/64`, height 228px; heading 56/84/300; body 18/27/300; still -; 19 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Title band on a long editorial page.
-- **Artifacts:** `img/APM-00-d.png`, `no mobile crop`, `html/APM-00.html`
+- **At 390:** height 383px, top pad 40px, single column.
+- **Good for:** A title band on an editorial page where the one useful action is a download, not a form.
+- **Artifacts:** `img/APM-00-d.png`, `img/APM-00-m.png`
+  · `html/APM-00.html`
 
-### `APM-01` — explainer + exhibit with a floating copy card
+### `APM-01` — three numbered columns under a claim
 
-- **Anatomy (measured):** H2 spanning columns 1–8, then a full-width exhibit (chart/mockup) with a white card floating over it: paragraph + two links. Text floats, the exhibit bleeds.
-- **Measured:** band `white`, pad `56/160`, height 480px; heading 16/24/400; body -; still -; 10 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Explaining a mechanism with a supporting visual; the card keeps the copy readable over art.
-- **Artifacts:** `img/APM-01-d.png`, `no mobile crop`, `html/APM-01.html`
+- **Anatomy (measured):** Eyebrow + H2, then three columns across the 16 tracks: a 96px numeral (01 / 02 / 03), a 20px title, and a 16/24 paragraph. No cards, no rules between them.
+- **Measured:** band `white`, pad `56/160`, height 932px; heading 24/36/300; body 18/27/300; still 352×198; 121 words.
+- **At 390:** height 1781px, top pad 24px, single column.
+- **Good for:** Three steps, three reasons, or three audience types — the numeral does the sequencing so the copy does not have to.
+- **Artifacts:** `img/APM-01-d.png`, `img/APM-01-m.png`
+  · `html/APM-01.html`
 
-### `APM-02` — three still cards + list
+### `APM-02` — dark comparison matrix
 
-- **Anatomy (measured):** H3, then three 16:9 stills in a row with captions, plus a 3-item list beneath.
-- **Measured:** band `near-black`, pad `160/160`, height 789px; heading 40/60/300; body 18/27/300; still -; 89 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Three options side by side with imagery.
-- **Artifacts:** `img/APM-02-d.png`, `no mobile crop`, `html/APM-02.html`
+- **Anatomy (measured):** Near-black band. H2 + one line, then a feature matrix: rows of capabilities down the left, product/route columns across, ticks and dashes in each cell with one column highlighted, plus a footnote in small type.
+- **Measured:** band `near-black`, pad `160/160`, height 1669px; heading 40/60/300; body 18/27/300; still 1264×586; 244 words.
+- **At 390:** height 1530px, top pad 80px, single column.
+- **Good for:** Showing where several routes differ on the same axes. Only works when every cell can honestly be tick, dash or a short word.
+- **Artifacts:** `img/APM-02-d.png`, `img/APM-02-m.png`
+  · `html/APM-02.html`
 
-### `APM-03` — explainer + exhibit (same as APM-01)
+### `APM-03` — claim + paragraph left, chart right
 
-- **Anatomy (measured):** Chart exhibit with a floating white copy card.
-- **Measured:** band `white`, pad `160/64`, height 352px; heading 48/72/300; body -; still -; 4 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Mechanism explainer.
-- **Artifacts:** `img/APM-03-d.png`, `no mobile crop`, `html/APM-03.html`
+- **Anatomy (measured):** H3 and a paragraph in columns 1–6; a labelled chart exhibit in columns 9–16 with its own caption line.
+- **Measured:** band `white`, pad `160/64`, height 944px; heading 48/72/300; body 18/27/300; still 704×397; 79 words.
+- **At 390:** height 950px, top pad 80px, single column.
+- **Good for:** One claim that a single chart proves. Never put two charts side by side here.
+- **Artifacts:** `img/APM-03-d.png`, `img/APM-03-m.png`
+  · `html/APM-03.html`
 
-### `APM-04` — continuation band, no heading
+### `APM-04` — no-heading continuation: data table left, prose right
 
-- **Anatomy (measured):** Exhibit + four paragraphs, no H2 — the argument continues from the band above.
-- **Measured:** band `white`, pad `64/160`, height 224px; heading -; body -; still -; 0 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Long-form continuation. Use sparingly: heading-less bands hide structure from scanning and from AI answers.
-- **Artifacts:** `img/APM-04-d.png`, `no mobile crop`, `html/APM-04.html`
+- **Anatomy (measured):** No H2 at all. A small data table in columns 1–7, a two-paragraph column in columns 10–16, and a footnote beneath in 12px.
+- **Measured:** band `white`, pad `64/160`, height 1020px; heading -; body 18/27/300; still 704×397; 293 words.
+- **At 390:** height 1459px, top pad 32px, single column.
+- **Good for:** Continuing an argument from the band above. Use sparingly — a heading-less band hides its structure from scanning and from AI answers.
+- **Artifacts:** `img/APM-04-d.png`, `img/APM-04-m.png`
+  · `html/APM-04.html`
 
-### `APM-05` — explainer + exhibit
+### `APM-05` — dark band: chart left, paragraph right
 
-- **Anatomy (measured):** H3 + chart + floating card.
+- **Anatomy (measured):** Near-black band. H3 + one lead line, a big chart exhibit in columns 1–9 with captions under the bars, a paragraph column in columns 11–16.
 - **Measured:** band `near-black`, pad `160/160`, height 999px; heading 48/72/300; body 18/27/300; still 704×397; 105 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Trend explainer with one chart.
-- **Artifacts:** `img/APM-05-d.png`, `no mobile crop`, `html/APM-05.html`
+- **At 390:** height 1126px, top pad 80px, single column.
+- **Good for:** A trend that needs one number read off a chart. Dark keeps the chart from looking like a dashboard widget.
+- **Artifacts:** `img/APM-05-d.png`, `img/APM-05-m.png`
+  · `html/APM-05.html`
 
-### `APM-06` — two-column comparison + exhibit
+### `APM-06` — claim + prose over a tick/cross matrix
 
-- **Anatomy (measured):** H3 + H4 pair, two paragraphs side by side, exhibit beneath.
-- **Measured:** band `white`, pad `160/160`, height 600px; heading 40/60/300; body 18/27/300; still -; 49 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** Comparing two routes.
-- **Artifacts:** `img/APM-06-d.png`, `no mobile crop`, `html/APM-06.html`
+- **Anatomy (measured):** H3, a paragraph, then a second paragraph, then a matrix whose cells hold circle-check icons, with column labels above and row labels down the side, and a note beneath.
+- **Measured:** band `white`, pad `160/160`, height 1216px; heading 40/60/300; body 18/27/300; still 1264×433; 102 words.
+- **At 390:** height 961px, top pad 80px, single column.
+- **Good for:** Comparing a handful of options on several dimensions without writing a table of sentences.
+- **Artifacts:** `img/APM-06-d.png`, `img/APM-06-m.png`
+  · `html/APM-06.html`
 
-### `APM-07` — lead-magnet band
+### `APM-07` — brochure lead magnet
 
-- **Anatomy (measured):** H5 title + 16:9 still + one action.
-- **Measured:** band `white`, pad `56/88`, height 540px; heading 40/60/300; body -; still 704×396; 12 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** One downloadable asset.
-- **Artifacts:** `img/APM-07-d.png`, `no mobile crop`, `html/APM-07.html`
+- **Anatomy (measured):** H2 'Read the complete …' at the left, two brochure covers as stills on the right, and one 'Download Brochure' circle-arrow link.
+- **Measured:** band `white`, pad `56/88`, height 540px; heading 40/60/300; body -; still 704×396; 14 words.
+- **At 390:** height 521px, top pad 40px, single column.
+- **Good for:** One downloadable asset with a preview of what it is.
+- **Artifacts:** `img/APM-07-d.png`, `img/APM-07-m.png`
+  · `html/APM-07.html`
 
 ### `APM-08` — FAQ accordion
 
-- **Anatomy (measured):** H3 'Frequently Asked Questions' + H4 question rows, closed by default.
+- **Anatomy (measured):** H3 'Frequently Asked Questions', then hairline rows: question at 16px with a chevron at the right, closed by default.
 - **Measured:** band `white`, pad `56/160`, height 598px; heading 48/72/300; body 18/27/300; still -; 149 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** FAQ.
-- **Artifacts:** `img/APM-08-d.png`, `no mobile crop`, `html/APM-08.html`
+- **At 390:** height 462px, top pad 40px, single column.
+- **Good for:** FAQ. The only place an accordion is honest on this site, because the answer is a detail, not the argument.
+- **Artifacts:** `img/APM-08-d.png`, `img/APM-08-m.png`
+  · `html/APM-08.html`
 
-### `APM-09` — two-column link grid
+### `APM-09` — dark link directory
 
-- **Anatomy (measured):** H3 + two columns of rows, each row a label with a right-aligned arrow; 39 words total.
+- **Anatomy (measured):** Near-black band. H3 'Explore Essentials' + seven full-width rows on hairlines, each a label with a 44px outline circle-chevron at the right edge.
 - **Measured:** band `near-black`, pad `160/160`, height 1346px; heading 48/72/300; body -; still -; 39 words.
-- **At 390:** height -px, top pad -px, single column.
-- **Good for:** A menu of deeper pages.
-- **Artifacts:** `img/APM-09-d.png`, `no mobile crop`, `html/APM-09.html`
+- **At 390:** height 1114px, top pad 80px, single column.
+- **Good for:** A menu of deeper pages when there are more than four of them.
+- **Artifacts:** `img/APM-09-d.png`, `img/APM-09-m.png`
+  · `html/APM-09.html`
 
 ## Blackstone investor relations — `IR`
 
@@ -296,9 +323,10 @@ Source: ir.blackstone.com/overview/default.aspx
 
 - **Anatomy (measured):** H1 + one lead paragraph, then three figures in a row (label above, 40px value, muted caption), then H4 modules (Latest Financials, Shareholder Relations two-column).
 - **Measured:** band `near-black`, pad `0/0`, height 2546px; heading 55/57/400; body 20/30/300; still -; 2356 words.
-- **At 390:** height 3852px, top pad 0px, single column.
+- **At 390:** height 3892px, top pad 0px, single column.
 - **Good for:** A stats-led summary page. Note: the rest of this microsite's modules are JavaScript-populated, so only this block was measurable.
-- **Artifacts:** `img/IR-00-d.png`, `img/IR-01-m.png`, `html/IR-00.html`
+- **Artifacts:** `img/IR-00-d.png`, `no mobile crop`
+  · `html/IR-00.html`
 
 ## BMACX (product microsite) — `BMX`
 
@@ -324,7 +352,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `white`, pad `48/120`, height 252px; heading 56/84/300; body -; still -; 2 words.
 - **At 390:** height 180px, top pad 40px, single column.
 - **Good for:** A title band on a sparse page.
-- **Artifacts:** `img/BMX-00-d.png`, `img/BMX-10-m.png`, `html/BMX-00.html`
+- **Artifacts:** `img/BMX-00-d.png`, `img/BMX-00-m.png`
+  · `html/BMX-00.html`
 
 ### `BMX-01` — image + two-column claim/paragraph
 
@@ -332,7 +361,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `white`, pad `0/104`, height 982px; heading 40/60/300; body 20/30/300; still 1264×542; 51 words.
 - **At 390:** height 718px, top pad 0px, single column.
 - **Good for:** A claim that needs one paragraph of support under a single still.
-- **Artifacts:** `img/BMX-01-d.png`, `img/BMX-10-m.png`, `html/BMX-01.html`
+- **Artifacts:** `img/BMX-01-d.png`, `img/BMX-01-m.png`
+  · `html/BMX-01.html`
 
 ### `BMX-02` — dark claim + paragraph + figure
 
@@ -340,7 +370,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `160/64`, height 921px; heading 40/60/300; body 18/27/300; still 704×396; 69 words.
 - **At 390:** height 1041px, top pad 80px, single column.
 - **Good for:** A claim, its support, and one number — all in one dark band.
-- **Artifacts:** `img/BMX-02-d.png`, `img/BMX-10-m.png`, `html/BMX-02.html`
+- **Artifacts:** `img/BMX-02-d.png`, `img/BMX-02-m.png`
+  · `html/BMX-02.html`
 
 ### `BMX-03` — stat card (one of three)
 
@@ -348,7 +379,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `64/64`, height 524px; heading 40/60/300; body 18/27/300; still 704×396; 42 words.
 - **At 390:** height 614px, top pad 32px, single column.
 - **Good for:** A three-up of claim + metric. Only works when each item really has a number.
-- **Artifacts:** `img/BMX-03-d.png`, `img/BMX-10-m.png`, `html/BMX-03.html`
+- **Artifacts:** `img/BMX-03-d.png`, `img/BMX-03-m.png`
+  · `html/BMX-03.html`
 
 ### `BMX-04` — stat card (one of three)
 
@@ -356,7 +388,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `64/64`, height 524px; heading 40/60/300; body 18/27/300; still 704×396; 16 words.
 - **At 390:** height 560px, top pad 32px, single column.
 - **Good for:** Stat trio member.
-- **Artifacts:** `img/BMX-04-d.png`, `img/BMX-10-m.png`, `html/BMX-04.html`
+- **Artifacts:** `img/BMX-04-d.png`, `img/BMX-04-m.png`
+  · `html/BMX-04.html`
 
 ### `BMX-05` — stat card (one of three)
 
@@ -364,7 +397,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `64/64`, height 524px; heading 40/60/300; body 18/27/300; still 704×396; 31 words.
 - **At 390:** height 587px, top pad 32px, single column.
 - **Good for:** Stat trio member.
-- **Artifacts:** `img/BMX-05-d.png`, `img/BMX-10-m.png`, `html/BMX-05.html`
+- **Artifacts:** `img/BMX-05-d.png`, `img/BMX-05-m.png`
+  · `html/BMX-05.html`
 
 ### `BMX-06` — stat card (one of three)
 
@@ -372,7 +406,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `64/160`, height 620px; heading 40/60/300; body 18/27/300; still 704×396; 21 words.
 - **At 390:** height 608px, top pad 32px, single column.
 - **Good for:** Stat trio member.
-- **Artifacts:** `img/BMX-06-d.png`, `img/BMX-10-m.png`, `html/BMX-06.html`
+- **Artifacts:** `img/BMX-06-d.png`, `img/BMX-06-m.png`
+  · `html/BMX-06.html`
 
 ### `BMX-07` — continuation band
 
@@ -380,7 +415,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `white`, pad `160/160`, height 750px; heading -; body 40/60/300; still 304×403; 37 words.
 - **At 390:** height 1009px, top pad 80px, single column.
 - **Good for:** Continuation only.
-- **Artifacts:** `img/BMX-07-d.png`, `img/BMX-10-m.png`, `html/BMX-07.html`
+- **Artifacts:** `img/BMX-07-d.png`, `img/BMX-07-m.png`
+  · `html/BMX-07.html`
 
 ### `BMX-08` — news teaser band
 
@@ -388,7 +424,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `white`, pad `56/160`, height 612px; heading 40/60/300; body -; still 704×396; 24 words.
 - **At 390:** height 593px, top pad 40px, single column.
 - **Good for:** A single news item.
-- **Artifacts:** `img/BMX-08-d.png`, `img/BMX-10-m.png`, `html/BMX-08.html`
+- **Artifacts:** `img/BMX-08-d.png`, `img/BMX-08-m.png`
+  · `html/BMX-08.html`
 
 ### `BMX-09` — accordion with circle-plus icons
 
@@ -396,7 +433,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `white`, pad `56/160`, height 606px; heading 48/72/300; body -; still -; 11 words.
 - **At 390:** height 462px, top pad 40px, single column.
 - **Good for:** A short directory where each row opens a longer answer.
-- **Artifacts:** `img/BMX-09-d.png`, `img/BMX-10-m.png`, `html/BMX-09.html`
+- **Artifacts:** `img/BMX-09-d.png`, `img/BMX-09-m.png`
+  · `html/BMX-09.html`
 
 ### `BMX-10` — disclosure: title left, rows right
 
@@ -404,7 +442,8 @@ Source: bmacx.com/why-blackstone/
 - **Measured:** band `near-black`, pad `160/160`, height 464px; heading 40/72/300; body 16/24/300; still -; 1203 words.
 - **At 390:** height 428px, top pad 80px, single column.
 - **Good for:** Legal or long-tail content that must stay findable but quiet.
-- **Artifacts:** `img/BMX-10-d.png`, `img/BMX-10-m.png`, `html/BMX-10.html`
+- **Artifacts:** `img/BMX-10-d.png`, `img/BMX-10-m.png`
+  · `html/BMX-10.html`
 
 ## Blackstone home — `HOME`
 
@@ -427,7 +466,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `near-black`, pad `48/120`, height 337px; heading 72/72/300; body 24/36/300; still -; 13 words.
 - **At 390:** height 325px, top pad 40px, single column.
 - **Good for:** A statement opening — the emptiest, most confident hero in the library.
-- **Artifacts:** `img/HOME-00-d.png`, `img/HOME-07-m.png`, `html/HOME-00.html`
+- **Artifacts:** `img/HOME-00-d.png`, `img/HOME-00-m.png`
+  · `html/HOME-00.html`
 
 ### `HOME-01` — promo carousel: still with floating card
 
@@ -435,7 +475,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `near-black`, pad `0/104`, height 922px; heading 40/60/300; body 20/30/300; still 1264×542; 157 words.
 - **At 390:** height 672px, top pad 0px, single column.
 - **Good for:** A featured story that rotates; heavy, use once per page at most.
-- **Artifacts:** `img/HOME-01-d.png`, `img/HOME-07-m.png`, `html/HOME-01.html`
+- **Artifacts:** `img/HOME-01-d.png`, `img/HOME-01-m.png`
+  · `html/HOME-01.html`
 
 ### `HOME-02` — centred claim + stat pair
 
@@ -443,7 +484,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `white`, pad `160/160`, height 905px; heading 56/84/300; body 16/24/400; still -; 83 words.
 - **At 390:** height 1045px, top pad 80px, single column.
 - **Good for:** The strongest 'claim + one number' band: centred claim, asymmetric support.
-- **Artifacts:** `img/HOME-02-d.png`, `img/HOME-07-m.png`, `html/HOME-02.html`
+- **Artifacts:** `img/HOME-02-d.png`, `img/HOME-02-m.png`
+  · `html/HOME-02.html`
 
 ### `HOME-03` — two-up prose block
 
@@ -451,7 +493,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `near-black`, pad `160/160`, height 951px; heading 48/72/300; body 16/24/400; still -; 59 words.
 - **At 390:** height 1214px, top pad 80px, single column.
 - **Good for:** A claim with three short linked answers.
-- **Artifacts:** `img/HOME-03-d.png`, `img/HOME-07-m.png`, `html/HOME-03.html`
+- **Artifacts:** `img/HOME-03-d.png`, `img/HOME-03-m.png`
+  · `html/HOME-03.html`
 
 ### `HOME-04` — marquee band
 
@@ -459,7 +502,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `near-black`, pad `0/160`, height 470px; heading -; body 192/250/300; still -; 19 words.
 - **At 390:** height 222px, top pad 0px, single column.
 - **Good for:** Brand moment. Not for information.
-- **Artifacts:** `img/HOME-04-d.png`, `img/HOME-07-m.png`, `html/HOME-04.html`
+- **Artifacts:** `img/HOME-04-d.png`, `img/HOME-04-m.png`
+  · `html/HOME-04.html`
 
 ### `HOME-05` — announcement band
 
@@ -467,7 +511,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `white`, pad `160/160`, height 813px; heading 40/60/300; body 16/24/400; still 304×405; 19 words.
 - **At 390:** height 1062px, top pad 80px, single column.
 - **Good for:** One dated announcement.
-- **Artifacts:** `img/HOME-05-d.png`, `img/HOME-07-m.png`, `html/HOME-05.html`
+- **Artifacts:** `img/HOME-05-d.png`, `img/HOME-05-m.png`
+  · `html/HOME-05.html`
 
 ### `HOME-06` — featured news 4-up
 
@@ -475,7 +520,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `white`, pad `56/160`, height 1123px; heading 48/72/300; body 16/24/400; still 298×397; 67 words.
 - **At 390:** height 1016px, top pad 40px, single column.
 - **Good for:** Four teasers in one row.
-- **Artifacts:** `img/HOME-06-d.png`, `img/HOME-07-m.png`, `html/HOME-06.html`
+- **Artifacts:** `img/HOME-06-d.png`, `img/HOME-06-m.png`
+  · `html/HOME-06.html`
 
 ### `HOME-07` — email capture: heading left, form right
 
@@ -483,7 +529,8 @@ Source: blackstone.com/ (home, added on Ling's instruction)
 - **Measured:** band `near-black`, pad `160/160`, height 1083px; heading 48/72/300; body 18/27/300; still -; 150 words.
 - **At 390:** height 1025px, top pad 80px, single column.
 - **Good for:** A capture form. Not for a funding page.
-- **Artifacts:** `img/HOME-07-d.png`, `img/HOME-07-m.png`, `html/HOME-07.html`
+- **Artifacts:** `img/HOME-07-d.png`, `img/HOME-07-m.png`
+  · `html/HOME-07.html`
 
 ## Falcon home (approved) — `FAL`
 
@@ -503,9 +550,10 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 
 - **Anatomy (measured):** Darker band. Two-line display H1 left (32→72px, tracking 0.008em), aside end-aligned in columns 11–16, then the still bleeds to viewport width (1800/771), then a caption bar with H2 + body + circle-arrow CTA.
 - **Measured:** band `near-black`, pad `48/120`, height 1312px; heading 72/72/300; body 24/36/300; still 1425×610; 35 words.
-- **At 390:** height 807px, top pad 32px, single column.
+- **At 390:** height 815px, top pad 32px, single column.
 - **Good for:** The only hero Falcon currently uses. One still, one CTA, no disclaimer.
-- **Artifacts:** `img/FAL-00-d.png`, `img/FAL-06-m.png`, `html/FAL-00.html`
+- **Artifacts:** `img/FAL-00-d.png`, `img/FAL-00-m.png`
+  · `html/FAL-00.html`
 
 ### `FAL-01` — Falcon stats: featured + two sides
 
@@ -513,7 +561,8 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `white`, pad `160/160`, height 540px; heading -; body 32/48/300; still -; 7 words.
 - **At 390:** height 642px, top pad 80px, single column.
 - **Good for:** Three confirmed stats from STATS. Never invent one.
-- **Artifacts:** `img/FAL-01-d.png`, `img/FAL-06-m.png`, `html/FAL-01.html`
+- **Artifacts:** `img/FAL-01-d.png`, `img/FAL-01-m.png`
+  · `html/FAL-01.html`
 
 ### `FAL-02` — Falcon services link list
 
@@ -521,7 +570,8 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `white`, pad `56/160`, height 1580px; heading 48/60/400; body 13/20/400; still -; 145 words.
 - **At 390:** height 1937px, top pad 40px, single column.
 - **Good for:** A seven/eight-product menu where each row is a real route.
-- **Artifacts:** `img/FAL-02-d.png`, `img/FAL-06-m.png`, `html/FAL-02.html`
+- **Artifacts:** `img/FAL-02-d.png`, `img/FAL-02-m.png`
+  · `html/FAL-02.html`
 
 ### `FAL-03` — Falcon testimonial: serif quote + 3:4 still
 
@@ -529,7 +579,8 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `white`, pad `56/160`, height 904px; heading -; body 16/24/400; still 304×600; 116 words.
 - **At 390:** height 1197px, top pad 40px, single column.
 - **Good for:** One real quote.
-- **Artifacts:** `img/FAL-03-d.png`, `img/FAL-06-m.png`, `html/FAL-03.html`
+- **Artifacts:** `img/FAL-03-d.png`, `img/FAL-03-m.png`
+  · `html/FAL-03.html`
 
 ### `FAL-04` — Falcon industries: dropdown + panel
 
@@ -537,7 +588,8 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `white`, pad `56/160`, height 830px; heading 40/50/400; body 13/20/400; still 704×396; 219 words.
 - **At 390:** height 830px, top pad 40px, single column.
 - **Good for:** A selector for 12 sectors.
-- **Artifacts:** `img/FAL-04-d.png`, `img/FAL-06-m.png`, `html/FAL-04.html`
+- **Artifacts:** `img/FAL-04-d.png`, `img/FAL-04-m.png`
+  · `html/FAL-04.html`
 
 ### `FAL-05` — Falcon why: dark band, heading left, numbered steps right
 
@@ -545,7 +597,8 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `near-black`, pad `160/160`, height 1402px; heading 48/72/400; body 13/20/400; still -; 77 words.
 - **At 390:** height 1368px, top pad 80px, single column.
 - **Good for:** Three process steps.
-- **Artifacts:** `img/FAL-05-d.png`, `img/FAL-06-m.png`, `html/FAL-05.html`
+- **Artifacts:** `img/FAL-05-d.png`, `img/FAL-05-m.png`
+  · `html/FAL-05.html`
 
 ### `FAL-06` — Falcon insights: three cards
 
@@ -553,10 +606,11 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Measured:** band `white`, pad `160/160`, height 1107px; heading 48/72/400; body 16/24/400; still 352×198; 102 words.
 - **At 390:** height 1965px, top pad 80px, single column.
 - **Good for:** Three published posts.
-- **Artifacts:** `img/FAL-06-d.png`, `img/FAL-06-m.png`, `html/FAL-06.html`
+- **Artifacts:** `img/FAL-06-d.png`, `img/FAL-06-m.png`
+  · `html/FAL-06.html`
 
 ## What this library is missing, on purpose
 
 - **No data-table section exists on any of these pages.** A five-column comparison table has no donor; it has to be styled from our own `.r-table` using these hairlines and type sizes, and the plan must say so.
-- **The IR microsite is mostly JavaScript-populated.** Only its overview block (`IR-00`) could be measured; its financial tables and press-release modules return empty shells to any extractor.
+- **The IR microsite is mostly JavaScript-populated.** Only its overview block (`IR-00`) could be measured; its financial tables and press-release modules return empty shells to any extractor. It also has **no usable mobile crop**: its cookie wall and header containers sit inside the same wrappers as the content, so removing either dissolves the page. `IR-00` has desktop crop + both sets of measurements, and says so.
 - **PWS pages carry a legal-gate modal** that covers the content until dismissed; every APM crop here was taken after removing it, so the crops show the section, not the gate.
