@@ -12,14 +12,14 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 | --- | --- | --- |
 | Hero (H1 + 2×3 stats + lead + Apply) | IR-01 + IR-02 | Live bx-share-information title + three headline stats with a hairline above each cell. MCA uses two rows of three (term facts + Requirements), label above value. Separate IR-03 facts band removed. Hero sits in `.mca-shell` (home column 328 / 688 / 1136 / 1264). |
 | What it helps (still + 4 pillars + scrolling Apply) | LS-04 (dark) | Life Sciences dark vertical-list: 8 / skip 2 / 6, 3:4 still, stacked title/body. Scrolling Apply tape at the end, mca-* clone of home Why-choose-us. Helps bottom pad is slightly under R for the tape overhang. |
-| When a cash advance isn’t the right fit | BXCI-07 | Eyebrow + long claim + three title + paragraph cards, 5 / 6 / 5, each with a singular-link CTA to another product. |
-| Process (3 text steps + Apply) | PWS What you need to know | Same 16-col / 5-6-5 text cards as accessing-private-markets. 01/02/03 sized to the live number-image box (184 / 175 / 198). Heading → cards 104 / 88 / 72. Number → title 32px. Fit→Process top pad is unchanged (24 at 390/768, 40 at 1024, 56 at 1440). |
-| FAQ (7 expandable) | BXCI-05 motion on DC-06 type | Light band. 24/36 titles from DC-06. Caret rotate 0.3s and hover rule draw 0.5s ease-out from BXCI-05, with ink 40% base / ink hover (same 40% as the dark version). Top pad 0, bottom R, so Process→FAQ and FAQ→blog stay one R. |
+| Process (3 text steps + Apply) | PWS What you need to know | Same 16-col / 5-6-5 text cards as accessing-private-markets. 01/02/03 sized to the live number-image box (184 / 175 / 198). Heading → cards 104 / 88 / 72. Number → title 32px. Sits after dark Helps, so top pad is R. |
+| FAQ (7 expandable) | BXCI-05 motion on DC-06 type | Light band. 24/36 titles from DC-06. Caret rotate 0.3s and hover rule draw 0.5s ease-out from BXCI-05, with ink 40% base / ink hover (same 40% as the dark version). Top pad 0, bottom R. |
+| When a cash advance isn’t the right fit | BXCI-07 | After FAQ, before the blog. Eyebrow + long claim + three title + paragraph cards, 5 / 6 / 5, each with a singular-link CTA to another product. Top 0 / bottom R so FAQ→Fit and Fit→blog stay one R. |
 | Blog spotlight | BXCI-08 | Portfolio Spotlight split: eyebrow + short rule, left title/body/“Read the article” circle link, right 16:9. Published post `merchant-cash-advance-vs-business-term-loan` (`draft: false`) with its abstract cover. |
 | Shared Apply CTA | SiteCta | Same band as home. Not restyled (already ≥ nav). |
 
 - MCA disclosure (“Funding is subject to underwriting…”) is MCA-only, in the footer-bottom under the divider, **14px / 21px at all widths**. Home `.site-footer__copy` stays 18/16/18.
-- MCA column matches home `.container-site` / `.mca-shell`: 328 / 688 / 1136 / 1264 at 390 / 768 / 1280 / 1440. Visible inter-section gap R = 80 / 96 / 144 / 160. Light-next-to-light followers (FAQ, blog) use top 0 so R does not double. Blog bottom is R against the dark SiteCta.
+- MCA column matches home `.container-site` / `.mca-shell`: 328 / 688 / 1136 / 1264 at 390 / 768 / 1280 / 1440. Order: Hero, Helps (dark), Process, FAQ, Fit, Blog, SiteCta. Visible gap R = 80 / 96 / 144 / 160. Process is R/R. FAQ / Fit / Blog are 0 / R. Light-to-light bottoms are R − 2px at 1280 / 768 / 390. SiteCta stays R/R. Blog image is the published article cover (no generated people).
 - Measurements: `docs/section-library/measurements/{BXCI-01,BXCI-05,BXCI-07,BXCI-08,DC-03,DC-06,IR-01,IR-02,IR-03,LS-04,LS-04-dark,LS-07,PWS-need-to-know}.md`. MCA classes stay in `src/styles/mca.css` (`mca-*` only).
 
 ## Standing rules

@@ -8,10 +8,11 @@
 
 /* Per-section pads beat home [data-band] / stacked-same-theme tokens.
    Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
-   Theme-change: R on the light side next to the dark edge.
-   Light-next-to-light: predecessor keeps R bottom, follower top is 0
-   so the gap is R not 2R. Fit→Process top is unchanged (24 at 390/768).
-   Helps bottom sits slightly under R for the tape overhang.
+   Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
+   Process top/bottom R after dark Helps. FAQ / Fit / Blog: top 0, bottom R.
+   Light-to-light bottoms are R − 2px at 1280 / 768 / 390 so the 2px accordion
+   rule does not make those gaps read 146 / 98 / 82. Blog bottom stays full R
+   against the dark CTA. Helps bottom sits slightly under R for the tape.
    Hero title sits 50px below the header. */
 section.mca-hero[data-band='light'] {
   padding: 50px 0 80px;
@@ -21,15 +22,15 @@ section.mca-helps[data-band='dark'] {
   padding: 80px 0 75px;
 }
 
-section.mca-fit[data-band='light'] {
-  padding: 80px 0;
-}
-
 section.mca-process[data-band='light'] {
-  padding: 24px 0 80px;
+  padding: 80px 0 78px;
 }
 
 section.mca-faq[data-band='light'],
+section.mca-fit[data-band='light'] {
+  padding: 0 0 78px;
+}
+
 section.mca-blog[data-band='light'] {
   padding: 0 0 80px;
 }
@@ -622,15 +623,15 @@ section.mca-blog[data-band='light'] {
     padding: 96px 0 88px;
   }
 
-  section.mca-fit[data-band='light'] {
-    padding: 96px 0 80px;
-  }
-
   section.mca-process[data-band='light'] {
-    padding: 24px 0 96px;
+    padding: 96px 0 94px;
   }
 
   section.mca-faq[data-band='light'],
+  section.mca-fit[data-band='light'] {
+    padding: 0 0 94px;
+  }
+
   section.mca-blog[data-band='light'] {
     padding: 0 0 96px;
   }
@@ -679,14 +680,8 @@ section.mca-blog[data-band='light'] {
   }
 }
 
-/* 1024 — BX type steps. Shell already 8-col from 48em.
-   Process top 40px is the original 64em value; it does not change Fit→Process
-   at 390/768. */
+/* 1024 — BX type steps. Shell already 8-col from 48em. */
 @media (min-width: 64em) {
-  section.mca-process[data-band='light'] {
-    padding: 40px 0 96px;
-  }
-
   .mca-hero h1,
   .mca-hero-title {
     font-size: 55px;
@@ -764,15 +759,15 @@ section.mca-blog[data-band='light'] {
     padding: 144px 0 132px;
   }
 
-  section.mca-fit[data-band='light'] {
-    padding: 144px 0 96px;
-  }
-
   section.mca-process[data-band='light'] {
-    padding: 40px 0 144px;
+    padding: 144px 0 142px;
   }
 
   section.mca-faq[data-band='light'],
+  section.mca-fit[data-band='light'] {
+    padding: 0 0 142px;
+  }
+
   section.mca-blog[data-band='light'] {
     padding: 0 0 144px;
   }
@@ -872,15 +867,12 @@ section.mca-blog[data-band='light'] {
     padding: 160px 0 144px;
   }
 
-  section.mca-fit[data-band='light'] {
+  section.mca-process[data-band='light'] {
     padding: 160px 0;
   }
 
-  section.mca-process[data-band='light'] {
-    padding: 56px 0 160px;
-  }
-
   section.mca-faq[data-band='light'],
+  section.mca-fit[data-band='light'],
   section.mca-blog[data-band='light'] {
     padding: 0 0 160px;
   }

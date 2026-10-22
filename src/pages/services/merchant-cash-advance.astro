@@ -224,39 +224,6 @@ const faqs = [
     </a>
   </section>
 
-  <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-mca-section="fit" data-reveal-root>
-    <div class="container-site">
-      <div class="mca-shell mca-fit-head" data-reveal>
-        <div class="mca-block-head">
-          <Eyebrow>When a cash advance isn't the right fit.</Eyebrow>
-          <h2 id="fit-heading">
-            A cash advance is the fastest money you can get, and usually the most expensive. Here are three
-            situations where another Falcon product fits better.
-          </h2>
-        </div>
-      </div>
-      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
-        {
-          fitItems.map((item) => (
-            <article class="mca-card">
-              <h3 class="mca-card-title">{item.title}</h3>
-              <p class="mca-card-body">{item.body}</p>
-              <a class="mca-card-link" href={item.href}>
-                <span class="mca-card-link-label">{item.linkLabel}</span>
-                <span class="mca-card-link-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
-                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
-                  </svg>
-                </span>
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
   <section class="mca-band mca-process" aria-labelledby="process-heading" data-band="light" data-mca-section="process" data-reveal-root>
     <div class="container-site">
       <div class="mca-shell mca-process-head" data-reveal>
@@ -326,6 +293,39 @@ const faqs = [
           ))
         }
       </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-mca-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-fit-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>When a cash advance isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            A cash advance is the fastest money you can get, and usually the most expensive. Here are three
+            situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="mca-card">
+              <h3 class="mca-card-title">{item.title}</h3>
+              <p class="mca-card-body">{item.body}</p>
+              <a class="mca-card-link" href={item.href}>
+                <span class="mca-card-link-label">{item.linkLabel}</span>
+                <span class="mca-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
