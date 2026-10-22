@@ -338,6 +338,8 @@ const faqs = [
       <div
         class="mca-blog-slider"
         data-mca-blog-slider
+        data-autoplay="true"
+        data-autoplay-duration="5000"
         data-reveal
         role="region"
         aria-roledescription="carousel"
@@ -357,9 +359,8 @@ const faqs = [
                     aria-roledescription="slide"
                     aria-label={`${i + 1} of ${blogSlides.length}`}
                     aria-hidden={i === 0 ? 'false' : 'true'}
-                    hidden={i !== 0}
                   >
-                    <h2 class="mca-blog-title">{post.data.title}</h2>
+                    <h2 class="mca-blog-title" data-mca-blog-title>{post.data.title}</h2>
                     <a class="mca-card-link" href={`/blog/${post.id}`}>
                       <span class="mca-card-link-label">Read the article</span>
                       <span class="mca-card-link-icon" aria-hidden="true">
@@ -403,7 +404,7 @@ const faqs = [
                   class:list={['mca-blog-media-slide', i === 0 && 'is-active']}
                   data-mca-blog-media-slide
                   aria-hidden={i === 0 ? 'false' : 'true'}
-                  hidden={i !== 0}
+                  data-mca-blog-img
                 >
                   <Media
                     image={post.data.cover}
