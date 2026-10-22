@@ -16,6 +16,7 @@ const livePaths = new Set([
   '/services/business-term-loan',
   '/services/invoice-factoring-tool',
   '/services/consolidation-of-positions',
+  '/industries/retail',
 ]);
 
 const serviceSlugs = [
@@ -77,7 +78,10 @@ for (const slug of serviceSlugs) {
   if (slug === 'consolidation-of-positions') continue;
   retired[`/services/${slug}`] = '/';
 }
-for (const slug of industrySlugs) retired[`/industries/${slug}`] = '/';
+for (const slug of industrySlugs) {
+  if (slug === 'retail') continue; // /industries/retail ships 2026-10-22
+  retired[`/industries/${slug}`] = '/';
+}
 for (const slug of blogSlugs) retired[`/blog/${slug}`] = '/';
 for (const slug of blogCategories) retired[`/blog/category/${slug}`] = '/';
 

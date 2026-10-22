@@ -1,0 +1,637 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { SERVICES } from '@/data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+import '@/styles/retail.css';
+
+/**
+ * Retail industry page. Copy contract: nio rio Notion
+ * "Retail industry page – content outline (stage 1)".
+ * Structure plan: docs/retail-structure-plan.md (sections, Blackstone source per section).
+ * Figures come from SERVICES (live #services spec) — never re-typed here.
+ */
+
+const product = (slug: string) => {
+  const found = SERVICES.find((s) => s.slug === slug && s.spec);
+  if (!found) throw new Error(`Retail page: missing spec for ${slug}`);
+  return found;
+};
+
+const loc = product('business-line-of-credit');
+const mca = product('merchant-cash-advance');
+const collateral = product('collateral-asset-loans');
+
+const glance = [
+  { value: 'Up to $5,000,000', label: "Across Falcon's funding products" },
+  { value: '24-48 hours', label: 'Average funding time after approval' },
+  { value: '0% agreement fee', label: 'Any product-specific cost is set out before you sign' },
+  { value: '300+ businesses', label: 'Funded by Falcon to date' },
+];
+
+const answerLead =
+  'Retail businesses borrow to buy stock before the season, cover payroll through slow months, and fit out the store. Falcon funds retail with a business line of credit for repeating inventory orders, a merchant cash advance for fast cash that repays from sales, and collateral loans for fixtures and equipment. Amounts run from $5,000 to $5,000,000.';
+
+const takeaways = [
+  "The order you place in July is paid for before December's sales arrive. Funding has to match that gap, not the calendar year.",
+  'Match the term to the life of what you bought: stock turns in weeks, refrigeration earns for a decade.',
+  'If most of your sales are on cards, you can repay out of sales instead of a fixed monthly bill.',
+  "Size the buy from last year's sell-through, not from the largest amount you were approved for.",
+];
+
+const pressures = [
+  {
+    title: 'Stock bought months before it sells',
+    body: 'The holiday order is placed in July and paid in August. The sales land in November and December.',
+  },
+  {
+    title: 'A price change or a discount that expires',
+    body: "A tariff change, a factory minimum or a supplier's early-pay offer all reward having the cash on the day, not in six weeks.",
+  },
+  {
+    title: 'The gap between a slow month and a good one',
+    body: 'Rent, payroll, insurance and card fees arrive whether the store is busy or not.',
+  },
+  {
+    title: 'Fixtures, refrigeration, POS and security',
+    body: "One-time purchases that a single month's margin cannot absorb.",
+  },
+];
+
+const year = [
+  {
+    period: 'January – February',
+    title: 'Stock is paid for and being marked down',
+    body: "Returns and clearance clear the shelves at a discount while the next season's orders are already being planned.",
+  },
+  {
+    period: 'March – June',
+    title: 'The second inventory payment lands before the summer traffic',
+    body: "Spring reset and summer stock are bought on last year's numbers, before this year's customers show up.",
+  },
+  {
+    period: 'July – September',
+    title: 'The holiday order is paid, the seasonal staff are hired',
+    body: "The year's largest inventory payment goes out weeks or months before the year's largest sales come in.",
+  },
+  {
+    period: 'October – December',
+    title: 'The sales arrive, the cash lags',
+    body: 'Card settlements trail the sale, and shelves need restocking while the money is still in transit.',
+  },
+];
+
+const situations = [
+  {
+    if: 'You place the holiday order in July and pay for it in August',
+    means: 'Cash leaves the account months before the season pays it back',
+    product: loc,
+    why: 'Draw what each order needs, repay as the stock sells, draw again next season',
+    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+  },
+  {
+    if: 'A supplier offers a bulk price or an early-pay discount that expires this week',
+    means: 'The saving is real, but only if the cash is on hand now',
+    product: mca,
+    why: 'The fastest product to fund; you repay from sales rather than a fixed monthly bill',
+    range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
+  },
+  {
+    if: 'Card sales are strong, but settlement runs behind rent and payroll in a slow month',
+    means: 'The money exists, it just has not landed yet',
+    product: mca,
+    why: 'Repayment moves with your daily or weekly sales, so quiet weeks cost less',
+    range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
+  },
+  {
+    if: 'You are opening a second store or finishing a build-out with a known end date',
+    means: 'The spend lands now; the sales build over the following year',
+    product: SERVICES.find((s) => s.slug === 'business-term-loan')!,
+    why: 'One fixed monthly payment over 6 – 36 months, sized to what the new store should do',
+    range: 'From the Business Term Loan page',
+  },
+  {
+    if: 'You need refrigeration, shelving, POS, security or a delivery van',
+    means: "A one-time purchase a single month's margin cannot cover",
+    product: collateral,
+    why: 'What you buy secures the loan, and the term matches how long it keeps earning',
+    range: `${collateral.spec!.amounts} · ${collateral.spec!.terms}`,
+  },
+  {
+    if: 'Your wholesale or trade customers pay you on 30–60 day terms',
+    means: 'You made the sale, but you are financing your customer\u2019s float',
+    product: SERVICES.find((s) => s.slug === 'invoice-factoring-tool')!,
+    why: 'Turns outstanding business-to-business invoices into cash now',
+    range: 'From the Invoice Factoring Tool page',
+  },
+  {
+    if: "Two or three advances from last season still take a bite out of every day's sales",
+    means: 'Stacked payments are how a good month turns into a bad one',
+    product: SERVICES.find((s) => s.slug === 'consolidation-of-positions')!,
+    why: 'Pays off the positions you have and rolls them into one payment sized to your sales',
+    range: 'From the Consolidation of Positions page',
+  },
+  {
+    if: 'You need seasonal staff on the floor weeks before the traffic arrives',
+    means: 'Payroll is a fixed cost against sales that have not started',
+    product: loc,
+    why: 'Draw for the hire-up, repay it from the peak-season sales',
+    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+  },
+];
+
+const retailProducts = [
+  {
+    service: loc,
+    fit: 'The default for a repeating buying cycle. Draw what each order needs, repay as the stock sells, and keep the facility for next season.',
+  },
+  {
+    service: mca,
+    fit: 'For card-heavy stores that need money quickly and cannot wait on a bank. Repayment follows sales, but it costs more than a line of credit, so use it for short, high-turn purchases rather than planned buying.',
+  },
+  {
+    service: collateral,
+    fit: 'For the assets behind the shop — refrigeration, fixtures, POS hardware or a delivery van. A fixed term spreads the cost over the years the equipment keeps working.',
+  },
+];
+
+const exits = [
+  {
+    title: 'If you sell to other businesses and wait on invoices',
+    body: 'That is a collections problem rather than a sales problem. Invoice factoring is built for it.',
+    linkLabel: 'Invoice Factoring Tool',
+    href: '/services/invoice-factoring-tool',
+    read: '/blog/invoice-factoring-vs-ar-financing',
+    readLabel: 'Invoice factoring vs AR financing',
+  },
+  {
+    title: 'If you are already carrying more than one advance',
+    body: 'Adding another position on top is what turns a manageable month into a bad one. Consolidation pays the existing positions down and rolls them into one payment.',
+    linkLabel: 'Consolidation of Positions',
+    href: '/services/consolidation-of-positions',
+    read: '/blog/consolidation-of-positions-stacked-advances',
+    readLabel: 'Consolidating stacked advances',
+  },
+  {
+    title: 'If the money is for a planned expansion with a fixed finish date',
+    body: 'A term loan prices a known project better than a sales-linked product, because the repayment does not move with a season you have not traded yet.',
+    linkLabel: 'Business Term Loan',
+    href: '/services/business-term-loan',
+    read: '/blog/merchant-cash-advance-vs-business-term-loan',
+    readLabel: 'MCA vs business term loan',
+  },
+];
+
+const cases = [
+  {
+    title: 'Stocking the holiday quarter',
+    body: 'A boutique draws on its line of credit in late summer to place holiday orders, then pays the balance down from November and December sales.',
+  },
+  {
+    title: "Taking a supplier's early-pay discount",
+    body: 'A hardware store uses a short draw to pay a supplier invoice early and keeps the discount, which can be worth more than the cost of that draw for the period.',
+  },
+  {
+    title: 'Refitting the sales floor',
+    body: 'A specialty grocer finances new refrigerated cases and a POS upgrade over a fixed term, so the purchase does not eat its operating cash.',
+  },
+];
+
+const needRows = [
+  { label: 'Time in business', value: '3+ months for an advance; 6+ months for a line of credit or a collateral loan' },
+  { label: 'Monthly revenue', value: '$10K+ for an advance or a line of credit; $15K+ for a term loan' },
+  { label: 'Credit score', value: '550+ where a score applies; your sales and bank activity carry the most weight' },
+  { label: 'Bank account', value: 'An active business account, with statements to show how the store trades' },
+  { label: 'Equipment', value: 'A vendor quote or invoice if the money is buying fixtures or a vehicle' },
+];
+
+const faqs = [
+  {
+    q: 'What can a retail business use funding for?',
+    a: "Stock, seasonal payroll, a supplier's early-pay discount, store fit-outs and equipment such as refrigeration, shelving, POS or a delivery vehicle. Falcon does not restrict the use of proceeds to one category.",
+  },
+  {
+    q: 'How much can a retail store borrow?',
+    a: '$5,000 to $5,000,000 depending on the product. A line of credit runs $10,000 – $500,000, an advance $5,000 – $5,000,000, and a collateral loan $10,000 – $1,000,000. The final number depends on your sales, your time in business and your bank activity.',
+  },
+  {
+    q: 'Is a line of credit or a cash advance better for inventory?',
+    a: 'If you buy on a repeating cycle, a line of credit is usually cheaper and reusable. An advance is faster to qualify for but costs more, so it fits a one-off, short-turn purchase rather than a planned seasonal buy.',
+  },
+  {
+    q: 'Can I get funding if most of my sales are on cards?',
+    a: 'Yes. Card-heavy stores are a common fit for a merchant cash advance, where repayment is a share of sales rather than a fixed monthly payment.',
+  },
+  {
+    q: 'How fast can funding land before a holiday order?',
+    a: "Many products fund within 24-48 hours of approval. Timing depends on how quickly you send documents, so start before the supplier's deadline rather than on it.",
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Falcon charges a 0% agreement fee. For a sales-linked product, the total amount you are selling and the percentage of sales that goes toward it are both spelled out on the agreement before you sign. No specific rate is published here, because it depends on your file.',
+  },
+  {
+    q: 'What do I need to apply?',
+    a: 'Six months of business bank statements, a photo ID, a voided check, a list of any current advances or loans, and a quote or invoice for equipment.',
+  },
+];
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Industries', path: '/#industries-heading' },
+    { name: 'Retail business loans', path: '/industries/retail' },
+  ]),
+  faqSchema(faqs),
+  ...retailProducts.map(({ service }) =>
+    serviceSchema({ name: service.name, summary: service.summary, slug: service.slug }),
+  ),
+];
+
+const metaDescription =
+  'Retail business loans for inventory, seasonal payroll and store fit-outs. A line of credit up to $500,000, advances up to $5,000,000, and equipment loans. 0% agreement fee.';
+---
+
+<BaseLayout
+  title="Retail business loans"
+  description={metaDescription}
+  schema={schema}
+  disclosure={PAGE_DISCLOSURE}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <nav class="ret-crumbs" aria-label="Breadcrumb">
+    <div class="container-site">
+      <ol class="ret-crumbs-list">
+        <li><a href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="false">Industries</span></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page">Retail</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <section class="ret-hero" aria-labelledby="page-hero-heading" data-band="light" data-ret-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell ret-hero-inner" data-reveal>
+        <h1 id="page-hero-heading" class="ret-hero-title">Retail business loans</h1>
+        <p class="ret-hero-lead">
+          Stock the shelves before the money comes back. Funding that moves with your selling season, not against it.
+        </p>
+        <div class="ret-stat-grid">
+          {
+            glance.map((item) => (
+              <div class="ret-stat">
+                <p class="ret-stat-value">{item.value}</p>
+                <p class="ret-stat-label">{item.label}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="ret-hero-cta">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+        <div class="ret-hero-media">
+          <Media
+            labeled
+            intent="stocked shop shelves seen from the aisle, boxes still on the floor"
+            ratio="16 / 9"
+            sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-answer" aria-labelledby="answer-heading" data-band="light" data-ret-section="answer" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell ret-answer-inner" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>In short</Eyebrow>
+          <h2 id="answer-heading">How retail businesses use Falcon.</h2>
+        </div>
+        <p class="ret-answer-lead">{answerLead}</p>
+        <ul class="ret-answer-list">
+          {takeaways.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-cash" aria-labelledby="cash-heading" data-band="light" data-ret-section="cash" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>What it costs you</Eyebrow>
+          <h2 id="cash-heading">Four things eat a retailer's cash</h2>
+          <p class="ret-block-intro">
+            None of this is a spending problem. It is a timing problem — the money goes out months before it comes
+            back.
+          </p>
+        </div>
+      </div>
+      <div class="ret-shell ret-cash-split" data-reveal>
+        <div class="ret-cash-rows">
+          {
+            pressures.map((item) => (
+              <article class="ret-row">
+                <h3 class="ret-row-title">{item.title}</h3>
+                <p class="ret-row-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+        <div class="ret-cash-media">
+          <Media
+            labeled
+            intent="retail stockroom, boxes stacked on pallets"
+            ratio="4 / 5"
+            sizes="(min-width: 90em) 424px, (min-width: 64em) 380px, 100vw"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-year" aria-labelledby="year-heading" data-band="light" data-ret-section="year" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>Why timing matters</Eyebrow>
+          <h2 id="year-heading">Your year has four cash moments</h2>
+          <p class="ret-block-intro">
+            Retail cash flow is not flat. These are the four points where the money and the sales drift apart.
+          </p>
+        </div>
+      </div>
+      <div class="ret-shell ret-year-rows" data-reveal>
+        {
+          year.map((item) => (
+            <article class="ret-year-row">
+              <p class="ret-year-period">{item.period}</p>
+              <div class="ret-year-copy">
+                <h3 class="ret-row-title">{item.title}</h3>
+                <p class="ret-row-body">{item.body}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-situation" aria-labelledby="situation-heading" data-band="light" data-ret-section="situation" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>Find your situation</Eyebrow>
+          <h2 id="situation-heading">Which funding fits your store right now?</h2>
+          <p class="ret-block-intro">
+            Most owners arrive with a sentence, not a product. Find the sentence that sounds like your month.
+          </p>
+        </div>
+      </div>
+      <div class="ret-shell ret-table-shell" data-reveal>
+        <div class="r-table-wrap">
+          <table class="r-table ret-situation-table">
+            <caption class="sr-only">Retail situations and the Falcon product that fits each one</caption>
+            <thead>
+              <tr>
+                <th scope="col">If this is your situation</th>
+                <th scope="col">What it means for your cash</th>
+                <th scope="col">Falcon product</th>
+                <th scope="col">Why that one</th>
+                <th scope="col">Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                situations.map((row) => (
+                  <tr>
+                    <th scope="row">{row.if}</th>
+                    <td data-label="What it means">{row.means}</td>
+                    <td data-label="Product">
+                      <a class="ret-inline-link" href={`/services/${row.product.slug}`}>{row.product.name}</a>
+                    </td>
+                    <td data-label="Why that one">{row.why}</td>
+                    <td data-label="Range">{row.range}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-products" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>Products</Eyebrow>
+          <h2 id="products-heading">Three ways to fund a retail business</h2>
+          <p class="ret-block-intro">Same application, same specialist — three different shapes of money.</p>
+        </div>
+      </div>
+      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
+        {
+          retailProducts.map(({ service, fit }) => (
+            <article class="ret-card ret-spec-card">
+              <h3 class="ret-card-title">{service.name}</h3>
+              <p class="ret-card-body">{fit}</p>
+              <dl class="ret-spec">
+                <div class="ret-spec-row">
+                  <dt>Who it's for</dt>
+                  <dd>{service.whoFor}</dd>
+                </div>
+                <div class="ret-spec-row">
+                  <dt>Amounts</dt>
+                  <dd>{service.spec!.amounts}</dd>
+                </div>
+                <div class="ret-spec-row">
+                  <dt>Terms</dt>
+                  <dd>{service.spec!.terms}</dd>
+                </div>
+                <div class="ret-spec-row">
+                  <dt>Requirements</dt>
+                  <dd>{service.spec!.requirements.join(' · ')}</dd>
+                </div>
+              </dl>
+              <a class="ret-card-link" href={`/services/${service.slug}`}>
+                <span class="ret-card-link-label">{service.name}</span>
+                <span class="ret-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-fit" aria-labelledby="fit-heading" data-band="light" data-ret-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell ret-fit-head" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>Not the right fit</Eyebrow>
+          <h2 id="fit-heading">If none of these sounds like your month, it may be a different product.</h2>
+        </div>
+      </div>
+      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
+        {
+          exits.map((item) => (
+            <article class="ret-card">
+              <h3 class="ret-card-title">{item.title}</h3>
+              <p class="ret-card-body">{item.body}</p>
+              <a class="ret-read" href={item.read}>
+                <span class="ret-read-label">Read: {item.readLabel}</span>
+              </a>
+              <a class="ret-card-link" href={item.href}>
+                <span class="ret-card-link-label">{item.linkLabel}</span>
+                <span class="ret-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-cases" aria-labelledby="cases-heading" data-band="light" data-ret-section="cases" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>How it looks in practice</Eyebrow>
+          <h2 id="cases-heading">Three retail files, three shapes of money</h2>
+        </div>
+      </div>
+      <div class="ret-shell ret-cards ret-cards--3" data-reveal>
+        {
+          cases.map((item, i) => (
+            <article class="ret-card ret-case">
+              <p class="ret-case-num">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="ret-card-title">{item.title}</h3>
+              <p class="ret-card-body">{item.body}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="ret-shell ret-read-next" data-reveal>
+        <p class="ret-read-next-label">Read next</p>
+        <a class="ret-inline-link" href="/blog/bridging-a-slow-season">Bridging a slow season</a>
+        <a class="ret-inline-link" href="/blog/equipment-financing-break-even">Equipment financing break-even</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-need" aria-labelledby="need-heading" data-band="light" data-ret-section="need" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>Are we a match?</Eyebrow>
+          <h2 id="need-heading">What a retail application needs</h2>
+          <p class="ret-block-intro">Published criteria, not a promise. Approval depends on your file.</p>
+        </div>
+      </div>
+      <div class="ret-shell ret-need-rows" data-reveal>
+        {
+          needRows.map((row) => (
+            <article class="ret-need-row">
+              <h3 class="ret-need-label">{row.label}</h3>
+              <p class="ret-row-body">{row.value}</p>
+            </article>
+          ))
+        }
+        <p class="ret-need-note">
+          Documents: six months of business bank statements, a government-issued photo ID, a voided check, a list of
+          any current advances or loans, and a quote or invoice for equipment.
+        </p>
+        <p class="ret-need-note">
+          No restricted industries or states: Falcon has no restricted-industry or restricted-state list.
+          Underwriting looks at the business, not the sector or the geography.
+        </p>
+        <p class="ret-need-links">
+          <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
+          <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ret-band ret-faq" aria-labelledby="faq-heading" data-band="light" data-ret-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-shell ret-faq-head" data-reveal>
+        <div class="ret-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="faq-heading">Retail funding questions</h2>
+        </div>
+      </div>
+      <div class="ret-shell">
+        <div class="ret-faq-list" data-accordion data-reveal>
+          {
+            faqs.map((item, i) => (
+              <div class="ret-faq-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="ret-faq-trigger"
+                    aria-expanded="false"
+                    aria-controls={`ret-faq-panel-${i}`}
+                    id={`ret-faq-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{item.q}</span>
+                    <span class="ret-faq-caret" aria-hidden="true">
+                      <span class="ret-faq-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="ret-faq-caret-svg">
+                          <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
+                </h3>
+                <div class="ret-acc-panel" id={`ret-faq-panel-${i}`} role="region" aria-labelledby={`ret-faq-trigger-${i}`}>
+                  <div class="ret-acc-inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+  </script>
+</BaseLayout>

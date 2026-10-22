@@ -71,6 +71,15 @@ section.ret-blog[data-band='light'] {
   justify-content: stretch;
 }
 
+/* Every direct child of a shell spans the full column set by default. Without
+   this, a child that no rule mentions is auto-placed into ONE column — a 64px
+   cell at 1440 — which is how the situation table ended up 170px wide and the
+   hero Apply button overflowed the viewport. Section rules below re-span the
+   children that need a partial width (e.g. the cash split at 80em). */
+.ret-shell > * {
+  grid-column: 1 / -1;
+}
+
 .ret-kicker,
 .ret-block-head,
 .ret-cta--after,
@@ -1179,6 +1188,14 @@ section.ret-blog[data-band='light'] {
   line-height: 30px;
 }
 
+/* `.ret-hero-inner` also carries `.ret-shell`, so it is a 4/8/16-column grid.
+   Every direct child has to span the row or it gets auto-placed into one 70px
+   cell — which is what pushed the hero Apply button to right=509 and gave the
+   page a 121px horizontal scroll at 390. */
+.ret-hero-inner > * {
+  grid-column: 1 / -1;
+}
+
 .ret-hero .ret-stat-grid {
   margin-top: 48px;
 }
@@ -1199,424 +1216,54 @@ section.ret-blog[data-band='light'] {
   letter-spacing: normal;
 }
 
-.ret-hero .ret-stat-label {
-  margin: 8px 0 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 21px;
-  letter-spacing: 0.28px;
+/* ==========================================================================
+   Hero overrides — the cloned MCA block still sets `.ret-hero-inner` row-gap
+   104px and a 3-column `.ret-stat-grid` at 1280+, so the four glance cells fell
+   3 + 1 and every hero child sat 104px apart. These are scoped one level deeper
+   (`.ret-hero .ret-hero-inner > …`) so they win on specificity, not on file order.
+   ========================================================================== */
+
+.ret-hero .ret-hero-inner {
+  row-gap: 0;
 }
 
-.ret-hero-cta {
+.ret-hero .ret-hero-inner > .ret-hero-title {
+  margin: 24px 0 0;
+}
+
+.ret-hero .ret-hero-inner > .ret-hero-lead {
+  margin: 24px 0 0;
+}
+
+.ret-hero .ret-hero-inner > .ret-stat-grid {
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 40px;
+  margin-top: 48px;
+}
+
+.ret-hero .ret-hero-inner > .ret-hero-cta {
   margin-top: 40px;
 }
 
-.ret-hero-media {
+.ret-hero .ret-hero-inner > .ret-hero-media {
   margin-top: 56px;
 }
 
-.ret-hero-media .media,
-.ret-hero-media .image-slot {
-  width: 100%;
-}
-
-/* --- Shared block furniture --------------------------------------------- */
-.ret-block-intro {
-  margin: 24px 0 0;
-  max-width: 52rem;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.ret-inline-link {
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  transition: background-size 300ms ease;
-}
-
-.ret-inline-link:hover,
-.ret-inline-link:focus-visible {
-  background-size: 0 1px;
-}
-
-/* --- Answer first ------------------------------------------------------- */
-.ret-answer-lead {
-  margin: 32px 0 0;
-  max-width: 46rem;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 30px;
-}
-
-.ret-answer-list {
-  margin: 32px 0 0;
-  padding: 0;
-  max-width: 52rem;
-  list-style: none;
-}
-
-.ret-answer-list li {
-  position: relative;
-  padding-left: 24px;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.ret-answer-list li + li {
-  margin-top: 16px;
-}
-
-.ret-answer-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.7em;
-  width: 12px;
-  height: 2px;
-  background: currentColor;
-}
-
-/* --- TF-06 values rows + PE-04 still column ----------------------------- */
-.ret-cash-split {
-  margin-top: var(--space-head-to-content);
-  row-gap: 48px;
-}
-
-.ret-cash-rows {
-  display: grid;
-  grid-column: 1 / -1;
-  row-gap: 0;
-}
-
-.ret-cash-media {
-  grid-column: 1 / -1;
-}
-
-.ret-row {
-  padding: 32px 0;
-  border-top: 1px solid var(--color-line);
-}
-
-.ret-row-title {
-  margin: 0 0 12px;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 36px;
-  letter-spacing: 0.16px;
-}
-
-.ret-row-body {
-  margin: 0;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.ret-cash-media .media,
-.ret-cash-media .image-slot {
-  width: 100%;
-}
-
-/* --- The retail year: calendar rows ------------------------------------- */
-.ret-year-rows {
-  margin-top: var(--space-head-to-content);
-  row-gap: 0;
-}
-
-.ret-year-row {
-  display: grid;
-  grid-column: 1 / -1;
-  gap: 12px;
-  padding: 32px 0;
-  border-top: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
-}
-
-.ret-year-period {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 1.12px;
-  text-transform: uppercase;
-}
-
-/* --- Situation table ---------------------------------------------------- */
-.ret-table-shell {
-  margin-top: var(--space-head-to-content);
-}
-
-.ret-situation-table {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.32px;
-}
-
-.ret-situation-table th,
-.ret-situation-table td {
-  color: var(--color-ink-soft);
-}
-
-.ret-situation-table thead th {
-  color: var(--color-muted);
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: 0.28px;
-}
-
-.ret-situation-table tbody th {
-  color: var(--color-ink);
-  font-weight: 400;
-}
-
-/* --- Product spec cards ------------------------------------------------- */
-.ret-spec-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.ret-spec {
-  margin: 32px 0 32px;
-  width: 100%;
-}
-
-.ret-spec-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4px;
-  padding: 16px 0;
-  border-top: 1px solid var(--color-line);
-}
-
-.ret-spec-row dt {
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: 0.28px;
-}
-
-.ret-spec-row dd {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.32px;
-}
-
-/* --- Read link (secondary, under a card CTA) ---------------------------- */
-.ret-read {
-  margin-top: 24px;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-  text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
-}
-
-.ret-read:hover,
-.ret-read:focus-visible {
-  color: var(--color-ink);
-  border-bottom-color: currentColor;
-}
-
-.ret-fit .ret-card-link {
-  margin-top: 16px;
-}
-
-/* --- Practice cases ----------------------------------------------------- */
-.ret-case-num {
-  margin: 0 0 16px;
-  color: var(--color-muted);
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 28px;
-}
-
-.ret-read-next {
-  margin-top: 48px;
-  align-items: baseline;
-  row-gap: 12px;
-}
-
-.ret-read-next-label {
-  grid-column: 1 / -1;
-  margin: 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: 1.12px;
-  text-transform: uppercase;
-}
-
-.ret-read-next .ret-inline-link {
-  grid-column: 1 / -1;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 27px;
-}
-
-/* --- What you need (PWS-10 rows) ---------------------------------------- */
-.ret-need-rows {
-  margin-top: var(--space-head-to-content);
-  row-gap: 0;
-}
-
-.ret-need-row {
-  display: grid;
-  grid-column: 1 / -1;
-  gap: 8px;
-  padding: 24px 0;
-  border-top: 1px solid var(--color-line);
-}
-
-.ret-need-label {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 36px;
-  letter-spacing: 0.16px;
-}
-
-.ret-need-note {
-  grid-column: 1 / -1;
-  margin: 24px 0 0;
-  max-width: 52rem;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.32px;
-}
-
-.ret-need-links {
-  display: flex;
-  flex-wrap: wrap;
-  grid-column: 1 / -1;
-  gap: 32px;
-  margin: 32px 0 0;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 27px;
-}
-
-/* ==========================================================================
-   Breakpoints
-   ========================================================================== */
-
 @media (min-width: 48em) {
-  .ret-band,
-  .ret-hero {
-    --ret-r: 96px;
-  }
-
-  .ret-hero .ret-stat-grid {
+  .ret-hero .ret-hero-inner > .ret-stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 16px;
-    row-gap: 32px;
+    row-gap: 40px;
   }
 
-  .ret-hero-media {
+  .ret-hero .ret-hero-inner > .ret-hero-media {
     margin-top: 64px;
-  }
-
-  .ret-spec-row {
-    grid-template-columns: 8rem 1fr;
-    column-gap: 16px;
-  }
-
-  .ret-read-next {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-  }
-
-  .ret-read-next-label,
-  .ret-read-next .ret-inline-link {
-    grid-column: auto;
-  }
-
-  .ret-need-row {
-    grid-template-columns: 8rem 1fr;
-    column-gap: 32px;
-    align-items: baseline;
-  }
-
-  .ret-year-row {
-    grid-template-columns: 10rem 1fr;
-    column-gap: 32px;
   }
 }
 
 @media (min-width: 80em) {
-  .ret-band,
-  .ret-hero {
-    --ret-r: 144px;
-  }
-
-  /* PE-04 split: 10 columns of rows, 6 of still. */
-  .ret-cash-rows {
-    grid-column: 1 / span 10;
-  }
-
-  .ret-cash-media {
-    grid-column: 12 / span 5;
-    grid-row: 1;
-  }
-
-  .ret-hero .ret-stat-grid {
+  .ret-hero .ret-hero-inner > .ret-stat-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .ret-situation-table {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
-
-@media (min-width: 90em) {
-  .ret-band,
-  .ret-hero {
-    --ret-r: 160px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ret-inline-link,
-  .ret-read {
-    transition: none;
+    row-gap: 0;
   }
 }

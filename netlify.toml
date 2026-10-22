@@ -76,10 +76,64 @@
   to = "/#industries-heading"
   status = 301
 
+# /industries/retail is a live page (built 2026-10-22). Netlify has no exclusion
+# syntax for wildcards, so the remaining industry slugs are listed explicitly.
+# Add one line per industry page when it ships, and drop that slug from this list.
 [[redirects]]
-  from = "/industries/*"
+  from = "/industries/transportation-logistics"
   to = "/#industries-heading"
   status = 301
+
+[[redirects]]
+  from = "/industries/restaurants-food-service"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/real-estate"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/healthcare"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/construction"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/e-commerce"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/auto-services"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/manufacturing"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/professional-services"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/education"
+  to = "/#industries-heading"
+  status = 301
+
+[[redirects]]
+  from = "/industries/travel-hospitality"
+  to = "/#industries-heading"
+  status = 301
+
 
 [[redirects]]
   from = "/blog"
