@@ -3,15 +3,23 @@
    Fonts → --font-display / --font-sans. Colors → Falcon tokens.
    Do not touch home. */
 
-/* Kill home [data-band] padding on these sections so the measured pads win. */
-.mca-hero[data-band],
-.mca-band[data-band],
-.mca-hero[data-band] + .mca-band[data-band],
-.mca-band[data-band] + .mca-band[data-band],
-.mca-hero[data-band] + script + .mca-band[data-band],
-.mca-band[data-band] + script + .mca-band[data-band] {
-  padding-top: 40px;
-  padding-bottom: 80px;
+/* Per-section pads beat home [data-band] / stacked-same-theme tokens. */
+section.mca-hero[data-band='light'] {
+  padding: 40px 0 80px;
+}
+
+section.mca-facts[data-band='light'],
+section.mca-helps[data-band='light'],
+section.mca-fit[data-band='light'] {
+  padding: 40px 0 80px;
+}
+
+section.mca-process[data-band='light'] {
+  padding: 40px 0 40px;
+}
+
+section.mca-faq[data-band='dark'] {
+  padding: 80px 0;
 }
 
 .mca-hero,
@@ -20,17 +28,9 @@
   color: var(--color-ink);
 }
 
-.mca-process[data-band] {
-  padding-bottom: 40px;
-}
-
-.mca-faq,
-.mca-faq[data-band],
-.mca-faq[data-band='dark'] {
+.mca-faq {
   background: var(--color-surface-dark);
   color: var(--color-white);
-  padding-top: 80px;
-  padding-bottom: 80px;
 }
 
 /* Measured shell: 328 / 688 / 1264. Side margins fall out of auto centering. */
@@ -336,28 +336,22 @@
 
 /* 1024 — BX 8 × 72px + 16px, shell 688, sides ~161 */
 @media (min-width: 64em) {
-  .mca-hero[data-band],
-  .mca-hero[data-band] + .mca-band[data-band],
-  .mca-hero[data-band] + script + .mca-band[data-band] {
-    padding-top: 56px;
-    padding-bottom: 96px;
+  section.mca-hero[data-band='light'] {
+    padding: 56px 0 96px;
   }
 
-  .mca-band[data-band],
-  .mca-band[data-band] + .mca-band[data-band],
-  .mca-band[data-band] + script + .mca-band[data-band] {
-    padding-top: 40px;
-    padding-bottom: 96px;
+  section.mca-facts[data-band='light'],
+  section.mca-helps[data-band='light'],
+  section.mca-fit[data-band='light'] {
+    padding: 40px 0 96px;
   }
 
-  .mca-process[data-band] {
-    padding-bottom: 48px;
+  section.mca-process[data-band='light'] {
+    padding: 40px 0 48px;
   }
 
-  .mca-faq[data-band],
-  .mca-faq[data-band='dark'] {
-    padding-top: 96px;
-    padding-bottom: 96px;
+  section.mca-faq[data-band='dark'] {
+    padding: 96px 0;
   }
 
   .mca-shell {
@@ -457,28 +451,22 @@
 
 /* 1440 — BX 16 × 64px + 16px, shell 1264, sides ~81 */
 @media (min-width: 90em) {
-  .mca-hero[data-band],
-  .mca-hero[data-band] + .mca-band[data-band],
-  .mca-hero[data-band] + script + .mca-band[data-band] {
-    padding-top: 48px;
-    padding-bottom: 120px;
+  section.mca-hero[data-band='light'] {
+    padding: 48px 0 120px;
   }
 
-  .mca-band[data-band],
-  .mca-band[data-band] + .mca-band[data-band],
-  .mca-band[data-band] + script + .mca-band[data-band] {
-    padding-top: 56px;
-    padding-bottom: 160px;
+  section.mca-facts[data-band='light'],
+  section.mca-helps[data-band='light'],
+  section.mca-fit[data-band='light'] {
+    padding: 56px 0 160px;
   }
 
-  .mca-process[data-band] {
-    padding-bottom: 120px;
+  section.mca-process[data-band='light'] {
+    padding: 56px 0 120px;
   }
 
-  .mca-faq[data-band],
-  .mca-faq[data-band='dark'] {
-    padding-top: 160px;
-    padding-bottom: 160px;
+  section.mca-faq[data-band='dark'] {
+    padding: 160px 0;
   }
 
   .mca-shell {
