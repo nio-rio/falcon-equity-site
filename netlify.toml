@@ -67,11 +67,6 @@
   status = 301
 
 [[redirects]]
-  from = "/services/collateral-asset-loans"
-  to = "/#services"
-  status = 301
-
-[[redirects]]
   from = "/services/business-line-of-credit"
   to = "/#services"
   status = 301
