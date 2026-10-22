@@ -47,6 +47,12 @@ export type Industry = {
   products: IndustryProduct[];
   useCases: IndustryUseCase[];
   faqs: { q: string; a: string }[];
+  /**
+   * Live page for this industry, once it is built. Omitted industries keep
+   * pointing at the home Industries section. Set this in the same commit that
+   * lifts the route out of the industry redirects.
+   */
+  href?: string;
   /** Extra live posts to mix into related (older guides the spec still links). */
   relatedPostIds?: string[];
 };
@@ -56,6 +62,7 @@ export const INDUSTRIES: Industry[] = [
     slug: 'retail',
     name: 'Retail',
     icon: 'store',
+    href: '/industries/retail',
     blurb: 'Stock the shelves before the rush, not after it. Capital that keeps pace with your selling seasons.',
     uses: ['Pre-season inventory buys', 'Storefront refreshes', 'Opening a second location'],
     seoTitle: 'Retail Business Loans & Inventory Funding | Falcon',

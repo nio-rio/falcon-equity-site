@@ -78,7 +78,11 @@ import { INDUSTRY_STILLS } from '@/data/industry-stills';
             <div class="pilot-tabs-copy">
               <h3 class="pilot-tabs-title" id={`industry-title-${ind.slug}`}>{ind.name}</h3>
               <p class="pilot-tabs-body">{ind.blurb}</p>
-              <PilotArrow href="/#industries-heading" label="Learn more" accessibleName={`${ind.name} funding`} />
+              <PilotArrow
+                href={ind.href ?? '/#industries-heading'}
+                label="Learn more"
+                accessibleName={`${ind.name} funding`}
+              />
             </div>
             <div class="pilot-tabs-media">
               <Media

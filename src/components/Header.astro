@@ -63,7 +63,7 @@ const nav: NavItem[] = [
         twoCol: true,
         links: [
           { label: 'Overview', href: '/#industries-heading' },
-          ...INDUSTRIES.map((i) => ({ label: i.name, href: '/#industries-heading' })),
+          ...INDUSTRIES.map((i) => ({ label: i.name, href: i.href ?? '/#industries-heading' })),
         ],
       },
     ],
