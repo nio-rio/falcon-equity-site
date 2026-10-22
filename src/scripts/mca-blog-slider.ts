@@ -22,8 +22,22 @@ type WrapCleanup = () => void;
 
 const cleanups = new WeakMap<HTMLElement, WrapCleanup>();
 
+// Each hook accepts the MCA attribute or its generic twin, so prefix-scoped
+// service pages can reuse the slider without .mca-* classes.
+const SEL = {
+  slider: '[data-mca-blog-slider], [data-blog-slider]',
+  copySlide: '[data-mca-blog-copy-slide], [data-blog-copy-slide]',
+  mediaSlide: '[data-mca-blog-media-slide], [data-blog-media-slide]',
+  prev: '[data-mca-blog-prev], [data-blog-prev]',
+  next: '[data-mca-blog-next], [data-blog-next]',
+  live: '[data-mca-blog-live], [data-blog-live]',
+  title: '[data-mca-blog-title], .mca-blog-title, [data-blog-title]',
+  link: '.mca-card-link, [data-blog-link]',
+  img: '[data-mca-blog-img], [data-blog-img]',
+};
+
 export function bindMcaBlogSlider(root: ParentNode = document) {
-  root.querySelectorAll<HTMLElement>('[data-mca-blog-slider]').forEach(setupWrap);
+  root.querySelectorAll<HTMLElement>(SEL.slider).forEach(setupWrap);
 }
 
 function setupWrap(slider: HTMLElement) {
@@ -35,11 +49,11 @@ function setupWrap(slider: HTMLElement) {
 }
 
 function bindSlider(slider: HTMLElement, reduce: boolean) {
-  const copies = [...slider.querySelectorAll<HTMLElement>('[data-mca-blog-copy-slide]')];
-  const media = [...slider.querySelectorAll<HTMLElement>('[data-mca-blog-media-slide]')];
-  const prev = slider.querySelector<HTMLButtonElement>('[data-mca-blog-prev]');
-  const next = slider.querySelector<HTMLButtonElement>('[data-mca-blog-next]');
-  const live = slider.querySelector<HTMLElement>('[data-mca-blog-live]');
+  const copies = [...slider.querySelectorAll<HTMLElement>(SEL.copySlide)];
+  const media = [...slider.querySelectorAll<HTMLElement>(SEL.mediaSlide)];
+  const prev = slider.querySelector<HTMLButtonElement>(SEL.prev);
+  const next = slider.querySelector<HTMLButtonElement>(SEL.next);
+  const live = slider.querySelector<HTMLElement>(SEL.live);
   const count = Math.min(copies.length, media.length);
   if (count < 1) return;
 
@@ -61,9 +75,9 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
   const slides: Slide[] = copies.slice(0, count).map((copy, i) => ({
     copy,
     media: media[i],
-    titleEl: copy.querySelector<HTMLElement>('[data-mca-blog-title], .mca-blog-title'),
-    linkEl: copy.querySelector<HTMLElement>('.mca-card-link'),
-    imgEl: media[i].querySelector<HTMLElement>('[data-mca-blog-img]') || media[i],
+    titleEl: copy.querySelector<HTMLElement>(SEL.title),
+    linkEl: copy.querySelector<HTMLElement>(SEL.link),
+    imgEl: media[i].querySelector<HTMLElement>(SEL.img) || media[i],
     titleSplit: null,
   }));
 
@@ -77,7 +91,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     autoSplit: true,
     onSplit(self) {
       if (isAnimating) return;
-      const item = el.closest('[data-mca-blog-copy-slide]');
+      const item = el.closest(SEL.copySlide);
       const on = item?.classList.contains('is-active');
       gsap.set(self.lines, { yPercent: on ? 0 : 110 });
     },
