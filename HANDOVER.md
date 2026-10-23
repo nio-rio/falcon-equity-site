@@ -792,16 +792,28 @@ plus both tabs: `~/Desktop/hermes-output/falcon_calc/shots/`.
 `/resources/...` redirects (loan-calculator, credit-repair-loan-prep) stay. Nav: Resources → Tools →
 "Loan Calculator" now goes here instead of `/apply`, and the Resources menu gained `active: isActive('/resources')`.
 
-**Ling's 14px floor (2026-10-23, same session): "On this page, no text should be less than 14px."**
-Audited every rendered text node at 320 / 360 / 375 / 390 / 430 / 527 / 768 / 1024 / 1280 / 1440 (computed
-`font-size`, zero-size and `sr-only` nodes excluded). The page itself was already compliant — the smallest
-things on it are the field labels, hints, result-row labels, notes and eyebrow, all **14px**; the big figure's
-currency and `/week` affixes are `0.5em` of a 40–56px value, so 20–28px. One element was under the floor and it
-is **shared chrome, not this page**: the extra-compact header "Apply" label, `0.75rem` (12px) between 375px and
-528px, from the approved nav ladder. Raised it to **`0.875rem`** in `blackstone.css` (the 23.4375em block) —
-the pill goes 51 → 59px wide and 30 → 35px tall, header stays 112px, 11px clear of the logo at 375, no
-horizontal overflow at any width; `DESIGN-SYSTEM.md`'s nav table now records 0.875rem and why. Re-audited after
-the change: **zero text under 14px at all ten widths**, smallest reads exactly 14px.
+**Text floor: 14px, then 16px (2026-10-23, same session).** Ling first said "no text should be less than 14px",
+then corrected to "no text under 16px", and asked for the input fields' bottom rule to come out. Both applied.
+
+- **Every size the page owns is now ≥16px**: field labels and range hints, big-figure label, result-row labels,
+  bar legend, panel notes, the empty-state prompt and the noscript line are all 16px (they were 14); the eyebrow is
+  raised to 16px **for this page only** (`.calc-band .eyebrow`) because the shared component is 14px below 1280 and
+  the home page is frozen. Re-audited every rendered text node at 320 / 390 / 527 / 768 / 1024 / 1280 / 1440.
+- **Input bottom rule removed** from both the number fields and the Payments select, so the four fields are flat
+  Lilac Light blocks. The 2px accent `:focus-within` ring is untouched, so focus is still obvious without the rule.
+- **Still below 16px on this page, all shared chrome — deliberately not touched:** the footer disclosure line and
+  the footer contact `dt` labels at 14px (sitewide, and the MCA page's 14px disclosure was explicitly approved), and
+  the header's extra-compact "Apply" at 14px in the 375–528px band. Measured for that band: at 16px the pill is
+  68px wide and clears the logo by **3px** at 375 (28px at 400, 108px at 480), so 16px there needs either the drawer
+  or a smaller logo lockup — a nav decision, not a calculator one. Flagged for Ling; the footer is a one-line
+  change in `blackstone.css` if she wants 16px everywhere.
+- **Definitions 3-up now carries the /industries product section's exact spacing** (`mca-cards--3`), per Ling:
+  "learn the exact spacing from …/industries/real-estate product section." Measured on that page at 1280: 16-col
+  shell, 16px column gap, cards at 1/5 · 6/11 · 12/16 with 32 / 56 / 32 inner padding, text edges 72–384,
+  488–792, 896–1208 — i.e. **104px gutters** — titles 20/32 with **24px** to the body, body 18/27/300. This page now
+  measures the same numbers at 1280 (verified card by card) and 1440 (352px text columns, 104 + 104 gutters).
+  Below 80em it follows the same ladder: 8-col with 1/4 · 5/8 · 1/4, 24px inner padding, 64px gutters, and the third
+  definition wrapping under the first, with the reference's 72px (48em) / 104px (64em) row gap.
 
 **Still open.** (1) The page copy is a first pass in the site voice — Ling has not seen it. (2) `npm run test:nav`
 and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
