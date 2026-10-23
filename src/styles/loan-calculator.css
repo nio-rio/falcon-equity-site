@@ -553,6 +553,17 @@ section.calc-band {
   letter-spacing: 0.16px;
 }
 
+/* Owner round 2026-10-23: these three are the industry/service process H3 size —
+   1.5rem (24px) on tablet and desktop, never under 1.25rem (20px) on the phone.
+   The base rule above already sits on the floor, so only the step up is added. */
+@media (min-width: 48em) {
+  .calc-def-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
 .calc-def-body {
   margin: 0;
   color: var(--color-ink);
