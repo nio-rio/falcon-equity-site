@@ -10,6 +10,28 @@ pushed to Notion the same day). Ten bands, in the order written there — no ban
 Donor ids are from `docs/section-library-live/LIBRARY.md`. Numbers below were measured on the live
 reference in real Chrome over CDP, not read off a screenshot.
 
+## Revision 4 — 23 Oct 2026: values H2, and no rules in the contact band
+
+Ling: *"For our value section, H2, use something that means this: 'We forge intelligent financial
+partnerships that transform challenges into opportunities. Our commitment is to provide precise, adaptive
+solutions that fuel your business growth.'"* and *"Remove all the horizontal divider lines in contact
+page."*
+
+**Values H2** — she gave the meaning rather than a line, so the H2 is a distillation of it at the band's
+own scale, not the sentence pasted in: **"Intelligent partnerships that turn challenges into
+opportunity."** It keeps the three ideas the sentence carries — intelligent, partnerships, challenges into
+opportunity — and it sits over the three value cards (Speed, Precision, Partnership) without repeating any
+of their names as a headline. The full sentence would be 28 words at 48px, four lines deep; the shorter
+statement reads at two lines at 1024 and one at 1440.
+
+**Contact band** — the 1px rules are gone: `border-top` off `.abt-contact-list`, `border-bottom` off
+`.abt-contact-row`. The rows now hold apart on space alone (24px above each row, 4px between a label and
+its value), and `.abt-contact-cta` went from 8px to 40px above the buttons, because that 8px only worked
+while the last row's rule closed the list.
+
+Checked at 1440 and 390: no border on any element of the band except the CTA's own circle-arrow outline,
+no overflow, `npm run build` clean, `npm run check` 0 errors.
+
 ## Revision 3 — 23 Oct 2026: the home stats band, and the BXMA quote band
 
 Two more instructions, same day, both with a visual: *"This is how the quote section should look like.

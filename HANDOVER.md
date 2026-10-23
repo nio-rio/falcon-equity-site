@@ -1003,3 +1003,20 @@ section padding (the distance between CTA section content and footer content) by
   dilutes a proportional cut at 1024+. Phone and tablet move by the full 25 / 30%. The second lever, if the
   desktop gap should fall by a quarter too, is trimming the wheel's overhang (a negative `margin-block` at 64em
   or fewer wrapped lines) — not done here, because it changes the wheel's fade, which is approved.
+
+### About — values H2 and a contact band with no rules (2026-10-23, revision 4)
+
+Ling asked for a values H2 that means *"We forge intelligent financial partnerships that transform
+challenges into opportunities. Our commitment is to provide precise, adaptive solutions that fuel your
+business growth."* — the meaning, not the sentence — and for every horizontal divider line in the contact
+band to come out.
+
+- **Values H2**: "Intelligent partnerships that turn challenges into opportunity." (the sentence itself is
+  28 words, four lines at 48px).
+- **Contact band**: the 1px `border-top` on the list and `border-bottom` on each row are gone; rows hold
+  apart on 24px of space above each, and the CTA block now sits 40px under the last value instead of 8px,
+  which only worked while a rule closed the list.
+
+This revision was made on top of the lane's newer About commits (values 3-up, why-Falcon band removed) in
+a detached worktree at origin, so nothing from the other lane was touched. `npm run build` clean, `npm run
+check` 0 errors, no overflow at 1440 / 390.

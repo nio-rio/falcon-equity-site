@@ -1328,18 +1328,18 @@ section.abt-founder[data-band='dark'] {
   grid-column: 1 / -1;
 }
 
+/* No rules: Ling asked for the divider lines to come out of this band, so the rows
+   are held apart by space alone (24px between rows, 4px label to value). */
 .abt-contact-list {
   grid-column: 1 / -1;
   margin: 0;
-  border-top: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
 }
 
 .abt-contact-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 4px;
-  padding: 16px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+  padding: 24px 0 0;
 }
 
 .abt-contact-label {
@@ -1377,13 +1377,15 @@ section.abt-founder[data-band='dark'] {
   background-size: 100% 1px;
 }
 
+/* Was 8px while the last row's rule closed the list; without the rules the buttons
+   need real air after the final value. */
 .abt-contact-cta {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 24px;
-  margin-top: 8px;
+  margin-top: 40px;
 }
 
 @media (min-width: 80em) {
