@@ -81,14 +81,14 @@ const nav: NavItem[] = [
         heading: 'Industries',
         twoCol: true,
         links: [
-          ...INDUSTRIES.map((i) => ({ label: i.name, href: i.href ?? '/#industries-heading' })),
+          ...INDUSTRIES.map((i) => ({ label: i.name, href: i.href ?? '/industries' })),
         ],
       },
     ],
     widget: {
       title: 'Industries overview',
       body: 'Twelve industries, twelve cash-flow rhythms. See how capital is shaped around the way your sector earns and spends.',
-      href: '/#industries-heading',
+      href: '/industries',
       ctaLabel: 'Learn More',
       ctaAria: 'Go to the industries overview',
       image: industriesOverviewStill,

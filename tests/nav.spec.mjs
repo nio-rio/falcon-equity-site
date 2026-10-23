@@ -2504,7 +2504,7 @@ for (const vp of VIEWPORTS) {
       /* Services and Industries carry the same card, rewired to their own overview. */
       for (const card of [
         { trigger: 'menu-services', title: 'Services overview', href: '/#services' },
-        { trigger: 'menu-industries', title: 'Industries overview', href: '/#industries-heading' },
+        { trigger: 'menu-industries', title: 'Industries overview', href: '/industries' },
       ]) {
         await page.locator(`[aria-controls="${card.trigger}"]`).hover();
         await page.waitForTimeout(320);

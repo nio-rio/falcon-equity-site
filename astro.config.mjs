@@ -10,6 +10,7 @@ import { tableDataLabelsPlugin } from './src/lib/table-labels.js';
 const livePaths = new Set([
   '/',
   '/apply',
+  '/industries',
   '/services/merchant-cash-advance',
   '/services/collateral-asset-loans',
   '/services/business-line-of-credit',
@@ -73,7 +74,6 @@ const retired = {
   '/how-it-works': '/',
   '/faq': '/',
   '/services': '/',
-  '/industries': '/',
   '/blog': '/',
   '/resources/loan-calculator': '/apply',
   '/resources/credit-repair-loan-prep': '/apply',

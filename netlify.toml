@@ -79,14 +79,10 @@
   to = "/#services"
   status = 301
 
-[[redirects]]
-  from = "/industries"
-  to = "/#industries-heading"
-  status = 301
-
-# All twelve /industries/<slug> pages are live (built 2026-10-22/23), so the
-# wildcard that used to send them to the home Industries section is gone and no
-# per-slug rule replaces it. /industries itself still redirects above.
+# All twelve /industries/<slug> pages are live (built 2026-10-22/23) and the
+# /industries overview page shipped on 23 Oct, so the wildcard that used to send
+# this family to the home Industries section is gone and no /industries rule
+# replaces it. Do not re-add one: a redirect here 301s a real page.
 
 [[redirects]]
   from = "/blog"

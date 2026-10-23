@@ -70,7 +70,7 @@ export const FIRM_LINKS: NavLink[] = [
 
 export const COMPANY_LINKS: NavLink[] = [
   { label: 'About', href: '/#main' },
-  { label: 'Industries', href: '/#industries-heading' },
+  { label: 'Industries', href: '/industries' },
   { label: 'Partners', href: '/#main' },
   { label: 'Contact', href: '/#main' },
   { label: 'Apply', href: '/apply' },
@@ -85,7 +85,7 @@ export const LEGAL_LINKS: NavLink[] = [
 export const FOOTER_QUICK_LINKS: NavLink[] = [
   { label: 'About', href: '/#main' },
   { label: 'Services', href: '/#services' },
-  { label: 'Industries', href: '/#industries-heading' },
+  { label: 'Industries', href: '/industries' },
   { label: 'Blog', href: '/#insights-heading' },
   { label: 'Apply', href: '/apply' },
 ];

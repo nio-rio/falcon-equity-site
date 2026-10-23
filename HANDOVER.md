@@ -485,3 +485,40 @@ Retail is unchanged: that page was approved on its own, and its copy was transcr
 **A third ruling, after reading the drafters' own flags.** Education's *does a center have to own its building* answer asserted how underwriters weigh property. Nobody has confirmed that, so it was rewritten to rest on the published requirements instead — time in business, monthly revenue, statements and ID — which are in `services.ts` and therefore checkable.
 
 **Verification.** `npm run check` 0 errors / 0 warnings / 4 hints; `npm run build` 21 pages. Per page in the built HTML: situations and FAQ rows match `industry-pages.ts`, FAQ schema `Question` count equals the FAQ count, one `<h1>`, no meta-refresh stub. Overflow sweep with real Chrome (playwright-core, local preview) over 12 pages × 390/768/1024/1440/1920 = **60 combos with every accordion forced open: zero horizontal overflow, zero overflowing elements.** Also worth knowing for next time: another process already listens on port 4321 on this Mac (Claire's preview of the other checkout), so a local preview must be started on an explicit port or every measurement silently comes from the wrong tree.
+
+## Session 2026-10-23 — the /industries overview page
+
+**Ling:** "Create a page 'Industries' as the industries overview page, looking just like this:
+blackstone.com/insights/market-views."
+
+**Built** `src/pages/industries/index.astro` + `src/styles/industries-index.css` (`indx-` prefix). One
+band: H1, then a 4-up / 2-up / 1-up card grid of the twelve industries. Measured from the live
+reference over CDP at 1440 / 1280 / 1024 / 768 / 390 — the reference's 4 × 298 + 3 × 24 arithmetic
+inside 1264 lands our cards on the same x positions (81 / 403 / 725 / 1047), same 24px columns, same
+120px row pitch. Card anatomy is the reference's: 16:9 still, 32px, 20/30 title, meta line pinned to
+the card foot with 40px above it, which is what makes the blurbs bottom-align across a row exactly as
+Blackstone's post dates do. Full tables, including every deviation and why: `docs/industries-structure-plan.md`.
+
+**Deviations worth knowing.** (1) H1 weight is 400, not the reference's 300 — that is the family spec
+Ling set on the twelve industry pages, and the index must not read as a different site. (2) The H1 has
+no tablet step (40 → 56 at 80em) for the same reason, against the reference's 48/72. (3) The meta line
+is the sector blurb, not a date: it is the only short copy we hold per sector. (4) No per-card arrow and
+no pagination — the reference has neither, and the whole card is the link.
+
+**Route lift — four places, all done.** `/industries` was a 301 to `/#industries-heading` in
+`netlify.toml`, `public/_redirects`, and the Astro `retired` map (which is why it appeared twice), so it
+also had to move in `livePaths` or the sitemap would drop it. Links rewired in the same commit: header
+Industries panel card, footer Company + Quick links, the twelve industry pages' breadcrumb schema, and
+the home Sectors band's fallback href. `tests/nav.spec.mjs` carries the new href expectation.
+
+**Verification.** Build 22 pages, `check` clean. `dist/industries.html` 54,185 bytes with a real `<h1>`,
+no meta-refresh, 12 slug links, `ItemList` `numberOfItems: 12`, and `/industries` present in
+`sitemap-0.xml`. Overflow 0 at 390/768/1024/1280/1440/1920 and 12/12 card images confirmed loaded after
+a scroll pass. **`npm run test:nav` = 46 pass / 3 fail** — `home-testimonial-slider`,
+`home-section-spacing`, `nav-inflow-on-return`. Those three fail identically on a clean HEAD build with
+this work stashed, so they are standing branch state from the recent header and testimonial passes and
+need their own session; this page introduces no new failure.
+
+**Machine note.** This checkout's local preview had to take port 4321 by force: another `astro preview`
+(Claire's, from `~/Sites/falcon-equity-site`) was holding it, and per the 23 Oct note a second preview
+silently serves the *old* `dist`. It was killed to free the port and not restarted.
