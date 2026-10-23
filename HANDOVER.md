@@ -819,3 +819,21 @@ then corrected to "no text under 16px", and asked for the input fields' bottom r
 and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
 label still reads "Loan Calculator" while the page H1 is "Business loan calculator" — one-word change if Ling
 wants them matched. (4) Nothing links to the page except the nav: no home or service-page entry point yet.
+
+## Industry pages — products H3 (Ling, 2026-10-23) — approved, do not revert
+
+Ling: *"For industry pages products section, make H3 1.5rem font size on desktop and tablet, and no less than
+1.25rem on mobile."*
+
+- **Changed**: `.ind-products-band .mca-card-title` = **1.5rem (24px) / 36px** from `48em` up, in
+  `src/styles/industry.css`. Scoped to the industry products band only — the shared `.mca-card-title` in
+  `mca.css` still steps to 20px from `48em` for the MCA/service-page cards, which Ling did not name.
+- **Measured before** (deployed preview, `/industries/retail` and `/industries/healthcare`, identical):
+  H3 was 25px @390, **20px @768 / 1024 / 1280**, 24px @1440. H2 for reference: 32 / 32 / 40 / 40 / 48.
+- **Measured after**: H3 25px @390 (phone base untouched, above the 1.25rem floor), **24px @768 / 1024 / 1280 /
+  1440**. So tablet and the 1280 desktop were the two widths that were under 1.5rem; 1440 was already 24px.
+- **The phone stays 25px**, i.e. 1px larger than every width above it. That inversion predates this round and
+  25px satisfies Ling's floor, so it was left alone and flagged in the reply — dropping the base to 1.25rem
+  (20px) is a one-line change if she wants a monotonic ladder.
+- **Untouched**: `.mca-help-title` (still 20px from 48em), the card body (18/27/300), the card link, the H2
+  ladder, and the other five industry bands.

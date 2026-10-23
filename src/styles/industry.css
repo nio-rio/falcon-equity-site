@@ -486,6 +486,18 @@
   margin-bottom: 0;
 }
 
+/* Owner round 2026-10-23: the products H3 is 1.5rem (24px) on tablet and
+   desktop, and never under 1.25rem (20px) on the phone. mca.css steps the
+   shared .mca-card-title DOWN to 20px from 48em — that is the tablet/1280
+   value this replaces. The phone keeps its 25px base, above the floor. */
+@media (min-width: 48em) {
+  .ind-products-band .mca-card-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
 /* .mca-faq-list carries --space-head-to-content above it. */
 .ind-faq-band .mca-faq-head {
   margin-bottom: 0;
