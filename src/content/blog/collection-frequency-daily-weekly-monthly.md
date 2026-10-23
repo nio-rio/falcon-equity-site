@@ -27,7 +27,7 @@ faq:
     a: 'Read that paragraph before signing. The common outcomes are a returned-payment fee, a re-presentment a few days later, and in some agreements an event of default that can accelerate the balance. The wording differs a lot between funders, which is why it is worth comparing line by line rather than asking on a call.'
   - q: 'Can I change the schedule after funding?'
     a: 'Sometimes, and usually only if the agreement allows it. Ask whether frequency can be changed without re-underwriting, whether a change carries a fee, and whether it resets the term. A funder who can answer that in writing before you sign is telling you something useful about how the relationship will run.'
-draft: true
+draft: false
 ---
 
 Collection frequency does not change what you repay on a merchant cash advance. A $30,000 advance at a 1.30 factor costs $39,000 whether it is collected daily, weekly or monthly. What frequency changes is the number of separate withdrawals, the size of each one, and how much room you have when takings dip for a fortnight.

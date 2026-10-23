@@ -27,7 +27,7 @@ faq:
     a: 'The one covering a missed payment. It usually sets out returned-payment fees, whether a re-presentment happens automatically, what counts as an event of default, and whether the balance can be accelerated. That single paragraph tells you more about how the relationship will behave than the marketing page does.'
   - q: 'What are the red flags in a funding offer?'
     a: 'Pressure to sign the same day, no written total repayment figure, an unclear answer on who funds the deal, a request for an upfront fee before any paperwork, a contract you cannot take away to read, and coaching to overstate revenue. Any one of those is a reason to slow down.'
-draft: true
+draft: false
 ---
 
 Five checks take about ten minutes and cost nothing. Confirm who actually funds the money, look the company up in the public licensing registry, search your state UCC records, read what the contract calls the product, and find the paragraph that says what happens when a payment fails.

@@ -27,7 +27,7 @@ faq:
     a: 'The fee basis (flat or per 30 days), the advance rate, when and how the reserve is released, per-invoice and monthly minimums, whether the arrangement is recourse or non-recourse, and any termination or facility fee. Ask for all six in writing before you compare anything.'
   - q: 'How fast does Falcon invoice factoring fund?'
     a: 'Falcon invoice factoring runs from $10,000 to $3,000,000 on an ongoing facility, for B2B businesses with creditworthy customers and 3+ months in business. Funding speed depends on invoice verification, and the terms that apply to a specific file are set out in the agreement.'
-draft: true
+draft: false
 ---
 
 To compare invoice factoring quotes, divide the total fee by the cash you actually receive, then annualise it over the days the money is outstanding. The headline rate hides three things that move the answer more than the rate does: the advance rate, whether the fee accrues per 30 days or is flat, and per-invoice minimums.
