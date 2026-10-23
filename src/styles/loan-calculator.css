@@ -24,9 +24,11 @@
 section.calc-band {
   background: var(--color-white);
   color: var(--color-ink);
-  /* Bottom is 0 at every width: the homepage services band that follows is
-     also [data-band="light"], so its own stack pad supplies the gap. */
-  padding: 50px 0 0;
+  /* Ling, 2026-10-23: the gap above the services band was too small. Home's own
+     rhythm is a full --pilot-section-y bottom on the band (144 at 1280, 160 at
+     1440) plus the follower's --pilot-section-y-stack top (48), which is what
+     the stats → services boundary on / uses. */
+  padding: 50px 0 var(--pilot-section-y);
 }
 
 .calc-shell {
@@ -40,31 +42,16 @@ section.calc-band {
   align-items: start;
 }
 
+.calc-title,
 .calc-tool,
 .calc-defs {
   grid-column: 1 / -1;
   min-width: 0;
 }
 
-/* Hero: the top of an industry page's hero (`.ind-hero`), per Ling
-   (2026-10-23): no eyebrow, H1 on the left, standfirst and the circle-arrow
-   Apply in the right-hand columns, no still. Nested grid so it reproduces the
-   same 16 tracks as the sections below it. */
-.calc-hero {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 16px;
-  row-gap: 32px;
-  min-width: 0;
-}
-
-.calc-hero > * {
-  grid-column: 1 / -1;
-  min-width: 0;
-}
-
-/* 40/1.1/400, then 56/84 from 1280 — the industry hero's own ladder. */
+/* Hero is the H1 alone (Ling, 2026-10-23: "Let's just use the H1. Delete the
+   intro text and the button on hero."). Type ladder is still the industry
+   hero's: 40/1.1/400, then 56/84 from 1280, H1 in cols 1-9. */
 .calc-title {
   margin: 0;
   max-width: 20ch;
@@ -75,22 +62,6 @@ section.calc-band {
   line-height: 1.1;
   letter-spacing: normal;
   text-wrap: balance;
-}
-
-/* The industry standfirst: 18/27/300, +0.32px tracking. */
-.calc-lead {
-  margin: 0;
-  max-width: 44rem;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.calc-hero-apply {
-  margin-top: 32px;
 }
 
 .calc-tool {
@@ -106,7 +77,6 @@ section.calc-band {
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid var(--color-line);
 }
 
 .calc-tab {
@@ -417,7 +387,6 @@ section.calc-band {
   margin: 24px 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--color-lilac-dark);
 }
 
 .calc-row {
@@ -426,7 +395,6 @@ section.calc-band {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--color-lilac-dark);
 }
 
 .calc-row-label {
@@ -540,7 +508,6 @@ section.calc-band {
   column-gap: 16px;
   row-gap: 72px;
   padding-top: 32px;
-  border-top: 1px solid var(--color-line);
 }
 
 .calc-def {
@@ -554,17 +521,17 @@ section.calc-band {
 @media (max-width: 47.99em) {
   .calc-tabs {
     flex-direction: column;
+    align-items: flex-start; /* underline stays text-width, so it reads as an
+                                active tab, not another divider line */
     gap: 0;
-    border-bottom: 0;
   }
 
   .calc-tab {
     padding: 14px 0;
-    border-bottom: 1px solid var(--color-line);
   }
 
   .calc-tab::after {
-    bottom: -1px;
+    bottom: 0;
   }
 }
 
@@ -606,18 +573,11 @@ section.calc-band {
 }
 
 @media (min-width: 48em) {
-  section.calc-band {
-    padding: 50px 0 0;
-  }
-
   .calc-shell {
     grid-template-columns: repeat(8, minmax(0, 1fr));
     row-gap: 48px;
   }
 
-  .calc-hero {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
 
   .calc-results {
     padding: 40px;
@@ -663,37 +623,14 @@ section.calc-band {
 }
 
 @media (min-width: 80em) {
-  /* The calculator band hands its bottom to the services band that follows:
-     home's own same-theme stack pad (--pilot-section-y-stack) does that gap. */
-  section.calc-band {
-    padding: 50px 0 0;
-  }
-
   .calc-shell {
     grid-template-columns: repeat(16, minmax(0, 1fr));
     row-gap: 56px;
   }
 
-  .calc-hero {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-  }
-
-  /* Industry hero: H1 cols 1-9, standfirst and Apply cols 12-16. */
-  .calc-hero > .calc-title {
-    grid-column: 1 / span 9;
-  }
-
-  .calc-hero > .calc-lead {
-    grid-column: 12 / span 5;
-    max-width: none;
-  }
-
-  .calc-hero > .calc-hero-apply {
-    grid-column: 12 / span 5;
-    margin-top: 0;
-  }
-
+  /* Industry hero: the H1 holds cols 1-9. */
   .calc-title {
+    grid-column: 1 / span 9;
     font-size: 56px;
     line-height: 84px;
     max-width: 18ch;

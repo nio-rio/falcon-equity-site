@@ -839,6 +839,25 @@ on industry pages."* then *"Add the services section from homepage to under this
   home is untouched. Re-audited at 390 / 768 / 1440: the only sub-16 text left is the footer disclosure + contact
   labels (14, sitewide) and the header's compact Apply (14, 375–528px).
 
+**Round 4 (2026-10-23, same session): hero is the H1 alone, no divider rules, and the services gap follows
+home's rhythm.** Ling: *"Distance between the Section before 'services' and the services section is too little.
+Please learn from home page for distances between sections. And I changed my mind on hero. Let's just use the H1.
+Delete the intro text and the button on hero. And no need for horizontal divider lines."*
+
+- **Hero = the H1 only.** Standfirst and the `ArrowButton` deleted, and `ArrowButton` is no longer imported. The H1
+  keeps the industry ladder (40/1.1 below 1280, 56/84 from 1280) and cols 1–9; the hero's nested grid went with it,
+  so the H1 is a direct child of `.calc-shell`.
+- **Section distance now comes from home's tokens, not a hand-picked number.** Measured on `/` at 1280: bands carry a
+  full `--pilot-section-y` bottom (9rem = 144px, 160px at 1440) and the *follower* gets `--pilot-section-y-stack`
+  (3rem = 48px) — that pair is the stats → services boundary. `section.calc-band` now uses
+  `padding: 50px 0 var(--pilot-section-y)`, so the gap above SERVICES measures **120 / 136 / 219 / 216px** at
+  390 / 768 / 1280 / 1440 (it was 48 / 48 / 96 / 96).
+- **Every horizontal divider rule removed**: the tabs' 1px baseline, the `border-top` above the result rows, the
+  1px between result rows, and the `border-top` above the three definitions. The active tab's 2px underline stays —
+  and below 48em the stacked tabs are now `align-items: flex-start` so that underline is text-width, otherwise it
+  would have read as just another divider.
+- The three definitions' 3-up spacing from the industries product section is unchanged.
+
 **Still open.** (1) The page copy is a first pass in the site voice — Ling has not seen it. (2) `npm run test:nav`
 and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
 label still reads "Loan Calculator" while the page H1 is "Business loan calculator" — one-word change if Ling

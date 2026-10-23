@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ArrowButton from '@/components/ArrowButton.astro';
 import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getHomeServices } from '@/data/services';
@@ -85,15 +84,7 @@ const paymentOptions = [
   <section class="calc-band" data-band="light" aria-labelledby="calc-heading">
     <div class="container-site">
       <div class="calc-shell">
-        <div class="calc-hero">
-          <h1 id="calc-heading" class="calc-title">Business loan calculator</h1>
-          <p class="calc-lead">
-            Two offers can look the same and cost very different amounts. Put the numbers from your
-            own offer in here: this page returns what you repay each period, what the money costs in
-            total, and what a factor rate works out to over a year.
-          </p>
-          <ArrowButton class="calc-hero-apply" href="/apply" label="Apply for funding" />
-        </div>
+        <h1 id="calc-heading" class="calc-title">Business loan calculator</h1>
 
         <div class="calc-tool" data-calc-tool data-calc-mode="factor">
           <fieldset class="calc-tabs">
