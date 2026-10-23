@@ -74,9 +74,28 @@
 # this family to the home Industries section is gone and no /industries rule
 # replaces it. Do not re-add one: a redirect here 301s a real page.
 
+# /blog and /blog/<slug> are real pages (built 23 Oct), so the wildcard that used
+# to send the whole family home is gone. Netlify has no exclusion syntax, so the
+# only surviving /blog/* routes — the four category archives, which are not built
+# yet — are listed explicitly. Delete a line here when its category page ships.
 [[redirects]]
-  from = "/blog/*"
-  to = "/#insights-heading"
+  from = "/blog/category/getting-approved"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/compare-options"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/costs-and-rates"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/cash-flow-and-debt"
+  to = "/blog"
   status = 301
 
 [[redirects]]

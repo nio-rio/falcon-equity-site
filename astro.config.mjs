@@ -66,6 +66,9 @@ const blogSlugs = readdirSync(blogDir)
 
 const blogCategories = ['getting-approved', 'compare-options', 'costs-and-rates', 'cash-flow-and-debt'];
 
+/** /blog/<slug> pages ship 2026-10-23 — src/pages/blog/[slug].astro renders one per post. */
+for (const slug of blogSlugs) livePaths.add(`/blog/${slug}`);
+
 /** Astro static redirects cannot splat onto a parameter-less destination. */
 /** @type {Record<string, string>} */
 const retired = {
@@ -93,7 +96,6 @@ for (const slug of serviceSlugs) {
 for (const slug of industrySlugs) {
   if (!livePaths.has(`/industries/${slug}`)) retired[`/industries/${slug}`] = '/';
 }
-for (const slug of blogSlugs) retired[`/blog/${slug}`] = '/';
 for (const slug of blogCategories) retired[`/blog/category/${slug}`] = '/';
 
 export default defineConfig({

@@ -1,0 +1,117 @@
+---
+/**
+ * One page per published guide: /blog/<slug>.
+ *
+ * Layout from blackstone.com/insights/article/…, measured live 23 Oct 2026 at
+ * 1440 and 390 (numbers in the header comment of src/styles/blog-article.css):
+ *
+ *   title 784 wide (columns 1-10), 48/72 at 1440 and 32/48 at 390
+ *   media (16:9) directly under the title, in the same 784 slot
+ *   body 704 wide (columns 1-9), 18/27
+ *   right rail 304 wide (columns 13-16), sticky, modules separated by hairlines
+ *
+ * The reference's rail carries category + date, an author, a "Watch on YouTube"
+ * CTA, a newsletter signup and share icons. Ling, 23 Oct: *"On the right, change
+ * watch on youtube and the subscribe part to a CTA, that basically says Falcon
+ * provide fast business funding. and a button: see your options."* So the rail is
+ * category + date, then one Falcon CTA panel — no author (nobody to credit, and
+ * CLAUDE.md forbids inventing people) and no share row.
+ */
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button040 from '@/components/Button040.astro';
+import Media from '@/components/Media.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { formatDate, getPublicPosts } from '@/lib/blog';
+import { articleSchema, breadcrumbSchema } from '@/lib/schema';
+import '@/styles/blog-article.css';
+
+export async function getStaticPaths() {
+  const posts = await getPublicPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, category, date, updated, description, cover, coverAlt, seoTitle, author } = post.data;
+
+const documentTitle = seoTitle ?? `${title} | Falcon Equity Group`;
+
+const schema = [
+  articleSchema({
+    title,
+    description,
+    slug: post.id,
+    date,
+    updated,
+    author,
+    image: cover?.src,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: title, path: `/blog/${post.id}` },
+  ]),
+];
+---
+
+<BaseLayout title={documentTitle} description={description} schema={schema} disclosure={PAGE_DISCLOSURE} type="article">
+  <article class="art-band" data-band="light">
+    <div class="container-site art-layout">
+      <div class="art-main">
+        <header class="art-head">
+          {/* The rail is hidden below 80em, and the reference hides its own
+              category/date there too — so print them under the title on small
+              screens, or a reader never sees the date at all. */}
+          <p class="art-meta">
+            <span class="art-meta-category">{category}</span>
+            <span class="art-meta-sep" aria-hidden="true">·</span>
+            <time datetime={date.toISOString()}>{formatDate(date)}</time>
+          </p>
+          <h1 class="art-h1">{title}</h1>
+        </header>
+
+        {
+          cover && (
+            <div class="art-media">
+              <Media
+                image={cover}
+                alt={coverAlt}
+                intent={coverAlt || `Illustration for ${title}`}
+                ratio="16 / 9"
+                sizes="(min-width: 80em) 784px, 100vw"
+                priority
+              />
+            </div>
+          )
+        }
+
+        <div class="art-prose">
+          <Content />
+        </div>
+      </div>
+
+      <aside class="art-rail" aria-label="About Falcon Equity Group">
+        <div class="art-rail-inner">
+          <div class="art-rail-item art-rail-meta">
+            <p class="art-rail-category">{category}</p>
+            <p class="art-rail-date">
+              <time datetime={date.toISOString()}>{formatDate(date)}</time>
+            </p>
+          </div>
+
+          <div class="art-rail-item art-rail-cta">
+            <p class="art-rail-cta-title">Fast business funding</p>
+            <p class="art-rail-cta-body">
+              Falcon provides fast business funding: advances, term loans, credit lines and invoice
+              factoring, at a 0% agreement fee. A specialist reviews your file, and many products fund
+              within 24–48 hours of approval.
+            </p>
+            <Button040 href="/#services" label="See your options" variant="light" class="art-rail-button" />
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

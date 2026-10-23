@@ -1,0 +1,349 @@
+/*
+ * /blog/<slug> — one guide.
+ *
+ * Reference: blackstone.com/insights/article/…, measured LIVE in a real Chrome
+ * over CDP on 23 Oct 2026 at 1440 and 390, then our build re-measured with the
+ * same probe. The numbers this file is built from:
+ *
+ *   1440                                          | 390
+ *   ----------------------------------------------|---------------------------
+ *   page pad 32 top, 160 bottom                    | same, rail stacks below
+ *   title 704-784 wide, 48/72 w300 ls .384         | 328 wide, 32/48 w300
+ *   media 784 wide, 16:9, 32 below the title       | 328 wide, 16:9
+ *   body 704 wide, p 18/27 w300 ls .32             | 328 wide, p 18/27
+ *   h2 40/60 w300 ls .32, h3 20/30 w400 ls .16     | same
+ *   rail 304 wide at columns 13-16, pad-top 32,    | rail modules stack under
+ *     sticky, modules 24 apart, 1px rule above each|   the article
+ *
+ * Deviations, all deliberate:
+ *   · H1 weight 400, not the reference's 300 — house page-title weight.
+ *   · The rail is category+date then ONE Falcon CTA. The reference's author
+ *     block, "Watch on YouTube" CTA, newsletter form and share row are gone per
+ *     Ling's instruction (and there is no author to credit).
+ *   · Category + date print under the title below 80em, where the rail is not
+ *     visible; the reference simply drops them at that width.
+ */
+
+/* ── page frame ───────────────────────────────────────────────────────────── */
+
+.art-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding-block: 32px 120px;
+}
+
+@media (min-width: 48em) {
+  .art-band {
+    padding-block: 32px 160px;
+  }
+}
+
+.art-layout {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 48px;
+  align-items: start;
+}
+
+.art-main,
+.art-rail {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+@media (min-width: 48em) {
+  .art-layout {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 80em) {
+  .art-layout {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 0;
+  }
+
+  .art-main {
+    grid-column: 1 / span 10;
+  }
+
+  .art-rail {
+    grid-column: 13 / span 4;
+    padding-top: 32px;
+  }
+}
+
+/* ── title ────────────────────────────────────────────────────────────────── */
+
+.art-head {
+  padding-bottom: 24px;
+}
+
+.art-h1 {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+@media (min-width: 48em) {
+  .art-h1 {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 80em) {
+  .art-h1 {
+    font-size: 48px;
+  }
+}
+
+/* Category + date under the title — only where the rail is not shown. */
+.art-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.art-meta-sep {
+  color: var(--color-muted);
+}
+
+@media (min-width: 80em) {
+  .art-meta {
+    display: none;
+  }
+}
+
+/* ── media ────────────────────────────────────────────────────────────────── */
+
+.art-media {
+  margin-top: 8px;
+}
+
+@media (min-width: 48em) {
+  .art-media {
+    margin-top: 32px;
+  }
+}
+
+.art-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── body ─────────────────────────────────────────────────────────────────── */
+/* 18/27 body copy at a 704px measure, the reference's article numbers. */
+
+.art-prose {
+  margin-top: 56px;
+  max-width: 44rem;
+}
+
+@media (min-width: 80em) {
+  .art-prose {
+    margin-top: 72px;
+  }
+}
+
+.art-prose > :first-child {
+  margin-top: 0;
+}
+
+.art-prose p,
+.art-prose li {
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.art-prose p {
+  margin: 0 0 24px;
+}
+
+.art-prose h2 {
+  margin: 72px 0 24px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.32px;
+  text-wrap: balance;
+}
+
+@media (min-width: 48em) {
+  .art-prose h2 {
+    font-size: 40px;
+  }
+}
+
+.art-prose h3 {
+  margin: 40px 0 16px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+}
+
+.art-prose h2 + h3,
+.art-prose h3:first-child {
+  margin-top: 0;
+}
+
+.art-prose ul,
+.art-prose ol {
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.art-prose li {
+  margin-bottom: 8px;
+}
+
+.art-prose li::marker {
+  color: var(--color-muted);
+}
+
+.art-prose strong {
+  font-weight: 500;
+}
+
+.art-prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-muted);
+  transition: text-decoration-color 0.2s;
+}
+
+.art-prose a:hover,
+.art-prose a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.art-prose blockquote {
+  margin: 32px 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--color-ink);
+}
+
+.art-prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.art-prose figure {
+  margin: 32px 0;
+}
+
+.art-prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables. The markdown already renders them with the house `.r-table` class
+   (global.css), so this only spaces them inside the article measure. */
+.art-prose .r-table {
+  margin: 32px 0;
+}
+
+/* Checklist items: the posts use `- [ ]` task lists. Keep the box, drop the
+   bullet, and hang the row so the text still aligns to the measure. */
+.art-prose li.task-list-item {
+  list-style: none;
+}
+
+.art-prose li.task-list-item input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  margin: 0 12px 0 0;
+  vertical-align: -2px;
+  accent-color: var(--color-ink);
+}
+
+/* ── right rail ───────────────────────────────────────────────────────────── */
+
+.art-rail-inner {
+  position: sticky;
+  top: 96px;
+}
+
+.art-rail-item {
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.art-rail-item + .art-rail-item {
+  margin-top: 24px;
+}
+
+.art-rail-category {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.art-rail-date {
+  margin: 4px 0 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+/* The Falcon CTA that replaces "Watch on YouTube" + the newsletter form. */
+.art-rail-cta {
+  padding: 24px;
+  border-top: 0;
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+.art-rail-cta-title {
+  margin: 0 0 12px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+
+.art-rail-cta-body {
+  margin: 0 0 20px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 23px;
+  letter-spacing: 0.32px;
+}
+
+.art-rail-button {
+  width: 100%;
+}
