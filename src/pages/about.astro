@@ -12,6 +12,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
+import PilotStats from '@/components/pilot/PilotStats.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
@@ -134,30 +135,21 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 3. By the numbers — FAL-01: one featured figure, two side figures. -->
-  <section class="abt-stats" aria-label="By the numbers" data-band="light" data-abt-section="stats" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-stats-grid">
-        <div class="abt-stat-feat" data-reveal>
-          <p class="abt-stat-feat-label">{featuredStat.label}</p>
-          <p class="abt-stat-feat-value" data-reveal-stat="value">{featuredStat.value}</p>
-        </div>
-        <div class="abt-stat-sides" data-reveal>
-          {
-            sideStats.map((stat) => (
-              <div class="abt-stat-side">
-                <p class="abt-stat-side-label">{stat.label}</p>
-                <p class="abt-stat-side-value" data-reveal-stat="value">{stat.value}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- 3. By the numbers — the home page's own stats component (PilotStats), data swapped. -->
+  <PilotStats
+    featured={{ label: featuredStat.label, value: featuredStat.value }}
+    side={sideStats.map((stat) => ({ label: stat.label, value: stat.value }))}
+  />
 
-  <!-- 5. Founder — FAL-03: 3:4 portrait, the live site's quote, credit. -->
-  <section class="abt-founder" aria-labelledby="founder-heading" data-band="light" data-abt-section="founder" data-reveal-root>
+  <!-- 5. Founder — the BXMA quote band (blackstone.com/our-businesses/blackstone-multi-asset-investing-bxma/):
+       black band, 3:4 portrait in tracks 1-4, the quote at 40/60 in tracks 7-16, credit under it right-aligned. -->
+  <section
+    class="abt-founder on-dark"
+    aria-labelledby="founder-heading"
+    data-band="dark"
+    data-abt-section="founder"
+    data-reveal-root
+  >
     <div class="container-site">
       <div class="abt-shell abt-founder-grid">
         <div class="abt-founder-media" data-reveal>
@@ -166,8 +158,8 @@ const breadcrumbSchema = {
             intent={`Portrait of ${SITE.founder.name}, ${SITE.founder.title}`}
             alt={`${SITE.founder.name}, ${SITE.founder.title} of ${SITE.name}`}
             ratio="3 / 4"
-            sizes="(min-width: 80em) 380px, (min-width: 64em) 30vw, 22rem"
-            widths={[320, 480, 560, 760]}
+            sizes="(min-width: 80em) 304px, (min-width: 48em) 30vw, 90vw"
+            widths={[248, 304, 426, 608]}
             fallbackFormat="webp"
             quality={72}
           />
@@ -178,7 +170,10 @@ const breadcrumbSchema = {
             “Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the
             complex financial landscape to ensure your wealth works for you.”
           </blockquote>
-          <p class="abt-founder-credit">{SITE.founder.name}, {SITE.founder.title}</p>
+          <div class="abt-founder-credit">
+            <p class="abt-founder-name">{SITE.founder.name}</p>
+            <p class="abt-founder-role">{SITE.founder.title}</p>
+          </div>
         </div>
       </div>
     </div>

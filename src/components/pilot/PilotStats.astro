@@ -2,9 +2,11 @@
 /**
  * Home stats — Blackstone Tactical Opportunities `.bx-stat-featured`.
  * Measured at 1440 / 1280; see docs/refs/bx-tac-opps-stats.md.
- * Home only (`.pilot-stats-*`). Other landings keep HeroStats.
+ * Styles live in `src/styles/pilot-stats.css` and travel with this component, so a
+ * page that renders <PilotStats /> does not need the home page's whole stylesheet.
  */
 import { compactStatValue } from '@/lib/statDisplay';
+import '@/styles/pilot-stats.css';
 
 export type PilotStat = {
   label: string;

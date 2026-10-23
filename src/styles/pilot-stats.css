@@ -1,0 +1,206 @@
+/*
+ * Home stats band (.pilot-stats-*) — split out of pilot.css so any page that renders
+ * <PilotStats /> gets the band without shipping the home page's whole stylesheet.
+ * Blackstone Tactical Opportunities `.bx-stat-featured`, measured at 1440 / 1280;
+ * docs/refs/bx-tac-opps-stats.md. 16-col grid, 16px gaps.
+ * Declarations are moved verbatim — the home page is the approved spec.
+ */
+
+/* Home stats — Tac Opps `.bx-stat-featured`. Measured 1440 / 1280.
+   docs/refs/bx-tac-opps-stats.md. 16-col / 16px.
+   Label → number is 12px (`--bx-space-12`): BX 40/56/56/64 minus 3rem, floored. */
+.pilot-stats {
+  background: #fff;
+  color: var(--bx-black);
+}
+
+.pilot-stats-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-stats-feat,
+.pilot-stats-sides,
+.pilot-stats-side,
+.pilot-stats-side-value {
+  min-width: 0;
+}
+
+.pilot-stats-feat-label,
+.pilot-stats-feat-value,
+.pilot-stats-side-label,
+.pilot-stats-side-value p {
+  margin: 0;
+}
+
+.pilot-stats-feat-label {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+}
+
+.pilot-stats-feat-value {
+  margin-top: var(--bx-space-12);
+  padding-bottom: 3rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 5rem;
+  line-height: 1;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+  white-space: nowrap;
+}
+
+.pilot-stats-side {
+  margin-top: 2.5rem;
+}
+
+.pilot-stats-side-label {
+  margin-bottom: var(--bx-space-12);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+}
+
+.pilot-stats-side-value p {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+  padding-bottom: 1rem;
+}
+
+.pilot-stats-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  background: var(--bx-black);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (min-width: 48em) {
+  .pilot-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas:
+      'feat feat feat feat feat feat feat feat'
+      'sides sides sides sides sides sides sides sides';
+    align-items: start;
+  }
+
+  .pilot-stats-feat {
+    grid-area: feat;
+  }
+
+  .pilot-stats-feat-label {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+
+  .pilot-stats-feat-value {
+    padding-bottom: 3.5rem;
+    font-size: 11rem;
+  }
+
+  /* Shared rows: label row = taller label, then both numbers / rules. */
+  .pilot-stats-sides {
+    grid-area: sides;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-rows: auto auto;
+    align-items: start;
+  }
+
+  .pilot-stats-side {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+  }
+
+  .pilot-stats-side--1 {
+    grid-column: 1 / span 3;
+  }
+
+  .pilot-stats-side--2 {
+    grid-column: 6 / span 3;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-stats-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas: 'feat feat feat feat feat feat feat feat . sides sides sides sides sides sides sides';
+    align-items: start;
+  }
+
+  .pilot-stats-sides {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .pilot-stats-side--1 {
+    grid-column: 1 / span 3;
+  }
+
+  .pilot-stats-side--2 {
+    grid-column: 5 / span 3;
+  }
+
+  .pilot-stats-feat-value {
+    padding-bottom: 0;
+    font-size: 9rem;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-stats-feat-value {
+    font-size: 10rem;
+  }
+
+  .pilot-stats-side-value p {
+    font-size: 48px;
+    line-height: 72px;
+  }
+}
+
+/* Reveal half of the band's 1px rules: the shared scroll-in script adds `.is-active`
+   to the rule when the figure animates in, and the rule draws left -> right. Moved
+   here from pilot.css with the rest of `.pilot-stats*` so home and About behave the same. */
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .pilot-stats-rule {
+    transform: scaleX(0);
+  }
+
+  html.has-js .pilot-stats-rule.is-active {
+    animation: pilot-divider-line 1.125s linear forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .pilot-stats-rule,
+  html.has-js .pilot-stats-rule.is-active {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

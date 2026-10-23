@@ -901,35 +901,41 @@ section.abt-blog[data-band='light'] {
   grid-column: 1 / -1;
 }
 
-/* Band pads: same-theme seams collapse, so every band carries bottom space only. */
-section.abt-stats[data-band='light'],
-section.abt-founder[data-band='light'],
-section.abt-people[data-band='light'],
+/* Band pads: same-theme seams collapse, so every band carries bottom space only.
+   The exception is the band straight after the dark quote band — the black padding
+   belongs to the black, so the light band needs its own top space or its eyebrow
+   would sit on the seam. */
 section.abt-values[data-band='light'],
 section.abt-different[data-band='light'],
 section.abt-contact[data-band='light'] {
   padding: 0 0 80px;
 }
 
+section.abt-people[data-band='light'] {
+  padding: 80px 0;
+}
+
 @media (min-width: 64em) {
-    section.abt-stats[data-band='light'],
-    section.abt-founder[data-band='light'],
-  section.abt-people[data-band='light'],
   section.abt-values[data-band='light'],
-    section.abt-different[data-band='light'],
+  section.abt-different[data-band='light'],
   section.abt-contact[data-band='light'] {
     padding: 0 0 104px;
+  }
+
+  section.abt-people[data-band='light'] {
+    padding: 104px 0;
   }
 }
 
 @media (min-width: 80em) {
-    section.abt-stats[data-band='light'],
-    section.abt-founder[data-band='light'],
-  section.abt-people[data-band='light'],
   section.abt-values[data-band='light'],
-    section.abt-different[data-band='light'],
+  section.abt-different[data-band='light'],
   section.abt-contact[data-band='light'] {
     padding: 0 0 144px;
+  }
+
+  section.abt-people[data-band='light'] {
+    padding: 144px 0;
   }
 }
 
@@ -1006,102 +1012,6 @@ section.abt-hero[data-band='light'] {
   }
 }
 
-/* ------------------------------------------------------ by the numbers --- */
-/* FAL-01: one featured figure, then two side figures each over a 1px rule. */
-.abt-stats-grid {
-  row-gap: 56px;
-}
-
-.abt-stat-feat {
-  grid-column: 1 / -1;
-}
-
-.abt-stat-feat-label {
-  margin: 0 0 16px;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 26px;
-  letter-spacing: 0.32px;
-}
-
-.abt-stat-feat-value {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 64px;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-
-.abt-stat-sides {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 24px;
-  row-gap: 40px;
-}
-
-.abt-stat-side {
-  padding: 20px 0 0;
-  border-top: 1px solid var(--color-ink);
-}
-
-.abt-stat-side-label {
-  margin: 0 0 12px;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0.32px;
-}
-
-.abt-stat-side-value {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 300;
-  line-height: 40px;
-}
-
-@media (min-width: 64em) {
-  .abt-stat-feat {
-    grid-column: 1 / span 8;
-  }
-
-  .abt-stat-feat-value {
-    font-size: 96px;
-  }
-
-  .abt-stat-sides {
-    grid-column: 1 / span 8;
-  }
-}
-
-@media (min-width: 80em) {
-  .abt-stats-grid {
-    row-gap: 0;
-  }
-
-  .abt-stat-feat {
-    grid-column: 1 / span 6;
-  }
-
-  .abt-stat-feat-value {
-    font-size: 120px;
-  }
-
-  .abt-stat-sides {
-    grid-column: 9 / span 8;
-    align-content: end;
-    column-gap: 96px;
-  }
-}
-
 /* ----------------------------------------------------------- band head --- */
 .abt-band-head {
   row-gap: 24px;
@@ -1151,13 +1061,39 @@ section.abt-hero[data-band='light'] {
 }
 
 /* ------------------------------------------------------------- founder ---- */
+/* The BXMA quote band — blackstone.com/our-businesses/blackstone-multi-asset-investing-bxma/
+   (`.bx-quote-block`), measured in a real Chrome at 1440 / 1024 / 768 / 390 on 23 Oct 2026:
+
+     reference                                     | ours
+     ----------------------------------------------|----------------------------
+     band bg rgb(0,0,0), pad 160 / 96 / 96 / 80    | house dark token, 160 / 96 / 80
+       (1440 / 1024 / 768 / 390)                   |
+     grid 16 tracks of 64, 16 gap, container 1264  | .abt-shell, same tracks
+     portrait 4 of 16 tracks (304 wide), 3:4       | 4 of 16 at 80em, 3 of 8 at 48em,
+       (natural 965x1280 = 0.754), top-aligned     |   full width under that
+     image -> quote gap 176 (1440), 104 (1024/768) | empty tracks 5-6 / column 4
+     quote 40/60 w300 ls .32, white, 20px below    | same sizes, house display face
+       the still's top; 32/48 at 1024 & 768,       |   (the reference's Guardian Sans is
+       24/36 at 390                                |   their body face; ours is display)
+     quote -> credit 96 (1440) / 80 (1024/768) /   | same
+       48 (390)
+     credit right-aligned in the last 4 tracks:    | text-align right on the column
+       name 20/30 w400 over role 16/24 w300, 12    |
+       apart, both ls .32, white                   | same
+     stacked under 48em: still, 76 gap, quote      | same
+*/
+section.abt-founder[data-band='dark'] {
+  padding: 80px 0;
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
 .abt-founder-grid {
-  row-gap: 40px;
+  row-gap: 76px;
 }
 
 .abt-founder-media {
   grid-column: 1 / -1;
-  max-width: 22rem;
 }
 
 .abt-founder-media .media,
@@ -1172,58 +1108,90 @@ section.abt-hero[data-band='light'] {
 
 .abt-founder-quote {
   margin: 0;
-  color: var(--color-ink);
+  color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 300;
-  line-height: 38px;
-  letter-spacing: normal;
+  line-height: 36px;
+  letter-spacing: 0.32px;
   text-wrap: pretty;
 }
 
 .abt-founder-credit {
-  margin: 32px 0 0;
-  color: var(--color-ink);
+  margin-top: 48px;
+  text-align: right;
+}
+
+.abt-founder-name {
+  margin: 0;
+  color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 21px;
+  line-height: 30px;
   letter-spacing: 0.32px;
 }
 
-@media (min-width: 64em) {
-  .abt-founder-media {
-    grid-column: 1 / span 4;
-    max-width: none;
-  }
-
-  .abt-founder-copy {
-    grid-column: 1 / span 8;
-  }
-
-  .abt-founder-quote {
-    font-size: 30px;
-    line-height: 44px;
-  }
+.abt-founder-role {
+  margin: 12px 0 0;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.32px;
 }
 
-@media (min-width: 80em) {
+@media (min-width: 48em) {
+  section.abt-founder[data-band='dark'] {
+    padding: 96px 0;
+  }
+
   .abt-founder-grid {
     row-gap: 0;
   }
 
+  /* 248 wide = 3 of 8 tracks, then one empty track before the quote. */
   .abt-founder-media {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 3;
   }
 
   .abt-founder-copy {
-    grid-column: 7 / span 10;
-    align-self: center;
+    grid-column: 5 / -1;
+    padding-top: 20px;
   }
 
   .abt-founder-quote {
     font-size: 32px;
     line-height: 48px;
+  }
+
+  .abt-founder-credit {
+    margin-top: 80px;
+  }
+}
+
+@media (min-width: 80em) {
+  section.abt-founder[data-band='dark'] {
+    padding: 160px 0;
+  }
+
+  /* 304 wide = 4 of 16 tracks; the quote starts at track 7 after two empty tracks. */
+  .abt-founder-media {
+    grid-column: 1 / span 4;
+  }
+
+  .abt-founder-copy {
+    grid-column: 7 / -1;
+  }
+
+  .abt-founder-quote {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .abt-founder-credit {
+    margin-top: 96px;
   }
 }
 

@@ -10,6 +10,59 @@ pushed to Notion the same day). Ten bands, in the order written there — no ban
 Donor ids are from `docs/section-library-live/LIBRARY.md`. Numbers below were measured on the live
 reference in real Chrome over CDP, not read off a screenshot.
 
+## Revision 3 — 23 Oct 2026: the home stats band, and the BXMA quote band
+
+Two more instructions, same day, both with a visual: *"This is how the quote section should look like.
+Learn exact spacing, font sizes, responsiveness etc"* (with a crop of
+`blackstone.com/our-businesses/blackstone-multi-asset-investing-bxma/`) and *"Stats section should just
+copy the one from home page and swap the data."*
+
+### Band 3, by the numbers — the home component, different figures
+
+The band is now `<PilotStats />`, the exact component the home page renders, fed `$100M+ / Funding
+deployed` as the featured figure and `15 / Years of experience`, `300+ / Businesses helped` beside it. No
+goodbye to the copy contract and no new component: one component, two pages.
+
+`pilot.css` is imported by `index.astro` only, so dropping the component in gave an unstyled band (the
+featured figure measured 16px). Rather than ship the home page's 54KB stylesheet to About, the
+`.pilot-stats-*` rules — and the two `.pilot-stats-rule` reveal rules — moved verbatim into
+`src/styles/pilot-stats.css`, which the component imports. Measured the home band at 1440 before and after
+the move: **0 differences** across section box, padding, grid, featured label/value type, and both side
+cells.
+
+### Band 5, founder — the BXMA quote band
+
+Measured live in a real Chrome over CDP at 1440 / 1024 / 768 / 390 (the page is Cloudflare-protected, so
+curl and headless both fail; the offscreen real window reads it). `.bx-quote-block`:
+
+| | reference | ours |
+| --- | --- | --- |
+| band | full-bleed, bg `rgb(0,0,0)`, padding 160 / 96 / 96 / 80 | full-bleed, house dark token `#14101f`, 160 / 96 / 96 / 80 |
+| grid | 16 tracks of 64, 16px gaps, container 1264 | `.abt-shell`, same tracks |
+| portrait | 4 of 16 tracks = 304 wide, 3:4 (natural 965×1280 = 0.754), top-aligned | 304 wide, 3:4, top-aligned |
+| still → quote | 176 at 1440, 104 at 1024 and 768 | same rule (empty tracks 5–6 at 16, column 4 at 8) |
+| quote | 40/60 w300, ls 0.32, white, 20px below the still's top; 32/48 at 1024 & 768; 24/36 at 390 | same sizes, house display face |
+| quote → credit | 96 at 1440, 80 at 1024/768, 48 at 390 | same |
+| credit | right-aligned in the last 4 tracks: name 20/30 w400 over role 16/24 w300, 12 apart, both ls 0.32, white | same, `text-align: right` on the quote column |
+| under 48em | still, 76 gap, quote, credit — all full width | same |
+
+The reference's quote face is Guardian Sans, their body face; ours is At Gambit with the same weight and
+letter-spacing, so the band reads as this site rather than as a pasted Blackstone band. The reference has
+no eyebrow and no heading, and neither does this band — the `<h2>` stays `sr-only`.
+
+### Band 6, our people — top space added
+
+The band above is now dark, and the black padding belongs to the black. Without a top pad the "Our people"
+eyebrow sat on the seam, so this band now carries 80 / 104 / 144 top as well as bottom.
+
+### Verified (revision 3)
+
+Probed at 1440 / 1024 / 768 / 390: founder padding 160 / 96 / 96 / 80, portrait 304×405 at 1440 and
+328×437 at 390, still → quote 176 / 136 / 104, quote 40/60 → 32/48 → 24/36, quote → credit 96 / 80 / 48,
+name 20/30 w400 over role 16/24 w300 12 apart, credit flush with the quote column's right edge, stats
+band rendering the home component's 160px featured figure. `overflow: 0` at every width, `npm run build`
+clean, `npm run check` 0 errors, `test:titles` passes.
+
 ## Revision 2 — 23 Oct 2026: copy and structure re-cut from Notion
 
 Ling revised the note itself (*"I have changed about page copy and structure on notion"*) and asked for the

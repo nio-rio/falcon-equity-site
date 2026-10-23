@@ -837,3 +837,30 @@ Ling: *"For industry pages products section, make H3 1.5rem font size on desktop
   (20px) is a one-line change if she wants a monotonic ladder.
 - **Untouched**: `.mca-help-title` (still 20px from 48em), the card body (18/27/300), the card link, the H2
   ladder, and the other five industry bands.
+
+### About — home stats band + BXMA quote band (2026-10-23, revision 3)
+
+Two more asks in the same thread: *"This is how the quote section should look like. Learn exact spacing,
+font sizes, responsiveness etc"* (with a crop of blackstone.com/our-businesses/blackstone-multi-asset-
+investing-bxma/) and *"Stats section should just copy the one from home page and swap the data."*
+
+**By the numbers** is now `<PilotStats />` — the home page's own component — with `$100M+ / Funding
+deployed` featured and `15` / `300+` beside it. `pilot.css` was only imported by `index.astro`, so the
+component arrived unstyled (featured figure measured 16px). The `.pilot-stats-*` rules and the two
+`.pilot-stats-rule` reveal rules moved verbatim into `src/styles/pilot-stats.css`, imported by the
+component, so About does not ship the home page's 54KB stylesheet. Home band probed at 1440 before and
+after the move: **0 differences**.
+
+**Founder** is now the BXMA `.bx-quote-block`, measured live over CDP at 1440 / 1024 / 768 / 390
+(Cloudflare, so a real offscreen Chrome window, not curl): black band, padding 160 / 96 / 96 / 80,
+portrait 4 of 16 tracks at 3:4, still → quote 176 / 104, quote 40/60 → 32/48 → 24/36 w300 white, 20px
+below the still's top, quote → credit 96 / 80 / 48, credit right-aligned with the name at 20/30 w400 over
+the role at 16/24 w300, 12 apart. The band is `data-band="dark"` + `on-dark`, using the house dark token
+rather than the reference's pure black, and the quote keeps the house display face.
+
+**Our people** gained 80 / 104 / 144 top padding: the band above is dark now, and the black padding belongs
+to the black, so the eyebrow would otherwise sit on the seam.
+
+Probed at all four widths: `overflow: 0`, founder and stats geometry as tabled in
+`docs/about-structure-plan.md` revision 3, `npm run build` clean, `npm run check` 0 errors, `test:titles`
+passes.
