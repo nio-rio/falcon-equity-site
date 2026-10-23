@@ -538,49 +538,40 @@ screenshot + a `selector not found` came from the wrong checkout's `dist` while 
 correct. Local preview now runs on **4400**; confirm the `<title>` and body size of the route before
 believing any measurement, exactly as §6 of the reference-site skill says.
 
-### Blog index `/blog` — "The Falcon Brief" (2026-10-23, owner request)
+### Blog index `/blog` — the article list (2026-10-23, owner request)
 
-Ling: *"blackstone.com/insights — Build a 'Blog' /blog page just like this."*
+Ling, first pass: *"blackstone.com/insights — Build a 'Blog' /blog page just like this."* Then, after
+reviewing it: *"Don't use the notion note for blog page. Just a simple page that listed out all the
+articles. Just learn or even copy the layout from the insight page I sent you."*
+
+**So the page is now only what the reference is: a title and a grid of articles.** The first pass had
+built the Notion copy contract's sections (answer-first block, "Start here", category rows, Load More
+pager). All of it came out: answer block, takeaways, category filter, pager, empty state, and the
+filter/pager script. Eight guides are published, so every one of them is listed and there is nothing
+to page.
 
 **Reference measured live, not remembered.** `blackstone.com/insights` in a real Chrome over CDP at
-1440 / 1024 / 768 / 390, then our build re-measured with the same probe. The full table (and every
-deviation, stated) is `docs/blog-index-structure-plan.md`. Headline numbers: page header pad
-48/0/120 with H1 56/84 in cols 1–9 and the standfirst in 12–16; archive 4-up, card 298 wide, image
-16:9; label 14/21 w400 uppercase, title 20/30 w300, date 16/24 pinned to the card foot with
-`margin-top: auto`; row rhythm 120; pager = "Load More" + 40px circle-arrow rotated 90° + 1px
-divider + one dot per page (active 24 ring, idle 12, 16 apart).
+1440 / 1024 / 768 / 390, then our build re-measured with the same probe. Page header pad 48/0/120
+with the H1 56/84 in columns 1–9; grid 4-up, card 298 wide, image 16:9; label 14/21 w400 uppercase,
+title 20/30 w300, date 16/24 pinned to the card foot so dates line up across a row; row rhythm 120;
+links draw a 1px rule left → right in 0.3s. Full table and both deviations (H1 weight 400 to match
+the house page title; fluid card tracks instead of the reference's fixed 298px items):
+`docs/blog-index-structure-plan.md`.
 
-**What shipped.** `src/pages/blog.astro` (six bands: page header · answer first · start here ·
-browse by category · latest guides · empty state, with the shared `SiteCta` closing the page),
-`src/components/BlogCard.astro` (one card, used by both card bands), `src/styles/blog-index.css`
-(prefix `blg-`, every number in the file's header comment traced to the reference), and
-`src/scripts/blog-index.ts` (category filter + Load More/dots pager).
-
-**Adaptations worth knowing** (all in the plan doc): no hero photograph (the reference header has
-none); H1 weight 400 to match the house page title; the contract's category *links* became in-page
-filter buttons because `/blog/category/<slug>` still 301s home; the archive is the reference's 4-up
-rather than the contract's two-column grid; page size 8, so Load More is dormant with today's 8
-published guides and appears when the 9th publishes (the pager was exercised end-to-end at page size
-4 — reveal, dot-current, filtered view — during the build).
+**Files:** `src/pages/blog.astro` (header + list, closing with the shared `SiteCta`),
+`src/components/BlogCard.astro` (the one card), `src/styles/blog-index.css` (`blg-` prefix, every
+number traced to the reference in the file's header comment).
 
 **Route lift, four places:** `astro.config.mjs` (`/blog` into `livePaths`, out of `retired`;
 `/blog/<slug>` and `/blog/category/<slug>` stay retired), `netlify.toml` (exact `/blog` rule out,
-`/blog/*` kept), `public/_redirects` (same), and the nav: `RESOURCE_LINKS` + `FOOTER_QUICK_LINKS` in
-`src/data/site.ts` and two hardcoded header hrefs now point at `/blog`.
+`/blog/*` kept), `public/_redirects` (same), and the nav (`RESOURCE_LINKS` + footer list in
+`src/data/site.ts`, plus the header dropdown and its widget link).
 
-**Verified on the build:** `dist/blog.html` real `<h1>`, no meta refresh, 11 cards (3 + 8), 5
-filters, `/blog` in `sitemap-0.xml`; `npm run build`, `npm run check` (0 errors/0 warnings) and
-`npm run test:titles` (now asserts this route) pass; no horizontal overflow at 320 / 390 / 768 /
-1024 / 1440; dates align across a row at 2- and 3-line titles.
+**Verified on the build:** `dist/blog.html` real `<h1>`, no meta refresh, 8 cards, 2434px at 1440, in
+`sitemap-0.xml`, and zero leftover hooks from the removed bands. Geometry matches the reference table
+above at all four widths; no horizontal overflow at 320 / 390 / 768 / 1024 / 1440; dates align across
+a row with 2- and 3-line titles. `npm run build`, `npm run check` (0 errors / 0 warnings) and
+`npm run test:titles` (now asserts this route) pass.
 
-**Still open:** `/blog/<slug>` has no page, so every card currently lands on the home page via the
-`/blog/*` 301. The article template is the next dependency; `/blog/category/<slug>` likewise.
-
-**Follow-up 3 — closing pad.** *"There's only one section above CTA section on this page. I think that
-section bottom padding doesn't seem enough. Learn from the last section on home page."* Correct: the
-reference ends on its last card row with 64px because its footer is directly underneath, but our page
-hands off to the sitewide CTA. Measured the built home page at 1440 — the last band above the CTA
-(`.pilot-news`) has `padding-bottom: 160px`, i.e. the full `--pilot-section-y` token, 140px of visible
-air to the CTA. `.indx-band` now uses `padding-bottom: var(--pilot-section-y)` (80/96/144/160) and keeps
-the reference's header pad on top only. Re-measured on the build: 160px bottom pad, 160px content-to-CTA
-gap, overflow still 0 and 12/12 images loading.
+**Still open:** `/blog/<slug>` has no page, so every card lands on the home page via the `/blog/*`
+301. The article template is the next dependency.

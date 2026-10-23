@@ -1,81 +1,34 @@
 ---
 /**
- * /blog — "The Falcon Brief", the blog index.
+ * /blog — every published guide, newest first.
  *
- * Layout source: blackstone.com/insights, measured live 23 Oct 2026 at 1440 /
- * 1024 / 768 / 390 (numbers in the header comment of src/styles/blog-index.css).
- * Content source: the approved copy contract, Notion "Blog index — page copy
- * (/blog)" (402eacd0-19c7-81be-bef3-fdb370c836e8). Every adaptation between the
- * two is written down in docs/blog-index-structure-plan.md.
+ * Layout copied from blackstone.com/insights, measured live 23 Oct 2026 at
+ * 1440 / 1024 / 768 / 390 (numbers and the diff against our build:
+ * docs/blog-index-structure-plan.md):
  *
- * Six bands, mirroring the contract's seven sections (the closing CTA is the
- * shared SiteCta that BaseLayout already renders above the footer):
- *   1 page header ....... reference .bx-page-header, H1 cols 1-9 + lead 12-16
- *   2 answer first ...... contract §2, house AEO block (no reference donor)
- *   3 start here ........ contract §3, three cards in the reference's anatomy
- *   4 browse by category  contract §4, four filter rows (the reference's filter
- *                         lives in a slide-in dialog)
- *   5 latest guides ..... contract §5, the reference's 4-up archive + pager
- *   6 empty state ....... contract §6, rendered only when nothing is published
+ *   page header  pad 48/0/120, H1 56/84 in columns 1-9
+ *   article grid 4-up at 1440, 2-up at 1024 and 768, 1-up at 390,
+ *                card 298 wide, image 16:9, column gap 24, row gap 120
+ *   card         category label 14/21 w400 UPPERCASE, title 20/30 w300,
+ *                date 16/24 pinned to the foot so dates line up across a row
+ *   link         no underline at rest; a 1px rule draws left to right in 0.3s
+ *
+ * Nothing else: no intro, no filters, no pager. Eight guides published, all of
+ * them listed.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
-import CircleArrow from '@/components/CircleArrow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { BLOG_CATEGORIES, BLOG_CATEGORY_DESCRIPTION } from '@/data/blog';
-import { categorySlug, formatDate, getPublicPosts } from '@/lib/blog';
+import { getPublicPosts } from '@/lib/blog';
 import { breadcrumbSchema } from '@/lib/schema';
 import '@/styles/blog-index.css';
 
-const TITLE = 'The Falcon Brief | Business funding guides | Falcon Equity Group';
+const TITLE = 'Blog | Falcon Equity Group';
 const DESCRIPTION =
-  'Practical guides to business funding from Falcon Equity Group: how advances, term loans, credit lines and factoring work, and what underwriters read before a decision.';
-
-const H1 = 'The Falcon Brief';
-const LEAD = 'Practical funding guides, written for the owner who has to sign the agreement.';
-
-const ANSWER =
-  "The Falcon Brief is Falcon Equity Group's library of business funding guides. The articles are grouped into four categories — Getting Approved, Compare Options, Costs & Rates, and Cash Flow & Debt — and each one explains how a product works, what it costs, or what an underwriter reads before a decision.";
-
-const TAKEAWAYS = [
-  'Four categories, one subject: how business funding actually works.',
-  "Guides use Falcon's published product figures and no invented statistics.",
-  'Every guide ends with what it cannot tell you, so it is useful before you apply and while you compare offers.',
-  'Nothing in the library overrides your agreement or advice from your own accountant.',
-];
-
-/** Contract §3 — these three, in this order. */
-const START_HERE_IDS = [
-  '24-48-hour-funding-checklist',
-  'merchant-cash-advance-vs-business-term-loan',
-  'how-to-read-a-factor-rate',
-];
-
-/**
- * How many cards the archive shows before "Load More". Two complete rows at the
- * reference's 4-up grid, which is one chunky row group on a phone. With 8 guides
- * published today the pager stays dormant; the 12 guides still in draft push it
- * live, and `data-paged` flips the moment posts.length exceeds this.
- */
-const PAGE_SIZE = 8;
+  'Every guide from Falcon Equity Group: how merchant cash advances, term loans, credit lines and invoice factoring work, and what underwriters read before a decision.';
+const H1 = 'Blog';
 
 const posts = await getPublicPosts();
-
-const startHere = START_HERE_IDS.map((id) => posts.find((post) => post.id === id)).filter(
-  (post): post is (typeof posts)[number] => Boolean(post),
-);
-
-const categories = BLOG_CATEGORIES.map((name) => ({
-  name,
-  slug: categorySlug(name),
-  description: BLOG_CATEGORY_DESCRIPTION[name],
-  count: posts.filter((post) => post.data.category === name).length,
-}));
-
-const paged = posts.length > PAGE_SIZE;
-const dotCount = paged ? Math.ceil(posts.length / PAGE_SIZE) : 0;
-const newest = posts[0];
 
 const schema = [
   breadcrumbSchema([
@@ -85,7 +38,7 @@ const schema = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: H1,
+    name: TITLE,
     description: DESCRIPTION,
     url: 'https://falconequity.ai/blog',
     hasPart: posts.map((post) => ({
@@ -94,7 +47,6 @@ const schema = [
       datePublished: post.data.date.toISOString().slice(0, 10),
       url: `https://falconequity.ai/blog/${post.id}`,
     })),
-    ...(newest ? { dateModified: newest.data.updated.toISOString().slice(0, 10) } : {}),
   },
 ];
 ---
@@ -114,151 +66,21 @@ const schema = [
     </script>
   </Fragment>
 
-  {/* 1 page header — reference .bx-page-header: H1 cols 1-9, standfirst 12-16.
-      No hero photograph: the reference header has none, and a 16:9 still above a
-      16:9 card grid repeats the same gesture twice. */}
-  <section class="blg-header" aria-labelledby="blog-heading" data-band="light" data-blg-section="header">
+  {/* Page header — reference .bx-page-header: H1 in columns 1-9, nothing beside it. */}
+  <section class="blg-header" aria-labelledby="blog-heading" data-band="light">
     <div class="container-site">
-      <div class="blg-shell blg-hero-grid">
+      <div class="blg-shell">
         <h1 id="blog-heading" class="blg-h1">{H1}</h1>
-        <p class="blg-lead">{LEAD}</p>
       </div>
     </div>
   </section>
 
-  {/* 2 answer first — contract §2. No reference donor: Blackstone's insights
-      page has no answer block, this is the house AEO pattern. */}
-  <section class="blg-band blg-band--tint" aria-label="What The Falcon Brief is" data-band="light">
+  {/* The list — the reference's archive grid, every published guide, newest first. */}
+  <section class="blg-archive" aria-label="All guides" data-band="light" data-reveal-root>
     <div class="container-site">
-      <div class="blg-shell blg-answer-grid">
-        <p class="blg-answer">{ANSWER}</p>
-        <ul class="blg-takeaways">
-          {TAKEAWAYS.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  {/* 3 start here — contract §3. Three cards, reference card anatomy. */}
-  {
-    startHere.length > 0 && (
-      <section class="blg-band" aria-labelledby="start-heading" data-band="light" data-reveal-root>
-        <div class="container-site">
-          <div class="blg-shell">
-            <div class="blg-block-head" data-reveal>
-              <Eyebrow>Start here</Eyebrow>
-              <h2 id="start-heading">Three guides that answer the first questions.</h2>
-            </div>
-          </div>
-          <div class="blg-cards blg-cards--3" data-reveal>
-            {startHere.map((post) => (
-              <BlogCard post={post} loading="eager" />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {/* 4 browse by category — contract §4. The reference hides its filters in a
-      dialog; ours are four visible rows that filter the archive below in place,
-      because /blog/category/<slug> still redirects to the home page. */}
-  <section class="blg-band blg-band--tint" aria-labelledby="browse-heading" data-band="light" data-reveal-root>
-    <div class="container-site">
-      <div class="blg-shell">
-        <div class="blg-block-head" data-reveal>
-          <Eyebrow>Browse</Eyebrow>
-          <h2 id="browse-heading">Four categories.</h2>
-        </div>
-      </div>
-      <ul class="blg-cat-list" data-reveal>
-        <li>
-          <button type="button" class="blg-cat" data-blg-filter="all" aria-pressed="true">
-            <span class="blg-cat-name">All guides</span>
-            <span class="blg-cat-count">{posts.length} guides</span>
-            <span class="blg-cat-desc">Everything published, newest first.</span>
-          </button>
-        </li>
-        {categories.map((category) => (
-          <li>
-            <button
-              type="button"
-              class="blg-cat"
-              data-blg-filter={category.slug}
-              aria-pressed="false"
-            >
-              <span class="blg-cat-name">{category.name}</span>
-              <span class="blg-cat-count">
-                {category.count} {category.count === 1 ? 'guide' : 'guides'}
-              </span>
-              <span class="blg-cat-desc">{category.description}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  {/* 5 latest guides — contract §5 with the reference's grid and pager:
-      newest first, category label / title / date, four across at 1440. */}
-  <section class="blg-band" aria-labelledby="latest-heading" data-band="light" data-reveal-root>
-    <div class="container-site">
-      <div class="blg-shell">
-        <div class="blg-archive-head" data-reveal>
-          <div class="blg-block-head">
-            <Eyebrow>Latest</Eyebrow>
-            <h2 id="latest-heading">Newest first.</h2>
-          </div>
-          <p class="blg-count" data-blg-count aria-live="polite">
-            {posts.length} {posts.length === 1 ? 'guide' : 'guides'}
-          </p>
-        </div>
-      </div>
-
-      <div
-        class="blg-cards"
-        data-blg-archive
-        data-page-size={PAGE_SIZE}
-        data-paged={paged ? 'true' : 'false'}
-        data-reveal
-      >
+      <div class="blg-cards" data-reveal>
         {posts.map((post) => <BlogCard post={post} />)}
       </div>
-
-      {posts.length === 0 && (
-        <p class="blg-empty">
-          New guides are on the way. In the meantime, the home page explains how funding works, and a
-          specialist can answer the questions owners ask before applying.
-        </p>
-      )}
-
-      {paged && (
-        <div class="blg-pager" data-blg-pager>
-          <button type="button" class="blg-load" data-blg-load>
-            <span class="blg-load-label">Load More</span>
-            <CircleArrow />
-          </button>
-          <span class="blg-pager-rule" aria-hidden="true"></span>
-          <ul class="blg-dots">
-            {Array.from({ length: dotCount }, (_, i) => (
-              <li>
-                <button
-                  type="button"
-                  class="blg-dot"
-                  data-blg-dot={i}
-                  aria-current={i === 0 ? 'true' : 'false'}
-                  aria-label={`Show guides, page ${i + 1} of ${dotCount}`}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   </section>
-
-  <script>
-    import '@/scripts/blog-index';
-    import '@/scripts/scroll-in';
-  </script>
 </BaseLayout>

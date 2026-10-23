@@ -1,80 +1,61 @@
 /*
- * /blog — the Blog index ("The Falcon Brief").
+ * /blog — the article list.
  *
- * Reference: blackstone.com/insights, captured LIVE in a real Chrome over CDP on
- * 23 Oct 2026 at 1440 / 1024 / 768 / 390 and re-measured after the build with
- * scripts/cdp_measure_own_page.cjs. Numbers below are that measurement, not an
- * impression of the page.
+ * Layout copied from blackstone.com/insights, captured LIVE in a real Chrome over
+ * CDP on 23 Oct 2026 at 1440 / 1024 / 768 / 390, then our build re-measured with
+ * the same probe. Every number below is that measurement:
  *
  *   reference                                        | ours
  *   -------------------------------------------------|---------------------------
- *   page header .bx-page-header: H1 cols 1-9,        | .blg-h1 cols 1-9,
- *     pad 48/0/120 at 1440, 56/0/96 at 1024 & 768,   |   48/0/120 at 90em,
- *     40/0/80 at 390; H1 56/84 at 1440, 48/72 at      |   56/0/96 at 48-90em,
- *     1024 & 768, 40/60 at 390, ls 0.008em, w300     |   40/0/80 under that;
- *                                                    |   56/84, 48/72, 40/60, w400
- *   description (standfirst) cols 12-16, sans 18/27, | .blg-lead cols 12-16,
- *     letter-spacing .02rem, align-self start        |   sans 18/27, .02rem
- *   card row: 4-up, column-gap 24, card 298 wide at  | .blg-cards 4-up,
- *     1440; 2-up at 1024 & 768; 1-up at 390           |   gap 24; 2-up, 1-up
- *   card image 298x168 = 16:9, object-fit cover       | same (Media ratio 16/9)
- *   label 14/21 w400 ls .32 UPPERCASE, pad 32/0/16    | same
+ *   page header pad 48/0/120 at 1440, 56/0/96 at     | same
+ *     1024 & 768, 40/0/80 at 390                      |
+ *   H1 56/84 at 1440, 48/72 at 1024 & 768, 40/60 at  | same sizes; weight 400
+ *     390, ls 0.008em, in columns 1-9                 |   (house page title)
+ *   article grid 4-up, card 298 wide, column gap 24  | same; 2-up at 1024/768,
+ *                                                    |   1-up at 390
+ *   card image 298x168 = 16:9, object-fit cover      | same
+ *   label 14/21 w400 ls .32 UPPERCASE, pad 32/0/16   | same
  *   title 20/30 w300 ls .16                          | same
- *   date 16/24 w300 ls .32, padding-top 40,          | same, margin-top:auto so
- *     margin-top:auto (dates align across a row)     |   dates align across a row
- *   links: no underline at rest; hover/focus draws a | same (0.3s)
- *     1px underline left→right in 0.3s (background-  |
- *     size 0 1px → 100% 1px)
+ *   date 16/24 w300 ls .32, padding-top 40,          | same; margin-top auto so
+ *     margin-top auto (dates align across a row)     |   the dates line up
+ *   links: no underline at rest, a 1px rule draws    | same (0.3s)
+ *     left to right in 0.3s on hover                 |
  *   row rhythm 120 at 1440, 88 at 1024/768, 80 at 390| same
- *   Load More row: "Load More" 18/27 + 40px circle-  | same, icon rotated 90°
- *     arrow rotated 90°, 24px margin, 1px divider,   |   (our CircleArrow fills
- *     dots 16px apart (active 24 ring, idle 12 dot)  |   on hover), dots same
  *
- * Deliberate deviations — all of them stated in docs/blog-index-structure-plan.md:
- *   · H1 weight 400, not the reference's 300: the house page title on this site
- *     is 400 (`.mca-hero h1`, `.ind-h1`), and Ling asked for that parity.
- *   · No hero photograph. The reference header has none, and a 16:9 still directly
- *     above a 16:9 card grid repeats the same gesture twice.
- *   · Card grids are fluid (1fr tracks) rather than the reference's fixed 298px
- *     flex items, which leave 68px of slack at 1024 on a 688 container.
- *   · The reference has no AEO band, no category rows and no "start here" row;
- *     those are the copy contract's sections, built in the reference's card and
- *     rule grammar so the page still reads as one system.
+ * Two deliberate differences, both stated in docs/blog-index-structure-plan.md:
+ *   · H1 weight 400, not the reference's 300 — the house page title on this site
+ *     is 400 (.mca-hero h1, .ind-h1).
+ *   · Card tracks are fluid (1fr) rather than the reference's fixed 298px flex
+ *     items, which leave 68px of slack on a 688 container at 1024.
  */
 
-/* ── band + shell ─────────────────────────────────────────────────────────── */
+/* ── page header ──────────────────────────────────────────────────────────── */
 
-.blg-band {
+.blg-header {
   background: var(--color-white);
   color: var(--color-ink);
-  padding-block: 64px;
-}
-
-.blg-band--tint {
-  background: var(--color-lilac-lightest);
+  padding-block: 40px 80px;
 }
 
 @media (min-width: 48em) {
-  .blg-band {
-    padding-block: 88px;
+  .blg-header {
+    padding-block: 56px 96px;
   }
 }
 
 @media (min-width: 90em) {
-  .blg-band {
-    padding-block: 104px;
+  .blg-header {
+    padding-block: 48px 120px;
   }
 }
 
-/* 16-track shell with the house 16px gutters. Every child spans the full width
-   unless a rule below says otherwise: an un-named child would otherwise be
-   auto-placed into one 64px track. */
+/* 16-track shell with the house 16px gutters; children span the full width
+   unless a rule says otherwise, so nothing is auto-placed into one 64px track. */
 .blg-shell {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 16px;
-  row-gap: 32px;
   width: 100%;
 }
 
@@ -92,26 +73,6 @@
 @media (min-width: 80em) {
   .blg-shell {
     grid-template-columns: repeat(16, minmax(0, 1fr));
-  }
-}
-
-/* ── 1. page header — reference .bx-page-header ───────────────────────────── */
-
-.blg-header {
-  background: var(--color-white);
-  color: var(--color-ink);
-  padding-block: 40px 80px;
-}
-
-@media (min-width: 48em) {
-  .blg-header {
-    padding-block: 56px 96px;
-  }
-}
-
-@media (min-width: 90em) {
-  .blg-header {
-    padding-block: 48px 120px;
   }
 }
 
@@ -138,105 +99,25 @@
   }
 }
 
-.blg-lead {
-  margin: 0;
-  max-width: 40ch;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.02rem;
+/* ── the list ─────────────────────────────────────────────────────────────── */
+
+.blg-archive {
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding-block: 0 80px;
 }
 
-@media (min-width: 80em) {
-  .blg-hero-grid > .blg-h1 {
-    grid-column: 1 / span 9;
-  }
-
-  .blg-lead {
-    grid-column: 12 / span 5;
-    align-self: start;
+@media (min-width: 48em) {
+  .blg-archive {
+    padding-block: 0 96px;
   }
 }
 
-/* ── 2. answer first (house AEO block; no reference donor) ────────────────── */
-
-.blg-answer-grid {
-  row-gap: 32px;
-}
-
-.blg-answer {
-  margin: 0;
-  max-width: 46ch;
-  font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 30px;
-  letter-spacing: 0.16px;
-}
-
-@media (min-width: 80em) {
-  .blg-answer-grid > .blg-answer {
-    grid-column: 1 / span 9;
-  }
-
-  .blg-takeaways {
-    grid-column: 12 / span 5;
+@media (min-width: 90em) {
+  .blg-archive {
+    padding-block: 0 120px;
   }
 }
-
-.blg-takeaways {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--color-line);
-}
-
-.blg-takeaways li {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--color-line);
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.32px;
-}
-
-/* ── band heads (eyebrow + h2) ────────────────────────────────────────────── */
-/* The eyebrow → heading gap is global (`.eyebrow:has(+ h2)`); the heading →
-   content gap is the house token, applied once here. */
-
-.blg-block-head h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: var(--type-h2-weight);
-  line-height: 1.5;
-  letter-spacing: 0.256px;
-  text-wrap: balance;
-}
-
-@media (min-width: 80em) {
-  .blg-block-head h2 {
-    font-size: var(--type-h2-size);
-  }
-}
-
-.blg-block-head + .blg-cards,
-.blg-block-head + .blg-cat-list {
-  margin-top: var(--space-head-to-content);
-}
-
-.blg-block-head--wide + .blg-cards {
-  margin-top: var(--space-head-to-content);
-}
-
-/* ── card (reference .bx-article-card) ────────────────────────────────────── */
-/* One component, two bands: "Start here" and the archive. Same anatomy as the
-   reference card — image, uppercase label, title, date pinned to the foot so
-   dates line up across a row no matter how many lines a title takes. */
 
 .blg-cards {
   display: grid;
@@ -259,12 +140,7 @@
   }
 }
 
-/* The "Start here" row is three cards, not four (the copy contract's set). */
-@media (min-width: 80em) {
-  .blg-cards--3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
+/* ── card (reference .bx-article-card) ────────────────────────────────────── */
 
 .blg-card {
   display: flex;
@@ -305,6 +181,8 @@
   letter-spacing: 0.16px;
 }
 
+/* margin-top: auto is what keeps the dates on one line across a row when one
+   title runs to three lines and its neighbour to two. */
 .blg-card-date {
   margin: auto 0 0;
   padding-top: 40px;
@@ -336,265 +214,4 @@
 .blg-card-media:focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 3px;
-}
-
-/* ── 4. browse by category ────────────────────────────────────────────────── */
-/* The reference hides its filters in a slide-in dialog. Ours are four fixed
-   categories, so they print as rows that filter the archive in place — no
-   /blog/category/<slug> links, because those routes still redirect to the home
-   page and a card that bounces a reader to / is worse than no link. */
-
-.blg-cat-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.blg-cat {
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 24px;
-  row-gap: 8px;
-  width: 100%;
-  padding: 24px 0;
-  border: 0;
-  border-top: 1px solid var(--color-line);
-  background: none;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  appearance: none;
-}
-
-.blg-cat:last-child {
-  border-bottom: 1px solid var(--color-line);
-}
-
-.blg-cat-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 30px;
-  letter-spacing: normal;
-}
-
-.blg-cat-desc {
-  grid-column: 1;
-  max-width: 62ch;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.32px;
-}
-
-.blg-cat-count {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: center;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0.32px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.blg-cat:hover,
-.blg-cat:focus-visible {
-  border-top-color: var(--color-ink);
-}
-
-.blg-cat:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
-}
-
-.blg-cat[aria-pressed='true'] .blg-cat-name {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 6px;
-}
-
-/* ── 5. latest guides ─────────────────────────────────────────────────────── */
-
-.blg-archive-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 24px;
-}
-
-.blg-count {
-  margin: 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0.32px;
-  text-transform: uppercase;
-}
-
-/* Cards filtered out by JS, and the pages the pager has not revealed yet. */
-.blg-card[hidden] {
-  display: none;
-}
-
-.blg-empty {
-  margin: 0;
-  max-width: 46ch;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  color: var(--color-ink-soft);
-}
-
-/* ── pager — reference .bx-load-more ──────────────────────────────────────── */
-
-.blg-pager {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 104px;
-}
-
-.blg-load {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-ink);
-  cursor: pointer;
-  appearance: none;
-}
-
-.blg-load-label {
-  position: relative;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 27px;
-  letter-spacing: normal;
-}
-
-.blg-load-label::before {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left top;
-  transition: transform 0.3s;
-}
-
-.blg-load:hover .blg-load-label::before,
-.blg-load:focus-visible .blg-load-label::before {
-  transform: scaleX(1);
-}
-
-.blg-load:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
-}
-
-/* The reference's 40px circle-arrow, turned to point down. */
-.blg-load .circle-arrow {
-  width: 40px;
-  height: 40px;
-  transform: rotate(90deg);
-  transition:
-    background-color 250ms ease,
-    border-color 250ms ease,
-    color 250ms ease;
-}
-
-.blg-load:hover .circle-arrow,
-.blg-load:focus-visible .circle-arrow {
-  border-color: var(--color-ink);
-  background: var(--color-ink);
-  color: var(--color-white);
-}
-
-.blg-pager-rule {
-  width: 1px;
-  height: 40px;
-  margin: 0 24px;
-  background: var(--color-ink);
-}
-
-.blg-dots {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* 24px hit area; a 12px mark, and the active dot carries a 24px ring. Same
-   anatomy as the slider nav (reference .bx-dot-nav). */
-.blg-dot {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-ink);
-  cursor: pointer;
-  appearance: none;
-}
-
-.blg-dot::before {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.blg-dot[aria-current='true']::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 1.5px solid currentColor;
-  border-radius: 50%;
-}
-
-.blg-dot:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
-  border-radius: 50%;
-}
-
-/* ── generous-type / narrow screens ──────────────────────────────────────── */
-
-@media (max-width: 47.999em) {
-  .blg-pager {
-    margin-top: 80px;
-  }
-
-  /* Six dots at the reference's 16px pitch need 224px against a 328px box at
-     390 — it fits, but a fifth page would not. Step the pitch down early. */
-  .blg-dots {
-    gap: 8px;
-  }
-
-  .blg-pager-rule {
-    margin: 0 16px;
-  }
 }
