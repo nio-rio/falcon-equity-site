@@ -202,6 +202,12 @@
   h4 {
     @apply font-display text-ink;
     letter-spacing: normal;
+  }
+
+  /* Balanced wrapping is for headlines only — h1 and h2. On h3/h4 and on body
+     copy it re-breaks paragraphs into rags that are hard to scan. */
+  h1,
+  h2 {
     text-wrap: balance;
   }
 

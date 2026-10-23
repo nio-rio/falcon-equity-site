@@ -236,3 +236,13 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - retail FAQ, MCA FAQ, BLOC FAQ: hovered row `opacity: 1` with `border-top` at full ink; every other row `0.36` with a 40% rule.
 - retail case list: hovered row 1, others 0.36.
 - No horizontal overflow at 390/768/1024/1440/1920; five bands; `test:titles` passes.
+
+
+## Typography correction — H1 weight and where balanced wrapping is allowed (2026-10-22)
+
+**Ling:** "Make H1 font weight on retail a little more, match the service page. I see that you make text-wrap balance everywhere. Don't use it unless they are h1 or h2."
+
+- **Retail H1 is now weight 400**, the same as the service pages' page title (`.mca-hero h1` is 400). It was 300, copied from Blackstone's own lighter header. Sizes stay Blackstone-measured: 40px mobile, 56/84 at 1440. Note the service pages set 55/57 (tighter leading); retail keeps the measured 84 because that is the reference's header rhythm.
+- **`text-wrap: balance` is now limited to h1 and h2.** In `global.css` it used to sit on a shared `h1, h2, h3, h4` rule, so every h3 and h4 on every page was balanced too. The rule is split: families/colour for all four, `text-wrap: balance` for h1 and h2 only. The remaining balanced rules are legitimate h2s — the block heads, the FAQ heads and the blog slider titles (`.mca-blog-title` is an h2 in the markup).
+- Nothing else declared balance on body copy; `text-wrap: pretty` in `blackstone.css` is a different value and was left alone.
+- Verified: retail H1 computes to weight 400 / 56px / balance; MCA H1 weight 400; a scan of `h3, h4, h5, p, li, span, a` on both pages returns zero elements with balanced wrapping. `test:titles` passes, no overflow at any of the five widths.
