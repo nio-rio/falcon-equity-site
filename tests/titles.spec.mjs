@@ -32,8 +32,16 @@ const applyTitle = titleOf('dist/apply.html');
 if (applyTitle !== 'Apply for Business Funding | Falcon Equity Group') {
   throw new Error(`Apply <title> was ${JSON.stringify(applyTitle)}`);
 }
-if (h1Of('dist/apply.html') !== 'Apply') {
+if (h1Of('dist/apply.html') !== 'Apply today to get same day funding.') {
   throw new Error(`Apply <h1> was ${JSON.stringify(h1Of('dist/apply.html'))}`);
+}
+
+const aboutTitle = titleOf('dist/about.html');
+if (aboutTitle !== 'About | Falcon Equity Group') {
+  throw new Error(`About <title> was ${JSON.stringify(aboutTitle)}`);
+}
+if (h1Of('dist/about.html') !== 'About Falcon Equity Group') {
+  throw new Error(`About <h1> was ${JSON.stringify(h1Of('dist/about.html'))}`);
 }
 
 /** Every service page that has been rebuilt onto its own route. */

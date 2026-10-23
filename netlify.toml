@@ -35,11 +35,6 @@
 
 # Retired inner pages. Hashes are best-effort; in-app hrefs carry the anchors.
 [[redirects]]
-  from = "/about"
-  to = "/"
-  status = 301
-
-[[redirects]]
   from = "/contact"
   to = "/#contact"
   status = 301
@@ -61,11 +56,6 @@
 
 [[redirects]]
   from = "/how-it-works"
-  to = "/#why-choose-us"
-  status = 301
-
-[[redirects]]
-  from = "/faq"
   to = "/#why-choose-us"
   status = 301
 

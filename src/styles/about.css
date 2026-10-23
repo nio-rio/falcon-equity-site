@@ -1,0 +1,1627 @@
+/* Business Line of Credit only. Copied from mca.css with mca-* → abt-*.
+   The blog band uses the abt-blog-* rules plus the shared .mca-blog-line* names at the end.
+   Numbers from live Blackstone measurements:
+   IR-01 + IR-02 hero (bx-share-information), dark LS-04 helps, BXCI-07 fit,
+   PWS What you need to know process, DC-06 FAQ type + BXCI-05 accordion motion,
+   BXCI-08 portfolio spotlight for the blog band.
+   Fonts → --font-display / --font-sans. Colors → Falcon tokens.
+   Do not touch home. */
+
+/* Per-section pads beat home [data-band] / stacked-same-theme tokens.
+   Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
+   Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
+   Process top is R − 2px at 1280 / 768 / 390 so Helps → Process measures R
+   (144 / 96 / 80). FAQ bottom stays R − 2px. Fit and Blog bottoms are full R.
+   Helps bottom sits slightly under R for the tape.
+   Hero title sits 50px below the header. */
+section.abt-hero[data-band='light'] {
+  padding: 50px 0 80px;
+}
+
+section.abt-helps[data-band='dark'] {
+  padding: 80px 0 75px;
+}
+
+section.abt-process[data-band='light'] {
+  padding: 78px 0 78px;
+}
+
+section.abt-faq[data-band='light'] {
+  padding: 0 0 78px;
+}
+
+section.abt-fit[data-band='light'] {
+  padding: 0 0 80px;
+}
+
+section.abt-blog[data-band='light'] {
+  padding: 0 0 80px;
+}
+
+.abt-hero,
+.abt-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.abt-helps {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+/* Home Why-choose-us dark type: headings/eyebrow #fff, body --bx-on-dark.
+   Global h2/eyebrow are --bx-black, the same token as this band. */
+.abt-helps h2,
+.abt-helps h3,
+.abt-helps .eyebrow {
+  color: #fff;
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at
+   390 / 768 / 1280 / 1440. Shell fills that content box with 1fr tracks. */
+.abt-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+  justify-content: stretch;
+}
+
+.abt-kicker,
+.abt-block-head,
+.abt-cta--after,
+.abt-faq-list,
+.abt-cards > .abt-card,
+.abt-helps-image,
+.abt-helps-list,
+.abt-hero-inner {
+  grid-column: 1 / -1;
+}
+
+/* IR-01 page title: 49/61/400 at 390, margin-bottom 90px to the first rule. */
+.abt-hero h1,
+.abt-hero-title {
+  margin: 0 0 90px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 49px;
+  font-weight: 400;
+  line-height: 61px;
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.abt-hero-lead {
+  margin: 90px 0 0;
+  max-width: 40rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.abt-hero-cta {
+  margin-top: 40px;
+}
+
+.abt-block-head h2,
+.abt-faq-head h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: var(--type-h2-weight);
+  line-height: 48px;
+  letter-spacing: 0.256px;
+  text-wrap: balance;
+}
+
+.abt-cards,
+.abt-fit .abt-cards,
+.abt-process .abt-cards {
+  margin-top: var(--space-head-to-content);
+}
+
+.abt-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.abt-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.abt-card-body + .abt-card-body {
+  margin-top: 24px;
+}
+
+.abt-fit .abt-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* BXCI-07 / horizontal-static-list card CTA = .bx-singular-link
+   18/27/400 ls 0.288, 40px tall, 1px label draw, icon scale 1.16667. */
+.abt-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  /* Owner round 2026-10-23: link sits 32px off the copy, 40px at 1440 —
+     the home "News & Insights" gap (.pilot-news-excerpt margin-bottom 32/40). */
+  padding-top: 32px;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.288px;
+}
+
+.abt-card-link-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.abt-card-link-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.abt-card-link-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.abt-card-link:hover .abt-card-link-label,
+.abt-card-link:focus-visible .abt-card-link-label {
+  background-size: 100% 1px;
+}
+
+.abt-card-link:hover .abt-card-link-icon,
+.abt-card-link:focus-visible .abt-card-link-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.abt-fit .eyebrow--line {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.abt-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.abt-cta--after {
+  margin-top: 72px;
+}
+
+/* IR-01 + IR-02 stats live in `.abt-shell` (home column). Hairline ABOVE each cell. */
+.abt-hero-inner {
+  min-width: 0;
+}
+
+.abt-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+  row-gap: 40px;
+  margin: 0;
+  width: 100%;
+}
+
+.abt-stat {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  padding: 40px 0 0;
+  border-top: 2px solid var(--color-ink);
+}
+
+.abt-stat-label,
+.abt-stat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+
+.abt-stat-label {
+  margin-bottom: 25px;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.abt-stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 34px;
+}
+
+/* Dark LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
+.abt-helps-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.abt-helps-image .media,
+.abt-helps-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.abt-helps .image-slot--labeled {
+  background: color-mix(in srgb, var(--color-white) 12%, transparent);
+}
+
+.abt-helps .image-slot-label {
+  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+}
+
+.abt-help-title {
+  margin: 0 0 24px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.abt-help-body {
+  margin: 0 0 64px;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.abt-help:last-child .abt-help-body {
+  margin-bottom: 0;
+}
+
+/* Home Why-choose-us tickertape, abt-* only. Same SPEED 125 / 3 copies. */
+.abt-helps-tape {
+  display: block;
+  overflow: hidden;
+  margin-top: 5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.abt-helps-tape:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: -2px;
+}
+
+.abt-helps-tape-track {
+  display: flex;
+  width: max-content;
+  animation: abt-helps-tape 24s linear infinite;
+}
+
+.abt-helps-tape-item {
+  flex: none;
+  margin-right: 7.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+.abt-helps-tape-item strong {
+  font-weight: 700;
+}
+
+@keyframes abt-helps-tape {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@media (min-width: 26em) {
+  .abt-helps-tape-item {
+    font-size: 4.5rem;
+    margin-right: 8rem;
+  }
+}
+
+/* PWS What you need to know: 01/02/03 are Scene7 number images in a 16:9
+   media box (11.5rem / 10.938rem / 12.375rem). Mapped to display type,
+   weight 300, tracking normal. Image-space under the number is 32px. */
+.abt-step-num {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  /* Mobile: BX's 328x184 number image renders its digit ~112px tall; 184px of
+     At Gambit ink was ~133px. 48em+ restores the 184px box measure. */
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.abt-step .abt-card-title {
+  margin-top: 0;
+}
+
+/* BXCI-05 accordion motion on DC-06 light FAQ type.
+   Base rule 2px ink at 40%. Hover overlay draws 2px ink, 0.5s ease-out,
+   snaps off. Caret 0.3s. */
+.abt-faq-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-head-to-content);
+}
+
+/* The rule belongs to the TOP edge of each row so the hovered row can hold a
+   solid line above it (home Services behaviour), and the line below it stays
+   at 40% while its neighbour recedes. */
+.abt-faq-item {
+  position: relative;
+  color: var(--color-ink);
+  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+
+.abt-faq-item:last-child {
+  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+
+.abt-faq-item::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -2px;
+  border-bottom: solid 2px var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  pointer-events: none;
+}
+
+.abt-faq-item:is(:hover, :focus-within)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.5s ease-out;
+}
+
+.abt-faq-item h3,
+.abt-faq-trigger {
+  color: var(--color-ink);
+}
+
+.abt-faq-item h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 300;
+  letter-spacing: 0.32px;
+}
+
+.abt-faq-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 32px;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.32px;
+  text-align: left;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.abt-faq-caret {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.abt-faq-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 24px;
+  color: var(--color-ink);
+  background: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.abt-faq-caret,
+.abt-faq-caret-svg {
+  transition: transform 0.3s;
+}
+
+.abt-faq-icon svg,
+.abt-faq-caret-svg {
+  width: 16px;
+  height: 8px;
+}
+
+.abt-faq-item.is-open .abt-faq-caret {
+  transform: rotate(180deg);
+}
+
+.abt-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  transition: grid-template-rows 350ms ease;
+}
+
+.abt-faq-item.is-open .abt-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.abt-acc-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.abt-acc-inner > p {
+  margin: 0;
+  padding-bottom: 32px;
+  max-width: 38.5rem;
+  color: var(--color-ink-a72);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.abt-faq .abt-block-head h2,
+.abt-faq-head h2 {
+  color: var(--color-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .abt-faq-trigger:hover .abt-faq-icon,
+  .abt-faq-trigger:focus-visible .abt-faq-icon {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+
+  .abt-faq-item.is-open .abt-faq-trigger:hover .abt-faq-icon,
+  .abt-faq-item.is-open .abt-faq-trigger:focus-visible .abt-faq-icon {
+    background: rgb(15 12 23 / 0.25);
+    color: var(--color-ink);
+  }
+}
+
+/* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
+   MCA slider: title + Read the article, prev/next under the link. */
+
+@media (prefers-reduced-motion: reduce) {
+  .abt-faq-caret,
+  .abt-faq-caret-svg,
+  .abt-faq-icon,
+  .abt-faq-item::after,
+  .abt-card-link-label,
+  .abt-card-link-icon,
+  .abt-helps-tape-track {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+
+  .abt-faq-item::after {
+    display: none;
+  }
+}
+
+/* 768 — home 8-col / 688 content, 40px sides. R = 96. */
+@media (min-width: 48em) {
+  section.abt-hero[data-band='light'] {
+    padding: 50px 0 96px;
+  }
+
+  section.abt-helps[data-band='dark'] {
+    padding: 96px 0 88px;
+  }
+
+  section.abt-process[data-band='light'] {
+    padding: 94px 0 94px;
+  }
+
+  section.abt-faq[data-band='light'] {
+    padding: 0 0 94px;
+  }
+
+  section.abt-fit[data-band='light'] {
+    padding: 0 0 96px;
+  }
+
+  section.abt-blog[data-band='light'] {
+    padding: 0 0 96px;
+  }
+
+  .abt-help-title,
+  .abt-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  .abt-faq-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  /* Number: the 184px box measure from 48em up (this round is mobile-only). */
+  .abt-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+
+  .abt-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .abt-helps-tape {
+    margin-top: 6rem;
+  }
+
+  .abt-helps-tape-item {
+    font-size: 6.5rem;
+    margin-right: 8.5rem;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(3) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .abt-cta--after {
+    grid-column: 1 / span 4;
+  }
+}
+
+/* 1024 — BX type steps. Shell already 8-col from 48em. */
+@media (min-width: 64em) {
+  .abt-hero h1,
+  .abt-hero-title {
+    font-size: 55px;
+    line-height: 57px;
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .abt-block-head h2,
+  .abt-faq-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.32px;
+  }
+
+  .abt-cta--after {
+    margin-top: 104px;
+  }
+
+  .abt-process .abt-cards {
+    row-gap: 80px;
+  }
+
+  .abt-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
+  .abt-helps-split {
+    row-gap: 88px;
+  }
+
+  .abt-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+    margin: 0;
+  }
+
+  .abt-stat {
+    max-width: 320px;
+  }
+
+  .abt-stat-value {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .abt-shell {
+    row-gap: 104px;
+  }
+}
+
+/* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
+@media (min-width: 80em) {
+  section.abt-hero[data-band='light'] {
+    padding: 50px 0 144px;
+  }
+
+  section.abt-helps[data-band='dark'] {
+    padding: 144px 0 132px;
+  }
+
+  section.abt-process[data-band='light'] {
+    padding: 142px 0 142px;
+  }
+
+  section.abt-faq[data-band='light'] {
+    padding: 0 0 142px;
+  }
+
+  section.abt-fit[data-band='light'] {
+    padding: 0 0 144px;
+  }
+
+  section.abt-blog[data-band='light'] {
+    padding: 0 0 144px;
+  }
+
+  .abt-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 104px;
+  }
+
+  .abt-helps-tape {
+    margin-top: 9rem;
+  }
+
+  .abt-helps-tape-item {
+    font-size: 10.5rem;
+    margin-right: 12rem;
+  }
+
+  .abt-kicker,
+  .abt-block-head,
+  .abt-faq-head .abt-block-head {
+    grid-column: 1 / span 16;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .abt-cards--3 > .abt-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .abt-cta--after {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-helps-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .abt-helps-image {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-helps-list {
+    grid-column: 11 / span 6;
+  }
+
+  .abt-faq-list {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
+@media (min-width: 90em) {
+  .abt-card-link {
+    padding-top: 40px;
+  }
+
+  section.abt-hero[data-band='light'] {
+    padding: 50px 0 160px;
+  }
+
+  section.abt-helps[data-band='dark'] {
+    padding: 160px 0 144px;
+  }
+
+  section.abt-process[data-band='light'] {
+    padding: 160px 0;
+  }
+
+  section.abt-faq[data-band='light'],
+  section.abt-fit[data-band='light'],
+  section.abt-blog[data-band='light'] {
+    padding: 0 0 160px;
+  }
+
+  .abt-helps-tape {
+    margin-top: 10rem;
+  }
+
+  .abt-helps-tape-item {
+    font-size: 12rem;
+    margin-right: 13.5rem;
+  }
+
+  .abt-hero h1,
+  .abt-hero-title {
+    font-size: 55px;
+    line-height: 57px;
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .abt-block-head h2 {
+    font-size: 48px;
+    line-height: 72px;
+    letter-spacing: 0.384px;
+  }
+
+  .abt-faq-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.32px;
+    max-width: 624px;
+  }
+
+  .abt-card-title,
+  .abt-help-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  .abt-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+  .abt-acc-inner > p {
+    max-width: 624px;
+  }
+
+  .abt-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+  }
+
+  /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .abt-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .abt-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* ===========================================================================
+   About page bands — added 23 Oct 2026, on top of the cloned service-page base.
+   Donors (see docs/section-library-live/LIBRARY.md):
+     hero            → TF-00 (H1 cols 1–7, lead cols 10–13) + TF-01 (16:9 still)
+     answer first    → TF-02 rows-beside-a-claim, flipped to a white band
+     by the numbers  → FAL-01 (one featured figure, two side figures)
+     what we do      → OP-01 (4 tracks of 244, 96 column / 64 row gap, name 18/27
+                       over a 14/21 spec line) — measured on blackstone.com/our-people
+     founder         → FAL-03 (3:4 still + display quote + credit)
+     our people      → OP-01 again, names only
+     values          → TF-05 (3-up titled prose, no card chrome)
+     who we fund     → TF-03 row directory, re-cut as a 4-column link grid
+     how we're different → APM-01 numbered columns, four instead of three
+     where we are    → contact rows + two buttons
+   Type scales and colour come from the site tokens; the numbers above are the
+   reference's geometry, not the reference's brand.
+   =========================================================================== */
+
+/* A grid child with no rule auto-places into ONE column at 16 tracks. */
+.abt-shell > * {
+  grid-column: 1 / -1;
+}
+
+/* Band pads: same-theme seams collapse, so every band carries bottom space only. */
+section.abt-answer[data-band='light'],
+section.abt-stats[data-band='light'],
+section.abt-products[data-band='light'],
+section.abt-founder[data-band='light'],
+section.abt-people[data-band='light'],
+section.abt-values[data-band='light'],
+section.abt-sectors[data-band='light'],
+section.abt-different[data-band='light'],
+section.abt-contact[data-band='light'] {
+  padding: 0 0 80px;
+}
+
+@media (min-width: 64em) {
+  section.abt-answer[data-band='light'],
+  section.abt-stats[data-band='light'],
+  section.abt-products[data-band='light'],
+  section.abt-founder[data-band='light'],
+  section.abt-people[data-band='light'],
+  section.abt-values[data-band='light'],
+  section.abt-sectors[data-band='light'],
+  section.abt-different[data-band='light'],
+  section.abt-contact[data-band='light'] {
+    padding: 0 0 104px;
+  }
+}
+
+@media (min-width: 80em) {
+  section.abt-answer[data-band='light'],
+  section.abt-stats[data-band='light'],
+  section.abt-products[data-band='light'],
+  section.abt-founder[data-band='light'],
+  section.abt-people[data-band='light'],
+  section.abt-values[data-band='light'],
+  section.abt-sectors[data-band='light'],
+  section.abt-different[data-band='light'],
+  section.abt-contact[data-band='light'] {
+    padding: 0 0 144px;
+  }
+}
+
+/* ---------------------------------------------------------------- hero ---- */
+/* TF-00: the title alone on the left, the lead in the right-hand columns.
+   The service-page hero stacks title → stats → lead, so the 90px title margin
+   is overridden here and the lead never sits 90px down the page. */
+section.abt-hero[data-band='light'] {
+  padding: 50px 0 80px;
+}
+
+.abt-hero-head {
+  row-gap: 32px;
+}
+
+.abt-hero-head .abt-hero-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  /* 7 columns at 1440 leaves "Group" alone on line 2 with text-wrap: wrap. */
+  text-wrap: balance;
+}
+
+.abt-hero-head .abt-hero-lead {
+  grid-column: 1 / -1;
+  margin: 0;
+  max-width: 40rem;
+}
+
+.abt-hero-media {
+  margin-top: 56px;
+}
+
+.abt-hero-media .media,
+.abt-hero-media .image-slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+@media (min-width: 64em) {
+  .abt-hero-head .abt-hero-title {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-hero-head .abt-hero-lead {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-hero-media {
+    margin-top: 72px;
+  }
+}
+
+@media (min-width: 80em) {
+  section.abt-hero[data-band='light'] {
+    padding: 50px 0 144px;
+  }
+
+  .abt-hero-head .abt-hero-title {
+    grid-column: 1 / span 7;
+  }
+
+  .abt-hero-head .abt-hero-lead {
+    grid-column: 10 / span 4;
+    align-self: end;
+    padding-bottom: 6px;
+  }
+
+  .abt-hero-media {
+    margin-top: 88px;
+  }
+}
+
+/* --------------------------------------------------------- answer first --- */
+.abt-answer-grid {
+  row-gap: 48px;
+}
+
+.abt-answer-copy {
+  grid-column: 1 / -1;
+}
+
+.abt-answer-copy h2 {
+  margin: 0 0 24px;
+}
+
+.abt-answer-text {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 33px;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+.abt-takeaways {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+
+.abt-takeaway {
+  padding: 20px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: 64em) {
+  .abt-answer-copy {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-takeaways {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-answer-text {
+    font-size: 26px;
+    line-height: 39px;
+  }
+}
+
+@media (min-width: 80em) {
+  .abt-answer-grid {
+    row-gap: 0;
+  }
+
+  .abt-answer-copy {
+    grid-column: 1 / span 7;
+  }
+
+  .abt-takeaways {
+    grid-column: 9 / span 8;
+    border-top: 0;
+  }
+
+  .abt-takeaway:first-child {
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+  }
+}
+
+/* ------------------------------------------------------ by the numbers --- */
+/* FAL-01: one featured figure, then two side figures each over a 1px rule. */
+.abt-stats-grid {
+  row-gap: 56px;
+}
+
+.abt-stat-feat {
+  grid-column: 1 / -1;
+}
+
+.abt-stat-feat-label {
+  margin: 0 0 16px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.32px;
+}
+
+.abt-stat-feat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.abt-stat-sides {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 40px;
+}
+
+.abt-stat-side {
+  padding: 20px 0 0;
+  border-top: 1px solid var(--color-ink);
+}
+
+.abt-stat-side-label {
+  margin: 0 0 12px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.abt-stat-side-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 40px;
+}
+
+@media (min-width: 64em) {
+  .abt-stat-feat {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-stat-feat-value {
+    font-size: 96px;
+  }
+
+  .abt-stat-sides {
+    grid-column: 1 / span 8;
+  }
+}
+
+@media (min-width: 80em) {
+  .abt-stats-grid {
+    row-gap: 0;
+  }
+
+  .abt-stat-feat {
+    grid-column: 1 / span 6;
+  }
+
+  .abt-stat-feat-value {
+    font-size: 120px;
+  }
+
+  .abt-stat-sides {
+    grid-column: 9 / span 8;
+    align-content: end;
+    column-gap: 96px;
+  }
+}
+
+/* --------------------------------------------------------- what we do ---- */
+.abt-band-head {
+  row-gap: 24px;
+}
+
+.abt-band-head .abt-block-head {
+  grid-column: 1 / -1;
+}
+
+.abt-band-lead {
+  grid-column: 1 / -1;
+  margin: 0;
+  max-width: 44rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.abt-roster {
+  margin-top: var(--space-head-to-content);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 40px;
+}
+
+.abt-roster-item {
+  min-width: 0;
+}
+
+.abt-roster-item .abt-roster-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.abt-roster-name {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.144px;
+}
+
+.abt-roster-link .abt-roster-name {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 300ms ease;
+  display: inline;
+}
+
+.abt-roster-link:hover .abt-roster-name,
+.abt-roster-link:focus-visible .abt-roster-name {
+  background-size: 100% 1px;
+}
+
+.abt-roster-spec {
+  margin: 6px 0 0;
+  color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.abt-roster-note {
+  margin: 10px 0 0;
+  color: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: 48em) {
+  .abt-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+    row-gap: 48px;
+  }
+}
+
+@media (min-width: 64em) {
+  .abt-roster {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* OP-01 measured 4 × 244 + 3 × 96 = 1264 in the reference container. */
+    column-gap: 96px;
+    row-gap: 64px;
+  }
+}
+
+/* ------------------------------------------------------------- founder ---- */
+.abt-founder-grid {
+  row-gap: 40px;
+}
+
+.abt-founder-media {
+  grid-column: 1 / -1;
+  max-width: 22rem;
+}
+
+.abt-founder-media .media,
+.abt-founder-media .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.abt-founder-copy {
+  grid-column: 1 / -1;
+}
+
+.abt-founder-quote {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 38px;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+.abt-founder-credit {
+  margin: 32px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.abt-founder-line {
+  margin: 6px 0 0;
+  color: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+@media (min-width: 64em) {
+  .abt-founder-media {
+    grid-column: 1 / span 4;
+    max-width: none;
+  }
+
+  .abt-founder-copy {
+    grid-column: 1 / span 8;
+  }
+
+  .abt-founder-quote {
+    font-size: 30px;
+    line-height: 44px;
+  }
+}
+
+@media (min-width: 80em) {
+  .abt-founder-grid {
+    row-gap: 0;
+  }
+
+  .abt-founder-media {
+    grid-column: 1 / span 5;
+  }
+
+  .abt-founder-copy {
+    grid-column: 7 / span 10;
+    align-self: center;
+  }
+
+  .abt-founder-quote {
+    font-size: 32px;
+    line-height: 48px;
+  }
+}
+
+/* ------------------------------------------------------------ our people -- */
+.abt-people-body {
+  grid-column: 1 / -1;
+  margin: 0;
+  max-width: 44rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* --------------------------------------------------------------- values --- */
+.abt-values-grid {
+  margin-top: var(--space-head-to-content);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 40px;
+}
+
+.abt-value-name {
+  margin: 0 0 12px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+}
+
+.abt-value-body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: 48em) {
+  .abt-values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+}
+
+@media (min-width: 64em) {
+  .abt-values-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 64px;
+    row-gap: 48px;
+  }
+}
+
+/* ------------------------------------------------------------- sectors ---- */
+.abt-sector-grid {
+  margin-top: var(--space-head-to-content);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+
+.abt-sector {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+
+.abt-sector-link {
+  display: block;
+  padding: 16px 0;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.144px;
+}
+
+.abt-sector-link span {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 300ms ease;
+}
+
+.abt-sector-link:hover span,
+.abt-sector-link:focus-visible span {
+  background-size: 100% 1px;
+}
+
+.abt-sectors-cta {
+  margin-top: 40px;
+}
+
+@media (min-width: 48em) {
+  .abt-sector-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+}
+
+@media (min-width: 64em) {
+  .abt-sector-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 96px;
+  }
+}
+
+/* ---------------------------------------------------- how we're different -- */
+.abt-diff-grid {
+  margin-top: var(--space-head-to-content);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 40px;
+}
+
+.abt-diff-num {
+  margin: 0 0 16px;
+  color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.16px;
+}
+
+.abt-diff-title {
+  margin: 0 0 12px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+}
+
+.abt-diff-body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: 48em) {
+  .abt-diff-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+    row-gap: 56px;
+  }
+}
+
+@media (min-width: 64em) {
+  .abt-diff-grid {
+    column-gap: 96px;
+    row-gap: 64px;
+  }
+}
+
+/* ------------------------------------------------------------- contact ---- */
+.abt-contact-grid {
+  row-gap: 40px;
+}
+
+.abt-contact-copy {
+  grid-column: 1 / -1;
+}
+
+.abt-contact-list {
+  grid-column: 1 / -1;
+  margin: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+
+.abt-contact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+
+.abt-contact-label {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-ink) 62%, transparent);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
+}
+
+.abt-contact-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.144px;
+}
+
+.abt-contact-value a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 300ms ease;
+}
+
+.abt-contact-value a:hover,
+.abt-contact-value a:focus-visible {
+  background-size: 100% 1px;
+}
+
+.abt-contact-cta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+@media (min-width: 80em) {
+  .abt-contact-grid {
+    row-gap: 0;
+  }
+
+  .abt-contact-copy {
+    grid-column: 1 / span 7;
+    align-self: start;
+  }
+
+  .abt-contact-list {
+    grid-column: 9 / span 8;
+  }
+
+  .abt-contact-cta {
+    grid-column: 9 / span 8;
+  }
+}

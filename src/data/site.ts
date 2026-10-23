@@ -59,16 +59,16 @@ export const RESOURCE_LINKS: NavLink[] = [
     href: '/apply',
     description: 'Get your file loan-ready',
   },
-  { label: 'FAQ', href: '/#why-choose-us', description: 'Straight answers' },
+  { label: 'FAQ', href: '/faq', description: 'Straight answers' },
 ];
 
 export const FIRM_LINKS: NavLink[] = [
-  { label: 'About', href: '/#main' },
+  { label: 'About', href: '/about' },
   { label: 'Partners', href: '/#main' },
 ];
 
 export const COMPANY_LINKS: NavLink[] = [
-  { label: 'About', href: '/#main' },
+  { label: 'About', href: '/about' },
   { label: 'Industries', href: '/industries' },
   { label: 'Partners', href: '/#main' },
   { label: 'Apply', href: '/apply' },
@@ -81,9 +81,10 @@ export const LEGAL_LINKS: NavLink[] = [
 
 /** Footer Quick Links — home anchors plus the live apply page. */
 export const FOOTER_QUICK_LINKS: NavLink[] = [
-  { label: 'About', href: '/#main' },
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
   { label: 'Industries', href: '/industries' },
   { label: 'Blog', href: '/blog' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Apply', href: '/apply' },
 ];

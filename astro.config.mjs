@@ -10,6 +10,7 @@ import { tableDataLabelsPlugin } from './src/lib/table-labels.js';
 const livePaths = new Set([
   '/',
   '/apply',
+  '/about',
   '/industries',
   '/services/merchant-cash-advance',
   '/services/collateral-asset-loans',
@@ -30,6 +31,7 @@ const livePaths = new Set([
   '/industries/education',
   '/industries/travel-hospitality',
   '/blog',
+  '/faq',
 ]);
 
 const serviceSlugs = [
@@ -67,13 +69,11 @@ const blogCategories = ['getting-approved', 'compare-options', 'costs-and-rates'
 /** Astro static redirects cannot splat onto a parameter-less destination. */
 /** @type {Record<string, string>} */
 const retired = {
-  '/about': '/',
   '/contact': '/#contact',
   '/partners': '/',
   '/privacy-policy': '/',
   '/terms-conditions': '/',
   '/how-it-works': '/',
-  '/faq': '/',
   '/services': '/',
   '/resources/loan-calculator': '/apply',
   '/resources/credit-repair-loan-prep': '/apply',

@@ -576,3 +576,41 @@ a row with 2- and 3-line titles. `npm run build`, `npm run check` (0 errors / 0 
 
 **Still open:** `/blog/<slug>` has no page, so every card lands on the home page via the `/blog/*`
 301. The article template is the next dependency.
+
+### About `/about` — built and linked (2026-10-23, owner request)
+
+Ling, after the Our People capture: *"Did you link the about page to nav and footer"* → *"Yes build
+about page"*. There was nothing to link: `/about` had been deleted in `5207b6b`, the route 301'd to
+`/`, and both nav and footer pointed "About" at `/#main`.
+
+**Built from the approved copy contract** (`falcon-page-drafts/resources-and-firm-content.md` §5, 22
+Oct), all ten bands in its order: hero → answer first → by the numbers → what we do → founder → our
+people → values → who we fund → how we're different → where we are, then the sitewide `SiteCta`.
+Donors from the measured library, per band: TF-00 + TF-01 (hero), TF-02 flipped to white (answer),
+FAL-01 (numbers), **OP-01** (the 4-up 244px roster, used twice — products and the 17 people titles),
+FAL-03 (founder), TF-05 (values), TF-03 re-cut (sectors), APM-01 with four items (why). Every figure
+reads from `STATS` / `SERVICES` / `INDUSTRIES` / `SITE`; nothing retyped and the 98% approval figure
+stays on the home page.
+
+**Files:** `src/pages/about.astro`, `src/styles/about.css` (cloned from `business-line-of-credit.css`
+with `loc-` → `abt-`, plus a dated block of the new bands), `docs/about-structure-plan.md` (the donor
+table and the five stated deviations).
+
+**Route lift, four places:** `astro.config.mjs` (`/about` into `livePaths`, out of `retired`),
+`public/_redirects`, `netlify.toml`, and the in-app links (`Header.astro` "Our Firm → About",
+`FIRM_LINKS`, `COMPANY_LINKS`, `FOOTER_QUICK_LINKS`).
+
+**Verified on the build:** `dist/about.html` 53,957 bytes, real `<h1>`, ten `<h2>`, no meta refresh,
+in `sitemap-0.xml`, `AboutPage` + `BreadcrumbList` present; no horizontal overflow at 390 / 768 / 1024
+/ 1440 / 1920; crops reviewed at 1440 and 390. `npm run build` passes (25 pages).
+
+**Open:** the copy's "Office +1 (917) 645-3826" is not in `site.ts`, so the band shows Direct and Fax
+only — add it to `site.ts` if it is a real line. `/partners`, `/contact`, `/how-it-works`,
+`/privacy-policy`, `/terms-conditions` are still home anchors; `Partners` and `How It Works` are the
+next pages in the queue.
+
+**Concurrent work landed in the same commit:** the working tree also carried another session's FAQ
+route lift (`src/pages/faq.astro`, `src/styles/faq.css`, `src/data/faq.ts`, `src/data/service-faqs.ts`,
+plus the `/faq` hunks in `astro.config.mjs`, `netlify.toml`, `public/_redirects` and the header's Help
+link). The full `npm run build` above covers both; the About changes are the config/`_redirects`/
+`netlify.toml` hunks for `/about` and the four link edits.
