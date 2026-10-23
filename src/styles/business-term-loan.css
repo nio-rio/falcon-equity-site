@@ -391,6 +391,18 @@ section.btl-blog[data-band='light'] {
   margin-top: 0;
 }
 
+/* Owner round 2026-10-23 (same spec as the industry products H3): the process
+   title is 1.5rem (24px) on tablet and desktop, never under 1.25rem (20px) on
+   the phone. The 48em rule below steps the shared card title DOWN to 20px —
+   this replaces that for the process band only, so the fit cards keep theirs. */
+@media (min-width: 48em) {
+  .btl-process .btl-card-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
 /* BXCI-05 accordion motion on DC-06 light FAQ type.
    Base rule 2px ink at 40%. Hover overlay draws 2px ink, 0.5s ease-out,
    snaps off. Caret 0.3s. */
