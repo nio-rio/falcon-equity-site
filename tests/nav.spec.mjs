@@ -478,13 +478,15 @@ const APPLY_DARK = {
 };
 const WHITE = 'rgb(255, 255, 255)';
 const WIDGET_DARK = {
-  bg: MARTINIQUE_DARKER,
+  bg: 'rgb(40, 33, 62)',
+  line: WHITE_A16,
   copy: WHITE,
   circleBg: WHITE,
   circleFg: MARTINIQUE_DARKER,
 };
 const WIDGET_LIGHT = {
-  bg: LILAC,
+  bg: LILAC_DARK,
+  line: LILAC_DARKER,
   copy: MARTINIQUE_DARKER,
   circleBg: MARTINIQUE_DARKER,
   circleFg: LILAC,
@@ -613,6 +615,8 @@ const readNavWidget = (page) =>
       dark: header?.classList.contains('is-color-theme-dark') || false,
       visible: wcs.display !== 'none' && !el.closest('[data-nav-panel][aria-hidden="true"]'),
       bg: wcs.backgroundColor,
+      border: wcs.borderTopColor,
+      borderWidth: wcs.borderTopWidth,
       title: title ? { ...styleOf(title), text: title.textContent.trim() } : null,
       body: body ? { ...styleOf(body) } : null,
       eyebrow: eyebrow ? styleOf(eyebrow) : null,
@@ -666,6 +670,8 @@ const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
   ratios.arrowOnCircle = arrowOnCircle;
   const colorsOk =
     got.bg === expected.bg &&
+    got.border === expected.line &&
+    got.borderWidth === '1px' &&
     got.circle?.bg === expected.circleBg &&
     got.circle?.color === expected.circleFg &&
     got.link?.href === copy.href &&

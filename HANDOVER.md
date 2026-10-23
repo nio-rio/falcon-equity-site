@@ -405,3 +405,16 @@ While making the hero change I staged `src/styles/pilot.css` whole, and another 
 The sibling's version of the file is **recoverable**: `git show fd1faae:src/styles/pilot.css` (a copy also sits at `/tmp/btn-qa/sibling-pilot.css`). Whichever commit lands the `SliderNav` markup must delete `.pilot-ann-btn`, `.pilot-ann-arrow--prev`, `.pilot-ann-btn:hover .circle-arrow` and move `.pilot-ann-nav` to `5 / 9` in that same commit — not before.
 
 Rule for this repo: before `git add <file>`, run `git diff <file>` and confirm every hunk is yours. Another bot is usually mid-refactor in this working tree.
+
+
+### Nav card surfaces: lilac card that reads as a card (2026-10-23, owner request)
+
+Ling: "I like the card being light lilac so it's different from dropdown white color to stand out on light mode, can you also change its background color to make it stand out as a card?"
+
+- Light header: `--nav-widget-bg` moved one step down the lilac ramp, `--bx-lilac` (#f3f2fb) -> `--bx-lilac-dark` (#e5e4f2), plus a 1px `--bx-lilac-darker` (#c4bfe1) border. Measured: card rgb(229,228,242) on a white panel, border rgb(196,191,225).
+- Dark header: the card used to be exactly the header colour (`--bx-black` on `--bx-black`), so it only read as an image slab. It is now `--bx-martinique-dark` (#28213e) on the #14101f panel, with a 1px `--white-a16` border — the same one-step raise as the lilac card, read from the same ramp.
+- Arrow colour decoupled from the background: new `--nav-widget-on` (lilac in the light theme, Martinique-darker in the dark one) drives the circle arrow's glyph, so a deeper card background cannot bleed into the icon colour.
+- Contrast, measured: title #14101f on #e5e4f2 = 14.87:1 (light), white on #28213e = 15.25:1 (dark). Both pass AA at 18px and 20px with room.
+- Corners stay square: every other surface in this header and the panel's own geometry is square, and the site reserves pills for buttons. Flag it if Ling wants a radius.
+- `tests/nav.spec.mjs`: `WIDGET_LIGHT.bg` -> rgb(229,228,242), `WIDGET_DARK.bg` -> rgb(40,33,62), both gained a `line` expectation, and `widgetPasses` now asserts the 1px border colour as part of the colour check.
+- Known tonal note: the pale service renders (sphere-on-steps, node tree) sit close in value to the lilac card in light mode. If Ling wants a stronger image, swap `widget.image` for a deeper render (`collateral-asset-loans` is the deepest in the set).

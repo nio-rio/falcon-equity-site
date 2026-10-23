@@ -512,8 +512,10 @@ a:focus-visible .link-draw,
   --nav-bg: #fff;
   --nav-highlight: var(--bx-slate-3);
   --nav-rule: var(--bx-lilac-dark);
-  --nav-widget-bg: var(--bx-lilac);
+  --nav-widget-bg: var(--bx-lilac-dark);
   --nav-widget-copy: var(--bx-black);
+  --nav-widget-line: var(--bx-lilac-darker);
+  --nav-widget-on: var(--bx-lilac);
 }
 
 .site-header.is-fixed {
@@ -544,8 +546,10 @@ html.has-scroll-lock [data-nav-inner] {
   --nav-bg: var(--bx-black);
   --nav-highlight: var(--bx-highlight-dark);
   --nav-rule: var(--white-a16);
-  --nav-widget-bg: var(--bx-black);
+  --nav-widget-bg: var(--bx-martinique-dark);
   --nav-widget-copy: #fff;
+  --nav-widget-line: var(--white-a16);
+  --nav-widget-on: var(--bx-martinique-darker);
 }
 
 .site-header,
@@ -1227,6 +1231,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   display: none;
   background: var(--nav-widget-bg);
   color: var(--nav-widget-copy);
+  border: 1px solid var(--nav-widget-line);
 }
 
 .primary-nav-widget__media {
@@ -1304,7 +1309,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   height: 2.5rem;
   background: var(--nav-widget-copy);
   border-color: var(--nav-widget-copy);
-  color: var(--nav-widget-bg);
+  color: var(--nav-widget-on);
 }
 
 .primary-nav__list-item-link:focus-visible,
