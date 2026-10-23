@@ -330,7 +330,7 @@
 }
 
 .ret-case-means {
-  grid-column: 1 / span 7;
+  grid-column: 1 / span 6;
   margin: 0;
   color: var(--bx-on-dark);
   font-family: var(--font-sans);
