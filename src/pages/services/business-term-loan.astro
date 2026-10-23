@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogSlider from '@/components/BlogSlider.astro';
 import Media from '@/components/Media.astro';
+import termLoanImage from '@/assets/images/services/business-term-loan.webp';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -168,8 +169,9 @@ const faqs = SERVICE_FAQS['business-term-loan'];
       <div class="btl-shell btl-helps-split" data-reveal>
         <div class="btl-helps-image">
           <Media
-            labeled
-            intent="Abstract still of an empty storefront mid fit-out, no people"
+            image={termLoanImage}
+            intent="Machining centre on a factory floor, timber crates and tooling stacked behind"
+            alt="A precision machining centre with its control panel lit, on a factory floor with timber crates and tooling stacked behind it."
             ratio="3 / 4"
             sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
           />

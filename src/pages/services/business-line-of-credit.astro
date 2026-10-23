@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogSlider from '@/components/BlogSlider.astro';
 import Media from '@/components/Media.astro';
+import lineOfCreditImage from '@/assets/images/services/business-line-of-credit.webp';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -168,8 +169,9 @@ const faqs = SERVICE_FAQS['business-line-of-credit'];
       <div class="loc-shell loc-helps-split" data-reveal>
         <div class="loc-helps-image">
           <Media
-            labeled
-            intent="Abstract still of a stocked shelf or an open ledger, no people"
+            image={lineOfCreditImage}
+            intent="Café counter: laptop, mug and stacked cups, espresso machine, coffee bags on shelving"
+            alt="A café counter with a laptop, a mug and stacked ceramic cups, an espresso machine and paper bags of coffee on open shelving behind."
             ratio="3 / 4"
             sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
           />

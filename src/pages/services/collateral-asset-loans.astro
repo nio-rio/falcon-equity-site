@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogSlider from '@/components/BlogSlider.astro';
 import Media from '@/components/Media.astro';
+import collateralImage from '@/assets/images/services/collateral-asset-loans.webp';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -169,8 +170,9 @@ const faqs = SERVICE_FAQS['collateral-asset-loans'];
       <div class="cal-shell cal-helps-split" data-reveal>
         <div class="cal-helps-image">
           <Media
-            labeled
-            intent="Abstract still of equipment, vehicles or a commercial building, no people"
+            image={collateralImage}
+            intent="House keys, car key fob and a watch on a desk, a house through the window"
+            alt="House keys, a car key fob and a watch on a desk in front of a window looking out to a house and a parked car."
             ratio="3 / 4"
             sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
           />

@@ -19,6 +19,7 @@ import ArrowCta from '@/components/ArrowCta.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE, STATS } from '@/data/site';
 import founderPortrait from '@/assets/images/dwight-holly.webp';
+import nycSkyline from '@/assets/images/nyc-skyline.webp';
 import '@/styles/about.css';
 
 const statByLabel = (label: string) => {
@@ -110,8 +111,9 @@ const breadcrumbSchema = {
       </div>
       <div class="abt-hero-media" data-reveal-media>
         <Media
-          labeled
-          intent="Lower Manhattan office windows looking toward the harbour, morning light"
+          image={nycSkyline}
+          intent="Midtown Manhattan skyline: the Empire State Building and One World Trade seen across the city, low morning sun"
+          alt="The Manhattan skyline from above at sunrise, with the Empire State Building in the centre and One World Trade Center on the horizon."
           ratio="5 / 2"
           priority
           sizes="(min-width: 80em) 1264px, (min-width: 64em) 1136px, (min-width: 48em) 688px, 100vw"

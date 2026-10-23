@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogSlider from '@/components/BlogSlider.astro';
 import Media from '@/components/Media.astro';
+import factoringImage from '@/assets/images/services/invoice-factoring.webp';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -168,8 +169,9 @@ const faqs = SERVICE_FAQS['invoice-factoring-tool'];
       <div class="ift-shell ift-helps-split" data-reveal>
         <div class="ift-helps-image">
           <Media
-            labeled
-            intent="Abstract still of a stack of paper invoices on a desk, no people"
+            image={factoringImage}
+            intent="Laptop showing a receivables dashboard, calculator and clipboard of documents, a loaded delivery van outside"
+            alt="A laptop showing a receivables dashboard, a calculator and a clipboard of documents on a desk, with a loaded delivery van through the window."
             ratio="3 / 4"
             sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
           />
