@@ -407,6 +407,32 @@ The sibling's version of the file is **recoverable**: `git show fd1faae:src/styl
 Rule for this repo: before `git add <file>`, run `git diff <file>` and confirm every hunk is yours. Another bot is usually mid-refactor in this working tree.
 
 
+## Session 2026-10-23 (late) — all twelve industry pages, one component
+
+**Ling:** "All industry pages copy is approved. Build them just like Retail page." Then, mid-session: "retail page hero scroll in animation takes too long. learn from blackstone.com/our-businesses/infrastructure hero — the H1 and subtitle just appear together, and the image just always shows."
+
+**Copy source.** Eleven Notion notes, one per industry, `<Industry> industry page – content outline (stage 1)`, dumped verbatim through the API (`/v1/blocks/<id>/children`; page ids in the generated file's header and in each page's frontmatter comment). Every note parsed to exactly 8 situations, 3 products, 7 FAQs and a blog-id list; every note's `range`/`term` matched `SERVICES` to the character, so nothing had to be corrected. **Do not re-key these figures into the page files** — the note is the contract, `SERVICES` is the number.
+
+**One build, not twelve copies.** `src/components/IndustryPage.astro` + `src/styles/industry.css` are the retail page's five bands (hero · what's your case · products · blog · FAQ; SiteCta comes from BaseLayout). `retail.css` is deleted — it is `industry.css` with the prefix renamed `ret-` → `ind-`, and `/industries/retail` renders through the same component. The eleven new page files are 12 lines each: a data lookup and the component. Copy lives in `src/data/industry-pages.ts` (`INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent>`).
+
+Why shared and not twelve prefixed copies, against the "own page-prefixed classes" standing rule: the pages are the *same design* with different words, which is exactly the drift the blog slider (seven copies → `BlogSlider`) and the FAQ hover (six stylesheets → one rule) were consolidated out of this week. The standing rule still applies to pages that differ.
+
+- Retail's own copy was transcribed from the **shipped** page, not from the older stage-1 note, so nothing on it changed. Verified: all 47 copy strings from `HEAD:src/pages/industries/retail.astro` are present in the new build.
+- Blog ids are the note's "relevant few", padded to five from a fallback order (checklist · statements · factor-rate · equipment break-even · factoring vs AR · MCA vs term) so every slider has the same slide count as the service pages.
+- Meta description = `INDUSTRIES[].seoDescription` (retail keeps its own shipped sentence). `<title>` = the H1, as on retail.
+- `industry.css` also drops the `.ind-case-facts` split-on-" · " hack: amount and term now come from `spec.amounts` / `spec.terms` directly.
+
+**Routes.** All twelve are live: the eleven explicit `/industries/<slug>` rules are removed from `netlify.toml` and `public/_redirects`, every slug is in `astro.config.mjs` `livePaths` (sitemap), the industry retired-loop now only fires for a slug missing from `livePaths`, and `Industry.href` is set for all twelve in `industries.ts` — so the header Industries menu and the home Industries tab deep-link instead of pointing at `/#industries-heading`.
+
+**Hero reveal.** Home's pattern is a per-section `data-reveal-stagger` (default 0.4) over `DURATION` 0.8, which gave the retail hero a 2.0s cascade over four elements. `scroll-in.ts` gained `sectionDuration()` reading `data-reveal-duration` (opt-in; default unchanged, so no other page moved). The industry hero uses `data-reveal-stagger="0"` + `data-reveal-duration="0.55"`, and the still carries **no** `data-reveal` at all, so it is visible from first paint. Measured at 1440 on the local preview: h1 and standfirst report identical opacity at every sample (0 → 0.43 → 0.61 → 0.73 → 0.81 → 0.97 → 1), fully opaque at ~580ms; `.ind-hero-media` reads opacity 1 at every sample including the first.
+
+**QA.** `npm run build` — 21 pages, all twelve `dist/industries/*.html` ~80 KB with one `<h1>`, no `http-equiv="refresh"`, all twelve in `sitemap-0.xml`. `npm run check` — 0 errors, 4 pre-existing hints in `tests/nav.spec.mjs`. CDP sweep, 12 pages × 390/768/1024/1440/1920 = 60 combos: `scrollWidth == clientWidth`, zero overflowing elements, 5 bands, 8 situations, 3 cards, 7 FAQs, 5 dots on every combo. Accordion verified single-open on the situation list and the FAQ list (`10000000` → `00010000`). Screenshots: `~/Desktop/hermes-output/falcon_industries/shots/`.
+**`npm run test:*` were not run** — they need `playwright-core`, which is not a dependency (same blocker as 2026-10-22).
+
+**Still open.** The hero photograph for each industry is the labelled `Media` placeholder (the note's `hero-intent` line is its alt text). The eleven notes' "Open questions for Ling and Dwight" are untouched — notably healthcare claims factoring (the copy says "some funders", and must keep saying that until Dwight answers) and the nonprofit-school question. `/industries` itself is still a redirect in both configs: if Ling wants an index page, that rule has to come out in its own commit.
+
+
+
 ### Nav card surfaces: lilac card that reads as a card (2026-10-23, owner request)
 
 Ling: "I like the card being light lilac so it's different from dropdown white color to stand out on light mode, can you also change its background color to make it stand out as a card?"
