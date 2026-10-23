@@ -135,3 +135,24 @@ article scope: `ul { list-style: disc }`, `ol { list-style: decimal }`, 8px item
 circle marker for nested lists. Task lists (`- [ ]`) keep no marker and keep their checkbox.
 Verified on `/blog/bridging-a-slow-season`: the 1-2-3 list renders "1. 2. 3." and the bulleted list
 renders "•" with a hanging indent.
+
+## Fourth pass — the rail now copies the reference's sticky content
+
+Ling, with a screenshot of the reference rail: *"This is what's supposed to be on the right. Author
+just write Falcon Equity Group. change 'Stay up-to-date' to 'Small business funding', change 'Sign up
+for our latest insights and firm announcements.' to a sentence that is similar to 'Consult Falcon
+Equity for a funding solution for my business'. And use the button design on the example. I want all
+the small share buttons under as well. Let's just copy their right sticky content."*
+
+Four modules, measured on the reference at 1440 (rail 304 wide, sticky 140 from the top, modules 24
+apart behind 1px rules, a closing rule under the share row):
+
+| Module | Reference | Ours |
+| --- | --- | --- |
+| category + date | category 14/21 UPPERCASE, date 16/24 w500 | same |
+| author | avatar 40 + 16, name 16/24 w400, role 14/21 w300 | **Falcon Equity Group**, role "Business funding", logo as the avatar — no invented person |
+| eyebrow + sentence + button | "Stay up-to-date" 14/21 ls 1.12 · 20/30 sentence · 210×48 ink pill, radius 100, label 16/24 w500, 40px circle-arrow | "SMALL BUSINESS FUNDING" · "Ask Falcon Equity about a funding solution for your business." · same pill, "See your options" |
+| share | print · 1px rule · LinkedIn, X, Facebook, email at 24px, 24 apart | same five, print wired to `window.print()` |
+
+The earlier dark Falcon CTA panel is gone — the reference's module is white with a black pill button,
+so that is what the page does now.

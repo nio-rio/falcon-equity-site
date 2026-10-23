@@ -680,3 +680,24 @@ every width and equals the home page's section-heading size (40px) at 1440. Befo
 bullet and every number was missing. The article scope now restores `disc` and `decimal` with 8px item
 gaps, ink markers and a `circle` marker for nested lists; task lists keep their checkbox and no marker.
 Verified on `/blog/bridging-a-slow-season` (ordered 1-2-3 list + bulleted list with hanging indent).
+
+### Blog article rail — the reference's four modules (2026-10-23, fourth pass)
+
+Ling: *"This is what's supposed to be on the right. Author just write Falcon Equity Group … use the
+button design on the example. I want all the small share buttons under as well. Let's just copy their
+right sticky content."*
+
+`src/styles/blog-article.css` + the `<aside>` in `src/pages/blog/[slug].astro` now mirror the reference
+rail module for module (304 wide, sticky 140, 24 apart behind 1px rules):
+
+1. **Category + date** — category 14/21 uppercase, date 16/24 w500.
+2. **Author** — 40px avatar (the Falcon logo), name **Falcon Equity Group**, role "Business funding".
+   No person is invented.
+3. **CTA** — eyebrow "SMALL BUSINESS FUNDING", the sentence "Ask Falcon Equity about a funding solution
+   for your business.", and the reference's button: 210×48 ink pill, radius 100, 8/8/8/24 padding,
+   16/24 w500 label, 40px circle-arrow at the right. It replaces "Stay up-to-date" + the newsletter
+   form. The dark Falcon panel from the earlier pass is gone.
+4. **Share** — print (wired to `window.print()`), a 1px rule, then LinkedIn, X, Facebook and email at
+   24px, 24 apart, with a closing rule under the row.
+
+Checked: no horizontal overflow at 390 / 768 / 1440, rail 304 at 1440, share row 74 tall as measured.
