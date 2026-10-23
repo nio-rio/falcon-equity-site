@@ -707,7 +707,7 @@
    Slider keeps that layout; arrows sit in the right column, image-bottom. */
 .pilot-ann {
   --pilot-ann-nav-gap: 2.5rem;
-  --pilot-ann-btn: 2.5rem; /* height of the shared .slider-nav row */
+  --pilot-ann-btn: 2.75rem; /* same as .circle-arrow / arrow-cta */
   background: #fff;
   color: var(--bx-black);
 }
@@ -797,13 +797,51 @@
   color: var(--bx-black);
 }
 
-/* The row itself is .slider-nav (src/styles/slider-nav.css) — arrows, dots and
-   the activation ring are shared with the blog slider. This block only places
-   it in the announcement grid, and the gap between the row and the copy above
-   it stays the section's own. */
 .pilot-ann-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: var(--pilot-ann-nav-gap);
   z-index: 2;
+}
+
+.pilot-ann-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--pilot-ann-btn);
+  height: var(--pilot-ann-btn);
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  appearance: none;
+}
+
+.pilot-ann-arrow--prev {
+  transform: scaleX(-1);
+}
+
+.pilot-ann-btn:disabled,
+.pilot-ann-btn[aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.pilot-ann-btn:hover .circle-arrow,
+.pilot-ann-btn:focus-visible .circle-arrow {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.pilot-ann-btn:focus-visible {
+  outline: none;
 }
 
 @media (min-width: 48em) {
@@ -860,9 +898,7 @@
   }
 
   .pilot-ann-nav {
-    /* 4 tracks, not 3: the shared nav is 264px at 1440 (two 40px arrows,
-       48px gaps, three 24px dots at 8px) and 3 tracks only give 224px. */
-    grid-column: 5 / 9;
+    grid-column: 6 / 9;
     grid-row: 1;
     align-self: end;
     margin-top: 0;
@@ -898,7 +934,7 @@
   }
 
   .pilot-ann-nav {
-    grid-column: 13 / 17;
+    grid-column: 14 / 17;
   }
 }
 
