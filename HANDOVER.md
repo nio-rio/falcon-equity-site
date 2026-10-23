@@ -922,3 +922,30 @@ cost) should be like the h3 you just edited."*
   Re-measured in the same pass and unchanged: definition body 18/27/300, page H1 49/61, result-row labels 16px.
 - These three are `<h2>` elements carrying card-title sizes by design (they name the three numbers the tool
   returns), so the smaller-than-page-H2 value is intentional, not a ladder defect.
+
+## Industry pages — "what's your case" 16px floor (Ling, 2026-10-23) — approved, do not revert
+
+*"For each industry page, 'what's your case' section, no text should be under 16px. Adjust spacing after
+adjusting text sizes."*
+
+- **Audited, not grepped**: every rendered text node inside the section at **320 / 375 / 390 / 430 / 527 / 768 /
+  1024 / 1280 / 1440**, with all accordion rows forced open (`is-open` + `aria-expanded`) so the closed panels'
+  hidden styles were included. Three offenders, all label type:
+  - `.ind-case-means-label` **14/22 → 16/24**, tracking 0.56 → 0.64px (0.04em held)
+  - `.ind-case-facts dt` **14/22 → 16/24**
+  - the shared `.eyebrow` — **14px sitewide below 1280** → 16px on the industry templates only
+    (`:is(.ind-case, .ind-products-band, .ind-blog-band, .ind-faq-band) .eyebrow`). Home is frozen and the
+    service pages keep 14; this is the `.calc-page .eyebrow` pattern. The other three bands were included on
+    purpose: one band at 14 would have put two sizes of the same label on one page.
+- **Spacing, adjusted after the type**: the facts rows were a 22px line box + 2px padding = **26px pitch**, so
+  padding drops to **1px** and `dd` takes the same 24px line box, keeping the pitch and putting the label and
+  value on one baseline. Measured after: rows 26 / 26, block 52 (identical to before), dt column 72px with
+  **no overflow** at 16px, `dd` still one line at every width, dt→dd gutter 16px, open-panel inner height
+  400 → **402** at 390 and 347 → **349** at 768, unchanged (280 / 254) at 1024+. Trigger heights unchanged
+  (108 / 80 / 84 / 100).
+- **Whole page re-audited afterwards**: zero text under 16px on `/industries/retail` at 320 / 768 / 1024 /
+  1280 / 1440 and on `/industries/healthcare` at 390 / 1440; the smallest value anywhere in `main` is exactly
+  16px. The header's compact Apply label and the footer disclosure are outside `main` and still 14px — shared
+  chrome, measured and flagged in the 14/16px calculator round.
+- Band heads below 1280 grow **3px** (the eyebrow line box 21 → 24); the `--eyebrow-gap` margin under it is
+  untouched. Nothing else on the page moved. Commits `664d5cf`, `f1b3c39`.
