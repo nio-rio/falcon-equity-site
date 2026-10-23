@@ -883,3 +883,18 @@ Follow-up in the same round: *"Same with service pages, process sections H3."*
   The fit-card titles were re-measured and still read 20px @768–1280 / 24px @1440, i.e. unchanged.
 - Same 1px phone-vs-desktop inversion as the industry band (25px on the phone vs 24px above), left alone and
   flagged: 1.25rem on the base rule is the one-line change if a monotonic ladder is wanted.
+
+## Calculator — the three definitions take the process H3 size (Ling, 2026-10-23) — approved, do not revert
+
+*"same with loan calculator page, there's a 3 column section. Those H2 (payment, total cost, annualized
+cost) should be like the h3 you just edited."*
+
+- **Changed**: `.calc-def-title` = **1.5rem (24px) / 36px / 0.192** from `48em` up, in
+  `src/styles/loan-calculator.css` (commit `c5797a4`). Same value as `.ind-products-band .mca-card-title` and
+  the six service-page process titles, so all four places now read one spec.
+- **The base rule did not move**: it is already 20px (= the 1.25rem phone floor), so mobile stays at 20px and
+  the ladder runs 20 → 24 with no inversion, unlike the H3s (which kept a 25px base).
+- **Measured, before → after**: 20px @390/768/1024/1280/1440 → **20px @390, 24px @768/1024/1280/1440**.
+  Re-measured in the same pass and unchanged: definition body 18/27/300, page H1 49/61, result-row labels 16px.
+- These three are `<h2>` elements carrying card-title sizes by design (they name the three numbers the tool
+  returns), so the smaller-than-page-H2 value is intentional, not a ladder defect.
