@@ -172,7 +172,7 @@ import { INDUSTRY_STILLS } from '@/data/industry-stills';
     });
 
     dropwrap?.addEventListener('focusout', (event) => {
-      if (!dropwrap.contains(event.relatedTarget as Node)) closeMenu();
+      if (!dropwrap.contains((event as FocusEvent).relatedTarget as Node)) closeMenu();
     });
 
     window.addEventListener('resize', () => {

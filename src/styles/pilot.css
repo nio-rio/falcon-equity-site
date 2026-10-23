@@ -1054,8 +1054,8 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--type-h2-weight);
-  font-size: 2rem;
-  line-height: 1.25;
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
   letter-spacing: 0.008em;
   color: var(--bx-black);
 }
@@ -1271,10 +1271,6 @@
 }
 
 @media (min-width: 48em) {
-  .pilot-tabs-head h2 {
-    font-size: 2.5rem;
-  }
-
   .pilot-tabs-dropwrap {
     max-width: 26.5rem;
   }
@@ -1298,10 +1294,6 @@
 
   .pilot-tabs-heading {
     grid-column: 1 / span 7;
-  }
-
-  .pilot-tabs-head h2 {
-    font-size: 2rem;
   }
 
   .pilot-tabs-nav {
@@ -1347,10 +1339,6 @@
 @media (min-width: 90em) {
   .pilot-tabs-heading {
     grid-column: 1 / span 8;
-  }
-
-  .pilot-tabs-head h2 {
-    font-size: 2.5rem;
   }
 
   .pilot-tabs-nav {
