@@ -61,8 +61,8 @@ for (const vp of VIEWPORTS) {
     const name = item?.querySelector('[data-testimonial-split]');
     const nav = wrap?.querySelector('.pilot-ann-nav');
     const quote = item?.querySelector('[data-testimonial-text]');
-    const prev = wrap?.querySelector('[data-prev] .circle-arrow');
-    const next = wrap?.querySelector('[data-next] .circle-arrow');
+    const prev = wrap?.querySelector('[data-slider-prev]');
+    const next = wrap?.querySelector('[data-slider-next]');
     const ir = item?.getBoundingClientRect();
     const mr = media?.getBoundingClientRect();
     const nr = nav?.getBoundingClientRect();
@@ -85,6 +85,8 @@ for (const vp of VIEWPORTS) {
       navBottom: nr ? Math.round(nr.bottom) : null,
       mediaBottom: mr ? Math.round(mr.bottom) : null,
       itemCount: wrap ? wrap.querySelectorAll('[data-testimonial-item]').length : 0,
+      dotCount: wrap ? wrap.querySelectorAll('.slider-nav-dot').length : 0,
+      activeDot: wrap ? [...wrap.querySelectorAll('.slider-nav-dot-item')].findIndex((li) => li.classList.contains('is-active')) : -1,
       markCount: wrap ? wrap.querySelectorAll('.pilot-ann-mark').length : -1,
       quoteColor: quote ? getComputedStyle(quote).color : null,
       quoteText: quote?.textContent.replace(/\s+/g, ' ').trim() || '',
@@ -131,9 +133,12 @@ for (const vp of VIEWPORTS) {
       prevMirrored &&
       (geom.nextTransform === 'none' || geom.nextTransform === 'matrix(1, 0, 0, 1, 0, 0)') &&
       geom.circleW != null &&
-      Math.abs(geom.circleW - 44) <= 1 &&
+      Math.abs(geom.circleW - 40) <= 1 &&
       geom.circleH != null &&
-      Math.abs(geom.circleH - 44) <= 1,
+      Math.abs(geom.circleH - 40) <= 1 &&
+      /* shared SliderNav: one dot per testimonial, active dot ringed */
+      geom.dotCount === geom.itemCount &&
+      geom.activeDot === 0,
     detail: JSON.stringify({
       itemCount: geom.itemCount,
       markCount: geom.markCount,
@@ -143,13 +148,15 @@ for (const vp of VIEWPORTS) {
       nextTransform: geom.nextTransform,
       circleW: geom.circleW,
       circleH: geom.circleH,
+      dotCount: geom.dotCount,
+      activeDot: geom.activeDot,
     }),
   });
 
   await page.locator('.pilot-ann').screenshot({ path: `${OUT}/testimonial-${vp.name}.png` });
 
   if (vp.name === '1440') {
-    await page.locator('[data-next]').click();
+    await page.locator('[data-slider-next]').click();
     await page.waitForTimeout(1600);
     const after = await page.evaluate(() => {
       const item = document.querySelector('[data-testimonial-item].is--active');

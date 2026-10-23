@@ -12,6 +12,7 @@
  */
 import Eyebrow from '@/components/Eyebrow.astro';
 import Media from '@/components/Media.astro';
+import SliderNav from '@/components/SliderNav.astro';
 import type { Post } from '@/lib/blog';
 import '@/styles/blog-slider.css';
 
@@ -29,23 +30,6 @@ interface Props {
 const { posts, label, bandClass = '', sectionKey } = Astro.props;
 
 const sectionAttrs = sectionKey ? { [`data-${sectionKey}-section`]: 'blog' } : {};
-
-/* Arrow and dot geometry is copied verbatim from the reference so the icons
-   are the same shapes, not look-alikes. 40-unit canvas for the arrows,
-   24-unit for the dot ring. */
-const ARROW_LINE =
-  'M29 20c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6Z';
-const ARROW_DISC =
-  'M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Zm3.2 14.8c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0Z';
-const ARROW_RING =
-  'M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z';
-
-/* Dot ring: r 11.25 in a 24 canvas → circumference 70.686. The ring is
-   DRAWN clockwise from 12 o'clock when a slide becomes active (0.9s ease-out,
-   measured off the reference recording), so the circle needs a dasharray plus
-   a -90° rotation to start at the top. No-JS state stays correct: the active
-   dot ships with offset 0 (full ring), the rest with a full offset (none). */
-const RING_C = Number((2 * Math.PI * 11.25).toFixed(3));
 
 const showNav = posts.length > 1;
 ---
@@ -118,83 +102,12 @@ const showNav = posts.length > 1;
 
           {
             showNav && (
-              <div class="blog-nav">
-                <button
-                  type="button"
-                  class="blog-nav-arrow blog-nav-arrow--prev"
-                  data-blog-prev
-                  aria-label="Previous article"
-                >
-                  <svg
-                    class="blog-nav-arrow-icon"
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path class="blog-nav-arrow-line" d={ARROW_LINE} fill="currentColor" />
-                    <path class="blog-nav-arrow-fill" d={ARROW_DISC} fill="currentColor" />
-                    <path class="blog-nav-arrow-ring" d={ARROW_RING} fill="currentColor" />
-                  </svg>
-                </button>
-
-                <ul class="blog-nav-dots">
-                  {posts.map((post, i) => (
-                    <li class:list={['blog-nav-dot-item', i === 0 && 'is-active']}>
-                      <button
-                        type="button"
-                        class="blog-nav-dot"
-                        data-blog-dot={i}
-                        aria-label={`Go to article ${i + 1} of ${posts.length}: ${post.data.title}`}
-                        aria-current={i === 0 ? 'true' : undefined}
-                      >
-                        <svg
-                          class="blog-nav-dot-ring"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                          focusable="false"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="11.25"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-dasharray={String(RING_C)}
-                            stroke-dashoffset={i === 0 ? '0' : String(RING_C)}
-                            transform="rotate(-90 12 12)"
-                            data-circumference={String(RING_C)}
-                          />
-                        </svg>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  type="button"
-                  class="blog-nav-arrow blog-nav-arrow--next"
-                  data-blog-next
-                  aria-label="Next article"
-                >
-                  <svg
-                    class="blog-nav-arrow-icon"
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path class="blog-nav-arrow-line" d={ARROW_LINE} fill="currentColor" />
-                    <path class="blog-nav-arrow-fill" d={ARROW_DISC} fill="currentColor" />
-                    <path class="blog-nav-arrow-ring" d={ARROW_RING} fill="currentColor" />
-                  </svg>
-                </button>
-              </div>
+              <SliderNav
+                class="blog-nav"
+                items={posts.map((post) => ({ label: post.data.title }))}
+                prevLabel="Previous article"
+                nextLabel="Next article"
+              />
             )
           }
         </div>

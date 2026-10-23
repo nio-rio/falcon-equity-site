@@ -4,7 +4,7 @@
  * 3:4 portrait in the middle columns, small copy right and bottom-aligned.
  * Home testimonial slider — only consented quotes in HOME_TESTIMONIALS.
  */
-import CircleArrow from '@/components/CircleArrow.astro';
+import SliderNav from '@/components/SliderNav.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import { HOME_TESTIMONIALS } from '@/data/home-testimonial';
@@ -59,31 +59,15 @@ const eyebrow = 'Testimonial';
             ))
           }
         </div>
-        <div class="pilot-ann-nav">
-          <p class="sr-only" aria-live="polite">
-            Testimonial <span data-current>1</span> of <span data-total>{slides.length}</span>
-          </p>
-          <button
-            type="button"
-            class="pilot-ann-btn"
-            data-prev
-            aria-label="Previous testimonial"
-            disabled={!canLoop}
-            aria-disabled={canLoop ? 'false' : 'true'}
-          >
-            <CircleArrow class="pilot-ann-arrow--prev" />
-          </button>
-          <button
-            type="button"
-            class="pilot-ann-btn"
-            data-next
-            aria-label="Next testimonial"
-            disabled={!canLoop}
-            aria-disabled={canLoop ? 'false' : 'true'}
-          >
-            <CircleArrow />
-          </button>
-        </div>
+        <p class="sr-only" aria-live="polite">
+          Testimonial <span data-current>1</span> of <span data-total>{slides.length}</span>
+        </p>
+        <SliderNav
+          class="pilot-ann-nav"
+          items={slides.map((slide, i) => ({ label: slide.business || `Testimonial ${i + 1}` }))}
+          prevLabel="Previous testimonial"
+          nextLabel="Next testimonial"
+        />
       </div>
     </div>
   </div>

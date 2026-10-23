@@ -1,6 +1,12 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
+import {
+  bindSliderNavArrows,
+  bindSliderNavDots,
+  resetSliderNav,
+  syncSliderNav,
+} from '@/scripts/slider-nav';
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -28,9 +34,8 @@ const SEL = {
   slider: '[data-blog-slider]',
   copySlide: '[data-blog-copy-slide]',
   mediaSlide: '[data-blog-media-slide]',
-  prev: '[data-blog-prev]',
-  next: '[data-blog-next]',
-  dot: '[data-blog-dot]',
+  prev: '[data-slider-prev]',
+  next: '[data-slider-next]',
   live: '[data-blog-live]',
   title: '[data-blog-title]',
   link: '.blog-link, [data-blog-link]',
@@ -50,11 +55,11 @@ function setupWrap(slider: HTMLElement) {
 }
 
 function bindSlider(slider: HTMLElement, reduce: boolean) {
+  resetSliderNav(slider);
   const copies = [...slider.querySelectorAll<HTMLElement>(SEL.copySlide)];
   const media = [...slider.querySelectorAll<HTMLElement>(SEL.mediaSlide)];
   const prev = slider.querySelector<HTMLButtonElement>(SEL.prev);
   const next = slider.querySelector<HTMLButtonElement>(SEL.next);
-  const dots = [...slider.querySelectorAll<HTMLButtonElement>(SEL.dot)];
   const live = slider.querySelector<HTMLElement>(SEL.live);
   const count = Math.min(copies.length, media.length);
   if (count < 1) return;
@@ -137,42 +142,6 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
   if (reduce) slider.setAttribute('data-blog-reduce', '');
   else slider.removeAttribute('data-blog-reduce');
 
-  /* Dot ring animation. The active dot's circle is DRAWN clockwise from
-     12 o'clock over 0.9s, ease-out — measured off the reference recording
-     (26/47/65/79/89/93/97% at 0.1s steps ≈ power2.out), then it holds full.
-     The outgoing ring clears immediately, exactly as the reference does.
-     Called once when a transition starts, and again from updateChrome — the
-     guard makes the second call a no-op so the draw is never restarted. */
-  let dotIndex = -1;
-  const syncDots = (next: number, animate = true) => {
-    if (dotIndex === next) return;
-    const firstPaint = dotIndex === -1;
-    dotIndex = next;
-    dots.forEach((dot, i) => {
-      const on = i === next;
-      dot.classList.toggle('is-active', on);
-      dot.parentElement?.classList.toggle('is-active', on);
-      if (on) dot.setAttribute('aria-current', 'true');
-      else dot.removeAttribute('aria-current');
-
-      const ring = dot.querySelector<SVGCircleElement>('circle');
-      if (!ring) return;
-      const c = Number(ring.dataset.circumference || 0);
-      gsap.killTweensOf(ring);
-      if (!on) {
-        gsap.set(ring, { strokeDashoffset: c });
-      } else if (animate && !reduce && !firstPaint) {
-        gsap.fromTo(
-          ring,
-          { strokeDashoffset: c },
-          { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out' },
-        );
-      } else {
-        gsap.set(ring, { strokeDashoffset: 0 });
-      }
-    });
-  };
-
   const updateChrome = (announce: boolean) => {
     slides.forEach((slide, i) => {
       const on = i === index;
@@ -183,7 +152,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
       slide.copy.toggleAttribute('inert', !on);
       slide.media.toggleAttribute('inert', !on);
     });
-    syncDots(index);
+    syncSliderNav(slider, index, { reduce });
     slider.setAttribute('data-blog-index', String(index));
     if (prev) prev.disabled = !canLoop;
     if (next) next.disabled = !canLoop;
@@ -216,7 +185,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     isAnimating = true;
     stopAutoplay();
     // Ring starts drawing the moment the slide starts moving.
-    syncDots(nextIndex);
+    syncSliderNav(slider, nextIndex, { reduce });
 
     const finish = () => {
       gsap.set([outgoing.copy, outgoing.media], { autoAlpha: 0 });
@@ -290,17 +259,11 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     scheduleAutoplay();
   };
 
-  const dotHandlers = dots.map((dot, i) => {
-    const handler = () => {
-      goTo(i);
-      scheduleAutoplay();
-    };
-    dot.addEventListener('click', handler);
-    return { dot, handler };
+  const unbindArrows = bindSliderNavArrows(slider, onPrev, onNext);
+  const unbindDots = bindSliderNavDots(slider, (i) => {
+    goTo(i);
+    scheduleAutoplay();
   });
-
-  prev?.addEventListener('click', onPrev);
-  next?.addEventListener('click', onNext);
 
   const onKey = (e: KeyboardEvent) => {
     if (e.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
@@ -358,15 +321,11 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     slider.removeEventListener('mouseleave', resume);
     slider.removeEventListener('focusin', pause);
     slider.removeEventListener('focusout', onFocusOut);
-    prev?.removeEventListener('click', onPrev);
-    next?.removeEventListener('click', onNext);
-    dotHandlers.forEach(({ dot, handler }) => dot.removeEventListener('click', handler));
+    unbindArrows();
+    unbindDots();
     unbindSwipe();
     slides.forEach((slide) => slide.titleSplit?.revert());
-    dots.forEach((dot) => {
-      const ring = dot.querySelector('circle');
-      if (ring) gsap.killTweensOf(ring);
-    });
+    resetSliderNav(slider);
   };
 }
 

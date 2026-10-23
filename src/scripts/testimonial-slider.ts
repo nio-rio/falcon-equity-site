@@ -1,6 +1,11 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
+import {
+  bindSliderNavDots,
+  resetSliderNav,
+  syncSliderNav,
+} from '@/scripts/slider-nav';
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -40,9 +45,11 @@ function setupWrap(wrap: HTMLElement) {
 }
 
 function bindSlider(wrap: HTMLElement, reduce: boolean) {
+  // A rebind starts from scratch: no remembered dot index, no running ring tween.
+  resetSliderNav(wrap);
   const items = [...wrap.querySelectorAll<HTMLElement>('[data-testimonial-item]')];
-  const prevBtn = wrap.querySelector<HTMLButtonElement>('[data-prev]');
-  const nextBtn = wrap.querySelector<HTMLButtonElement>('[data-next]');
+  const prevBtn = wrap.querySelector<HTMLButtonElement>('[data-slider-prev]');
+  const nextBtn = wrap.querySelector<HTMLButtonElement>('[data-slider-next]');
   const currentEl = wrap.querySelector('[data-current]');
   const totalEl = wrap.querySelector('[data-total]');
   if (!items.length) return;
@@ -127,6 +134,7 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
       el.setAttribute('aria-hidden', on ? 'false' : 'true');
     });
     if (currentEl) currentEl.textContent = String(index + 1);
+    syncSliderNav(wrap, index, { reduce });
   };
 
   const stopAutoplay = () => {
@@ -154,6 +162,8 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
     const incoming = slides[next];
     isAnimating = true;
     stopAutoplay();
+    // Ring starts drawing the moment the slide starts moving.
+    syncSliderNav(wrap, next, { reduce });
 
     const finish = () => {
       gsap.set(outgoing.item, { autoAlpha: 0 });
@@ -224,6 +234,11 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
   prevBtn?.addEventListener('click', onPrev);
   nextBtn?.addEventListener('click', onNext);
 
+  const unbindDots = bindSliderNavDots(wrap, (i) => {
+    goTo(i);
+    scheduleAutoplay();
+  });
+
   const onKey = (e: KeyboardEvent) => {
     if (!inView || !canLoop) return;
     if (isEditingTarget(e.target)) return;
@@ -257,6 +272,8 @@ function bindSlider(wrap: HTMLElement, reduce: boolean) {
     document.removeEventListener('keydown', onKey);
     prevBtn?.removeEventListener('click', onPrev);
     nextBtn?.removeEventListener('click', onNext);
+    unbindDots();
+    resetSliderNav(wrap);
     slides.forEach((slide) => {
       slide.textSplit?.revert();
       slide.nameSplit?.revert();

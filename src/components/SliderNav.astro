@@ -1,0 +1,131 @@
+---
+/**
+ * Slider navigation — ONE component for every slider on the site.
+ *
+ * The blog slider and the home testimonial slider both render this, so the
+ * arrows, the dots and the activation ring can never drift apart. Visual
+ * rules live in src/styles/slider-nav.css; the binder that draws the ring is
+ * src/scripts/slider-nav.ts.
+ *
+ * Geometry is copied verbatim from the reference: 40-unit arrow canvas with
+ * line / knocked-out-disc / ring paths, and a 24-unit dot canvas with an
+ * 11.25 radius ring.
+ */
+import '@/styles/slider-nav.css';
+
+export type NavItem = { label: string };
+
+interface Props {
+  /** One entry per slide; `label` is used for the dot's accessible name. */
+  items: NavItem[];
+  /** Accessible names for the two arrows. */
+  prevLabel?: string;
+  nextLabel?: string;
+  /** Class on the row, for placement in the host layout. */
+  class?: string;
+}
+
+const {
+  items,
+  prevLabel = 'Previous slide',
+  nextLabel = 'Next slide',
+  class: className,
+} = Astro.props;
+
+const ARROW_LINE =
+  'M29 20c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6Z';
+const ARROW_DISC =
+  'M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Zm3.2 14.8c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0Z';
+const ARROW_RING =
+  'M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z';
+
+/* Dot ring: r 11.25 in a 24 canvas → circumference 70.686. Drawn clockwise
+   from 12 o'clock by the binder, so the circle needs a dasharray plus a -90°
+   rotation to start at the top. No-JS state stays correct: the active dot
+   ships with offset 0 (full ring), the rest with a full offset (none). */
+const RING_C = Number((2 * Math.PI * 11.25).toFixed(3));
+
+const show = items.length > 1;
+---
+
+{
+  show && (
+    <div class:list={['slider-nav', className]}>
+      <button
+        type="button"
+        class="slider-nav-arrow slider-nav-arrow--prev"
+        data-slider-prev
+        aria-label={prevLabel}
+      >
+        <svg
+          class="slider-nav-arrow-icon"
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path class="slider-nav-arrow-line" d={ARROW_LINE} fill="currentColor" />
+          <path class="slider-nav-arrow-fill" d={ARROW_DISC} fill="currentColor" />
+          <path class="slider-nav-arrow-ring" d={ARROW_RING} fill="currentColor" />
+        </svg>
+      </button>
+
+      <ul class="slider-nav-dots">
+        {items.map((item, i) => (
+          <li class:list={['slider-nav-dot-item', i === 0 && 'is-active']}>
+            <button
+              type="button"
+              class="slider-nav-dot"
+              data-slider-dot={i}
+              aria-label={`Go to slide ${i + 1} of ${items.length}: ${item.label}`}
+              aria-current={i === 0 ? 'true' : undefined}
+            >
+              <svg
+                class="slider-nav-dot-ring"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="11.25"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-dasharray={String(RING_C)}
+                  stroke-dashoffset={i === 0 ? '0' : String(RING_C)}
+                  transform="rotate(-90 12 12)"
+                  data-circumference={String(RING_C)}
+                />
+              </svg>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        class="slider-nav-arrow slider-nav-arrow--next"
+        data-slider-next
+        aria-label={nextLabel}
+      >
+        <svg
+          class="slider-nav-arrow-icon"
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path class="slider-nav-arrow-line" d={ARROW_LINE} fill="currentColor" />
+          <path class="slider-nav-arrow-fill" d={ARROW_DISC} fill="currentColor" />
+          <path class="slider-nav-arrow-ring" d={ARROW_RING} fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+  )
+}

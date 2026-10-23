@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Slider navigation — SHARED by every slider on the site.
+   src/components/SliderNav.astro · src/scripts/slider-nav.ts
+
+   Learned from the blackstone.com home hero carousel navigation, measured
+   live in Chrome at 1440 on 23 Oct 2026, then the activation motion read off
+   Ling's screen recording of the same component. Navigation only: none of
+   that band's other furniture, type or colour is copied.
+
+   Consumers: the blog slider (all six service pages + /industries/retail) and
+   the home testimonial slider. A change here lands on every slider at once —
+   do not re-declare any of it in a page stylesheet.
+
+   Reference numbers (1440):
+     row             flex, align-items centre, height 40, 48px gaps
+     arrow           40 × 40, 1.5px ring, 40-unit line arrow
+     arrow hover     icon scale(1.16667); line arrow fades out, solid disc with
+                     the arrow knocked out fades in (300ms)
+     dot hit area    24 × 24, 8px apart (16 below 1440)
+     dot             12px solid circle, centred
+     active dot      24px ring, 1.5px stroke
+     ring on activate drawn clockwise from 12 o'clock, 0 → full in ~0.9s
+                     ease-out (power2.out), then holds; outgoing ring clears
+                     instantly
+   ========================================================================== */
+
+.slider-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 40px;
+}
+
+.slider-nav-arrow {
+  appearance: none;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* The reference rotates the whole button, not the icon. */
+.slider-nav-arrow--prev {
+  transform: rotate(180deg);
+}
+
+.slider-nav-arrow:disabled,
+.slider-nav-arrow[aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.slider-nav-arrow:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.slider-nav-arrow-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  transition: transform 300ms ease;
+}
+
+/* Three stacked paths, exactly as the reference draws them:
+   line arrow (at rest) · disc with the arrow knocked out (on hover) · ring. */
+.slider-nav-arrow-line,
+.slider-nav-arrow-fill {
+  transition: opacity 300ms ease;
+}
+
+.slider-nav-arrow-fill {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slider-nav-arrow:hover .slider-nav-arrow-icon {
+    transform: scale(1.16667);
+  }
+
+  .slider-nav-arrow:hover .slider-nav-arrow-fill {
+    opacity: 1;
+  }
+
+  .slider-nav-arrow:hover .slider-nav-arrow-line {
+    opacity: 0;
+  }
+}
+
+.slider-nav-arrow:focus-visible .slider-nav-arrow-icon {
+  transform: scale(1.16667);
+}
+
+.slider-nav-arrow:focus-visible .slider-nav-arrow-fill {
+  opacity: 1;
+}
+
+.slider-nav-arrow:focus-visible .slider-nav-arrow-line {
+  opacity: 0;
+}
+
+.slider-nav-dots {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  column-gap: 16px;
+}
+
+.slider-nav-dot-item {
+  display: list-item;
+  margin: 0;
+  padding: 0;
+}
+
+.slider-nav-dot {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 100%;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* 12px dot, painted by the pseudo-element so the 24px hit area stays empty. */
+.slider-nav-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.slider-nav-dot-ring {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* The ring is not a static badge: the binder draws it clockwise from 12
+   o'clock with stroke-dashoffset over 0.9s ease-out when the dot becomes
+   active, then leaves it full — the reference's activation animation.
+   No CSS opacity/transition here on purpose: the markup ships the active
+   ring already complete (offset 0, rotated -90°) and the rest empty, so the
+   static state is correct with JS off, and the draw is owned in one place. */
+
+.slider-nav-dot:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Narrow steps. The reference's 40px arrow gap and 16px dot gap are built for
+   its two dots; our sliders carry three to six. Measured on the blog slider at
+   390: six dots at those values need 384px against a 328px content box, so the
+   row would hang 56px into the gutter. Tighter gaps keep the same anatomy
+   inside the column, and the 24px dot hit area is never reduced. */
+@media (max-width: 47.99em) {
+  .slider-nav {
+    gap: 24px;
+  }
+
+  .slider-nav-dots {
+    column-gap: 8px;
+  }
+}
+
+@media (max-width: 22.5em) {
+  .slider-nav {
+    gap: 16px;
+  }
+
+  .slider-nav-dots {
+    column-gap: 4px;
+  }
+}
+
+@media (min-width: 90em) {
+  .slider-nav {
+    gap: 48px;
+  }
+
+  .slider-nav-dots {
+    column-gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-nav-arrow-icon,
+  .slider-nav-arrow-line,
+  .slider-nav-arrow-fill {
+    transition: none;
+  }
+
+  /* transform only on the icon — the prev arrow's flip lives on the button,
+     so this cannot un-rotate it. */
+  .slider-nav-arrow-icon {
+    transform: none;
+  }
+}

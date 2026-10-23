@@ -109,3 +109,47 @@ inside the band is owned by the component.
   `astro check` reports one pre-existing error in `PilotIndustryTabs.astro`
   (untouched here). `test:nav` needs a server on `127.0.0.1:4321` and failed on a
   home-page header-logo hover, not on this band.
+
+## Shared with the home testimonial slider (same day)
+
+Ling: *"Home page testimonial slider nav should also look like this."* Rather
+than copy the nav a second time — the drift this task existed to remove — the
+navigation became its own component and both sliders render it:
+
+| File | Role |
+| --- | --- |
+| `src/components/SliderNav.astro` | prev arrow · dots · next arrow, one dot per slide |
+| `src/styles/slider-nav.css` | every `.slider-nav*` rule; no page may re-declare them |
+| `src/scripts/slider-nav.ts` | `syncSliderNav` (activation ring), arrow + dot binding |
+
+Hooks are generic now: `data-slider-prev`, `data-slider-next`,
+`data-slider-dot="i"`. The blog slider keeps its own `data-blog-*` slide hooks;
+the testimonial keeps `data-testimonial-*`. Both pass a class for placement
+only (`class="blog-nav"`, `class="pilot-ann-nav"`).
+
+The home testimonial band was otherwise untouched — it is approved. Three
+changes were unavoidable and all are placement, not restyling:
+
+- `.pilot-ann-btn` and its `CircleArrow` spans are gone; the arrows are the
+  shared 40px ring buttons. `--pilot-ann-btn` drops 2.75rem → 2.5rem because it
+  is what reserves the meta column's space for the row.
+- The nav's grid slot widens from 3 tracks to 4 — `5 / 9` at 48em (was `6 / 9`)
+  and `13 / 17` at 80em (was `14 / 17`). Three tracks gave 224px; the row needs
+  264px at 1440 (two 40px arrows, 48px gaps, three 24px dots at an 8px pitch).
+- A single testimonial now renders no nav at all, where it used to render two
+  disabled buttons. Home ships three, so nothing visible changes today.
+
+Measured on the home page at 1440: prev arrow x=1041, dots at 1129 / 1161 /
+1193 (32px pitch), next arrow x=1265 — 48px gaps either side, 264px of content
+inside a 304px cell. No horizontal overflow at 320 / 390 / 768 / 1024 / 1440 /
+1920, and the row's right edge stays inside the content box at every width.
+Clicking the third dot moves the slide, moves `aria-current`, reads "3" in the
+live region, and draws the ring (38% → 65% → 79% at ~120ms steps).
+
+`tests/testimonial.spec.mjs` was updated for the new design: arrow box 44 → 40,
+selectors `[data-prev]`/`[data-next]` → `[data-slider-prev]`/`[data-slider-next]`,
+plus assertions that there is one dot per testimonial and that dot 0 is active.
+13/13 pass. **Note the suite reads `QA_BASE` from the environment**, which on
+this machine is set to the deploy preview — run it as
+`QA_BASE=http://127.0.0.1:4321 npm run test:testimonial` against a fresh
+`dist`, or it tests the last deployed build instead of the working tree.
