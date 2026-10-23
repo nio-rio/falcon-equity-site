@@ -180,6 +180,13 @@
    20/30 copy inside the left nine columns — their `AccordionDesc` area.
    At most one row is open per list: `bindAccordions` closes the others.
    --------------------------------------------------------------------------- */
+/* Ling's 16px floor inside this section (2026-10-23). The shared eyebrow is
+   14px sitewide below 1280 and the home page is frozen, so it is raised here
+   only — the same pattern as `.calc-page .eyebrow` on the calculator. */
+.ind-case .eyebrow {
+  font-size: 16px;
+}
+
 .ind-case-claim {
   margin: 0;
   /* No max-width: the owner wants this to sit on one line whenever the
@@ -313,9 +320,9 @@
   margin-bottom: 12px;
   color: var(--bx-on-dark-muted);
   font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: 0.56px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.64px;
 }
 
 .ind-case-means {
@@ -361,15 +368,16 @@
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   gap: 16px;
-  padding: 2px 0;
+  /* 1px + the 24px line box holds the 26px row pitch the 14px labels had. */
+  padding: 1px 0;
 }
 
 .ind-case-facts dt {
   margin: 0;
   color: var(--bx-on-dark-muted);
   font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .ind-case-facts dd {
@@ -377,7 +385,7 @@
   color: var(--color-white);
   font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .ind-case-link {
