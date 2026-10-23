@@ -102,8 +102,9 @@ Source: blackstone.com/the-firm/
 
 ### `TF-05` — 3-up titled prose columns, no card chrome
 
-- **Anatomy (measured):** Eyebrow with a 56px rule, then three columns of 20px title over 16/24 body, no fills, no borders, left-aligned; a second row of two items sits offset below.
-- **Measured:** band `white`, pad `160/160`, height 1174px; heading 24/36/300; body 18/27/300; still -; 133 words.
+- **Anatomy (measured, re-checked 23 Oct 2026):** the "OUR VALUES" band on `blackstone.com/the-firm/`. A label at 16/24 w400, tracking 1.28px, uppercase, with a 56px rule beside it and 64px under it; then **five** cards in a 5 / 6 / 5 split of the 16 tracks — 384 / 464 / 384 with 16px gutters (cols 1–5, 6–11, 12–16), so the middle card is wider and wraps its title to two lines. Card text measure 352 (32px pad-right). Title **24/36 w300 tracking 0.192** with **24px** under it, body **18/27 w300 tracking 0.32**. No fills, no borders, no numbers, left-aligned. Row gap 104.
+- **Measured:** band `white`, pad `160/160`, height 1174px; label 16/24/400; card title 24/36/300; body 18/27/300; still -; 133 words.
+- **At 390 (measured):** pad 80/80, label 14/21 tracking 1.12 with 48px under it, single column 328, title 20/32 w300 tracking 0.16, body unchanged at 18/27, 72px row gap.
 - **At 390:** height 1707px, top pad 80px, single column.
 - **Good for:** Three to six short principles or categories that need no images.
 - **Artifacts:** `img/TF-05-d.png`, `img/TF-05-m.png`

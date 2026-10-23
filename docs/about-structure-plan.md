@@ -147,6 +147,28 @@ build with the same probe — `18px/27px w300 ls 0.144` then `14px/21px w400 ls 
 between the name's text box and the title — and the render matches the reference's roster row for row
 (five rows, the last holding one person).
 
+## Revision 5 — 23 Oct 2026: the values band rebuilt on blackstone.com/the-firm/
+
+Ling: *"Learn the 'our value' section from this page and use it on ours. We can just use 3 values. And
+use a value slogan for the H2."* The band was rebuilt from a live measurement of that section in a real
+Chrome over CDP at 1440 and 390, not from the library entry — which had the card type wrong (it said
+20px title over 16/24 body; the reference is 24/36 over 18/27).
+
+**What was learned and used:** label 16/24 w400, tracking 1.28, uppercase with a 56px rule beside it;
+cards split 5 / 6 / 5 of the 16 tracks (384 / 464 / 384, 16px gutters — the middle column is wider, so
+its title wraps); title 24/36 w300 tracking 0.192 with 24px under it; body 18/27 w300 tracking 0.32; no
+chrome of any kind. At 390 the label drops to 14/21 tracking 1.12 and the cards stack at 72px.
+
+**Three values, slogan H2.** `Vision` came out (its line, "we look at the whole file, not a single
+score", was saying what `Precision` says). H2 is now the slogan **"Three things we don't bend on."** and
+the eyebrow reads "Our values". Body copy is the contract's, verbatim.
+
+**One deviation, stated:** the reference leaves 344px between its label and its first card, because the
+label is the only text in its head. Ours spends that air on the slogan, so the grid starts 96px under
+the H2 (the house head-to-content rhythm). Everything from the first card down is the reference's own
+geometry — verified on our build with the same probe: 384px card, 24/36 w300 ls 0.192, 24px to the
+body, 18/27 w300 ls 0.32.
+
 ## Still open
 
 - The two legal routes (`/privacy-policy`,

@@ -50,8 +50,11 @@ const people = [
   { name: 'Hannah O’Brien', title: 'Compliance Analyst' },
 ];
 
+/**
+ * Three of the contract's four values (Vision dropped 23 Oct on Ling's "we can just use 3 values":
+ * "we look at the whole file" was saying what Precision says). Wording is the contract's, verbatim.
+ */
 const values = [
-  { name: 'Vision', body: 'We look at the whole file, not a single score.' },
   { name: 'Speed', body: 'Decisions in hours. Many products fund within 24-48 hours of approval.' },
   { name: 'Precision', body: 'The product and the size should match the use of proceeds.' },
   { name: 'Partnership', body: 'Long relationships over one-off transactions.' },
@@ -201,19 +204,20 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 7. Values — TF-05 titled prose, four instead of three. -->
+  <!-- 7. Values — blackstone.com/the-firm/'s "OUR VALUES" band: label, then 5/6/5 cards of
+       24/36 title over 18/27 body with no chrome. Three values, slogan H2. -->
   <section class="abt-values" aria-labelledby="values-heading" data-band="light" data-abt-section="values" data-reveal-root>
     <div class="container-site">
       <div class="abt-shell abt-band-head" data-reveal>
         <div class="abt-block-head">
-          <Eyebrow>Values</Eyebrow>
-          <h2 id="values-heading">What we hold to.</h2>
+          <Eyebrow>Our values</Eyebrow>
+          <h2 id="values-heading">Three things we don't bend on.</h2>
         </div>
       </div>
       <div class="abt-values-grid" data-reveal>
         {
           values.map((value) => (
-            <article>
+            <article class="abt-value">
               <h3 class="abt-value-name">{value.name}</h3>
               <p class="abt-value-body">{value.body}</p>
             </article>

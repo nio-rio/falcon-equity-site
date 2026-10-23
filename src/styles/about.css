@@ -1209,46 +1209,86 @@ section.abt-founder[data-band='dark'] {
 }
 
 /* --------------------------------------------------------------- values --- */
+/* The values band is blackstone.com/the-firm/'s "OUR VALUES" section, measured live in a real
+   Chrome over CDP on 23 Oct 2026 at 1440 / 390:
+
+     reference                                          | ours
+     ---------------------------------------------------|------------------------------------
+     band white, pad 160 / 160 (80 / 80 at 390)         | 80 / 104 / 144 bottom, band above
+                                                         | carries its own bottom pad
+     label 16/24 w400 ls 1.28 uppercase, 56px rule      | Eyebrow "Our values" (house)
+       beside it, pad-bottom 64 (14/21 ls 1.12 at 390)   | + the H2 slogan Ling asked for
+     label block bottom → first card 344 (360 at 390)   | 96px — the reference has no slogan
+                                                         | to spend that air on; ours does
+     cards 384 / 464 / 384, 16px gaps                   | 5 / 6 / 5 of the 16 tracks
+       (cols 1–5, 6–11, 12–16 of 64px tracks)           |  same tracks, same 16px gutters
+     card text measure 352 (pad-right 32)               | 5 tracks = 384, 6 = 464
+     title 24/36 w300 ls .192, 24px under it            | 24/36 w300 ls .192, margin-bottom 24
+       (20/32 ls .16 at 390)                            |  20/32 ls .16 at 390
+     body 18/27 w300 ls .32                             | 18/27 w300 ls .32
+     row gap 104 (72 at 390)                            | 72 when a second row exists
+     no fills, no borders, no numbers                   | same
+   Three values instead of five, so one row: 5 / 6 / 5. */
 .abt-values-grid {
   margin-top: var(--space-head-to-content);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  column-gap: 24px;
-  row-gap: 40px;
+  column-gap: 16px;
+  row-gap: 72px;
+}
+
+.abt-value {
+  min-width: 0;
 }
 
 .abt-value-name {
-  margin: 0 0 12px;
+  margin: 0 0 24px;
   color: var(--color-ink);
   font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 400;
-  line-height: 30px;
+  font-weight: 300;
+  line-height: 32px;
   letter-spacing: 0.16px;
+  text-wrap: balance;
 }
 
 .abt-value-body {
   margin: 0;
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.2px;
-}
-
-@media (min-width: 48em) {
-  .abt-values-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 48px;
-  }
+  line-height: 27px;
+  letter-spacing: 0.32px;
 }
 
 @media (min-width: 64em) {
   .abt-values-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 64px;
-    row-gap: 48px;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 104px;
+  }
+
+  .abt-value {
+    grid-column: 1 / -1;
+  }
+
+  /* The reference's 5 / 6 / 5 split of its 16 tracks: 384 / 464 / 384 with 16px gutters. */
+  .abt-value:nth-child(1) {
+    grid-column: 1 / span 5;
+  }
+
+  .abt-value:nth-child(2) {
+    grid-column: 6 / span 6;
+  }
+
+  .abt-value:nth-child(3) {
+    grid-column: 12 / span 5;
+  }
+
+  .abt-value-name {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
   }
 }
 
