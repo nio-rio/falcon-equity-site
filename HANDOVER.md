@@ -655,3 +655,28 @@ matches the page.
 **Still open:** `/blog/category/<slug>` archives are not built (they 301 to `/blog`), and the posts'
 `takeaways` / `faq` frontmatter is not rendered on the article page — the reference has no such blocks,
 and FAQ schema is only valid when the answers are visible. Say the word and I will build either.
+
+### Blog article template — spacing, H2 ladder, list markers (2026-10-23, third pass)
+
+Ling: *"Are all blog pages using one template? Please learn the spacing from H1 to content, spacing
+between left and right, spacing between the elements on the right etc. And make sure your H2 is smaller
+than H1, maybe use the H2 size on home page. And check if your bullet list or number list is formatted
+correctly and if they have bullets or numbers."*
+
+All eight guides come from `src/pages/blog/[slug].astro` + `src/styles/blog-article.css` — one
+template, no per-post layout.
+
+Fixed against the reference (measured again on
+`insights/article/private-markets-in-the-age-of-ai-…`): H1 → media is **32** now (was 56: a 24px
+header pad under a 32px media gap); body → rail stays 256 at 1440; rail modules are **24 apart with a
+1px rule and 8px of inner padding** (were 48 apart with 24px inner padding), and the first module
+carries no rule.
+
+**H2 ladder** is now 24 → 32 → 40 against the H1's 32 → 40 → 48, so the H2 is smaller than the H1 at
+every width and equals the home page's section-heading size (40px) at 1440. Before, the H2 was 40 from
+48em up and matched the H1 at 768 and below.
+
+**Lists were broken and are fixed.** Tailwind's preflight sets `ol, ul { list-style: none }`, so every
+bullet and every number was missing. The article scope now restores `disc` and `decimal` with 8px item
+gaps, ink markers and a `circle` marker for nested lists; task lists keep their checkbox and no marker.
+Verified on `/blog/bridging-a-slow-season` (ordered 1-2-3 list + bulleted list with hanging indent).

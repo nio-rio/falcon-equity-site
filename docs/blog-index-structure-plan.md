@@ -107,3 +107,31 @@ real post pages).
   (18/27 label, 40px circle-arrow turned down, 1px × 40 divider with 24px margins, 12px dots 16 apart,
   the current page carrying a 24px ring) — with `PAGE_SIZE = 4`. Eight published guides therefore load
   as 4 + 4, the button reveals the second row, and the row hides itself once the last page is showing.
+
+## Third pass — one template, the reference's spacing, and the H2/list corrections
+
+All eight guides render from the single template `src/pages/blog/[slug].astro` (`getStaticPaths`
+over `getPublicPosts()`), styled by `src/styles/blog-article.css`. There is no per-post layout.
+
+Ling: *"learn the spacing from H1 to content, spacing between left and right, spacing between the
+elements on the right etc. And make sure your H2 is smaller than H1, maybe use the H2 size on home
+page. And check if your bullet list or number list is formatted correctly."*
+
+| Spacing | Reference | Ours (before → after) |
+| --- | --- | --- |
+| H1 → media | 32 (H1 ends 452, media starts 484) | 56 → **32** (the header carried a 24px pad-bottom under a 32px media gap) |
+| media → body | ~72 | 72 ✓ |
+| body column → rail | 256 at 1440 (body ends 785, rail starts 1041) | 256 ✓ |
+| rail modules | 24 apart, a 1px 20%-ink rule at the top of each, text ~5–8 under it | 48 apart with 24px inner padding → **24 apart, 1px rule, 8px in**; the first module has no rule |
+| rail width | 304 (cols 13–16) | 304 at 1440 ✓ (fluid below) |
+
+**H2 ladder.** The article H1 steps 32 → 40 → 48. The H2 used to mirror the reference's 40 from 48em
+up, which made H2 and H1 the same size at 768 and below. The H2 now steps **24 → 32 → 40**, so it sits
+one step under the H1 at every width and lands on the home page's section-heading size (40px) at 1440.
+
+**Lists.** Tailwind's preflight sets `ol, ul { list-style: none }`, so the first pass rendered bullets
+and numbers with no markers at all — 6 `<ul>` per article, all bare. Both are now explicit in the
+article scope: `ul { list-style: disc }`, `ol { list-style: decimal }`, 8px item gaps, ink markers, a
+circle marker for nested lists. Task lists (`- [ ]`) keep no marker and keep their checkbox.
+Verified on `/blog/bridging-a-slow-season`: the 1-2-3 list renders "1. 2. 3." and the bulleted list
+renders "•" with a hanging indent.

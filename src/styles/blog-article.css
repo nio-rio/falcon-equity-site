@@ -77,7 +77,7 @@
 /* ── title ────────────────────────────────────────────────────────────────── */
 
 .art-head {
-  padding-bottom: 24px;
+  padding-bottom: 0;
 }
 
 .art-h1 {
@@ -129,14 +129,9 @@
 
 /* ── media ────────────────────────────────────────────────────────────────── */
 
+/* 32px under the title — the reference's own gap (H1 ends 452, media starts 484). */
 .art-media {
-  margin-top: 8px;
-}
-
-@media (min-width: 48em) {
-  .art-media {
-    margin-top: 32px;
-  }
+  margin-top: 32px;
 }
 
 .art-media img {
@@ -177,18 +172,27 @@
   margin: 0 0 24px;
 }
 
+/* H2 sits one step under the H1 at every width (24/32/40 against 32/40/48) and
+   lands on the home page's section-heading size — 40px — at 1440. */
 .art-prose h2 {
   margin: 72px 0 24px;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.4;
   letter-spacing: 0.32px;
   text-wrap: balance;
 }
 
 @media (min-width: 48em) {
+  .art-prose h2 {
+    font-size: 32px;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 80em) {
   .art-prose h2 {
     font-size: 40px;
   }
@@ -209,10 +213,18 @@
   margin-top: 0;
 }
 
-.art-prose ul,
-.art-prose ol {
+/* Preflight sets `ol, ul { list-style: none }`, which is why the first pass had
+   no bullets and no numbers. Put both back inside the article only. */
+.art-prose ul {
   margin: 0 0 24px;
   padding-left: 24px;
+  list-style: disc;
+}
+
+.art-prose ol {
+  margin: 0 0 24px;
+  padding-left: 28px;
+  list-style: decimal;
 }
 
 .art-prose li {
@@ -220,7 +232,13 @@
 }
 
 .art-prose li::marker {
-  color: var(--color-muted);
+  color: var(--color-ink);
+  font-weight: 400;
+}
+
+.art-prose ul ul {
+  margin-top: 8px;
+  list-style: circle;
 }
 
 .art-prose strong {
@@ -289,9 +307,16 @@
   top: 96px;
 }
 
+/* Reference rhythm: modules 24px apart with a 1px 20%-ink rule at the top of
+   each, and the text starting ~5-8px under that rule. */
 .art-rail-item {
-  padding-top: 24px;
+  padding-top: 8px;
   border-top: 1px solid var(--color-line);
+}
+
+.art-rail-item:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .art-rail-item + .art-rail-item {
