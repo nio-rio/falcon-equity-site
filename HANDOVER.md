@@ -10,7 +10,7 @@ Last updated: Oct 23, 2026. Update this file at the end of every session.
 - **Production stays out of search until launch (2026-10-23).** `falconequity.ai` is still served by **Webflow** (Cloudflare → `cdn.webflow.com`, `x-wf-region` response header); this repo is not attached to that domain, and `falcon-equity-site.netlify.app` returned **404** — no production deploy has ever been published (`main` is one "Initial commit" with 1 file, 300 commits behind this branch). `netlify.toml` now sets `X-Robots-Tag: noindex, nofollow` on `context.production` as well as deploy-preview and branch-deploy. **Delete that block in the same commit that points DNS at Netlify**, or the new site ships invisible to search.
 - **The twelve industry pages are committed (2026-10-23, `a068863` + `31a5ccc` + `6dd66eb`).** Verified from the built `dist/` rather than from this file: 21 pages build, all 12 `dist/industries/*.html` ~80.5 KB with exactly one `<h1>`, no `http-equiv="refresh"`, every slug in `sitemap-0.xml`, and each page carrying 8 situations / 3 product cards / 7 FAQs. `npm run check`: 0 errors, 0 warnings, 4 hints.
 - **Situations and FAQs are now per-industry, not eight-and-seven (2026-10-23). Ling's instruction: "they don't have to have the same number of items … add or delete, split or merge." The Notion notes were rewritten first (Sections 2 and 5 only), then `industry-pages.ts` was regenerated to match.** Counts now run **6–8 situations and 6–8 FAQs**; retail is untouched at 8/7 because that page was approved directly. Standing rulings from this pass: every page keeps a *how much can … borrow* FAQ (the drafters wanted to drop it as a duplicate of the product-card specs; it stays because it is the highest-intent query and what the FAQ schema surfaces), and every advance row carries the "costs more than a line of credit" caution. Verified: 60 combos (12 pages × 390/768/1024/1440/1920) with every accordion open, zero horizontal overflow, situation and FAQ counts matching the data file, and FAQ schema question count equal to the FAQ count on every page.
-- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta top-pad cut (96 / 86 / 58 / 48), the site-wide BXCI hide-on-scroll nav, heading→content on Services / News / Sectors now using `--space-head-to-content` (72 / 72 / 96 / 104), and the home review round of 2026-10-22 below, plus the mobile type round of 2026-10-22 (`137fcbd`: hero H1 48/48, subtitle 20/30, Insights h3 25/36, Insights eyebrow→H2 40px below 48em). `/apply` is no longer “as it is” — see the 2026-10-23 simplification at the top of this file.
+- The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta pad cut (top 72 / 64 / 44 / 36, bottom 70% of `--pilot-section-y` — see the SiteCta band round of 2026-10-23), the site-wide BXCI hide-on-scroll nav, heading→content on Services / News / Sectors now using `--space-head-to-content` (72 / 72 / 96 / 104), and the home review round of 2026-10-22 below, plus the mobile type round of 2026-10-22 (`137fcbd`: hero H1 48/48, subtitle 20/30, Insights h3 25/36, Insights eyebrow→H2 40px below 48em). `/apply` is no longer “as it is” — see the 2026-10-23 simplification at the top of this file.
 - Home review round (Ling asked for it, 2026-10-22, commit `3c42a69`) — **approved, do not revert**:
   - Testimonial quote (`.pilot-ann-title p`, home only): `1.5rem` / 24px below 48em, i.e. 25% less than the old 2rem / 32px. The 48em / 80em / 90em overrides are deliberately unchanged, so desktop still reads 2.5rem / 2rem / 2.5rem.
   - `--type-h2-weight` is `400` (was `300`) in `tokens.css`, and every H2 reads that token instead of a hard-coded weight: `.pilot-tabs-head h2` on home, plus the FAQ and blog heads in `mca.css` and the five service stylesheets.
@@ -968,3 +968,29 @@ adjusting text sizes."*
   chrome, measured and flagged in the 14/16px calculator round.
 - Band heads below 1280 grow **3px** (the eyebrow line box 21 → 24); the `--eyebrow-gap` margin under it is
   untouched. Nothing else on the page moved. Commits `664d5cf`, `f1b3c39`.
+
+## SiteCta band — top pad −25%, bottom pad −30% (Ling, 2026-10-23) — approved, do not revert
+
+*"In CTA section (rotating texts and a button), reduce the top section padding about 25%, and reduce the bottom
+section padding (the distance between CTA section content and footer content) by 30%."*
+
+- The band's pads live in `src/components/SiteCta.astro` (`<style is:global>`, `section.site-cta[data-site-cta]`),
+  not in `blackstone.css` — the previous round put them there, so this is one block and it reaches every page
+  that renders the shared band (all of them except `/apply`, which passes `cta={false}`).
+- Top **48 / 58 / 86 / 96 → 36 / 44 / 64 / 72** at 390 / 768 / 1280 / 1440 (the 768 value is 43.5 rounded up).
+- Bottom `var(--pilot-section-y)` → **`calc(var(--pilot-section-y) * 0.7)`**, so it keeps tracking the token:
+  80 / 96 / 144 / 160 → **56 / 67.2 / 100.8 / 112**. This pad *is* the whole distance to the footer content:
+  `.site-cta + .site-footer .site-footer__top` zeroes the footer's own top pad.
+- Measured on the local build (reduced motion off, real wheel), band top → first visible text / last visible
+  text → first footer content:
+  - 390: 48 → **36** (−25%) · 80 → **56** (−30%)
+  - 768: 58 → **44** (−24%) · 96 → **67.2** (−30%)
+  - 1024: 274 → **260** · 312 → **283.2**
+  - 1280: 302 → **280** · 354 → **310.8**
+  - 1440: 312 → **288** · 367 → **319**
+- **Why the desktop percentages read small, on purpose.** From 64em the sentence and Apply sit on one row and the
+  wheel's layout box is `7 × 4.5rem = 504px` tall for a 72px line, so **216px** of masked, faded neighbour lines
+  sits above and below the active phrase. That 216px is inside the band's content box, not its padding, so it
+  dilutes a proportional cut at 1024+. Phone and tablet move by the full 25 / 30%. The second lever, if the
+  desktop gap should fall by a quarter too, is trimming the wheel's overhang (a negative `margin-block` at 64em
+  or fewer wrapped lines) — not done here, because it changes the wheel's fade, which is approved.

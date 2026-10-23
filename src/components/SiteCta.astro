@@ -153,27 +153,35 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
 
 <style is:global>
   /* Ling (via Vera): cut top pad ~40% on every page; bottom stays R.
-     48 / 58 / 86 / 96 at 390 / 768 / 1280 / 1440. Home 0-diff exception. */
+     48 / 58 / 86 / 96 at 390 / 768 / 1280 / 1440. Home 0-diff exception.
+
+     Ling, 2026-10-23 (round 2) — top −25%, bottom −30%:
+     - top: 48 / 58 / 86 / 96 → 36 / 44 / 64 / 72 (the 768 value is 43.5
+       rounded up).
+     - bottom: `var(--pilot-section-y)` → 70% of it, so it keeps tracking the
+       token: 80 / 96 / 144 / 160 → 56 / 67.2 / 100.8 / 112. This pad *is* the
+       distance to the footer content — `.site-cta + .site-footer
+       .site-footer__top` sets the footer's own top pad to 0. */
   section.site-cta[data-site-cta] {
-    padding-top: 48px;
-    padding-bottom: var(--pilot-section-y);
+    padding-top: 36px;
+    padding-bottom: calc(var(--pilot-section-y) * 0.7);
   }
 
   @media (min-width: 48em) {
     section.site-cta[data-site-cta] {
-      padding-top: 58px;
+      padding-top: 44px;
     }
   }
 
   @media (min-width: 80em) {
     section.site-cta[data-site-cta] {
-      padding-top: 86px;
+      padding-top: 64px;
     }
   }
 
   @media (min-width: 90em) {
     section.site-cta[data-site-cta] {
-      padding-top: 96px;
+      padding-top: 72px;
     }
   }
 </style>
