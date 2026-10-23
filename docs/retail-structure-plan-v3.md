@@ -38,27 +38,33 @@ The stat strip that used to sit here (`PE-02`: up to $5,000,000 · 24-48 hours �
 300+ businesses) is gone from the page and from the page file. Those four facts still exist on the home
 page and in `STATS`; this page just stops repeating them.
 
-## Band 2, measured because the library has no entry for it
+## Band 2, measured exactly (CDP, live page, 1440)
 
-The Private Wealth band sits on the Blackstone home page, which was captured into the library only as
-`HOME-00…07`; none of those is this module. Measured from Ling's 2× screenshot (3112×1840) with the
-content box resolved to 1264px:
+`blackstone.com` home has no library entry for this band, so it was measured live with a real Chrome
+window (`~/Desktop/hermes-output/measure_pw_band.cjs`, `measure_pw_rows.cjs`; raw JSON in
+`bs-pw-band.json`). Ling's note: *"I want you to learn the exact build."* These are the numbers the CSS
+now uses, and a second script (`measure_ours_pw.cjs`) prints the same table for our page so the two can
+be diffed.
 
-| Property | Measured | Built |
+| Property | Reference (live, 1440) | Ours (measured the same way) |
 | --- | --- | --- |
-| Band fill | `#000000` | `--color-surface-dark` (Martinique Darker) — colour stays Falcon's |
-| Panel fill | `#121317`, panel = 8 of 16 columns | `rgb(255 255 255 / 5.5%)`, cols 9–16 = 624px |
-| Panel inner pad | 80px left and right | 80px |
-| Row pitch | ~153px; hairline between rows | 40px block pad + `--bx-on-dark-rule` hairline |
-| Circle arrow | 40px, top-aligned to the first title line | **omitted** — our rows are takeaways, not links |
-| Eyebrow | 15–16px, letterspaced, 60px rule after it | `.eyebrow--line` |
-| Claim | ~64px / 1.12, 3 lines at 410px wide | `clamp(36px, 4.6vw, 64px)`, `max-width: 13ch` |
-| Lead | 18/27, 370px wide, indented 80px from the claim | `max-width: 23em`, `margin-left: 80px` at ≥80em |
-| Lead → Learn more | 78px | `margin-top: 40px` (Falcon's rhythm is tighter) |
+| Band | full-bleed, `#000`, padding **160px 0** | `--color-surface-dark`, padding 160px 0 |
+| Grid | 16 tracks × **64px**, 16px gutters, content **1264 at x=88** | identical |
+| Left column | cols **1–6** = 464px | 464px, x 88 |
+| Eyebrow | **16/24**, weight 400, uppercase, letter-spacing **1.28px**; `::after` rule **64×2px, 24px** after the label | identical (rule overridden from the sitewide 48px) |
+| Eyebrow → claim | **84px** | 84px |
+| Claim | **48/72**, weight 300, letter-spacing **0.384px**, white, no max-width | 48/72, 0.384px, none |
+| Claim → paragraph | **56px** | 56px |
+| Paragraph | **18/27**, weight 300, letter-spacing 0.32px, indented **80px**, **384px** wide | identical |
+| Paragraph → Learn More | **63px** | 63px |
+| Learn More | **18/27**, weight 400, circle **40px**, **20px** gap, at the column edge (no indent) | identical |
+| Panel | cols **9–16** = 624px, offset **88px** from the band's content top, bg `#121317`, padding **64px 80px** | 624px at x 728, offset 88px, padding 64/80 |
+| Rows | padding **40px 0** (first: no top, last: no bottom), border-bottom **1.5px `#d5d8df`** on all but the last | same structure; 1px rendered at DPR 1 |
+| Row label | **24/36**, weight 300, letter-spacing 0.32px, 302px column + 40px arrow | **20/30 on purpose** — Ling asked for smaller, and our rows are full sentences rather than fund names |
 
-Two things the reference does that we don't, both deliberate: its three rows are **links to funds**, so
-they carry arrows — our four rows are takeaways and carry none; and its claim is a brand statement,
-while ours has to stay answer-first for search, so the paragraph sits directly under it.
+Two deliberate deviations, both stated in the CSS comments: **no arrows** on our rows (the reference's
+rows are links to funds; ours are takeaways, so an arrow would promise a destination), and the row type
+at 20/30 rather than 24/36.
 
 ## Not on the page
 

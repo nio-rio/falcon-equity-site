@@ -901,10 +901,24 @@
    =========================================================================== */
 
 /* ---------------------------------------------------------------------------
-   ANSWER — blackstone.com home "Private wealth", measured from Ling's
-   screenshot at 2x: claim starts on the content edge, panel is exactly eight
-   of sixteen columns (624 of 1264), 80px inner pad, row pitch ~153px, lead
-   indented 80px from the claim, 44px circle arrow on "Learn more".
+   ANSWER — blackstone.com home "Private wealth". Every number below was read
+   off the live block at 1440 with CDP (elements file: bs-pw-band.json), not
+   eyeballed. Reference geometry:
+     band          full-bleed, background #000, padding 160px 0
+     grid          16 tracks x 64px, 16px gutters, content 1264 at x=88
+     left column   cols 1-6 (464px)
+     eyebrow       16/24 weight 400, uppercase, letter-spacing 1.28px,
+                   ::after 64x2px rule, 24px after the label
+     claim         48/72 weight 300, letter-spacing 0.384px, 84px under eyebrow
+     copy          18/27 weight 300, indented 80px, 384px wide, 56px under claim
+     "Learn More"  18/27 weight 400, 40px circle 20px away, 63px under copy
+     panel         cols 9-16 (624px), offset 88px from band top, bg #121317,
+                   padding 64px 80px
+     rows          padding 40px 0, border-bottom 1.5px #d5d8df on all but last
+     row label     24/36 weight 300 in the reference
+   One deliberate deviation: our row labels are takeaways (full sentences, not
+   fund names), so they are set at 20/30 as Ling asked rather than 24/36.
+   Colour on the band stays Falcon's Martinique Darker, not flat black.
    --------------------------------------------------------------------------- */
 .ret-pw-grid {
   display: grid;
@@ -917,37 +931,61 @@
   min-width: 0;
 }
 
-.ret-pw-claim {
-  margin: 24px 0 0;
+.ret-pw .eyebrow {
+  margin: 0;
   color: var(--color-white);
-  max-width: 13ch;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ret-pw .eyebrow--line::after {
+  width: 64px;
+  height: 2px;
+  margin-left: 24px;
+}
+
+.ret-pw-claim {
+  margin: 84px 0 0;
+  color: var(--color-white);
+  max-width: none;
   font-family: var(--font-display);
-  font-size: clamp(36px, 4.6vw, 64px);
+  font-size: 36px;
   font-weight: 300;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
+  line-height: 1.25;
+  letter-spacing: 0.008em;
 }
 
 .ret-pw-lead {
-  margin: 40px 0 0;
-  max-width: 23em;
-  color: var(--bx-on-dark);
+  margin: 56px 0 0;
+  max-width: 384px;
+  color: var(--color-white);
   font-family: var(--font-sans);
   font-size: 18px;
+  font-weight: 300;
   line-height: 27px;
+  letter-spacing: 0.018em;
 }
 
 .ret-pw-more {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 40px;
+  gap: 20px;
+  margin-top: 63px;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.016em;
   text-decoration: none;
+}
+
+.ret-pw-more .circle-arrow {
+  width: 40px;
+  height: 40px;
 }
 
 .ret-pw-more:hover .circle-arrow,
@@ -959,37 +997,40 @@
   display: grid;
   gap: 0;
   margin: 0;
-  padding: 8px 32px;
+  padding: 32px 24px;
   list-style: none;
   background: rgb(255 255 255 / 5.5%);
 }
 
 .ret-pw-row {
   padding: 32px 0;
-  border-top: 1px solid var(--bx-on-dark-rule);
+  border-bottom: 1.5px solid rgb(213 216 223);
 }
 
 .ret-pw-row:first-child {
-  border-top: 0;
+  padding-top: 0;
+}
+
+.ret-pw-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .ret-pw-row p {
   margin: 0;
-  max-width: 26em;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: clamp(18px, 1.8vw, 26px);
-  line-height: 1.35;
-}
-
-@media (min-width: 48em) {
-  .ret-pw-lead,
-  .ret-pw-more {
-    margin-left: 0;
-  }
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.016em;
 }
 
 @media (min-width: 80em) {
+  .ret-pw {
+    padding-block: 160px;
+  }
+
   .ret-pw-grid {
     grid-template-columns: repeat(16, minmax(0, 1fr));
     column-gap: 16px;
@@ -997,17 +1038,26 @@
   }
 
   .ret-pw-copy {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 6;
   }
 
-  .ret-pw-lead,
-  .ret-pw-more {
+  .ret-pw-claim {
+    font-size: 48px;
+    line-height: 72px;
+  }
+
+  .ret-pw-lead {
     margin-left: 80px;
+  }
+
+  .ret-pw-more {
+    margin-left: 0;
   }
 
   .ret-pw-panel {
     grid-column: 9 / span 8;
-    padding: 12px 80px;
+    margin-top: 88px;
+    padding: 64px 80px;
   }
 
   .ret-pw-row {

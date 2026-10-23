@@ -182,3 +182,20 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 **Deviation from the reference, deliberate:** Blackstone's header has no CTA because its Apply lives in the nav. Ours keeps one Apply arrow under the standfirst, because Falcon's mobile header collapses before the nav CTA. If Ling wants a CTA-free hero, delete the `.ret-hero-apply` anchor and the `ret-hero-apply` grid rule.
 
 **Still open:** the hero photograph (Ling sending), and Section 3's component (her placeholder frame is in place).
+
+
+## Session 2026-10-22 (final) — the "In short" band rebuilt to Blackstone's exact build
+
+**Ling:** "You made one that kind of looks like it, but not the same spacing as the blackstone one. I want you to learn the exact build. You can use my browser if that helps. And the h3 on the right can be of smaller font size."
+
+**Why it was wrong.** The first version was scaled off her 2× screenshot with proportions eyeballed: claim 64px, panel rows 26px, panel offset guessed, hairline 16% white. The real block is nothing like that guess — the claim is **48/72**, the panel is inset **88px** from the band's content top, and the row rules are **1.5px near-white**, not a faint 16% line.
+
+**How to re-measure anything on blackstone.com:** `~/Desktop/hermes-output/measure_pw_band.cjs` and `measure_pw_rows.cjs` (and `measure_ours_pw.cjs` for the same table on our page). Real Chrome, offscreen window, persistent profile, CDP; the scripts print computed styles and boxes for every child three levels deep, plus borders and `::after` pseudos. Two gotchas that cost a round trip each:
+- **Scroll-triggered reveals leave text at `opacity: 0`, so the screenshot shows an empty band.** The geometry is still valid — but before shooting, inject `*:not(svg):not(path) { opacity:1 !important; visibility:visible !important; transform:none !important }` and scroll the band into view.
+- **Measure the pseudos.** The eyebrow's rule is `::after` (64×2px, 24px after the label); a plain box query does not see it.
+
+**The exact numbers now in `retail.css`** (all verified by re-measuring our own page): band padding 160/160 · 16 tracks of 64px with 16px gutters · left column cols 1–6 (464px) · eyebrow 16/24 w400 ls 1.28px + 64×2 rule at 24px · 84px to the claim · claim 48/72 w300 ls 0.384px · 56px to the paragraph · paragraph 18/27 w300, indented 80px, 384px wide · 63px to Learn More · Learn More 18/27 w400, 40px circle, 20px gap, no indent · panel cols 9–16 (624px), offset 88px, padding 64/80 · rows 40px 0 with 1.5px `#d5d8df` borders on all but the last.
+
+**Deviations, both commented in the CSS:** the four row labels are **20/30** rather than Blackstone's 24/36 (Ling asked for smaller; our rows are sentences, not fund names), and the rows carry **no arrows** because they are takeaways, not links.
+
+**Note on the reference's own layout:** its left column overflows the band by ~9px (the Learn More circle hangs past the grid height). Copied as-is where it does not show, but not chased to the pixel — a real overflow would be a bug on our side.
