@@ -1,5 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Logo from './Logo.astro';
 import CircleArrow from './CircleArrow.astro';
 import Button040 from './Button040.astro';
@@ -8,6 +9,8 @@ import { INDUSTRIES } from '@/data/industries';
 import { PRIMARY_PHONE } from '@/data/site';
 import { cleanPath } from '@/lib/paths';
 import applyStill from '@/assets/services/merchant-cash-advance.jpg';
+import servicesOverviewStill from '@/assets/services/business-term-loan.jpg';
+import industriesOverviewStill from '@/assets/services/consolidation-of-positions.jpg';
 
 const path = cleanPath(Astro.url.pathname);
 const isHome = path === '/';
@@ -15,13 +18,22 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
 
 type NavLink = { label: string; href: string };
 type NavColumn = { heading: string; links: NavLink[]; twoCol?: boolean };
+type NavCard = {
+  title: string;
+  body: string;
+  href: string;
+  ctaLabel: string;
+  ctaAria: string;
+  image: ImageMetadata;
+  alt: string;
+};
 type NavDropdown = {
   id: string;
   label: string;
   active: boolean;
   href?: undefined;
   columns: NavColumn[];
-  featured: boolean;
+  widget?: NavCard;
 };
 type NavPlain = {
   id: string;
@@ -29,7 +41,7 @@ type NavPlain = {
   active: boolean;
   href: string;
   columns?: undefined;
-  featured?: undefined;
+  widget?: undefined;
 };
 type NavItem = NavDropdown | NavPlain;
 
@@ -43,7 +55,6 @@ const nav: NavItem[] = [
         heading: 'Services',
         twoCol: true,
         links: [
-          { label: 'Overview', href: '/#services' },
           ...SERVICES.map((s) => ({
             label: s.name,
             href: s.slug === 'decentralized-business-financing' ? '/#services' : `/services/${s.slug}`,
@@ -51,7 +62,15 @@ const nav: NavItem[] = [
         ],
       },
     ],
-    featured: false,
+    widget: {
+      title: 'Services overview',
+      body: 'Every product we fund, from $5,000 to $5,000,000, at a 0% agreement fee. One application, and a specialist matches the product to the need.',
+      href: '/#services',
+      ctaLabel: 'Learn More',
+      ctaAria: 'Go to the services overview',
+      image: servicesOverviewStill,
+      alt: 'Abstract render of a sphere rising on a set of steps.',
+    },
   },
   {
     id: 'industries',
@@ -62,12 +81,19 @@ const nav: NavItem[] = [
         heading: 'Industries',
         twoCol: true,
         links: [
-          { label: 'Overview', href: '/#industries-heading' },
           ...INDUSTRIES.map((i) => ({ label: i.name, href: i.href ?? '/#industries-heading' })),
         ],
       },
     ],
-    featured: false,
+    widget: {
+      title: 'Industries overview',
+      body: 'Twelve industries, twelve cash-flow rhythms. See how capital is shaped around the way your sector earns and spends.',
+      href: '/#industries-heading',
+      ctaLabel: 'Learn More',
+      ctaAria: 'Go to the industries overview',
+      image: industriesOverviewStill,
+      alt: 'Abstract render of connected nodes branching from a single point.',
+    },
   },
   {
     id: 'resources',
@@ -84,7 +110,15 @@ const nav: NavItem[] = [
       },
       { heading: 'Help', links: [{ label: 'FAQ', href: '/#why-choose-us' }] },
     ] satisfies NavColumn[],
-    featured: true,
+    widget: {
+      title: 'Apply for funding',
+      body: 'One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.',
+      href: '/apply',
+      ctaLabel: 'Learn More',
+      ctaAria: 'Start your application',
+      image: applyStill,
+      alt: 'Illustrated point-of-sale terminal, coins, and payment card on a purple background.',
+    },
   },
   {
     id: 'firm',
@@ -100,7 +134,6 @@ const nav: NavItem[] = [
       },
       { heading: 'Contact', links: [{ label: 'Contact', href: '/#main' }] },
     ] satisfies NavColumn[],
-    featured: false,
   },
 ];
 ---
@@ -204,28 +237,25 @@ const nav: NavItem[] = [
                           </ul>
                         </li>
                       ))}
-                      {item.featured && (
+                      {item.widget && (
                         <li class="primary-nav__list-lvl-2-item has-nav-widget" data-menu-fade>
                           <div class="primary-nav-widget">
                             <div class="primary-nav-widget__content">
                               <div class="primary-nav-widget__content-inner">
-                                <p class="primary-nav-widget__title">Apply for funding</p>
-                                <p>
-                                  One short application. A specialist reviews your file promptly. Many products fund
-                                  within 24-48 hours of approval.
-                                </p>
+                                <p class="primary-nav-widget__title">{item.widget.title}</p>
+                                <p>{item.widget.body}</p>
                               </div>
                               <div class="primary-nav-widget__cta">
-                                <a href="/apply" class="arrow-cta" aria-label="Start your application">
-                                  <span class="arrow-cta-label">Learn More</span>
+                                <a href={item.widget.href} class="arrow-cta" aria-label={item.widget.ctaAria}>
+                                  <span class="arrow-cta-label">{item.widget.ctaLabel}</span>
                                   <CircleArrow />
                                 </a>
                               </div>
                             </div>
                             <div class="primary-nav-widget__media">
                               <Picture
-                                src={applyStill}
-                                alt="Illustrated point-of-sale terminal, coins, and payment card on a purple background."
+                                src={item.widget.image}
+                                alt={item.widget.alt}
                                 widths={[320, 480, 640]}
                                 sizes="(min-width: 90em) 14rem, 12.5rem"
                                 formats={['avif', 'webp']}

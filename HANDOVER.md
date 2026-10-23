@@ -325,3 +325,16 @@ Ling: "On retail page 'Which funding fits your store right now?' doesn't need to
 
 - Ink width of the headline is 587px at 36px and 782px at 48px; content box is 328 / 688 / 944 / 1136 / 1264, so 390 still wraps (unchanged, the cap never bit at that width) and everything from 768 up is one line.
 - Not changed: `.ret-h1` keeps its `20ch` cap (different ask), the eyebrow, the 104px gap to the accordion list, and every other page — no other stylesheet carries this heading.
+
+
+### Nav card in Services and Industries (2026-10-23, owner request)
+
+Ling: "I want this card to be in services and industries dropdown as well. But on service dropdown, this card will be about services overview and link there. Same for industry, goes to industry overview." Follow-up: "Remove text link 'overview' from these 2 dropdowns, since that's where the card is linking to."
+
+- The card in the mega panel is no longer hardcoded to Resources. `Header.astro` now carries a `widget` object on each dropdown (`title`, `body`, `href`, `ctaLabel`, `ctaAria`, `image`, `alt`) and renders it from data; the `featured: boolean` flag is gone.
+- Card destinations: Services -> `/#services` ("Services overview"), Industries -> `/#industries-heading` ("Industries overview"), Resources unchanged -> `/apply` ("Apply for funding"). CTA label stays "Learn More" on all three; only `aria-label` differs per card.
+- The `Overview` link was removed from the Services and Industries lists (7 services, 12 industries remain) because the card now carries that destination. `Overview` stays as a word in neither list, so the list's first row is the first real product/industry.
+- Images are placeholder renders from `src/assets/services/`: sphere-on-steps (`business-term-loan`) for Services, node tree (`consolidation-of-positions`) for Industries. Chosen over the paler lilac renders because the pale ones wash into the lilac card in the light-header state. Swap the file in the `widget.image` field only.
+- `text-wrap: pretty` added to `.primary-nav-widget__content-inner > p` so the card body does not leave an orphan word on its last line.
+- Measured at 1440: Services card 624x290, Industries 624x328, Resources 624x263; card right edge 1352 = list right edge, card top flush with list top. Body copy 4/4/3 lines.
+- `tests/nav.spec.mjs`: the widget checks used to assume exactly one card. They now read the card of the panel whose `aria-hidden="false"`, `widgetPasses` takes per-card `{title,href,label}` expectations, and two new checks (`nav-widget-services`, `nav-widget-industries`) assert the new cards' title and href plus the same colours and contrast as the Resources card.

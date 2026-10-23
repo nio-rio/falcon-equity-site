@@ -580,7 +580,14 @@ const readNavWidget = (page) =>
   page.evaluate(() => {
     const widgets = [...document.querySelectorAll('.primary-nav-widget')];
     const header = document.querySelector('[data-header]');
-    const el = widgets.find((w) => getComputedStyle(w).display !== 'none') || widgets[0] || null;
+    const isPanelVisible = (p) => {
+      if (!p) return false;
+      const cs = getComputedStyle(p);
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && p.getAttribute('aria-hidden') !== 'true';
+    };
+    /* Each mega panel carries its own card, so read the card of the panel that is actually open. */
+    const openPanel = [...document.querySelectorAll('[data-nav-panel]')].find(isPanelVisible) || null;
+    const el = openPanel ? openPanel.querySelector('.primary-nav-widget') : widgets[0] || null;
     const styleOf = (node) => {
       if (!node) return null;
       const cs = getComputedStyle(node);
@@ -604,7 +611,7 @@ const readNavWidget = (page) =>
     return {
       count: widgets.length,
       dark: header?.classList.contains('is-color-theme-dark') || false,
-      visible: wcs.display !== 'none',
+      visible: wcs.display !== 'none' && !el.closest('[data-nav-panel][aria-hidden="true"]'),
       bg: wcs.backgroundColor,
       title: title ? { ...styleOf(title), text: title.textContent.trim() } : null,
       body: body ? { ...styleOf(body) } : null,
@@ -627,9 +634,11 @@ const contrastRecord = (fg, bg, fontPx = 16, weight = 400, ui = false) => {
   };
 };
 
-const widgetPasses = (got, expected) => {
+const WIDGET_COPY = { title: 'Apply for funding', href: '/apply', label: 'Learn More' };
+
+const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
   const ratios = {};
-  if (!got?.visible || got.count !== 1) {
+  if (!got?.visible) {
     return { ok: false, colorsOk: false, contrastOk: false, ratios, reason: 'missing-widget' };
   }
   const checkText = (name, node, required) => {
@@ -659,9 +668,9 @@ const widgetPasses = (got, expected) => {
     got.bg === expected.bg &&
     got.circle?.bg === expected.circleBg &&
     got.circle?.color === expected.circleFg &&
-    got.link?.href === '/apply' &&
-    got.title?.text === 'Apply for funding' &&
-    got.label?.text === 'Learn More' &&
+    got.link?.href === copy.href &&
+    got.title?.text === copy.title &&
+    got.label?.text === copy.label &&
     ratios.title?.colorOk &&
     ratios.body?.colorOk &&
     ratios.link?.colorOk &&
@@ -2485,6 +2494,28 @@ for (const vp of VIEWPORTS) {
         ok: widgetHoverCheck.ok,
         detail: formatWidgetDetail(themeName, widgetHover, widgetHoverCheck),
       });
+
+      /* Services and Industries carry the same card, rewired to their own overview. */
+      for (const card of [
+        { trigger: 'menu-services', title: 'Services overview', href: '/#services' },
+        { trigger: 'menu-industries', title: 'Industries overview', href: '/#industries-heading' },
+      ]) {
+        await page.locator(`[aria-controls="${card.trigger}"]`).hover();
+        await page.waitForTimeout(320);
+        const got = await readNavWidget(page);
+        const check = widgetPasses(got, expectedWidget, { title: card.title, href: card.href, label: 'Learn More' });
+        log({
+          ...tag,
+          check: `nav-widget-${card.trigger.replace('menu-', '')}`,
+          ok: got.visible && got.title?.text === card.title && got.link?.href === card.href && check.ok,
+          detail: JSON.stringify({
+            theme: themeName,
+            title: got.title?.text ?? null,
+            href: got.link?.href ?? null,
+            ratios: check.ratios,
+          }),
+        });
+      }
 
       const second = page.locator('[data-nav-item]').nth(1);
       await second.locator('[data-nav-trigger]').hover();
