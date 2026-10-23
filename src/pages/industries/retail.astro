@@ -232,85 +232,70 @@ const metaDescription =
     </div>
   </section>
 
-  {/* 3 what's your case — a mirror of the old "In short" band: list on the
-       left in the FAQ idiom, the matching Falcon product on the right. Radius 0
-       and no child fills anywhere; the only rules are the row hairlines in the
-       list. The open row reveals its folded line ("cash leaves the account…")
-       and swaps the right column to that row's product. */}
-  <section class="ret-band ret-band--dark ret-case" aria-labelledby="situations-heading" data-band="dark" data-ret-section="situations" data-reveal-root data-case-root>
+  {/* 3 what's your case — blackstone.com/pws/essentials-of-private-markets,
+       the "Explore the Essentials" accordion, measured at 1440: band pad 160,
+       eyebrow 16/24 w400 ls 1.28 with 64px below, title 48/72 w300, list starts
+       104px under the title, rows pad 32 and carry a 24/36 w300 question, a
+       36px caret box with a 12x6 chevron, one hairline per row, panel pulls 48px
+       at its foot and holds 20/30 copy inside the left nine columns.
+       At most one row open per list — the shared accordion script enforces it. */}
+  <section class="ret-band ret-band--dark ret-case" aria-labelledby="situations-heading" data-band="dark" data-ret-section="situations" data-reveal-root data-accordion>
     <div class="container-site">
-      <div class="ret-case-grid">
-        <div class="ret-case-side">
-        <div class="ret-case-head" data-reveal>
-          <Eyebrow>What's your case?</Eyebrow>
-          <h2 id="situations-heading" class="ret-case-claim">Which funding fits your store right now?</h2>
-        </div>
+      <div class="ret-case-head" data-reveal>
+        <Eyebrow>What's your case?</Eyebrow>
+        <h2 id="situations-heading" class="ret-case-claim">Which funding fits your store right now?</h2>
+      </div>
 
-        <div class="ret-case-detail" data-case-detail aria-live="polite">
-          {
-            situations.map((item, i) => (
-              <div class:list={['ret-case-product', i === 0 && 'is-active']} data-case-product hidden={i !== 0}>
-                <h3 class="ret-case-name">{item.product}</h3>
-                <p class="ret-case-why">{item.why}</p>
-                <dl class="ret-case-facts">
-                  <div>
-                    <dt>Range</dt>
-                    <dd>{item.range.split(' · ')[0]}</dd>
-                  </div>
-                  <div>
-                    <dt>Term</dt>
-                    <dd>{item.range.split(' · ')[1]}</dd>
-                  </div>
-                </dl>
-                <a class="ret-case-link" href={`/services/${item.slug}`}>
-                  <span>See {item.product}</span>
-                  <CircleArrow />
-                </a>
-              </div>
-            ))
-          }
-        </div>
-        </div>
-
-        <ul class="ret-case-list" data-reveal>
-          {
-            situations.map((item, i) => (
-              <li class:list={['ret-case-item', i === 0 && 'is-open']} data-case-item>
-                <h3>
-                  <button
-                    type="button"
-                    class="ret-case-trigger"
-                    id={`ret-case-trigger-${i}`}
-                    aria-expanded={i === 0 ? 'true' : 'false'}
-                    aria-controls={`ret-case-panel-${i}`}
-                    data-case-trigger
-                    data-case-index={i}
-                  >
-                    <span class="ret-case-question">{item.if}</span>
-                    <span class="ret-case-caret" aria-hidden="true">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="10" viewBox="0 0 18 10" fill="none">
-                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </span>
-                  </button>
-                </h3>
-                <div class="ret-case-panel" id={`ret-case-panel-${i}`} role="region" aria-labelledby={`ret-case-trigger-${i}`}>
-                  <div class="ret-case-panel-inner">
+      <ul class="ret-case-list" data-reveal>
+        {
+          situations.map((item, i) => (
+            <li class="ret-case-item" data-acc-item>
+              <h3 class="ret-case-h">
+                <button
+                  type="button"
+                  class="ret-case-trigger"
+                  id={`ret-case-trigger-${i}`}
+                  aria-expanded="false"
+                  aria-controls={`ret-case-panel-${i}`}
+                  data-acc-trigger
+                >
+                  <span class="ret-case-question">{item.if}</span>
+                  <span class="ret-case-caret" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 18 10" fill="none">
+                      <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div class="ret-case-panel" id={`ret-case-panel-${i}`} role="region" aria-labelledby={`ret-case-trigger-${i}`}>
+                <div class="ret-case-panel-inner">
+                  <div class="ret-case-body">
                     <p class="ret-case-means">{item.means}</p>
-                    {/* Narrow screens have no right-hand column, so the product
-                        travels with the row instead. */}
-                    <p class="ret-case-inline">
-                      <a href={`/services/${item.slug}`}>{item.product}</a>
-                      <span aria-hidden="true">·</span>
-                      <span>{item.range}</span>
-                    </p>
+                    <div class="ret-case-product">
+                      <h4 class="ret-case-name">{item.product}</h4>
+                      <p class="ret-case-why">{item.why}</p>
+                      <dl class="ret-case-facts">
+                        <div>
+                          <dt>Range</dt>
+                          <dd>{item.range.split(' · ')[0]}</dd>
+                        </div>
+                        <div>
+                          <dt>Term</dt>
+                          <dd>{item.range.split(' · ')[1]}</dd>
+                        </div>
+                      </dl>
+                      <a class="ret-case-link" href={`/services/${item.slug}`}>
+                        <span>See {item.product}</span>
+                        <CircleArrow />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -488,10 +473,8 @@ const metaDescription =
   <script>
     import { bindAccordions } from '@/scripts/accordion';
     import { bindMcaBlogSlider } from '@/scripts/mca-blog-slider';
-    import { bindRetailCase } from '@/scripts/retail-case';
     import '@/scripts/scroll-in';
     bindAccordions();
     bindMcaBlogSlider();
-    bindRetailCase();
   </script>
 </BaseLayout>

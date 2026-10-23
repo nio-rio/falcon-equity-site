@@ -246,3 +246,30 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - **`text-wrap: balance` is now limited to h1 and h2.** In `global.css` it used to sit on a shared `h1, h2, h3, h4` rule, so every h3 and h4 on every page was balanced too. The rule is split: families/colour for all four, `text-wrap: balance` for h1 and h2 only. The remaining balanced rules are legitimate h2s — the block heads, the FAQ heads and the blog slider titles (`.mca-blog-title` is an h2 in the markup).
 - Nothing else declared balance on body copy; `text-wrap: pretty` in `blackstone.css` is a different value and was left alone.
 - Verified: retail H1 computes to weight 400 / 56px / balance; MCA H1 weight 400; a scan of `h3, h4, h5, p, li, span, a` on both pages returns zero elements with balanced wrapping. `test:titles` passes, no overflow at any of the five widths.
+
+
+## Section 3 rebuilt as Blackstone's "Explore the Essentials" accordion + single-open accordions site-wide (2026-10-22)
+
+**Ling:** "Let's change the whole section to an accordion list like blackstone.com/pws/essentials-of-private-markets 'explore the essentials' section. Learn the spacing, font size, hovering animation, opening closing animation." Then: "For every one accordion list, there should be at most one accordion open. Learn from this code [osmo accordion-css-animation] about this behavior."
+
+### The reference, measured at 1440 (real Chrome + CDP; Cloudflare blocks headless)
+Section `.bx-accordion` is `padding: 160px 0`, background `#000`, inner 1264 at x=88.
+- Eyebrow `h2` 16/24 weight 400, letter-spacing 1.28px, **64px below**.
+- Title `h3` 48/72 weight 300, letter-spacing 0.384px.
+- Header wrapper adds 56px, accordion inner adds 48px → the first row starts **104px** under the title.
+- Item: `display:grid`, `overflow:hidden`, `transition: max-height .5s ease-in-out`, collapsed `max-height: 6.25rem` (**100px**).
+- Title row `.bx-accordion__item-title`: `padding: 32px 0`, 16-column grid with the question in the left nine tracks and the icon in the last one.
+- Question `.bx-accordion__title-text`: **24/36, weight 300**, ls 0.192px, sans.
+- Caret: a **36×36** absolute box at the right holding a **12×6** chevron; `transform` transition 300ms, turns 180° when open.
+- Panel `.bx-accordion__panel`: 18→20px copy, `padding-bottom: 48px`, width **44.438rem (711px)** — the same left-nine-column area as the question.
+- One hairline per row, 1px.
+
+### Our build
+`retail.css` was rewritten for the section; the markup is a plain `ul` of `li[data-acc-item]` with a button (`data-acc-trigger`), and the panel holds the cash line plus the Falcon product (name, why, Range, Term, link) inside the same 711px measure.
+Measured back off our page: band pad 160, row 101px tall, button padding 32/32 with 24/36 type and ls 0.192, caret 36×36, list 104px below the title, panel body exactly 711px with 48px foot, copy 20/30, product name 24/36. Mobile collapses to a 328px measure with the same spacing.
+Animation is `grid-template-rows: 0fr → 1fr` at **500ms ease-in-out** (their duration and easing, with a technique that does not need a hard-coded max-height), caret 300ms, both disabled under `prefers-reduced-motion`.
+Hover keeps the site convention: the list recedes to 36% and the hovered row stays at 100%.
+
+### Single-open, site-wide
+`bindAccordions` used to toggle each row independently, so a FAQ could have every answer open at once. It now closes the whole list before opening the clicked row (and clicking the open row closes it), giving each list **zero or one** open row — the Osmo behaviour. The retail case list now uses the same binding, so `src/scripts/retail-case.ts` was deleted.
+Verified on the retail FAQ and the merchant-cash-advance FAQ: click row 0 → only 0 open; click row 2 → only 2 open, row 0 closed; click row 2 again → zero open. Same on the case list.
