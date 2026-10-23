@@ -1,0 +1,40 @@
+---
+/**
+ * One blog card — the reference's article card (blackstone.com/insights).
+ * Used by both card bands on /blog: "Start here" and the archive grid.
+ * Styles live in blog-index.css under `.blg-card*`.
+ */
+import Media from '@/components/Media.astro';
+import { formatDate, categorySlug, type Post } from '@/lib/blog';
+
+interface Props {
+  post: Post;
+  loading?: 'eager' | 'lazy';
+}
+
+const { post, loading = 'lazy' } = Astro.props;
+const href = `/blog/${post.id}`;
+const { title, category, cover, coverAlt, date } = post.data;
+---
+
+<article class="blg-card" data-blg-card data-category={categorySlug(category)}>
+  <a class="blg-card-media" href={href} tabindex="-1" aria-hidden="true">
+    {
+      cover ? (
+        <Media
+          image={cover}
+          alt=""
+          intent={coverAlt || `Illustration for ${title}`}
+          ratio="16 / 9"
+          sizes="(min-width: 80em) 298px, (min-width: 48em) 45vw, 100vw"
+          loading={loading}
+        />
+      ) : (
+        <Media intent={coverAlt || `Illustration for ${title}`} ratio="16 / 9" loading={loading} />
+      )
+    }
+  </a>
+  <p class="blg-card-label">{category}</p>
+  <h3 class="blg-card-title"><a href={href}>{title}</a></h3>
+  <p class="blg-card-date"><time datetime={date.toISOString()}>{formatDate(date)}</time></p>
+</article>

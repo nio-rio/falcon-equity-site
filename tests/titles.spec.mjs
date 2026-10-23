@@ -73,6 +73,15 @@ for (const [route, h1Expected] of industryPages) {
   }
 }
 
+/** Blog index — /blog. */
+const blogTitle = titleOf('dist/blog.html');
+if (blogTitle !== 'The Falcon Brief | Business funding guides | Falcon Equity Group') {
+  throw new Error(`Blog <title> was ${JSON.stringify(blogTitle)}`);
+}
+if (h1Of('dist/blog.html') !== 'The Falcon Brief') {
+  throw new Error(`Blog <h1> was ${JSON.stringify(h1Of('dist/blog.html'))}`);
+}
+
 console.log(`${home}\n${applyTitle}`);
 for (const [route, name] of servicePages) {
   console.log(`${name} | Falcon Equity Group  <- dist/${route}.html`);

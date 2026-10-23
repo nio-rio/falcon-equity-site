@@ -52,7 +52,7 @@ export const PRIMARY_PHONE = SITE.phones.direct;
 export type NavLink = { label: string; href: string; description?: string };
 
 export const RESOURCE_LINKS: NavLink[] = [
-  { label: 'Blog', href: '/#insights-heading', description: 'Practical funding guides' },
+  { label: 'Blog', href: '/blog', description: 'Practical funding guides' },
   { label: 'Loan Calculator', href: '/apply', description: 'Estimate payments in seconds' },
   {
     label: 'Credit Repair & Loan Prep',
@@ -86,6 +86,6 @@ export const FOOTER_QUICK_LINKS: NavLink[] = [
   { label: 'About', href: '/#main' },
   { label: 'Services', href: '/#services' },
   { label: 'Industries', href: '/industries' },
-  { label: 'Blog', href: '/#insights-heading' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Apply', href: '/apply' },
 ];

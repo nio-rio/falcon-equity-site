@@ -522,3 +522,40 @@ need their own session; this page introduces no new failure.
 **Machine note.** This checkout's local preview had to take port 4321 by force: another `astro preview`
 (Claire's, from `~/Sites/falcon-equity-site`) was holding it, and per the 23 Oct note a second preview
 silently serves the *old* `dist`. It was killed to free the port and not restarted.
+### Blog index `/blog` — "The Falcon Brief" (2026-10-23, owner request)
+
+Ling: *"blackstone.com/insights — Build a 'Blog' /blog page just like this."*
+
+**Reference measured live, not remembered.** `blackstone.com/insights` in a real Chrome over CDP at
+1440 / 1024 / 768 / 390, then our build re-measured with the same probe. The full table (and every
+deviation, stated) is `docs/blog-index-structure-plan.md`. Headline numbers: page header pad
+48/0/120 with H1 56/84 in cols 1–9 and the standfirst in 12–16; archive 4-up, card 298 wide, image
+16:9; label 14/21 w400 uppercase, title 20/30 w300, date 16/24 pinned to the card foot with
+`margin-top: auto`; row rhythm 120; pager = "Load More" + 40px circle-arrow rotated 90° + 1px
+divider + one dot per page (active 24 ring, idle 12, 16 apart).
+
+**What shipped.** `src/pages/blog.astro` (six bands: page header · answer first · start here ·
+browse by category · latest guides · empty state, with the shared `SiteCta` closing the page),
+`src/components/BlogCard.astro` (one card, used by both card bands), `src/styles/blog-index.css`
+(prefix `blg-`, every number in the file's header comment traced to the reference), and
+`src/scripts/blog-index.ts` (category filter + Load More/dots pager).
+
+**Adaptations worth knowing** (all in the plan doc): no hero photograph (the reference header has
+none); H1 weight 400 to match the house page title; the contract's category *links* became in-page
+filter buttons because `/blog/category/<slug>` still 301s home; the archive is the reference's 4-up
+rather than the contract's two-column grid; page size 8, so Load More is dormant with today's 8
+published guides and appears when the 9th publishes (the pager was exercised end-to-end at page size
+4 — reveal, dot-current, filtered view — during the build).
+
+**Route lift, four places:** `astro.config.mjs` (`/blog` into `livePaths`, out of `retired`;
+`/blog/<slug>` and `/blog/category/<slug>` stay retired), `netlify.toml` (exact `/blog` rule out,
+`/blog/*` kept), `public/_redirects` (same), and the nav: `RESOURCE_LINKS` + `FOOTER_QUICK_LINKS` in
+`src/data/site.ts` and two hardcoded header hrefs now point at `/blog`.
+
+**Verified on the build:** `dist/blog.html` real `<h1>`, no meta refresh, 11 cards (3 + 8), 5
+filters, `/blog` in `sitemap-0.xml`; `npm run build`, `npm run check` (0 errors/0 warnings) and
+`npm run test:titles` (now asserts this route) pass; no horizontal overflow at 320 / 390 / 768 /
+1024 / 1440; dates align across a row at 2- and 3-line titles.
+
+**Still open:** `/blog/<slug>` has no page, so every card currently lands on the home page via the
+`/blog/*` 301. The article template is the next dependency; `/blog/category/<slug>` likewise.

@@ -85,11 +85,6 @@
 # replaces it. Do not re-add one: a redirect here 301s a real page.
 
 [[redirects]]
-  from = "/blog"
-  to = "/#insights-heading"
-  status = 301
-
-[[redirects]]
   from = "/blog/*"
   to = "/#insights-heading"
   status = 301
