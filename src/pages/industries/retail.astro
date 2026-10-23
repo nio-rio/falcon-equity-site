@@ -38,13 +38,6 @@ const loc = product('business-line-of-credit');
 const mca = product('merchant-cash-advance');
 const collateral = product('collateral-asset-loans');
 
-const glance = [
-  { value: 'Up to $5,000,000', label: "Across Falcon's funding products" },
-  { value: '24-48 hours', label: 'Average funding time after approval' },
-  { value: '0% agreement fee', label: 'Any product-specific cost is set out before you sign' },
-  { value: '300+ businesses', label: 'Funded by Falcon to date' },
-];
-
 const answerLead =
   'Retail businesses borrow to buy stock before the season, cover payroll through slow months, and fit out the store. Falcon funds retail with a business line of credit for repeating inventory orders, a merchant cash advance for fast cash that repays from sales, and collateral loans for fixtures and equipment. Amounts run from $5,000 to $5,000,000.';
 
@@ -223,7 +216,9 @@ const metaDescription =
     </div>
   </nav>
 
-  {/* 1 page header (TF-00) · glance figures (PE-02) · header still (TF-01) */}
+  {/* 1 page header — blackstone.com/financial-advisors: H1 cols 1-9, standfirst
+       cols 12-16, no stats, no CTA in the reference. Header still below, as a
+       placeholder until Ling sends the hero photograph. */}
   <section class="ret-hero" aria-labelledby="page-hero-heading" data-band="light" data-ret-section="header" data-reveal-root>
     <div class="container-site">
       <div class="ret-grid ret-hero-grid">
@@ -235,16 +230,6 @@ const metaDescription =
           <span class="arrow-cta-label">Apply for funding</span>
           <CircleArrow />
         </a>
-        <div class="ret-glance" data-reveal>
-          {
-            glance.map((item) => (
-              <div class="ret-glance-cell">
-                <p class="ret-glance-value">{item.value}</p>
-                <p class="ret-glance-label">{item.label}</p>
-              </div>
-            ))
-          }
-        </div>
         <div class="ret-hero-media" data-reveal>
           <Media
             labeled

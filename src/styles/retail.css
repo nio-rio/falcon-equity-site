@@ -252,8 +252,8 @@
 }
 
 /* ---------------------------------------------------------------------------
-   1. Page header — TF-00 (h1 cols 1–8, standfirst cols 10–15, no image)
-      2. Glance figures — IR-00 / PE-02 (label, hairline, figure)
+   1. Page header — blackstone.com/financial-advisors (h1 cols 1–9, standfirst
+      cols 12–16, no stats). Header still below as a placeholder image.
       3. Header still — TF-01 (16:9, full content width, no caption strip)
    --------------------------------------------------------------------------- */
 .ret-hero-grid {
@@ -264,68 +264,27 @@
   margin-top: 32px;
 }
 
-.ret-glance {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 16px;
-  row-gap: 32px;
-  margin-top: 24px;
-}
-
-.ret-glance-cell {
-  padding-top: 16px;
-  border-top: 1px solid var(--color-ink);
-}
-
-.ret-glance-value {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.2;
-  letter-spacing: normal;
-}
-
-.ret-glance-label {
-  margin: 8px 0 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-}
-
 .ret-hero-media {
-  margin-top: 40px;
-}
-
-@media (min-width: 48em) {
-  .ret-glance {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+  margin-top: 56px;
 }
 
 @media (min-width: 80em) {
+  /* Hero geometry measured on blackstone.com/financial-advisors at 1440:
+     H1 704px wide (cols 1-9), standfirst x=968 w=384 (cols 12-16). */
   .ret-hero-grid > .ret-h1 {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 9;
   }
 
   .ret-standfirst {
-    grid-column: 10 / span 5;
-    align-self: end;
-  }
-
-  .ret-hero-apply {
-    grid-column: 10 / span 5;
-    margin-top: 0;
+    grid-column: 12 / span 5;
+    /* Reference top-aligns the standfirst with the H1, not its baseline. */
     align-self: start;
   }
 
-  .ret-glance {
-    margin-top: 40px;
-  }
-
-  .ret-glance-value {
-    font-size: 40px;
+  .ret-hero-apply {
+    grid-column: 12 / span 5;
+    margin-top: 0;
+    align-self: start;
   }
 
   .ret-hero-media {

@@ -11,7 +11,7 @@ read 22 Oct 2026 after her edit (7 sections; the old "What you need to apply" is
 
 | # | Band | Donor | Source | Ours |
 | --- | --- | --- | --- | --- |
-| 1 | Hero | `TF-00` header + `PE-02` glance strip + `TF-01` still | blackstone.com/the-firm/ | H1, standfirst, one `.arrow-cta` Apply, four approved facts, 16:9 still |
+| 1 | Hero | blackstone.com **/financial-advisors/** header (not in the library — captured live 22 Oct) | https://www.blackstone.com/financial-advisors/ | H1 cols 1–9, standfirst cols 12–16, one `.arrow-cta` Apply, 16:9 still below as a placeholder until Ling sends the photograph. **No stats strip** — she cut it: "we don't have stats any more." |
 | 2 | Answer first | blackstone.com home, **Private wealth** band | https://www.blackstone.com/ | Eyebrow + rule, 64px claim, indented 18/27 lead, "Learn more", raised panel of four takeaway rows |
 | 3 | What's your case? | **Ling's own component — pending** | her reference still, 22 Oct | Placeholder: raised dark card, copy + eight pill chips left, 4:5 still right |
 | 4 | Products | the service pages' "When X isn't the right fit" band (`mca-cards--3`) | falconequity.ai redesign `/services/merchant-cash-advance` | Three cards: product name, fit line, `See <product>` + arrow; one closing line on restricted industries |
@@ -20,6 +20,23 @@ read 22 Oct 2026 after her edit (7 sections; the old "What you need to apply" is
 | — | CTA | sitewide `SiteCta` in `BaseLayout` | — | Unchanged |
 
 No `Button040` except the hero's arrow CTA; the home page is untouched.
+
+## Band 1, measured live
+
+`blackstone.com/financial-advisors` has no library entry, so it was captured with a real Chrome window
+(Cloudflare 403s curl and headless Chrome on this host) and measured at 1440:
+
+| Property | Measured | Built |
+| --- | --- | --- |
+| Band | white, pad `48px 0 120px`, no image inside the header block | same pads (`.ret-hero` at ≥80em) |
+| H1 | x 88, 704px wide, 56/84 weight 300, Sanomat | cols 1–9 of 16, `--font-display` 56/84 weight 300 |
+| Standfirst | x 968, 384px wide, 18/27 weight 300, top-aligned with the H1 | cols 12–16, `.ret-body` 18/27, `align-self: start` |
+| CTA | none in the reference (Blackstone's sits in the nav) | one `.arrow-cta` Apply kept under the standfirst — Falcon has no Apply in the mobile header |
+| Image | none in the header block | 16:9 still below, `Media labeled` placeholder, 56px above |
+
+The stat strip that used to sit here (`PE-02`: up to $5,000,000 · 24-48 hours · 0% agreement fee ·
+300+ businesses) is gone from the page and from the page file. Those four facts still exist on the home
+page and in `STATS`; this page just stops repeating them.
 
 ## Band 2, measured because the library has no entry for it
 
