@@ -86,4 +86,7 @@ await ogDefault();
 await cover('src/assets/blog/consolidation-of-positions.jpg', 'Consolidation', ['Stacked advances,', 'one smarter payment'], 'layers');
 await cover('src/assets/blog/mca-vs-term-loan.jpg', 'Working Capital', ['MCA vs. Term Loan:', 'which wins?'], 'versus');
 await cover('src/assets/blog/funding-checklist.jpg', 'How-To', ['Your 24–48 hour', 'funding checklist'], 'checklist');
+await cover('src/assets/blog/collection-frequency.jpg', 'Cash Flow', ['Daily, weekly or', 'monthly collection?'], 'versus');
+await cover('src/assets/blog/factoring-quote-comparison.jpg', 'Factoring', ['Three quotes,', 'one spreadsheet'], 'layers');
+await cover('src/assets/blog/vetting-a-lender.jpg', 'Compare Options', ['Check the lender', 'before you sign'], 'checklist');
 console.log('Images generated.');

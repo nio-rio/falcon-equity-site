@@ -23,12 +23,12 @@ import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
-import { formatDate, getPublicPosts } from '@/lib/blog';
-import { articleSchema, breadcrumbSchema } from '@/lib/schema';
+import { formatDate, getPublishedPosts } from '@/lib/blog';
+import { articleSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
 import '@/styles/blog-article.css';
 
 export async function getStaticPaths() {
-  const posts = await getPublicPosts();
+  const posts = await getPublishedPosts();
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
@@ -36,6 +36,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const { title, category, date, updated, description, cover, coverAlt, seoTitle, author } = post.data;
+const { faq } = post.data;
 
 const documentTitle = seoTitle ?? `${title} | Falcon Equity Group`;
 
@@ -75,6 +76,7 @@ const schema = [
     { name: 'Blog', path: '/blog' },
     { name: title, path: `/blog/${post.id}` },
   ]),
+  ...(faq.length ? [faqSchema(faq)] : []),
 ];
 ---
 
@@ -111,6 +113,22 @@ const schema = [
 
         <div class="art-prose">
           <Content />
+
+          {/* Every post carries 3-5 `faq` entries in frontmatter for the
+              FAQPage schema. Rendering them here as well means the answers a
+              reader (or an answer engine) can quote actually appear on the
+              page, instead of existing only in structured data. */}
+          {faq.length > 0 && (
+            <section class="art-faq" aria-labelledby="faq-heading">
+              <h2 id="faq-heading">Frequently asked questions</h2>
+              {faq.map((item) => (
+                <div class="art-faq-item">
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </div>
+              ))}
+            </section>
+          )}
         </div>
       </div>
 
