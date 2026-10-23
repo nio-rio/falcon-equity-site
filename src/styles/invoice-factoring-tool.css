@@ -454,10 +454,10 @@ section.ift-blog[data-band='light'] {
 
 .ift-faq-item h3 {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: inherit;
-  font-weight: 400;
-  letter-spacing: 0.192px;
+  font-weight: 300;
+  letter-spacing: 0.32px;
 }
 
 .ift-faq-trigger {
@@ -469,11 +469,11 @@ section.ift-blog[data-band='light'] {
   padding-block: 32px;
   border: 0;
   background: none;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 30px;
-  letter-spacing: 0.192px;
+  letter-spacing: 0.32px;
   text-align: left;
   color: var(--color-ink);
   cursor: pointer;

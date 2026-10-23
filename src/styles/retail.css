@@ -263,11 +263,12 @@
   border-radius: 0;
   background: none;
   color: var(--color-white);
-  font-family: var(--font-display);
+  /* Body face, like every FAQ question on the site (Ling, 22 Oct). */
+  font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 30px;
-  letter-spacing: 0.192px;
+  letter-spacing: 0.32px;
   text-align: left;
   cursor: pointer;
 }

@@ -292,3 +292,10 @@ Ling: "I want the accordion to have the same look as the FAQ accordion. And the 
 - Trigger switched from sans 300 to the FAQ's **display 20/30 weight 400** at 0.192px, and it steps to **24/36 at 64em** (same breakpoint as the FAQ, previously 80em).
 - Caret is the FAQ's **32px round box with a 16×8 chevron**, and it now carries the FAQ's hover fill: white circle with a dark chevron on hover/focus-visible, translucent white when the row is already open. This is the hover animation the button was missing.
 - Kept the 500ms ease-in-out open/close from Blackstone (Ling's earlier instruction) rather than the FAQ's 350ms; flag it if she wants them identical.
+
+
+### Accordion questions moved to the body face (2026-10-22)
+
+Ling: "accordion button text should be body text (sans serif one). Same with other FAQs."
+
+Every FAQ question was `--font-display` weight 400 at 0.192px; they are now `--font-sans` **weight 300 at 0.32px** — the body tracking — in all six stylesheets that carry a FAQ clone (`mca`, `loc`, `btl`, `cal`, `cons`, `ift`), and in the retail case accordion. Sizes are unchanged (20/30, stepping to 24/36 at 64em). Section titles stay in the display face, so the hierarchy still reads: display headline, sans question, sans answer.
