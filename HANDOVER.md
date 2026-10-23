@@ -522,6 +522,22 @@ need their own session; this page introduces no new failure.
 **Machine note.** This checkout's local preview had to take port 4321 by force: another `astro preview`
 (Claire's, from `~/Sites/falcon-equity-site`) was holding it, and per the 23 Oct note a second preview
 silently serves the *old* `dist`. It was killed to free the port and not restarted.
+
+**Follow-up, same session — two small corrections from Ling.** (1) *"H2 (name of all industries) can
+have a little more font weight."* → `.indx-title` 300 → **400** (AtGambit Light → Regular, the one notch
+the font set actually has); size and line-height stay at the measured 20/30. (2) *"Add the same industry
+image to the hero of each industry page."* → `IndustryPage` now resolves `INDUSTRY_STILLS[content.slug]`
+and passes it to the hero `Media` at the existing 5:2 crop, so a page and its index card can never show
+two different pictures. Verified per route in the build: all **12/12** heroes reference their own still
+(`dist/industries/<slug>.html` → `_astro/<slug>.*.webp`), and the `retail` hero was shot at 1440 to
+confirm the 16:9 photograph crops sensibly into the 2.5:1 band.
+
+**Port trap, hit again in the same session.** Port 4321 was taken twice by previews of *other*
+worktrees (`~/Sites/falcon-equity-site` first, then `~/Sites/falcon-blog`), and the second time a
+screenshot + a `selector not found` came from the wrong checkout's `dist` while the local build was
+correct. Local preview now runs on **4400**; confirm the `<title>` and body size of the route before
+believing any measurement, exactly as §6 of the reference-site skill says.
+
 ### Blog index `/blog` — "The Falcon Brief" (2026-10-23, owner request)
 
 Ling: *"blackstone.com/insights — Build a 'Blog' /blog page just like this."*

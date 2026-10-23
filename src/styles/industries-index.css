@@ -104,15 +104,17 @@
   object-fit: cover;
 }
 
-/* 32px under the image, 20/30 — both measured. `width: fit-content` keeps the
-   hover rule hugging the words instead of the column. */
+/* 32px under the image, 20/30 — both measured; weight 400, not the reference's
+   300: Ling asked for a little more on 23 Oct, and AtGambit Regular is the step
+   that reads heavier without competing with the H1. `width: fit-content` keeps
+   the hover rule hugging the words instead of the column. */
 .indx-title {
   width: fit-content;
   margin: 32px 0 0;
   color: var(--color-ink);
   font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 30px;
   letter-spacing: 0.16px;
   background-image: linear-gradient(currentColor, currentColor);

@@ -21,6 +21,7 @@ import ArrowButton from '@/components/ArrowButton.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import CircleArrow from '@/components/CircleArrow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { INDUSTRY_STILLS } from '@/data/industry-stills';
 import { SERVICES } from '@/data/services';
 import type { IndustryPageContent } from '@/data/industry-pages';
 import { getPublicPosts } from '@/lib/blog';
@@ -31,6 +32,11 @@ import '@/styles/industry.css';
 type Props = { content: IndustryPageContent };
 
 const { content } = Astro.props;
+
+/** The hero still is the sector's own photograph — the same file the home
+    Sectors band and the /industries index card use (Ling, 23 Oct 2026), so a
+    page and its card can never show two different pictures. */
+const heroStill = INDUSTRY_STILLS[content.slug];
 
 const service = (slug: string) => {
   const found = SERVICES.find((s) => s.slug === slug && s.spec);
@@ -112,8 +118,9 @@ const schema = [
         <ArrowButton class="ind-hero-apply" href="/apply" label="Apply for funding" data-reveal />
         <div class="ind-hero-media">
           <Media
-            labeled
-            intent={content.heroIntent}
+            image={heroStill.image}
+            alt={heroStill.imageAlt}
+            intent={heroStill.imageIntent}
             ratio="5 / 2"
             sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
             loading="eager"

@@ -27,7 +27,7 @@ rules. Nothing from Blackstone's own styling (its serif, its near-black, its wei
 | Element | Reference | Ours | Note |
 |---|---|---|---|
 | Media | 16:9 still, `object-fit: cover`, 298 × 168 | industry still from `INDUSTRY_STILLS`, 16:9, 298 × 168 | same ratio, same 32px gap under it |
-| Title | 20/30, weight 300, letter-spacing 0.16px, 32px below the image | 20/30, weight 300, letter-spacing 0.16px, 32px below the image | numbers copied exactly; face is Falcon's display face |
+| Title | 20/30, weight 300, letter-spacing 0.16px, 32px below the image | 20/30, weight **400** (Ling, 23 Oct: "can have a little more font weight"), letter-spacing 0.16px, 32px below the image | numbers copied; the weight step is Ling's, one notch up (AtGambit Regular) so the name reads over the blurb without competing with the H1 |
 | Meta line | post date, 16/24, letter-spacing 0.32px, **pinned to the card foot** with 40px of pad above it, so dates line up across a row | the sector blurb, 16/24, letter-spacing 0.32px, **pinned to the card foot** with 40px of pad above it | stated adaptation: our equivalent of a date is the one-line-of-copy we hold per sector. Because it is pinned, the blurbs still bottom-align across a row exactly as the dates do |
 | Link | whole card is a link (image and title both) | whole card is a link, one `<a>` per card | |
 | Hover | (title/image treatment) | underline draws under the title in 0.3s, plus a 2px focus ring | site's own card motion, not the reference's |
@@ -46,7 +46,7 @@ whole card is already the target.
 | Card width / x positions | 298; x = 81, 403, 725, 1047 | 298; x = 81, 403, 725, 1047 |
 | Column gap / row gap | 24 / 120 | 24 / 120 |
 | Image | 298 × 167.6, 16:9, cover | 298 × 167.6, 16:9, cover |
-| Title | 20/30, 32px below image | 20/30, 32px below image |
+| Title | 20/30 w300, 32px below image | 20/30 w400, 32px below image |
 | Meta | 16/24, 40px pad above, pinned to card foot | 16/24, 40px pad above, pinned to card foot |
 | Card height (row) | 354, equal across the row | 342, equal across the row (one-line titles) |
 
