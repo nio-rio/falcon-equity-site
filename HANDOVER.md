@@ -815,6 +815,30 @@ then corrected to "no text under 16px", and asked for the input fields' bottom r
   Below 80em it follows the same ladder: 8-col with 1/4 · 5/8 · 1/4, 24px inner padding, 64px gutters, and the third
   definition wrapping under the first, with the reference's 72px (48em) / 104px (64em) row gap.
 
+**Hero rebuilt to the industry-page header, and the homepage services row added below the calculator
+(2026-10-23, same session).** Ling: *"This page doesn't need eyebrow above H1. Hero should be like the top of hero
+on industry pages."* then *"Add the services section from homepage to under this calculator section."*
+
+- **Hero = `/industries/<slug>`'s header, minus the still.** No eyebrow at all. H1 **40px / 1.1 / weight 400 /
+  `max-width: 20ch`** (`text-wrap: balance`), stepping to **56 / 84 / 18ch at 1280** — the `.ind-h1` ladder verbatim.
+  Standfirst **18 / 27 / 300, +0.32px tracking** (`.ind-body`). Header uses the industry grid: **4 / 8 / 16 columns,
+  16px gutter**, hero row-gap 32; at 1280 the H1 takes **cols 1–9** and the standfirst **cols 12–16**, with the
+  `ArrowButton` ("Apply for funding") in the same right-hand column 32px under it (`margin-top: 32px` below 1280,
+  0 above, exactly as `.ind-hero-apply` does). The old 49/61 → 55/57 title and the eyebrow are gone; `pilot.css`
+  is imported for the services band.
+- **`PilotLinkList` is the component, not a copy**: same eyebrow "Services", same H2 "How we can bring you
+  victory.", `getHomeServices()` in the same order, so titles, range lines, teasers, 2px rules, sibling fade and the
+  line draw are byte-identical to `/` `#services`. The band carries `data-band="light"`, so the page now imports
+  `scroll-in` and uses the same `has-js` head snippet as home — rows reveal on scroll (verified in a real browser:
+  `0/hidden` → `1/visible`, 8 reveal nodes).
+- **One band boundary, not two pad stacks**: `section.calc-band` now ends with **0 bottom padding** at every width,
+  so the services band's own `--pilot-section-y-stack` (from `[data-band='light'] + [data-band='light']`) supplies
+  the gap, exactly as the home stats → services boundary does.
+- **16px floor survives the import.** Two things the page now inherits are 14px sitewide — the shared section eyebrow
+  below 1280 and home's `.pilot-ll-range` — so a page wrapper `.calc-page` raises both to 16 **on this page only**;
+  home is untouched. Re-audited at 390 / 768 / 1440: the only sub-16 text left is the footer disclosure + contact
+  labels (14, sitewide) and the header's compact Apply (14, 375–528px).
+
 **Still open.** (1) The page copy is a first pass in the site voice — Ling has not seen it. (2) `npm run test:nav`
 and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
 label still reads "Loan Calculator" while the page H1 is "Business loan calculator" — one-word change if Ling

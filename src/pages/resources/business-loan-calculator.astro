@@ -1,10 +1,21 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
+import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getHomeServices } from '@/data/services';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
 import '@/styles/loan-calculator.css';
+
+/** The homepage services row, same order and copy as `/` (#services). */
+const homeServices = getHomeServices().map((service) => ({
+  href: service.href,
+  name: service.name,
+  teaser: service.teaser,
+  rangeLine: service.rangeLine,
+}));
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -52,17 +63,36 @@ const paymentOptions = [
   schema={[breadcrumbSchema(crumbs), toolSchema]}
   disclosure={`${PAGE_DISCLOSURE} Calculator results are estimates for illustration only and are not an offer of credit.`}
 >
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* Page wrapper: the only hook the page-scoped 16px floor hangs off. Ling,
+      2026-10-23: "no text under 16px" on this page — the shared eyebrow and the
+      services range line are 14px sitewide, so they are raised here only and
+      the home page is untouched. */}
+  <div class="calc-page">
   <section class="calc-band" data-band="light" aria-labelledby="calc-heading">
     <div class="container-site">
       <div class="calc-shell">
-        <div class="calc-head">
-          <Eyebrow>Resources</Eyebrow>
+        <div class="calc-hero">
           <h1 id="calc-heading" class="calc-title">Business loan calculator</h1>
           <p class="calc-lead">
             Two offers can look the same and cost very different amounts. Put the numbers from your
             own offer in here: this page returns what you repay each period, what the money costs in
             total, and what a factor rate works out to over a year.
           </p>
+          <ArrowButton class="calc-hero-apply" href="/apply" label="Apply for funding" />
         </div>
 
         <div class="calc-tool" data-calc-tool data-calc-mode="factor">
@@ -409,7 +439,17 @@ const paymentOptions = [
     </div>
   </section>
 
+  {/* The homepage services row (`/` #services), unchanged: same component,
+      same order, same copy, same reveal and hover. */}
+  <PilotLinkList
+    eyebrow="Services"
+    title="How we can bring you victory."
+    items={homeServices}
+  />
+  </div>
+
   <script>
+    import '@/scripts/scroll-in';
     import '@/scripts/loan-calculator';
   </script>
 </BaseLayout>
