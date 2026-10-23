@@ -309,3 +309,19 @@ Ling: "in sections like this, for each item there should be a little bit more sp
 - Applied to all six stylesheets carrying this card so the class cannot drift page to page: `mca.css`, `business-line-of-credit.css`, `business-term-loan.css`, `consolidation-of-positions.css`, `invoice-factoring-tool.css`, `collateral-asset-loans.css`. That covers the six service pages **and** the retail page's product links, which reuse `.mca-card-link`.
 - Measured on the deployed preview (commit `488e5d6`): 32px at 390 / 768 / 1024 / 1280, 40px at 1440, on all six pages, three cards each. Card block grew 233 → 257px at 1440, i.e. +24px (16 → 40); nothing else moved.
 - Not changed: the icon (40px), the label type (18/27/400), the `margin-top: auto` bottom alignment, and the home page (approved).
+
+### Retail accordion H2 freed from its 24ch cap (2026-10-23) — approved, do not revert
+
+Ling: "On retail page 'Which funding fits your store right now?' doesn't need to have max-width. If the container size allow this h2 to be in one line, it can just be in one line."
+
+- `.ret-case-claim` carried `max-width: 24ch` (copied from the Blackstone reference, where the reference column is narrower). At 48px that cap is ~576px against a 1264px content box, so the heading broke to two lines at every width above 768 even though one line fits comfortably.
+- Change: the `max-width` line is gone (only that declaration; type ladder untouched — 36px/1.25 below 80em, 48/72 from 80em). The heading now wraps only when the container actually runs out of room.
+- Measured on the deployed preview (commit `c864c8f`), line count of the H2 — before (24ch restored via injected style) vs after:
+
+| viewport | 390 | 768 | 1024 | 1280 | 1440 |
+|---|---|---|---|---|---|
+| lines, old 24ch cap | 2 | 2 | 2 | 2 | 2 |
+| lines, no cap | 2 | **1** | **1** | **1** | **1** |
+
+- Ink width of the headline is 587px at 36px and 782px at 48px; content box is 328 / 688 / 944 / 1136 / 1264, so 390 still wraps (unchanged, the cap never bit at that width) and everything from 768 up is one line.
+- Not changed: `.ret-h1` keeps its `20ch` cap (different ask), the eyebrow, the 104px gap to the accordion list, and every other page — no other stylesheet carries this heading.
