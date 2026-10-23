@@ -270,6 +270,8 @@
    bullet, and hang the row so the text still aligns to the measure. */
 .art-prose li.task-list-item {
   list-style: none;
+  padding-left: 28px;
+  text-indent: -28px;
 }
 
 .art-prose li.task-list-item input[type='checkbox'] {
