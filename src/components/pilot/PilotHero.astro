@@ -1,6 +1,6 @@
 ---
 import Media from '@/components/Media.astro';
-import PilotArrow from './PilotArrow.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -47,7 +47,7 @@ const { line1, line2, aside, captionTitle, captionBody, captionHref, captionLabe
       <div class="pilot-hero-caption-copy">
         <p>{captionBody}</p>
         <div class="pilot-hero-caption-cta">
-          <PilotArrow href={captionHref} label={captionLabel} tone="light" />
+          <ArrowButton href={captionHref} label={captionLabel} tone="light" />
         </div>
       </div>
     </div>

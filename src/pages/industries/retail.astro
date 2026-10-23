@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogSlider from '@/components/BlogSlider.astro';
 import Media from '@/components/Media.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import CircleArrow from '@/components/CircleArrow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
@@ -216,10 +217,7 @@ const metaDescription =
         <p class="ret-body ret-standfirst" data-reveal>
           Stock the shelves before the money comes back. Funding that moves with your selling season, not against it.
         </p>
-        <a class="arrow-cta ret-hero-apply" href="/apply" data-reveal>
-          <span class="arrow-cta-label">Apply for funding</span>
-          <CircleArrow />
-        </a>
+        <ArrowButton class="ret-hero-apply" href="/apply" label="Apply for funding" data-reveal />
         <div class="ret-hero-media" data-reveal>
           <Media
             labeled
