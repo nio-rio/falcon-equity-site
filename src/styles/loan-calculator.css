@@ -182,7 +182,7 @@ section.calc-band {
 .calc-label {
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.45;
 }
@@ -339,7 +339,7 @@ section.calc-band {
   margin: 0 0 8px;
   color: var(--color-martinique-light);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.45;
 }
@@ -400,7 +400,7 @@ section.calc-band {
 .calc-row-label {
   color: var(--color-martinique-light);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.45;
 }
