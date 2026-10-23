@@ -282,24 +282,30 @@
   min-height: 0;
 }
 
-/* Their AccordionDesc area: the copy sits in the left nine columns. */
+/* The open row splits across the same 16-column grid as the page: the cash
+   line keeps the left seven columns, the product block starts on column 8. */
 .ret-case-body {
-  max-width: 711px;
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  column-gap: 16px;
   padding-bottom: 48px;
 }
 
 .ret-case-means {
+  grid-column: 1 / span 7;
   margin: 0;
   color: var(--bx-on-dark);
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 30px;
-  letter-spacing: 0.2px;
+  line-height: 27px;
+  letter-spacing: 0.18px;
 }
 
 .ret-case-product {
-  margin-top: 32px;
+  grid-column: 8 / -1;
+  grid-row: 2;
+  margin-top: 40px;
 }
 
 .ret-case-name {
@@ -376,6 +382,19 @@
   }
 }
 
+@media (max-width: 63.99em) {
+  /* One column: the cash line, then the product under it. */
+  .ret-case-body {
+    grid-template-columns: 1fr;
+  }
+
+  .ret-case-means,
+  .ret-case-product {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+
 @media (min-width: 80em) {
   .ret-case {
     padding-block: 160px;
@@ -413,10 +432,6 @@
    here read as ~208px. */
 .ret-products-band .mca-block-head {
   margin-bottom: 0;
-}
-
-.ret-blog-band .mca-blog-slider {
-  margin-top: 0;
 }
 
 /* .mca-faq-list carries --space-head-to-content above it. */

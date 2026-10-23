@@ -78,8 +78,6 @@ section.ift-blog[data-band='light'] {
 .ift-cards > .ift-card,
 .ift-helps-image,
 .ift-helps-list,
-.ift-blog-copy,
-.ift-blog-media,
 .ift-hero-inner {
   grid-column: 1 / -1;
 }
@@ -563,161 +561,6 @@ section.ift-blog[data-band='light'] {
 
 /* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
    MCA slider: title + Read the article, prev/next under the link. */
-.ift-blog-slider {
-  outline: none;
-  touch-action: pan-y;
-}
-
-.ift-blog-media,
-.ift-blog-media img {
-  -webkit-user-drag: none;
-  user-select: none;
-}
-
-.ift-blog-slider:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 4px;
-}
-
-.ift-blog-split {
-  align-items: start;
-  row-gap: 40px;
-}
-
-.ift-blog-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-}
-
-.ift-blog-copy .eyebrow {
-  margin-bottom: 48px;
-}
-
-.ift-blog-copy-slides {
-  display: grid;
-  width: 100%;
-}
-
-.ift-blog-copy-slide {
-  grid-area: 1 / 1;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.ift-blog-copy-slide.is-active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  z-index: 1;
-}
-
-.ift-blog-line {
-  color: inherit;
-}
-
-.ift-blog-line-mask {
-  padding-bottom: 0.2em;
-  margin-bottom: -0.2em;
-}
-
-.ift-blog-title {
-  margin: 0 0 24px;
-  max-width: none;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 300;
-  line-height: 48px;
-  letter-spacing: 0.256px;
-  text-wrap: balance;
-}
-
-.ift-blog-copy .ift-card-link {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-.ift-blog-controls {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.ift-blog-arrow {
-  appearance: none;
-  display: inline-flex;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-ink);
-  cursor: pointer;
-}
-
-.ift-blog-arrow-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  color: inherit;
-  transition:
-    background-color 250ms ease,
-    color 250ms ease,
-    border-color 250ms ease,
-    transform 250ms ease;
-}
-
-.ift-blog-arrow-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.ift-blog-arrow:hover .ift-blog-arrow-icon,
-.ift-blog-arrow:focus-visible .ift-blog-arrow-icon {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: var(--color-white);
-  transform: scale(1.16667);
-}
-
-.ift-blog-arrow:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
-}
-
-.ift-blog-media {
-  display: grid;
-  width: 100%;
-}
-
-.ift-blog-media-slide {
-  grid-area: 1 / 1;
-  overflow: hidden;
-  width: 100%;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.ift-blog-media-slide.is-active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  z-index: 1;
-}
-
-.ift-blog-media .media,
-.ift-blog-media .image-slot {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .ift-faq-caret,
@@ -726,7 +569,6 @@ section.ift-blog[data-band='light'] {
   .ift-faq-item::after,
   .ift-card-link-label,
   .ift-card-link-icon,
-  .ift-blog-arrow-icon,
   .ift-helps-tape-track {
     transition: none;
     transform: none;
@@ -813,13 +655,6 @@ section.ift-blog[data-band='light'] {
   .ift-cta--after {
     grid-column: 1 / span 4;
   }
-
-  .ift-blog-title {
-    font-size: 40px;
-    line-height: 60px;
-    letter-spacing: 0.32px;
-    margin-bottom: 24px;
-  }
 }
 
 /* 1024 — BX type steps. Shell already 8-col from 48em. */
@@ -874,10 +709,6 @@ section.ift-blog[data-band='light'] {
 
   .ift-shell {
     row-gap: 104px;
-  }
-
-  .ift-blog-split {
-    row-gap: 40px;
   }
 }
 
@@ -965,34 +796,6 @@ section.ift-blog[data-band='light'] {
   .ift-faq-list {
     grid-column: 1 / -1;
   }
-
-  .ift-blog-split {
-    row-gap: 0;
-    align-items: stretch;
-  }
-
-  .ift-blog-copy {
-    grid-column: 1 / span 6;
-    min-height: 0;
-    height: 100%;
-  }
-
-  .ift-blog-media {
-    grid-column: 8 / span 9;
-    align-self: stretch;
-  }
-
-  .ift-blog-title {
-    font-size: 32px;
-    line-height: 48px;
-    letter-spacing: 0.256px;
-    margin-bottom: 32px;
-  }
-
-  .ift-blog-controls {
-    margin-top: auto;
-    padding-top: 32px;
-  }
 }
 
 /* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
@@ -1042,8 +845,7 @@ section.ift-blog[data-band='light'] {
     width: 64px;
   }
 
-  .ift-block-head .eyebrow,
-  .ift-blog-copy .eyebrow {
+  .ift-block-head .eyebrow {
     margin-bottom: 64px;
   }
 
@@ -1082,13 +884,6 @@ section.ift-blog[data-band='light'] {
   }
 
   /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */
-  .ift-blog-copy {
-    grid-column: 1 / span 5;
-  }
-
-  .ift-blog-media {
-    grid-column: 8 / span 9;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1104,16 +899,4 @@ section.ift-blog[data-band='light'] {
     opacity: 0;
     transform: translateY(20px);
   }
-}
-
-/* Shared slider compatibility. src/scripts/mca-blog-slider.ts writes these
-   class names (SplitText lines + masks) on every page that uses it, so they
-   keep the mca- prefix here. Copied verbatim from mca.css. */
-.mca-blog-line {
-  color: inherit;
-}
-
-.mca-blog-line-mask {
-  padding-bottom: 0.2em;
-  margin-bottom: -0.2em;
 }

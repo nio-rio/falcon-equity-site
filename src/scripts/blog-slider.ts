@@ -22,21 +22,22 @@ type WrapCleanup = () => void;
 
 const cleanups = new WeakMap<HTMLElement, WrapCleanup>();
 
-// Each hook accepts the MCA attribute or its generic twin, so prefix-scoped
-// service pages can reuse the slider without .mca-* classes.
+// The slider is a global component (src/components/BlogSlider.astro), so it
+// publishes one set of hooks and this binder is its only consumer.
 const SEL = {
-  slider: '[data-mca-blog-slider], [data-blog-slider]',
-  copySlide: '[data-mca-blog-copy-slide], [data-blog-copy-slide]',
-  mediaSlide: '[data-mca-blog-media-slide], [data-blog-media-slide]',
-  prev: '[data-mca-blog-prev], [data-blog-prev]',
-  next: '[data-mca-blog-next], [data-blog-next]',
-  live: '[data-mca-blog-live], [data-blog-live]',
-  title: '[data-mca-blog-title], .mca-blog-title, [data-blog-title]',
-  link: '.mca-card-link, [data-blog-link]',
-  img: '[data-mca-blog-img], [data-blog-img]',
+  slider: '[data-blog-slider]',
+  copySlide: '[data-blog-copy-slide]',
+  mediaSlide: '[data-blog-media-slide]',
+  prev: '[data-blog-prev]',
+  next: '[data-blog-next]',
+  dot: '[data-blog-dot]',
+  live: '[data-blog-live]',
+  title: '[data-blog-title]',
+  link: '.blog-link, [data-blog-link]',
+  img: '[data-blog-img]',
 };
 
-export function bindMcaBlogSlider(root: ParentNode = document) {
+export function bindBlogSlider(root: ParentNode = document) {
   root.querySelectorAll<HTMLElement>(SEL.slider).forEach(setupWrap);
 }
 
@@ -53,6 +54,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
   const media = [...slider.querySelectorAll<HTMLElement>(SEL.mediaSlide)];
   const prev = slider.querySelector<HTMLButtonElement>(SEL.prev);
   const next = slider.querySelector<HTMLButtonElement>(SEL.next);
+  const dots = [...slider.querySelectorAll<HTMLButtonElement>(SEL.dot)];
   const live = slider.querySelector<HTMLElement>(SEL.live);
   const count = Math.min(copies.length, media.length);
   if (count < 1) return;
@@ -87,7 +89,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
   const splitVars = (el: HTMLElement): SplitText.Vars => ({
     type: 'lines',
     mask: 'lines',
-    linesClass: 'mca-blog-line',
+    linesClass: 'blog-line',
     autoSplit: true,
     onSplit(self) {
       if (isAnimating) return;
@@ -132,8 +134,8 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     gsap.set([slide.copy, slide.media], { autoAlpha: active ? 1 : 0 });
   });
 
-  if (reduce) slider.setAttribute('data-mca-blog-reduce', '');
-  else slider.removeAttribute('data-mca-blog-reduce');
+  if (reduce) slider.setAttribute('data-blog-reduce', '');
+  else slider.removeAttribute('data-blog-reduce');
 
   const updateChrome = (announce: boolean) => {
     slides.forEach((slide, i) => {
@@ -145,7 +147,14 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
       slide.copy.toggleAttribute('inert', !on);
       slide.media.toggleAttribute('inert', !on);
     });
-    slider.setAttribute('data-mca-blog-index', String(index));
+    dots.forEach((dot, i) => {
+      const on = i === index;
+      dot.classList.toggle('is-active', on);
+      dot.parentElement?.classList.toggle('is-active', on);
+      if (on) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+    slider.setAttribute('data-blog-index', String(index));
     if (prev) prev.disabled = !canLoop;
     if (next) next.disabled = !canLoop;
     if (announce && live) live.textContent = `${titleOf(index)}, ${index + 1} of ${count}`;
@@ -249,6 +258,15 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     scheduleAutoplay();
   };
 
+  const dotHandlers = dots.map((dot, i) => {
+    const handler = () => {
+      goTo(i);
+      scheduleAutoplay();
+    };
+    dot.addEventListener('click', handler);
+    return { dot, handler };
+  });
+
   prev?.addEventListener('click', onPrev);
   next?.addEventListener('click', onNext);
 
@@ -310,6 +328,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     slider.removeEventListener('focusout', onFocusOut);
     prev?.removeEventListener('click', onPrev);
     next?.removeEventListener('click', onNext);
+    dotHandlers.forEach(({ dot, handler }) => dot.removeEventListener('click', handler));
     unbindSwipe();
     slides.forEach((slide) => slide.titleSplit?.revert());
   };

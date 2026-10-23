@@ -1,0 +1,434 @@
+/* ==========================================================================
+   Blog slider — GLOBAL COMPONENT
+   src/components/BlogSlider.astro · src/scripts/blog-slider.ts
+
+   Every service page and /industries/retail renders this one component, so a
+   rule written here lands on all seven pages at once. Page stylesheets must
+   not style anything inside the band — pass a band class for padding only.
+
+   Layout: BXCI-08 featured-content — eyebrow + title + singular link on the
+   left, 16:9 media on the right (Content × 5, skip 2, Image × 9 at 1440).
+
+   Navigation: learned from the blackstone.com home hero carousel navigation,
+   measured live in Chrome at 1440 on 23 Oct 2026. Navigation only — none of
+   that band's other furniture, type or colour is copied.
+
+   Reference numbers (1440):
+     nav            232 × 40, flex, align-items centre, 48px gaps
+     arrow          40 × 40, 1.5px ring, 40px line arrow
+     arrow hover    icon scale(1.16667); ring stays, line arrow fades out,
+                    solid disc with the arrow knocked out fades in (300ms)
+     dot hit area   24 × 24, 8px apart (16 below 1440)
+     dot            12px solid circle, centred
+     active dot     24px ring, 1.5px stroke, same colour, no transition
+   ========================================================================== */
+
+.blog-slider {
+  outline: none;
+  touch-action: pan-y;
+}
+
+.blog-slider:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* Shell — tracks the .container-site content box: 4 / 8 / 16. */
+.blog-split {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 40px;
+  align-items: start;
+}
+
+.blog-split > * {
+  grid-column: 1 / -1;
+}
+
+.blog-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.blog-copy .eyebrow {
+  margin-bottom: 48px;
+}
+
+.blog-copy-slides {
+  display: grid;
+  width: 100%;
+}
+
+.blog-copy-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.blog-copy-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* SplitText lines written by the binder. */
+.blog-line {
+  color: inherit;
+}
+
+.blog-line-mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.blog-title {
+  margin: 0 0 24px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: 0.256px;
+  text-wrap: balance;
+}
+
+/* BXCI-07 singular link: 18/27/400 ls 0.288, 40px circle, 1px label draw. */
+.blog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 0;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.288px;
+}
+
+.blog-link-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.blog-link-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.blog-link-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.blog-link:hover .blog-link-label,
+.blog-link:focus-visible .blog-link-label {
+  background-size: 100% 1px;
+}
+
+.blog-link:hover .blog-link-icon,
+.blog-link:focus-visible .blog-link-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.blog-media {
+  display: grid;
+  width: 100%;
+}
+
+.blog-media,
+.blog-media img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.blog-media-slide {
+  grid-area: 1 / 1;
+  overflow: hidden;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.blog-media-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.blog-media .media,
+.blog-media .image-slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation — blackstone.com hero carousel nav, measured live.
+   Order is prev arrow · dots · next arrow, one flex row.
+   -------------------------------------------------------------------------- */
+.blog-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 40px;
+  margin-top: 32px;
+}
+
+.blog-nav-arrow {
+  appearance: none;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* The reference rotates the whole button, not the icon. */
+.blog-nav-arrow--prev {
+  transform: rotate(180deg);
+}
+
+.blog-nav-arrow:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.blog-nav-arrow-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  transition: transform 300ms ease;
+}
+
+/* Three stacked paths, exactly as the reference draws them:
+   line arrow (at rest) · disc with the arrow knocked out (on hover) · ring. */
+.blog-nav-arrow-line,
+.blog-nav-arrow-fill {
+  transition: opacity 300ms ease;
+}
+
+.blog-nav-arrow-fill {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .blog-nav-arrow:hover .blog-nav-arrow-icon {
+    transform: scale(1.16667);
+  }
+
+  .blog-nav-arrow:hover .blog-nav-arrow-fill {
+    opacity: 1;
+  }
+
+  .blog-nav-arrow:hover .blog-nav-arrow-line {
+    opacity: 0;
+  }
+}
+
+.blog-nav-arrow:focus-visible .blog-nav-arrow-icon {
+  transform: scale(1.16667);
+}
+
+.blog-nav-arrow:focus-visible .blog-nav-arrow-fill {
+  opacity: 1;
+}
+
+.blog-nav-arrow:focus-visible .blog-nav-arrow-line {
+  opacity: 0;
+}
+
+.blog-nav-dots {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  column-gap: 16px;
+}
+
+.blog-nav-dot-item {
+  display: list-item;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-nav-dot {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 100%;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* 12px dot, painted by the pseudo-element so the 24px hit area stays empty. */
+.blog-nav-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.blog-nav-dot-ring {
+  display: block;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+}
+
+/* No fade: the reference swaps the ring on the frame the slide changes. */
+.blog-nav-dot-item.is-active .blog-nav-dot-ring {
+  opacity: 1;
+}
+
+.blog-nav-dot:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Mobile gap step-down. The reference's 40px arrow gap and 16px dot gap are
+   built for its two dots; our sliders carry 5–6. Measured: 6 dots at those
+   values need 384px against the 328px content box at 390, so the row would
+   hang 56px into the gutter. Tighter gaps keep the same anatomy inside the
+   column, and the 24px dot hit area is never reduced. */
+@media (max-width: 47.99em) {
+  .blog-nav {
+    gap: 24px;
+  }
+
+  .blog-nav-dots {
+    column-gap: 8px;
+  }
+}
+
+@media (max-width: 22.5em) {
+  .blog-nav {
+    gap: 16px;
+  }
+
+  .blog-nav-dots {
+    column-gap: 4px;
+  }
+}
+
+@media (min-width: 48em) {
+  .blog-split {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .blog-split {
+    row-gap: 40px;
+  }
+}
+
+@media (min-width: 80em) {
+  .blog-split {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  .blog-copy {
+    grid-column: 1 / span 6;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .blog-media {
+    grid-column: 8 / span 9;
+    align-self: stretch;
+  }
+
+  .blog-title {
+    margin-bottom: 32px;
+  }
+
+  /* Nav sits on the media's baseline at the foot of the copy column. */
+  .blog-nav {
+    margin-top: auto;
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 90em) {
+  .blog-copy {
+    grid-column: 1 / span 5;
+  }
+
+  .blog-copy .eyebrow {
+    margin-bottom: 64px;
+  }
+
+  .blog-nav {
+    gap: 48px;
+  }
+
+  .blog-nav-dots {
+    column-gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-nav-arrow-icon,
+  .blog-nav-arrow-line,
+  .blog-nav-arrow-fill,
+  .blog-link-label,
+  .blog-link-icon {
+    transition: none;
+  }
+
+  /* transform only on the icon — the prev arrow's flip lives on the button,
+     so this cannot un-rotate it. */
+  .blog-nav-arrow-icon,
+  .blog-link-icon {
+    transform: none;
+  }
+}
