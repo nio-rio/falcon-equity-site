@@ -829,11 +829,15 @@ html.has-scroll-lock .site-header [data-nav-bar] {
 /* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger).
    Drop the arrow circle so the full word stays readable in ~70px.
    Do not set `translate` on the text wrap — that override beats Ling's
-   hover slide and leaked through every wider breakpoint. */
+   hover slide and leaked through every wider breakpoint.
+   Label type is 0.875rem (14px), not 0.75rem: Ling's floor is "no text under
+   14px" (2026-10-23, raised on /resources/business-loan-calculator). Measured at
+   375 / 390 / 430 / 527: pill 51 -> 59px wide, 11px clear of the logo at the
+   tightest, header stays 112px and no horizontal overflow. */
 @media (min-width: 23.4375em) {
   .site-header .site-header__apply--bar {
     display: inline-flex;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     --button-040-height: 2.5em;
     --button-040-padding-x: 0.85em;
     --button-040-border-radius: 2.5em;

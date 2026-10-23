@@ -792,6 +792,17 @@ plus both tabs: `~/Desktop/hermes-output/falcon_calc/shots/`.
 `/resources/...` redirects (loan-calculator, credit-repair-loan-prep) stay. Nav: Resources → Tools →
 "Loan Calculator" now goes here instead of `/apply`, and the Resources menu gained `active: isActive('/resources')`.
 
+**Ling's 14px floor (2026-10-23, same session): "On this page, no text should be less than 14px."**
+Audited every rendered text node at 320 / 360 / 375 / 390 / 430 / 527 / 768 / 1024 / 1280 / 1440 (computed
+`font-size`, zero-size and `sr-only` nodes excluded). The page itself was already compliant — the smallest
+things on it are the field labels, hints, result-row labels, notes and eyebrow, all **14px**; the big figure's
+currency and `/week` affixes are `0.5em` of a 40–56px value, so 20–28px. One element was under the floor and it
+is **shared chrome, not this page**: the extra-compact header "Apply" label, `0.75rem` (12px) between 375px and
+528px, from the approved nav ladder. Raised it to **`0.875rem`** in `blackstone.css` (the 23.4375em block) —
+the pill goes 51 → 59px wide and 30 → 35px tall, header stays 112px, 11px clear of the logo at 375, no
+horizontal overflow at any width; `DESIGN-SYSTEM.md`'s nav table now records 0.875rem and why. Re-audited after
+the change: **zero text under 14px at all ten widths**, smallest reads exactly 14px.
+
 **Still open.** (1) The page copy is a first pass in the site voice — Ling has not seen it. (2) `npm run test:nav`
 and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
 label still reads "Loan Calculator" while the page H1 is "Business loan calculator" — one-word change if Ling

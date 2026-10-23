@@ -238,7 +238,7 @@ Apply stays on the bar as long as it fits. Drop chrome in this order:
 | Width | Phone | Apply |
 | --- | --- | --- |
 | **&lt; 375px** (`&lt; 23.4375em`) | In the drawer | **In the drawer**, sticky at the **top** of the menu, full label + icons. Never at the end of the list. |
-| **375px – 33em** (528px) | Drawer only | **On the bar**, extra-compact. Visible label **`Apply`**. **No arrow** (both `.button-040__icon-wrap` hidden) so the word is fully readable in ~70px. `0.75rem` / `2.5em` height / `0.85em` pad. Zero the `--button-040-translate-x` token only — do not set `translate` on `.button-040__text-wrap` (that beats the hover slide). Drawer Apply hidden. |
+| **375px – 33em** (528px) | Drawer only | **On the bar**, extra-compact. Visible label **`Apply`**. **No arrow** (both `.button-040__icon-wrap` hidden) so the word is fully readable in ~70px. **`0.875rem`** (14px — raised from 0.75rem on 2026-10-23 when Ling set a 14px floor for all text; the pill grows 51 → 59px and stays 11px clear of the logo at 375) / `2.5em` height / `0.85em` pad. Zero the `--button-040-translate-x` token only — do not set `translate` on `.button-040__text-wrap` (that beats the hover slide). Drawer Apply hidden. |
 | **33em – 38em** (528–608px) | Drawer only | **On the bar**, compact **full** label `Apply for funding`, icons restored, `0.875rem` / `2.5em` / `0.85em`. Same 040 markup and hover slide as SiteCta. |
 | **≥ 38em** | Drawer until 50em | On the bar at nav size: `1.0625rem` / `3em` / `1.25em`. |
 | **≥ 50em** (800px) | **On the bar** (16px, inherit, 1px underline, no icon) | On the bar. Extra `0.7em` between phone and pill. |
