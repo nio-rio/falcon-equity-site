@@ -25,6 +25,14 @@
   [context.branch-deploy.headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+# Production too, until launch. falconequity.ai is still served by Webflow; this repo is not
+# attached to that domain yet. When it is, delete this block in the same commit that points DNS
+# at Netlify, or the new site will ship invisible to search.
+[[context.production.headers]]
+  for = "/*"
+  [context.production.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # Retired inner pages. Hashes are best-effort; in-app hrefs carry the anchors.
 [[redirects]]
   from = "/about"
