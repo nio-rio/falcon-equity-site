@@ -1020,3 +1020,38 @@ band to come out.
 This revision was made on top of the lane's newer About commits (values 3-up, why-Falcon band removed) in
 a detached worktree at origin, so nothing from the other lane was touched. `npm run build` clean, `npm run
 check` 0 errors, no overflow at 1440 / 390.
+
+
+### Page photography: six service pages + the About hero (2026-10-23, owner supply)
+
+Ling sent seven stills: *"add these images to service pages"* and *"Add this one to about page hero"*. No
+placeholders were rebuilt — `Media` already took an `image` prop, so each band just switched branch.
+
+| Page | Asset (`src/assets/images/`) | In the photo |
+| --- | --- | --- |
+| `/services/merchant-cash-advance` | `services/merchant-cash-advance.webp` | Shop counter, open brass cash drawer, card terminal, paper bags |
+| `/services/business-line-of-credit` | `services/business-line-of-credit.webp` | Café counter, laptop, espresso machine, coffee bags on shelving |
+| `/services/business-term-loan` | `services/business-term-loan.webp` | Machining centre on a factory floor, crates and tooling behind |
+| `/services/collateral-asset-loans` | `services/collateral-asset-loans.webp` | House keys, car key fob and a watch, a house through the window |
+| `/services/consolidation-of-positions` | `services/consolidation-of-positions.webp` | One navy portfolio, a pen, a calculator, one stack of paper, skyline |
+| `/services/invoice-factoring-tool` | `services/invoice-factoring.webp` | Laptop showing a receivables dashboard, loaded delivery van outside |
+| `/about` hero | `nyc-skyline.webp` | Midtown skyline at sunrise, Empire State centre, One WTC on the horizon |
+
+Assignment follows the filenames Ling gave, in the order she attached them.
+
+**Unchanged by design:** each service band keeps its 3/4 crop, `sizes`, reveal and 624 / 688 / 100vw
+layout — the photographs are natively 1200×1600, so nothing is cropped at all between 900 and 1600.
+The About hero keeps its 5 / 2 crop (mobile falls to the band's own wider ratio); the skyline is
+1440×768, so the crop trims sky and foreground but holds the skyline. Both hero images stay `priority`.
+
+**Alt text** describes the photograph, not the old intent string. The `intent` prop is kept and
+rewritten to match the real photo, so a future swap still has a brief next to it.
+
+**Verified:** `npm run build` (34 pages) and `npm run check` (0 errors) pass. Band geometry measured at
+1440 — figure 624×831, exactly 3/4, flush with the list at 831 — and at 390 the figure is 328×437 above
+the list with `overflow=0`. On the deploy preview all six pages and `/about` serve the new asset (HTTP
+200) and no `Image placeholder` string survives on any of the seven pages.
+
+**Note:** the skyline and the six product stills are supplied stills, not commissioned Falcon
+photography. The skyline reads as New York, which matches "Based in NYC" in the lead, but all seven are
+swap candidates when Dwight supplies licensed photography.
