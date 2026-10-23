@@ -634,7 +634,7 @@ const contrastRecord = (fg, bg, fontPx = 16, weight = 400, ui = false) => {
   };
 };
 
-const WIDGET_COPY = { title: 'Apply for funding', href: '/apply', label: 'Learn More' };
+const WIDGET_COPY = { title: 'Guides for getting funded', href: '/#insights-heading', label: 'Learn More' };
 
 const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
   const ratios = {};

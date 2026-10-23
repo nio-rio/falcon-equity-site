@@ -382,3 +382,15 @@ Ling: *"Retail page hero button should be like the home page hero button. You sh
 Hover fill follows the band, not the page: on a light band the circle fills ink with a white arrow (retail), on a dark band it fills white with an ink arrow (`tone="light"`, home).
 
 **Checks:** `npm run build` passes, `npm run check` 0 errors (4 pre-existing hints in `tests/nav.spec.mjs`).
+
+
+### Resources nav card now points at the blog (2026-10-23, owner request)
+
+Ling: "change the card in resources dropdown to link to blog index page."
+
+- The Resources card is no longer the Apply promo. Title "Guides for getting funded" (the home Insights section's own H2), body "Short, practical guides to getting approved, comparing products and managing cash flow.", CTA `Learn More` -> `/#insights-heading`, aria "Go to the blog".
+- Image swapped to `src/assets/blog/merchant-cash-advance-vs-business-term-loan.jpg` (two overlapping purple spheres) — the only blog render in the site's Martinique/lilac palette, and its two-spheres composition reads "compare options", which is one of the blog's four categories. The blog set otherwise runs green/peach/gold tints that would break the nav's monochrome card.
+- There is no standalone `/blog` index in this build: `/blog`, `/blog/category/*` and `/blog/<slug>` all redirect to `/`, and the blog listing is the home section `#insights-heading`. The card therefore points at that section. If a `/blog` page is built later, change `widget.href` in `Header.astro` and `WIDGET_COPY` in `tests/nav.spec.mjs`.
+- Note for the next builder: the Resources "Blog / View all" link now shares its destination with the card. It is left in place because the Blog column has no other links until posts are published; removing it would leave an empty column.
+- `tests/nav.spec.mjs` `WIDGET_COPY` updated to the new title and href (it is the default expectation for the Resources card).
+- Measured at 1440: card 624x263, body 3 lines, right edge 1352 = list right edge, panel height 312 — unchanged from the old Apply card.
