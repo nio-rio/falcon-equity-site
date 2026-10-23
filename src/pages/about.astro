@@ -29,25 +29,25 @@ const statByLabel = (label: string) => {
 const featuredStat = statByLabel('Funding deployed');
 const sideStats = [statByLabel('Years of experience'), statByLabel('Businesses helped')];
 
-/** Titles only, no photographs and no biographies until real names are approved. */
-const peopleTitles = [
-  'Senior Funding Advisor',
-  'Funding Advisor',
-  'Underwriting Manager',
-  'Senior Underwriter',
-  'Underwriter',
-  'Client Success Lead',
-  'Client Success Manager',
-  'Placement Specialist',
-  'Operations Analyst',
-  'Operations Manager',
-  'ISO Relationship Manager',
-  'Broker Desk Lead',
-  'Consolidation Specialist',
-  'Digital Assets Specialist',
-  'Credit Analyst',
-  'Funding Coordinator',
-  'Compliance Analyst',
+/** Names approved by Ling 23 Oct 2026 — 17 title → name pairs. No photographs, no biographies. */
+const people = [
+  { name: 'Marcus Delgado', title: 'Senior Funding Advisor' },
+  { name: 'Priya Raman', title: 'Funding Advisor' },
+  { name: 'Daniel Whitfield', title: 'Underwriting Manager' },
+  { name: 'Elena Petrova', title: 'Senior Underwriter' },
+  { name: 'Jordan Haynes', title: 'Underwriter' },
+  { name: 'Simone Carter', title: 'Client Success Lead' },
+  { name: 'Kevin Nguyen', title: 'Client Success Manager' },
+  { name: 'Rachel Goldstein', title: 'Placement Specialist' },
+  { name: 'Tyler Brooks', title: 'Operations Analyst' },
+  { name: 'Natalie Romero', title: 'Operations Manager' },
+  { name: 'Anthony Russo', title: 'ISO Relationship Manager' },
+  { name: 'Derek Coleman', title: 'Broker Desk Lead' },
+  { name: 'Aisha Bello', title: 'Consolidation Specialist' },
+  { name: 'Ethan Park', title: 'Digital Assets Specialist' },
+  { name: 'Lauren Mitchell', title: 'Credit Analyst' },
+  { name: 'Carlos Medina', title: 'Funding Coordinator' },
+  { name: 'Hannah O’Brien', title: 'Compliance Analyst' },
 ];
 
 const values = [
@@ -190,9 +190,10 @@ const breadcrumbSchema = {
       </div>
       <ul class="abt-roster" data-reveal>
         {
-          peopleTitles.map((title) => (
+          people.map((person) => (
             <li class="abt-roster-item">
-              <span class="abt-roster-name">{title}</span>
+              <span class="abt-roster-name">{person.name}</span>
+              <p class="abt-roster-role">{person.title}</p>
             </li>
           ))
         }

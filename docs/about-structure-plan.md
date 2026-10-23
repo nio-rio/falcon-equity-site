@@ -75,7 +75,7 @@ page to follow it. The note keeps its original 1–10 numbering, which is the ch
 | 1 | Hero | The H1 is now the tagline on two lines ("We're more than a funding provider. / We're your partner."), the NYC sentence is the lead in columns 12–16, and the still is 5:2 instead of 16:9. |
 | 3 | By the numbers | Unchanged. |
 | 5 | Founder | Unchanged except the bio line under the credit, which the note no longer lists — removed. |
-| 6 | Our people | The intro paragraph under the H2 is not in the note — removed. The 17 titles are unchanged. |
+| 6 | Our people | The intro paragraph under the H2 is not in the note — removed. The 17 entries now carry Ling's approved names over their titles (revision 4), in OP-01's measured type. |
 | 7 | Values | Unchanged. |
 | 9 | How we're different | Unchanged. |
 | 10 | Where we are | **Office +1 (917) 645-3826 added to `SITE.phones.office`** and printed as its own row; the address row is now labelled "Address" (it read "Office", which would have printed two offices); Fax is no longer printed on this page. |
@@ -94,7 +94,7 @@ by the title tag, the breadcrumb schema and the nav. One line to swap it back if
 | 3 | By the numbers | **FAL-01** | falconequity.ai home (approved) | One featured figure (`$100M+`, 120px display) then two side figures (15, 300+) each over a 1px ink rule, right-hand columns. Values read from `STATS`; the 98% approval figure stays on the home page. |
 | 4 | What we do | **OP-01** | blackstone.com/the-firm/our-people/ | 4 tracks of 244px, 96px column gap, 64px row gap (4 × 244 + 3 × 96 = 1264). Name 18/27 w300, spec 14/21 w400, one note line 16/24 w300. Seven products → 4 + 3, each linked to its service page except Decentralized Business Financing, which has no page. Ranges and terms are read from `SERVICES`, never retyped. |
 | 5 | Founder | **FAL-03** | falconequity.ai home (approved) | 3:4 portrait in columns 1–5 (`src/assets/images/dwight-holly.webp`), the live site's quote at 32/48 w300 in columns 7–16, credit and one line under it. No second founder, no invented bio. |
-| 6 | Our people | **OP-01** again, names only | blackstone.com/the-firm/our-people/ | The same 4-track roster carrying the 17 approved titles, no photographs and no biographies. |
+| 6 | Our people | **OP-01** again | blackstone.com/the-firm/our-people/ | The same 4-track roster, now carrying the 17 name → title pairs Ling approved on 23 Oct: name 18/27 w300 tracking 0.144, title 14/21 w400 tracking 0.32 six pixels under it, 96px column and 64px row gaps. No photographs and no biographies. |
 | 7 | Values | **TF-05** | blackstone.com/the-firm/ | Four values instead of three: 4-up titled prose, 64px gaps, name 20/30 w400, body 16/24 w300, no card chrome. |
 | 8 | Who we fund | **TF-03** row directory, re-cut | blackstone.com/the-firm/ | Twelve sectors as a 4-column link grid on 1px rules, generated from `INDUSTRIES` so the names and hrefs cannot drift from the industry pages; one `ArrowCta` to `/industries`. |
 | 9 | How we're different | **APM-01** numbered columns | blackstone.com/pws/accessing-private-markets/ | Four numbered items instead of three, 2×2 at 768 and up: numeral 28px at 45% ink, title 20/30 w400, body 16/24 w300. |
@@ -133,6 +133,19 @@ Equity Group | Business funding, New York</title>`, one `<h1>`, seven sections i
 `http-equiv="refresh"`, `AboutPage` + `BreadcrumbList` in the head. No horizontal overflow at 390 / 768 /
 1024 / 1440 / 1920 (`overflow: 0` at every width). Crops reviewed band by band at 1440 and 390.
 `npm run check` 0 errors, `npm run test:titles` passes.
+
+## Revision 4 — 23 Oct 2026: names for the people band
+
+Ling sent the 17 title → name pairs with *"Add to people section. Remember to learn the spacing and font
+size from example site."* The band had shipped titles only, because the copy contract held names back
+until they were approved.
+
+The pairs are **OP-01's own anatomy**, measured on `blackstone.com/the-firm/our-people/` (not guessed):
+name **18/27 w300, tracking 0.144px** on the body face, the title **6px under it at 14/21 w400, tracking
+0.32px**, both at full ink, in 4 tracks of 244px with 96px column and 64px row gaps. Verified on our
+build with the same probe — `18px/27px w300 ls 0.144` then `14px/21px w400 ls 0.32`, 244px item, 10px
+between the name's text box and the title — and the render matches the reference's roster row for row
+(five rows, the last holding one person).
 
 ## Still open
 

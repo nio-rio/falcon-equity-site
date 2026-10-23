@@ -887,7 +887,7 @@ section.abt-blog[data-band='light'] {
      what we do      → OP-01 (4 tracks of 244, 96 column / 64 row gap, name 18/27
                        over a 14/21 spec line) — measured on blackstone.com/our-people
      founder         → FAL-03 (3:4 still + display quote + credit)
-     our people      → OP-01 again, names only
+     our people      → OP-01 again, name over role (17 approved pairs)
      values          → TF-05 (3-up titled prose, no card chrome)
      who we fund     → TF-03 row directory, re-cut as a 4-column link grid
      how we're different → APM-01 numbered columns, four instead of three
@@ -1041,6 +1041,19 @@ section.abt-hero[data-band='light'] {
   font-weight: 300;
   line-height: 27px;
   letter-spacing: 0.144px;
+}
+
+/* OP-01's second line, measured on blackstone.com/our-people 23 Oct 2026:
+   name block 18/27 w300 ls .144, role 6px under it at 14/21 w400 ls .32 — both full ink.
+   (The name tops sat 33px apart: 27px line box + 6px.) */
+.abt-roster-role {
+  margin: 6px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.32px;
 }
 
 @media (min-width: 48em) {
