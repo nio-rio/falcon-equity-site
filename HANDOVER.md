@@ -282,3 +282,13 @@ Ling changed her mind again, now matching blackstone.com/pws/essentials-of-priva
 - `.ret-case-body` is a 16-column subgrid at full content width (1264). The cash block takes columns **1–7**; the product takes **8 to the last column**, and both now sit in **row 1** (`grid-row: 1`, no offset) so their tops align exactly like the reference's copy and chart.
 - The cash block gained a label line, "What it means for your cash" (14/22, 0.56px, muted), above the sentence at 18/27.
 - Below 64em the two stack: cash line, then product at 32px.
+
+
+### Case accordion restyled to the FAQ accordion (2026-10-22)
+
+Ling: "I want the accordion to have the same look as the FAQ accordion. And the button inside the accordion still needs hovering animation."
+
+- Rules are now the FAQ's 2px at 40% (white on the dark band instead of ink), with the same `::after` hover draw — a 2px line that scales from the left over 0.5s ease-out — and the row's own top rule going to full strength while the list dims to 36%.
+- Trigger switched from sans 300 to the FAQ's **display 20/30 weight 400** at 0.192px, and it steps to **24/36 at 64em** (same breakpoint as the FAQ, previously 80em).
+- Caret is the FAQ's **32px round box with a 16×8 chevron**, and it now carries the FAQ's hover fill: white circle with a dark chevron on hover/focus-visible, translucent white when the row is already open. This is the hover animation the button was missing.
+- Kept the 500ms ease-in-out open/close from Blackstone (Ling's earlier instruction) rather than the FAQ's 350ms; flag it if she wants them identical.

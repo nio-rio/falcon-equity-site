@@ -211,13 +211,40 @@
   list-style: none;
 }
 
+/* Same rule weight as the FAQ accordion (2px at 40%), inverted for the dark
+   band, and the same hover draw: a 2px line that scales out from the left. */
 .ret-case-item {
-  border-top: 1px solid var(--bx-on-dark-rule);
+  position: relative;
+  border-top: 2px solid color-mix(in srgb, var(--color-white) 40%, transparent);
   transition: opacity 0.3s ease;
 }
 
 .ret-case-item:last-child {
-  border-bottom: 1px solid var(--bx-on-dark-rule);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-white) 40%, transparent);
+}
+
+.ret-case-item::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  border-bottom: solid 2px var(--color-white);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  pointer-events: none;
+}
+
+.ret-case-item:is(:hover, :focus-within)::after {
+  transform: scaleX(1);
+  transition: transform 0.5s ease-out;
+}
+
+.ret-case-item:is(:hover, :focus-within) {
+  border-top-color: var(--color-white);
 }
 
 .ret-case-h {
@@ -236,9 +263,9 @@
   border-radius: 0;
   background: none;
   color: var(--color-white);
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 30px;
   letter-spacing: 0.192px;
   text-align: left;
@@ -250,17 +277,18 @@
   outline-offset: 2px;
 }
 
-/* Their caret is a 36px box with a 12x6 chevron; the box stays put on hover
-   and the chevron only turns when the row opens. */
+/* Same caret as the FAQ accordion: a 32px round box holding a 16x8 chevron.
+   The box fills on hover; the chevron turns when the row opens. */
 .ret-case-caret {
   flex: none;
-  display: grid;
+  display: inline-grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  margin-top: -3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 24px;
   color: var(--color-white);
-  transition: transform 300ms ease;
+  background: transparent;
+  transition: transform 0.3s, background 0.3s ease, color 0.3s ease;
 }
 
 .ret-case-item.is-open .ret-case-caret {
@@ -382,7 +410,7 @@
 }
 
 /* Hover reading borrowed from the home Services list: the list recedes, the
-   hovered row stays at full strength. */
+   hovered row stays at full strength — plus the FAQ's filled caret. */
 @media (hover: hover) {
   .ret-case-list:is(:hover, :focus-within) .ret-case-item {
     opacity: 0.36;
@@ -390,6 +418,20 @@
 
   .ret-case-list:is(:hover, :focus-within) .ret-case-item:is(:hover, :focus-within) {
     opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ret-case-trigger:hover .ret-case-caret,
+  .ret-case-trigger:focus-visible .ret-case-caret {
+    background: var(--color-white);
+    color: var(--color-ink);
+  }
+
+  .ret-case-item.is-open .ret-case-trigger:hover .ret-case-caret,
+  .ret-case-item.is-open .ret-case-trigger:focus-visible .ret-case-caret {
+    background: rgb(255 255 255 / 0.25);
+    color: var(--color-white);
   }
 }
 
@@ -410,6 +452,14 @@
   }
 }
 
+@media (min-width: 64em) {
+  /* Same step as the FAQ: 20/30 → 24/36 at 1024. */
+  .ret-case-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
 @media (min-width: 80em) {
   .ret-case {
     padding-block: 160px;
@@ -422,8 +472,6 @@
 
   .ret-case-trigger {
     padding: 32px 0;
-    font-size: 24px;
-    line-height: 36px;
   }
 
   .ret-case-body {
