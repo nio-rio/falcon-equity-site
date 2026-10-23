@@ -512,9 +512,9 @@ a:focus-visible .link-draw,
   --nav-bg: #fff;
   --nav-highlight: var(--bx-slate-3);
   --nav-rule: var(--bx-lilac-dark);
-  --nav-widget-bg: var(--bx-lilac-dark);
+  /* One ramp step off the white panel, not a card that competes with it. */
+  --nav-widget-bg: var(--bx-lilac);
   --nav-widget-copy: var(--bx-black);
-  --nav-widget-line: var(--bx-lilac-darker);
   --nav-widget-on: var(--bx-lilac);
 }
 
@@ -546,9 +546,8 @@ html.has-scroll-lock [data-nav-inner] {
   --nav-bg: var(--bx-black);
   --nav-highlight: var(--bx-highlight-dark);
   --nav-rule: var(--white-a16);
-  --nav-widget-bg: var(--bx-martinique-dark);
+  --nav-widget-bg: var(--bx-black);
   --nav-widget-copy: #fff;
-  --nav-widget-line: var(--white-a16);
   --nav-widget-on: var(--bx-martinique-darker);
 }
 
@@ -1246,7 +1245,15 @@ button.primary-nav__list-lvl-3-link {
   display: none;
   background: var(--nav-widget-bg);
   color: var(--nav-widget-copy);
-  border: 1px solid var(--nav-widget-line);
+  /* The whole card is the link (Header.astro), so it carries the anchor's
+     reset and the pointer. No border: the surface step alone sets it apart. */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary-nav-widget:focus-visible {
+  outline: 2px solid var(--nav-widget-copy);
+  outline-offset: 2px;
 }
 
 .primary-nav-widget__media {
@@ -1295,15 +1302,11 @@ button.primary-nav__list-lvl-3-link {
   flex-grow: 0;
 }
 
-.primary-nav-widget .arrow-cta,
-.primary-nav-widget .arrow-cta:hover,
-.primary-nav-widget .arrow-cta:focus-visible {
+.primary-nav-widget .arrow-cta {
   color: var(--nav-widget-copy);
 }
 
-.primary-nav-widget .arrow-cta-label,
-.primary-nav-widget .arrow-cta:hover .arrow-cta-label,
-.primary-nav-widget .arrow-cta:focus-visible .arrow-cta-label {
+.primary-nav-widget .arrow-cta-label {
   color: var(--nav-widget-copy);
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -1312,11 +1315,16 @@ button.primary-nav__list-lvl-3-link {
   transition: background-size 0.3s;
 }
 
-.primary-nav-widget .arrow-cta:hover .arrow-cta-label,
-.primary-nav-widget .arrow-cta:focus-visible .arrow-cta-label {
+/* The CTA's hover-in belongs to the card now: pointing anywhere on it draws
+   the label's underline, which is the only affordance change the card has. */
+.primary-nav-widget:hover .arrow-cta-label,
+.primary-nav-widget:focus-visible .arrow-cta-label {
   background-size: 100% 1px;
 }
 
+/* The circle stays ink-filled on this card in every state: the global
+   `.arrow-cta:hover .circle-arrow` must not re-tint it, or the arrow reads
+   white-on-white on the dark card. */
 .primary-nav-widget .circle-arrow,
 .primary-nav-widget .arrow-cta:hover .circle-arrow,
 .primary-nav-widget .arrow-cta:focus-visible .circle-arrow {

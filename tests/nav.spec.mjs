@@ -478,15 +478,13 @@ const APPLY_DARK = {
 };
 const WHITE = 'rgb(255, 255, 255)';
 const WIDGET_DARK = {
-  bg: 'rgb(40, 33, 62)',
-  line: WHITE_A16,
+  bg: MARTINIQUE_DARKER,
   copy: WHITE,
   circleBg: WHITE,
   circleFg: MARTINIQUE_DARKER,
 };
 const WIDGET_LIGHT = {
-  bg: LILAC_DARK,
-  line: LILAC_DARKER,
+  bg: LILAC,
   copy: MARTINIQUE_DARKER,
   circleBg: MARTINIQUE_DARKER,
   circleFg: LILAC,
@@ -607,7 +605,9 @@ const readNavWidget = (page) =>
     const title = el.querySelector('.primary-nav-widget__title');
     const body = el.querySelector('.primary-nav-widget__content p');
     const eyebrow = el.querySelector('.eyebrow, .primary-nav-widget__eyebrow');
-    const cta = el.querySelector('.arrow-cta');
+    /* The card itself is the anchor (whole-card link). Fall back to a
+       descendant anchor so an older build still reads instead of crashing. */
+    const cta = el.tagName === 'A' ? el : el.querySelector('a');
     const label = el.querySelector('.arrow-cta-label');
     const circle = el.querySelector('.circle-arrow');
     return {
@@ -617,11 +617,17 @@ const readNavWidget = (page) =>
       bg: wcs.backgroundColor,
       border: wcs.borderTopColor,
       borderWidth: wcs.borderTopWidth,
+      isLink: el.tagName === 'A',
+      anchorsInside: el.querySelectorAll('a').length,
+      linkIsCard: Boolean(cta) && cta === el,
+      cursor: wcs.cursor,
       title: title ? { ...styleOf(title), text: title.textContent.trim() } : null,
       body: body ? { ...styleOf(body) } : null,
       eyebrow: eyebrow ? styleOf(eyebrow) : null,
       link: cta ? { ...styleOf(cta), href: cta.getAttribute('href') } : null,
-      label: label ? { ...styleOf(label), text: label.textContent.trim() } : null,
+      label: label
+        ? { ...styleOf(label), text: label.textContent.trim(), underline: getComputedStyle(label).backgroundSize }
+        : null,
       circle: circle ? styleOf(circle) : null,
     };
   });
@@ -638,7 +644,7 @@ const contrastRecord = (fg, bg, fontPx = 16, weight = 400, ui = false) => {
   };
 };
 
-const WIDGET_COPY = { title: 'Guides for getting funded', href: '/#insights-heading', label: 'Learn More' };
+const WIDGET_COPY = { title: 'Guides for getting funded', href: '/blog', label: 'Learn More' };
 
 const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
   const ratios = {};
@@ -668,10 +674,14 @@ const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
     : { ratio: 0, min: 3, ok: false };
   ratios.circleOnCard = circleOnCard;
   ratios.arrowOnCircle = arrowOnCircle;
+  /* Card = one anchor covering the whole surface: the href lives on the card
+     itself (so no anchor descendant), the "Learn More" row is not a second
+     link, and there is no 1px edge. */
+  const anchorOk = got.isLink === true && got.anchorsInside === 0 && got.linkIsCard === true;
   const colorsOk =
+    anchorOk &&
     got.bg === expected.bg &&
-    got.border === expected.line &&
-    got.borderWidth === '1px' &&
+    got.borderWidth === '0px' &&
     got.circle?.bg === expected.circleBg &&
     got.circle?.color === expected.circleFg &&
     got.link?.href === copy.href &&
@@ -2235,6 +2245,11 @@ for (const vp of VIEWPORTS) {
       ok: xHoverSize === '100% 1px',
       detail: xHoverSize,
     });
+    /* The bar hides on scroll-down, so the logo is off-viewport while the page
+       sits on the footer: come back to the top first, then hover it. Without
+       this the hover times out and the whole run aborts before the nav checks. */
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(300);
     await page.locator('.site-header__logo').hover();
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(200);
@@ -2474,7 +2489,9 @@ for (const vp of VIEWPORTS) {
 
       const resourcesTrigger = page.locator('[aria-controls="menu-resources"]');
       await resourcesTrigger.hover();
-      await page.waitForTimeout(200);
+      /* 200ms was under the panel's open animation: the card read as not
+         visible and every widget check failed for the wrong reason. */
+      await page.waitForTimeout(500);
       const expectedWidget = theme.dark ? WIDGET_DARK : WIDGET_LIGHT;
       const themeName = theme.dark ? 'dark' : 'light';
       const widgetRest = await readNavWidget(page);
@@ -2502,6 +2519,33 @@ for (const vp of VIEWPORTS) {
         check: 'nav-widget-contrast-hover',
         ok: widgetHoverCheck.ok,
         detail: formatWidgetDetail(themeName, widgetHover, widgetHoverCheck),
+      });
+      /* The CTA's hover-in belongs to the card: pointing anywhere on the card
+         draws the "Learn More" underline although the pointer is nowhere near
+         the CTA. force: the panel's height animation keeps failing Playwright's
+         "stable" check, and the card's centre is well inside the card anyway. */
+      let cardHover = await readNavWidget(page);
+      for (let attempt = 0; attempt < 3 && cardHover.label?.underline !== '100% 1px'; attempt++) {
+        /* The panel can have closed since the CTA hover: re-open it, then park
+           the pointer on the card. force, because the open animation keeps the
+           card from ever passing Playwright's "stable" check. */
+        if (!cardHover.visible) {
+          await page.locator('[aria-controls="menu-resources"]').hover();
+          await page.waitForTimeout(500);
+        }
+        await page.locator('#menu-resources .primary-nav-widget').hover({ force: true });
+        await page.waitForTimeout(450);
+        cardHover = await readNavWidget(page);
+      }
+      /* Leave the pointer off the menu so the geometry loop below starts from
+         the same state a user's page would. */
+      await page.mouse.move(2, 2);
+      await page.waitForTimeout(150);
+      log({
+        ...tag,
+        check: 'nav-widget-card-hover-cta',
+        ok: cardHover.label?.underline === '100% 1px',
+        detail: `underline=${cardHover.label?.underline ?? null} rest=${widgetRest.label?.underline ?? null}`,
       });
 
       /* Services and Industries carry the same card, rewired to their own overview. */
@@ -2646,7 +2690,7 @@ for (const vp of VIEWPORTS) {
           detail: JSON.stringify(filtersScrolled),
         });
         await page.locator('[aria-controls="menu-resources"]').hover();
-        await page.waitForTimeout(200);
+        await page.waitForTimeout(500);
         const widgetScrolled = await readNavWidget(page);
         const widgetScrolledCheck = widgetPasses(widgetScrolled, WIDGET_LIGHT);
         recordWidgetContrast(tag, 'rest-scrolled', 'light', widgetScrolledCheck);
@@ -2925,8 +2969,16 @@ for (const vp of VIEWPORTS) {
       await page.evaluate((n) => window.scrollTo({ top: n, left: 0, behavior: 'auto' }), target);
       await page.waitForTimeout(350);
       await openMenu(page, vp.mode);
-      const g = await headerPanelGeom(page);
-      const attached = g.panelTop != null && Math.abs(g.panelTop - g.barBottom) <= 2;
+      /* The panel animates open and the previous one can still carry
+         aria-hidden="false" while it closes, so a single read measures a
+         mid-flight box. Re-read until the settled panel is attached. */
+      const attachedTo = (geo) => geo.panelTop != null && Math.abs(geo.panelTop - geo.barBottom) <= 2;
+      let g = await headerPanelGeom(page);
+      for (let attempt = 0; attempt < 8 && !attachedTo(g); attempt++) {
+        await page.waitForTimeout(250);
+        g = await headerPanelGeom(page);
+      }
+      const attached = attachedTo(g);
       log({
         ...tag,
         check: `open-at-y${y}-header-in-view`,

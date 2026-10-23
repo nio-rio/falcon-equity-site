@@ -100,7 +100,7 @@ const nav: NavItem[] = [
     label: 'Resources',
     active: isActive('/resources'),
     columns: [
-      { heading: 'Blog', links: [{ label: 'View all', href: '/blog' }] },
+      { heading: 'Blog', links: [{ label: 'Read our insights', href: '/blog' }] },
       {
         heading: 'Tools',
         links: [
@@ -250,17 +250,23 @@ const nav: NavItem[] = [
                       ))}
                       {item.widget && (
                         <li class="primary-nav__list-lvl-2-item has-nav-widget" data-menu-fade>
-                          <div class="primary-nav-widget">
+                          {/* The whole card is the link; the "Learn More" row is its
+                              affordance, not a second door to the same page. */}
+                          <a
+                            class="primary-nav-widget"
+                            href={item.widget.href}
+                            aria-label={item.widget.ctaAria}
+                          >
                             <div class="primary-nav-widget__content">
                               <div class="primary-nav-widget__content-inner">
                                 <p class="primary-nav-widget__title">{item.widget.title}</p>
                                 <p>{item.widget.body}</p>
                               </div>
                               <div class="primary-nav-widget__cta">
-                                <a href={item.widget.href} class="arrow-cta" aria-label={item.widget.ctaAria}>
+                                <span class="arrow-cta">
                                   <span class="arrow-cta-label">{item.widget.ctaLabel}</span>
                                   <CircleArrow />
-                                </a>
+                                </span>
                               </div>
                             </div>
                             <div class="primary-nav-widget__media">
@@ -276,7 +282,7 @@ const nav: NavItem[] = [
                                 class="primary-nav-widget__img"
                               />
                             </div>
-                          </div>
+                          </a>
                         </li>
                       )}
                     </ul>
