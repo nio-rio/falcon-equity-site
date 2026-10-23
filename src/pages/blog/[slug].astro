@@ -23,12 +23,12 @@ import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
-import { formatDate, getPublicPosts } from '@/lib/blog';
+import { formatDate, getPublishedPosts } from '@/lib/blog';
 import { articleSchema, breadcrumbSchema } from '@/lib/schema';
 import '@/styles/blog-article.css';
 
 export async function getStaticPaths() {
-  const posts = await getPublicPosts();
+  const posts = await getPublishedPosts();
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
