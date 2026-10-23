@@ -98,13 +98,13 @@ const nav: NavItem[] = [
   {
     id: 'resources',
     label: 'Resources',
-    active: false,
+    active: isActive('/resources'),
     columns: [
       { heading: 'Blog', links: [{ label: 'View all', href: '/blog' }] },
       {
         heading: 'Tools',
         links: [
-          { label: 'Loan Calculator', href: '/apply' },
+          { label: 'Loan Calculator', href: '/resources/business-loan-calculator' },
           { label: 'Credit Repair & Loan Prep', href: '/apply' },
         ],
       },

@@ -46,6 +46,21 @@ if (aboutH1 !== 'We’re more than a funding provider. We’re your partner.') {
   throw new Error(`About <h1> was ${JSON.stringify(aboutH1)}`);
 }
 
+/** Resource tools that are real pages, not redirects. */
+const toolPages = [['resources/business-loan-calculator', 'Business loan calculator']];
+
+for (const [route, h1Expected] of toolPages) {
+  const file = `dist/${route}.html`;
+  const title = titleOf(file);
+  if (title !== 'Business Loan Calculator | Falcon Equity Group') {
+    throw new Error(`${file} <title> was ${JSON.stringify(title)}`);
+  }
+  const h1 = h1Of(file);
+  if (h1 !== h1Expected) {
+    throw new Error(`${file} <h1> was ${JSON.stringify(h1)}`);
+  }
+}
+
 /** Every service page that has been rebuilt onto its own route. */
 const servicePages = [
   ['services/merchant-cash-advance', 'Merchant Cash Advance'],

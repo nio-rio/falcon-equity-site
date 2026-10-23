@@ -4,6 +4,7 @@ Last updated: Oct 23, 2026. Update this file at the end of every session.
 
 ## Where things stand
 - **`/apply` simplified (Ling, 2026-10-23).** The page is now three things and nothing else: the H1 **“Apply today to get same day funding.”**, the Jotform embed (`jsform/252856411020144`, unchanged), and a contact block at the bottom (Direct +1 (917) 245-5277, Fax +1 (917) 810-2494, information@falconequity.ai, 11 Broadway Suite 615, New York, NY 10004, each with its icon and link). Removed: the “Apply” H1, the lead paragraph, the “Application” eyebrow, the “Funding application form” H2, and the phone-only list. **No CTA band on this page** — `BaseLayout` gained a `cta?: boolean` prop (default `true`) and `/apply` passes `cta={false}`, so `SiteCta` is the only thing that changed for every other page. With no SiteCta the footer keeps its own `padding-top` (40px / 56px) instead of the `.site-cta + .site-footer` zero. Page-local styles are one scoped `<style>` block with `.apply-*` classes (H1 centred, 48px to the form, contact block 64px down behind a `--color-line` hairline, 12px between lines). Meta description now leads with the same-day line. Verified on the local build: exactly 1 `<h1>` (the new text), 0 `<h2>`, no `data-site-cta`, `scrollWidth == clientWidth` at 390 / 768 / 1440, iframe renders 10,038px tall at 390 and 5,539px at 1440, `npm run build` 23 pages, `npm run check` 0 errors / 0 warnings / 4 hints. **The same-day wording is Ling’s own copy** — it matches `services.ts` for the line-of-credit and MCA products but not the ~2-day / ~2-week products, so if anyone tightens the claim the H1 is the one line to revisit.
+- **`/resources/business-loan-calculator` is live (Ling, 2026-10-23).** "Create the Business Loan Calculator page, with just the calculator, and CTA section and footer. Do some research and see what a business loan calculator should be like, and then build it." One light band: eyebrow + H1 + lead, the tool, and three definitions of the figures; `SiteCta` and the footer come from `BaseLayout`, so nothing else was added. The tool has two modes — **cash advance (factor rate)** and **term loan (APR)** — because every one of the five calculators studied (NerdWallet, Bankrate, LendingTree, OnDeck, calculator.net) either ignores factor rates or sends the reader to a *second* calculator to convert them, and a factor quote is what Falcon's own borrowers hold. Range bounds are the live `#services` spec word for word ($5,000 – $5,000,000 / 3 – 18 months; $10,000 – $2,000,000 / 6 – 36 months). **No Falcon rate is published:** the APR field starts empty and says so in the panel, and the factor tab is seeded with the guide's own worked example ($50,000 at 1.30 over 12 months). Annualized cost uses the blog's arithmetic (cost ÷ amount × 365 ÷ days in the term) and reproduces its three published figures exactly: 61% (1.30 / 6 months), 30% (1.30 / 12 months), 76% (1.25 / 4 months). Files: `src/pages/resources/business-loan-calculator.astro`, `src/styles/loan-calculator.css`, `src/scripts/loan-calculator.ts`, plan + sources in `docs/business-loan-calculator-structure-plan.md`. Redirect lifted from `astro.config.mjs` / `netlify.toml` / `public/_redirects`, **and the `/resources/*` → `/apply` catch-all was deleted from both redirect files** — it was pointed at the very path this page now owns. Nav: Resources → Tools → "Loan Calculator" now goes here. `npm run build` 24 pages, `npm run check` 0 errors, `npm run test:titles` passes (route added; its stale `/apply` H1 expectation, broken by `4bfcf86`, is fixed in the same commit).
 - Global eyebrow component (Ling, 2026-10-23, commit pending) — **approved, do not revert to per-page sizes.** Every section eyebrow is now one component, `src/components/Eyebrow.astro` (`.eyebrow` in `src/styles/global.css`), and takes the home “News & Insights” values: **14/21** at 390–1024, **16/24** from 1280, letter-spacing 0.08em; rule **48×2px** with a 16px gap, **56px/24px** from 1280, **64px/24px** from 1440; **40px** to the heading, **56** from 1280, **64** from 1440 (`--eyebrow-gap` / `--eyebrow-rule` / `--eyebrow-rule-gap` in `tokens.css`). `pilot.css` no longer defines a second eyebrow system; `PilotEyebrow.astro` is deleted and all its consumers import `Eyebrow.astro`; `PilotNews` uses the component instead of raw markup. The six service stylesheets, `retail.css` and `blog-slider.css` lost their per-page eyebrow `font-size` / `line-height` / `letter-spacing` / rule-width / margin overrides. Measured on the local build: identical computed values on home (5 heads), the six service pages, retail (2 heads) and `/apply` at 390 / 768 / 1024 / 1280 / 1440.
 - Branch `cursor/falcon-astro-site-e383` (PR #1). Never merge PR #1. Preview: https://deploy-preview-1--falcon-equity-site.netlify.app/
 - **Production stays out of search until launch (2026-10-23).** `falconequity.ai` is still served by **Webflow** (Cloudflare → `cdn.webflow.com`, `x-wf-region` response header); this repo is not attached to that domain, and `falcon-equity-site.netlify.app` returned **404** — no production deploy has ever been published (`main` is one "Initial commit" with 1 file, 300 commits behind this branch). `netlify.toml` now sets `X-Robots-Tag: noindex, nofollow` on `context.production` as well as deploy-preview and branch-deploy. **Delete that block in the same commit that points DNS at Netlify**, or the new site ships invisible to search.
@@ -733,3 +734,65 @@ one that renders, so the tagline is the H1 and the entity name rides the title t
 Checked: `npm run build` clean, `npm run check` 0 errors, `test:titles` passes, `test:nav` still red on the
 same home-page assertions (testimonial circles, home section spacing, nav-inflow) it was red on before this
 page — nothing About-related. No horizontal overflow at 390 / 768 / 1024 / 1440 / 1920.
+
+
+## Session 2026-10-23 — Business loan calculator, `/resources/business-loan-calculator`
+
+**Ling:** *"Create the 'Business Loan Calculator' page, with just the calculator, and CTA section and footer.
+Do some research and see what a business loan calculator should be like, and then build it."*
+
+**Research** (`docs/business-loan-calculator-structure-plan.md`, sources linked there): NerdWallet, Bankrate,
+LendingTree, OnDeck and calculator.net all take amount + term + rate and return payment / total principal /
+total interest. The shared blind spot is the **factor rate**: NerdWallet ships a separate converter, LendingTree
+tells the reader to convert it elsewhere, Bankrate only explains it in prose. That is the quote Falcon's
+borrowers actually hold, so the page has two modes and one vocabulary. OnDeck (fees in) and calculator.net
+(fees → true APR) are the fee-aware ones; irrelevant here because Falcon charges a 0% agreement fee, so there
+is no fee input and the panel says why.
+
+**Copy is mine, not the Notion note's.** `Business loan calculator — page copy (/resources/business-loan-calculator)`
+(`402eacd0-19c7-816e-924e-e1d85e6aa715`) returns its title from `/v1/pages/<id>` but `object_not_found` from
+`/v1/blocks/<id>/children` under all three Notion keys, and `/v1/search` does not list it while its siblings
+(Credit Repair & Loan Prep, the product notes) are readable. Open with Ling: swap in the note's text if she wants
+it.
+
+**No Falcon rate is published.** Term tab: the APR field starts empty, labelled "APR on your offer", with the
+panel carrying "We do not publish a rate: your offer is the only rate that counts". Factor tab: seeded with
+**1.30 on $50,000 over 12 months**, which is the worked example already published in
+`src/content/blog/how-to-read-a-factor-rate.md` (cited on the page as "the rate on your offer", with the guide
+named for the method).
+
+**Annualized cost is the blog's arithmetic, on purpose:** `cost ÷ amount × 365 ÷ (months × 30)`, rounded to
+whole percents from 10% up. It reproduces all three numbers the guide publishes — 61% (1.30, 6 months),
+30% (1.30, 12 months), 76% (1.25, 4 months) — so the tool cannot contradict the article. An IRR-based APR would
+have read ~50% on the same inputs and put the two pages in public disagreement. Cross-checked in node before
+shipping.
+
+**Layout.** One light band only: eyebrow + H1 + lead, the tool (mode radios styled as tabs, fields on the home
+sector-field surface — Lilac Light fill, 2px ink bottom — and one Lilac results panel), then three definitions.
+`SiteCta` and the footer come from `BaseLayout`; nothing else was added. Fields and sliders are bounded by the
+live `#services` spec word for word ($5,000 – $5,000,000 / 3 – 18 months; $10,000 – $2,000,000 / 6 – 36 months).
+
+**Method notes.** The mode switch is a `fieldset` of radios, so keyboard, arrow keys and screen readers come from
+the browser; the checked tab is styled with `:has(input:checked)` and its 2px underline draws from the left.
+Below 48em the two labels cannot share a line (measured 187 + 118 + 40 gap vs 328 available), so they stack as
+full-width rows with a 1px rule each rather than half-wrapping. Sliders are two-way bound to the number inputs;
+inputs keep the raw value while typing and reformat with separators on blur; out-of-range values clamp to the
+spec bounds on blur.
+
+**QA.** `npm run build` 24 pages · `npm run check` 0 errors / 0 warnings / 4 hints · `npm run test:titles`
+passes (route added; the stale `/apply` H1 expectation broken by `4bfcf86` is fixed in this commit). Behaviour
+driven in a real browser: tab click switches panels; 50,000 @ 15% / 24 months → 2,424 / 8,184 / 58,184; slider to
+250,000 → 12,542; frequency Daily → $258/day; factor 1.00 and empty APR both fall into the prompt state; 500 →
+clamps to 10,000, 99 months → 36. No horizontal overflow at 390 (`scrollWidth == clientWidth`, measured through a
+same-origin iframe because headless Chrome will not lay out below 500px). Screenshots at 390 / 768 / 1280 / 1440
+plus both tabs: `~/Desktop/hermes-output/falcon_calc/shots/`.
+
+**Routing.** Redirect lifted in all three places *and* the `/resources/*` → `/apply` catch-all deleted from
+`netlify.toml` and `public/_redirects` — it was pointed at the path this page now owns. The two remaining
+`/resources/...` redirects (loan-calculator, credit-repair-loan-prep) stay. Nav: Resources → Tools →
+"Loan Calculator" now goes here instead of `/apply`, and the Resources menu gained `active: isActive('/resources')`.
+
+**Still open.** (1) The page copy is a first pass in the site voice — Ling has not seen it. (2) `npm run test:nav`
+and `npm run test:testimonial` were not run: they need `playwright-core`, still not a dependency. (3) The nav
+label still reads "Loan Calculator" while the page H1 is "Business loan calculator" — one-word change if Ling
+wants them matched. (4) Nothing links to the page except the nav: no home or service-page entry point yet.
