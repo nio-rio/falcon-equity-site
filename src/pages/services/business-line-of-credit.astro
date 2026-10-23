@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/business-line-of-credit.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published line of credit posts only, most relevant first. Drafts stay out. */
@@ -111,32 +112,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'How is a line of credit different from a loan?',
-    a: 'A loan delivers a lump sum up front. A line of credit lets you draw funds as needed up to your limit, and you pay interest only on what you draw.',
-  },
-  {
-    q: 'Can I draw again after I repay?',
-    a: 'Yes. The line is revolving, so repaid amounts become available to draw again, subject to your agreement.',
-  },
-  {
-    q: 'What do I need to qualify?',
-    a: 'Typically 6+ months in business, $10K+ in monthly revenue and an active bank account. Final approval depends on underwriting.',
-  },
-  {
-    q: 'How fast can I get funded?',
-    a: 'Funding can happen the same day once you are approved and have signed. Timing depends on how quickly you send your documents.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'Falcon charges a 0% agreement fee. Rates are competitive, and no specific rate is published on this page — you pay for what you draw, and your specialist shows you the cost before you sign.',
-  },
-  {
-    q: 'Is the line secured or unsecured?',
-    a: 'Both options exist. An unsecured line does not put business assets behind it; a secured line does. Your specialist will explain which fits your file.',
-  },
-];
+const faqs = SERVICE_FAQS['business-line-of-credit'];
 ---
 
 <BaseLayout title="Business Line of Credit" disclosure={PAGE_DISCLOSURE}>

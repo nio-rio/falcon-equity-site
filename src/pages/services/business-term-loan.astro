@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/business-term-loan.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published term loan posts only, most relevant first. Drafts stay out. */
@@ -111,32 +112,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'What is the difference between a term loan and a short-term loan?',
-    a: 'Term loans typically run $10,000 – $2,000,000 with 6 – 36 month terms. Funding is often about 2 days after approval; some files fund the same day. Final terms depend on underwriting.',
-  },
-  {
-    q: 'What rate will I get?',
-    a: 'Rates are competitive. They depend on the product, term and your business profile, and no specific rate is published on this page. Your specialist will show you the full cost of any offer before you sign.',
-  },
-  {
-    q: 'What credit score do I need?',
-    a: 'Typically 550 or higher, along with 6+ months in business and $15K+ monthly revenue. Final terms depend on underwriting.',
-  },
-  {
-    q: 'Can I pay it off early?',
-    a: 'Prepayment terms vary by agreement. Your specialist will explain them before you sign.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'Falcon charges a 0% agreement fee. The cost of the loan itself is disclosed in full before you sign.',
-  },
-  {
-    q: 'What do I need to apply?',
-    a: 'Six months of business bank statements, a government-issued photo ID, a voided check and a list of any open advances or loans.',
-  },
-];
+const faqs = SERVICE_FAQS['business-term-loan'];
 ---
 
 <BaseLayout title="Business Term Loan" disclosure={PAGE_DISCLOSURE}>

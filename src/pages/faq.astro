@@ -1,0 +1,139 @@
+---
+/**
+ * /faq — every product question we answer, grouped by product.
+ *
+ * Layout copied from blackstone.com/our-businesses/registered-products, captured
+ * LIVE in a real Chrome over CDP on 23 Oct 2026 at 1440 and 390 and measured
+ * (numbers, and our own page's diff, in docs/faq-structure-plan.md):
+ *
+ *   page header   pad 48/0/120 at 1440 · 40/0/80 at 390; H1 56/84 in columns
+ *                 1-9, intro 18/27 in columns 12-16 (stacked under the H1 below 1280)
+ *   group heading 48/84 centred in columns 3-14 · 32/48 left at 390
+ *   rows          title 24/36 w300, one 1px rule top AND bottom (the seam reads
+ *                 2px, exactly as the reference paints it), control 40px circle
+ *                 at the far right, 4px in from the container edge
+ *   groups        56px above / 160px below at 1440 · 40 / 80 at 390
+ *
+ * Two deliberate differences, both in the plan doc:
+ *   · the reference's rows are links that leave the page; ours open an answer, so
+ *     the circle holds a chevron that turns instead of an arrow that points.
+ *   · H1 weight 400, not the reference's 300 — the house page title on this site
+ *     is 400 (.blg-h1, .ind-h1, .mca-hero h1).
+ *
+ * The copy is not here: it comes from src/data/service-faqs.ts, the same arrays
+ * the product pages render, so an answer cannot exist in two versions.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { FAQ_COUNT, FAQ_GROUPS } from '@/data/faq';
+import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import '@/styles/faq.css';
+
+const TITLE = 'FAQ | Falcon Equity Group';
+const DESCRIPTION = `Straight answers about funding: what each product costs, how fast it funds and what you need to apply — ${FAQ_COUNT} questions, grouped by product.`;
+const H1 = 'FAQ';
+
+const allFaqs = FAQ_GROUPS.flatMap((group) => group.items);
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: H1, path: '/faq' },
+  ]),
+  faqSchema(allFaqs),
+];
+---
+
+<BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* Page header — reference .bx-page-header: claim on the left, standfirst in the last five columns. */}
+  <section class="faq-header" aria-labelledby="faq-heading" data-band="light">
+    <div class="container-site">
+      <div class="faq-shell faq-header-inner" data-reveal>
+        <h1 id="faq-heading" class="faq-h1">{H1}</h1>
+        <p class="faq-intro">
+          Straight answers on costs, timing and what each product needs — {FAQ_COUNT} questions,
+          grouped by product.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* One group per product: a centred heading, then one accordion list of rows. */}
+  <section class="faq-body" data-reveal-root>
+    <div class="container-site">
+      {
+        FAQ_GROUPS.map((group) => (
+          <section class="faq-group" aria-labelledby={`faq-${group.slug}`}>
+            <div class="faq-shell">
+              <h2 class="faq-group-title" id={`faq-${group.slug}`}>
+                {group.title}
+              </h2>
+            </div>
+            <div class="faq-list" data-accordion data-reveal>
+              {group.items.map((item, i) => {
+                const id = `${group.slug}-${i}`;
+                return (
+                  <div class="faq-item" data-acc-item>
+                    <h3 class="faq-question">
+                      <button
+                        type="button"
+                        class="faq-trigger"
+                        id={`faq-trigger-${id}`}
+                        aria-expanded="false"
+                        aria-controls={`faq-panel-${id}`}
+                        data-acc-trigger
+                      >
+                        <span class="faq-question-text">{item.q}</span>
+                        <span class="faq-caret" aria-hidden="true">
+                          <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
+                            <path
+                              class="faq-caret-ring"
+                              d="M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z"
+                            />
+                            <path class="faq-caret-chev" d="M12 17l8 8 8-8" />
+                            <path class="faq-caret-disc" d="M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Z" />
+                          </svg>
+                        </span>
+                      </button>
+                    </h3>
+                    <div
+                      class="faq-panel"
+                      id={`faq-panel-${id}`}
+                      role="region"
+                      aria-labelledby={`faq-trigger-${id}`}
+                    >
+                      <div class="faq-panel-inner">
+                        <p>{item.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { bindAccordions } from '@/scripts/accordion';
+  import '@/scripts/scroll-in';
+
+  bindAccordions();
+</script>

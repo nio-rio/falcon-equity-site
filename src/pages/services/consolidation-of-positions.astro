@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/consolidation-of-positions.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published consolidation posts only, most relevant first. Drafts stay out. */
@@ -111,32 +112,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'Do I need to stop taking new advances?',
-    a: 'Consolidation works best when it replaces stacking. Your specialist will walk through a plan that keeps cash flow healthy.',
-  },
-  {
-    q: 'What information do I need?',
-    a: 'Recent bank statements and the details of each open position, such as the funder, balance and payment amount.',
-  },
-  {
-    q: 'What happens to my existing positions?',
-    a: 'They are paid off or restructured as part of the new position, so you are left with one payment instead of several.',
-  },
-  {
-    q: 'How much will I save?',
-    a: 'Falcon clients save 30%–50% on average on their current daily or weekly payments. Your actual savings depend on your existing positions and underwriting, so your specialist models the new payment against your current ones and shows you both before you sign.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'Falcon charges a 0% agreement fee. Rates are competitive, and no specific rate is published on this page. The full cost of the new position is disclosed before you sign.',
-  },
-  {
-    q: 'What do I need to apply?',
-    a: 'Six months of business bank statements, a government-issued photo ID, a voided check and the funder, balance and payment amount for every open position.',
-  },
-];
+const faqs = SERVICE_FAQS['consolidation-of-positions'];
 ---
 
 <BaseLayout title="Consolidation of Positions" disclosure={PAGE_DISCLOSURE}>

@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/collateral-asset-loans.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published collateral and asset loan posts only, most relevant first. Drafts stay out. */
@@ -111,32 +112,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'What can I use as collateral?',
-    a: 'Commercial real estate, equipment, vehicles and other business assets may qualify. Your specialist will confirm what fits your file.',
-  },
-  {
-    q: 'Do I need an equipment quote to apply?',
-    a: 'For equipment purchases, yes. Equipment quote or invoice helps underwriting size the loan correctly.',
-  },
-  {
-    q: 'How long are the terms?',
-    a: 'Terms run 12 – 60 months. Final terms depend on the asset and your business profile.',
-  },
-  {
-    q: 'How fast is funding?',
-    a: 'Equipment financing is typically funded in about 2 days. Real estate loans take about 2 weeks.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'Falcon charges a 0% agreement fee. Rates are competitive, and no specific rate is published on this page — your specialist shows you the full cost of the loan before you sign.',
-  },
-  {
-    q: 'What do I need to apply?',
-    a: 'Equipment quote or invoice, six months of business bank statements, a government-issued photo ID, a voided check and a list of any open advances or loans.',
-  },
-];
+const faqs = SERVICE_FAQS['collateral-asset-loans'];
 ---
 
 <BaseLayout title="Collateral & Asset Loans" disclosure={PAGE_DISCLOSURE}>

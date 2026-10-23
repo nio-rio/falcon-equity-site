@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/mca.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published MCA-relevant posts only, most relevant first. Drafts stay out. */
@@ -112,36 +113,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'Is a merchant cash advance a loan?',
-    a: "No. You're selling a share of your future sales for cash today. Instead of one fixed payment a month, you pay a set percentage of your daily or weekly sales, under the agreement you sign.",
-  },
-  {
-    q: 'How much can I get?',
-    a: "$5,000 – $5,000,000. The amount depends on your monthly sales, how long you've been open and your bank activity. The final number is confirmed once your file is reviewed.",
-  },
-  {
-    q: 'What does it cost?',
-    a: "Falcon charges a 0% agreement fee. Pricing is shown as two numbers before you sign: the total amount you're selling and the percentage of sales that goes toward it. Both depend on your file, so there's no single rate published here.",
-  },
-  {
-    q: 'How fast can I get funded?',
-    a: "It depends on how quickly you send your documents. Once you're approved and have signed, funding can happen the same day.",
-  },
-  {
-    q: 'Does my credit score matter?',
-    a: 'Your sales and bank activity carry the most weight. Your credit score is part of the picture, not the whole decision, and your specialist reviews your full profile. Approval is never guaranteed.',
-  },
-  {
-    q: 'How do the payments work?',
-    a: "A set percentage of your daily or weekly sales goes toward the purchase, as spelled out in the agreement you sign. You'll see that percentage and the total amount before you commit.",
-  },
-  {
-    q: 'What do I need to apply?',
-    a: 'Six months of business bank statements, a government-issued photo ID, a voided check and a list of any open advances or loans.',
-  },
-];
+const faqs = SERVICE_FAQS['merchant-cash-advance'];
 ---
 
 <BaseLayout title="Merchant Cash Advance" disclosure={PAGE_DISCLOSURE}>

@@ -7,6 +7,7 @@ import Button040 from '@/components/Button040.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/invoice-factoring-tool.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
 
 const published = await getPublicPosts();
 /** Published invoice factoring posts only, most relevant first. Drafts stay out. */
@@ -111,32 +112,7 @@ const steps = [
 
 const tapeCopies = 3;
 
-const faqs = [
-  {
-    q: 'Is factoring a loan?',
-    a: 'No. Factoring is the sale of your receivables at a discount. Approval leans heavily on the creditworthiness of your customers.',
-  },
-  {
-    q: 'Which invoices qualify?',
-    a: 'Outstanding B2B invoices from creditworthy commercial or government customers are the strongest fit.',
-  },
-  {
-    q: 'Is it a one-time deal?',
-    a: 'It can be ongoing. Many businesses use factoring as a continuing facility that grows with their sales.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'Falcon charges a 0% agreement fee. Factoring is priced as a discount on the invoices you sell, which your specialist discloses before you sign. No specific rate is published on this page.',
-  },
-  {
-    q: 'How fast can I get funded?',
-    a: 'Timing depends on the invoices and how quickly you send your documents. Your specialist will tell you what to expect for your file.',
-  },
-  {
-    q: 'What do I need to apply?',
-    a: 'Six months of business bank statements, a government-issued photo ID, a voided check, a list of any open advances or loans, and the outstanding invoices you want to factor.',
-  },
-];
+const faqs = SERVICE_FAQS['invoice-factoring-tool'];
 ---
 
 <BaseLayout title="Invoice Factoring Tool" disclosure={PAGE_DISCLOSURE}>

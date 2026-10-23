@@ -1,0 +1,357 @@
+/*
+ * /faq — the questions page.
+ *
+ * Layout copied from blackstone.com/our-businesses/registered-products, captured
+ * LIVE in a real Chrome over CDP on 23 Oct 2026 and measured at 1440 and 390. The
+ * reference | ours table is in docs/faq-structure-plan.md; these are the numbers:
+ *
+ *   reference                                          | ours
+ *   ---------------------------------------------------|-------------------------
+ *   page header pad 48/0/120 at 1440, 40/0/80 at 390    | same
+ *   H1 56/84 w300 in columns 1-9 at 1440, 40/60 w300    | same sizes, weight 400
+ *     at 390                                            |   (house page title)
+ *   intro 18/27 in columns 12-16 at 1440, under the H1  | same; 32px gap above
+ *     below 1280                                        |   when stacked
+ *   group heading 48/84 centred across columns 3-14     | same
+ *     48/72 at 1024/768, 32/48 left at 390               | same
+ *   group rhythm 56 above / 160 below at 1440,          | same
+ *     40 / 80 at 390                                    |
+ *   heading -> first row 106 (56 heading pad + 48 list) | same
+ *   row 1px top AND bottom rule (seam reads 2px),       | same
+ *     pad 32, title 24/36 w300 max 850, control 40px    |
+ *     circle 4px in from the container edge             |
+ *   row pad 24 at 390, title wraps, control 32px        | same
+ *   control: outline disc at rest, filled disc on       | same; a chevron instead
+ *     hover, arrow knocked out, 300ms                   |   of an arrow, turns 180
+ *                                                       |   when the row is open
+ *
+ * The answer panel is ours, not the reference's: the reference's rows leave the
+ * page, ours open. It uses the house answer type (18/27, 38.5rem measure, 72%
+ * ink) and the reference's own 500ms ease-in-out motion, on grid-template-rows
+ * so a long answer cannot be clipped the way a max-height clamp clips.
+ */
+
+/* ── page header ──────────────────────────────────────────────────────────── */
+
+.faq-header {
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding-block: 40px 80px;
+}
+
+.faq-h1 {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 60px;
+  letter-spacing: 0.008em;
+}
+
+.faq-intro {
+  margin: 32px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* 16-track shell with the house 16px gutters; children span the full width
+   unless a rule says otherwise, so nothing is auto-placed into one 64px track. */
+.faq-shell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  width: 100%;
+}
+
+.faq-shell > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* ── groups ───────────────────────────────────────────────────────────────── */
+
+.faq-group {
+  padding-block: 40px 80px;
+}
+
+.faq-group-title {
+  margin: 0 0 40px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: 0.008em;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.faq-list {
+  padding-top: 32px;
+}
+
+/* ── row ──────────────────────────────────────────────────────────────────── */
+
+/* The reference paints a 1px rule on the top AND the bottom edge of every row,
+   so two adjacent rows read as one 2px seam. That is their build, measured on the
+   crop (dark runs of exactly 2px at a 106px pitch) — kept, not "tidied" to 1px. */
+.faq-item {
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.faq-question {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.faq-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0;
+  padding: 24px 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-question-text {
+  display: block;
+  min-width: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 36px;
+  letter-spacing: 0.32px;
+}
+
+.faq-trigger:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Control — the reference's 40px circle, sitting 4px in from the container edge
+   (its `right: 0.25rem`). Ring and disc are the reference's own path data. */
+.faq-caret {
+  position: relative;
+  right: 4px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-ink);
+}
+
+.faq-caret svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.faq-caret-ring,
+.faq-caret-disc {
+  fill: var(--color-ink);
+}
+
+.faq-caret-ring {
+  transition: opacity 0.3s;
+}
+
+.faq-caret-disc {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.faq-caret-chev {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition:
+    transform 0.3s,
+    stroke 0.3s;
+}
+
+/* Filled disc + knocked-out chevron on hover, and held while the row is open. */
+@media (hover: hover) {
+  .faq-trigger:hover .faq-caret-disc,
+  .faq-item.is-open .faq-caret-disc {
+    opacity: 1;
+  }
+
+  .faq-trigger:hover .faq-caret-chev {
+    stroke: var(--color-white);
+  }
+}
+
+.faq-trigger:focus-visible .faq-caret-disc,
+.faq-item.is-open .faq-caret-disc {
+  opacity: 1;
+}
+
+.faq-trigger:focus-visible .faq-caret-chev,
+.faq-item.is-open .faq-caret-chev {
+  stroke: var(--color-white);
+}
+
+.faq-item.is-open .faq-caret-chev {
+  transform: rotate(180deg);
+}
+
+/* ── answer ───────────────────────────────────────────────────────────────── */
+
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  transition: grid-template-rows 500ms ease-in-out;
+}
+
+.faq-item.is-open .faq-panel {
+  grid-template-rows: 1fr;
+}
+
+.faq-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-panel-inner > p {
+  margin: 0;
+  padding-bottom: 32px;
+  max-width: 38.5rem;
+  color: var(--color-ink-a72);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* ── 768 and up ───────────────────────────────────────────────────────────── */
+
+@media (min-width: 48em) {
+  .faq-header {
+    padding-block: 56px 96px;
+  }
+
+  .faq-h1 {
+    font-size: 48px;
+    line-height: 72px;
+  }
+
+  .faq-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .faq-group {
+    padding-block: 48px 96px;
+  }
+
+  .faq-group-title {
+    margin-bottom: 56px;
+    font-size: 48px;
+    line-height: 72px;
+    text-align: center;
+  }
+
+  .faq-list {
+    padding-top: 40px;
+  }
+
+  .faq-trigger {
+    padding-block: 32px;
+  }
+
+  /* min-height 40 is the reference's title box: a one-line row is 104 tall,
+     which is what makes the rule pitch 106. */
+  .faq-question-text {
+    min-height: 40px;
+  }
+
+  .faq-caret,
+  .faq-caret svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ── 1280 and up ──────────────────────────────────────────────────────────── */
+
+@media (min-width: 80em) {
+  .faq-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .faq-header-inner .faq-h1 {
+    grid-column: 1 / 10;
+    grid-row: 1;
+  }
+
+  .faq-header-inner .faq-intro {
+    grid-column: 12 / 17;
+    grid-row: 1;
+    margin-top: 0;
+  }
+
+  .faq-group-title {
+    grid-column: 3 / 15;
+  }
+
+  .faq-question-text {
+    max-width: 53.125rem;
+  }
+}
+
+/* ── 1440 and up ──────────────────────────────────────────────────────────── */
+
+@media (min-width: 90em) {
+  .faq-header {
+    padding-block: 48px 120px;
+  }
+
+  .faq-h1 {
+    font-size: 56px;
+    line-height: 84px;
+  }
+
+  .faq-group {
+    padding-block: 56px 160px;
+  }
+
+  .faq-group-title {
+    line-height: 84px;
+  }
+
+  .faq-list {
+    padding-top: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-panel,
+  .faq-caret-chev,
+  .faq-caret-ring,
+  .faq-caret-disc {
+    transition: none;
+  }
+}
