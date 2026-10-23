@@ -184,7 +184,9 @@ section.cons-blog[data-band='light'] {
   align-items: center;
   gap: 16px;
   margin-top: auto;
-  padding-top: 16px;
+  /* Owner round 2026-10-23: link sits 32px off the copy, 40px at 1440 —
+     the home "News & Insights" gap (.pilot-news-excerpt margin-bottom 32/40). */
+  padding-top: 32px;
   color: var(--color-ink);
   text-decoration: none;
   font-family: var(--font-sans);
@@ -800,6 +802,10 @@ section.cons-blog[data-band='light'] {
 
 /* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
 @media (min-width: 90em) {
+  .cons-card-link {
+    padding-top: 40px;
+  }
+
   section.cons-hero[data-band='light'] {
     padding: 50px 0 160px;
   }
