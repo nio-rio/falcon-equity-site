@@ -2194,20 +2194,23 @@ for (const vp of VIEWPORTS) {
       return {
         titles: cols.map((col) => col.querySelector('.site-footer__col-title')?.textContent.trim() || ''),
         x: styleOf(git?.querySelector('a[href="https://x.com/FalconEquitynyc"]')),
-        contact: styleOf(git?.querySelector('a[href="/#main"]')),
+        /* No Contact link in the footer any more (it opens the contact panel
+           from the header instead), so the X link is compared with the email
+           link, which is the first plain link left in this column. */
+        email: styleOf(git?.querySelector('a[href^="mailto:"]')),
       };
     });
-    const xMatchesContact =
+    const xMatchesEmail =
       Boolean(footerNav.x) &&
-      Boolean(footerNav.contact) &&
-      footerNav.x.className === footerNav.contact.className &&
-      footerNav.x.color === footerNav.contact.color &&
-      footerNav.x.fontSize === footerNav.contact.fontSize &&
-      footerNav.x.fontWeight === footerNav.contact.fontWeight &&
-      footerNav.x.fontFamily === footerNav.contact.fontFamily &&
-      footerNav.x.lineHeight === footerNav.contact.lineHeight &&
-      footerNav.x.backgroundImage === footerNav.contact.backgroundImage &&
-      footerNav.x.backgroundSize === footerNav.contact.backgroundSize;
+      Boolean(footerNav.email) &&
+      footerNav.x.className === footerNav.email.className &&
+      footerNav.x.color === footerNav.email.color &&
+      footerNav.x.fontSize === footerNav.email.fontSize &&
+      footerNav.x.fontWeight === footerNav.email.fontWeight &&
+      footerNav.x.fontFamily === footerNav.email.fontFamily &&
+      footerNav.x.lineHeight === footerNav.email.lineHeight &&
+      footerNav.x.backgroundImage === footerNav.email.backgroundImage &&
+      footerNav.x.backgroundSize === footerNav.email.backgroundSize;
     log({
       ...tag,
       check: 'footer-social-in-get-in-touch',
@@ -2218,7 +2221,7 @@ for (const vp of VIEWPORTS) {
         !footerNav.titles.includes('Social') &&
         footerNav.x?.visible === 'X' &&
         footerNav.x?.href === 'https://x.com/FalconEquitynyc' &&
-        xMatchesContact,
+        xMatchesEmail,
       detail: JSON.stringify(footerNav),
     });
     const xHover = page.locator('.site-footer a[href="https://x.com/FalconEquitynyc"]');

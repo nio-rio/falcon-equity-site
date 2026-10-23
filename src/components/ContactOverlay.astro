@@ -1,0 +1,76 @@
+---
+import '@/styles/contact-overlay.css';
+import { SITE } from '@/data/site';
+
+const phone = SITE.phones.direct;
+const fax = SITE.phones.fax;
+/* There is no contact page. Any link that would have led to one opens this
+   panel instead (data-contact-open); it closes on the cross, the scrim, or
+   Escape. `inert` keeps it out of the tab order and the accessibility tree
+   while it is shut. */
+---
+
+<!-- There is no contact page; links that would lead to one open this panel. -->
+<div class="contact-overlay" data-contact-overlay inert>
+  <div class="contact-overlay__scrim" data-contact-close aria-hidden="true"></div>
+  <div
+    class="contact-overlay__panel"
+    data-contact-panel
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="contact-overlay-title"
+    tabindex="-1"
+  >
+    <button type="button" class="contact-overlay__close" data-contact-close aria-label="Close contact panel">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 28 28"
+        width="28"
+        height="28"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M2 2 26 26M26 2 2 26"></path>
+      </svg>
+    </button>
+
+    <div class="contact-overlay__body">
+      <h2 class="contact-overlay__title" id="contact-overlay-title">Contact Us</h2>
+      <p class="contact-overlay__lead">
+        Talk to a funding specialist. We answer the phone, and we will tell you straight whether we can help.
+      </p>
+
+      <dl class="contact-overlay__list">
+        <div class="contact-overlay__row">
+          <dt>{phone.label}</dt>
+          <dd><a href={phone.href}>{phone.display}</a></dd>
+        </div>
+        <div class="contact-overlay__row">
+          <dt>{fax.label}</dt>
+          <dd><a href={fax.href}>{fax.display}</a></dd>
+        </div>
+        <div class="contact-overlay__row">
+          <dt>Email</dt>
+          <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+        </div>
+        <div class="contact-overlay__row">
+          <dt>Office</dt>
+          <dd>
+            <a href={SITE.address.mapUrl} rel="noopener" target="_blank">
+              {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}<span
+                class="sr-only"> (opens Google Maps in a new tab)</span
+              >
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '@/scripts/contact-overlay';
+</script>

@@ -16,7 +16,7 @@ const path = cleanPath(Astro.url.pathname);
 const isHome = path === '/';
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
-type NavLink = { label: string; href: string };
+type NavLink = { label: string; href: string; contact?: boolean };
 type NavColumn = { heading: string; links: NavLink[]; twoCol?: boolean };
 type NavCard = {
   title: string;
@@ -132,7 +132,7 @@ const nav: NavItem[] = [
           { label: 'Partners', href: '/#main' },
         ],
       },
-      { heading: 'Contact', links: [{ label: 'Contact', href: '/#main' }] },
+      { heading: 'Contact', links: [{ label: 'Contact', href: '/contact', contact: true }] },
     ] satisfies NavColumn[],
   },
 ];
@@ -225,13 +225,24 @@ const nav: NavItem[] = [
                           <ul class:list={['primary-nav__list-lvl-3', col.twoCol && 'primary-nav__list-lvl-3--two']}>
                             {col.links.map((l) => (
                               <li class="primary-nav__list-lvl-3-item">
-                                <a
-                                  href={l.href}
-                                  class="primary-nav__list-lvl-3-link"
-                                  aria-current={isActive(l.href) ? 'page' : undefined}
-                                >
-                                  {l.label}
-                                </a>
+                                {l.contact ? (
+                                  <button
+                                    type="button"
+                                    class="primary-nav__list-lvl-3-link"
+                                    data-contact-open
+                                    aria-haspopup="dialog"
+                                  >
+                                    {l.label}
+                                  </button>
+                                ) : (
+                                  <a
+                                    href={l.href}
+                                    class="primary-nav__list-lvl-3-link"
+                                    aria-current={isActive(l.href) ? 'page' : undefined}
+                                  >
+                                    {l.label}
+                                  </a>
+                                )}
                               </li>
                             ))}
                           </ul>

@@ -1,0 +1,167 @@
+/* Contact overlay — the site has no contact page. Every link that would have
+   gone to one opens this right-hand panel instead, the way
+   blackstone.com/#contact-us does: a white sheet over a blurred, darkened page,
+   a close cross at the top right, and the phone, email and address in plain
+   type. No cards, no icons, no second CTA.
+
+   Proportions are read off Ling's reference capture (1920 × 1080): the panel is
+   723px wide there, i.e. 37.66% of the viewport, capped at 46rem; its inline
+   padding is ~93px, so the type column lands at ~30.5rem. Live blackstone.com
+   is behind Cloudflare from this machine (403 for curl and headless Chrome),
+   so the numbers come from the capture, not a live measurement. */
+
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.contact-overlay.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.contact-overlay__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--ink-a72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+
+.contact-overlay.is-open .contact-overlay__scrim {
+  opacity: 1;
+}
+
+.contact-overlay__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5.25rem clamp(1.5rem, 5vw, 5.8125rem) 3rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-white);
+  color: var(--color-ink);
+  /* The page is scroll-locked while this is open (html.has-scroll-lock sets
+     body { touch-action: none }); the panel is the one place that pans. */
+  touch-action: pan-y;
+  transform: translateX(100%);
+  transition: transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.contact-overlay.is-open .contact-overlay__panel {
+  transform: translateX(0);
+}
+
+.contact-overlay__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.contact-overlay__close:hover {
+  opacity: 0.6;
+}
+
+.contact-overlay__close svg {
+  display: block;
+}
+
+.contact-overlay__body {
+  max-width: 30.5rem;
+}
+
+.contact-overlay__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: var(--type-h2-ls);
+}
+
+.contact-overlay__lead {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.47;
+}
+
+.contact-overlay__list {
+  margin: 2.5rem 0 0;
+}
+
+.contact-overlay__row + .contact-overlay__row {
+  margin-top: 1.25rem;
+}
+
+.contact-overlay__row dt {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption-size);
+  font-weight: 400;
+  line-height: var(--type-caption-lh);
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.contact-overlay__row dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.contact-overlay__row a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.contact-overlay__row a:hover,
+.contact-overlay__row a:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (min-width: 48em) {
+  .contact-overlay__panel {
+    width: min(37.66vw, 46rem);
+    min-width: 30rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .contact-overlay__close {
+    top: 1.125rem;
+    right: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-overlay__panel,
+  .contact-overlay__scrim {
+    transition: none;
+  }
+}

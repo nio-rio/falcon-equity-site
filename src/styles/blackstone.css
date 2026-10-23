@@ -1223,6 +1223,17 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   background-size: 100% 1px;
 }
 
+/* Contact is a dialog opener, so it is a <button>; give it the anchor's box
+   and type so the two read identically in the menu. */
+button.primary-nav__list-lvl-3-link {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .primary-nav__list-lvl-2-item.has-nav-widget {
   display: none;
 }

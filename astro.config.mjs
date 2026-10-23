@@ -68,7 +68,7 @@ const blogCategories = ['getting-approved', 'compare-options', 'costs-and-rates'
 /** @type {Record<string, string>} */
 const retired = {
   '/about': '/',
-  '/contact': '/',
+  '/contact': '/#contact',
   '/partners': '/',
   '/privacy-policy': '/',
   '/terms-conditions': '/',

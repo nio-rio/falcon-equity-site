@@ -1,7 +1,7 @@
 # Retired inner-page routes. In-app hrefs use home hashes; HTTP redirects
 # send bookmarks to / or /apply. Fragments in Location are best-effort.
 /about                               /                       301
-/contact                             /                       301
+/contact                             /#contact               301
 /partners                            /                       301
 /privacy-policy                      /                       301
 /terms-conditions                    /                       301
