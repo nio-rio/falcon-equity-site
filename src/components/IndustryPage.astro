@@ -28,7 +28,6 @@ import { getPublicPosts } from '@/lib/blog';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import '@/styles/mca.css';
 import '@/styles/industry.css';
-import FaqList from '@/components/FaqList.astro';
 
 type Props = { content: IndustryPageContent };
 
@@ -265,7 +264,38 @@ const schema = [
         </div>
       </div>
       <div class="mca-shell">
-        <FaqList items={faqs} idPrefix="ind" class="mca-faq-list" data-reveal />
+        <div class="mca-faq-list" data-accordion data-reveal>
+          {
+            faqs.map((item, i) => (
+              <div class="mca-faq-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="mca-faq-trigger"
+                    aria-expanded="false"
+                    aria-controls={`ind-faq-panel-${i}`}
+                    id={`ind-faq-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{item.q}</span>
+                    <span class="mca-faq-caret" aria-hidden="true">
+                      <span class="mca-faq-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="mca-faq-caret-svg">
+                          <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
+                </h3>
+                <div class="mca-acc-panel" id={`ind-faq-panel-${i}`} role="region" aria-labelledby={`ind-faq-trigger-${i}`}>
+                  <div class="mca-acc-inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>

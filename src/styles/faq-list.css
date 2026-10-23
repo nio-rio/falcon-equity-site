@@ -150,6 +150,23 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  /* The industry pages' reading aid, which the clones only ever gave to three of
+     the prefixes (it sat in global.css keyed to mca-/loc-/btl-): the row you are
+     on stays at full ink and its top rule goes solid, every other row recedes to
+     36%. Without this the list reads as flat rules with no focus. */
+  .faq-item {
+    transition: opacity 0.3s ease;
+  }
+
+  .faq-list:is(:hover, :focus-within) .faq-item {
+    opacity: 0.36;
+  }
+
+  .faq-list:is(:hover, :focus-within) .faq-item:is(:hover, :focus-within) {
+    opacity: 1;
+    border-top-color: var(--color-ink);
+  }
+
   .faq-trigger:hover .faq-icon,
   .faq-trigger:focus-visible .faq-icon {
     background: var(--color-ink);
