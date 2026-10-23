@@ -1,0 +1,533 @@
+{
+ "url": "https://www.blackstone.com/the-firm/our-people/",
+ "prefix": "OP",
+ "capturedAt": "2026-10-23T17:57:32.968Z",
+ "title": "Our People - Blackstone",
+ "tree": [
+  {
+   "depth": 0,
+   "tag": "body",
+   "cls": "page-template page-template-templates page-template-page-our",
+   "h": 900,
+   "w": 1425,
+   "y": 0,
+   "heads": 900,
+   "imgs": 1729,
+   "tallKids": 1,
+   "bandKids": 1
+  },
+  {
+   "depth": 1,
+   "tag": "div",
+   "cls": "site",
+   "h": 3923,
+   "w": 1425,
+   "y": 0,
+   "heads": 894,
+   "imgs": 1728,
+   "tallKids": 3,
+   "bandKids": 3
+  },
+  {
+   "depth": 2,
+   "tag": "header",
+   "cls": "site__header site-header",
+   "h": 204,
+   "w": 1425,
+   "y": 0,
+   "heads": 2,
+   "imgs": 2,
+   "tallKids": 1,
+   "bandKids": 1
+  },
+  {
+   "depth": 2,
+   "tag": "div",
+   "cls": "container-fluid",
+   "h": 3174,
+   "w": 1425,
+   "y": 204,
+   "heads": 889,
+   "imgs": 1726,
+   "tallKids": 5,
+   "bandKids": 5
+  },
+  {
+   "depth": 3,
+   "tag": "section",
+   "cls": "bx-block-component bx-block-no-spacing bx-page-header-no-des",
+   "h": 252,
+   "w": 1425,
+   "y": 204,
+   "heads": 1,
+   "imgs": 0,
+   "tallKids": 0,
+   "bandKids": 0
+  },
+  {
+   "depth": 3,
+   "tag": "section",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignf",
+   "h": 568,
+   "w": 1425,
+   "y": 456,
+   "heads": 11,
+   "imgs": 0,
+   "tallKids": 2,
+   "bandKids": 2
+  },
+  {
+   "depth": 3,
+   "tag": "section",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignf",
+   "h": 344,
+   "w": 1425,
+   "y": 1024,
+   "heads": 1,
+   "imgs": 0,
+   "tallKids": 1,
+   "bandKids": 1
+  },
+  {
+   "depth": 3,
+   "tag": "section",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignf",
+   "h": 663,
+   "w": 1425,
+   "y": 1368,
+   "heads": 11,
+   "imgs": 0,
+   "tallKids": 2,
+   "bandKids": 2
+  },
+  {
+   "depth": 3,
+   "tag": "div",
+   "cls": "people-directory bx-people-template mb-xlarge  bx-people-dir",
+   "h": 1291,
+   "w": 1425,
+   "y": 2087,
+   "heads": 865,
+   "imgs": 1726,
+   "tallKids": 2,
+   "bandKids": 2
+  },
+  {
+   "depth": 2,
+   "tag": "footer",
+   "cls": "site__footer site-footer is-color-theme-dark",
+   "h": 545,
+   "w": 1425,
+   "y": 3378,
+   "heads": 3,
+   "imgs": 0,
+   "tallKids": 1,
+   "bandKids": 1
+  }
+ ],
+ "desktop": [
+  {
+   "id": "OP-00",
+   "shot": "ok",
+   "index": 0,
+   "selector": "body>div:nth-of-type(3)>div>section:nth-of-type(1)",
+   "cls": "bx-block-component bx-block-no-spacing bx-page-header-no-desc__animation alignfull bx-stacked-component-header-padding-t",
+   "y": 204,
+   "h": 252,
+   "w": 1425,
+   "x": 0,
+   "bg": "rgb(255, 255, 255)",
+   "band": "white",
+   "pad": "48/120",
+   "claim": "56/84/300",
+   "claimText": "Our People",
+   "heads": [
+    {
+     "tag": "h1",
+     "text": "Our People",
+     "size": 56,
+     "sizeStr": "56/84",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 1208,
+     "x": 81
+    }
+   ],
+   "body": "-",
+   "bodyText": "",
+   "nimg": 0,
+   "stills": [],
+   "nh": 1,
+   "np": 0,
+   "nlist": 0,
+   "nlink": 0,
+   "links": [],
+   "words": 2,
+   "grid": null
+  },
+  {
+   "id": "OP-01",
+   "shot": "ok",
+   "index": 1,
+   "selector": "body>div:nth-of-type(3)>div>section:nth-of-type(2)",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignfull  bx-component-stacked-same-theme-padding-top bx-componen",
+   "y": 456,
+   "h": 568,
+   "w": 1425,
+   "x": 0,
+   "bg": "rgb(255, 255, 255)",
+   "band": "white",
+   "pad": "56/160",
+   "claim": "48/72/300",
+   "claimText": "Executive Officers",
+   "heads": [
+    {
+     "tag": "h3",
+     "text": "Executive Officers",
+     "size": 48,
+     "sizeStr": "48/72",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 1264,
+     "x": 81
+    },
+    {
+     "tag": "h4",
+     "text": "Stephen A. Schwarzman*",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 81
+    },
+    {
+     "tag": "h4",
+     "text": "Jonathan Gray*",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 421
+    },
+    {
+     "tag": "h4",
+     "text": "Michael Chae",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 761
+    },
+    {
+     "tag": "h4",
+     "text": "John G. Finley",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 1101
+    },
+    {
+     "tag": "h4",
+     "text": "Vik Sawhney",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 81
+    }
+   ],
+   "body": "14/21/400",
+   "bodyText": "Vice Chairman & Chief Financial Officer",
+   "nimg": 0,
+   "stills": [],
+   "nh": 6,
+   "np": 1,
+   "nlist": 0,
+   "nlink": 0,
+   "links": [],
+   "words": 33,
+   "grid": {
+    "cols": "244px 244px 244px 244px",
+    "ncols": 4,
+    "gap": "64px 96px",
+    "children": 5
+   }
+  },
+  {
+   "id": "OP-02",
+   "shot": "ok",
+   "index": 2,
+   "selector": "body>div:nth-of-type(3)>div>section:nth-of-type(3)",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignfull  bx-component-stacked-same-theme-padding-top bx-componen",
+   "y": 1024,
+   "h": 344,
+   "w": 1425,
+   "x": 0,
+   "bg": "rgb(255, 255, 255)",
+   "band": "white",
+   "pad": "56/160",
+   "claim": "48/72/300",
+   "claimText": "Senior Leadership",
+   "heads": [
+    {
+     "tag": "h3",
+     "text": "Senior Leadership",
+     "size": 48,
+     "sizeStr": "48/72",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 1264,
+     "x": 81
+    }
+   ],
+   "body": "-",
+   "bodyText": "",
+   "nimg": 0,
+   "stills": [],
+   "nh": 1,
+   "np": 0,
+   "nlist": 0,
+   "nlink": 0,
+   "links": [],
+   "words": 2,
+   "grid": null
+  },
+  {
+   "id": "OP-03",
+   "shot": "ok",
+   "index": 3,
+   "selector": "body>div:nth-of-type(3)>div>section:nth-of-type(4)",
+   "cls": "bx-block-component bx-leadership bx-leadership__front alignfull  bx-component-stacked-same-theme-padding-top bx-componen",
+   "y": 1368,
+   "h": 663,
+   "w": 1425,
+   "x": 0,
+   "bg": "rgb(255, 255, 255)",
+   "band": "white",
+   "pad": "56/160",
+   "claim": "48/72/300",
+   "claimText": "Board Members",
+   "heads": [
+    {
+     "tag": "h3",
+     "text": "Board Members",
+     "size": 48,
+     "sizeStr": "48/72",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 1264,
+     "x": 81
+    },
+    {
+     "tag": "h4",
+     "text": "James W. Breyer",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 81
+    },
+    {
+     "tag": "h4",
+     "text": "Reginald (“Reg”) J. Brown",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 421
+    },
+    {
+     "tag": "h4",
+     "text": "Rochelle B. Lazarus",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 761
+    },
+    {
+     "tag": "h4",
+     "text": "William G. Parrett",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 1101
+    },
+    {
+     "tag": "h4",
+     "text": "Ruth Porat",
+     "size": 18,
+     "sizeStr": "18/27",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 244,
+     "x": 81
+    }
+   ],
+   "body": "14/21/400",
+   "bodyText": "Founder and CEO of Breyer Capital",
+   "nimg": 0,
+   "stills": [],
+   "nh": 6,
+   "np": 4,
+   "nlist": 0,
+   "nlink": 0,
+   "links": [],
+   "words": 55,
+   "grid": {
+    "cols": "244px 244px 244px 244px",
+    "ncols": 4,
+    "gap": "96px",
+    "children": 5
+   }
+  },
+  {
+   "id": "OP-04",
+   "shot": "ok",
+   "index": 4,
+   "selector": "body>div:nth-of-type(3)>div>div",
+   "cls": "people-directory bx-people-template mb-xlarge  bx-people-directory__post-exist",
+   "y": 2087,
+   "h": 1291,
+   "w": 1425,
+   "x": 0,
+   "bg": "rgb(255, 255, 255)",
+   "band": "white",
+   "pad": "0/0",
+   "claim": "32/48/300",
+   "claimText": "Directory",
+   "heads": [
+    {
+     "tag": "h4",
+     "text": "Directory",
+     "size": 32,
+     "sizeStr": "32/48",
+     "weight": "300",
+     "color": "rgb(0, 0, 0)",
+     "w": 704,
+     "x": 81
+    }
+   ],
+   "body": "-",
+   "bodyText": "",
+   "nimg": 0,
+   "stills": [],
+   "nh": 1,
+   "np": 0,
+   "nlist": 3,
+   "nlink": 17,
+   "links": [
+    {
+     "text": "Filter",
+     "w": 88,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    },
+    {
+     "text": "Learn More",
+     "w": 84,
+     "h": 24
+    }
+   ],
+   "words": 126,
+   "grid": null
+  }
+ ],
+ "mobile": [
+  {
+   "id": "OP-00",
+   "shot": "ok",
+   "mobile_h": 180,
+   "mobile_w": 390,
+   "mobile_pad": "40/80",
+   "mobile_claim": "40/60/300",
+   "mobile_cols": 1
+  },
+  {
+   "id": "OP-01",
+   "shot": "ok",
+   "mobile_h": 876,
+   "mobile_w": 390,
+   "mobile_pad": "40/80",
+   "mobile_claim": "32/48/300",
+   "mobile_cols": 1
+  },
+  {
+   "id": "OP-02",
+   "shot": "ok",
+   "mobile_h": 208,
+   "mobile_w": 390,
+   "mobile_pad": "40/80",
+   "mobile_claim": "32/48/300",
+   "mobile_cols": 1
+  },
+  {
+   "id": "OP-03",
+   "shot": "ok",
+   "mobile_h": 948,
+   "mobile_w": 390,
+   "mobile_pad": "40/80",
+   "mobile_claim": "32/48/300",
+   "mobile_cols": 1
+  },
+  {
+   "id": "OP-04",
+   "shot": "ok",
+   "mobile_h": 1292,
+   "mobile_w": 390,
+   "mobile_pad": "0/0",
+   "mobile_claim": "24/36/300",
+   "mobile_cols": 4
+  }
+ ]
+}

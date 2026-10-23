@@ -19,8 +19,9 @@ Desktop and mobile artifacts are matched to their id by the section's **own sele
 | `BMX` | bmacx.com/why-blackstone/ | 11 |
 | `HOME` | blackstone.com/ (home, added on Ling's instruction) | 8 |
 | `FAL` | falconequity.ai (home, approved design — added on Ling's instruction) | 7 |
+| `OP` | blackstone.com/the-firm/our-people/ | 5 |
 
-**53 sections** total.
+**58 sections** total.
 
 ## Shared geometry at 1440 (measured)
 
@@ -609,8 +610,92 @@ Source: falconequity.ai (home, approved design — added on Ling's instruction)
 - **Artifacts:** `img/FAL-06-d.png`, `img/FAL-06-m.png`
   · `html/FAL-06.html`
 
+## Blackstone — Our People (`OP`)
+
+Source: blackstone.com/the-firm/our-people/ — captured live in Chrome over CDP on 23 Oct 2026 (page title
+`Our People - Blackstone`; curl and headless Chrome both get the Cloudflare interstitial).
+
+This page has **five bands and no dark section, no imagery, and no CTA anywhere** — it is a roster
+page, and the whole design argument is type, rules and white space. Site header and footer were
+deliberately excluded from the capture: they are page chrome, not a section layout.
+
+| id | band | pad | height | heading | body | stills | rows/items | words |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `OP-00` | white | 48/120 | 252px | 56/84/300 | - | 0 (-) | 1 heading | 2 |
+| `OP-01` | white | 56/160 | 568px | 48/72/300 | 14/21/400 | 0 (-) | 6 headings, 5 person rows | 33 |
+| `OP-02` | white | 56/160 | 344px | 48/72/300 | - | 0 (-) | 1 heading | 2 |
+| `OP-03` | white | 56/160 | 663px | 48/72/300 | 14/21/400 | 0 (-) | 6 headings, 5 person rows | 55 |
+| `OP-04` | white | 0/0 | 1291px | 32/48/300 | 18/27/300 | 0 (-) | 1 heading, 10 table rows, 3 dots | 126 |
+
+### `OP-00` — page header: the title alone
+
+- **Anatomy (measured, verified against the crop):** the H1 sits at the container's left edge, columns 1–7 at 56/84 weight 300 (Sanomat-like display face). Nothing else in the band: no standfirst, no eyebrow, no rule, no breadcrumb, no CTA. 48px top pad, 120px bottom — the same header rhythm as `TF-00`, minus its right-hand lead.
+- **Measured:** band `white`, pad `48/120`, height 252px (= 48 + 84 + 120); heading 56/84/300; body -; still -; 2 words.
+- **At 390:** height 180px, pad 40/80, heading 40/60/300, single column.
+- **Good for:** opening a page whose answer is the content itself — a roster, an index, a lookup page. Do not add a standfirst here unless the page has an argument to make.
+- **Duplicate of:** `BMX-00` (two-word title band) / `TF-00` without the standfirst — this entry confirms the shape, it does not add one.
+- **Artifacts:** `img/OP-00-d.png`, `img/OP-00-m.png`
+  · `html/OP-00.html`
+
+### `OP-01` — 4-up name + role roster, no portraits
+
+- **Anatomy (measured, verified against the crop):** H3 claim left at 48/72 weight 300 (tracking 0.384px), then a roster grid: **4 tracks of 244px, column gap 96px, row gap 64px** — 4 × 244 + 3 × 96 = **1264**, the full container. A fifth item wraps to a second row at the same x as the first. Each item is 244×56: a **name at 18/27 weight 300** (tracking 0.144px) over its **role at 14/21 weight 400** (tracking 0.32px), 10px between them. No rules, no card chrome, no portraits. The whole item is a `role="link"` div with `tabindex="0"`, id and anchor = the name slug (`#Stephen-A-Schwarzman`), so it is keyboard-focusable in place.
+- **Measured:** band `white`, pad `56/160`, height 568px; heading 48/72/300; body 14/21/400; still -; 33 words. Items at x = 81 / 421 / 761 / 1101, second row y = 808 (56 + 64 row gap).
+- **At 390:** height 876px, pad 40/80, claim 32/48/300, **single column at 328 wide** with the same 64px row gap — the roster reads as a list, name over role.
+- **Good for:** a leadership, team or advisor list of 3–8 people where the name is the content and no photograph exists. This is the library's cleanest "many small units under one claim" band.
+- **New shape.** `TF-05` is 3-up *prose*; `TF-03`/`PE-05` are full-width row directories with chevrons. Neither is a 4-track roster of name + role.
+- **Hazard:** the reference marks two names with an asterisk and **no footnote exists anywhere on the page**. Don't copy the marker unless you ship the note.
+- **Artifacts:** `img/OP-01-d.png`, `img/OP-01-m.png`
+  · `html/OP-01.html`
+
+### `OP-02` — heading-only band (do not ship as-is)
+
+- **Anatomy (measured, verified against the crop):** an H3 claim at 48/72/300 in the same position as `OP-01`, with **nothing beneath it** — the live DOM contains the header block and an empty roster wrapper. 344px of band containing one line of text. Its siblings on this page render five people each; this one renders none.
+- **Measured:** band `white`, pad `56/160`, height 344px; heading 48/72/300; body -; still -; 2 words.
+- **At 390:** height 208px, pad 40/80, claim 32/48/300.
+- **Good for:** nothing on its own. Recorded because the *spacing* is reusable — 56px above the claim, 160px below — and because a capture that silently accepted it would file an empty band as a layout.
+- **Read it as a warning:** if the roster is populated by script, add people or cut the band; a heading floating over 160px of white reads as a broken page, not as restraint.
+- **Artifacts:** `img/OP-02-d.png`, `img/OP-02-m.png`
+  · `html/OP-02.html`
+
+### `OP-03` — same roster, with bio-length roles
+
+- **Anatomy (measured, verified against the crop):** identical grid and type to `OP-01` — 244px tracks, 96/64 gaps, name 18/27/300 over role 14/21/400 — but the roles are real titles that run **two to three lines** ("Chairman Emeritus & Former Chief Executive Officer, Ogilvy & Mather Worldwide"), so the band grows from 568px to 663px while every item stays 56px of name + role block. In this section the row gap is `96px` only, because the five items still fit one row.
+- **Measured:** band `white`, pad `56/160`, height 663px; heading 48/72/300; body 14/21/400; still -; 55 words.
+- **At 390:** height 948px, pad 40/80, single column, roles wrapping to two lines.
+- **Good for:** the same roster when each role needs a sentence — and the honest test of whether your grid holds when one item's role is three lines while its neighbour's is one.
+- **Duplicate of:** `OP-01` (same shape, longer copy). **Note:** the markup carries a `has-image` class and **no portrait ever paints** — don't infer photography from the class name, and don't add photos to a roster that was designed without them.
+- **Artifacts:** `img/OP-03-d.png`, `img/OP-03-m.png`
+  · `html/OP-03.html`
+
+### `OP-04` — search + filter + 5-column record table, load-more and dots
+
+The library's **first real data-table band**, and the most transferable thing on the page.
+
+- **Anatomy (measured, verified against the crop):** an H4 "Directory" at 32/48/300 in columns 1–8 (704px box), then a **search field 464×66** at the container's left edge — fill `rgb(231,234,238)`, 1px `rgba(0,0,0,.2)` border, **radius 0**, padding 16/24, placeholder "Search", 32×32 magnifier SVG at its right end. A **Filter** control sits on the far right of the same row (88×24 at x = 1257) with a 27×20 sliders SVG rendered 22×16. Under them, a table 1264 wide inside an `overflow-x: auto` wrapper: header row **121px tall** (its top padding is the head gap), labels 16/24 weight 400, a **1px `rgb(220,223,229)` rule** beneath. Five columns — **Name 312 | Title 264 | Business Unit 272 | Location 329 | action 87** — every cell padded 24/40/24/0, rows **76px**, body copy 18/27.04 weight 300, a 1px `#dcdfe5` hairline between rows, the name cell marked up as `<th scope="row">`, and "Learn More" in the action cell at 18/400 (the whole row is the click target, `aria-expanded="false"`). Ten rows render; the rest arrive from a **foot band 1264×240** (pad 40/0/160): a second Filter at the left, then centred "Load More" (16/24/300) + a **40×40 circle-arrow** whose SVG path is a right-pointing arrow (CSS rotates it to down), a 1px 40px divider, and a **dot nav 80×40** — active dot 24×24 (12px filled core inside a ring), the others 12×12 at 28px pitch.
+- **Measured:** band `white`, no band padding of its own (its space comes from `margin-bottom`), height 1291px (table 1019 + foot 240 + 32); heading 32/48/300; body 18/27.04/300; still -; 126 words.
+- **At 390 — the table is replaced, not reflowed.** Measured on a fresh 390 load: the desktop `<table>` reports **height 0 with all five columns at 0px**, and a second component renders instead — `table.bx-accordion__table` (328 wide): caption (H4 36 + search 328×45), a 51px filter row, a 72px "Name" header, then **10 rows of 74px**, each just the name (16/300) and a **40px circle-down**. Opening a row takes it from **74px to 461px** and prints label/value pairs — Title, Business Unit, Location as 16/400 labels over 16/300 values in 40px rows — then "Learn More" at 18/400. The foot stacks: Filter 92px, then the Load More row 160px.
+- **Good for:** any index of records where each row has one destination — team, offices, portfolio, filings, glossary. The reusable idea is the **desktop table → mobile accordion swap**: at 390 the column headings become labels inside the opened row, so nothing is squashed into a 328px table.
+- **Capture caution:** the rows are **script-populated**. A fresh 390 load comes back with an empty table (10 `<tr>` in the DOM, none visible), so a mobile-first capture measures nothing — capture desktop first, then resize in the same session, or you will record the empty state as the design. The section also **ships every person's full biography inline**, hidden: 863 `bx-people__bio__biocontent` blocks in the captured `outerHTML` (2.0 MB, 1 726 `<img>`), which is what the row accordion opens. The stored `html/OP-04.html` keeps the first two bios and the full table shell; the blob is trimmed with a comment saying so.
+- **Artifacts:** `img/OP-04-d.png`, `img/OP-04-m.png`
+  · `html/OP-04.html`
+
+### What this batch adds
+
+| shape | id | status | use it for |
+| --- | --- | --- | --- |
+| title-only page header | `OP-00` | duplicate of `BMX-00` / `TF-00` | opening a roster/index page with no lead |
+| 4-up name + role roster, no portraits | `OP-01` | **new** | 3–8 people, name + role, no photography |
+| heading over an empty roster | `OP-02` | **new (as a hazard)** | never ship; populate it or cut the band |
+| roster with bio-length roles | `OP-03` | duplicate of `OP-01` | same grid when roles run 2–3 lines |
+| search + filter + 5-col table + load-more + dots | `OP-04` | **new — first data-table band** | any record index; also the table→accordion mobile swap |
+
+Two things this page does that the rest of the library does not: **it never uses a dark band or an
+image**, and **every band is separated by white space rather than by a rule or a colour change**. If a
+plan cites this page, the page it builds should be prepared to be that quiet.
+
 ## What this library is missing, on purpose
 
-- **No data-table section exists on any of these pages.** A five-column comparison table has no donor; it has to be styled from our own `.r-table` using these hairlines and type sizes, and the plan must say so.
+- **Data tables were missing until `OP-04`.** Before 23 Oct 2026 no Blackstone page in this library had a table; the Our People directory changed that. Its five-column geometry (312 / 264 / 272 / 329 / 87 inside 1264, 76px rows, 1px `#dcdfe5` hairlines) is now the donor for a tabular band — but its columns hold *attributes* (name, title, unit, location) while ours hold interpretive prose, so a plan that borrows it must say which parts are geometry and which parts are copy shape.
 - **The IR microsite is mostly JavaScript-populated.** Only its overview block (`IR-00`) could be measured; its financial tables and press-release modules return empty shells to any extractor. It also has **no usable mobile crop**: its cookie wall and header containers sit inside the same wrappers as the content, so removing either dissolves the page. `IR-00` has desktop crop + both sets of measurements, and says so.
 - **PWS pages carry a legal-gate modal** that covers the content until dismissed; every APM crop here was taken after removing it, so the crops show the section, not the gate.
