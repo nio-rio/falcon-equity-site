@@ -175,15 +175,27 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your operation right now?",
     situations: [
       {
-        if: "A broker pays you net-30 on a load you delivered in week one",
-        means: "You have run the miles and paid the fuel; the money is three weeks out.",
-        why: "You sell an invoice you have already earned, and approval leans on your customer's credit rather than your own.",
+        if: "A broker pays net-30, or a shipper offers a good lane on 60-day terms you cannot afford to carry",
+        means: "You have run the miles and paid the fuel, and the wait lands on your balance sheet instead of theirs.",
+        why: "You sell an invoice you have already earned, so the wait comes off your books and approval leans on your customer's credit rather than your own.",
         slug: "invoice-factoring-tool",
       },
       {
         if: "A tractor throws a fault code on a Sunday and the shop wants paying before Monday's load",
         means: "A parked truck earns nothing while the repair bill lands in full.",
-        why: "Draw what the repair costs, repay it across the next few weeks of loads, keep the facility for the next surprise.",
+        why: "Draw what the repair costs, repay it across the next few weeks of loads, and keep the facility for the next surprise.",
+        slug: "business-line-of-credit",
+      },
+      {
+        if: "Insurance, plates and permits all come due in the same month",
+        means: "Three lump sums land against a weekly cash cycle.",
+        why: "One draw covers the renewals and you repay it across the weeks they cover.",
+        slug: "business-line-of-credit",
+      },
+      {
+        if: "Fuel and driver pay leave the account every week while settlements arrive twice a month",
+        means: "Your biggest costs run on a weekly clock and your revenue runs on a net-30 one.",
+        why: "A revolving facility covers the weeks the two clocks do not line up, and you draw only what that week is short.",
         slug: "business-line-of-credit",
       },
       {
@@ -193,27 +205,15 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         slug: "collateral-asset-loans",
       },
       {
-        if: "Insurance, plates and permits all come due in the same month",
-        means: "Three lump sums land against a weekly cash cycle.",
-        why: "One draw covers the renewals, and you repay it across the weeks they cover.",
-        slug: "business-line-of-credit",
-      },
-      {
-        if: "A shipper offers a good lane on 60-day terms you cannot afford to carry",
-        means: "Taking the lane means lending the shipper your working capital.",
-        why: "The wait comes off your balance sheet instead of sitting on it.",
-        slug: "invoice-factoring-tool",
-      },
-      {
         if: "A contract is ready but the bank wants three months of paperwork you do not have",
         means: "The opportunity closes before the committee decides.",
-        why: "Approval looks at revenue and bank activity, and repayment follows your settlements rather than a fixed bill.",
+        why: "It funds fastest and repays out of settlements rather than a fixed monthly bill, but it costs more than a line of credit, so treat it as a bridge.",
         slug: "merchant-cash-advance",
       },
       {
         if: "You are buying out a small fleet, or leasing a yard with a known number attached",
         means: "The spend is fixed and lands before the new revenue does.",
-        why: "One fixed monthly payment over 6 – 36 months, sized to what the added capacity should earn.",
+        why: "One fixed monthly payment, sized to what the added capacity should earn.",
         slug: "business-term-loan",
       },
       {
@@ -261,6 +261,10 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         a: "No. Factoring is the sale of an invoice you have already earned. You get cash now and the factor collects from your customer, which is why approval weighs their credit as much as yours.",
       },
       {
+        q: "Do you fund broker freight bills or only direct shippers?",
+        a: "Both kinds of payer issue freight bills, and funders differ: some buy broker invoices and some work only with direct shippers. Send the load confirmation and your customer's details, and your specialist will tell you which side your file sits on before you commit to the lane.",
+      },
+      {
         q: "Can a newer carrier qualify?",
         a: "Factoring starts at 3+ months in business. An asset loan or a line of credit generally asks for 6+ months, so a new authority usually starts with factoring and adds the other products once the history is there.",
       },
@@ -289,45 +293,39 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your kitchen right now?",
     situations: [
       {
-        if: "The walk-in fails on a Friday and the book is full",
-        means: "You cannot trade without it, and the replacement is quoted today.",
-        why: "What you buy secures the loan, and a term spreads the cost over the years the unit will run.",
+        if: "The walk-in fails on a Friday and the replacement is quoted today",
+        means: "You cannot trade without it, and it has to pass inspection before the room opens again.",
+        why: "What you buy secures the loan, and the term spreads the cost over the years the unit will run.",
         slug: "collateral-asset-loans",
       },
       {
         if: "January's covers drop but payroll still lands every two weeks",
         means: "Revenue is seasonal; labor is not.",
-        why: "Draw for the soft weeks, repay as covers come back, keep the facility for next January.",
+        why: "Draw for the soft weeks, repay as covers come back, and keep the facility for next January.",
         slug: "business-line-of-credit",
       },
       {
-        if: "The hood, the range or the dish machine has to be replaced before inspection",
-        means: "A one-time purchase that a single month's margin cannot absorb.",
-        why: "The equipment is the collateral, so approval leans on the quote rather than on years of history.",
-        slug: "collateral-asset-loans",
-      },
-      {
         if: "The landlord approves the patio build-out and the work is quoted to the dollar",
-        means: "The spend lands over one summer; the extra covers pay back over years.",
+        means: "The spend lands over one summer; the extra covers pay it back over years.",
         why: "One fixed monthly payment, sized to the seats the build-out adds.",
         slug: "business-term-loan",
       },
       {
-        if: "Card sales are strong but you need cash before the weekend",
-        means: "The money is in the pipeline, not in the account, and the delivery lands Monday.",
-        why: "The fastest product to fund, and repayment comes out of sales instead of a fixed monthly bill.",
+        if: "Card sales are strong but the settlement lands after the weekend's invoices",
+        means: "The money is in the pipeline, not in the account, and the produce delivery does not wait for it.",
+        why: "It is the fastest product to fund, and repayment comes out of sales rather than a fixed monthly bill.",
         slug: "merchant-cash-advance",
       },
       {
         if: "You are signing a second lease and paying deposits, staff and opening stock",
         means: "Every cost arrives before the first ticket prints.",
-        why: "Draw what the opening needs and repay it from the new room's sales rather than from the existing one.",
+        why: "Draw what the opening needs and repay it from the new room's sales rather than the existing one's.",
         slug: "business-line-of-credit",
       },
       {
         if: "Catering and wholesale accounts pay you on 30-day terms",
         means: "You made the sale and bought the food; the payment is a month out.",
-        why: "Turns business-to-business invoices into cash now, and approval leans on the customer's credit.",
+        why: "It turns business-to-business invoices into cash now, and approval leans on the customer's credit.",
         slug: "invoice-factoring-tool",
       },
       {
@@ -379,6 +377,10 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         a: "Lenders read restaurant files closely, because margins are thin and a weak month shows in the statements. An advance starts at 3+ months in business and $10K+ monthly revenue; an asset loan or a line of credit generally asks for 6+ months.",
       },
       {
+        q: "My covers swing with the season. Does a thin month count against me?",
+        a: "A seasonal file is normal in this trade, and a thin January inside six months of statements is expected rather than disqualifying. What a lender reads is whether the full year covers the payments you take on, so send the statements you have and let your specialist size the facility to the quiet months.",
+      },
+      {
         q: "How fast can funding land before a repair or a season?",
         a: "Many products fund within 24-48 hours of approval. An equipment loan moves fastest when the vendor quote is ready, so get the quote before the unit fails if you can.",
       },
@@ -403,45 +405,39 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your business right now?",
     situations: [
       {
-        if: "Closings land next month, but rent, payroll and marketing land this one",
+        if: "Closings land next month, but rent, payroll and a contractor's change order land this one",
         means: "Income arrives at the closing table; the operating cost arrives on the first.",
-        why: "Draw against the gap and repay when the commissions fund, then keep the facility for the next dry spell.",
+        why: "Draw against the gap and repay it when the commissions fund, then keep the facility for the next dry spell.",
         slug: "business-line-of-credit",
       },
       {
-        if: "A rehab runs over and the contractor wants paying before the next draw",
-        means: "Taxes, insurance and a contractor change order all arrive before the sale does.",
-        why: "Draw exactly the overrun, not a round number, and repay it when the project closes.",
-        slug: "business-line-of-credit",
-      },
-      {
-        if: "You own the building your brokerage or management company operates from",
-        means: "The asset is already yours; the cash tied up in it is doing nothing.",
-        why: "Real estate and other assets can secure the loan, and the term is set against how long you hold the property.",
+        if: "You own the building your brokerage or management company works from",
+        means: "The asset is already yours, and the cash tied up in it is doing nothing.",
+        why: "An asset you already own can carry the loan, and the term is set against how long you intend to hold it.",
         slug: "collateral-asset-loans",
       },
       {
         if: "You are opening a second office with a build-out quoted to the dollar",
         means: "The spend lands now; the agents and listings that pay it back take a year to build.",
-        why: "One fixed monthly payment you can plan around, sized to what the new office should produce.",
+        why: "One fixed monthly payment, sized to what the new office should produce.",
         slug: "business-term-loan",
       },
       {
-        if: "You are buying a book of management contracts or an agency's listings",
-        means: "The purchase price is due at closing; the fees from that book arrive monthly afterwards.",
+        if: "You are buying a book of management contracts or another agency's listings",
+        means: "The price is due at closing, and the fees from that book arrive monthly afterwards.",
         why: "An amortising term turns a lump-sum acquisition into a payment the acquired revenue covers.",
         slug: "business-term-loan",
       },
       {
         if: "Your property management arm bills owners on 30-day terms",
         means: "Repairs and vendor bills come due before the owner reimburses you.",
-        why: "Turns the approved invoice into cash now, so the float is not yours to carry.",
+        why: "The approved invoice becomes cash now, so the float is not yours to carry.",
         slug: "invoice-factoring-tool",
       },
       {
-        if: "A slow quarter and a commission-based team mean payroll is a guess",
-        means: "Your biggest cost is fixed and your revenue is not.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so treat it as a bridge, not a habit.",
+        if: "A closing falls out after the inspection and payroll is already committed",
+        means: "Your biggest cost is fixed and the revenue that covered it just moved to next quarter.",
+        why: "It funds fastest and repays out of deposits rather than a fixed monthly bill, but it costs more than a line of credit, so treat it as a bridge.",
         slug: "merchant-cash-advance",
       },
       {
@@ -481,12 +477,16 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         a: "Carrying costs, commission gaps, marketing, agent support, property management float, a build-out or a book of contracts. What these products do not do is buy a property.",
       },
       {
+        q: "How much can a real estate business borrow?",
+        a: "The products run from $10,000 to $2,000,000 depending on which one you use: a line of credit up to $500,000, an asset loan to $1,000,000, and a term loan to $2,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
+      },
+      {
         q: "Can I use a business line of credit to buy a property?",
         a: "No. A line of credit is for operating costs and short gaps. If the property itself is the collateral, ask about Collateral & Asset Loans, which can be secured by real estate as well as equipment.",
       },
       {
-        q: "How much can a real estate business borrow?",
-        a: "$5,000 to $5,000,000 depending on the product. A line of credit runs $10,000 – $500,000, an asset loan $10,000 – $1,000,000, and a term loan $10,000 – $2,000,000. The final number depends on your deposits, your time in business and, for secured lending, the asset.",
+        q: "Is a line of credit or an advance the better fit for a gap between closings?",
+        a: "A line of credit, when the gap is timing and the deposits behind it are real: it is reusable and cheaper than an advance. An advance suits the gap you did not see coming, because it funds fastest and you pay for that speed.",
       },
       {
         q: "Do commission-based businesses qualify?",
@@ -517,27 +517,21 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your practice right now?",
     situations: [
       {
-        if: "Claims went out weeks ago and the remittance has not landed, but payroll is Friday",
+        if: "Claims went out weeks ago, the remittance has not landed, and payroll is Friday",
         means: "Care is delivered today; payment follows the payer's timetable.",
-        why: "Draw for the payroll run and repay when the remittances clear, then keep the facility for the next slow cycle.",
+        why: "Draw for the payroll run, repay as the remittances clear, and keep the facility for the next slow cycle.",
         slug: "business-line-of-credit",
       },
       {
         if: "A payer recoups a batch of claims and the adjustment lands in one deposit",
         means: "One deposit can pull back revenue you already spent on staff and supplies.",
-        why: "Draw the amount of the adjustment, repay it across the weeks that follow, and no other month has to absorb it.",
+        why: "Draw the amount of the adjustment and repay it across the weeks that follow, so no other month absorbs it.",
         slug: "business-line-of-credit",
       },
       {
-        if: "The imaging unit, dental chairs or laser are at the end of their useful life",
-        means: "A large purchase with a long service life, in a month that also has a full payroll.",
-        why: "The equipment secures the loan and the term matches the years it will be in use.",
-        slug: "collateral-asset-loans",
-      },
-      {
-        if: "EHR hardware, phones and the front-desk network are five years old and slowing the schedule",
-        means: "Small tickets that add up, and no single month has room for all of them.",
-        why: "Hardware and software purchases can sit in one financed bundle instead of three quarterly ones.",
+        if: "The imaging unit, the chairs or the hardware behind the front desk are at the end of their useful life",
+        means: "A large purchase with a long service life, in a month that also carries a full payroll.",
+        why: "The equipment secures the loan, with a term set to how long each item stays in use: longer for a scanner, shorter for front-desk hardware.",
         slug: "collateral-asset-loans",
       },
       {
@@ -547,15 +541,21 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         slug: "business-term-loan",
       },
       {
-        if: "You invoice employers, schools or facilities for screening or occupational health work on 30-day terms",
-        means: "You delivered the service and paid the staff; the invoice pays on their cycle",
-        why: "Turns the business-to-business invoice into cash now, and approval leans on that payer's credit",
+        if: "You are opening a second location or buying out a retiring partner's share",
+        means: "One priced move that the operating account should not be asked to carry on its own.",
+        why: "One fixed monthly payment over a defined term, sized to the visits the new site or the bought share should add.",
+        slug: "business-term-loan",
+      },
+      {
+        if: "You invoice employers, schools or facilities for screening work on 30-day terms",
+        means: "The service is delivered and the staff are paid; the invoice pays on their cycle.",
+        why: "Turns the business-to-business invoice into cash now, and approval leans on that payer's credit.",
         slug: "invoice-factoring-tool",
       },
       {
-        if: "Most of your revenue is patient card payments, and the settlement lags the supply order",
+        if: "Most of your revenue is patient card payments, and the supply order is due",
         means: "The money exists, it has not posted yet.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so use it when the timing is the whole problem.",
+        why: "For a short, urgent gap only: it costs more than a line of credit, so use it when timing is the whole problem.",
         slug: "merchant-cash-advance",
       },
       {
@@ -592,11 +592,15 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     faqs: [
       {
         q: "What can a medical or dental practice use funding for?",
-        a: "Payroll and supplies while claims are processing, equipment and hardware, a build-out or second location, and the cost of a new provider before their paneling completes. Falcon does not restrict the use of proceeds to one category.",
+        a: "Payroll and supplies while claims are processing, equipment and front-desk hardware, a build-out or second location, and the cost of a new provider before their paneling completes. Falcon does not restrict the use of proceeds to one category.",
+      },
+      {
+        q: "Can funding cover a build-out or a second location?",
+        a: "Yes, as one priced move on a fixed term with a fixed end date. A build-out, a second site or buying a retiring partner's share are all costs you can put a number on before you start, which is what a term loan is for.",
       },
       {
         q: "How much can a practice borrow?",
-        a: "$5,000 to $2,000,000 depending on the product. A line of credit runs $10,000 – $500,000, an equipment loan $10,000 – $1,000,000, and a term loan $10,000 – $2,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
+        a: "The products run from $5,000 to $2,000,000 depending on which one you use: a line of credit up to $500,000, an equipment loan to $1,000,000, and a term loan to $2,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
       },
       {
         q: "Can a practice borrow against insurance receivables?",
@@ -632,50 +636,44 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situations: [
       {
         if: "You won the bid and have to buy materials and staff up before the first draw",
-        means: "Materials, labor and mobilization are paid before anyone releases a progress payment.",
-        why: "Draw the mobilization cost, repay it out of the first two draws, and keep the facility for the next award.",
+        means: "Materials, labor and mobilization are paid before anyone releases a progress payment",
+        why: "Draw the mobilization cost, repay it out of the first two draws, and keep the facility for the next award",
         slug: "business-line-of-credit",
       },
       {
         if: "The GC approved your pay app and will pay it in 45 days",
-        means: "The work is done and accepted; the money is a month and a half behind it.",
-        why: "Turns the approved invoice into cash now, and approval leans on the GC's credit rather than yours.",
+        means: "The work is done and accepted, and your supplier wants paying long before the GC does",
+        why: "Turns the approved invoice into cash now, and approval leans on the GC's credit rather than yours",
         slug: "invoice-factoring-tool",
       },
       {
         if: "Retainage holds a slice of every payment until closeout",
-        means: "You are carrying the job's last ten percent while paying for the next one.",
-        why: "Draw against what is being held, repay it when retainage releases at closeout.",
+        means: "You are carrying the last ten percent of a finished job while paying for the next one",
+        why: "Draw against what is being held and repay it when retainage releases at closeout",
         slug: "business-line-of-credit",
       },
       {
         if: "You rent the same machine on every job and the rental invoices are adding up",
-        means: "Repeat rental is a permanent cost where ownership would be a fixed term that ends.",
-        why: "The machine secures the loan, and the term is set against how many jobs it will work.",
+        means: "Repeat rental is a cost that never ends, where ownership would be a fixed term that does",
+        why: "The machine secures the loan and the term is set against how many jobs it will work",
         slug: "collateral-asset-loans",
       },
       {
-        if: "You are a sub billing a creditworthy GC, and your supplier wants paying on delivery",
-        means: "Your supplier's terms are shorter than your customer's.",
-        why: "The invoice you have already earned funds the materials for the next phase.",
-        slug: "invoice-factoring-tool",
+        if: "The change order is built and signed off on site, but it has not been papered yet",
+        means: "You have already paid the extra labor and material, and you cannot bill any of it until the paperwork catches up",
+        why: "A line of credit carries the extra cost until the change order becomes a billable invoice",
+        slug: "business-line-of-credit",
       },
       {
         if: "You want to buy the shop, the yard or the office at a known price",
-        means: "A one-time purchase that your working capital should not absorb.",
-        why: "One fixed monthly payment over a defined term, sized to the overhead it replaces.",
+        means: "A one-time purchase your working capital should not have to absorb",
+        why: "One fixed monthly payment over a defined term, sized to the overhead it replaces",
         slug: "business-term-loan",
       },
       {
-        if: "A homeowner or a small commercial client pays by card and the next phase starts Monday",
-        means: "The deposit is in the processor's account, not yours.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so it fits a one-off timing problem.",
-        slug: "merchant-cash-advance",
-      },
-      {
         if: "Two advances from last season still come out of every draw",
-        means: "Stacked payments are how a profitable job turns into a thin one.",
-        why: "Pays off the positions you have and rolls them into one payment sized to your deposits.",
+        means: "Stacked payments are how a profitable job turns into a thin one",
+        why: "Pays off the positions you have and rolls them into one payment sized to your deposits",
         slug: "consolidation-of-positions",
       },
     ],
@@ -706,7 +704,7 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     faqs: [
       {
         q: "What can a contractor use funding for?",
-        a: "Materials, mobilization, payroll between draws, equipment, and the wait on an approved pay app. Falcon does not restrict the use of proceeds to one category.",
+        a: "Materials, mobilization, payroll between draws, equipment, a change order you have built but not papered, and the wait on an approved pay app. Falcon does not restrict the use of proceeds to one category.",
       },
       {
         q: "Can subcontractors factor invoices from general contractors?",
@@ -714,7 +712,7 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
       },
       {
         q: "How much can a contractor borrow?",
-        a: "$5,000 to $3,000,000 depending on the product. Factoring runs $10,000 – $3,000,000, an equipment loan $10,000 – $1,000,000, and a line of credit $10,000 – $500,000. The final number depends on your deposits, your time in business and your customers' credit.",
+        a: "$10,000 to $3,000,000 depending on the product. Factoring runs $10,000 – $3,000,000, an equipment loan $10,000 – $1,000,000, and a line of credit $10,000 – $500,000. The final number depends on your deposits, your time in business and your customers' credit.",
       },
       {
         q: "Is a line of credit or a term loan better for a contractor?",
@@ -746,50 +744,50 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situations: [
       {
         if: "The Q4 purchase order is due in July and the cash comes back in December",
-        means: "The biggest order of the year is paid for in the year's tightest month.",
-        why: "Draw for the purchase order and repay it down through the season, instead of tying up the whole reserve at once.",
+        means: "The biggest order of the year is paid for in the year's tightest month",
+        why: "Draw for the purchase order and repay it down through the season, instead of tying up the whole reserve at once",
         slug: "business-line-of-credit",
       },
       {
         if: "A best seller is about to stock out and the reorder takes six weeks",
-        means: "You know this SKU turns; the money to reorder it is the only thing in the way.",
-        why: "The fastest product to fund, and repayment follows sales — which suits a short, high-turn reorder rather than a seasonal buy.",
+        means: "You know this SKU turns, and the money to reorder it is the only thing in the way",
+        why: "The fastest product to fund, and repayment follows sales, which suits a short, high-turn reorder",
         slug: "merchant-cash-advance",
       },
       {
         if: "The marketplace settles on its own schedule and your supplier does not",
-        means: "Revenue is earned and confirmed; the payout lands days or weeks later.",
-        why: "Bridges the settlement window and gets repaid the moment the payout posts.",
+        means: "Revenue is earned and confirmed, and the payout lands days or weeks later",
+        why: "Bridges the settlement window and is repaid the moment the payout posts",
         slug: "business-line-of-credit",
       },
       {
         if: "Ad spend is billed weekly while the revenue it drives settles later",
-        means: "You pay for demand before you collect on it.",
-        why: "Only if you already know your return on ad spend — the advance is repaid whether the campaign works or not.",
+        means: "You pay for demand before you collect on it",
+        why: "Only if you already know what a dollar of ad spend returns, because the advance is repaid whether the campaign works or not",
         slug: "merchant-cash-advance",
       },
       {
-        if: "You are launching a new line: tooling, samples and a first production run",
-        means: "The whole launch is paid for before a single unit sells.",
-        why: "One fixed monthly payment over a defined term, sized to what the line should sell, not to a single season.",
+        if: "You are launching a new line, and the tooling, samples and first run are all paid up front",
+        means: "The whole launch is paid for before a single unit sells",
+        why: "One fixed monthly payment over a defined term, sized to what the line should sell rather than to one season",
         slug: "business-term-loan",
       },
       {
-        if: "Your pick-and-pack line is manual and the volume is outgrowing it",
-        means: "A one-time purchase for conveyors, printers or a delivery van that a good month's margin cannot cover",
-        why: "The equipment secures the loan, and the term follows how long it stays in service",
-        slug: "collateral-asset-loans",
+        if: "The freight and duty bill lands with the container, weeks before the units sell",
+        means: "The landed cost of the stock arrives as one payment, on top of the purchase order you have already paid",
+        why: "A line of credit covers the landing cost and is repaid as the units sell through",
+        slug: "business-line-of-credit",
       },
       {
         if: "You also sell wholesale, and those retailers pay on 30 or 60 day terms",
-        means: "The wholesale order ships now and pays a season later.",
-        why: "Turns the business-to-business invoice into cash and leaves the consumer side of the business untouched.",
+        means: "The wholesale order ships now and pays a season later",
+        why: "Turns the business-to-business invoice into cash and leaves the consumer side of the business untouched",
         slug: "invoice-factoring-tool",
       },
       {
         if: "Two advances taken before last Q4 still come out of every payout",
-        means: "Stacked payments can turn a record month into a cash-tight one.",
-        why: "Pays off the positions you have and rolls them into one payment sized to your deposits.",
+        means: "Stacked payments can turn a record month into a cash-tight one",
+        why: "Pays off the positions you have and rolls them into one payment sized to your deposits",
         slug: "consolidation-of-positions",
       },
     ],
@@ -820,11 +818,15 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     faqs: [
       {
         q: "What can an online store use funding for?",
-        a: "Inventory and purchase orders, ad spend, fulfilment and warehousing, a new product line, and the wait between a sale and a payout. Falcon does not restrict the use of proceeds to one category.",
+        a: "Inventory and purchase orders, freight and duty on landed stock, ad spend, fulfilment and warehousing, a new product line, and the wait between a sale and a payout. Falcon does not restrict the use of proceeds to one category.",
       },
       {
         q: "Do I need a physical location?",
         a: "No. Underwriting focuses on deposits, sales history and time in business. A home office and a 3PL address are normal.",
+      },
+      {
+        q: "Can I fund a purchase order before the stock ships?",
+        a: "A line of credit is how a purchase order usually gets paid, because the draw happens before the stock exists. Factoring works off an invoice for goods already delivered, so it does not fit a PO you have just placed.",
       },
       {
         q: "Is a sales-based advance a good idea for ad spend?",
@@ -860,50 +862,38 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situations: [
       {
         if: "You turn away work because you do not have a fourth lift",
-        means: "Every unfilled bay is billable hours you cannot sell, and a lift is a large up-front cost.",
-        why: "The lift secures the loan and a term spreads the cost over the years of billable hours it unlocks.",
+        means: "Every empty bay is billable hours you cannot sell, and the lift has to be paid for before the first car goes on it",
+        why: "The lift secures the loan and the term spreads its cost across the years of work the extra bay brings in",
         slug: "collateral-asset-loans",
       },
       {
         if: "Your scan tool cannot read the newest models, so the work goes down the street",
-        means: "Diagnostic platforms and calibration rigs are expensive and they date quickly.",
-        why: "Match a shorter term to equipment that will be replaced, rather than paying for it after it is obsolete.",
+        means: "Diagnostic platforms and calibration rigs cost real money and they date quickly",
+        why: "Match a shorter term to equipment that will be replaced rather than paying for it after it is obsolete",
         slug: "collateral-asset-loans",
       },
       {
         if: "Parts are paid for before the customer pays, and the techs are paid every Friday",
-        means: "One slow week of collections shows up immediately in the operating account.",
-        why: "Draw for the parts order, repay it when the tickets settle, and keep the facility for the next tight week.",
-        slug: "business-line-of-credit",
-      },
-      {
-        if: "A big fleet or insurance job lands before the customer pays for it",
-        means: "You are carrying the parts and labor on the biggest ticket of the month.",
-        why: "One draw covers the job and is repaid out of the single payment that follows.",
+        means: "One slow week of collections shows up in the operating account, and a single big job can put a month of parts on the same statement",
+        why: "Draw for the parts order or the big job, repay it when the tickets settle, and keep the facility for the next tight week",
         slug: "business-line-of-credit",
       },
       {
         if: "A fleet account pays you on 30-day terms",
-        means: "The work is done and invoiced, and the fleet's payment cycle is not yours.",
-        why: "Turns the fleet invoice into cash now, and approval leans on the account's credit.",
+        means: "The work is done and invoiced, and the fleet's payment cycle is not yours",
+        why: "Turns the fleet invoice into cash now, and approval leans on the account's credit rather than yours",
         slug: "invoice-factoring-tool",
       },
       {
         if: "You want to add a bay, and the permits, concrete and equipment are a fixed number",
-        means: "A construction project priced once, paid before the extra hours start.",
-        why: "One fixed monthly payment over a defined term, sized to the additional tickets the bay produces.",
+        means: "A project priced once and paid for before the extra hours start",
+        why: "One fixed monthly payment over a defined term, sized to the tickets the new bay produces",
         slug: "business-term-loan",
       },
       {
-        if: "Retail customers pay by card and a repair cannot wait for settlement",
-        means: "The car is on the lift and the parts bill is due now.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so it fits an emergency, not the weekly parts order.",
-        slug: "merchant-cash-advance",
-      },
-      {
         if: "Two advances taken on when you opened still come out of every deposit",
-        means: "Stacked payments hold back the month the shop finally has a full book.",
-        why: "Pays off the positions you have and rolls them into one payment sized to your deposits.",
+        means: "Stacked payments hold back the month the shop finally has a full book",
+        why: "Pays off the positions you have and rolls them into one payment sized to your deposits",
         slug: "consolidation-of-positions",
       },
     ],
@@ -938,11 +928,7 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
       },
       {
         q: "Can I finance used shop equipment?",
-        a: "Bring a quote or invoice for the specific unit and your specialist will confirm whether it qualifies. Used equipment is normal in this trade, so the quote matters more than the age.",
-      },
-      {
-        q: "Should I lease or finance diagnostic tools?",
-        a: "If the tool is likely to be outdated in a few years, a shorter term keeps you from paying for it after it stops earning. Match the term to how long you will actually use it, not to the longest term offered.",
+        a: "Bring a quote or invoice for the specific unit and your specialist will confirm whether it qualifies, including what is needed if the machine still carries a lien. Used equipment is normal in this trade, so the quote matters more than the age.",
       },
       {
         q: "Do body shops and mobile mechanics qualify?",
@@ -973,39 +959,27 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your shop right now?",
     situations: [
       {
-        if: "A customer pays you 60 days after delivery, but the mill has to be paid on order",
-        means: "Raw material is paid weeks before the finished goods are even invoiced.",
-        why: "The invoices you have already earned become the cash that funds the next run, and approval leans on your customer's credit.",
+        if: "A customer pays 60 days after delivery, but the mill and the anodizer want paying on order",
+        means: "Raw material and outside processing are paid weeks before the finished parts are invoiced.",
+        why: "The invoices you have already earned become the cash for the next run, so a bigger order does not need a bigger balance sheet.",
         slug: "invoice-factoring-tool",
       },
       {
-        if: "One purchase order is larger than your entire materials budget",
-        means: "You can win the order and still not be able to buy the stock for it.",
-        why: "Factoring funds the next order from the last one, so a shop with steady invoices can take a step-up in volume.",
-        slug: "invoice-factoring-tool",
-      },
-      {
-        if: "Material prices are favorable this month and buying ahead would hold your margin",
+        if: "Your material price is good this month and buying ahead would hold the margin",
         means: "The saving is real only if the cash is on hand while the price holds.",
-        why: "Draw for the buy, repay as the material converts to shipped product, and keep the facility for the next window.",
+        why: "Draw for the buy, repay as the material turns into shipped product, and keep the facility open for the next window.",
         slug: "business-line-of-credit",
       },
       {
-        if: "You turn away work because one machine is the bottleneck",
-        means: "A new CNC, press or packaging line unlocks orders you currently decline.",
-        why: "The machine secures the loan, and the term is set against the years it will run.",
+        if: "You turn away work because the bottleneck is a machine, a forklift or the racking",
+        means: "Throughput stalls before the order book does, and the fix is a capital purchase rather than another hire.",
+        why: "The machine or the material handling secures the loan, and the term is set against the years it will run.",
         slug: "collateral-asset-loans",
       },
       {
-        if: "Forklifts, racking and material handling are the constraint, not the machines",
-        means: "Throughput stalls in the aisles, and the fix is a capital purchase, not more staff.",
-        why: "Material-handling equipment can sit in the same secured loan as production machinery, in one close.",
-        slug: "collateral-asset-loans",
-      },
-      {
-        if: "You are fitting out a line or a facility with a budget you already know",
-        means: "Installation, power and commissioning all land before the first saleable unit.",
-        why: "One fixed monthly payment over a defined term, sized to the capacity the line adds.",
+        if: "You are fitting out a line or moving to a bigger unit on a budget you already know",
+        means: "Rigging, power, air and commissioning all land before the first saleable part.",
+        why: "One fixed payment over a defined term, sized to the capacity the line adds.",
         slug: "business-term-loan",
       },
       {
@@ -1013,6 +987,12 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         means: "Labor scales in week one; the revenue against it scales over the quarter.",
         why: "Draw for the ramp and repay it as the contract invoices clear, rather than carrying it on the operating account.",
         slug: "business-line-of-credit",
+      },
+      {
+        if: "A customer's program needs tooling, dies or fixtures built before you ship the first part",
+        means: "The tooling is paid for up front and earned back over the life of the program.",
+        why: "A fixed term spreads that cost across the months the program pays it back, instead of one quarter absorbing it.",
+        slug: "business-term-loan",
       },
       {
         if: "Two advances from last year still come out of every deposit",
@@ -1048,15 +1028,19 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     faqs: [
       {
         q: "What can a manufacturer use funding for?",
-        a: "Raw materials and components, machine capacity, material handling, a fit-out, and the time between delivery and payment. Falcon does not restrict the use of proceeds to one category.",
+        a: "Raw materials and components, machine capacity, material handling, a fit-out, tooling, and the time between delivery and payment. Falcon does not restrict the use of proceeds to one category.",
       },
       {
         q: "Can I get funding for a single big purchase order?",
-        a: "Factoring works on invoices you have already issued, so it funds the next order from the last one. For a first or one-off order, a term loan or a line of credit is usually the better fit — ask which applies to your file.",
+        a: "Factoring works on invoices you have already issued, so it funds the next order from the last one. For a first or one-off order, a term loan or a line of credit is usually the better fit, so ask your specialist which one applies to your file.",
       },
       {
         q: "Does equipment financing cover installation?",
         a: "It depends how the vendor quote is written. Send the quote with installation and commissioning itemised and your specialist can tell you what is covered.",
+      },
+      {
+        q: "Can I finance a used machine?",
+        a: "Ask before you commit to one. What is already financed against the machine and how the seller quotes it both change the answer, so send the quote and the machine's details to your specialist first.",
       },
       {
         q: "What do factors look at?",
@@ -1088,45 +1072,33 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situations: [
       {
         if: "Payroll runs twice a month and clients pay when their process allows",
-        means: "Your biggest cost is on a fixed clock; your income is not.",
-        why: "Draw across the gap and repay when the invoices clear, rather than holding a cash cushion that never gets used.",
+        means: "Your biggest cost is on a fixed clock, your income is not, and the gap widens in the weeks between one engagement and the next.",
+        why: "Draw across the gap and repay it when the invoices clear, rather than holding a cushion that sits unused in a good month.",
         slug: "business-line-of-credit",
       },
       {
-        if: "A large engagement ended and the next retainer has not started",
-        means: "The team is still on payroll through a revenue hole that everyone can see coming.",
-        why: "One draw covers the bridge months and is repaid from the next engagement, so the decision is not made in a panic.",
-        slug: "business-line-of-credit",
-      },
-      {
-        if: "You pay media, vendors or contractors before the client reimburses you",
+        if: "You pay media, experts or contractors before the client reimburses you",
         means: "Pass-through cost sits on your balance sheet for 30 to 60 days.",
-        why: "The approved invoice becomes cash now, and approval leans on the client's credit rather than on yours.",
+        why: "The approved invoice becomes cash now, and the decision leans on the client's credit rather than yours.",
         slug: "invoice-factoring-tool",
       },
       {
-        if: "You are hiring ahead of a contract that has been signed but not invoiced",
+        if: "You are hiring ahead of a contract that is signed but not yet invoiced",
         means: "Salaries start on the first; the engagement starts billing in month two or three.",
-        why: "A fixed payment sized to the contract bridges the ramp and then stops being a cost.",
+        why: "A fixed payment sized to the contract carries the ramp and then stops being a cost.",
         slug: "business-term-loan",
       },
       {
         if: "You are buying a smaller firm or a book of clients",
         means: "The purchase price is due at closing; the fees from those clients arrive monthly afterwards.",
-        why: "An amortising term turns a lump-sum acquisition into a payment the acquired revenue covers.",
+        why: "An amortising term turns a lump sum into a payment the acquired revenue covers.",
         slug: "business-term-loan",
       },
       {
-        if: "A second office or a new practice area needs fit-out and hardware",
-        means: "Desks, rooms and equipment are paid for before the first invoice goes out.",
+        if: "A second office or a new practice area needs fit-out, desks and hardware",
+        means: "The rooms and equipment are paid for before the first invoice goes out.",
         why: "The fit-out and hardware can be financed as assets instead of drained from working capital.",
         slug: "collateral-asset-loans",
-      },
-      {
-        if: "A client's payment is late by weeks and the pay run cannot wait",
-        means: "One late payer should not become a payroll problem.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so it fits a one-off timing failure, not a habit.",
-        slug: "merchant-cash-advance",
       },
       {
         if: "Two advances taken on in a slow quarter still come out of every deposit",
@@ -1165,16 +1137,20 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         a: "Yes. Underwriting relies on revenue, deposits, receivables and time in business rather than on hard assets. A firm with clean bank statements and recurring client payments is a normal file.",
       },
       {
+        q: "How much can a firm borrow?",
+        a: "The products run from $10,000 to $3,000,000 depending on which one you use: a line of credit up to $500,000, a term loan to $2,000,000, and factoring to $3,000,000. The final number depends on deposits, time in business and the credit of the clients you invoice.",
+      },
+      {
         q: "Can a law firm use factoring?",
-        a: "Business-to-business invoices are the usual fit. Contingency fees and consumer billing generally are not factorable invoices, so ask your specialist before assuming a case will fund.",
+        a: "Business-to-business invoices are the usual fit. Contingency fees and consumer billing work differently, so ask your specialist before you assume a case will fund.",
       },
       {
         q: "Line of credit or factoring?",
         a: "A line is simpler if the gaps are short and you want one facility for everything. Factoring scales further when you have large invoices to creditworthy clients, especially where you are carrying pass-through cost.",
       },
       {
-        q: "How much can a firm borrow?",
-        a: "$5,000 to $3,000,000 depending on the product. A line of credit runs $10,000 – $500,000, a term loan $10,000 – $2,000,000, and factoring $10,000 – $3,000,000. The final number depends on deposits, time in business and your clients' credit.",
+        q: "Can I get funding on work I have not invoiced yet?",
+        a: "Factoring works from an issued invoice, so delivered work that has not been billed does not fund that way. A line of credit covers the weeks between finishing the work and billing it, and you repay it when the invoice clears.",
       },
       {
         q: "How fast can funding land before a pay run?",
@@ -1201,49 +1177,43 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your school right now?",
     situations: [
       {
-        if: "Tuition lands in September, but rent and staff are paid through July and August",
-        means: "The school year sets the revenue calendar; the cost calendar ignores it.",
-        why: "Draw across the summer and repay it out of fall enrollment, instead of holding a reserve that sits idle all year.",
+        if: "Tuition lands at the start of term, but rent and payroll run all summer",
+        means: "The staff who make the fall term possible are a fixed cost in the months that pay least.",
+        why: "Draw across the gap and repay it out of fall enrollment, instead of holding a reserve that sits idle the rest of the year.",
         slug: "business-line-of-credit",
       },
       {
-        if: "Summer term revenue drops and the staff you keep are on payroll anyway",
-        means: "The people who make the fall term possible are a fixed cost in the months that pay least.",
-        why: "One draw covers the bridge and is repaid when the autumn fees land.",
-        slug: "business-line-of-credit",
-      },
-      {
-        if: "Licensing requires classroom, restroom or playground upgrades before you can take more children",
-        means: "The work has to be finished before enrollment can rise, so the cost lands first.",
-        why: "One fixed monthly payment over a defined term, sized to the places the upgrade adds.",
+        if: "Licensing requires the restroom, kitchen or playground fixed before you can take more children",
+        means: "The work has to be finished and inspected before one new place can be filled.",
+        why: "One fixed payment sized to the places the upgrade adds, worked back from the date the license has to be signed off.",
         slug: "business-term-loan",
       },
       {
-        if: "You are opening a second site or adding an infant room",
-        means: "Build-out, deposits, equipment and staff all arrive before the first new family does.",
+        if: "You are adding an infant room or opening a second site",
+        means: "Build-out, deposits, equipment and new staff all arrive before the first new family does.",
         why: "A known budget on a fixed term, with an end date you can plan the enrollment ramp against.",
         slug: "business-term-loan",
       },
       {
-        if: "You need a van or bus, classroom technology or new playground equipment",
+        if: "You need a van, classroom technology or new playground equipment",
         means: "A one-time purchase that a single term's surplus cannot absorb.",
         why: "The vehicle or equipment secures the loan, and the term matches how long it stays in service.",
         slug: "collateral-asset-loans",
       },
       {
-        if: "A corporate client books a training program and pays on 30-day terms",
-        means: "You deliver the program now, and the invoice pays after the client's cycle.",
-        why: "Turns the business invoice into cash, and approval leans on the client's credit rather than yours.",
+        if: "A company books a training program and pays on 30-day terms",
+        means: "You deliver the program now, and the invoice pays after the client's own close.",
+        why: "The approved invoice becomes cash, and the decision leans on the client's credit rather than yours.",
         slug: "invoice-factoring-tool",
       },
       {
-        if: "Families pay tuition by card and the term's costs land before the settlement does",
-        means: "The money is in the processor's account, not the school's, and payroll is Friday.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, so it fits a one-off timing problem.",
-        slug: "merchant-cash-advance",
+        if: "You bill the state for subsidized places and get paid after the month is served",
+        means: "The children are in the room and the staff are paid while the reimbursement is still in the pipeline.",
+        why: "Draw against that gap and repay it when the state pays, so a subsidy-heavy roll does not empty the operating account.",
+        slug: "business-line-of-credit",
       },
       {
-        if: "Two advances taken on during a build-out still come out of every deposit",
+        if: "Two advances taken on during a build-out still come out of every tuition deposit",
         means: "Stacked payments turn a full enrollment into a tight cash month.",
         why: "Pays off the positions you have and rolls them into one payment sized to your deposits.",
         slug: "consolidation-of-positions",
@@ -1279,20 +1249,24 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         a: "Summer and holiday gaps, licensing and classroom upgrades, a second site, staff ahead of enrollment, vehicles, technology and playground equipment. Falcon does not restrict the use of proceeds to one category.",
       },
       {
+        q: "How much can a school or center borrow?",
+        a: "The products run from $10,000 to $2,000,000 depending on which one you use: a line of credit up to $500,000, an equipment loan to $1,000,000, and a term loan to $2,000,000. The final number depends on tuition and subsidy deposits, time in business and, for a term loan, credit.",
+      },
+      {
         q: "Can a daycare get a business loan?",
-        a: "A for-profit childcare center can qualify on revenue, deposits and time in business. Nonprofit centers should raise their status with a specialist first, because the products are business loans.",
+        a: "A for-profit center can qualify on enrollment revenue, deposits and time in business. If your center is a nonprofit, tell your specialist how it is structured before you apply, because that decides which entity borrows.",
       },
       {
         q: "Can a new center qualify?",
-        a: "Most products ask for 6+ months in business, and the merchant cash advance starts at 3+ months. A center that has not opened yet is usually better served by the owner's own capital or a partner, not by this kind of debt.",
+        a: "Most products ask for 6+ months in business, and the merchant cash advance starts at 3+ months. A center that has not opened yet is usually better served by the owner's own capital or a partner than by this kind of debt.",
       },
       {
-        q: "How much can a school borrow?",
-        a: "$5,000 to $2,000,000 depending on the product. A line of credit runs $10,000 – $500,000, a term loan $10,000 – $2,000,000, and an asset loan $10,000 – $1,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
+        q: "Does a center have to own its building to qualify?",
+        a: "No. Most decisions rest on enrollment revenue, deposits and time in business rather than on property you own, and a leased space is the normal case for a center.",
       },
       {
-        q: "How fast can funding land before a term starts?",
-        a: "Many products fund within 24-48 hours of approval. Work backwards from the date the upgrade has to be finished, because licensing work rarely runs on the lender's timetable.",
+        q: "Do thin summer bank statements count against my application?",
+        a: "A summer dip is normal for a center, but how it reads depends on the file. Ask your specialist before you send statements, and say plainly which months are the term break.",
       },
       {
         q: "What does it cost?",
@@ -1315,33 +1289,27 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
     situationsHeading: "Which funding fits your property right now?",
     situations: [
       {
-        if: "Peak season carries the year, and the off-season overhead still comes due",
-        means: "Four months of revenue have to cover twelve months of fixed cost.",
+        if: "Four months of revenue have to cover twelve months of fixed cost",
+        means: "The off-season overhead comes due whether or not there are guests.",
         why: "Draw through the quiet months and repay from the peak, instead of holding a reserve that earns nothing all year.",
         slug: "business-line-of-credit",
       },
       {
         if: "You pay hotel blocks, transport and guides before travellers pay you in full",
         means: "Deposits leave the account months before the trip runs.",
-        why: "One draw covers the deposits and is repaid as final payments land, season after season.",
+        why: "One draw covers the deposits and is repaid as the final payments land, season after season.",
         slug: "business-line-of-credit",
       },
       {
-        if: "Beds, linens, furniture and in-room technology need replacing before peak",
-        means: "A refresh priced this month pays for itself over the seasons that follow, not this one.",
-        why: "The furniture and equipment secure the loan and the term follows how long they stay in service.",
-        slug: "collateral-asset-loans",
-      },
-      {
-        if: "An HVAC, lift or plumbing failure takes rooms offline in your busiest weeks",
-        means: "Every offline room is lost revenue, and the repair is paid in full.",
-        why: "The replacement unit is financed against its own service life, so the repair does not drain the season's reserve.",
+        if: "Beds, linens, kitchen equipment or the HVAC need replacing before or during peak",
+        means: "Either a planned refresh or a failure that takes rooms offline in your busiest weeks.",
+        why: "The asset secures the loan and the term follows its service life, so a boiler is spread over years and a short-lived unit over fewer.",
         slug: "collateral-asset-loans",
       },
       {
         if: "Most bookings are card payments and a supplier wants paying this week",
         means: "The money is booked and paid; the settlement has not landed.",
-        why: "For a short, urgent gap only — it costs more than a line of credit, and the off-season is when it hurts most.",
+        why: "For a short, urgent gap only: it costs more than a line of credit, and the off-season is when that costs the most.",
         slug: "merchant-cash-advance",
       },
       {
@@ -1351,9 +1319,9 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
         slug: "business-term-loan",
       },
       {
-        if: "Corporate accounts and travel agents book on 30-day invoice terms",
+        if: "Corporate accounts and travel agents book on invoice terms",
         means: "The stay happened last month; the payment is on their cycle.",
-        why: "Turns the business invoice into cash now, and approval leans on the account's credit.",
+        why: "Turns the business invoice into cash now, with approval leaning on the account's credit rather than yours.",
         slug: "invoice-factoring-tool",
       },
       {
@@ -1394,11 +1362,15 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
       },
       {
         q: "Can a seasonal business qualify?",
-        a: "Yes. Underwriters read deposits over time, so expect them to see the pattern — a strong peak and a quiet winter is normal for this sector. Explain the season up front rather than letting a quiet month look like a decline.",
+        a: "Yes. Underwriters read deposits over time, so expect them to see the pattern: a strong peak and a quiet winter is normal in this sector. Explain the season up front rather than letting a quiet month read as a decline.",
       },
       {
         q: "What is FF&E financing?",
-        a: "Furniture, fixtures and equipment — beds, linens, seating, kitchen equipment and in-room technology. With a vendor quote these sit inside Collateral & Asset Loans, on a term matched to their service life.",
+        a: "Furniture, fixtures and equipment: beds, linens, seating, kitchen equipment and in-room technology. With a vendor quote these sit inside Collateral & Asset Loans, on a term matched to how long the items stay in service.",
+      },
+      {
+        q: "Can I finance a renovation or added rooms?",
+        a: "Yes, when the build cost is a number you already have. That is a term loan: one fixed payment over a defined term, sized to the room nights the work should add, rather than a draw you repay as sales come in.",
       },
       {
         q: "Is an advance a good idea in the off-season?",
@@ -1406,7 +1378,7 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
       },
       {
         q: "How much can a property borrow?",
-        a: "$5,000 to $5,000,000 depending on the product. A line of credit runs $10,000 – $500,000, an asset loan $10,000 – $1,000,000, and an advance $5,000 – $5,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
+        a: "The products run from $5,000 to $5,000,000 depending on which one you use: a line of credit up to $500,000, an asset loan to $1,000,000, and an advance to $5,000,000. The final number depends on deposits, time in business and, for a term loan, credit.",
       },
       {
         q: "What does it cost?",

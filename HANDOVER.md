@@ -7,6 +7,7 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 - Branch `cursor/falcon-astro-site-e383` (PR #1). Never merge PR #1. Preview: https://deploy-preview-1--falcon-equity-site.netlify.app/
 - **Production stays out of search until launch (2026-10-23).** `falconequity.ai` is still served by **Webflow** (Cloudflare → `cdn.webflow.com`, `x-wf-region` response header); this repo is not attached to that domain, and `falcon-equity-site.netlify.app` returned **404** — no production deploy has ever been published (`main` is one "Initial commit" with 1 file, 300 commits behind this branch). `netlify.toml` now sets `X-Robots-Tag: noindex, nofollow` on `context.production` as well as deploy-preview and branch-deploy. **Delete that block in the same commit that points DNS at Netlify**, or the new site ships invisible to search.
 - **The twelve industry pages are committed (2026-10-23, `a068863` + `31a5ccc` + `6dd66eb`).** Verified from the built `dist/` rather than from this file: 21 pages build, all 12 `dist/industries/*.html` ~80.5 KB with exactly one `<h1>`, no `http-equiv="refresh"`, every slug in `sitemap-0.xml`, and each page carrying 8 situations / 3 product cards / 7 FAQs. `npm run check`: 0 errors, 0 warnings, 4 hints.
+- **Situations and FAQs are now per-industry, not eight-and-seven (2026-10-23). Ling's instruction: "they don't have to have the same number of items … add or delete, split or merge." The Notion notes were rewritten first (Sections 2 and 5 only), then `industry-pages.ts` was regenerated to match.** Counts now run **6–8 situations and 6–8 FAQs**; retail is untouched at 8/7 because that page was approved directly. Standing rulings from this pass: every page keeps a *how much can … borrow* FAQ (the drafters wanted to drop it as a duplicate of the product-card specs; it stays because it is the highest-intent query and what the FAQ schema surfaces), and every advance row carries the "costs more than a line of credit" caution. Verified: 60 combos (12 pages × 390/768/1024/1440/1920) with every accordion open, zero horizontal overflow, situation and FAQ counts matching the data file, and FAQ schema question count equal to the FAQ count on every page.
 - The home page (`/`) is approved and frozen except the approved Apply-button size match (default `.button-040` is now the nav desktop size: 1.0625rem / 3em / 1.25em), the SiteCta top-pad cut (96 / 86 / 58 / 48), the site-wide BXCI hide-on-scroll nav, heading→content on Services / News / Sectors now using `--space-head-to-content` (72 / 72 / 96 / 104), and the home review round of 2026-10-22 below, plus the mobile type round of 2026-10-22 (`137fcbd`: hero H1 48/48, subtitle 20/30, Insights h3 25/36, Insights eyebrow→H2 40px below 48em). `/apply` stays as it is.
 - Home review round (Ling asked for it, 2026-10-22, commit `3c42a69`) — **approved, do not revert**:
   - Testimonial quote (`.pilot-ann-title p`, home only): `1.5rem` / 24px below 48em, i.e. 25% less than the old 2rem / 32px. The 48em / 80em / 90em overrides are deliberately unchanged, so desktop still reads 2.5rem / 2rem / 2.5rem.
@@ -446,3 +447,37 @@ Ling: "I like the card being light lilac so it's different from dropdown white c
 - Corners stay square: every other surface in this header and the panel's own geometry is square, and the site reserves pills for buttons. Flag it if Ling wants a radius.
 - `tests/nav.spec.mjs`: `WIDGET_LIGHT.bg` -> rgb(229,228,242), `WIDGET_DARK.bg` -> rgb(40,33,62), both gained a `line` expectation, and `widgetPasses` now asserts the 1px border colour as part of the colour check.
 - Known tonal note: the pale service renders (sphere-on-steps, node tree) sit close in value to the lilac card in light mode. If Ling wants a stronger image, swap `widget.image` for a deeper render (`collateral-asset-loans` is the deepest in the set).
+
+
+## Session 2026-10-23 — situations and FAQs tailored per industry
+
+**Ling:** "For each industry situation and faq sections, they don't have to have the same number of items. Do what's necessary for the industry. Can you go back to notion note and start to add or delete, split or merge?" Then: "After that, reflect the changes on page build."
+
+**What was wrong.** All eleven notes carried the same template: 8 situations, 7 FAQs. It was not a copy decision — it was the outline's shape. Two of the seven FAQ rows ("What does it cost?", "What do I need to apply?") were word-for-word identical on every page, and several situation rows described the same mechanic twice (two line-of-credit rows, two equipment rows).
+
+**Order of work, and why it matters for the next session.** The Notion note is the contract, so the notes were edited first (`Section 2` and `Section 5` only — hero, product cards, blog ids and headings untouched), and `src/data/industry-pages.ts` was regenerated from the same drafts. Both now come from one source per page, and they agree. Snapshots of every note before the rewrite are in `~/Desktop/hermes-output/falcon-industries/notion-before/<slug>.txt`, with the drafts and the scripts one directory up.
+
+**Counts after the pass**
+
+| page | situations | FAQs |
+|---|---|---|
+| `auto-services` | 6 | 6 |
+| `construction` | 7 | 7 |
+| `e-commerce` | 8 | 8 |
+| `education` | 7 | 8 |
+| `healthcare` | 8 | 8 |
+| `manufacturing` | 7 | 8 |
+| `professional-services` | 6 | 8 |
+| `real-estate` | 7 | 8 |
+| `restaurants-food-service` | 7 | 8 |
+| `transportation-logistics` | 8 | 8 |
+| `travel-hospitality` | 7 | 8 |
+| `retail` | 8 | 7 |
+
+Retail is unchanged: that page was approved on its own, and its copy was transcribed from the shipped page rather than from a note.
+
+**The shape of the edits.** Merges where two rows were one mechanic: auto-services (parts-and-payroll + big fleet job), construction (approved pay app + sub billing a GC), manufacturing (invoicing + buying materials ahead; machine bottleneck + racking), restaurants (walk-in failure + hood/range inspection), travel-hospitality (FF&E refresh + HVAC failure), professional-services (payroll gap + contractor reimbursement), real-estate (two commission-gap rows). Splits and deletions where a row only existed because the template had room — the merchant cash advance row went from auto-services, construction, e-commerce, education and professional-services, because on those pages the advance is not one of the three products and the gap it answered was a few days of settlement. Additions the template had no place for: a construction change order that is built and signed but not papered, a state-subsidy reimbursement lag in education, freight and duty on a container in e-commerce, tooling and dies built for one customer's program in manufacturing, a second location or partner buy-out in healthcare, closing fallout after an inspection in real-estate, and the weekly-fuel-against-net-30 mismatch in transportation.
+
+**Two rulings applied over the drafts.** (1) "How much can … borrow?" stays on every page — the draft wanted it dropped on education, professional-services and real-estate as a duplicate of the product-card specs, but it is the highest-intent query in the vertical and the row the FAQ schema surfaces, so it was reinstated with answers built only from the specs those pages sell. (2) Every advance row keeps the "costs more than a line of credit" caution; the transportation rewrite had lost it.
+
+**Verification.** `npm run check` 0 errors / 0 warnings / 4 hints; `npm run build` 21 pages. Per page in the built HTML: situations and FAQ rows match `industry-pages.ts`, FAQ schema `Question` count equals the FAQ count, one `<h1>`, no meta-refresh stub. Overflow sweep with real Chrome (playwright-core, local preview) over 12 pages × 390/768/1024/1440/1920 = **60 combos with every accordion forced open: zero horizontal overflow, zero overflowing elements.** Also worth knowing for next time: another process already listens on port 4321 on this Mac (Claire's preview of the other checkout), so a local preview must be started on an explicit port or every measurement silently comes from the wrong tree.
