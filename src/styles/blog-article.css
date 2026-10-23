@@ -46,6 +46,15 @@
   align-items: start;
 }
 
+/* The rail stretches to the article's full height so its sticky inner can
+   travel while you read; with `align-items: start` it was only as tall as its
+   own content and never stuck. */
+@media (min-width: 80em) {
+  .art-rail {
+    align-self: stretch;
+  }
+}
+
 .art-main,
 .art-rail {
   grid-column: 1 / -1;
@@ -317,7 +326,6 @@
 
 .art-rail-meta {
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--color-line);
 }
 
 .art-rail-category {
