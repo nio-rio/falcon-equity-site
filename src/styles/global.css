@@ -489,3 +489,28 @@
     color: var(--color-muted);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   FAQ hover — the home Services list's behaviour, carried to every FAQ
+   accordion on the site (the service pages and the industry page use .mca-,
+   .loc- and .btl- prefixes for what is the same component).
+   Hovering the list settles it: every row drops to 36%, the hovered row stays
+   at 100% and holds its top rule at full ink, so exactly one strong line is
+   visible at a time. :focus-within gives keyboard users the same reading.
+   --------------------------------------------------------------------------- */
+@media (hover: hover) {
+  :is(.mca-faq-item, .loc-faq-item, .btl-faq-item) {
+    transition: opacity 0.3s ease;
+  }
+
+  :is(.mca-faq-list, .loc-faq-list, .btl-faq-list):is(:hover, :focus-within)
+    :is(.mca-faq-item, .loc-faq-item, .btl-faq-item) {
+    opacity: 0.36;
+  }
+
+  :is(.mca-faq-list, .loc-faq-list, .btl-faq-list):is(:hover, :focus-within)
+    :is(.mca-faq-item, .loc-faq-item, .btl-faq-item):is(:hover, :focus-within) {
+    opacity: 1;
+    border-top-color: var(--color-ink);
+  }
+}

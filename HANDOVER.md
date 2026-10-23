@@ -214,3 +214,25 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 **Gotcha:** the default `image-slot--labeled` placeholder is lilac, which on a dark card looks like a blown-out white rectangle. Override the surface (`rgb(255 255 255 / 6%)`) and add a 1px inset outline so the image area still reads as a placeholder.
 
 **QA:** build passes, `test:titles` passes, no horizontal overflow at 390/768/1024/1440/1920, six bands. Interaction verified over CDP: clicking pill 3 closes pill 1, `aria-expanded`/`aria-controls` correct on all eight, card height 1119 at 1440.
+
+
+## Session 2026-10-22 (latest) — "In short" deleted, section 3 rebuilt, FAQ hover made site-wide
+
+**Ling:** "no horizontal division line on the right. Now build it. And delete 'in short' section." Then: "The FAQ in service pages and this industry page is not fully there yet. I want home page 'services' section, each item's hovering effect (how non-hovering items dim down, how the top border stay 100% opacity). Please fix this global component. changes should reflect site-wide."
+
+**Section 2 is gone.** The Private-wealth band, its `answerLead` and `takeaways`, and every `.ret-pw-*` rule are deleted. The page is now five bands: header · what's your case · products · blog · FAQ (CTA comes from BaseLayout).
+
+**Section 3 is the comp she approved**, with the right column rule-free: FAQ-idiom accordion on the left (situation as the question, the cash line folded behind it), eyebrow + claim + product on the right (name, why, Range, Term, link). Opening a row reveals the folded line and swaps the product. Below 64em there is no right column, so the product travels inside the open row as `Product · range`.
+
+**Two layout traps fixed while building it:**
+1. `.ret-case-list` and `.ret-case` collided with dead rules from the deleted "three files in practice" band (`display:grid` + 3 tracks), which laid the list out as three columns. The retail stylesheet was rewritten from scratch — 9.7 KB instead of 26 KB, only the six classes the page uses.
+2. Wrapping head + product in one `.ret-case-side` column fixed the product being stranded mid-column, but auto-placement then pushed the list into row 2. Both children need explicit `grid-row: 1`.
+
+**FAQ hover, site-wide.** Ported from the home Services list (`PilotLinkList`: `.pilot-ll:is(:hover,:focus-within) .pilot-ll-row{opacity:.36}` + hovered row at 1). Implemented once in `global.css` against all three prefixes (`mca-`, `loc-`, `btl-faq-item`) because each service page carries its own clone of the same component. Hovering a list drops every row to 36%; the hovered row stays at 100% and its **top** rule goes to full ink.
+
+**Why the rule ownership changed:** the FAQ declared the line as `border-bottom` + `border-top` on `:first-child`, so a hovered row could never hold a solid line above it. All three stylesheets now put the line on the **top** edge (`border-top` on every item, `border-bottom` on `:last-child`) — visually identical at rest, and it gives the hover state the services-list reading. The retail case list got the same hover treatment for consistency.
+
+**QA, verified over CDP with forced pseudo-classes** (`CSS.forcePseudoState`; headless synthetic mouse moves do not set `:hover`, and headless reports `hover: none`, so `Emulation.setEmulatedMedia` is needed too):
+- retail FAQ, MCA FAQ, BLOC FAQ: hovered row `opacity: 1` with `border-top` at full ink; every other row `0.36` with a 40% rule.
+- retail case list: hovered row 1, others 0.36.
+- No horizontal overflow at 390/768/1024/1440/1920; five bands; `test:titles` passes.

@@ -1,23 +1,20 @@
 /* Retail industry page only (`/industries/retail`).
-   Rebuilt 22 Oct 2026 from the measured live library:
-   docs/section-library-live/LIBRARY.md + docs/retail-structure-plan-v2.md.
-   Every band below names the id it was built from. Layout geometry
-   (grid, pads, type sizes, band rhythm) comes from those measurements;
-   colour, typeface and components stay Falcon's. Do not touch home. */
+   Six bands, in order: hero · what's your case · products · blog · FAQ · CTA
+   (the CTA is the shared SiteCta from BaseLayout).
+   Geometry comes from measurements of the live pages named in
+   docs/retail-structure-plan-v3.md; colour, typeface and components stay
+   Falcon's. Products, blog and FAQ reuse the service pages' own classes from
+   mca.css — this file only sets their band padding.
+   Do not touch home. */
 
 /* ---------------------------------------------------------------------------
-   Band rhythm
-   Blackstone: 160px top+bottom on a theme change, 56px when the next band
-   shares the theme. Scaled to the site's inner-page rhythm: 80 / 96 / 144 / 160.
+   Band rhythm — Blackstone: 160px top and bottom on a theme change, scaled to
+   the site's inner-page rhythm 80 / 96 / 144 / 160.
    --------------------------------------------------------------------------- */
 .ret-hero,
 .ret-band {
   background: var(--color-white);
   color: var(--color-ink);
-}
-
-.ret-band--tint {
-  background: var(--color-lilac-light);
 }
 
 .ret-band--dark {
@@ -47,25 +44,7 @@
   }
 }
 
-/* Same-theme follower: Blackstone collapses the follower's top pad to 56px
-   when two bands share a theme. Used by Products, which follows the table. */
-.ret-band--stacked {
-  padding-top: 40px;
-}
-
-@media (min-width: 48em) {
-  .ret-band--stacked {
-    padding-top: 48px;
-  }
-}
-
-@media (min-width: 80em) {
-  .ret-band--stacked {
-    padding-top: 56px;
-  }
-}
-
-/* TF-00 page-header pad: 48 top / 120 bottom, scaled down on mobile. */
+/* Hero pad: 48 top / 120 bottom at desktop, scaled down. */
 .ret-hero {
   padding-block: 40px 64px;
 }
@@ -83,10 +62,9 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Grid — the measured Blackstone shell: 16 tracks of 64px inside 1264,
-   gutter 16px. 4 → 8 → 16 columns, exactly like `.mca-shell`.
-   Every child spans the full set unless a band says otherwise, so an
-   un-classed child can never be auto-placed into a single 64px track.
+   Grid — the measured shell: 16 tracks of 64px inside 1264, 16px gutter.
+   Every child spans the full set unless a band places it, so nothing can be
+   auto-placed into a single 64px track.
    --------------------------------------------------------------------------- */
 .ret-grid {
   box-sizing: border-box;
@@ -112,14 +90,12 @@
 @media (min-width: 80em) {
   .ret-grid {
     grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 16px;
     row-gap: 56px;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Type — measured 56/84/300 H1, 48/72/300 claim, 18/27/300 body,
-   14/21 label. Falcon families and tokens only.
+   Type — 56/84/300 H1, 18/27/300 body, 14/21 eyebrow. Falcon families only.
    --------------------------------------------------------------------------- */
 .ret-h1 {
   margin: 0;
@@ -133,17 +109,6 @@
   text-wrap: balance;
 }
 
-.ret-claim {
-  margin: 0;
-  max-width: 24ch;
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 300;
-  line-height: 1.25;
-  letter-spacing: normal;
-  text-wrap: balance;
-}
-
 .ret-body {
   margin: 0;
   font-family: var(--font-sans);
@@ -153,34 +118,11 @@
   letter-spacing: 0.32px;
 }
 
-.ret-body--sm {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  letter-spacing: normal;
-}
-
-.ret-label {
-  margin: 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: normal;
-}
-
 .ret-band .eyebrow {
   margin: 0 0 32px;
   font-size: 14px;
   line-height: 21px;
   letter-spacing: 1.12px;
-}
-
-.ret-band .eyebrow--line::after {
-  width: 48px;
-  height: 2px;
-  margin-left: 16px;
 }
 
 @media (min-width: 80em) {
@@ -190,71 +132,22 @@
     max-width: 18ch;
   }
 
-  .ret-claim {
-    font-size: 48px;
-    line-height: 72px;
-  }
-
   .ret-band .eyebrow {
     margin-bottom: 40px;
   }
 }
 
-/* Dark-band type. Global h2/eyebrow resolve to ink, which is this band's fill. */
-.ret-band--dark .ret-claim,
+/* Dark-band type. Global h2 and eyebrow resolve to ink, which is this band's
+   own fill, so they have to be restated. */
 .ret-band--dark .ret-body,
 .ret-band--dark .eyebrow {
   color: var(--color-white);
 }
 
-.ret-band--dark .ret-body,
-.ret-band--dark .ret-takeaway {
-  color: var(--bx-on-dark);
-}
-
-/* Band openers: claim stacked over its intro in the left nine tracks
-   (the TF-02 / TF-05 habit — support sits beside or under the claim). */
-.ret-cash-head,
-.ret-year-head,
-.ret-situation-head,
-.ret-products-head,
-.ret-cases-head,
-.ret-fit-head {
-  grid-column: 1 / -1;
-}
-
-.ret-cash-intro,
-.ret-year-intro,
-.ret-situation-intro,
-.ret-products-intro {
-  margin-top: 24px;
-  max-width: 52ch;
-  color: var(--color-ink-soft);
-}
-
-.ret-read-next {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 16px 32px;
-  margin-top: 48px;
-}
-
-@media (min-width: 80em) {
-  .ret-cash-head,
-  .ret-year-head,
-  .ret-situation-head,
-  .ret-products-head,
-  .ret-cases-head,
-  .ret-fit-head {
-    grid-column: 1 / span 9;
-  }
-}
-
 /* ---------------------------------------------------------------------------
-   1. Page header — blackstone.com/financial-advisors (h1 cols 1–9, standfirst
-      cols 12–16, no stats). Header still below as a placeholder image.
-      3. Header still — TF-01 (16:9, full content width, no caption strip)
+   Hero — blackstone.com/financial-advisors, measured at 1440: H1 704px wide
+   (cols 1–9), standfirst x=968 w=384 (cols 12–16, top-aligned), no stats.
+   The still below is a placeholder until Ling sends the photograph.
    --------------------------------------------------------------------------- */
 .ret-hero-grid {
   row-gap: 32px;
@@ -269,15 +162,12 @@
 }
 
 @media (min-width: 80em) {
-  /* Hero geometry measured on blackstone.com/financial-advisors at 1440:
-     H1 704px wide (cols 1-9), standfirst x=968 w=384 (cols 12-16). */
   .ret-hero-grid > .ret-h1 {
     grid-column: 1 / span 9;
   }
 
   .ret-standfirst {
     grid-column: 12 / span 5;
-    /* Reference top-aligns the standfirst with the H1, not its baseline. */
     align-self: start;
   }
 
@@ -286,642 +176,37 @@
     margin-top: 0;
     align-self: start;
   }
-
-  .ret-hero-media {
-    margin-top: 56px;
-  }
 }
 
 /* ---------------------------------------------------------------------------
-   4. Answer first — TF-02 (dark band, claim cols 1–8, numbered rows cols 10–16)
+   WHAT'S YOUR CASE — list left, product right
+   A mirror of the retired "In short" band: the list takes the panel's eight
+   columns and its 88px inset, the text column takes the six. Radius 0
+   everywhere and no child carries a background; the only rules are the row
+   hairlines inside the list. The right column is deliberately rule-free.
+   Opening a row reveals its folded line and swaps the product.
    --------------------------------------------------------------------------- */
-.ret-answer-head {
-  align-self: start;
-}
-
-.ret-answer-side {
-  display: flex;
-  flex-direction: column;
-}
-
-.ret-answer-lead {
-  margin: 0 0 40px;
-  max-width: 46ch;
-}
-
-.ret-takeaways {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: none;
-}
-
-.ret-takeaway {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  column-gap: 16px;
-  align-items: start;
-  padding: 20px 0;
-  border-top: 1px solid var(--white-a16);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.ret-takeaway-num {
-  font-family: var(--font-display);
-  font-size: 14px;
-  line-height: 24px;
-  color: var(--white-a50);
-}
-
-@media (min-width: 80em) {
-  .ret-answer-head {
-    grid-column: 1 / span 8;
-  }
-
-  .ret-answer-side {
-    grid-column: 10 / span 7;
-  }
-
-  .ret-takeaway {
-    grid-template-columns: 56px 1fr;
-    padding: 24px 0;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   5. Four cash pressures — TF-05 (titled prose columns, no card chrome,
-      second column offset). 3-up donor adapted to 2×2.
-   --------------------------------------------------------------------------- */
-.ret-values {
+.ret-case-grid {
   display: grid;
   grid-template-columns: 1fr;
-  margin-top: var(--space-head-to-content);
-  row-gap: 48px;
-  align-items: start;
+  row-gap: 40px;
 }
 
-.ret-value-title {
-  margin: 0 0 16px;
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-@media (min-width: 80em) {
-  .ret-values {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 96px;
-    row-gap: 72px;
-  }
-
-  .ret-values > :nth-child(2n) {
-    margin-top: 64px;
-  }
-
-  .ret-value-title {
-    font-size: 24px;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   6. The retail year — TF-03 / PE-05 row geometry, chevrons dropped so the
-      copy stays visible. Period cols 1–3, title 5–9, body 10–16.
-   --------------------------------------------------------------------------- */
-.ret-year-rows {
-  margin-top: var(--space-head-to-content);
-  row-gap: 0;
-}
-
-.ret-year-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 8px;
-  padding: 28px 0;
-  border-top: 1px solid var(--color-line);
-}
-
-.ret-year-row:last-child {
-  border-bottom: 1px solid var(--color-line);
-}
-
-.ret-year-title {
-  margin: 0 0 12px;
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-@media (min-width: 80em) {
-  .ret-year-row {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 16px;
-    row-gap: 0;
-    padding: 32px 0;
-    align-items: start;
-  }
-
-  .ret-period {
-    grid-column: 1 / span 3;
-  }
-
-  .ret-year-title {
-    grid-column: 5 / span 5;
-    margin: 0;
-    font-size: 24px;
-  }
-
-  .ret-year-body {
-    grid-column: 10 / span 7;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   7. Which funding fits — no donor section; our own `.r-table` restyled to
-      the library's hairline + type conventions. Stacked cards < 768 from the
-      shared table styles.
-   --------------------------------------------------------------------------- */
-.ret-table-shell {
-  margin-top: var(--space-head-to-content);
-}
-
-.ret-table-shell .ret-situation-table {
-  width: 100%;
-  margin: 0;
-  border-collapse: collapse;
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-  border: 0;
-}
-
-.ret-table-shell .ret-situation-table thead th {
-  padding: 0 24px 16px 0;
-  border: 0;
-  border-bottom: 1px solid var(--color-ink);
-  color: var(--color-muted);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: left;
-  vertical-align: bottom;
-}
-
-.ret-table-shell .ret-situation-table tbody th,
-.ret-table-shell .ret-situation-table tbody td {
-  padding: 24px 24px 24px 0;
-  border: 0;
-  border-bottom: 1px solid var(--color-line);
-  vertical-align: top;
-}
-
-.ret-table-shell .ret-situation-table tbody th {
-  color: var(--color-ink);
-  font-weight: 500;
-  font-size: 16px;
-  text-align: left;
-}
-
-.ret-table-shell .ret-situation-table tbody td {
-  color: var(--color-ink-soft);
-}
-
-.ret-table-shell .ret-situation-table tbody td:last-child,
-.ret-table-shell .ret-situation-table thead th:last-child {
-  padding-right: 0;
-}
-
-.ret-table-shell .ret-situation-table tbody tr:hover {
-  background: var(--color-lilac-light);
-}
-
-.ret-table-shell .ret-situation-table .ret-inline-link {
-  font-weight: 400;
-}
-
-/* ---------------------------------------------------------------------------
-   8. Three products — PE-04 (16:9 still, title, body, circle-arrow) with a
-      BMX-03 spec block under it.
-   --------------------------------------------------------------------------- */
-.ret-product-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-top: var(--space-head-to-content);
-  row-gap: 56px;
-  align-items: stretch;
-}
-
-.ret-product {
-  display: flex;
-  flex-direction: column;
-}
-
-.ret-product-media {
-  margin-bottom: 24px;
-}
-
-.ret-product-title {
-  margin: 0 0 16px;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-.ret-spec {
-  margin: 32px 0 0;
-  padding: 16px 0 0;
-  border-top: 1px solid var(--color-line);
-  display: grid;
-  gap: 16px;
-}
-
-.ret-spec-row {
-  display: grid;
-  gap: 4px;
-}
-
-.ret-spec dt {
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-}
-
-.ret-spec dd {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.ret-product-link {
-  margin-top: auto;
-  padding-top: 32px;
-}
-
-@media (min-width: 64em) {
-  .ret-product-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 32px;
-  }
-
-  .ret-product {
-    grid-column: auto;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   9. Not the right fit — APM-09 two-column link grid.
-   --------------------------------------------------------------------------- */
-.ret-exit-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-top: var(--space-head-to-content);
-  row-gap: 56px;
-}
-
-.ret-exit-title {
-  margin: 0 0 16px;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-.ret-exit-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px 32px;
-  margin-top: 24px;
-}
-
-.ret-read {
-  color: inherit;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-}
-
-.ret-read:hover,
-.ret-read:focus-visible {
-  background-size: 100% 2px;
-}
-
-@media (min-width: 64em) {
-  .ret-exit-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 96px;
-    row-gap: 72px;
-  }
-
-  .ret-exit {
-    grid-column: auto;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   10. Three files in practice — BMX-03…06 stat card, figure slot holds the
-       case number.
-   --------------------------------------------------------------------------- */
-.ret-case-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-top: var(--space-head-to-content);
-  row-gap: 48px;
-}
-
-.ret-case {
-  padding-top: 24px;
-  border-top: 1px solid var(--color-ink);
-}
-
-.ret-case-num {
-  margin: 0 0 24px;
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: normal;
-}
-
-.ret-case-title {
-  margin: 0 0 16px;
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-@media (min-width: 64em) {
-  .ret-case-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 32px;
-  }
-
-  .ret-case {
-    grid-column: auto;
-  }
-
-  .ret-case-num {
-    font-size: 56px;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   8b. The closing line under the products. One hairline, one sentence, two
-       article links. It replaced the "What an application needs" band: the
-       requirement figures already sit in each card's spec, verbatim, so a
-       second copy of them here was redundancy, not information.
-   --------------------------------------------------------------------------- */
-.ret-products-note {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px 48px;
-  margin-top: clamp(48px, 6vw, 96px);
-  padding-top: 32px;
-  border-top: 1px solid var(--color-line);
-}
-
-.ret-products-note .ret-need-note {
-  max-width: 60ch;
-}
-
-.ret-need-notes {
-  display: grid;
-  gap: 16px;
-  margin: 32px 0 0;
-}
-
-.ret-need-note {
-  margin: 0;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.ret-need-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 32px;
-  margin: 0;
-}
-
-.ret-inline-link {
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-}
-
-.ret-inline-link:hover,
-.ret-inline-link:focus-visible {
-  background-size: 100% 2px;
-}
-
-@media (min-width: 80em) {
-  .ret-products-note {
-    align-items: baseline;
-    margin-top: 96px;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   12. FAQ — APM-08 / BMX-09 geometry: heading cols 1–4, rows cols 6–16.
-       Accordion motion from src/scripts/accordion.ts.
-   --------------------------------------------------------------------------- */
-.ret-faq-head {
-  align-self: start;
-}
-
-.ret-faq-list {
-  border-top: 1px solid var(--color-ink);
-}
-
-.ret-faq-item {
-  border-bottom: 1px solid var(--color-line);
-}
-
-.ret-faq-trigger {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 44px;
-  column-gap: 24px;
-  align-items: center;
-  width: 100%;
-  padding: 28px 0;
-  border: 0;
-  background: none;
-  color: var(--color-ink);
-  text-align: left;
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: normal;
-}
-
-.ret-faq-caret {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  transition: transform 250ms ease, background-color 250ms ease, color 250ms ease;
-}
-
-.ret-faq-icon svg {
-  width: 16px;
-  height: 8px;
-}
-
-.ret-faq-trigger[aria-expanded='true'] .ret-faq-caret {
-  transform: rotate(180deg);
-}
-
-.ret-faq-trigger:hover .ret-faq-caret,
-.ret-faq-trigger:focus-visible .ret-faq-caret {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: var(--color-white);
-}
-
-/* grid-template-rows motion, same as the shared accordion */
-.ret-acc-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 350ms ease;
-}
-
-.ret-faq-item.is-open .ret-acc-panel {
-  grid-template-rows: 1fr;
-}
-
-.ret-acc-inner {
-  overflow: hidden;
-}
-
-.ret-acc-inner p {
-  margin: 0;
-  padding: 0 96px 28px 0;
-  color: var(--color-ink-soft);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-@media (min-width: 80em) {
-  .ret-faq-head {
-    grid-column: 1 / span 4;
-  }
-
-  .ret-faq-list {
-    grid-column: 6 / span 11;
-  }
-
-  .ret-faq-trigger {
-    font-size: 24px;
-    padding: 32px 0;
-  }
-
-  .ret-acc-inner p {
-    padding-right: 160px;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .ret-faq-caret {
-    transition-duration: 250ms;
-  }
-}
-
-
-/* Reveal guards — no JS means everything stays visible. */
-@media (prefers-reduced-motion: reduce) {
-  .ret-faq-caret,
-  .ret-acc-panel {
-    transition: none;
-  }
-}
-
-/* ===========================================================================
-   Second rebuild, 22 Oct 2026 (Ling's marked sections)
-   The page now runs: hero · answer (Blackstone home "Private wealth") ·
-   section 3 placeholder · products (service-page card band) · blog slider
-   (service page) · FAQ (service page). The cash-pressures, retail-year,
-   situation-table, exits and cases bands are gone with their copy contract
-   sections; their rules below are superseded but left in place for the
-   cleanup pass.
-   =========================================================================== */
-
-/* ---------------------------------------------------------------------------
-   ANSWER — blackstone.com home "Private wealth". Every number below was read
-   off the live block at 1440 with CDP (elements file: bs-pw-band.json), not
-   eyeballed. Reference geometry:
-     band          full-bleed, background #000, padding 160px 0
-     grid          16 tracks x 64px, 16px gutters, content 1264 at x=88
-     left column   cols 1-6 (464px)
-     eyebrow       16/24 weight 400, uppercase, letter-spacing 1.28px,
-                   ::after 64x2px rule, 24px after the label
-     claim         48/72 weight 300, letter-spacing 0.384px, 84px under eyebrow
-     copy          18/27 weight 300, indented 80px, 384px wide, 56px under claim
-     "Learn More"  18/27 weight 400, 40px circle 20px away, 63px under copy
-     panel         cols 9-16 (624px), offset 88px from band top, bg #121317,
-                   padding 64px 80px
-     rows          padding 40px 0, border-bottom 1.5px #d5d8df on all but last
-     row label     24/36 weight 300 in the reference
-   One deliberate deviation: our row labels are takeaways (full sentences, not
-   fund names), so they are set at 20/30 as Ling asked rather than 24/36.
-   Colour on the band stays Falcon's Martinique Darker, not flat black.
-   --------------------------------------------------------------------------- */
-.ret-pw-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 48px;
-}
-
-.ret-pw-copy,
-.ret-pw-panel {
+.ret-case-list,
+.ret-case-detail {
   min-width: 0;
 }
 
-.ret-pw .eyebrow {
+.ret-case-list {
   margin: 0;
-  color: var(--color-white);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 0;
+  list-style: none;
 }
 
-.ret-pw .eyebrow--line::after {
-  width: 64px;
-  height: 2px;
-  margin-left: 24px;
-}
-
-.ret-pw-claim {
-  margin: 84px 0 0;
+.ret-case-claim {
+  margin: 24px 0 0;
+  max-width: 20ch;
   color: var(--color-white);
-  max-width: none;
   font-family: var(--font-display);
   font-size: 36px;
   font-weight: 300;
@@ -929,363 +214,251 @@
   letter-spacing: 0.008em;
 }
 
-.ret-pw-lead {
-  margin: 56px 0 0;
-  max-width: 384px;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.018em;
+.ret-case-item {
+  border-top: 1px solid var(--bx-on-dark-rule);
+  transition: opacity 0.3s ease;
 }
 
-.ret-pw-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  margin-top: 63px;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 27px;
-  letter-spacing: 0.016em;
-  text-decoration: none;
+/* Same hover reading as the FAQ: the list recedes, the hovered row stays. */
+@media (hover: hover) {
+  .ret-case-list:is(:hover, :focus-within) .ret-case-item {
+    opacity: 0.36;
+  }
+
+  .ret-case-list:is(:hover, :focus-within) .ret-case-item:is(:hover, :focus-within) {
+    opacity: 1;
+  }
 }
 
-.ret-pw-more .circle-arrow {
-  width: 40px;
-  height: 40px;
+.ret-case-item:last-child {
+  border-bottom: 1px solid var(--bx-on-dark-rule);
 }
 
-.ret-pw-more:hover .circle-arrow,
-.ret-pw-more:focus-visible .circle-arrow {
-  transform: translateX(2px);
-}
-
-.ret-pw-panel {
-  display: grid;
-  gap: 0;
+.ret-case-item h3 {
   margin: 0;
-  padding: 32px 24px;
-  list-style: none;
-  background: rgb(255 255 255 / 5.5%);
+  font: inherit;
 }
 
-.ret-pw-row {
-  padding: 32px 0;
-  border-bottom: 1.5px solid rgb(213 216 223);
-}
-
-.ret-pw-row:first-child {
-  padding-top: 0;
-}
-
-.ret-pw-row:last-child {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.ret-pw-row p {
-  margin: 0;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 30px;
-  letter-spacing: 0.016em;
-}
-
-@media (min-width: 80em) {
-  .ret-pw {
-    padding-block: 160px;
-  }
-
-  .ret-pw-grid {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    column-gap: 16px;
-    align-items: start;
-  }
-
-  .ret-pw-copy {
-    grid-column: 1 / span 6;
-  }
-
-  .ret-pw-claim {
-    font-size: 48px;
-    line-height: 72px;
-  }
-
-  .ret-pw-lead {
-    margin-left: 80px;
-  }
-
-  .ret-pw-more {
-    margin-left: 0;
-  }
-
-  .ret-pw-panel {
-    grid-column: 9 / span 8;
-    margin-top: 88px;
-    padding: 64px 80px;
-  }
-
-  .ret-pw-row {
-    padding: 40px 0;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   WHAT'S YOUR CASE — Osmo "Expanding Feature Pills"
-   (osmo.supply/resource/expanding-feature-pills). Modelled on their preview:
-   one rounded card, pills stacked down the left, a still filling the right
-   half, and the open pill growing into a card while the others close. The band
-   is dark, the eyebrow and H2 sit above the component, and there is no intro
-   copy — both as Ling asked.
-
-   Geometry read off their 1440x900 preview: card inset 120px, radius 20px,
-   pills inset ~107px from the card edge, 14px between pills, pill radius
-   full, 17px labels, a 20px plus chip, expanded panel at 19/17px.
-   --------------------------------------------------------------------------- */
-.ret-case-head {
-  margin-bottom: clamp(40px, 5vw, 72px);
-}
-
-.ret-case-claim {
-  margin: 24px 0 0;
-  max-width: 22ch;
-  color: var(--color-white);
-}
-
-.ret-pills-card {
-  display: grid;
-  grid-template-columns: 1fr;
-  overflow: hidden;
-  border-radius: 20px;
-  background: rgb(255 255 255 / 4%);
-}
-
-.ret-pills-col {
-  padding: 28px 20px;
-}
-
-.ret-pills {
-  display: grid;
-  gap: 14px;
-  width: 100%;
-  max-width: 460px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ret-pill {
-  border-radius: 999px;
-  background: rgb(255 255 255 / 8%);
-  transition:
-    background-color 300ms ease,
-    border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.ret-pill.is-open {
-  border-radius: 22px;
-  background: rgb(255 255 255 / 13%);
-}
-
-.ret-pill-trigger {
+.ret-case-trigger {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
-  padding: 16px 20px;
+  padding: 24px 0;
   border: 0;
-  border-radius: inherit;
+  border-radius: 0;
   background: none;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 26px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 28px;
   letter-spacing: 0.01em;
   text-align: left;
   cursor: pointer;
 }
 
-.ret-pill-trigger:focus-visible {
+.ret-case-trigger:focus-visible {
   outline: 2px solid var(--color-white);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
-.ret-pill-icon {
-  display: inline-grid;
-  place-items: center;
+.ret-case-caret {
   flex: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 3px;
-  border: 1px solid rgb(255 255 255 / 40%);
-  border-radius: 50%;
+  margin-top: 9px;
   color: var(--color-white);
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ret-pill.is-open .ret-pill-icon {
-  transform: rotate(45deg);
+.ret-case-item.is-open .ret-case-caret {
+  transform: rotate(180deg);
 }
 
-/* Height animation without JS measurement. */
-.ret-pill-panel {
+.ret-case-panel {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: grid-template-rows 380ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ret-pill.is-open .ret-pill-panel {
+.ret-case-item.is-open .ret-case-panel {
   grid-template-rows: 1fr;
 }
 
-.ret-pill-inner {
+.ret-case-panel-inner {
   overflow: hidden;
   min-height: 0;
-  padding: 0 20px;
 }
 
-.ret-pill.is-open .ret-pill-inner {
-  padding-bottom: 22px;
-}
-
-.ret-pill-means {
-  margin: 4px 0 0;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 19px;
-  line-height: 28px;
-}
-
-.ret-pill-why {
-  margin: 12px 0 0;
+.ret-case-means {
+  margin: 0;
+  max-width: 46ch;
   color: var(--bx-on-dark);
   font-family: var(--font-sans);
   font-size: 17px;
   line-height: 26px;
 }
 
-.ret-pill-meta {
-  display: grid;
-  gap: 10px;
-  margin: 20px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--bx-on-dark-rule);
+.ret-case-item.is-open .ret-case-panel-inner {
+  padding-bottom: 24px;
 }
 
-.ret-pill-meta div {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 12px;
+/* Only shown when there is no right-hand column (below 64em). */
+.ret-case-inline {
+  margin: 12px 0 0;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
 }
 
-.ret-pill-meta dt {
+.ret-case-inline a {
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.ret-case-inline a:hover,
+.ret-case-inline a:focus-visible {
+  text-decoration: underline;
+}
+
+.ret-case-inline span[aria-hidden] {
+  margin: 0 8px;
+}
+
+/* Narrow screens: the product travels with the row, no right column. */
+.ret-case-detail {
+  display: none;
+}
+
+.ret-case-name {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 38px;
+}
+
+.ret-case-why {
+  margin: 16px 0 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.ret-case-facts {
+  margin: 28px 0 0;
+}
+
+.ret-case-facts div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.ret-case-facts dt {
+  margin: 0;
   color: var(--bx-on-dark-muted);
   font-family: var(--font-sans);
   font-size: 14px;
   line-height: 22px;
 }
 
-.ret-pill-meta dd {
+.ret-case-facts dd {
   margin: 0;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 22px;
 }
 
-.ret-pill-link {
+.ret-case-link {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 20px;
+  margin-top: 28px;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
   text-decoration: none;
 }
 
-.ret-pill-link .circle-arrow {
-  width: 32px;
-  height: 32px;
-}
-
-.ret-pills-media {
-  position: relative;
-  order: 2;
-  min-height: 240px;
-}
-
-/* The labelled placeholder is lilac by default; inside a dark card that reads
-   as a blown-out white block. Keep it quiet until the photograph lands. */
-.ret-pills-media .image-slot--labeled {
-  background: rgb(255 255 255 / 6%);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 18%);
-}
-
-.ret-pills-media .image-slot-label {
-  color: var(--bx-on-dark-muted);
-}
-
-.ret-pills-media .media,
-.ret-pills-media .image-slot {
-  height: 100%;
-  aspect-ratio: auto;
-  border-radius: 0;
-}
-
-.ret-pill:not(.is-open):hover {
-  background: rgb(255 255 255 / 12%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ret-pill,
-  .ret-pill-icon,
-  .ret-pill-panel {
-    transition: none;
-  }
+.ret-case-link .circle-arrow {
+  width: 40px;
+  height: 40px;
 }
 
 @media (min-width: 64em) {
-  .ret-pills-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  .ret-case-detail {
+    display: block;
   }
 
-  .ret-pills-col {
-    padding: 44px 40px;
+  .ret-case-inline {
+    display: none;
   }
 
-  .ret-pills-media {
-    order: 0;
-    min-height: 100%;
-  }
-
-  .ret-pills-media .image-slot--labeled {
-    background: rgb(255 255 255 / 5.5%);
+  .ret-case-trigger {
+    font-size: 20px;
+    line-height: 30px;
+    padding: 26px 0;
   }
 }
 
 @media (min-width: 80em) {
-  .ret-pills-col {
-    padding: 44px 72px 44px 56px;
+  .ret-case {
+    padding-block: 160px;
+  }
+
+  .ret-case-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  /* One side column so the heading and the product stack naturally instead of
+     sharing grid rows (which stranded the product mid-column). */
+  .ret-case-side {
+    grid-column: 11 / span 6;
+    grid-row: 1;
+  }
+
+  .ret-case-list {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+    margin-top: 88px;
+  }
+
+  .ret-case-detail {
+    margin-top: 56px;
+  }
+
+  .ret-case-claim {
+    margin-top: 84px;
+    font-size: 48px;
+    line-height: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ret-case-caret,
+  .ret-case-panel {
+    transition: none;
   }
 }
 
 /* ---------------------------------------------------------------------------
    PRODUCTS + BLOG + FAQ — the service-page bands, given this page's pads.
-   mca.css carries zero top pad on .mca-fit / .mca-blog, so the rhythm is set
-   here instead of being inherited.
+   mca.css carries no top pad on .mca-fit / .mca-blog, so the rhythm is set
+   here rather than inherited.
    --------------------------------------------------------------------------- */
-/* .mca-cards already carries --space-head-to-content above it; adding a second
-   gap here read as ~208px. */
+/* .mca-cards already carries --space-head-to-content above it; a second gap
+   here read as ~208px. */
 .ret-products-band .mca-block-head {
   margin-bottom: 0;
 }

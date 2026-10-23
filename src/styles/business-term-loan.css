@@ -418,14 +418,17 @@ section.btl-blog[data-band='light'] {
   margin-top: var(--space-head-to-content);
 }
 
+/* The rule belongs to the TOP edge of each row so the hovered row can hold a
+   solid line above it (home Services behaviour), and the line below it stays
+   at 40% while its neighbour recedes. */
 .btl-faq-item {
   position: relative;
   color: var(--color-ink);
-  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
 }
 
-.btl-faq-item:first-child {
-  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+.btl-faq-item:last-child {
+  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
 }
 
 .btl-faq-item::after {
