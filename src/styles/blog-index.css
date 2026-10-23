@@ -215,3 +215,160 @@
   outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
+
+/* ── pager — reference .bx-load-more ──────────────────────────────────────── */
+/* Measured at 1440 on blackstone.com/insights: the row is centred, 104px below
+   the last card row; "Load More" 18/27, a 40px circle-arrow turned to point
+   down, a 1px x 40 divider with 24px each side, then one dot per page 16px
+   apart (24px hit area, 12px mark, the current page carrying a 24px ring). */
+
+.blg-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+@media (min-width: 48em) {
+  .blg-pager {
+    margin-top: 88px;
+  }
+}
+
+@media (min-width: 90em) {
+  .blg-pager {
+    margin-top: 104px;
+  }
+}
+
+.blg-load {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+  appearance: none;
+}
+
+.blg-load-label {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: normal;
+}
+
+/* The reference draws the underline in from the left in 0.3s on hover. */
+.blg-load-label::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left top;
+  transition: transform 0.3s;
+}
+
+.blg-load:hover .blg-load-label::before,
+.blg-load:focus-visible .blg-load-label::before {
+  transform: scaleX(1);
+}
+
+.blg-load:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.blg-load .circle-arrow {
+  width: 40px;
+  height: 40px;
+  transform: rotate(90deg);
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease;
+}
+
+.blg-load:hover .circle-arrow,
+.blg-load:focus-visible .circle-arrow {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.blg-pager-rule {
+  width: 1px;
+  height: 40px;
+  margin: 0 16px;
+  background: var(--color-ink);
+}
+
+@media (min-width: 48em) {
+  .blg-pager-rule {
+    margin: 0 24px;
+  }
+}
+
+.blg-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48em) {
+  .blg-dots {
+    gap: 16px;
+  }
+}
+
+.blg-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+  appearance: none;
+}
+
+.blg-dot::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.blg-dot[aria-current='true']::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.blg-dot:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* JS hides the pages it has not revealed yet. */
+.blg-card[hidden],
+.blg-pager[hidden] {
+  display: none;
+}

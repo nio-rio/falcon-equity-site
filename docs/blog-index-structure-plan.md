@@ -68,3 +68,42 @@ design decision of its own (article page), not something to invent inside this t
 3. `public/_redirects` — the `/blog` line removed, `/blog/*` kept (`_redirects` wins over the config).
 4. `src/data/site.ts` + `src/components/Header.astro` — the Blog nav entries point at `/blog`
    instead of `/#insights-heading`.
+
+## Update, same day — the article pages, the H1 gap, and the pager
+
+**Each guide now has its own page** at `/blog/<slug>` (`src/pages/blog/[slug].astro` +
+`src/styles/blog-article.css`), built from the reference article
+`blackstone.com/insights/article/softbank-ceo-masayoshi-son-…` measured live at 1440 and 390:
+
+| Element | Reference | Ours |
+| --- | --- | --- |
+| title | 704–784 wide (cols 1–10), 48/72 w300, 32/48 at 390 | same sizes, weight 400 |
+| media | 784 wide, 16:9, 32px under the title | the post's cover, same slot |
+| body | 704 wide (cols 1–9), p 18/27 w300 ls .32 | same |
+| h2 / h3 | 40/60 w300 ls .32 / 20/30 w400 ls .16 | same |
+| rail | 304 wide (cols 13–16), pad-top 32, sticky, modules 24 apart behind 1px rules | same |
+| rail content | category + date · author · "Watch on YouTube" CTA · newsletter · share | category + date · **one Falcon CTA** |
+
+Ling: *"On the right, change watch on youtube and the subscribe part to a CTA, that basically says
+Falcon provide fast business funding. and a button: see your options."* The author block is gone too —
+there is nobody to credit, and CLAUDE.md forbids inventing people. The CTA links to `/#services`,
+because "see your options" should land on the six products, not a form. Category + date print under the
+title below 80em, where the reference simply drops them.
+
+**Route lift for the post family:** `/blog/<slug>` out of `retired` and into `livePaths` in
+`astro.config.mjs`; the `/blog/*` wildcard in `netlify.toml` and `public/_redirects` replaced by four
+explicit `/blog/category/<slug>` rules (Netlify has no exclusion syntax, and a wildcard would 301 the
+real post pages).
+
+**Two corrections on the index after review:**
+
+- *"Our blog page H1 'blog' and the blog lists below has too much space."* The header band and the
+  list band were both `[data-band="light"]`, so the sitewide
+  `[data-band="light"] + [data-band="light"]` rule added 48px on top of the header's own 120px. The
+  header is a page header, not a themed band — dropping the attribute leaves exactly the reference's
+  gap (120 at 1440, 96 at 1024/768).
+- *"This pagination should we have more blog posts. Let's test this pagination by having only 4 blog
+  posts on load."* The pager is back — Load More + a dot per page, the reference's own measurements
+  (18/27 label, 40px circle-arrow turned down, 1px × 40 divider with 24px margins, 12px dots 16 apart,
+  the current page carrying a 24px ring) — with `PAGE_SIZE = 4`. Eight published guides therefore load
+  as 4 + 4, the button reveals the second row, and the row hides itself once the last page is showing.

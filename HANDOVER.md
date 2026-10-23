@@ -574,8 +574,8 @@ above at all four widths; no horizontal overflow at 320 / 390 / 768 / 1024 / 144
 a row with 2- and 3-line titles. `npm run build`, `npm run check` (0 errors / 0 warnings) and
 `npm run test:titles` (now asserts this route) pass.
 
-**Still open:** `/blog/<slug>` has no page, so every card lands on the home page via the `/blog/*`
-301. The article template is the next dependency.
+**Still open at that point:** `/blog/<slug>` had no page, so every card landed on the home page via
+the `/blog/*` 301. The article template shipped later the same day — see the next section.
 
 ### About `/about` — built and linked (2026-10-23, owner request)
 
@@ -614,3 +614,44 @@ route lift (`src/pages/faq.astro`, `src/styles/faq.css`, `src/data/faq.ts`, `src
 plus the `/faq` hunks in `astro.config.mjs`, `netlify.toml`, `public/_redirects` and the header's Help
 link). The full `npm run build` above covers both; the About changes are the config/`_redirects`/
 `netlify.toml` hunks for `/about` and the four link edits.
+### Blog article pages, and the index corrected (2026-10-23, second pass)
+
+Ling: *"Build page for each blog"*, pointing at
+`blackstone.com/insights/article/softbank-ceo-masayoshi-son-…`, plus *"On the right, change watch on
+youtube and the subscribe part to a CTA, that basically says Falcon provide fast business funding. and
+a button: see your options."*
+
+**`/blog/<slug>` now exists for every published guide** — `src/pages/blog/[slug].astro` (thin: it reads
+the post and renders `<Content />`) and `src/styles/blog-article.css`. Measured live at 1440 and 390:
+title 784 wide (cols 1–10) at 48/72 and 32/48; cover in the media slot directly under it (16:9, same
+784); body 704 wide (cols 1–9) at p 18/27 w300 ls .32, h2 40/60 w300, h3 20/30 w400; right rail 304
+wide (cols 13–16), sticky, modules 24 apart behind 1px rules.
+
+**Rail:** category + date, then ONE Falcon CTA panel (dark, "Fast business funding", the funding
+sentence, a "See your options" pill to `/#services`). The reference's author block, "Watch on YouTube"
+CTA, newsletter form and share row are gone per instruction; there is no author to credit and
+CLAUDE.md forbids inventing people. Category + date print under the title below 80em, where the
+reference drops them.
+
+**Post-family route lift:** `/blog/<slug>` out of `retired`, into `livePaths` (sitemap), and the
+`/blog/*` wildcards in `netlify.toml` + `public/_redirects` replaced by four explicit
+`/blog/category/<slug>` rules — a wildcard would 301 the real post pages, and Netlify has no exclusion
+syntax.
+
+**Index corrections from review:**
+- *"the H1 and the blog lists below has too much space"* — the header and the list band were both
+  `[data-band="light"]`, so the sitewide `light + light` rule added 48px on top of the header's own
+  120px. The header is a page header, not a themed band; dropping the attribute restores the
+  reference's gap exactly (120 at 1440, 96 at 1024/768).
+- *"test this pagination by having only 4 blog posts on load"* — the Load More + dots pager is back
+  with `PAGE_SIZE = 4`, using the reference's numbers (18/27 label, 40px circle-arrow turned down,
+  1px × 40 divider with 24px margins, 12px dots 16 apart, current page with a 24px ring). Verified:
+  4 cards on load, Load More → 8 with the row hiding itself, dot 1 → back to 4.
+
+**Also fixed:** `tests/titles.spec.mjs` still asserted `/apply`'s old H1 "Apply"; upstream `4bfcf86`
+retitled the page to "Apply today to get same day funding." and left the test red. The assertion now
+matches the page.
+
+**Still open:** `/blog/category/<slug>` archives are not built (they 301 to `/blog`), and the posts'
+`takeaways` / `faq` frontmatter is not rendered on the article page — the reference has no such blocks,
+and FAQ schema is only valid when the answers are visible. Say the word and I will build either.
