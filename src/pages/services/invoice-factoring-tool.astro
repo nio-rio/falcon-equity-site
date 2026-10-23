@@ -8,6 +8,7 @@ import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/invoice-factoring-tool.css';
 import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
 
 const published = await getPublicPosts();
 /** Published invoice factoring posts only, most relevant first. Drafts stay out. */
@@ -235,38 +236,7 @@ const faqs = SERVICE_FAQS['invoice-factoring-tool'];
         </div>
       </div>
       <div class="ift-shell">
-      <div class="ift-faq-list" data-accordion data-reveal>
-        {
-          faqs.map((item, i) => (
-            <div class="ift-faq-item" data-acc-item>
-              <h3>
-                <button
-                  type="button"
-                  class="ift-faq-trigger"
-                  aria-expanded="false"
-                  aria-controls={`ift-faq-panel-${i}`}
-                  id={`ift-faq-trigger-${i}`}
-                  data-acc-trigger
-                >
-                  <span>{item.q}</span>
-                  <span class="ift-faq-caret" aria-hidden="true">
-                    <span class="ift-faq-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="ift-faq-caret-svg">
-                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </h3>
-              <div class="ift-acc-panel" id={`ift-faq-panel-${i}`} role="region" aria-labelledby={`ift-faq-trigger-${i}`}>
-                <div class="ift-acc-inner">
-                  <p>{item.a}</p>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <FaqList items={faqs} idPrefix="ift" class="ift-faq-list" data-reveal />
       </div>
     </div>
   </section>

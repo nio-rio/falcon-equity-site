@@ -8,6 +8,7 @@ import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/collateral-asset-loans.css';
 import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
 
 const published = await getPublicPosts();
 /** Published collateral and asset loan posts only, most relevant first. Drafts stay out. */
@@ -236,38 +237,7 @@ const faqs = SERVICE_FAQS['collateral-asset-loans'];
         </div>
       </div>
       <div class="cal-shell">
-      <div class="cal-faq-list" data-accordion data-reveal>
-        {
-          faqs.map((item, i) => (
-            <div class="cal-faq-item" data-acc-item>
-              <h3>
-                <button
-                  type="button"
-                  class="cal-faq-trigger"
-                  aria-expanded="false"
-                  aria-controls={`cal-faq-panel-${i}`}
-                  id={`cal-faq-trigger-${i}`}
-                  data-acc-trigger
-                >
-                  <span>{item.q}</span>
-                  <span class="cal-faq-caret" aria-hidden="true">
-                    <span class="cal-faq-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="cal-faq-caret-svg">
-                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </h3>
-              <div class="cal-acc-panel" id={`cal-faq-panel-${i}`} role="region" aria-labelledby={`cal-faq-trigger-${i}`}>
-                <div class="cal-acc-inner">
-                  <p>{item.a}</p>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <FaqList items={faqs} idPrefix="cal" class="cal-faq-list" data-reveal />
       </div>
     </div>
   </section>

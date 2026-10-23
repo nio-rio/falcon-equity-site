@@ -8,6 +8,7 @@ import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { getPublicPosts } from '@/lib/blog';
 import '@/styles/business-line-of-credit.css';
 import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
 
 const published = await getPublicPosts();
 /** Published line of credit posts only, most relevant first. Drafts stay out. */
@@ -235,38 +236,7 @@ const faqs = SERVICE_FAQS['business-line-of-credit'];
         </div>
       </div>
       <div class="loc-shell">
-      <div class="loc-faq-list" data-accordion data-reveal>
-        {
-          faqs.map((item, i) => (
-            <div class="loc-faq-item" data-acc-item>
-              <h3>
-                <button
-                  type="button"
-                  class="loc-faq-trigger"
-                  aria-expanded="false"
-                  aria-controls={`loc-faq-panel-${i}`}
-                  id={`loc-faq-trigger-${i}`}
-                  data-acc-trigger
-                >
-                  <span>{item.q}</span>
-                  <span class="loc-faq-caret" aria-hidden="true">
-                    <span class="loc-faq-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="loc-faq-caret-svg">
-                        <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </h3>
-              <div class="loc-acc-panel" id={`loc-faq-panel-${i}`} role="region" aria-labelledby={`loc-faq-trigger-${i}`}>
-                <div class="loc-acc-inner">
-                  <p>{item.a}</p>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <FaqList items={faqs} idPrefix="loc" class="loc-faq-list" data-reveal />
       </div>
     </div>
   </section>

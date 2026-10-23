@@ -25,6 +25,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import FaqList from '@/components/FaqList.astro';
 import { FAQ_COUNT, FAQ_GROUPS } from '@/data/faq';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import '@/styles/faq.css';
@@ -83,47 +84,7 @@ const schema = [
                 {group.title}
               </h2>
             </div>
-            <div class="faq-list" data-accordion data-reveal>
-              {group.items.map((item, i) => {
-                const id = `${group.slug}-${i}`;
-                return (
-                  <div class="faq-item" data-acc-item>
-                    <h3 class="faq-question">
-                      <button
-                        type="button"
-                        class="faq-trigger"
-                        id={`faq-trigger-${id}`}
-                        aria-expanded="false"
-                        aria-controls={`faq-panel-${id}`}
-                        data-acc-trigger
-                      >
-                        <span class="faq-question-text">{item.q}</span>
-                        <span class="faq-caret" aria-hidden="true">
-                          <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
-                            <path
-                              class="faq-caret-ring"
-                              d="M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z"
-                            />
-                            <path class="faq-caret-chev" d="M12 17l8 8 8-8" />
-                            <path class="faq-caret-disc" d="M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Z" />
-                          </svg>
-                        </span>
-                      </button>
-                    </h3>
-                    <div
-                      class="faq-panel"
-                      id={`faq-panel-${id}`}
-                      role="region"
-                      aria-labelledby={`faq-trigger-${id}`}
-                    >
-                      <div class="faq-panel-inner">
-                        <p>{item.a}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <FaqList items={group.items} idPrefix={group.slug} class="faq-group-list" data-reveal />
           </section>
         ))
       }
