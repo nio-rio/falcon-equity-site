@@ -9,6 +9,7 @@ export const SITE = {
   email: 'information@falconequity.ai',
   phones: {
     direct: { label: 'Direct', display: '+1 (917) 245-5277', href: 'tel:+19172455277' },
+    office: { label: 'Office', display: '+1 (917) 645-3826', href: 'tel:+19176453826' },
     fax: { label: 'Fax', display: '+1 (917) 810-2494', href: 'tel:+19178102494' },
   },
   address: {

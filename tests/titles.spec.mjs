@@ -37,11 +37,13 @@ if (h1Of('dist/apply.html') !== 'Apply today to get same day funding.') {
 }
 
 const aboutTitle = titleOf('dist/about.html');
-if (aboutTitle !== 'About | Falcon Equity Group') {
+if (aboutTitle !== 'About Falcon Equity Group | Business funding, New York') {
   throw new Error(`About <title> was ${JSON.stringify(aboutTitle)}`);
 }
-if (h1Of('dist/about.html') !== 'About Falcon Equity Group') {
-  throw new Error(`About <h1> was ${JSON.stringify(h1Of('dist/about.html'))}`);
+/** The About H1 is two lines in two spans, so collapse the markup's whitespace. */
+const aboutH1 = h1Of('dist/about.html').replace(/\s+/g, ' ');
+if (aboutH1 !== 'We’re more than a funding provider. We’re your partner.') {
+  throw new Error(`About <h1> was ${JSON.stringify(aboutH1)}`);
 }
 
 /** Every service page that has been rebuilt onto its own route. */

@@ -701,3 +701,35 @@ rail module for module (304 wide, sticky 140, 24 apart behind 1px rules):
    24px, 24 apart, with a closing rule under the row.
 
 Checked: no horizontal overflow at 390 / 768 / 1440, rail 304 at 1440, share row 74 tall as measured.
+
+### About — copy and structure re-cut from Notion (2026-10-23, revision 2)
+
+Ling: *"I have changed about page copy and structure on notion. Please make changes on the about page
+based on notion."* Source: Notion "About — page copy (/about)" in the nio rio workspace
+(`402eacd0-19c7-81cc-abf2-c9d26d02d1ec`), revised 18:28 today.
+
+The note keeps its 1–10 numbering, which is what records the change: **bands 2 (answer first), 4 (what we
+do) and 8 (who we fund) are gone**. Seven bands remain, in this order — hero, by the numbers, founder, our
+people, values, how we're different, where we are.
+
+Changed in `src/pages/about.astro` / `src/styles/about.css`:
+
+- **Hero** — H1 is the tagline on two lines ("We're more than a funding provider. / We're your partner."),
+  the NYC sentence is the lead in columns 12–16, the still is **5:2** (was 16:9). The two sentences are
+  spans with an explicit `{' '}` between them: Astro drops whitespace-only text between tags, so without
+  it the page text read "provider.We're".
+- **Founder** — the bio line under the credit is not in the note, so it is removed.
+- **Our people** — the intro paragraph under the H2 is not in the note, so it is removed. Titles unchanged.
+- **Where we are** — `SITE.phones.office` added (`+1 (917) 645-3826`) and printed as its own row; the
+  address row relabelled "Address" (it read "Office", which would have printed two offices); Fax no longer
+  printed on this page.
+- **`<title>`** — now the note's meta line, "About Falcon Equity Group | Business funding, New York"
+  (was "About | Falcon Equity Group"). `tests/titles.spec.mjs` asserts the new title and the two-line H1.
+
+Open reading, stated in `docs/about-structure-plan.md`: the note's meta block still lists the H1 as "About
+Falcon Equity Group" while its hero band makes the tagline the H1. The hero band is the later edit and the
+one that renders, so the tagline is the H1 and the entity name rides the title tag + breadcrumb schema.
+
+Checked: `npm run build` clean, `npm run check` 0 errors, `test:titles` passes, `test:nav` still red on the
+same home-page assertions (testimonial circles, home section spacing, nav-inflow) it was red on before this
+page — nothing About-related. No horizontal overflow at 390 / 768 / 1024 / 1440 / 1920.

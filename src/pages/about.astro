@@ -2,11 +2,13 @@
 /**
  * `/about` — About Falcon Equity Group.
  *
- * Copy contract: `falcon-page-drafts/resources-and-firm-content.md` §5 (approved 22 Oct 2026),
- * ten bands in the order written there. Facts come from the data layer only:
- * STATS, SERVICES, INDUSTRIES, SITE — nothing retyped, and the 98% approval rate stays on the
- * home page. Donors for each band are named in the stylesheet header (`src/styles/about.css`);
- * the plan row-by-row table is `docs/about-structure-plan.md`.
+ * Copy: Notion “About — page copy (/about)” in the nio rio workspace, revised 23 Oct 2026.
+ * Seven bands in the order written there: hero, by the numbers, founder, our people, values,
+ * how we're different, where we are. The 22 Oct contract's “short answer”, “what we do” and
+ * “who we fund” bands were deleted in Notion, so they are gone from the page too.
+ * Facts come from the data layer only: STATS, SITE — nothing retyped, and the approval-rate
+ * figure stays on the home page. Donors per band: `src/styles/about.css`,
+ * row-by-row table in `docs/about-structure-plan.md`.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
@@ -14,8 +16,6 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import ArrowCta from '@/components/ArrowCta.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { SERVICES } from '@/data/services';
-import { INDUSTRIES } from '@/data/industries';
 import { SITE, STATS } from '@/data/site';
 import founderPortrait from '@/assets/images/dwight-holly.webp';
 import '@/styles/about.css';
@@ -27,37 +27,6 @@ const statByLabel = (label: string) => {
 };
 const featuredStat = statByLabel('Funding deployed');
 const sideStats = [statByLabel('Years of experience'), statByLabel('Businesses helped')];
-
-/** Product order from the copy contract; every figure below is read out of SERVICES. */
-const PRODUCTS: { slug: string; note: string }[] = [
-  { slug: 'merchant-cash-advance', note: 'Fastest to fund, and the most expensive.' },
-  { slug: 'business-line-of-credit', note: 'Draw what you need and pay for only what you use.' },
-  { slug: 'business-term-loan', note: 'One lump sum for a defined project.' },
-  { slug: 'collateral-asset-loans', note: 'Against equipment, vehicles, commercial real estate or other business assets.' },
-  { slug: 'invoice-factoring-tool', note: 'Against invoices you have already earned.' },
-  { slug: 'consolidation-of-positions', note: 'Several daily or weekly payments replaced by one position.' },
-  { slug: 'decentralized-business-financing', note: 'Crypto onboarding and custodial services, scoped per file.' },
-];
-const products = PRODUCTS.map(({ slug, note }) => {
-  const service = SERVICES.find((s) => s.slug === slug);
-  if (!service) throw new Error(`SERVICES is missing "${slug}" — the About page reads its ranges from there.`);
-  return {
-    name: service.name,
-    spec:
-      slug === 'decentralized-business-financing'
-        ? 'Scoped per file · no published amounts'
-        : `${service.amounts} · ${service.terms}`,
-    note,
-    href: slug === 'decentralized-business-financing' ? null : `/services/${slug}`,
-  };
-});
-
-const takeaways = [
-  'New York based, with one specialist assigned to each file rather than a call queue.',
-  'Seven products, so the recommendation follows the use of proceeds instead of one product being sold to everyone.',
-  'Many products fund within 24-48 hours of approval; real-estate secured loans take longer.',
-  'Every file is underwritten individually. Approval is never guaranteed.',
-];
 
 /** Titles only, no photographs and no biographies until real names are approved. */
 const peopleTitles = [
@@ -106,8 +75,6 @@ const differences = [
   },
 ];
 
-const sectors = INDUSTRIES.map((industry) => ({ name: industry.name, href: industry.href }));
-
 const address = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
 
 const breadcrumbSchema = {
@@ -122,7 +89,7 @@ const breadcrumbSchema = {
 ---
 
 <BaseLayout
-  title="About"
+  title="About Falcon Equity Group | Business funding, New York"
   description="A New York business funding firm: 15 years, $100M+ deployed and 300+ businesses helped. Seven products from $5,000, with many funding in 24-48 hours."
   disclosure={PAGE_DISCLOSURE}
   schema={[breadcrumbSchema]}
@@ -141,42 +108,28 @@ const breadcrumbSchema = {
     </script>
   </Fragment>
 
-  <!-- 1. Hero — TF-00 header + TF-01 still. The lead sits in the right-hand columns. -->
+  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in columns 1-7, lead in 12-16, one 5:2 still. -->
   <section class="abt-hero" aria-labelledby="page-hero-heading" data-band="light" data-abt-section="hero" data-reveal-root>
     <div class="container-site">
       <div class="abt-shell abt-hero-head" data-reveal>
-        <h1 id="page-hero-heading" class="abt-hero-title">About Falcon Equity Group</h1>
-        <p class="abt-hero-lead">We're more than a funding provider. We're your partner.</p>
+        <h1 id="page-hero-heading" class="abt-hero-title">
+          <span class="abt-hero-line">We’re more than a funding provider.</span>{' '}<span class="abt-hero-line"
+            >We’re your partner.</span
+          >
+        </h1>
+        <p class="abt-hero-lead">
+          Based in NYC, we empower businesses and entrepreneurs with fast, flexible, and tailored financial solutions
+          designed to fuel growth, optimize cash flow, and secure long-term success.
+        </p>
       </div>
       <div class="abt-hero-media" data-reveal-media>
         <Media
           labeled
           intent="Lower Manhattan office windows looking toward the harbour, morning light"
-          ratio="16 / 9"
+          ratio="5 / 2"
           priority
           sizes="(min-width: 80em) 1264px, (min-width: 64em) 1136px, (min-width: 48em) 688px, 100vw"
         />
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. Answer first — the 51-word answer, with four takeaways beside it. -->
-  <section class="abt-answer" aria-labelledby="answer-heading" data-band="light" data-abt-section="answer" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-answer-grid">
-        <div class="abt-answer-copy" data-reveal>
-          <Eyebrow>The short answer</Eyebrow>
-          <h2 id="answer-heading" class="sr-only">What Falcon Equity Group is</h2>
-          <p class="abt-answer-text">
-            Falcon Equity Group is a business funding firm based at 11 Broadway in New York. In 15 years it has
-            deployed more than $100M to 300+ businesses, offering seven products from $5,000 to $5,000,000: merchant
-            cash advances, lines of credit, term loans, invoice factoring, consolidation, asset-backed loans and
-            digital asset services.
-          </p>
-        </div>
-        <ul class="abt-takeaways" data-reveal>
-          {takeaways.map((line) => <li class="abt-takeaway">{line}</li>)}
-        </ul>
       </div>
     </div>
   </section>
@@ -203,40 +156,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 4. What we do — OP-01 roster: 4 tracks of 244, 96 / 64 gaps, name over spec. -->
-  <section class="abt-products" aria-labelledby="products-heading" data-band="light" data-abt-section="products" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-band-head" data-reveal>
-        <div class="abt-block-head">
-          <Eyebrow>What we do</Eyebrow>
-          <h2 id="products-heading">Seven ways to fund a business.</h2>
-        </div>
-        <p class="abt-band-lead">
-          One application goes to a specialist who matches the product to the need: speed, a repeating gap, an asset,
-          an unpaid invoice or a set of stacked payments.
-        </p>
-      </div>
-      <ul class="abt-roster" data-reveal>
-        {
-          products.map((product) => (
-            <li class="abt-roster-item">
-              {product.href ? (
-                <a class="abt-roster-link" href={product.href}>
-                  <span class="abt-roster-name">{product.name}</span>
-                </a>
-              ) : (
-                <span class="abt-roster-name">{product.name}</span>
-              )}
-              <p class="abt-roster-spec">{product.spec}</p>
-              <p class="abt-roster-note">{product.note}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <!-- 5. Founder — FAL-03: 3:4 portrait, the live site's quote, credit, one line. -->
+  <!-- 5. Founder — FAL-03: 3:4 portrait, the live site's quote, credit. -->
   <section class="abt-founder" aria-labelledby="founder-heading" data-band="light" data-abt-section="founder" data-reveal-root>
     <div class="container-site">
       <div class="abt-shell abt-founder-grid">
@@ -259,7 +179,6 @@ const breadcrumbSchema = {
             complex financial landscape to ensure your wealth works for you.”
           </blockquote>
           <p class="abt-founder-credit">{SITE.founder.name}, {SITE.founder.title}</p>
-          <p class="abt-founder-line">{SITE.founder.bio}.</p>
         </div>
       </div>
     </div>
@@ -273,10 +192,6 @@ const breadcrumbSchema = {
           <Eyebrow>Our people</Eyebrow>
           <h2 id="people-heading">The people behind each file.</h2>
         </div>
-        <p class="abt-people-body">
-          A file moves through specialists rather than a queue: a funding advisor, an underwriter and a client success
-          manager who stays with you after funding.
-        </p>
       </div>
       <ul class="abt-roster" data-reveal>
         {
@@ -312,37 +227,6 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 8. Who we fund — TF-03 rows, re-cut as a four-column link grid off INDUSTRIES. -->
-  <section class="abt-sectors" aria-labelledby="sectors-heading" data-band="light" data-abt-section="sectors" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-band-head" data-reveal>
-        <div class="abt-block-head">
-          <Eyebrow>Industries</Eyebrow>
-          <h2 id="sectors-heading">Who we fund.</h2>
-        </div>
-        <p class="abt-band-lead">
-          We fund operating businesses in twelve sectors, and others with steady revenue. There is no
-          restricted-industry or restricted-state list. The work is the same in each: read the file, match the product
-          to the use of proceeds, and say so when a product is the wrong instrument.
-        </p>
-      </div>
-      <ul class="abt-sector-grid" data-reveal>
-        {
-          sectors.map((sector) => (
-            <li class="abt-sector">
-              <a class="abt-sector-link" href={sector.href}>
-                <span>{sector.name}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="abt-sectors-cta" data-reveal>
-        <ArrowCta href="/industries" label="See industry funding" />
-      </div>
-    </div>
-  </section>
-
   <!-- 9. How we're different — APM-01 numbered columns, four instead of three. -->
   <section class="abt-different" aria-labelledby="different-heading" data-band="light" data-abt-section="different" data-reveal-root>
     <div class="container-site">
@@ -366,7 +250,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 10. Where we are — address, email, phones, one Apply. -->
+  <!-- 10. Where we are — address, email, direct and office lines, one Apply. -->
   <section class="abt-contact" aria-labelledby="contact-heading" data-band="light" data-abt-section="contact" data-reveal-root>
     <div class="container-site">
       <div class="abt-shell abt-contact-grid">
@@ -376,7 +260,7 @@ const breadcrumbSchema = {
         </div>
         <dl class="abt-contact-list" data-reveal>
           <div class="abt-contact-row">
-            <dt class="abt-contact-label">Office</dt>
+            <dt class="abt-contact-label">Address</dt>
             <dd class="abt-contact-value">{address}</dd>
           </div>
           <div class="abt-contact-row">
@@ -388,8 +272,8 @@ const breadcrumbSchema = {
             <dd class="abt-contact-value"><a href={SITE.phones.direct.href}>{SITE.phones.direct.display}</a></dd>
           </div>
           <div class="abt-contact-row">
-            <dt class="abt-contact-label">{SITE.phones.fax.label}</dt>
-            <dd class="abt-contact-value">{SITE.phones.fax.display}</dd>
+            <dt class="abt-contact-label">{SITE.phones.office.label}</dt>
+            <dd class="abt-contact-value"><a href={SITE.phones.office.href}>{SITE.phones.office.display}</a></dd>
           </div>
         </dl>
         <div class="abt-contact-cta" data-reveal>

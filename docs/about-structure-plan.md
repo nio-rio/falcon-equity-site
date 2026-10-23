@@ -10,7 +10,29 @@ pushed to Notion the same day). Ten bands, in the order written there — no ban
 Donor ids are from `docs/section-library-live/LIBRARY.md`. Numbers below were measured on the live
 reference in real Chrome over CDP, not read off a screenshot.
 
-## Bands
+## Revision 2 — 23 Oct 2026: copy and structure re-cut from Notion
+
+Ling revised the note itself (*"I have changed about page copy and structure on notion"*) and asked for the
+page to follow it. The note keeps its original 1–10 numbering, which is the cheapest record of what moved:
+**bands 2 (answer first), 4 (what we do) and 8 (who we fund) were deleted**, so the page is now seven bands —
+1 hero, 3 by the numbers, 5 founder, 6 our people, 7 values, 9 how we're different, 10 where we are.
+
+| # | Band | Change from v1 |
+| --- | --- | --- |
+| 1 | Hero | The H1 is now the tagline on two lines ("We're more than a funding provider. / We're your partner."), the NYC sentence is the lead in columns 12–16, and the still is 5:2 instead of 16:9. |
+| 3 | By the numbers | Unchanged. |
+| 5 | Founder | Unchanged except the bio line under the credit, which the note no longer lists — removed. |
+| 6 | Our people | The intro paragraph under the H2 is not in the note — removed. The 17 titles are unchanged. |
+| 7 | Values | Unchanged. |
+| 9 | How we're different | Unchanged. |
+| 10 | Where we are | **Office +1 (917) 645-3826 added to `SITE.phones.office`** and printed as its own row; the address row is now labelled "Address" (it read "Office", which would have printed two offices); Fax is no longer printed on this page. |
+
+The `<title>` is the note's meta line, "About Falcon Equity Group | Business funding, New York". The note's
+meta block still lists the H1 as "About Falcon Equity Group" while its hero band makes the tagline the H1 —
+the hero band is the later edit and the one that renders, so the tagline is the H1; the entity name is carried
+by the title tag, the breadcrumb schema and the nav. One line to swap it back if that reading is wrong.
+
+## Bands (v1 record — 22 Oct contract)
 
 | # | Band | Donor | Source | Ours |
 | --- | --- | --- | --- | --- |
@@ -31,14 +53,14 @@ reference in real Chrome over CDP, not read off a screenshot.
 1. **No visible breadcrumb.** The copy's meta block lists `Home / Our Firm / About`; the reference
    site prints no breadcrumb on any page in the library, and no Falcon page prints one. The path ships
    as `BreadcrumbList` JSON-LD instead, so the structure is machine-readable without adding furniture.
-2. **"Office +1 (917) 645-3826" is not published.** The copy lists it, but `src/data/site.ts` carries
-   only Direct and Fax, and `CLAUDE.md` makes that file the source for phone numbers. The band shows
-   Direct and Fax. If the office line is real, add it to `site.ts` and it will appear.
+2. ~~"Office +1 (917) 645-3826" is not published.~~ **Closed in revision 2:** the line is in
+   `SITE.phones.office` and prints as the last contact row. Fax stays in `site.ts` (the Apply page and the
+   contact overlay use it) but is no longer printed on About.
 3. **"See all services" → `/#services`, not `/services`.** There is no `/services` index; the route is
    retired to `/#services`, so the link goes straight there rather than through a 301.
-4. **The products roster links only where a page exists.** Six of the seven services have a page;
-   Decentralized Business Financing does not (`/services/decentralized-business-financing` 301s to
-   `/#services`), so its name is plain text.
+4. ~~The products roster links only where a page exists.~~ **Moot in revision 2:** the "what we do" band
+   was deleted, so the services roster is no longer on this page. The `.abt-roster` pattern now carries only
+   the 17 people titles, and the product wording lives on `/services/*`.
 5. **No `AboutPage` node was added by hand.** `src/lib/schema.ts` already types `/about` as
    `AboutPage`; the page adds only the breadcrumb, so there is exactly one `AboutPage` in the head.
 
@@ -52,14 +74,16 @@ reference in real Chrome over CDP, not read off a screenshot.
 
 ## Verified on the build
 
-`dist/about.html` is a real page (53,957 bytes, `<title>About | Falcon Equity Group</title>`, one
-`<h1>`, ten `<h2>`, no `http-equiv="refresh"`), in `sitemap-0.xml`, `AboutPage` + `BreadcrumbList`
-present. No horizontal overflow at 390 / 768 / 1024 / 1440 / 1920; document height 11,247 / 8,388 /
-8,387 / 8,053 / 8,267. Crops reviewed band by band at 1440 and 390.
+v1: `dist/about.html` was 53,957 bytes with ten bands. Revision 2: 47,404 bytes, `<title>About Falcon
+Equity Group | Business funding, New York</title>`, one `<h1>`, seven sections in the note's order
+(hero, stats, founder, people, values, different, contact), 17 roster titles, the office line present, no
+`http-equiv="refresh"`, `AboutPage` + `BreadcrumbList` in the head. No horizontal overflow at 390 / 768 /
+1024 / 1440 / 1920 (`overflow: 0` at every width). Crops reviewed band by band at 1440 and 390.
+`npm run check` 0 errors, `npm run test:titles` passes.
 
 ## Still open
 
-- The office phone number (deviation 2) and the two legal routes (`/privacy-policy`,
+- The two legal routes (`/privacy-policy`,
   `/terms-conditions`) are still home-page anchors.
 - `Partners`, `Contact` and `How It Works` in the header still point at placeholders; they are the next
   pages in the queue, and `/contact` is currently served by the contact overlay.
