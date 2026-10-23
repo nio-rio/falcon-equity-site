@@ -1595,14 +1595,26 @@ html.has-scroll-lock .site-header [data-nav-bar] {
 /* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
    Band shares `--color-surface-dark` with the footer (Martinique Darker).
    7-line wrap, mask 5%/40-60%/95%, stepped translateY, ~400ms cubic ease
-   + ~1200ms hold. Lead and phrases use the site heading face (`--font-display`,
-   `--bx-fw-light`) like home section h2s. Pitch is 4.5rem (1.5× the prior
-   3rem) so the wheel is 31.5rem. Active phrase is plain white; neighbors
-   above Martinique Lighter; rest --white-a50. Apply is button-040 light. */
+   + ~1200ms hold. Pitch is 4.5rem so the wheel is 31.5rem. Active phrase is
+   plain white; neighbors above Martinique Lighter; rest --white-a50. Apply is
+   button-040 light.
+
+   Ling, 2026-10-23 (supersedes the display-face lead/phrase below):
+   - Sentence (lead + rotating phrases) takes the BODY face (`--font-sans`,
+     Archivo 400), not `--font-display`. Owned by one rule on
+     `.site-cta__sentence`; lead and phrase still `inherit`.
+   - Type ladder stepped down one token: 20 / 24 / 28 / 32 / 36 at
+     390 / 768 / 992 / 1280 / 1440 (was 24 / 32 / 36 / 40 / 48).
+   - Sentence and Apply sit LEFT and RIGHT from 64em (independent of the type
+     step): the block now declares `flex-direction: row`; before this it set
+     `justify-content: space-between` on a column, so the band stacked at every
+     width. Sizes stay at 32/36 (not 40/48) so lead + longest phrase + button fit
+     one row inside the 944 / 1136 / 1264 container. Below 64em it stays stacked
+     and centred by design. */
 .site-cta {
   --site-cta-line: 4.5rem;
   --site-cta-wheel: calc(var(--site-cta-line) * 7);
-  --site-cta-type: 1.5rem;
+  --site-cta-type: 1.25rem;
   --site-cta-lead: rgb(255 255 255 / 0.5);
   --site-cta-active: #fff;
   --site-cta-past: var(--bx-martinique-lighter);
@@ -1627,9 +1639,10 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   gap: 0.5rem;
   margin: 0;
   color: var(--site-cta-lead);
-  font-family: var(--font-display);
+  /* Body face (Archivo) — the sentence is not a display-type line. */
+  font-family: var(--font-sans);
   font-size: var(--site-cta-type);
-  font-weight: var(--bx-fw-light);
+  font-weight: var(--bx-fw-regular);
   font-style: normal;
   letter-spacing: normal;
   line-height: var(--site-cta-line);
@@ -1718,7 +1731,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
 
 @media (min-width: 48em) {
   .site-cta {
-    --site-cta-type: 2rem;
+    --site-cta-type: 1.5rem;
   }
 
   .site-cta .button-040 {
@@ -1729,7 +1742,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
 
 @media (min-width: 62em) {
   .site-cta {
-    --site-cta-type: 2.25rem;
+    --site-cta-type: 1.75rem;
   }
 
   .site-cta__wheel {
@@ -1743,22 +1756,18 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   }
 }
 
-@media (min-width: 80em) {
-  .site-cta {
-    --site-cta-type: 2.5rem;
-  }
-
-  .site-cta .button-040 {
-    font-size: 1.75rem;
-    --button-040-padding-x: 1.5em;
-  }
-
+@media (min-width: 64em) {
+  /* Sentence left, Apply right. Before this the block kept the base `column`
+     and only set `space-between`, so the band stacked at every width.
+     The gap is 40px here (64px from 80em) so the row still clears the 944px
+     container at 1024: sentence + Apply needs ~885px plus the gap. */
   .site-cta__content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    gap: calc(var(--bx-space-40) + 1.5rem);
+    gap: var(--bx-space-40);
     padding-block: 0;
     text-align: left;
   }
@@ -1769,7 +1778,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
-    min-width: min(100%, 36rem);
+    min-width: 0;
   }
 
   .site-cta__wheel {
@@ -1786,9 +1795,24 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   }
 }
 
+@media (min-width: 80em) {
+  .site-cta {
+    --site-cta-type: 2rem;
+  }
+
+  .site-cta .button-040 {
+    font-size: 1.75rem;
+    --button-040-padding-x: 1.5em;
+  }
+
+  .site-cta__content {
+    gap: calc(var(--bx-space-40) + 1.5rem);
+  }
+}
+
 @media (min-width: 90em) {
   .site-cta {
-    --site-cta-type: 3rem;
+    --site-cta-type: 2.25rem;
   }
 
   .site-cta .button-040 {
