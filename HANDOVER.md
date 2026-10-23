@@ -367,3 +367,18 @@ Ling: *"use the slider navigation design from this blackstone page hero section.
 **Commit note:** the rewrite first landed inside another bot's commit `aa515c3` ("Case accordion: product block starts on column 8…"), which swept an uncommitted working tree. Content verified in that commit; the ring-draw follow-up is committed separately. Nothing here was force-pushed.
 
 **Still open:** the nav's hover swap is proven with a real pointer on the local build, but not yet re-shot on the Netlify preview; and `test:nav`'s home-page hover failure should be reproduced on `main` to confirm it predates this work.
+
+## ArrowButton — the home hero button is a global component now (2026-10-23)
+
+Ling: *"Retail page hero button should be like the home page hero button. You should just make that button into a global component and use it directly."*
+
+**What changed**
+- **New:** `src/components/ArrowButton.astro` + `src/styles/arrow-button.css`, imported once from `BaseLayout.astro` so every page can use it. The metrics are the home hero's measured values, moved *verbatim* out of `pilot.css` — this file is now the only place those numbers live.
+- `pilot/PilotHero.astro` renders `<ArrowButton tone="light" />`; the three `.pilot-hero .pilot-arrow*` overrides were deleted from `pilot.css` (a comment marks where they went).
+- `industries/retail.astro` hero uses `<ArrowButton class="ret-hero-apply" href="/apply" label="Apply for funding" />`; the hand-rolled `.arrow-cta` markup is gone.
+- `ArrowCta` (`.arrow-cta`, 16.8px/500, 44px circle) deliberately untouched: it is the service-page link row and the 404 CTA, and those pages are approved as they are. Two components, two specs — merging them would restyle approved pages.
+
+**Approved, do not revert** — retail hero CTA now measures identically to the home hero CTA: 18px/400, line-height 27px, letter-spacing 0.288px, gap 16px, 44px tall, 40px circle (it was 16.8px/500 with a 44px circle), underline draws 0 → 100% on hover. Measured at 390 / 768 / 1024 / 1280 / 1440 on the local build; the home hero reads the same values it did on the deployed preview, so the extraction changed nothing there. Grid position unchanged: 1440 → x 968, width 384, top 368 (col 12 / span 5).
+Hover fill follows the band, not the page: on a light band the circle fills ink with a white arrow (retail), on a dark band it fills white with an ink arrow (`tone="light"`, home).
+
+**Checks:** `npm run build` passes, `npm run check` 0 errors (4 pre-existing hints in `tests/nav.spec.mjs`).
