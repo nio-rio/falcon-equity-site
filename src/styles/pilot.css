@@ -357,51 +357,7 @@
   }
 }
 
-/* Eyebrow: left = 48×2px rule to the right; centered headings = rule above. */
-.pilot-eyebrow {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  font-weight: 400;
-  letter-spacing: var(--bx-ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--bx-black);
-}
-
-.pilot-eyebrow--line {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.pilot-eyebrow--line::after {
-  content: '';
-  display: block;
-  width: var(--bx-space-48);
-  height: 2px;
-  margin-left: var(--bx-space-16);
-  background: currentColor;
-  flex: none;
-}
-
-.pilot-eyebrow--center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--bx-space-16);
-  text-align: center;
-}
-
-.pilot-eyebrow--center::before {
-  content: '';
-  display: block;
-  width: var(--bx-space-48);
-  height: 2px;
-  background: currentColor;
-}
-
-.pilot-on-dark .pilot-eyebrow {
+.pilot-on-dark .eyebrow {
   color: #fff;
 }
 
@@ -416,10 +372,6 @@
 
 .pilot-section-head h2 {
   margin: 0;
-}
-
-.pilot-section-head .pilot-eyebrow + h2 {
-  margin-top: var(--bx-space-40);
 }
 
 .pilot-section-head--center {
@@ -982,16 +934,6 @@
     grid-template-areas: 'Title Title Title Title Title Title . . Media Media Media Media . Meta Meta Meta';
   }
 
-  .pilot-ann-eyebrow {
-    margin-bottom: 3.5rem;
-    font-size: 1rem; /* BX `.is-style-eyebrow` --fs-16 at 80em */
-  }
-
-  .pilot-ann-eyebrow.pilot-eyebrow--line::after {
-    width: 3.5rem; /* 56px */
-    margin-left: 1.5rem; /* 24px */
-  }
-
   .pilot-ann-title p {
     font-size: 2rem;
   }
@@ -1015,17 +957,15 @@
     grid-template-areas: 'Title Title Title Title Title Title Title . Media Media Media Media . Meta Meta Meta';
   }
 
-  .pilot-ann-eyebrow {
-    margin-bottom: 4rem;
-  }
-
-  .pilot-ann-eyebrow.pilot-eyebrow--line::after {
-    width: 4rem; /* 64px at 90em */
-  }
-
   .pilot-ann-title p {
     font-size: 2.5rem;
   }
+}
+
+/* Testimonial eyebrow → quote. The global component supplies type and rule;
+   this is the one section whose next sibling is a quote, not an h2. */
+.pilot-ann-eyebrow {
+  margin-bottom: var(--eyebrow-gap);
 }
 
 /* BMACX featured-content panel + sector select — home Industries only.
@@ -1044,10 +984,6 @@
   flex-direction: column;
   gap: 1.5rem;
   padding-bottom: var(--space-head-to-content);
-}
-
-.pilot-tabs-heading .pilot-eyebrow + h2 {
-  margin-top: var(--bx-space-40);
 }
 
 .pilot-tabs-head h2 {
@@ -1372,10 +1308,6 @@
   flex-direction: column;
 }
 
-.pilot-why-eyebrow {
-  margin-bottom: 3rem;
-}
-
 .pilot-why-title {
   margin: 0;
   font-family: var(--font-display);
@@ -1533,9 +1465,9 @@
       'card card card card card card card card';
   }
 
+  /* Placement only — the eyebrow's size and gap come from the global `.eyebrow`. */
   .pilot-why-eyebrow {
     grid-area: eyebrow;
-    margin-bottom: 3rem;
   }
 
   .pilot-why-title {
@@ -1593,10 +1525,6 @@
     align-items: start;
   }
 
-  .pilot-why-eyebrow {
-    margin-bottom: 3.5rem;
-  }
-
   .pilot-why-copy {
     margin-top: 3rem;
   }
@@ -1621,10 +1549,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-why-eyebrow {
-    margin-bottom: 4rem;
-  }
-
   .pilot-why-title {
     font-size: 3rem;
   }
@@ -1670,10 +1594,6 @@
 
 .pilot-ll-head {
   margin-bottom: var(--pilot-heading-to-items);
-}
-
-.pilot-ll-head .pilot-eyebrow + h2 {
-  margin-top: var(--bx-space-40);
 }
 
 .pilot-ll-head h2 {
@@ -1986,22 +1906,6 @@
   padding-bottom: var(--pilot-heading-to-items);
 }
 
-.pilot-news-head .pilot-eyebrow {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  letter-spacing: 0.08em;
-  /* Eyebrow → H2 gap. Every other home section carries this 40px; the news head
-     was missing it, so the H2 sat on the eyebrow below 80em. BX's own mobile
-     value is 48px. */
-  padding-bottom: var(--bx-space-40);
-}
-
-.pilot-news-head .pilot-eyebrow--line::after {
-  width: 3rem;
-  height: 2px;
-  margin-left: 1rem;
-}
-
 .pilot-news-head h2 {
   margin: 0;
   font-family: var(--font-display);
@@ -2175,16 +2079,6 @@
 }
 
 @media (min-width: 80em) {
-  .pilot-news-head .pilot-eyebrow {
-    font-size: 16px;
-    padding-bottom: 56px;
-  }
-
-  .pilot-news-head .pilot-eyebrow--line::after {
-    width: 56px;
-    margin-left: 24px;
-  }
-
   .pilot-news-head h2 {
     font-size: 40px;
     line-height: 60px;
@@ -2245,14 +2139,6 @@
 }
 
 @media (min-width: 90em) {
-  .pilot-news-head .pilot-eyebrow {
-    padding-bottom: 64px;
-  }
-
-  .pilot-news-head .pilot-eyebrow--line::after {
-    width: 64px;
-  }
-
   .pilot-news-head h2 {
     font-size: 48px;
     line-height: 72px;

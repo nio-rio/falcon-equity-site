@@ -182,42 +182,6 @@ html {
 
 /* Default eyebrow: uppercase label + short rule to the RIGHT.
    Centered headings: rule ABOVE the label. */
-.eyebrow--line {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
-}
-
-.eyebrow--line::after {
-  content: '';
-  display: block;
-  width: var(--bx-space-48);
-  height: 2px;
-  margin-left: var(--bx-space-16);
-  background: currentColor;
-  flex: none;
-}
-
-.eyebrow--center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--bx-space-16);
-}
-
-.eyebrow--center::after {
-  display: none;
-}
-
-.eyebrow--center::before {
-  content: '';
-  display: block;
-  width: var(--bx-space-48);
-  height: 2px;
-  background: currentColor;
-}
-
 .on-dark .eyebrow,
 .site-footer .eyebrow {
   color: inherit;
@@ -227,10 +191,6 @@ html {
    (desktop row-gap). Body starts ~col 7, spans ~6. Circle-arrow 40px below body. */
 .section-head h2 {
   margin: 0;
-}
-
-.section-head .eyebrow + h2 {
-  margin-top: var(--bx-space-40);
 }
 
 .section-body,
@@ -1303,6 +1263,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   font-size: var(--bx-fs-18);
   line-height: 1.5;
   color: var(--nav-widget-copy);
+  text-wrap: pretty;
 }
 
 .primary-nav-widget .eyebrow,

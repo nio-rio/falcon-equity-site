@@ -6,7 +6,7 @@
  */
 import CircleArrow from '@/components/CircleArrow.astro';
 import Media from '@/components/Media.astro';
-import PilotEyebrow from './PilotEyebrow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
 import { HOME_TESTIMONIALS } from '@/data/home-testimonial';
 
 const slides = HOME_TESTIMONIALS;
@@ -24,7 +24,7 @@ const eyebrow = 'Testimonial';
 >
   <div class="container-site">
     <div class="pilot-ann-inner">
-      <PilotEyebrow class="pilot-ann-eyebrow">{eyebrow}</PilotEyebrow>
+      <Eyebrow class="pilot-ann-eyebrow">{eyebrow}</Eyebrow>
       <div class="pilot-ann-stage">
         <div class="pilot-ann-list" data-testimonial-list role="list">
           {

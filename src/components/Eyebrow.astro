@@ -7,6 +7,6 @@ interface Props {
 const { align = 'left', class: className } = Astro.props;
 ---
 
-<p class:list={['eyebrow', 'eyebrow--line', align === 'center' && 'eyebrow--center', className]}>
+<p class:list={['eyebrow', align === 'center' ? 'eyebrow--center' : 'eyebrow--line', className]}>
   <slot />
 </p>

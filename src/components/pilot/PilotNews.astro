@@ -4,6 +4,7 @@
  * Measured at 1440 / 1280; see docs/refs/bx-life-sciences-news.md.
  */
 import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
 import type { Post } from '@/lib/blog';
 
 interface Props {
@@ -18,7 +19,7 @@ const { posts } = Astro.props;
     <section class="pilot-news" aria-labelledby="insights-heading" data-band="light" data-reveal-root>
       <div class="container-site">
         <div class="pilot-news-head">
-          <p class="pilot-eyebrow pilot-eyebrow--line">News & Insights</p>
+          <Eyebrow>News &amp; Insights</Eyebrow>
           <h2 id="insights-heading" data-reveal>Guides for getting funded.</h2>
         </div>
         <div class="pilot-news-grid">

@@ -110,24 +110,6 @@ section.mca-blog[data-band='light'] {
   margin-top: 40px;
 }
 
-.mca-band .eyebrow {
-  margin: 0;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 400;
-  letter-spacing: 1.12px;
-}
-
-.mca-band .eyebrow--line::after {
-  width: 48px;
-  height: 2px;
-  margin-left: 16px;
-}
-
-.mca-block-head .eyebrow {
-  margin-bottom: 48px;
-}
-
 .mca-block-head h2,
 .mca-faq-head h2 {
   margin: 0;
@@ -841,20 +823,6 @@ section.mca-blog[data-band='light'] {
     line-height: 57px;
     font-weight: 400;
     letter-spacing: normal;
-  }
-
-  .mca-band .eyebrow {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 1.28px;
-  }
-
-  .mca-band .eyebrow--line::after {
-    width: 64px;
-  }
-
-  .mca-block-head .eyebrow {
-    margin-bottom: 64px;
   }
 
   .mca-block-head h2 {

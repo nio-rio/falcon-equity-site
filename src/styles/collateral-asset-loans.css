@@ -111,24 +111,6 @@ section.cal-blog[data-band='light'] {
   margin-top: 40px;
 }
 
-.cal-band .eyebrow {
-  margin: 0;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 400;
-  letter-spacing: 1.12px;
-}
-
-.cal-band .eyebrow--line::after {
-  width: 48px;
-  height: 2px;
-  margin-left: 16px;
-}
-
-.cal-block-head .eyebrow {
-  margin-bottom: 48px;
-}
-
 .cal-block-head h2,
 .cal-faq-head h2 {
   margin: 0;
@@ -839,20 +821,6 @@ section.cal-blog[data-band='light'] {
     line-height: 57px;
     font-weight: 400;
     letter-spacing: normal;
-  }
-
-  .cal-band .eyebrow {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 1.28px;
-  }
-
-  .cal-band .eyebrow--line::after {
-    width: 64px;
-  }
-
-  .cal-block-head .eyebrow {
-    margin-bottom: 64px;
   }
 
   .cal-block-head h2 {

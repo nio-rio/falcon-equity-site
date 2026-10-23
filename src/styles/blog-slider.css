@@ -56,7 +56,8 @@
 }
 
 .blog-copy .eyebrow {
-  margin-bottom: 48px;
+  /* Eyebrow → slides; same 40/56/64 gap as every eyebrow head site-wide. */
+  margin-bottom: var(--eyebrow-gap);
 }
 
 .blog-copy-slides {
@@ -401,10 +402,6 @@
 @media (min-width: 90em) {
   .blog-copy {
     grid-column: 1 / span 5;
-  }
-
-  .blog-copy .eyebrow {
-    margin-bottom: 64px;
   }
 
   .blog-nav {

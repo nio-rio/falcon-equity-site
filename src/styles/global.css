@@ -277,15 +277,58 @@
 }
 
 @layer components {
-  /* Tech-and-innovations eyebrow: ~12–13px, uppercase, slight tracking, black (not grey).
-     Bundle token is --fs-14 / .08em; screenshot reads 12–13px. */
+  /* Section eyebrow — one component, one ladder, site-wide.
+     Reference is the home “News & Insights” head: 14/21 at 390–1024,
+     16/24 from 1280; 48×2px rule 16px to the right, 56px/24px from 1280,
+     64px/24px from 1440; 40px to the heading, 56 from 1280, 64 from 1440. */
   .eyebrow {
+    margin: 0;
+    font-family: var(--font-sans);
     font-size: var(--type-eyebrow-size);
     line-height: var(--type-eyebrow-lh);
     font-weight: var(--type-eyebrow-weight);
     letter-spacing: var(--type-eyebrow-ls);
     text-transform: uppercase;
     color: var(--bx-black);
+  }
+
+  /* Eyebrow → heading. Margin on the eyebrow, not `margin-top` on the h2:
+     every page stylesheet sets `h2 { margin: 0 }` inside its head block, so a
+     sibling rule on the heading loses to them. */
+  .eyebrow:has(+ h2) {
+    margin-bottom: var(--eyebrow-gap);
+  }
+
+  .eyebrow--line {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .eyebrow--line::after {
+    content: '';
+    display: block;
+    width: var(--eyebrow-rule);
+    height: 2px;
+    margin-left: var(--eyebrow-rule-gap);
+    background: currentColor;
+    flex: none;
+  }
+
+  .eyebrow--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--eyebrow-rule-gap);
+    text-align: center;
+  }
+
+  .eyebrow--center::before {
+    content: '';
+    display: block;
+    width: var(--eyebrow-rule);
+    height: 2px;
+    background: currentColor;
   }
 
   .btn-primary,

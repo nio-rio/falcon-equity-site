@@ -146,10 +146,15 @@
   --type-body-weight: 400;
   --type-lead-size: 1rem;
   --type-lead-lh: 1.6;
-  --type-eyebrow-size: 0.8125rem;
+  --type-eyebrow-size: 0.875rem;   /* 14px — home News & Insights */
   --type-eyebrow-lh: 1.5;
   --type-eyebrow-ls: 0.08em;
   --type-eyebrow-weight: 400;
+  /* Eyebrow spacing ladder, anchored on the home News & Insights section:
+     40 / 56 / 64px gap, 48 / 56 / 64px rule, 16 / 24 / 24px label→rule. */
+  --eyebrow-gap: 2.5rem;
+  --eyebrow-rule: 3rem;
+  --eyebrow-rule-gap: 1rem;
   --type-caption-size: 0.875rem;
   --type-caption-lh: 1.45;
 
@@ -261,6 +266,10 @@
 
 @media (min-width: 1280px) {
   :root {
+    --type-eyebrow-size: 1rem;
+    --eyebrow-gap: 3.5rem;
+    --eyebrow-rule: 3.5rem;
+    --eyebrow-rule-gap: 1.5rem;
     --bx-max: 71rem;
     --logo-mark: 2.3rem;
     --logo-word: 1.5rem;
@@ -273,6 +282,8 @@
 
 @media (min-width: 1440px) {
   :root {
+    --eyebrow-gap: 4rem;
+    --eyebrow-rule: 4rem;
     --bx-margin: 80px;
     --bx-max: 79rem;
     --space-head-to-content: 104px;

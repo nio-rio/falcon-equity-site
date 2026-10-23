@@ -111,24 +111,6 @@ section.cons-blog[data-band='light'] {
   margin-top: 40px;
 }
 
-.cons-band .eyebrow {
-  margin: 0;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 400;
-  letter-spacing: 1.12px;
-}
-
-.cons-band .eyebrow--line::after {
-  width: 48px;
-  height: 2px;
-  margin-left: 16px;
-}
-
-.cons-block-head .eyebrow {
-  margin-bottom: 48px;
-}
-
 .cons-block-head h2,
 .cons-faq-head h2 {
   margin: 0;
@@ -839,20 +821,6 @@ section.cons-blog[data-band='light'] {
     line-height: 57px;
     font-weight: 400;
     letter-spacing: normal;
-  }
-
-  .cons-band .eyebrow {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 1.28px;
-  }
-
-  .cons-band .eyebrow--line::after {
-    width: 64px;
-  }
-
-  .cons-block-head .eyebrow {
-    margin-bottom: 64px;
   }
 
   .cons-block-head h2 {

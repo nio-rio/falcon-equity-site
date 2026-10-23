@@ -120,13 +120,6 @@
   letter-spacing: 0.32px;
 }
 
-.ret-band .eyebrow {
-  margin: 0 0 32px;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: 1.12px;
-}
-
 @media (min-width: 80em) {
   .ret-h1 {
     font-size: 56px;
@@ -134,9 +127,6 @@
     max-width: 18ch;
   }
 
-  .ret-band .eyebrow {
-    margin-bottom: 40px;
-  }
 }
 
 /* Dark-band type. Global h2 and eyebrow resolve to ink, which is this band's
@@ -190,10 +180,6 @@
    20/30 copy inside the left nine columns — their `AccordionDesc` area.
    At most one row is open per list: `bindAccordions` closes the others.
    --------------------------------------------------------------------------- */
-.ret-case-head .eyebrow {
-  margin-bottom: 64px;
-}
-
 .ret-case-claim {
   margin: 0;
   max-width: 24ch;

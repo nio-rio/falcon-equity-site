@@ -132,7 +132,7 @@ Wired in `src/styles/global.css` `@layer base` from `--type-*` in `tokens.css`. 
 | **H5 / H6** | sans | 500 | 16 / 14 | 1.4 | normal | `--type-h5-*` / `--type-h6-*` |
 | **Body** | sans | 400 | 16px | **1.5rem (24px)** — a length, not a unitless 1.5 | normal | `--type-body-*` (`text-body`) |
 | **Lead** | sans | 400 | 16px | 1.6 | normal | `--type-lead-*` (`text-lead`) |
-| **Eyebrow** | sans | 400 | 13px | 1.5 | 0.08em, uppercase | `--type-eyebrow-*` (`text-eyebrow`). Rule: **48×2px**, 16px from the label, **to the right** (`.pilot-eyebrow--line::after` in `src/styles/pilot.css`). Centered headings: rule **above**. |
+| **Eyebrow** | sans | 400 | **14px → 16px from 1280** | 1.5 | 0.08em, uppercase | `--type-eyebrow-*` (`text-eyebrow`). One component, site-wide: `src/components/Eyebrow.astro` + `.eyebrow` in `src/styles/global.css`. Rule: **48×2px** (56 from 1280, 64 from 1440), **16px** from the label (24 from 1280), **to the right** (`.eyebrow--line::after`). Centered headings: rule **above** (`.eyebrow--center::before`). Reference: the home “News & Insights” head. |
 | **Caption / meta** | sans | 400 | 14px | 1.45 | normal | `--type-caption-*` |
 | **Button 040** | sans | 400 | 16px default; nav 17px | 1 | normal | `.button-040` |
 | **Square button** | sans | 500 | 16 / 20 | 20px | normal | `.btn-primary` |
@@ -173,12 +173,12 @@ Scale primitives (`--bx-fs-12` … `--bx-fs-176`) stay in `tokens.css` for compo
 | Same-bg follower (collapse) | `--pilot-section-y-stack` (`p-section-stack`) | 40px | 40px | 48px | 56px |
 | Inner-page section | `--bx-section` | 64px | 88px | 120px | 120px |
 | Heading → list/cards | `--space-head-to-content` (`--pilot-heading-to-items`) | 72px | 72px | 96px | 104px |
-| Eyebrow → H2 | `--bx-space-40` | 40px | 40px | 40px | 40px |
+| Eyebrow → heading | `--eyebrow-gap` | 40px | 40px | 56px | 64px |
 | Outer margin | `--bx-margin` | 15px | 40px | 40px | **80px** |
 | Gutter | `--bx-gutter` | 16px | 24px | 24px | 24px |
 | Header | `--bx-header` | 102px | 108px | 108px | 108px |
 | Hairline | `--bx-rule` | 1px | | | |
-| Eyebrow rule | `.pilot-eyebrow--line::after` | **48×2px**, 16px gap, `currentColor` | same | same | same |
+| Eyebrow rule | `.eyebrow--line::after` | **48×2px**, 16px gap, `currentColor` | same | **56×2px**, 24px | **64×2px**, 24px |
 | Why row rules | `.pilot-why-row` | **1.5px** `--bx-on-dark-rule` (`--white-a16`) under rows 1–2 (`1.5px` / `0.094rem`) | same | same | same |
 
 Home bands use `[data-band="light"|"dark"]`. Adjacent bands of the **same** theme collapse the follower’s top pad to `--pilot-section-y-stack` (`src/styles/blackstone.css`). Different-theme neighbors keep full pad on both sides.

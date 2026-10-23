@@ -5,7 +5,7 @@
  * Hover: sibling fade, filled circle, and bottom `::after` scaleX draw
  * (0.5s ease-out, origin left). Mouse-out snaps off; no reverse animation.
  */
-import PilotEyebrow from './PilotEyebrow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
 
 interface Item {
   href: string;
@@ -37,7 +37,7 @@ const { id = 'services-heading', eyebrow, title, items } = Astro.props;
     {
       (eyebrow || title) && (
         <div class="pilot-ll-head">
-          {eyebrow && <PilotEyebrow>{eyebrow}</PilotEyebrow>}
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h2 id={id} data-reveal>
             {title}
           </h2>
