@@ -177,6 +177,29 @@ array in `about.astro` and every `.abt-diff-*` rule plus its band padding in `ab
 moved: the page now runs hero → by the numbers → founder → people → values → contact, then the shared
 `SiteCta`.
 
+## Revision 7 — 23 Oct 2026: the values band's 3 columns come from OUR OWN 3-up
+
+Ling, testing the method: *"Remember what I said about 3column layout? Where should you learn from?"*
+The answer is `/industries/real-estate`'s products section — her instruction when the calculator's three
+definitions were wrong: *"for the 3 column layout … learn the exact spacing from /industries/real-estate
+product section."*
+
+Revision 5 had used the Blackstone band's own 16px gutters. They are now the house 3-up, measured on the
+deployed `/industries/real-estate` on 23 Oct 2026:
+
+| property | house 3-up (`.mca-cards--3`) | values band now |
+| --- | --- | --- |
+| tracks | 16-col shell, 16px gutters, cards 1/5 · 6/6 · 12/5 | same |
+| inner padding | 32 / 56 / 32 | same — text measures 352 / 352 / 352 at 1440 and 312 at 1280, **104px gutters** |
+| tablet (48em) | 8-col: 1/4 + 5/4, third wraps under the first, 24px padding | same |
+| title | 24/36 **w400** tracking 0.192, 24px to the body | same (was Blackstone's w300) |
+| body | 18/27 w300 tracking 0.32 | same |
+| phone | card title 25/36 w400, single column | same |
+
+Verified on our build at 390 / 768 / 1280 / 1440: 8 columns and two-up at 768, 16 columns and the
+5 / 6 / 5 split with 104px gutters at 1280 and 1440, title 25px → 24px at 48em, gap to body 24 at every
+width.
+
 ## Still open
 
 - The two legal routes (`/privacy-policy`,

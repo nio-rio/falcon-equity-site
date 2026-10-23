@@ -1205,32 +1205,28 @@ section.abt-founder[data-band='dark'] {
 }
 
 /* --------------------------------------------------------------- values --- */
-/* The values band is blackstone.com/the-firm/'s "OUR VALUES" section, measured live in a real
-   Chrome over CDP on 23 Oct 2026 at 1440 / 390:
+/* The values band: blackstone.com/the-firm/'s "OUR VALUES" for the shape (a label, then claim
+   titles over body copy, no chrome), but the THREE-COLUMN LAYOUT comes from our own
+   /industries/real-estate products section, per Ling: *"for the 3 column layout … learn the exact
+   spacing from /industries/real-estate product section."* Measured there at 1440 on 23 Oct 2026:
 
-     reference                                          | ours
+     house 3-up (.mca-cards--3, industry products)      | ours
      ---------------------------------------------------|------------------------------------
-     band white, pad 160 / 160 (80 / 80 at 390)         | 80 / 104 / 144 bottom, band above
-                                                         | carries its own bottom pad
-     label 16/24 w400 ls 1.28 uppercase, 56px rule      | Eyebrow "Our values" (house)
-       beside it, pad-bottom 64 (14/21 ls 1.12 at 390)   | + the H2 slogan Ling asked for
-     label block bottom → first card 344 (360 at 390)   | 96px — the reference has no slogan
-                                                         | to spend that air on; ours does
-     cards 384 / 464 / 384, 16px gaps                   | 5 / 6 / 5 of the 16 tracks
-       (cols 1–5, 6–11, 12–16 of 64px tracks)           |  same tracks, same 16px gutters
-     card text measure 352 (pad-right 32)               | 5 tracks = 384, 6 = 464
-     title 24/36 w300 ls .192, 24px under it            | 24/36 w300 ls .192, margin-bottom 24
-       (20/32 ls .16 at 390)                            |  20/32 ls .16 at 390
-     body 18/27 w300 ls .32                             | 18/27 w300 ls .32
-     row gap 104 (72 at 390)                            | 72 when a second row exists
-     no fills, no borders, no numbers                   | same
-   Three values instead of five, so one row: 5 / 6 / 5. */
+     16-col shell, 16px gutters, cards 1/5, 6/6, 12/5   | same tracks, same gutters
+     inner padding 32 / 56 / 32 → text edges            | same — text measures 352 / 400 / 352
+       88–440, 520–952, 984–1336 (104px gutters)        |  (104px gutters, not 16px)
+     48em: 8-col, 1/4 + 5/4, third wraps under first,   | same
+       24px inner padding                               |
+     title 24/36 w400 tracking 0.192, 24px to body      | same
+     body 18/27 w300 tracking 0.32                      | same
+     phone: card title 25/36 w400                       | same
+   Card chrome: none (the reference prints no fills, borders or numbers). */
+
 .abt-values-grid {
   margin-top: var(--space-head-to-content);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  column-gap: 16px;
-  row-gap: 72px;
+  row-gap: 48px;
 }
 
 .abt-value {
@@ -1241,9 +1237,9 @@ section.abt-founder[data-band='dark'] {
   margin: 0 0 24px;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 32px;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
   letter-spacing: 0.16px;
   text-wrap: balance;
 }
@@ -1258,33 +1254,68 @@ section.abt-founder[data-band='dark'] {
   letter-spacing: 0.32px;
 }
 
-@media (min-width: 64em) {
+/* 48em — the house 3-up's tablet step: two per row, the third wrapping under the first. */
+@media (min-width: 48em) {
   .abt-values-grid {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    row-gap: 104px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 72px;
   }
 
   .abt-value {
     grid-column: 1 / -1;
   }
 
-  /* The reference's 5 / 6 / 5 split of its 16 tracks: 384 / 464 / 384 with 16px gutters. */
   .abt-value:nth-child(1) {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 4;
+    padding-right: 24px;
   }
 
   .abt-value:nth-child(2) {
-    grid-column: 6 / span 6;
+    grid-column: 5 / span 4;
+    padding-left: 24px;
   }
 
   .abt-value:nth-child(3) {
-    grid-column: 12 / span 5;
+    grid-column: 1 / span 4;
+    padding-right: 24px;
   }
 
   .abt-value-name {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0.192px;
+  }
+}
+
+@media (min-width: 64em) {
+  .abt-values-grid {
+    row-gap: 104px;
+  }
+}
+
+/* 80em — the 16-track split with the house's 32 / 56 / 32 inner padding. */
+@media (min-width: 80em) {
+  .abt-values-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .abt-value:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .abt-value:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .abt-value:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
   }
 }
 
