@@ -271,7 +271,10 @@ const metaDescription =
               <div class="ret-case-panel" id={`ret-case-panel-${i}`} role="region" aria-labelledby={`ret-case-trigger-${i}`}>
                 <div class="ret-case-panel-inner">
                   <div class="ret-case-body">
-                    <p class="ret-case-means">{item.means}</p>
+                    <p class="ret-case-means">
+                      <span class="ret-case-means-label">What it means for your cash</span>
+                      {item.means}
+                    </p>
                     <div class="ret-case-product">
                       <h4 class="ret-case-name">{item.product}</h4>
                       <p class="ret-case-why">{item.why}</p>

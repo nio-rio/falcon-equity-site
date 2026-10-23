@@ -291,6 +291,16 @@
   padding-bottom: 48px;
 }
 
+.ret-case-means-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.56px;
+}
+
 .ret-case-means {
   grid-column: 1 / span 7;
   margin: 0;
@@ -302,10 +312,11 @@
   letter-spacing: 0.18px;
 }
 
+/* The product takes the chart's place in the reference: same row as the
+   cash line, starting on column 8 and running to the last column. */
 .ret-case-product {
   grid-column: 8 / -1;
-  grid-row: 2;
-  margin-top: 40px;
+  grid-row: 1;
 }
 
 .ret-case-name {
@@ -392,6 +403,10 @@
   .ret-case-product {
     grid-column: 1 / -1;
     grid-row: auto;
+  }
+
+  .ret-case-product {
+    margin-top: 32px;
   }
 }
 

@@ -273,3 +273,12 @@ Hover keeps the site convention: the list recedes to 36% and the hovered row sta
 ### Single-open, site-wide
 `bindAccordions` used to toggle each row independently, so a FAQ could have every answer open at once. It now closes the whole list before opening the clicked row (and clicking the open row closes it), giving each list **zero or one** open row — the Osmo behaviour. The retail case list now uses the same binding, so `src/scripts/retail-case.ts` was deleted.
 Verified on the retail FAQ and the merchant-cash-advance FAQ: click row 0 → only 0 open; click row 2 → only 2 open, row 0 closed; click row 2 again → zero open. Same on the case list.
+
+
+### Section 3 panel — side-by-side, product on the chart's grid position (2026-10-22)
+
+Ling changed her mind again, now matching blackstone.com/pws/essentials-of-private-real-estate ("Why Private Real Estate?"): "What it means for your cash" belongs on the **left** of the open body and the Falcon product sits where the reference puts its chart.
+
+- `.ret-case-body` is a 16-column subgrid at full content width (1264). The cash block takes columns **1–7**; the product takes **8 to the last column**, and both now sit in **row 1** (`grid-row: 1`, no offset) so their tops align exactly like the reference's copy and chart.
+- The cash block gained a label line, "What it means for your cash" (14/22, 0.56px, muted), above the sentence at 18/27.
+- Below 64em the two stack: cash line, then product at 32px.
