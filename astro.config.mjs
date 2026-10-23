@@ -17,6 +17,17 @@ const livePaths = new Set([
   '/services/invoice-factoring-tool',
   '/services/consolidation-of-positions',
   '/industries/retail',
+  '/industries/transportation-logistics',
+  '/industries/restaurants-food-service',
+  '/industries/real-estate',
+  '/industries/healthcare',
+  '/industries/construction',
+  '/industries/e-commerce',
+  '/industries/auto-services',
+  '/industries/manufacturing',
+  '/industries/professional-services',
+  '/industries/education',
+  '/industries/travel-hospitality',
 ]);
 
 const serviceSlugs = [
@@ -78,9 +89,9 @@ for (const slug of serviceSlugs) {
   if (slug === 'consolidation-of-positions') continue;
   retired[`/services/${slug}`] = '/';
 }
+// All twelve industry pages ship 2026-10-23, so no /industries/* redirect is generated.
 for (const slug of industrySlugs) {
-  if (slug === 'retail') continue; // /industries/retail ships 2026-10-22
-  retired[`/industries/${slug}`] = '/';
+  if (!livePaths.has(`/industries/${slug}`)) retired[`/industries/${slug}`] = '/';
 }
 for (const slug of blogSlugs) retired[`/blog/${slug}`] = '/';
 for (const slug of blogCategories) retired[`/blog/category/${slug}`] = '/';

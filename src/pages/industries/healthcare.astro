@@ -1,0 +1,15 @@
+---
+/**
+ * Healthcare industry page (healthcare). Copy contract: nio rio Notion
+ * "Healthcare industry page – content outline (stage 1)" (402eacd0-19c7-81b6-9c84-ceff4823917d), approved 23 Oct 2026.
+ *
+ * Copy lives in `src/data/industry-pages.ts`; the five bands are the shared
+ * `IndustryPage` component, which is the approved retail page's build.
+ */
+import IndustryPage from '@/components/IndustryPage.astro';
+import { INDUSTRY_PAGES } from '@/data/industry-pages';
+
+const content = INDUSTRY_PAGES['healthcare'];
+---
+
+<IndustryPage content={content} />
