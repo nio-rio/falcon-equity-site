@@ -30,6 +30,12 @@ const armCurtain = (media: HTMLElement) => {
 
 const sectionStart = (section: HTMLElement) => section.dataset.revealStart || START;
 
+/** Optional per-section fade length, e.g. the inner hero's quicker 0.55s. */
+const sectionDuration = (section: HTMLElement) => {
+  const raw = Number.parseFloat(section.dataset.revealDuration || '');
+  return Number.isFinite(raw) && raw > 0 ? raw : DURATION;
+};
+
 const sectionStagger = (section: HTMLElement) => {
   const raw = Number.parseFloat(section.dataset.revealStagger || '');
   return Number.isFinite(raw) && raw >= 0 ? raw : STAGGER;
@@ -59,7 +65,7 @@ export function initScrollIn(root: ParentNode = document) {
         const tween = {
           autoAlpha: 1,
           y: 0,
-          duration: DURATION,
+          duration: sectionDuration(section),
           stagger: sectionStagger(section),
           ease: 'power1.out',
         };
