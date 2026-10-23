@@ -889,9 +889,8 @@ section.abt-blog[data-band='light'] {
      founder         → FAL-03 (3:4 still + display quote + credit)
      our people      → OP-01 again, name over role (17 approved pairs)
      values          → TF-05 (3-up titled prose, no card chrome)
-     who we fund     → TF-03 row directory, re-cut as a 4-column link grid
-     how we're different → APM-01 numbered columns, four instead of three
      where we are    → contact rows + two buttons
+   (The "why Falcon" numbered band that used APM-01 was cut on Ling's instruction, 23 Oct 2026.)
    Type scales and colour come from the site tokens; the numbers above are the
    reference's geometry, not the reference's brand.
    =========================================================================== */
@@ -906,7 +905,6 @@ section.abt-blog[data-band='light'] {
    belongs to the black, so the light band needs its own top space or its eyebrow
    would sit on the seam. */
 section.abt-values[data-band='light'],
-section.abt-different[data-band='light'],
 section.abt-contact[data-band='light'] {
   padding: 0 0 80px;
 }
@@ -917,8 +915,7 @@ section.abt-people[data-band='light'] {
 
 @media (min-width: 64em) {
   section.abt-values[data-band='light'],
-  section.abt-different[data-band='light'],
-  section.abt-contact[data-band='light'] {
+    section.abt-contact[data-band='light'] {
     padding: 0 0 104px;
   }
 
@@ -929,8 +926,7 @@ section.abt-people[data-band='light'] {
 
 @media (min-width: 80em) {
   section.abt-values[data-band='light'],
-  section.abt-different[data-band='light'],
-  section.abt-contact[data-band='light'] {
+    section.abt-contact[data-band='light'] {
     padding: 0 0 144px;
   }
 
@@ -1289,60 +1285,6 @@ section.abt-founder[data-band='dark'] {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0.192px;
-  }
-}
-
-/* ---------------------------------------------------- how we're different -- */
-.abt-diff-grid {
-  margin-top: var(--space-head-to-content);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  column-gap: 24px;
-  row-gap: 40px;
-}
-
-.abt-diff-num {
-  margin: 0 0 16px;
-  color: color-mix(in srgb, var(--color-ink) 45%, transparent);
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.16px;
-}
-
-.abt-diff-title {
-  margin: 0 0 12px;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 30px;
-  letter-spacing: 0.16px;
-}
-
-.abt-diff-body {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.2px;
-}
-
-@media (min-width: 48em) {
-  .abt-diff-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 48px;
-    row-gap: 56px;
-  }
-}
-
-@media (min-width: 64em) {
-  .abt-diff-grid {
-    column-gap: 96px;
-    row-gap: 64px;
   }
 }
 

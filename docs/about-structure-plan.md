@@ -169,6 +169,14 @@ the H2 (the house head-to-content rhythm). Everything from the first card down i
 geometry — verified on our build with the same probe: 384px card, 24/36 w300 ls 0.192, 24px to the
 body, 18/27 w300 ls 0.32.
 
+## Revision 6 — 23 Oct 2026: the "why Falcon" band removed
+
+Ling: *"Remove why falcon section."* The band — eyebrow "Why Falcon", H2 "What a rate table cannot
+show.", four numbered items from APM-01 — is gone from the page, along with its four-item `differences`
+array in `about.astro` and every `.abt-diff-*` rule plus its band padding in `about.css`. Nothing else
+moved: the page now runs hero → by the numbers → founder → people → values → contact, then the shared
+`SiteCta`.
+
 ## Still open
 
 - The two legal routes (`/privacy-policy`,

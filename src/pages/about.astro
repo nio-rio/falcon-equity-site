@@ -60,24 +60,6 @@ const values = [
   { name: 'Partnership', body: 'Long relationships over one-off transactions.' },
 ];
 
-const differences = [
-  {
-    title: 'One specialist per file',
-    body: 'The person who reads your application is the person who calls you, and the same name stays on the file after funding.',
-  },
-  {
-    title: 'Seven products, one application',
-    body: 'Speed, a revolving gap, an asset, an unpaid invoice and stacked payments each have a different instrument. You are not pushed into the only product a lender sells.',
-  },
-  {
-    title: 'Revenue first, credit second',
-    body: 'Bank activity and time in business decide most files; a credit score matters most on term loans and consolidation.',
-  },
-  {
-    title: 'Digital asset capability',
-    body: 'Crypto onboarding and custodial services sit alongside the debt products, for businesses holding digital assets.',
-  },
-];
 
 const address = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
 
@@ -227,28 +209,6 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <!-- 9. How we're different — APM-01 numbered columns, four instead of three. -->
-  <section class="abt-different" aria-labelledby="different-heading" data-band="light" data-abt-section="different" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-band-head" data-reveal>
-        <div class="abt-block-head">
-          <Eyebrow>Why Falcon</Eyebrow>
-          <h2 id="different-heading">What a rate table cannot show.</h2>
-        </div>
-      </div>
-      <div class="abt-diff-grid" data-reveal>
-        {
-          differences.map((item, i) => (
-            <article>
-              <p class="abt-diff-num">{String(i + 1).padStart(2, '0')}</p>
-              <h3 class="abt-diff-title">{item.title}</h3>
-              <p class="abt-diff-body">{item.body}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
 
   <!-- 10. Where we are — address, email, direct and office lines, one Apply. -->
   <section class="abt-contact" aria-labelledby="contact-heading" data-band="light" data-abt-section="contact" data-reveal-root>
