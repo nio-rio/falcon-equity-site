@@ -19,9 +19,11 @@ interface Props extends SEOProps {
   schema?: Record<string, unknown>[];
   /** Inner-page legal line. Renders in the footer, never under SiteCta. */
   disclosure?: string;
+  /** Set false to drop the pre-footer Apply band on a page (Ling, 2026-10-23: `/apply`). */
+  cta?: boolean;
 }
 
-const { schema = [], title, disclosure, ...seo } = Astro.props;
+const { schema = [], title, disclosure, cta = true, ...seo } = Astro.props;
 const path = cleanPath(Astro.url.pathname);
 const isHome = path === '/';
 const pageName = toDocumentTitle(title);
@@ -62,7 +64,7 @@ const jsonLd = [
     <main id="main" class="flex-1" tabindex="-1">
       <slot />
     </main>
-    <SiteCta />
+    {cta && <SiteCta />}
     <Footer disclosure={disclosure} />
   </body>
 </html>

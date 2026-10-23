@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ContactLine from '@/components/ContactLine.astro';
-import Eyebrow from '@/components/Eyebrow.astro';
 import { SITE } from '@/data/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -9,50 +8,114 @@ const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Apply', path: '/apply' },
 ];
-const phones = [SITE.phones.direct, SITE.phones.fax];
+const { direct, fax } = SITE.phones;
+const { address } = SITE;
+const addressLine = `${address.street}, ${address.city}, ${address.region} ${address.postalCode}`;
 ---
 
 <BaseLayout
   title="Apply for Business Funding"
-  description="Apply online for business funding with Falcon Equity Group. One short application. Many products fund within 24-48 hours of approval after a complete file."
+  description="Apply today to get same day funding. One short application with Falcon Equity Group; many products fund the same day after approval and a signed agreement."
   schema={[breadcrumbSchema(crumbs)]}
+  cta={false}
 >
   <section class="section bg-white">
     <div class="container-site">
       <div class="bx-grid">
-        <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3 text-center">
-          <h1>Apply</h1>
-          <p class="section-lead mt-5">
-            One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
-          </p>
-        </div>
-        <div class="section-head bx-span-4 bx-lg-span-8 bx-lg-start-3 text-center">
-          <Eyebrow align="center">Application</Eyebrow>
-          <h2 id="form-heading">Funding application form</h2>
-        </div>
-        <div class="bx-span-4 bx-lg-span-8 bx-lg-start-3">
-          <div class="jotform-embed min-h-[40rem] bg-white p-3 sm:p-6">
-            <script type="text/javascript" src="https://form.jotform.com/jsform/252856411020144" is:inline></script>
+        <h1 class="apply-head bx-span-4 bx-lg-span-8 bx-lg-start-3">
+          Apply today to get same day funding.
+        </h1>
+
+        <div class="apply-form bx-span-4 bx-lg-span-8 bx-lg-start-3">
+          <div class="apply-embed">
+            <script
+              type="text/javascript"
+              src="https://form.jotform.com/jsform/252856411020144"
+              is:inline></script>
           </div>
           <noscript>
-            <p class="p-6">
+            <p class="apply-noscript">
               Our application form requires JavaScript. Please enable it, or
-              <a class="link" href="https://form.jotform.com/252856411020144">open the application form directly</a>.
+              <a class="link" href="https://form.jotform.com/252856411020144"
+                >open the application form directly</a
+              >.
             </p>
           </noscript>
         </div>
-        <ul class="bx-span-4 bx-lg-span-8 bx-lg-start-3 flex flex-col items-center gap-3 text-[15px]">
-          {
-            phones.map((p) => (
-              <li>
-                <ContactLine icon="phone" href={p.href}>
-                  {p.label}: {p.display}
-                </ContactLine>
-              </li>
-            ))
-          }
-        </ul>
+
+        <div class="apply-contact bx-span-4 bx-lg-span-8 bx-lg-start-3">
+          <ul class="apply-contact-list" aria-label="Contact Falcon Equity Group">
+            <li>
+              <ContactLine icon="phone" href={direct.href}>
+                {direct.label}: {direct.display}
+              </ContactLine>
+            </li>
+            <li>
+              <ContactLine icon="printer" href={fax.href}>
+                {fax.label}: {fax.display}
+              </ContactLine>
+            </li>
+            <li>
+              <ContactLine icon="mail" href={`mailto:${SITE.email}`}>
+                {SITE.email}
+              </ContactLine>
+            </li>
+            <li>
+              <ContactLine icon="landmark" href={address.mapUrl} external>
+                {addressLine}
+              </ContactLine>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Super simple apply page: H1, form, contact. No section heads, no CTA band. */
+  .apply-head {
+    margin: 0;
+    text-align: center;
+  }
+
+  .apply-form {
+    margin-top: var(--bx-space-48);
+  }
+
+  .apply-embed {
+    min-height: 40rem;
+    background: #fff;
+    padding: var(--bx-space-16);
+  }
+
+  .apply-noscript {
+    margin-top: var(--bx-space-24);
+  }
+
+  .apply-contact {
+    margin-top: var(--bx-space-64);
+    padding-top: var(--bx-space-40);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .apply-contact-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bx-space-12);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--bx-fs-16);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    text-align: left;
+  }
+
+  @media (min-width: 48em) {
+    .apply-embed {
+      padding: var(--bx-space-24);
+    }
+  }
+</style>
