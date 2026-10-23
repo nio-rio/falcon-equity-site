@@ -9,6 +9,15 @@ archive or a screenshot: real Chrome over CDP, computed styles at 1440 / 1280 / 
 after the cookie bar was dismissed. The reference is a Cloudflare-protected site (403 to curl and to
 headless), so the capture used an ordinary Chrome window parked offscreen.
 
+**Closing pad, added after review (Ling, 23 Oct):** *"that section bottom padding doesn't seem
+enough. Learn from the last section on home page."* The reference ends on its last card row with 40–64px
+because its footer sits straight underneath; ours is followed by the sitewide CTA band. Measured on the
+built home page at 1440, the last band above that CTA (`.pilot-news`) carries a full section pad —
+`padding-bottom: 160px`, `gap from last content to CTA top: 140px`. So `.indx-band` now takes
+`padding-bottom: var(--pilot-section-y)` (80 / 96 / 144 / 160 at 390 / 768 / 1280 / 1440), which is the
+site token rather than the reference's row pad; the top pad stays the reference's header pad. Re-measured
+on the built page: `padBottom: 160px`, `gapContentToCta: 160px` at 1440.
+
 **Division of sources:** the reference supplies *layout* — band order, grid columns, gaps, pad
 rhythm, type sizes. Falcon's `DESIGN-SYSTEM.md` supplies *brand* — palette, faces, components, CTA
 rules. Nothing from Blackstone's own styling (its serif, its near-black, its weights) was imported.

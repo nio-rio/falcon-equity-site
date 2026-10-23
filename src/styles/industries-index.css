@@ -7,20 +7,24 @@
 .indx-band {
   background: var(--color-white);
   color: var(--color-ink);
-  /* Reference: 40 top / 40 bottom at 390, 56 / 48 at 768-1024, 48 / 64 at 1440.
-     The bottom pad is the last row's own 40-64px, as on the reference. */
-  padding-block: 40px;
+  /* Top pad is the reference's page-header pad (40 / 56 / 48). The BOTTOM pad
+     is not: the reference ends on its last card row with 40-64px, because its
+     footer sits straight under it. Ours has the sitewide CTA band next, and the
+     home page gives every band above that CTA a full section pad (160px at
+     1440, measured on `.pilot-news`). Ling, 23 Oct: the first build's 64px read
+     as too tight. So the bottom takes the site token and scales with it. */
+  padding-block: 40px var(--pilot-section-y);
 }
 
 @media (min-width: 48em) {
   .indx-band {
-    padding-block: 56px 48px;
+    padding-top: 56px;
   }
 }
 
 @media (min-width: 80em) {
   .indx-band {
-    padding-block: 48px 64px;
+    padding-top: 48px;
   }
 }
 

@@ -575,3 +575,12 @@ filters, `/blog` in `sitemap-0.xml`; `npm run build`, `npm run check` (0 errors/
 
 **Still open:** `/blog/<slug>` has no page, so every card currently lands on the home page via the
 `/blog/*` 301. The article template is the next dependency; `/blog/category/<slug>` likewise.
+
+**Follow-up 3 — closing pad.** *"There's only one section above CTA section on this page. I think that
+section bottom padding doesn't seem enough. Learn from the last section on home page."* Correct: the
+reference ends on its last card row with 64px because its footer is directly underneath, but our page
+hands off to the sitewide CTA. Measured the built home page at 1440 — the last band above the CTA
+(`.pilot-news`) has `padding-bottom: 160px`, i.e. the full `--pilot-section-y` token, 140px of visible
+air to the CTA. `.indx-band` now uses `padding-bottom: var(--pilot-section-y)` (80/96/144/160) and keeps
+the reference's header pad on top only. Re-measured on the build: 160px bottom pad, 160px content-to-CTA
+gap, overflow still 0 and 12/12 images loading.
