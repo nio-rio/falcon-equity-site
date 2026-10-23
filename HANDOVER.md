@@ -149,3 +149,21 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 **QA.** `npm run build` passes. Measured over CDP at 390 / 768 / 1024 / 1440 / 1920: `scrollWidth == clientWidth`, **zero** overflowing elements, nine `[data-ret-section]` bands (the requirements band is absent), closing line 105px at 1440 and stacked to 209px at 390 with the links wrapping left. `npm run test:titles` passes. **`npm run test:nav` fails — it also fails on `HEAD` with the same `TimeoutError` ("element is outside of the viewport" while hovering), so it is pre-existing and not from this change; verified by stashing the diff and re-running.**
 
 **Pitfall worth keeping.** A headless screenshot of this page looks blank unless `--force-prefers-reduced-motion` is passed (or `[data-reveal]` is forced with `!important`); the GSAP reveal leaves `opacity: 0` inline and screenshots the band as white space. `browser_vision` in the Hermes browser also resets to `about:blank`, so measure over CDP (Node 22 global `WebSocket` → `Emulation.setDeviceMetricsOverride` + `Page.captureScreenshot` with an element clip) rather than trusting the tool's viewport.
+
+
+## Session 2026-10-22 (late) — retail page rebuilt to Ling's marked sections
+
+**What she asked for, section by section.** Section 2 → the **Private wealth** band on blackstone.com home. Section 3 → a component she will send (the still shows a raised dark card: copy + `+` chips left, photo right) — placeholder for now. Section 4 → the **"When X isn't the right fit"** band from the Falcon service pages. Blog → the **service-page blog slider**. FAQ → the **service-page FAQ band**. Then: "I've changed the content again. Now start building this retail page."
+
+**The build.** `src/pages/industries/retail.astro` rewritten: six bands, no dead code paths. Hero unchanged (`TF-00` + `PE-02` + `TF-01`). Band 2 written fresh from measurements of her screenshot (see `docs/retail-structure-plan-v3.md` for the table of numbers). Band 3 is a placeholder frame with the eight situations as pill chips, copy taken from the contract, and a visible note saying it is waiting on her component. Bands 4–6 import `mca.css` and reuse the service pages' markup wholesale — `mca-cards--3`, `mca-blog-slider`, `mca-faq-list` — so the two page types cannot drift.
+
+**Removed with their copy-contract sections:** cash pressures, the retail year, the situation table, the exits band, the three generic cases. Their rules remain in `retail.css` under the first rebuild's dated block, marked superseded at the top of the second block; they come out in the cleanup pass. The eight situations are kept in the page file as a typed `situations` array so Ling's component can consume them without re-keying.
+
+**Five rendering bugs worth remembering** (all found by screenshotting, none by the build):
+- **Global `h2` is `--bx-black`, which is the dark band's own fill.** A claim inside a dark band renders invisible unless it is given `color: #fff` explicitly. `mca.css` says this in a comment for `.mca-helps`; it bit both the answer claim and the placeholder heading here.
+- **`:global()` is Astro scoped-style syntax — invalid in a global stylesheet.** The media-fill rule silently did nothing until it was written as a plain descendant selector.
+- **A `.mca-shell` child with no `grid-column` is one track wide.** The closing line under the product cards ran one word per line until it got `grid-column: 1 / -1`.
+- **`.mca-cards` already carries `margin-top: var(--space-head-to-content)`.** Adding the same gap on the block head produced 208px between heading and cards.
+- **Element screenshots with a sticky header include it.** A clipped capture of a band at its document position shows the fixed header on top of the band's first 100px, which looks exactly like a missing eyebrow. Confirm with `getBoundingClientRect`, not the picture.
+
+**QA.** `npm run build` passes, `npm run test:titles` passes. CDP at 390 / 768 / 1024 / 1440 / 1920: no horizontal overflow, no overflowing elements, six bands. `test:nav` still fails and still fails on `HEAD` — pre-existing, unrelated.

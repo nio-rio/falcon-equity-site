@@ -930,3 +930,273 @@
     transition: none;
   }
 }
+
+/* ===========================================================================
+   Second rebuild, 22 Oct 2026 (Ling's marked sections)
+   The page now runs: hero · answer (Blackstone home "Private wealth") ·
+   section 3 placeholder · products (service-page card band) · blog slider
+   (service page) · FAQ (service page). The cash-pressures, retail-year,
+   situation-table, exits and cases bands are gone with their copy contract
+   sections; their rules below are superseded but left in place for the
+   cleanup pass.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   ANSWER — blackstone.com home "Private wealth", measured from Ling's
+   screenshot at 2x: claim starts on the content edge, panel is exactly eight
+   of sixteen columns (624 of 1264), 80px inner pad, row pitch ~153px, lead
+   indented 80px from the claim, 44px circle arrow on "Learn more".
+   --------------------------------------------------------------------------- */
+.ret-pw-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 48px;
+}
+
+.ret-pw-copy,
+.ret-pw-panel {
+  min-width: 0;
+}
+
+.ret-pw-claim {
+  margin: 24px 0 0;
+  color: var(--color-white);
+  max-width: 13ch;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.6vw, 64px);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.ret-pw-lead {
+  margin: 40px 0 0;
+  max-width: 23em;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.ret-pw-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+}
+
+.ret-pw-more:hover .circle-arrow,
+.ret-pw-more:focus-visible .circle-arrow {
+  transform: translateX(2px);
+}
+
+.ret-pw-panel {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 8px 32px;
+  list-style: none;
+  background: rgb(255 255 255 / 5.5%);
+}
+
+.ret-pw-row {
+  padding: 32px 0;
+  border-top: 1px solid var(--bx-on-dark-rule);
+}
+
+.ret-pw-row:first-child {
+  border-top: 0;
+}
+
+.ret-pw-row p {
+  margin: 0;
+  max-width: 26em;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 1.8vw, 26px);
+  line-height: 1.35;
+}
+
+@media (min-width: 48em) {
+  .ret-pw-lead,
+  .ret-pw-more {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 80em) {
+  .ret-pw-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  .ret-pw-copy {
+    grid-column: 1 / span 7;
+  }
+
+  .ret-pw-lead,
+  .ret-pw-more {
+    margin-left: 80px;
+  }
+
+  .ret-pw-panel {
+    grid-column: 9 / span 8;
+    padding: 12px 80px;
+  }
+
+  .ret-pw-row {
+    padding: 40px 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   SECTION 3 PLACEHOLDER — frame taken from Ling's reference image: one raised
+   dark card, copy and accordion chips left, still right. No behaviour yet.
+   --------------------------------------------------------------------------- */
+.ret-pending-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+.ret-pending-copy {
+  padding: 40px 28px;
+}
+
+.ret-pending-copy .eyebrow,
+.ret-pending-claim {
+  color: var(--color-white);
+}
+
+.ret-pending-claim {
+  margin: 24px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.ret-pending-intro {
+  margin: 20px 0 0;
+  max-width: 34ch;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 26px;
+}
+
+.ret-chips {
+  display: grid;
+  gap: 10px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ret-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 7%);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.ret-chip-label {
+  max-width: 46ch;
+}
+
+.ret-chip-plus {
+  flex: 0 0 auto;
+  color: var(--bx-on-dark-muted);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.ret-pending-media {
+  position: relative;
+  min-height: 260px;
+}
+
+.ret-pending-media {
+  align-self: stretch;
+}
+
+.ret-pending-media .media,
+.ret-pending-media .image-slot {
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.ret-pending-note {
+  margin: 24px 0 0;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+@media (min-width: 64em) {
+  .ret-pending-card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+  }
+
+  .ret-pending-copy {
+    padding: 56px 48px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ret-pending-copy {
+    padding: 72px 64px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PRODUCTS + BLOG + FAQ — the service-page bands, given this page's pads.
+   mca.css carries zero top pad on .mca-fit / .mca-blog, so the rhythm is set
+   here instead of being inherited.
+   --------------------------------------------------------------------------- */
+/* .mca-cards already carries --space-head-to-content above it; adding a second
+   gap here read as ~208px. */
+.ret-products-band .mca-block-head {
+  margin-bottom: 0;
+}
+
+.ret-norestrict {
+  grid-column: 1 / -1;
+  margin: 48px 0 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-line);
+  max-width: 62ch;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ret-blog-band .mca-blog-slider {
+  margin-top: 0;
+}
+
+/* .mca-faq-list carries --space-head-to-content above it. */
+.ret-faq-band .mca-faq-head {
+  margin-bottom: 0;
+}

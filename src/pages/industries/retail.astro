@@ -5,14 +5,26 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import CircleArrow from '@/components/CircleArrow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SERVICES } from '@/data/services';
+import { getPublicPosts } from '@/lib/blog';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+import '@/styles/mca.css';
 import '@/styles/retail.css';
 
 /**
  * Retail industry page. Copy contract: nio rio Notion
  * "Retail industry page – content outline (stage 1)".
- * Structure: docs/retail-structure-plan-v2.md — every band names the measured
- * section id it was built from (docs/section-library-live/LIBRARY.md).
+ *
+ * Band sources, per Ling 22 Oct 2026:
+ * 1 hero .................. TF-00 header + PE-02 glance strip + TF-01 still
+ * 2 answer ................ blackstone.com home "Private wealth" band (measured
+ *                           from Ling's screenshot: claim cols 1-5, panel cols
+ *                           9-16 at 624px, row pitch ~153px, 80px inner pad)
+ * 3 situations ............ PLACEHOLDER — Ling's component lands here
+ * 4 products .............. the service pages' "When X isn't the right fit" band
+ *                           (mca-cards--3: title, body, link + arrow)
+ * blog .................... the service pages' blog slider
+ * faq ..................... the service pages' FAQ band
+ *
  * Figures come from SERVICES (live #services spec) — never re-typed here.
  */
 
@@ -43,104 +55,64 @@ const takeaways = [
   "Size the buy from last year's sell-through, not from the largest amount you were approved for.",
 ];
 
-const pressures = [
-  {
-    title: 'Stock bought months before it sells',
-    body: 'The holiday order is placed in July and paid in August. The sales land in November and December.',
-  },
-  {
-    title: 'A price change or a discount that expires',
-    body: "A tariff change, a factory minimum or a supplier's early-pay offer all reward having the cash on the day, not in six weeks.",
-  },
-  {
-    title: 'The gap between a slow month and a good one',
-    body: 'Rent, payroll, insurance and card fees arrive whether the store is busy or not.',
-  },
-  {
-    title: 'Fixtures, refrigeration, POS and security',
-    body: "One-time purchases that a single month's margin cannot absorb.",
-  },
-];
-
-const year = [
-  {
-    period: 'January – February',
-    title: 'Stock is paid for and being marked down',
-    body: "Returns and clearance clear the shelves at a discount while the next season's orders are already being planned.",
-  },
-  {
-    period: 'March – June',
-    title: 'The second inventory payment lands before the summer traffic',
-    body: "Spring reset and summer stock are bought on last year's numbers, before this year's customers show up.",
-  },
-  {
-    period: 'July – September',
-    title: 'The holiday order is paid, the seasonal staff are hired',
-    body: "The year's largest inventory payment goes out weeks or months before the year's largest sales come in.",
-  },
-  {
-    period: 'October – December',
-    title: 'The sales arrive, the cash lags',
-    body: 'Card settlements trail the sale, and shelves need restocking while the money is still in transit.',
-  },
-];
-
+/** Section 3 copy. The eight sentences are the copy outline's situations; the
+ *  component Ling is sending will turn them into expanding rows. */
 const situations = [
   {
     if: 'You place the holiday order in July and pay for it in August',
     means: 'Cash leaves the account months before the season pays it back',
-    product: loc,
+    product: loc.name,
     why: 'Draw what each order needs, repay as the stock sells, draw again next season',
     range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
   },
   {
     if: 'A supplier offers a bulk price or an early-pay discount that expires this week',
     means: 'The saving is real, but only if the cash is on hand now',
-    product: mca,
+    product: mca.name,
     why: 'The fastest product to fund; you repay from sales rather than a fixed monthly bill',
     range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
   },
   {
     if: 'Card sales are strong, but settlement runs behind rent and payroll in a slow month',
     means: 'The money exists, it just has not landed yet',
-    product: mca,
+    product: mca.name,
     why: 'Repayment moves with your daily or weekly sales, so quiet weeks cost less',
     range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
   },
   {
-    if: 'You are opening a second store or finishing a build-out with a known end date',
-    means: 'The spend lands now; the sales build over the following year',
-    product: SERVICES.find((s) => s.slug === 'business-term-loan')!,
-    why: 'One fixed monthly payment over 6 – 36 months, sized to what the new store should do',
-    range: 'From the Business Term Loan page',
-  },
-  {
     if: 'You need refrigeration, shelving, POS, security or a delivery van',
     means: "A one-time purchase a single month's margin cannot cover",
-    product: collateral,
+    product: collateral.name,
     why: 'What you buy secures the loan, and the term matches how long it keeps earning',
     range: `${collateral.spec!.amounts} · ${collateral.spec!.terms}`,
   },
   {
+    if: 'You need seasonal staff on the floor weeks before the traffic arrives',
+    means: 'Payroll is a fixed cost against sales that have not started',
+    product: loc.name,
+    why: 'Draw for the hire-up, repay it from the peak-season sales',
+    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+  },
+  {
+    if: 'You are opening a second store or finishing a build-out with a known end date',
+    means: 'The spend lands now; the sales build over the following year',
+    product: 'Business Term Loan',
+    why: 'One fixed monthly payment over 6 – 36 months, sized to what the new store should do',
+    range: '$10,000 – $2,000,000 · 6 – 36 months',
+  },
+  {
     if: 'Your wholesale or trade customers pay you on 30–60 day terms',
-    means: 'You made the sale, but you are financing your customer\u2019s float',
-    product: SERVICES.find((s) => s.slug === 'invoice-factoring-tool')!,
+    means: "You made the sale, but you are financing your customer's float",
+    product: 'Invoice Factoring Tool',
     why: 'Turns outstanding business-to-business invoices into cash now',
-    range: 'From the Invoice Factoring Tool page',
+    range: '$10,000 – $3,000,000 · ongoing facility',
   },
   {
     if: "Two or three advances from last season still take a bite out of every day's sales",
     means: 'Stacked payments are how a good month turns into a bad one',
-    product: SERVICES.find((s) => s.slug === 'consolidation-of-positions')!,
+    product: 'Consolidation of Positions',
     why: 'Pays off the positions you have and rolls them into one payment sized to your sales',
-    range: 'From the Consolidation of Positions page',
-  },
-  {
-    if: 'You need seasonal staff on the floor weeks before the traffic arrives',
-    means: 'Payroll is a fixed cost against sales that have not started',
-    product: loc,
-    why: 'Draw for the hire-up, repay it from the peak-season sales',
-    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+    range: '$10,000 – $2,000,000 · 6 – 36 months',
   },
 ];
 
@@ -148,61 +120,29 @@ const retailProducts = [
   {
     service: loc,
     fit: 'The default for a repeating buying cycle. Draw what each order needs, repay as the stock sells, and keep the facility for next season.',
-    intent: 'stockroom shelves stacked with boxed inventory',
   },
   {
     service: mca,
     fit: 'For card-heavy stores that need money quickly and cannot wait on a bank. Repayment follows sales, but it costs more than a line of credit, so use it for short, high-turn purchases rather than planned buying.',
-    intent: 'card payment terminal on a shop counter',
   },
   {
     service: collateral,
     fit: 'For the assets behind the shop — refrigeration, fixtures, POS hardware or a delivery van. A fixed term spreads the cost over the years the equipment keeps working.',
-    intent: 'refrigerated display cases along a grocery aisle',
   },
 ];
 
-const exits = [
-  {
-    title: 'If you sell to other businesses and wait on invoices',
-    body: 'That is a collections problem rather than a sales problem. Invoice factoring is built for it.',
-    linkLabel: 'Invoice Factoring Tool',
-    href: '/services/invoice-factoring-tool',
-    read: '/blog/invoice-factoring-vs-ar-financing',
-    readLabel: 'Invoice factoring vs AR financing',
-  },
-  {
-    title: 'If you are already carrying more than one advance',
-    body: 'Adding another position on top is what turns a manageable month into a bad one. Consolidation pays the existing positions down and rolls them into one payment.',
-    linkLabel: 'Consolidation of Positions',
-    href: '/services/consolidation-of-positions',
-    read: '/blog/consolidation-of-positions-stacked-advances',
-    readLabel: 'Consolidating stacked advances',
-  },
-  {
-    title: 'If the money is for a planned expansion with a fixed finish date',
-    body: 'A term loan prices a known project better than a sales-linked product, because the repayment does not move with a season you have not traded yet.',
-    linkLabel: 'Business Term Loan',
-    href: '/services/business-term-loan',
-    read: '/blog/merchant-cash-advance-vs-business-term-loan',
-    readLabel: 'MCA vs business term loan',
-  },
-];
-
-const cases = [
-  {
-    title: 'Stocking the holiday quarter',
-    body: 'A boutique draws on its line of credit in late summer to place holiday orders, then pays the balance down from November and December sales.',
-  },
-  {
-    title: "Taking a supplier's early-pay discount",
-    body: 'A hardware store uses a short draw to pay a supplier invoice early and keeps the discount, which can be worth more than the cost of that draw for the period.',
-  },
-  {
-    title: 'Refitting the sales floor',
-    body: 'A specialty grocer finances new refrigerated cases and a POS upgrade over a fixed term, so the purchase does not eat its operating cash.',
-  },
-];
+const published = await getPublicPosts();
+/** Published, retail-relevant posts only, most relevant first. Drafts stay out. */
+const RETAIL_BLOG_IDS = [
+  'bridging-a-slow-season',
+  'equipment-financing-break-even',
+  'what-your-bank-statements-say',
+  'how-to-read-a-factor-rate',
+  '24-48-hour-funding-checklist',
+] as const;
+const blogSlides = RETAIL_BLOG_IDS.map((id) => published.find((post) => post.id === id)).filter(
+  (post): post is (typeof published)[number] => Boolean(post),
+);
 
 const faqs = [
   {
@@ -283,7 +223,7 @@ const metaDescription =
     </div>
   </nav>
 
-  {/* 1 page header (TF-00) · 2 glance figures (IR-00 / PE-02) · 3 header still (TF-01) */}
+  {/* 1 page header (TF-00) · glance figures (PE-02) · header still (TF-01) */}
   <section class="ret-hero" aria-labelledby="page-hero-heading" data-band="light" data-ret-section="header" data-reveal-root>
     <div class="container-site">
       <div class="ret-grid ret-hero-grid">
@@ -311,292 +251,245 @@ const metaDescription =
             intent="stocked shop shelves seen from the aisle, boxes still on the floor"
             ratio="16 / 9"
             sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
+            loading="eager"
           />
         </div>
       </div>
     </div>
   </section>
 
-  {/* 4 answer first — TF-02: dark band, claim left, answer + numbered rows right */}
-  <section class="ret-band ret-band--dark ret-answer" aria-labelledby="answer-heading" data-band="dark" data-ret-section="answer" data-reveal-root>
+  {/* 2 answer first — Blackstone home "Private wealth": claim left, linked-style
+       rows in a raised panel right. Takeaways are not links, so no arrows. */}
+  <section class="ret-band ret-band--dark ret-pw" aria-labelledby="answer-heading" data-band="dark" data-ret-section="answer" data-reveal-root>
     <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-answer-head" data-reveal>
+      <div class="ret-pw-grid">
+        <div class="ret-pw-copy" data-reveal>
           <Eyebrow>In short</Eyebrow>
-          <h2 id="answer-heading" class="ret-claim">How retail businesses use Falcon.</h2>
+          <h2 id="answer-heading" class="ret-pw-claim">Falcon funds retail</h2>
+          <p class="ret-pw-lead">{answerLead}</p>
+          <a class="ret-pw-more" href="#products-heading">
+            <span>Learn more</span>
+            <CircleArrow />
+          </a>
         </div>
-        <div class="ret-answer-side" data-reveal>
-          <p class="ret-body ret-answer-lead">{answerLead}</p>
-          <ol class="ret-takeaways">
+        <ul class="ret-pw-panel" data-reveal>
+          {
+            takeaways.map((item) => (
+              <li class="ret-pw-row">
+                <p>{item}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* 3 PLACEHOLDER — the situation component Ling is sending lands here. The
+       frame is her reference image (raised dark card, copy + chips left, still
+       right); the eight chips are the copy outline's situations. */}
+  <section class="ret-band ret-pending" aria-labelledby="situations-heading" data-band="light" data-ret-section="situations" data-reveal-root>
+    <div class="container-site">
+      <div class="ret-pending-card" data-reveal>
+        <div class="ret-pending-copy">
+          <Eyebrow>What's your case?</Eyebrow>
+          <h2 id="situations-heading" class="ret-pending-claim">Which funding fits your store right now?</h2>
+          <p class="ret-pending-intro">
+            Most owners arrive with a sentence, not a product. Find the sentence that sounds like your month.
+          </p>
+          <ul class="ret-chips">
             {
-              takeaways.map((item, i) => (
-                <li class="ret-takeaway">
-                  <span class="ret-takeaway-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                  <span>{item}</span>
+              situations.map((item) => (
+                <li class="ret-chip">
+                  <span class="ret-chip-label">{item.if}</span>
+                  <span class="ret-chip-plus" aria-hidden="true">+</span>
                 </li>
               ))
             }
-          </ol>
+          </ul>
+        </div>
+        <div class="ret-pending-media">
+          <Media
+            labeled
+            intent="shop owner in the stockroom with boxes of new inventory"
+            ratio="4 / 5"
+            sizes="(min-width: 80em) 560px, (min-width: 64em) 45vw, 100vw"
+          />
         </div>
       </div>
+      <p class="ret-pending-note" data-reveal>
+        Placeholder — section 3 is waiting on Ling's component. The eight chips are the situations from the copy outline
+        and become the expanding rows; product, why and range sit inside each one.
+      </p>
     </div>
   </section>
 
-  {/* 5 four cash pressures — TF-05: titled prose columns, no card chrome */}
-  <section class="ret-band ret-cash" aria-labelledby="cash-heading" data-band="light" data-ret-section="cash" data-reveal-root>
+  {/* 4 three products — the service pages' "When X isn't the right fit" band:
+       three cards, title + one line + link with arrow. */}
+  <section class="ret-band ret-products-band" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
     <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-cash-head" data-reveal>
-          <Eyebrow>What it costs you</Eyebrow>
-          <h2 id="cash-heading" class="ret-claim">Four things eat a retailer's cash</h2>
-          <p class="ret-body ret-cash-intro">
-            None of this is a spending problem. It is a timing problem — the money goes out months before it comes
-            back.
-          </p>
-        </div>
-        <div class="ret-values">
-          {
-            pressures.map((item) => (
-              <article class="ret-value" data-reveal>
-                <h3 class="ret-value-title">{item.title}</h3>
-                <p class="ret-body ret-body--sm">{item.body}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 6 the retail year — TF-03 / PE-05 row geometry, chevrons dropped */}
-  <section class="ret-band ret-band--tint ret-year" aria-labelledby="year-heading" data-band="light" data-ret-section="year" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-year-head" data-reveal>
-          <Eyebrow>Why timing matters</Eyebrow>
-          <h2 id="year-heading" class="ret-claim">Your year has four cash moments</h2>
-          <p class="ret-body ret-year-intro">
-            Retail cash flow is not flat. These are the four points where the money and the sales drift apart.
-          </p>
-        </div>
-        <div class="ret-year-rows">
-          {
-            year.map((item) => (
-              <article class="ret-year-row" data-reveal>
-                <p class="ret-label ret-period">{item.period}</p>
-                <h3 class="ret-year-title">{item.title}</h3>
-                <p class="ret-body ret-body--sm ret-year-body">{item.body}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 7 which funding fits — no donor section; our own table in the library's conventions */}
-  <section class="ret-band ret-situation" aria-labelledby="situation-heading" data-band="light" data-ret-section="situation" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-situation-head" data-reveal>
-          <Eyebrow>Find your situation</Eyebrow>
-          <h2 id="situation-heading" class="ret-claim">Which funding fits your store right now?</h2>
-          <p class="ret-body ret-situation-intro">
-            Most owners arrive with a sentence, not a product. Find the sentence that sounds like your month.
-          </p>
-        </div>
-        <div class="ret-table-shell" data-reveal>
-          <div class="r-table-wrap">
-            <table class="r-table ret-situation-table">
-              <caption class="sr-only">Retail situations and the Falcon product that fits each one</caption>
-              <thead>
-                <tr>
-                  <th scope="col">If this is your situation</th>
-                  <th scope="col">What it means for your cash</th>
-                  <th scope="col">Falcon product</th>
-                  <th scope="col">Why that one</th>
-                  <th scope="col">Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  situations.map((row) => (
-                    <tr>
-                      <th scope="row">{row.if}</th>
-                      <td data-label="What it means">{row.means}</td>
-                      <td data-label="Product">
-                        <a class="ret-inline-link" href={`/services/${row.product.slug}`}>{row.product.name}</a>
-                      </td>
-                      <td data-label="Why that one">{row.why}</td>
-                      <td data-label="Range">{row.range}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 8 three products — PE-04 card + BMX-03 spec block, closed by one line */}
-  <section class="ret-band ret-band--stacked ret-products" aria-labelledby="products-heading" data-band="light" data-ret-section="products" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-products-head" data-reveal>
+      <div class="mca-shell">
+        <div class="mca-block-head" data-reveal>
           <Eyebrow>Products</Eyebrow>
-          <h2 id="products-heading" class="ret-claim">Three ways to fund a retail business</h2>
-          <p class="ret-body ret-products-intro">Same application, same specialist — three different shapes of money.</p>
+          <h2 id="products-heading">Three ways to fund a retail business</h2>
         </div>
-        <div class="ret-product-list">
-          {
-            retailProducts.map(({ service, fit, intent }) => (
-              <article class="ret-product" data-reveal>
-                <div class="ret-product-media">
+      </div>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+        {
+          retailProducts.map(({ service, fit }) => (
+            <article class="mca-card">
+              <h3 class="mca-card-title">{service.name}</h3>
+              <p class="mca-card-body">{fit}</p>
+              <a class="mca-card-link" href={`/services/${service.slug}`}>
+                <span class="mca-card-link-label">See {service.name}</span>
+                <span class="mca-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mca-shell">
+        <p class="ret-norestrict" data-reveal>
+          No restricted industries or states: Falcon has no restricted-industry or restricted-state list. Underwriting
+          looks at the business, not the sector or the geography.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* blog — the service pages' blog slider (same component, retail posts) */}
+  <section class="ret-band ret-blog-band" aria-label="From the blog" data-band="light" data-ret-section="blog" data-reveal-root>
+    <div class="container-site">
+      <div
+        class="mca-blog-slider"
+        data-ret-blog-slider
+        data-autoplay="true"
+        data-autoplay-duration="5000"
+        data-reveal
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Retail funding articles"
+        tabindex="0"
+      >
+        <div class="mca-shell mca-blog-split">
+          <div class="mca-blog-copy">
+            <Eyebrow>From the blog</Eyebrow>
+            <div class="mca-blog-copy-slides">
+              {
+                blogSlides.map((post, i) => (
+                  <div
+                    class:list={['mca-blog-copy-slide', i === 0 && 'is-active']}
+                    data-mca-blog-copy-slide
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${i + 1} of ${blogSlides.length}`}
+                    aria-hidden={i === 0 ? 'false' : 'true'}
+                  >
+                    <h2 class="mca-blog-title" data-mca-blog-title>{post.data.title}</h2>
+                    <a class="mca-card-link" href={`/blog/${post.id}`}>
+                      <span class="mca-card-link-label">Read the article</span>
+                      <span class="mca-card-link-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                          <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+            {
+              blogSlides.length > 1 && (
+                <div class="mca-blog-controls">
+                  <button type="button" class="mca-blog-arrow" data-mca-blog-prev aria-label="Previous article">
+                    <span class="mca-blog-arrow-icon" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M10 19L3 12L10 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                        <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                      </svg>
+                    </span>
+                  </button>
+                  <button type="button" class="mca-blog-arrow" data-mca-blog-next aria-label="Next article">
+                    <span class="mca-blog-arrow-icon" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                        <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              )
+            }
+          </div>
+          <div class="mca-blog-media">
+            {
+              blogSlides.map((post, i) => (
+                <div
+                  class:list={['mca-blog-media-slide', i === 0 && 'is-active']}
+                  data-mca-blog-media-slide
+                  aria-hidden={i === 0 ? 'false' : 'true'}
+                  data-mca-blog-img
+                >
                   <Media
-                    labeled
-                    intent={intent}
+                    image={post.data.cover}
+                    alt={post.data.coverAlt || post.data.title}
+                    intent={post.data.coverAlt || post.data.title}
+                    labeled={!post.data.cover}
                     ratio="16 / 9"
-                    sizes="(min-width: 80em) 400px, (min-width: 64em) 33vw, 100vw"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    sizes="(min-width: 90em) 704px, (min-width: 80em) 632px, (min-width: 48em) 688px, 100vw"
                   />
                 </div>
-                <h3 class="ret-product-title">{service.name}</h3>
-                <p class="ret-body ret-body--sm">{fit}</p>
-                <dl class="ret-spec">
-                  <div class="ret-spec-row">
-                    <dt>Who it's for</dt>
-                    <dd>{service.whoFor}</dd>
-                  </div>
-                  <div class="ret-spec-row">
-                    <dt>Amounts</dt>
-                    <dd>{service.spec!.amounts}</dd>
-                  </div>
-                  <div class="ret-spec-row">
-                    <dt>Terms</dt>
-                    <dd>{service.spec!.terms}</dd>
-                  </div>
-                  <div class="ret-spec-row">
-                    <dt>Requirements</dt>
-                    <dd>{service.spec!.requirements.join(' · ')}</dd>
-                  </div>
-                </dl>
-                <a class="arrow-cta ret-product-link" href={`/services/${service.slug}`}>
-                  <span class="arrow-cta-label">See {service.name}</span>
-                  <CircleArrow />
-                </a>
-              </article>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
-
-        {/* Requirements are deliberately not repeated here: each card above carries its
-            own Requirements row (verbatim spec) and the product page carries the full set.
-            Only the no-restricted line stays — nothing else on the page says it. */}
-        <div class="ret-products-note" data-reveal>
-          <p class="ret-need-note">
-            No restricted industries or states: Falcon has no restricted-industry or restricted-state list. Underwriting
-            looks at the business, not the sector or the geography.
-          </p>
-          <p class="ret-need-links">
-            <a class="ret-inline-link" href="/blog/24-48-hour-funding-checklist">The 24-48 hour funding checklist</a>
-            <a class="ret-inline-link" href="/blog/what-your-bank-statements-say">What your bank statements say</a>
-          </p>
-        </div>
+        <p class="sr-only" aria-live="polite" data-mca-blog-live></p>
       </div>
     </div>
   </section>
 
-  {/* 9 not the right fit — APM-09 two-column link grid */}
-  <section class="ret-band ret-band--tint ret-fit" aria-labelledby="fit-heading" data-band="light" data-ret-section="fit" data-reveal-root>
+  {/* faq — the service pages' FAQ band */}
+  <section class="ret-band ret-faq-band" aria-labelledby="faq-heading" data-band="light" data-ret-section="faq" data-reveal-root>
     <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-fit-head" data-reveal>
-          <Eyebrow>Not the right fit</Eyebrow>
-          <h2 id="fit-heading" class="ret-claim">If none of these sounds like your month, it may be a different product.</h2>
-        </div>
-        <div class="ret-exit-list">
-          {
-            exits.map((item) => (
-              <article class="ret-exit" data-reveal>
-                <h3 class="ret-exit-title">{item.title}</h3>
-                <p class="ret-body ret-body--sm">{item.body}</p>
-                <div class="ret-exit-links">
-                  <a class="arrow-cta" href={item.href}>
-                    <span class="arrow-cta-label">{item.linkLabel}</span>
-                    <CircleArrow />
-                  </a>
-                  <a class="ret-read" href={item.read}>Read: {item.readLabel}</a>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 10 three files in practice — BMX-03…06 stat card, figure slot holds the number */}
-  <section class="ret-band ret-cases" aria-labelledby="cases-heading" data-band="light" data-ret-section="cases" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-cases-head" data-reveal>
-          <Eyebrow>How it looks in practice</Eyebrow>
-          <h2 id="cases-heading" class="ret-claim">Three retail files, three shapes of money</h2>
-        </div>
-        <div class="ret-case-list">
-          {
-            cases.map((item, i) => (
-              <article class="ret-case" data-reveal>
-                <p class="ret-case-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
-                <h3 class="ret-case-title">{item.title}</h3>
-                <p class="ret-body ret-body--sm">{item.body}</p>
-              </article>
-            ))
-          }
-        </div>
-        <div class="ret-read-next" data-reveal>
-          <p class="ret-label">Read next</p>
-          <a class="ret-inline-link" href="/blog/bridging-a-slow-season">Bridging a slow season</a>
-          <a class="ret-inline-link" href="/blog/equipment-financing-break-even">Equipment financing break-even</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 11 FAQ — APM-08 / BMX-09: heading left, accordion rows right */}
-  <section class="ret-band ret-faq" aria-labelledby="faq-heading" data-band="light" data-ret-section="faq" data-reveal-root>
-    <div class="container-site">
-      <div class="ret-grid">
-        <div class="ret-faq-head" data-reveal>
+      <div class="mca-shell mca-faq-head" data-reveal>
+        <div class="mca-block-head">
           <Eyebrow>FAQ</Eyebrow>
-          <h2 id="faq-heading" class="ret-claim">Retail funding questions</h2>
+          <h2 id="faq-heading">Retail funding questions</h2>
         </div>
-        <div class="ret-faq-list" data-accordion data-reveal>
+      </div>
+      <div class="mca-shell">
+        <div class="mca-faq-list" data-accordion data-reveal>
           {
             faqs.map((item, i) => (
-              <div class="ret-faq-item" data-acc-item>
+              <div class="mca-faq-item" data-acc-item>
                 <h3>
                   <button
                     type="button"
-                    class="ret-faq-trigger"
+                    class="mca-faq-trigger"
                     aria-expanded="false"
                     aria-controls={`ret-faq-panel-${i}`}
                     id={`ret-faq-trigger-${i}`}
                     data-acc-trigger
                   >
                     <span>{item.q}</span>
-                    <span class="ret-faq-caret" aria-hidden="true">
-                      <span class="ret-faq-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="ret-faq-caret-svg">
+                    <span class="mca-faq-caret" aria-hidden="true">
+                      <span class="mca-faq-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="mca-faq-caret-svg">
                           <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                       </span>
                     </span>
                   </button>
                 </h3>
-                <div class="ret-acc-panel" id={`ret-faq-panel-${i}`} role="region" aria-labelledby={`ret-faq-trigger-${i}`}>
-                  <div class="ret-acc-inner">
+                <div class="mca-acc-panel" id={`ret-faq-panel-${i}`} role="region" aria-labelledby={`ret-faq-trigger-${i}`}>
+                  <div class="mca-acc-inner">
                     <p>{item.a}</p>
                   </div>
                 </div>
@@ -610,7 +503,9 @@ const metaDescription =
 
   <script>
     import { bindAccordions } from '@/scripts/accordion';
+    import { bindMcaBlogSlider } from '@/scripts/mca-blog-slider';
     import '@/scripts/scroll-in';
     bindAccordions();
+    bindMcaBlogSlider();
   </script>
 </BaseLayout>
