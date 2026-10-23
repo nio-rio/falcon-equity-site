@@ -137,6 +137,42 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
   if (reduce) slider.setAttribute('data-blog-reduce', '');
   else slider.removeAttribute('data-blog-reduce');
 
+  /* Dot ring animation. The active dot's circle is DRAWN clockwise from
+     12 o'clock over 0.9s, ease-out — measured off the reference recording
+     (26/47/65/79/89/93/97% at 0.1s steps ≈ power2.out), then it holds full.
+     The outgoing ring clears immediately, exactly as the reference does.
+     Called once when a transition starts, and again from updateChrome — the
+     guard makes the second call a no-op so the draw is never restarted. */
+  let dotIndex = -1;
+  const syncDots = (next: number, animate = true) => {
+    if (dotIndex === next) return;
+    const firstPaint = dotIndex === -1;
+    dotIndex = next;
+    dots.forEach((dot, i) => {
+      const on = i === next;
+      dot.classList.toggle('is-active', on);
+      dot.parentElement?.classList.toggle('is-active', on);
+      if (on) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+
+      const ring = dot.querySelector<SVGCircleElement>('circle');
+      if (!ring) return;
+      const c = Number(ring.dataset.circumference || 0);
+      gsap.killTweensOf(ring);
+      if (!on) {
+        gsap.set(ring, { strokeDashoffset: c });
+      } else if (animate && !reduce && !firstPaint) {
+        gsap.fromTo(
+          ring,
+          { strokeDashoffset: c },
+          { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out' },
+        );
+      } else {
+        gsap.set(ring, { strokeDashoffset: 0 });
+      }
+    });
+  };
+
   const updateChrome = (announce: boolean) => {
     slides.forEach((slide, i) => {
       const on = i === index;
@@ -147,13 +183,7 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
       slide.copy.toggleAttribute('inert', !on);
       slide.media.toggleAttribute('inert', !on);
     });
-    dots.forEach((dot, i) => {
-      const on = i === index;
-      dot.classList.toggle('is-active', on);
-      dot.parentElement?.classList.toggle('is-active', on);
-      if (on) dot.setAttribute('aria-current', 'true');
-      else dot.removeAttribute('aria-current');
-    });
+    syncDots(index);
     slider.setAttribute('data-blog-index', String(index));
     if (prev) prev.disabled = !canLoop;
     if (next) next.disabled = !canLoop;
@@ -185,6 +215,8 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     const incoming = slides[nextIndex];
     isAnimating = true;
     stopAutoplay();
+    // Ring starts drawing the moment the slide starts moving.
+    syncDots(nextIndex);
 
     const finish = () => {
       gsap.set([outgoing.copy, outgoing.media], { autoAlpha: 0 });
@@ -331,6 +363,10 @@ function bindSlider(slider: HTMLElement, reduce: boolean) {
     dotHandlers.forEach(({ dot, handler }) => dot.removeEventListener('click', handler));
     unbindSwipe();
     slides.forEach((slide) => slide.titleSplit?.revert());
+    dots.forEach((dot) => {
+      const ring = dot.querySelector('circle');
+      if (ring) gsap.killTweensOf(ring);
+    });
   };
 }
 

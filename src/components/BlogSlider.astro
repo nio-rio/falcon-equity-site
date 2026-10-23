@@ -40,6 +40,13 @@ const ARROW_DISC =
 const ARROW_RING =
   'M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z';
 
+/* Dot ring: r 11.25 in a 24 canvas → circumference 70.686. The ring is
+   DRAWN clockwise from 12 o'clock when a slide becomes active (0.9s ease-out,
+   measured off the reference recording), so the circle needs a dasharray plus
+   a -90° rotation to start at the top. No-JS state stays correct: the active
+   dot ships with offset 0 (full ring), the rest with a full offset (none). */
+const RING_C = Number((2 * Math.PI * 11.25).toFixed(3));
+
 const showNav = posts.length > 1;
 ---
 
@@ -157,6 +164,10 @@ const showNav = posts.length > 1;
                             fill="none"
                             stroke="currentColor"
                             stroke-width="1.5"
+                            stroke-dasharray={String(RING_C)}
+                            stroke-dashoffset={i === 0 ? '0' : String(RING_C)}
+                            transform="rotate(-90 12 12)"
+                            data-circumference={String(RING_C)}
                           />
                         </svg>
                       </button>

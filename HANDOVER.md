@@ -338,3 +338,32 @@ Ling: "I want this card to be in services and industries dropdown as well. But o
 - `text-wrap: pretty` added to `.primary-nav-widget__content-inner > p` so the card body does not leave an orphan word on its last line.
 - Measured at 1440: Services card 624x290, Industries 624x328, Resources 624x263; card right edge 1352 = list right edge, card top flush with list top. Body copy 4/4/3 lines.
 - `tests/nav.spec.mjs`: the widget checks used to assume exactly one card. They now read the card of the panel whose `aria-hidden="false"`, `widgetPasses` takes per-card `{title,href,label}` expectations, and two new checks (`nav-widget-services`, `nav-widget-industries`) assert the new cards' title and href plus the same colours and contrast as the Resources card.
+
+### Blog slider: global component + Blackstone hero nav (2026-10-23, owner request)
+
+Ling: *"use the slider navigation design from this blackstone page hero section. Only learn the slider navigation, no other element. The blog slider should be a global component, where changes should show on every page."* Then, with a recording: *"Look how the circle around the bullet is getting drawn when the slide becomes active."*
+
+**One component, one stylesheet, one binder.**
+- `src/components/BlogSlider.astro` — band + slider + nav, rendered by all six service pages and `/industries/retail`. Pages pass identity only: `posts`, `label` (carousel aria name), `bandClass` (their band class, so their padding/rhythm rules still apply), `sectionKey` (for `data-<key>-section`).
+- `src/styles/blog-slider.css` — every rule inside the band, single `blog-` prefix.
+- `src/scripts/blog-slider.ts` (was `mca-blog-slider.ts`, deleted) — imported by the component itself, so no page calls a binder any more. Renamed hooks: `data-blog-*`, SplitText class `blog-line`, state attrs `data-blog-index` / `data-blog-reduce`.
+- Removed with it: 7 copies of the band markup, ~1,900 lines of prefix-scoped slider CSS (`mca-`, `loc-`, `btl-`, `cal-`, `cons-`, `ift-`, plus retail's reuse of `mca-`), and the "shared slider compatibility" blocks five stylesheets carried only because the old binder wrote `mca-`-prefixed SplitText classes.
+- Band padding stays in each page stylesheet keyed on its band class (`section.loc-blog[data-band='light']` etc.) — the component only owns what is inside.
+
+**The navigation** (measured live on `blackstone.com` over CDP at 1440, 23 Oct 2026; motion read off Ling's recording): prev arrow · dots · next arrow in one flex row, 48px gaps at 1440 (40 base), 40×40 ring arrows with a 1.5px stroke and a 40-unit line arrow, whole prev button rotated 180°. Hover: icon `scale(1.16667)`, line arrow fades out while a solid disc with the arrow **knocked out** fades in, 300ms. Dots: 24px hit area, 12px solid mark, 8px pitch at 1440 (16px base); active dot holds a 24px ring at 1.5px.
+
+**The ring is drawn, not switched on.** On activation the ring draws clockwise from 12 o'clock, 0 → full in ~0.9s ease-out (`power2.out`), then holds; the outgoing ring clears instantly. Reference frames: 26% at 0.10s, 57% at 0.30s, 79% at 0.50s, 93% at 0.70s, 99% at 0.90s. Arc geometry confirmed by sampling ink every 2° (30% → 4°–110°, 50% → 4°–182°, 81% → 4°–294° from 12 o'clock). Implementation: the circle carries `stroke-dasharray` = 70.686 (r 11.25 in a 24 canvas) plus `rotate(-90 12 12)`, the active dot ships `stroke-dashoffset="0"` and the rest a full offset so the static/JS-off state is right; `syncDots()` animates the offset on activation, is called when the transition *starts* (guarded so `updateChrome`'s later call cannot restart it), and reduced motion sets the ring full immediately.
+
+**Deviations (deliberate, written in the CSS):** below 48em the row gaps become 24/8 (16/4 below 360) because six dots at the reference's 40/16 need 384px against a 328px content box; the nav sits in the copy column under "Read the article"; every control got a `:focus-visible` ring the reference does not have.
+
+**QA measured on the local build:**
+- Built HTML: 1 `.blog-nav` and 2 arrows per page, one dot per post (6 on MCA, 5 on the other six), zero `mca-blog-*` hooks remaining.
+- Dot click: index 0 → 2, ring moves with it, `aria-current` follows, live region reads the incoming headline, headline itself swaps.
+- Ring draw on our page: 70.686 → 0 monotonic over 900ms, gap trailing at 332°–358° at 92% drawn (clockwise from 12) — same shape as the reference.
+- Nav width vs content column, no page overflow: 320 → 276/290 (6 dots), 390 → 312/328, 768 → 384/688, 1440 → 360/1264. All seven routes clean at 320 / 390 / 768 / 1024 / 1440 / 1920.
+- `npm run build` passes; `test:titles` passes; `test:testimonial` 13/13. `astro check` reports one **pre-existing** error in `src/components/pilot/PilotIndustryTabs.astro` (untouched). `test:nav` expects a server on `127.0.0.1:4321` and failed on a home-page `.site-header__logo` hover, unrelated to this band.
+- Full reference/measured table and the motion numbers: `docs/blog-slider-nav.md`.
+
+**Commit note:** the rewrite first landed inside another bot's commit `aa515c3` ("Case accordion: product block starts on column 8…"), which swept an uncommitted working tree. Content verified in that commit; the ring-draw follow-up is committed separately. Nothing here was force-pushed.
+
+**Still open:** the nav's hover swap is proven with a real pointer on the local build, but not yet re-shot on the Netlify preview; and `test:nav`'s home-page hover failure should be reproduced on `main` to confirm it predates this work.

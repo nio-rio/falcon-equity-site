@@ -320,13 +320,14 @@
   display: block;
   width: 24px;
   height: 24px;
-  opacity: 0;
 }
 
-/* No fade: the reference swaps the ring on the frame the slide changes. */
-.blog-nav-dot-item.is-active .blog-nav-dot-ring {
-  opacity: 1;
-}
+/* The ring is not a static badge: the binder draws it clockwise from 12
+   o'clock with stroke-dashoffset over 0.9s ease-out when the dot becomes
+   active, then leaves it full — the reference's activation animation.
+   No CSS opacity/transition here on purpose: the markup ships the active
+   ring already complete (offset 0, rotated -90°) and the rest empty, so the
+   static state is correct with JS off, and the draw is owned in one place. */
 
 .blog-nav-dot:focus-visible {
   outline: 2px solid var(--color-ink);
