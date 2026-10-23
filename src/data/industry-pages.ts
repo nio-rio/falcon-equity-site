@@ -1262,7 +1262,7 @@ export const INDUSTRY_PAGES: Record<IndustrySlug, IndustryPageContent> = {
       },
       {
         q: "Does a center have to own its building to qualify?",
-        a: "No. Most decisions rest on enrollment revenue, deposits and time in business rather than on property you own, and a leased space is the normal case for a center.",
+        a: "No. The requirements published for these products are time in business and monthly revenue, and the documents are bank statements, photo ID and a voided check — nothing there asks for a deed. A leased space is the normal case for a center, and it is not a barrier to applying.",
       },
       {
         q: "Do thin summer bank statements count against my application?",
