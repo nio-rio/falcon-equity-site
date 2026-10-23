@@ -12,12 +12,12 @@ coverAlt: ''
 takeaways:
   - 'You have three levers on a daily MCA payment: a longer term, a renegotiated withholding, or replacing several advances with one position.'
   - 'Consolidation of Positions combines open advances into one payment and typically runs $10,000 – $2,000,000 over 6 – 36 months.'
-  - 'Falcon clients save 30%–50% on average on their current daily or weekly payments. Your file decides the number.'
+  - 'The payment falls because the term stretches out. Ask for the total payback in dollars, not only the new daily figure.'
   - 'A lower payment over a longer term can still cost more in total, so compare total payback in dollars, not only the daily debit.'
   - 'Typical consolidation files look for 6+ months in business, $15K+ monthly revenue and a 550+ credit score.'
 faq:
   - q: 'Can I lower my daily MCA payment?'
-    a: 'Usually, yes. You can extend the repayment term, ask the current funder to renegotiate the withholding percentage, or consolidate several advances into one position. Consolidation of Positions typically runs $10,000 – $2,000,000 over 6 – 36 months, against 3 – 18 months on a merchant cash advance, and Falcon clients save 30%–50% on average on their current daily or weekly payments. Approval is never guaranteed.'
+    a: 'Usually, yes. You can extend the repayment term, ask the current funder to renegotiate the withholding percentage, or consolidate several advances into one position. Consolidation of Positions typically runs $10,000 – $2,000,000 over 6 – 36 months, against 3 – 18 months on a merchant cash advance, and the payment falls because the term is longer. Approval is never guaranteed, so compare the total payback in dollars before you commit.'
   - q: 'Why is my business profitable but I have no cash?'
     a: 'Profit and cash are measured on different clocks. A profit and loss statement counts revenue when it is earned, while a merchant cash advance remits from sales as they land, before payroll, rent and suppliers are paid. A business can post a profit and still run short of operating cash when the daily remittance is large.'
   - q: 'What happens if I cannot make an MCA payment?'
@@ -29,7 +29,7 @@ faq:
 draft: true
 ---
 
-If your merchant cash advance is collected daily, you have three levers: extend the term, change the withholding, or replace several advances with one. **[Consolidation of Positions](/services/consolidation-of-positions)** is the third, and it is usually the one that moves the payment most — Falcon clients save 30%–50% on average on their current daily or weekly payments. The catch is that a smaller payment over a longer term can still cost more in total, so the number worth agreeing on is the total payback, not only the daily debit.
+If your merchant cash advance is collected daily, you have three levers: extend the term, change the withholding, or replace several advances with one. **[Consolidation of Positions](/services/consolidation-of-positions)** is the third, and it is usually the one that moves the payment most, because the term stretches out over 6 to 36 months instead of 3 to 18. The catch is that a smaller payment over a longer term can still cost more in total, so the number worth agreeing on is the total payback, not only the daily debit.
 
 ## Why a daily remittance feels heavier than the rate suggests
 

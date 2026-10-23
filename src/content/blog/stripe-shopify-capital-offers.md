@@ -39,13 +39,20 @@ Shopify is more direct about structure: US funding is issued as loans by WebBank
 
 Neither product is open to everyone. Both are effectively closed to businesses that do not already process payments on that platform, which is the quiet catch in a "you're prequalified" dashboard message: the offer exists because they can see your sales, not because anyone has assessed your plans.
 
-| | Stripe Capital | Shopify Capital |
-| --- | --- | --- |
-| **Structure** | A term loan issued by a bank, or a merchant cash advance — the offer states which | Loans issued by WebBank in the US |
-| **Cost** | Advance amount plus a flat fee; Stripe states there are no late, early-payment or origination fees | Shopify states no compounding interest; funding is repaid from sales |
-| **Repayment** | Collected as a share of payment volume; loans carry a maximum term and periodic payments | A fixed percentage of daily sales, on selling days only |
-| **Term** | Set by the offer | Maximum 18 months |
-| **Who qualifies** | US businesses processing on Stripe for 3+ months and meeting minimum volume thresholds | Select merchants in the US, Canada, UK and Australia, chosen by Shopify's own underwriting |
+## Stripe Capital, in its own words
+
+- **Structure.** A term loan issued by a bank, or a merchant cash advance — the offer states which, and you cannot ask for one or the other.
+- **Cost.** The advance plus a flat fee. Stripe states there are no late fees, no early-payment fees and no origination fees.
+- **Repayment.** Collected as a share of your payment volume; loans carry a maximum term and periodic payments.
+- **Who qualifies.** US businesses processing on Stripe for 3+ months and meeting minimum volume thresholds.
+
+## Shopify Capital, in its own words
+
+- **Structure.** Loans issued by WebBank in the US.
+- **Cost.** Shopify points to no compounding interest; funding is repaid out of sales.
+- **Repayment.** A fixed percentage of daily sales, taken only on days you sell.
+- **Term.** Maximum 18 months.
+- **Who qualifies.** Select merchants in the US, Canada, UK and Australia, chosen by Shopify's own underwriting.
 
 *Details reflect each company's published documentation as of October 2026. Terms change; read your own offer.*
 
