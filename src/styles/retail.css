@@ -852,35 +852,6 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Breadcrumb — unchanged from v1.
-   --------------------------------------------------------------------------- */
-.ret-crumbs {
-  padding: 24px 0 0;
-}
-
-.ret-crumbs-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
-}
-
-.ret-crumbs-list a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.ret-crumbs-list a:hover,
-.ret-crumbs-list a:focus-visible {
-  color: var(--color-ink);
-}
 
 /* Reveal guards — no JS means everything stays visible. */
 @media (prefers-reduced-motion: reduce) {
@@ -1270,7 +1241,6 @@
   aspect-ratio: auto;
   border-radius: 0;
 }
-
 
 .ret-pill:not(.is-open):hover {
   background: rgb(255 255 255 / 12%);
