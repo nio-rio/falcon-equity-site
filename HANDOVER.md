@@ -864,3 +864,22 @@ to the black, so the eyebrow would otherwise sit on the seam.
 Probed at all four widths: `overflow: 0`, founder and stats geometry as tabled in
 `docs/about-structure-plan.md` revision 3, `npm run build` clean, `npm run check` 0 errors, `test:titles`
 passes.
+
+## Service pages — process H3 (Ling, 2026-10-23, same spec) — approved, do not revert
+
+Follow-up in the same round: *"Same with service pages, process sections H3."*
+
+- **Changed**: `.<prefix>-process .<prefix>-card-title` = **1.5rem (24px) / 36px** from `48em` up, in all six
+  service stylesheets — `mca.css` (merchant cash advance) plus `business-line-of-credit`, `business-term-loan`,
+  `collateral-asset-loans`, `consolidation-of-positions`, `invoice-factoring-tool`. Each page carries its own
+  cloned stylesheet with its own prefix (`mca` / `loc` / `btl` / `cal` / `cons` / `ift`), so all six had to move
+  together or five pages would still read 20px.
+- **Scoped to the process band on purpose.** The same `<prefix>-card-title` class also sets the "when it isn't
+  the right fit" cards, which Ling did not name — they keep the 48em 20px step. `.mca-process` cannot collide
+  with the industry pages that also import `mca.css`, because they have no process band.
+- **Measured before** (deployed preview, four of the six pages, all identical): process H3 was 25px @390,
+  **20px @768 / 1024 / 1280**, 24px @1440. Process H2: 32 / 32 / 40 / 40 / 48.
+- **Measured after**: 25px @390 (phone base kept, above the 1.25rem floor), **24px @768 / 1024 / 1280 / 1440**.
+  The fit-card titles were re-measured and still read 20px @768–1280 / 24px @1440, i.e. unchanged.
+- Same 1px phone-vs-desktop inversion as the industry band (25px on the phone vs 24px above), left alone and
+  flagged: 1.25rem on the base rule is the one-line change if a monotonic ladder is wanted.
