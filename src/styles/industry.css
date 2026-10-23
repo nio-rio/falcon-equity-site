@@ -180,10 +180,12 @@
    20/30 copy inside the left nine columns — their `AccordionDesc` area.
    At most one row is open per list: `bindAccordions` closes the others.
    --------------------------------------------------------------------------- */
-/* Ling's 16px floor inside this section (2026-10-23). The shared eyebrow is
-   14px sitewide below 1280 and the home page is frozen, so it is raised here
-   only — the same pattern as `.calc-page .eyebrow` on the calculator. */
-.ind-case .eyebrow {
+/* Ling's 16px floor on this page (2026-10-23). The shared eyebrow is 14px
+   sitewide below 1280 and the home page is frozen, so it is raised on the
+   industry templates only — the same pattern as `.calc-page .eyebrow`. Every
+   band that carries one gets it, because leaving a band at 14 would put two
+   sizes of the same label on a single page. */
+:is(.ind-case, .ind-products-band, .ind-blog-band, .ind-faq-band) .eyebrow {
   font-size: 16px;
 }
 
