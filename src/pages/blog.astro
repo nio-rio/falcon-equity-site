@@ -30,11 +30,13 @@ const DESCRIPTION =
 const H1 = 'Blog';
 
 /**
- * How many guides load first. Ling, 23 Oct: *"This pagination should we have more
- * blog posts. Let's test this pagination by having only 4 blog posts on load."*
- * One full row at the reference's 4-up grid; 8 published guides = 2 pages.
+ * How many guides show per page. Ling, 23 Oct: *"Show 12 blogs per page for
+ * pagination."* (Supersedes her earlier test value of 4: *"Let's test this
+ * pagination by having only 4 blog posts on load."*)
+ * Three full rows at the reference's 4-up grid; the pager only appears once
+ * there is more than one page, i.e. from the 13th published guide onwards.
  */
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 12;
 
 const posts = await getPublicPosts();
 const paged = posts.length > PAGE_SIZE;
