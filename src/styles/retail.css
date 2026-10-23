@@ -1066,115 +1066,246 @@
 }
 
 /* ---------------------------------------------------------------------------
-   SECTION 3 PLACEHOLDER — frame taken from Ling's reference image: one raised
-   dark card, copy and accordion chips left, still right. No behaviour yet.
+   WHAT'S YOUR CASE — Osmo "Expanding Feature Pills"
+   (osmo.supply/resource/expanding-feature-pills). Modelled on their preview:
+   one rounded card, pills stacked down the left, a still filling the right
+   half, and the open pill growing into a card while the others close. The band
+   is dark, the eyebrow and H2 sit above the component, and there is no intro
+   copy — both as Ling asked.
+
+   Geometry read off their 1440x900 preview: card inset 120px, radius 20px,
+   pills inset ~107px from the card edge, 14px between pills, pill radius
+   full, 17px labels, a 20px plus chip, expanded panel at 19/17px.
    --------------------------------------------------------------------------- */
-.ret-pending-card {
+.ret-case-head {
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+.ret-case-claim {
+  margin: 24px 0 0;
+  max-width: 22ch;
+  color: var(--color-white);
+}
+
+.ret-pills-card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
   overflow: hidden;
-  border-radius: 16px;
-  background: var(--color-surface-dark);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 4%);
+}
+
+.ret-pills-col {
+  padding: 28px 20px;
+}
+
+.ret-pills {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ret-pill {
+  border-radius: 999px;
+  background: rgb(255 255 255 / 8%);
+  transition:
+    background-color 300ms ease,
+    border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ret-pill.is-open {
+  border-radius: 22px;
+  background: rgb(255 255 255 / 13%);
+}
+
+.ret-pill-trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: inherit;
+  background: none;
   color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  cursor: pointer;
 }
 
-.ret-pending-copy {
-  padding: 40px 28px;
+.ret-pill-trigger:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
 }
 
-.ret-pending-copy .eyebrow,
-.ret-pending-claim {
+.ret-pill-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 50%;
   color: var(--color-white);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ret-pending-claim {
-  margin: 24px 0 0;
-  font-family: var(--font-display);
-  font-size: clamp(28px, 2.8vw, 40px);
-  font-weight: 300;
-  line-height: 1.2;
+.ret-pill.is-open .ret-pill-icon {
+  transform: rotate(45deg);
 }
 
-.ret-pending-intro {
-  margin: 20px 0 0;
-  max-width: 34ch;
+/* Height animation without JS measurement. */
+.ret-pill-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ret-pill.is-open .ret-pill-panel {
+  grid-template-rows: 1fr;
+}
+
+.ret-pill-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 20px;
+}
+
+.ret-pill.is-open .ret-pill-inner {
+  padding-bottom: 22px;
+}
+
+.ret-pill-means {
+  margin: 4px 0 0;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 28px;
+}
+
+.ret-pill-why {
+  margin: 12px 0 0;
   color: var(--bx-on-dark);
   font-family: var(--font-sans);
   font-size: 17px;
   line-height: 26px;
 }
 
-.ret-chips {
+.ret-pill-meta {
   display: grid;
   gap: 10px;
-  margin: 32px 0 0;
-  padding: 0;
-  list-style: none;
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--bx-on-dark-rule);
 }
 
-.ret-chip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 18px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 7%);
-  color: var(--color-white);
+.ret-pill-meta div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.ret-pill-meta dt {
+  color: var(--bx-on-dark-muted);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 22px;
 }
 
-.ret-chip-label {
-  max-width: 46ch;
+.ret-pill-meta dd {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
 }
 
-.ret-chip-plus {
-  flex: 0 0 auto;
-  color: var(--bx-on-dark-muted);
-  font-size: 20px;
-  line-height: 1;
+.ret-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+  text-decoration: none;
 }
 
-.ret-pending-media {
+.ret-pill-link .circle-arrow {
+  width: 32px;
+  height: 32px;
+}
+
+.ret-pills-media {
   position: relative;
-  min-height: 260px;
+  order: 2;
+  min-height: 240px;
 }
 
-.ret-pending-media {
-  align-self: stretch;
+/* The labelled placeholder is lilac by default; inside a dark card that reads
+   as a blown-out white block. Keep it quiet until the photograph lands. */
+.ret-pills-media .image-slot--labeled {
+  background: rgb(255 255 255 / 6%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 18%);
 }
 
-.ret-pending-media .media,
-.ret-pending-media .image-slot {
+.ret-pills-media .image-slot-label {
+  color: var(--bx-on-dark-muted);
+}
+
+.ret-pills-media .media,
+.ret-pills-media .image-slot {
   height: 100%;
   aspect-ratio: auto;
   border-radius: 0;
 }
 
-.ret-pending-note {
-  margin: 24px 0 0;
-  color: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 21px;
+
+.ret-pill:not(.is-open):hover {
+  background: rgb(255 255 255 / 12%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ret-pill,
+  .ret-pill-icon,
+  .ret-pill-panel {
+    transition: none;
+  }
 }
 
 @media (min-width: 64em) {
-  .ret-pending-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+  .ret-pills-card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .ret-pending-copy {
-    padding: 56px 48px;
+  .ret-pills-col {
+    padding: 44px 40px;
+  }
+
+  .ret-pills-media {
+    order: 0;
+    min-height: 100%;
+  }
+
+  .ret-pills-media .image-slot--labeled {
+    background: rgb(255 255 255 / 5.5%);
   }
 }
 
 @media (min-width: 80em) {
-  .ret-pending-copy {
-    padding: 72px 64px;
+  .ret-pills-col {
+    padding: 44px 72px 44px 56px;
   }
 }
 

@@ -48,66 +48,77 @@ const takeaways = [
   "Size the buy from last year's sell-through, not from the largest amount you were approved for.",
 ];
 
-/** Section 3 copy. The eight sentences are the copy outline's situations; the
- *  component Ling is sending will turn them into expanding rows. */
-const situations = [
+/**
+ * Section 3 — the situations behind the expanding pills. Product names and the
+ * amount/term ranges are read from SERVICES so the figures stay word for word
+ * from the live #services spec; nothing numeric is typed here.
+ */
+const svc = (slug: string) => {
+  const found = SERVICES.find((s) => s.slug === slug && s.spec);
+  if (!found) throw new Error(`Retail page: missing spec for ${slug}`);
+  return found;
+};
+
+const situationSeeds = [
   {
     if: 'You place the holiday order in July and pay for it in August',
-    means: 'Cash leaves the account months before the season pays it back',
-    product: loc.name,
-    why: 'Draw what each order needs, repay as the stock sells, draw again next season',
-    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+    means: 'Cash leaves the account months before the season pays it back.',
+    slug: 'business-line-of-credit',
+    why: 'Draw what each order needs, repay as the stock sells, draw again next season.',
   },
   {
     if: 'A supplier offers a bulk price or an early-pay discount that expires this week',
-    means: 'The saving is real, but only if the cash is on hand now',
-    product: mca.name,
-    why: 'The fastest product to fund; you repay from sales rather than a fixed monthly bill',
-    range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
+    means: 'The saving is real, but only if the cash is on hand now.',
+    slug: 'merchant-cash-advance',
+    why: 'The fastest product to fund; you repay from sales rather than a fixed monthly bill.',
   },
   {
     if: 'Card sales are strong, but settlement runs behind rent and payroll in a slow month',
-    means: 'The money exists, it just has not landed yet',
-    product: mca.name,
-    why: 'Repayment moves with your daily or weekly sales, so quiet weeks cost less',
-    range: `${mca.spec!.amounts} · ${mca.spec!.terms}`,
+    means: 'The money exists, it just has not landed yet.',
+    slug: 'merchant-cash-advance',
+    why: 'Repayment moves with your daily or weekly sales, so quiet weeks cost less.',
   },
   {
     if: 'You need refrigeration, shelving, POS, security or a delivery van',
-    means: "A one-time purchase a single month's margin cannot cover",
-    product: collateral.name,
-    why: 'What you buy secures the loan, and the term matches how long it keeps earning',
-    range: `${collateral.spec!.amounts} · ${collateral.spec!.terms}`,
+    means: "A one-time purchase a single month's margin cannot cover.",
+    slug: 'collateral-asset-loans',
+    why: 'What you buy secures the loan, and the term matches how long it keeps earning.',
   },
   {
     if: 'You need seasonal staff on the floor weeks before the traffic arrives',
-    means: 'Payroll is a fixed cost against sales that have not started',
-    product: loc.name,
-    why: 'Draw for the hire-up, repay it from the peak-season sales',
-    range: `${loc.spec!.amounts} · ${loc.spec!.terms.toLowerCase()}`,
+    means: 'Payroll is a fixed cost against sales that have not started.',
+    slug: 'business-line-of-credit',
+    why: 'Draw for the hire-up, repay it from the peak-season sales.',
   },
   {
     if: 'You are opening a second store or finishing a build-out with a known end date',
-    means: 'The spend lands now; the sales build over the following year',
-    product: 'Business Term Loan',
-    why: 'One fixed monthly payment over 6 – 36 months, sized to what the new store should do',
-    range: '$10,000 – $2,000,000 · 6 – 36 months',
+    means: 'The spend lands now; the sales build over the following year.',
+    slug: 'business-term-loan',
+    why: 'One fixed monthly payment, sized to what the new store should do.',
   },
   {
     if: 'Your wholesale or trade customers pay you on 30–60 day terms',
-    means: "You made the sale, but you are financing your customer's float",
-    product: 'Invoice Factoring Tool',
-    why: 'Turns outstanding business-to-business invoices into cash now',
-    range: '$10,000 – $3,000,000 · ongoing facility',
+    means: "You made the sale, but you are financing your customer's float.",
+    slug: 'invoice-factoring-tool',
+    why: 'Turns outstanding business-to-business invoices into cash now.',
   },
   {
     if: "Two or three advances from last season still take a bite out of every day's sales",
-    means: 'Stacked payments are how a good month turns into a bad one',
-    product: 'Consolidation of Positions',
-    why: 'Pays off the positions you have and rolls them into one payment sized to your sales',
-    range: '$10,000 – $2,000,000 · 6 – 36 months',
+    means: 'Stacked payments are how a good month turns into a bad one.',
+    slug: 'consolidation-of-positions',
+    why: 'Pays off the positions you have and rolls them into one payment sized to your sales.',
   },
 ];
+
+const situations = situationSeeds.map((seed) => {
+  const service = svc(seed.slug);
+  const terms = service.spec!.terms;
+  return {
+    ...seed,
+    product: service.name,
+    range: `${service.spec!.amounts} · ${terms.charAt(0).toLowerCase()}${terms.slice(1)}`,
+  };
+});
 
 const retailProducts = [
   {
@@ -270,42 +281,73 @@ const metaDescription =
     </div>
   </section>
 
-  {/* 3 PLACEHOLDER — the situation component Ling is sending lands here. The
-       frame is her reference image (raised dark card, copy + chips left, still
-       right); the eight chips are the copy outline's situations. */}
-  <section class="ret-band ret-pending" aria-labelledby="situations-heading" data-band="light" data-ret-section="situations" data-reveal-root>
+  {/* 3 what's your case — Osmo "Expanding Feature Pills"
+       (osmo.supply/resource/expanding-feature-pills). Dark band; heading sits
+       above the component, no intro copy. One pill open at a time; the open
+       pill grows into a card holding the situation, its product and range. */}
+  <section class="ret-band ret-band--dark ret-case" aria-labelledby="situations-heading" data-band="dark" data-ret-section="situations" data-reveal-root>
     <div class="container-site">
-      <div class="ret-pending-card" data-reveal>
-        <div class="ret-pending-copy">
-          <Eyebrow>What's your case?</Eyebrow>
-          <h2 id="situations-heading" class="ret-pending-claim">Which funding fits your store right now?</h2>
-          <p class="ret-pending-intro">
-            Most owners arrive with a sentence, not a product. Find the sentence that sounds like your month.
-          </p>
-          <ul class="ret-chips">
+      <div class="ret-case-head" data-reveal>
+        <Eyebrow>What's your case?</Eyebrow>
+        <h2 id="situations-heading" class="ret-claim ret-case-claim">Which funding fits your store right now?</h2>
+      </div>
+
+      <div class="ret-pills-card" data-reveal>
+        <div class="ret-pills-col">
+          <ul class="ret-pills" data-ret-pills>
             {
-              situations.map((item) => (
-                <li class="ret-chip">
-                  <span class="ret-chip-label">{item.if}</span>
-                  <span class="ret-chip-plus" aria-hidden="true">+</span>
+              situations.map((item, i) => (
+                <li class:list={['ret-pill', i === 0 && 'is-open']} data-pill-item>
+                  <button
+                    type="button"
+                    class="ret-pill-trigger"
+                    id={`ret-pill-trigger-${i}`}
+                    aria-expanded={i === 0 ? 'true' : 'false'}
+                    aria-controls={`ret-pill-panel-${i}`}
+                    data-pill-trigger
+                  >
+                    <span class="ret-pill-label">{item.if}</span>
+                    <span class="ret-pill-icon" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1V13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                        <path d="M1 7H13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                  </button>
+                  <div class="ret-pill-panel" id={`ret-pill-panel-${i}`} role="region" aria-labelledby={`ret-pill-trigger-${i}`}>
+                    <div class="ret-pill-inner">
+                      <p class="ret-pill-means">{item.means}</p>
+                      <p class="ret-pill-why">{item.why}</p>
+                      <dl class="ret-pill-meta">
+                        <div>
+                          <dt>Product</dt>
+                          <dd>{item.product}</dd>
+                        </div>
+                        <div>
+                          <dt>Amount and term</dt>
+                          <dd>{item.range}</dd>
+                        </div>
+                      </dl>
+                      <a class="ret-pill-link" href={`/services/${item.slug}`}>
+                        <span>See {item.product}</span>
+                        <CircleArrow />
+                      </a>
+                    </div>
+                  </div>
                 </li>
               ))
             }
           </ul>
         </div>
-        <div class="ret-pending-media">
+        <div class="ret-pills-media">
           <Media
             labeled
             intent="shop owner in the stockroom with boxes of new inventory"
             ratio="4 / 5"
-            sizes="(min-width: 80em) 560px, (min-width: 64em) 45vw, 100vw"
+            sizes="(min-width: 80em) 632px, (min-width: 64em) 45vw, 100vw"
           />
         </div>
       </div>
-      <p class="ret-pending-note" data-reveal>
-        Placeholder — section 3 is waiting on Ling's component. The eight chips are the situations from the copy outline
-        and become the expanding rows; product, why and range sit inside each one.
-      </p>
     </div>
   </section>
 
@@ -489,8 +531,10 @@ const metaDescription =
   <script>
     import { bindAccordions } from '@/scripts/accordion';
     import { bindMcaBlogSlider } from '@/scripts/mca-blog-slider';
+    import { bindExpandingPills } from '@/scripts/retail-pills';
     import '@/scripts/scroll-in';
     bindAccordions();
     bindMcaBlogSlider();
+    bindExpandingPills();
   </script>
 </BaseLayout>

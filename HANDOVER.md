@@ -199,3 +199,18 @@ Last updated: Oct 22, 2026. Update this file at the end of every session.
 **Deviations, both commented in the CSS:** the four row labels are **20/30** rather than Blackstone's 24/36 (Ling asked for smaller; our rows are sentences, not fund names), and the rows carry **no arrows** because they are takeaways, not links.
 
 **Note on the reference's own layout:** its left column overflows the band by ~9px (the Learn More circle hangs past the grid height). Copied as-is where it does not show, but not chased to the pixel — a real overflow would be a bug on our side.
+
+
+## Session 2026-10-22 (end) — section 3 built as Osmo expanding pills
+
+**Ling:** "osmo.supply/resource/expanding-feature-pills — use this component for 'what's your case'. Make the section dark theme. The eyebrow and h2 title should be outside (above) of the component. There should be no intro texts."
+
+**Osmo's resource is locked.** The preview page redirects to `osmo.supply/preview?resource=...` and shows a paywall; no markup or code is exposed. What *is* public: a 1440×900 still and an MP4 on their CDN (`osmo.b-cdn.net/resource-img|resource-video/expanding-feature-pills-1440x900.*`). Read the component off the still — this is the fallback whenever an Osmo/Vault resource is locked, and it works because their previews are the component at full size.
+
+**Built:** dark band, eyebrow + H2 above the card, no intro (as asked). Card = pills column left, still right, 50/50 from 64em. Eight pills, one open at a time, first open on load. Open pill shows means → why → product + verbatim amount/term → link to the service page. `src/scripts/retail-pills.ts` owns state; CSS owns motion (`grid-template-rows: 0fr→1fr`, 460ms `cubic-bezier(.22,1,.36,1)`, plus chip rotates 45°). Nothing measures heights, so resize costs nothing.
+
+**Data:** `situationSeeds` = sentence + meaning + slug + reason. Product name and range are resolved from `SERVICES` at build time, so the figures cannot drift from the live spec.
+
+**Gotcha:** the default `image-slot--labeled` placeholder is lilac, which on a dark card looks like a blown-out white rectangle. Override the surface (`rgb(255 255 255 / 6%)`) and add a 1px inset outline so the image area still reads as a placeholder.
+
+**QA:** build passes, `test:titles` passes, no horizontal overflow at 390/768/1024/1440/1920, six bands. Interaction verified over CDP: clicking pill 3 closes pill 1, `aria-expanded`/`aria-controls` correct on all eight, card height 1119 at 1440.

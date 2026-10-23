@@ -13,7 +13,7 @@ read 22 Oct 2026 after her edit (7 sections; the old "What you need to apply" is
 | --- | --- | --- | --- | --- |
 | 1 | Hero | blackstone.com **/financial-advisors/** header (not in the library — captured live 22 Oct) | https://www.blackstone.com/financial-advisors/ | H1 cols 1–9, standfirst cols 12–16, one `.arrow-cta` Apply, 16:9 still below as a placeholder until Ling sends the photograph. **No stats strip** — she cut it: "we don't have stats any more." |
 | 2 | Answer first | blackstone.com home, **Private wealth** band | https://www.blackstone.com/ | Eyebrow + rule, 64px claim, indented 18/27 lead, "Learn more", raised panel of four takeaway rows |
-| 3 | What's your case? | **Ling's own component — pending** | her reference still, 22 Oct | Placeholder: raised dark card, copy + eight pill chips left, 4:5 still right |
+| 3 | What's your case? | **Osmo "Expanding Feature Pills"** | https://www.osmo.supply/resource/expanding-feature-pills | Dark band. Eyebrow + H2 above the component, **no intro copy**. One rounded card: eight pills stacked left, still filling the right half; the open pill grows into a card holding the situation, its product, the amount/term and a link. |
 | 4 | Products | the service pages' "When X isn't the right fit" band (`mca-cards--3`) | falconequity.ai redesign `/services/merchant-cash-advance` | Three cards: product name, fit line, `See <product>` + arrow; one closing line on restricted industries |
 | 5 | Blog | the service pages' blog slider (`mca-blog-slider`) | same | Five published retail-relevant posts, autoplay 5s, arrows, live region |
 | 6 | FAQ | the service pages' FAQ band (`mca-faq-list`) | same | Seven questions, `FAQPage` schema from the same array |
@@ -65,6 +65,21 @@ be diffed.
 Two deliberate deviations, both stated in the CSS comments: **no arrows** on our rows (the reference's
 rows are links to funds; ours are takeaways, so an arrow would promise a destination), and the row type
 at 20/30 rather than 24/36.
+
+
+## Band 3 — the Osmo pills
+
+Ling: "use this component for 'whats you case' section. Make the section dark theme. The eyebrow and h2 title should be outside (above) of the component. There should be no intro texts."
+
+Osmo's resource is **locked behind a paid membership** — the code is not readable, so the build comes from their public preview: a still (`osmo.b-cdn.net/resource-img/expanding-feature-pills-1440x900.avif`) and a 361 KB MP4 (`resource-video/...-1440x900.mp4`). Read off the still: one rounded card (radius 20), pills stacked down the left at ~17px with a 20px plus chip, the open pill growing into a card with a 19px title and 17px body over a slightly lighter fill, and a media half on the right.
+
+Built to that shape, with our content: each pill is a situation sentence; opening one shows what it means for cash, why that product, the product name and the verbatim amount/term, and a link to the service page. Eight pills, one open at a time, first open by default.
+
+- State lives in `src/scripts/retail-pills.ts` (delegated clicks, single-open, `aria-expanded` + `aria-controls`).
+- Motion is CSS only: `grid-template-rows: 0fr -> 1fr` on the panel, 460ms `cubic-bezier(.22,1,.36,1)`, plus a 45° rotation on the plus chip. No height measurement, nothing to recalculate on resize.
+- The media half is a labelled placeholder with a quiet surface and a 1px inset outline — the default lilac placeholder reads as a blown-out block on a dark card.
+- On mobile the pills come first and the media drops below them; the 50/50 split only applies from 64em.
+- Product names and ranges are read from `SERVICES`, never typed: `situationSeeds` holds the sentence, the meaning, the slug and the reason.
 
 ## Not on the page
 
