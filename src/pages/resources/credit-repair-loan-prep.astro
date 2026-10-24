@@ -27,6 +27,7 @@ import ArrowButton from '@/components/ArrowButton.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import Media from '@/components/Media.astro';
+import heroStill from '@/assets/images/credit-repair-hero.webp';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import '@/styles/pilot.css';
@@ -40,7 +41,10 @@ const HERO = {
   h1: 'Credit Repair & Loan Prep',
   sub: 'A specialist reads both of your credit files, challenges what is wrong in them, and lines up the documents underwriting asks for — before the next application is the one that gets declined.',
   cta: 'Talk to a specialist',
-  mediaIntent: 'A credit report and a pen on a desk beside a closed laptop, soft daylight, no people.',
+  mediaIntent:
+    'Two owners and a specialist at a table with a laptop, a tablet showing a rising chart, and paperwork.',
+  mediaAlt:
+    'Two business owners and a funding specialist at a wooden table, going through paperwork beside a tablet showing a rising chart.',
 };
 
 /** The note lists this as the band's lede, not a footnote under the cards. */
@@ -215,11 +219,12 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
           />
           <div class="cr-hero-media">
             <Media
+              image={heroStill}
               intent={HERO.mediaIntent}
+              alt={HERO.mediaAlt}
               ratio="5 / 2"
-              labeled
+              priority
               sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
-              loading="eager"
             />
           </div>
         </div>

@@ -1149,3 +1149,12 @@ sitewide `SiteCta` in `BaseLayout` still closes it with one Apply.
 Contact details survive in the footer's Get In Touch column and the sitewide contact overlay; nothing
 linked to the About contact band, so no link rots. Build clean, `check` 0 errors, no overflow at 1440 /
 390, five sections verified on the built HTML.
+
+### Same page — the hero photograph is in
+
+**Ling, 23 Oct 2026:** *"this is hero image"* with a 1440×617 still (two owners and a specialist at a table, paperwork, tablet with a rising chart).
+
+- Placed at `src/assets/images/credit-repair-hero.webp` (37 KB, 1440×617) and passed to `Media` with `image`, `priority` (so it is `loading="eager"` + `fetchpriority="high"`, no layout shift) and an alt written from the picture itself: *"Two business owners and a funding specialist at a wooden table, going through paperwork beside a tablet showing a rising chart."*
+- **No placeholder left**: the built hero figure has one `<img>`, three srcsets, no `media-label`. The labelled 5:2 placeholder is gone from this page.
+- The frame stays **5:2** as the band spec says, so `object-fit: cover` trims 617px → 506 at 1264 wide (≈20px top and bottom, faces untouched) and 166 → 131 at 390. Verified at both widths, cropped well.
+- **Known limitation:** the supplied file is 1440 wide against a 1264px container, so a 2× display picks the 1264 variant and upscales. A larger original would fix it with no layout change.
