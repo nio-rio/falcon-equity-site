@@ -30,8 +30,24 @@ flex `row-reverse` (legal right, copyright left).
 | Legal / copyright | **16px**/300 and **16px**/400 | **18px** |
 | Rule | **1px** white, full inner width | same |
 
-Falcon maps this onto `.site-footer` with the Falcon lockup and two nav columns
-(Quick Links, Get in Touch). The X profile is a Get in Touch text link, not a
-Social column. Real Falcon URLs only. No funding/broker disclaimer — the previous footer
-did not have one. If a disclaimer is ever legally required, it belongs here in the
-footer, never under a CTA. Nothing near a call to action should give the user second thoughts.
+Falcon maps this onto `.site-footer` with the Falcon lockup and **three** nav columns
+(Ling, 23 Oct): **What we do** (Services, Industries, About, Apply for funding) ·
+**Resources** (Blog, FAQ, then the Cardiff affiliate wordmark) · **Get in Touch** (email,
+phone, address, `X (Twitter)`). Real Falcon URLs only. No funding/broker disclaimer — the
+previous footer did not have one. If a disclaimer is ever legally required, it belongs here
+in the footer, never under a CTA. Nothing near a call to action should give the user second
+thoughts.
+
+**Column layout is the reference's, not a grid.** `.site-footer__nav` is `display: flex;
+justify-content: flex-end` over cols 5–16 with **column-gap 112px at 80em / 120px at 90em**,
+so the three columns are content-width and hug the right edge, exactly as Blackstone's do.
+A `repeat(3, minmax(0,1fr))` grid spreads them across the whole span and reads as evenly
+spaced columns — that was wrong and was reverted on 23 Oct. Below 48em the columns stack in
+one column, and from 48em the nav is a 3-column grid (Falcon's own tablet step; the reference
+is desktop-only here). The mobile stack sits flush with the logo: the base grid puts
+`nav` and the bottom legal/copyright rows on `* * * *`, not on `. * * *`.
+
+**Cardiff needs a plate.** Its wordmark is royal blue `rgb(43, 76, 163)` on transparency —
+1.7:1 on `--color-surface-dark`, unreadable. It sits on a white 2px-radius plate at 16px tall
+(`.site-footer__cardiff`), which is the live site's `.icon-height-xxsmall` size. The live
+footer is white, so it can skip the plate; ours cannot.

@@ -1360,3 +1360,30 @@ only** — `home-testimonial-slider`, `home-scroll-in-targets`, `home-section-sp
 **Shared-tree warning, learned the hard way.** `falcon-equity-site` had another lane committing into it while this
 round ran; `git stash` / `git stash pop` here collided with it (a `HANDOVER.md` `UU` that had to be union-merged by
 hand, and one round of my own edits was swept into another lane's `add -A` commit). Do not stash in this worktree.
+
+### Footer: Blackstone's column spacing, three named columns, X (Twitter) (2026-10-23, Ling)
+
+Ling: *"blackstone.com The footer column spacing is different from blackstone's. Learn their spacing. And we don't
+need to list all services. Just split the quick links into 2 columns: What we do, Resources. On first column:
+services, industries, about, apply for funding. Second column: blogs, faq, cardiff. In the 3rd column, change 'X'
+into 'X (Twitter)'."*
+
+- **Spacing was the layout mode, not the tokens.** `docs/refs/bx-footer.md` already carried Blackstone's measured
+  values (nav = cols 5–16, `display: flex; justify-content: flex-end`, gap **112px at 80em / 120px at 90em**). The
+  footer had been pushing those columns through a `repeat(3, minmax(0,1fr))` grid with a 16px gap, which spread
+  three 235px columns evenly across the span. `.site-footer__nav` is flex + `flex-end` again, so the columns are
+  content-width and hug the right edge. Measured at 1440 on the local build: container content 1264px (x 88–1352,
+  same as the reference), brand cols 1–4, nav columns at **534 / 784 / 1005**, gaps exactly **120px**, last column
+  flush at 1352.
+- **Content:** column 1 **What we do** — Services (`/#services`), Industries, About, Apply for funding; column 2
+  **Resources** — Blog, FAQ, then the Cardiff wordmark the round before added; column 3 **Get in Touch** — email,
+  phone, address, **X (Twitter)**. `FOOTER_QUICK_LINKS` is replaced in `src/data/site.ts` by `FOOTER_WHAT_WE_DO` and
+  `FOOTER_RESOURCES`; the generated `SERVICES` column is gone, since she does not want the product list repeated.
+- **The mobile indent went with it.** The base grid placed `nav` and the bottom legal/copyright rows on the second
+  column (`'. nav nav nav'`, `'. legal legal legal'`), so on a phone every footer block sat a column in from the
+  logo. Both are now `* * * *` and `disclosure` is `1 / -1`. Verified at 390: logo, headings, links, legal and
+  copyright all share the same left edge.
+- **Specs moved:** `footer-social-in-get-in-touch` now asserts the three titles `What we do · Resources · Get in
+  Touch` and the visible label `X (Twitter)`.
+- Build 49 pages, `check` 0 errors / 0 warnings / 7 hints. `test:nav` footer checks pass; the same twelve
+  pre-existing home/nav failures remain (they also fail with this round's changes reverted).

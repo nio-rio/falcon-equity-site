@@ -2226,11 +2226,11 @@ for (const vp of VIEWPORTS) {
       check: 'footer-social-in-get-in-touch',
       ok:
         footerNav.titles.length === 3 &&
-        footerNav.titles[0] === 'Quick Links' &&
-        footerNav.titles[1] === 'Services' &&
+        footerNav.titles[0] === 'What we do' &&
+        footerNav.titles[1] === 'Resources' &&
         footerNav.titles[2] === 'Get in Touch' &&
         !footerNav.titles.includes('Social') &&
-        footerNav.x?.visible === 'X' &&
+        footerNav.x?.visible === 'X (Twitter)' &&
         footerNav.x?.href === 'https://x.com/FalconEquitynyc' &&
         xMatchesEmail,
       detail: JSON.stringify(footerNav),

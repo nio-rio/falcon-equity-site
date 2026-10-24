@@ -1914,7 +1914,7 @@ button.primary-nav__list-lvl-3-link {
   column-gap: var(--bx-space-16);
   grid-template-areas:
     'brand brand brand brand'
-    '. nav nav nav';
+    'nav nav nav nav';
   padding-top: var(--bx-space-40);
   padding-bottom: var(--bx-space-64);
   border-bottom: 1px solid #fff;
@@ -2008,12 +2008,12 @@ button.primary-nav__list-lvl-3-link {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: var(--bx-space-16);
   grid-template-areas:
-    '. legal legal legal'
-    '. copy copy copy';
+    'legal legal legal legal'
+    'copy copy copy copy';
 }
 
 .site-footer__disclosure {
-  grid-column: 2 / -1;
+  grid-column: 1 / -1;
 }
 
 .site-footer__legal {
@@ -2094,10 +2094,14 @@ button.primary-nav__list-lvl-3-link {
     padding-bottom: var(--bx-space-112);
   }
 
+  /* Blackstone `.site-footer__primary-nav` at 80em: content-width columns pushed to
+     the right edge, 112px between them (docs/refs/bx-footer.md). A 3-column grid
+     spread them across the whole span and read nothing like the reference. */
   .site-footer__nav {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: var(--bx-space-16);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    column-gap: var(--bx-space-112);
     margin-top: 0;
   }
 

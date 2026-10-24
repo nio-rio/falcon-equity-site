@@ -80,12 +80,22 @@ export const LEGAL_LINKS: NavLink[] = [
   { label: 'Terms & Conditions', href: '/#main' },
 ];
 
-/** Footer Quick Links — home anchors plus the live apply page. */
-export const FOOTER_QUICK_LINKS: NavLink[] = [
-  { label: 'About', href: '/about' },
+/**
+ * Footer column 1 — "What we do" (Ling, 23 Oct). Four links only: she does not want
+ * the product list repeated in the footer, the Services page carries that.
+ */
+export const FOOTER_WHAT_WE_DO: NavLink[] = [
   { label: 'Services', href: '/#services' },
   { label: 'Industries', href: '/industries' },
+  { label: 'About', href: '/about' },
+  { label: 'Apply for funding', href: '/apply' },
+];
+
+/**
+ * Footer column 2 — "Resources". Cardiff is not here: it is the affiliate logo link
+ * appended by `Footer.astro` after these rows (Ling, 23 Oct).
+ */
+export const FOOTER_RESOURCES: NavLink[] = [
   { label: 'Blog', href: '/blog' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Apply', href: '/apply' },
 ];

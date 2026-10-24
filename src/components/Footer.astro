@@ -1,7 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { FOOTER_QUICK_LINKS, LEGAL_LINKS, SITE } from '@/data/site';
-import { SERVICES } from '@/data/services';
+import { FOOTER_RESOURCES, FOOTER_WHAT_WE_DO, LEGAL_LINKS, SITE } from '@/data/site';
 
 interface Props {
   disclosure?: string;
@@ -23,20 +22,31 @@ const phone = SITE.phones.direct;
 
       <nav class="site-footer__nav" aria-label="Footer">
         <div class="site-footer__col">
-          <h3 class="site-footer__col-title">Quick Links</h3>
+          <h3 class="site-footer__col-title">What we do</h3>
           <ul class="site-footer__list">
-            {FOOTER_QUICK_LINKS.map((l) => (
+            {FOOTER_WHAT_WE_DO.map((l) => (
               <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
             ))}
           </ul>
         </div>
 
         <div class="site-footer__col">
-          <h3 class="site-footer__col-title">Services</h3>
+          <h3 class="site-footer__col-title">Resources</h3>
           <ul class="site-footer__list">
-            {SERVICES.map((s) => (
-              <li><a href={`/services/${s.slug}`} class="site-footer__link">{s.shortName}</a></li>
+            {FOOTER_RESOURCES.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
             ))}
+            <li>
+              <a
+                href={SITE.partner.url}
+                class="site-footer__cardiff"
+                target="_blank"
+                rel="noopener sponsored"
+              >
+                <img src={SITE.partner.logo} alt="" width="416" height="94" loading="lazy" />
+                <span class="sr-only">Cardiff, affiliate link (opens in a new tab)</span>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -57,18 +67,7 @@ const phone = SITE.phones.direct;
             </li>
             <li>
               <a href={SITE.social.x} class="site-footer__link" rel="noopener me" target="_blank">
-                X<span class="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href={SITE.partner.url}
-                class="site-footer__cardiff"
-                target="_blank"
-                rel="noopener sponsored"
-              >
-                <img src={SITE.partner.logo} alt="" width="416" height="94" loading="lazy" />
-                <span class="sr-only">Cardiff, affiliate link (opens in a new tab)</span>
+                X (Twitter)<span class="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
           </ul>
