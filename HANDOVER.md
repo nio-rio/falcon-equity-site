@@ -1124,3 +1124,17 @@ swap candidates when Dwight supplies licensed photography.
 **Aligned to the 2026-10-23 consistency pass** (`5fa1169`), which this page predates: H1 `--page-title-size/-lh`, header pads `--page-header-pt/-pb`, band pads `--pilot-section-y`, H2 `--type-h2-*`, heading→content `--space-head-to-content`, same-bg follower collapse left to the global `[data-band]` rule. Measured: H1 40/44 → 48/52.8 → 56/61.6; header 40/80 → 48/96 → 48/120; bands 80 → 96 → 144 → 160.
 
 **Verified on the local build** (47 pages, `check` 0 errors, `test:titles` passes): one `<h1>`, no eyebrow in the hero, `data-cr-section` order header › files › business-programs › personal-programs › process › limits › send › faq, FAQ accordion one-open-at-a-time, hero and process CTAs open the contact panel, FAQPage (7) + BreadcrumbList in the JSON-LD, **no horizontal overflow at 390/768/1024/1280/1440**, and the only text under Ling's 16px floor is the image placeholder's own 12px marker label (`.media-label`, gone with the photograph).
+
+### Same page, second round the same evening — no Lilac, two bands out
+
+**Ling:** *"No section should have background that is not white or dark purple. So get rid of the lilac background color. Adjust section padding after that. Remove 'straight answer' section, and keep short summary of this section as lede text in process section. Remove 'what to send' section"*
+
+Page is now **five bands**: hero · two files · business programs · personal programs · process · FAQ (plus the sitewide closing band). White and dark purple only.
+
+- **Lilac is gone from this page.** `cr-band--lilac` is deleted from the stylesheet, not just the markup; the personal-programs band is white like the business one above it. No other band on the page used it.
+- **Padding needed no new numbers — deleting the Lilac band is what changed the rhythm.** With personal programs now the *same* theme as business, the global `[data-band] + [data-band]` rule gives it the stacked top (`--pilot-section-y-stack`) instead of a full pad, so the two program bands read as one run. Measured band pads: 40/80 · 40/80 · 40/80 · 80/80 · 80/80 at 390, 48/144 … 144/144 at 1280, 56/160 … 160/160 at 1440. Process and FAQ keep full pads on both sides because their neighbours are the other theme.
+- **"Straight answers" band removed** (the two lists and the federal-law block). Its short summary is now the process lede: *"Preparation, not a funding product. Challenges target what is inaccurate, duplicated, outdated or unverifiable, and nothing here promises a score, a timeline or an approval."* — each clause is a line from that band, so nothing new is claimed. The compliance detail (CROA contract/cancellation rights) is no longer on the page; it lives in the note if it comes back.
+- **"What to send" band removed**, with its data. Nothing else on the site linked to `#limits` or `#send`.
+- Removed constants and CSS: `CAN_DO`, `CANNOT_DO`, `LAW`, `SEND`, `.cr-limits*`, `.cr-law*`, `.cr-send*`, `.cr-band--lilac`.
+
+Verified: build 47 pages, `check` 0 errors, one `<h1>`, 5 content bands, no `cr-band--lilac` in the built HTML, no "Straight answers" / "What to send" / "federal law" strings, FAQPage (7) + BreadcrumbList intact, no overflow at 390/768/1024/1280/1440.

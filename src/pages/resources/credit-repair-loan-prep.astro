@@ -10,18 +10,17 @@
  *   1   hero .............. page header + 5:2 still, CTA opens the contact panel
  *   4   two files ......... three definitions in the house 3-up, lede under the H2
  *   5   business programs . six, same 3-up (3 × 2)
- *   6   personal programs . three, same 3-up, Lilac band
- *   7   process ........... the home “Why choose us” band: lede left, 4 numbered
+ *   6   personal programs . three, same 3-up
+ *   7   process ........... the home “Why choose us” band: the summary of the
+ *                           old straight-answers band as its lede, 4 numbered
  *                           steps in the card right
- *   8   can / cannot ...... what the program does + what federal law gives you
  *   10  FAQ ............... the shared FaqList + FAQPage schema
- *       what to send ...... label + lead + list (the note nests it under 10)
  *   11  closing band ...... SiteCta from BaseLayout
  *
- * Every string is the note's, with two flagged exceptions noted in HANDOVER:
- * the process lede (assembled from the note's own takeaways, because Ling asked
- * for a lede drawn from the straight-answer copy) and the retained “what it
- * does not do” list under an H2 that still says “what nobody can”.
+ * Sections 8 (straight answers: what it does / what it does not / federal law)
+ * and 9 (what to send) were removed on Ling's instruction, 23 Oct 2026 — the
+ * first survives only as the process lede, the second is gone. Every band on
+ * this page is white or dark; there is no Lilac band.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArrowButton from '@/components/ArrowButton.astro';
@@ -48,11 +47,11 @@ const HERO = {
 const FILES_LEDE =
   'Which one is blocking you is the first thing a specialist works out — and it is rarely the one the decline letter names.';
 
-/** Process lede, assembled from the note's own straight-answer copy: the
-    answer-first takeaways (nothing is borrowed, no amount is promised, one-to-
-    one with a named specialist) plus step 1's “no fee to talk”. No new claim. */
+/** The short summary of the deleted “Straight answers” band, which Ling asked
+    to keep as this band's lede (23 Oct 2026): what the work does, and what it
+    never promises. Every clause is one of that band's own lines. */
 const PROCESS_LEDE =
-  'Preparation, not a funding product: nothing is borrowed and no amount is promised. Every step is done one-to-one with a named specialist, and the first one costs nothing.';
+  'Preparation, not a funding product. Challenges target what is inaccurate, duplicated, outdated or unverifiable, and nothing here promises a score, a timeline or an approval.';
 
 const FILES = [
   {
@@ -128,31 +127,6 @@ const STEPS = [
     name: 'Application',
     body: "Once the file is ready it goes to the product that fits it, Falcon's or another lender's.",
   },
-];
-
-const CAN_DO = [
-  'Challenges items that are inaccurate, duplicated, outdated or unverifiable, with each bureau that reports them.',
-  'Builds business credit where there is no history: vendor tradelines, payment reporting, PAYDEX.',
-  'Prepares the document set underwriting asks for, before an application goes in.',
-  'Tells you when a product is the wrong instrument for your file, and where to go instead.',
-];
-
-const CANNOT_DO = [
-  'It does not remove accurate, timely information. No legitimate program can.',
-  'It does not delete a late payment that really happened.',
-  'It does not promise a score, a timeline or an approval.',
-  'It does not create a second credit file, a CPN or a new identity.',
-];
-
-const LAW =
-  'Credit repair is regulated. Before you sign, you are entitled to a written contract that states the total you will pay, a separate written statement of your right to cancel, and three business days after signing to cancel. Ask any company for all three.';
-
-const SEND = [
-  'Government-issued photo ID',
-  'The credit reports you already have, if any',
-  'Recent business bank statements',
-  'A list of open accounts, advances and loans, with balances',
-  'The decline letter, if there was one',
 ];
 
 const FAQS = [
@@ -308,9 +282,9 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       </div>
     </section>
 
-    {/* 6 personal credit programs — the same 3-up, on the Lilac band. */}
+    {/* 6 personal credit programs — the same 3-up, white like the band above. */}
     <section
-      class="cr-band cr-band--lilac"
+      class="cr-band"
       id="personal-credit"
       aria-labelledby="personal-heading"
       data-band="light"
@@ -382,58 +356,7 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       </div>
     </section>
 
-    {/* 7 what this can and cannot do — the page's compliance band. */}
-    <section
-      class="cr-band cr-band--lilac"
-      id="limits"
-      aria-labelledby="limits-heading"
-      data-band="light"
-      data-cr-section="limits"
-      data-reveal-root
-    >
-      <div class="container-site">
-        <div class="cr-block-head" data-reveal>
-          <Eyebrow>Straight answers</Eyebrow>
-          <h2 id="limits-heading">What we can do, and what nobody can</h2>
-        </div>
-        <div class="cr-limits" data-reveal>
-          <div class="cr-limits-col">
-            <h3 class="cr-limits-title">What the program does</h3>
-            <ul class="cr-limits-list">
-              {CAN_DO.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-          <div class="cr-limits-col">
-            <h3 class="cr-limits-title">What it does not do</h3>
-            <ul class="cr-limits-list">
-              {CANNOT_DO.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        </div>
-        <div class="cr-law" data-reveal>
-          <h3 class="cr-law-title">What federal law gives you</h3>
-          <p class="cr-law-body">{LAW}</p>
-        </div>
-      </div>
-    </section>
-
-    {/* 8 what to send — the note carries a label and a lead, no H2, so the band
-        is labelled on the section itself. */}
-    <section class="cr-band cr-send" aria-label="What to send" data-band="light" data-cr-section="send" data-reveal-root>
-      <div class="container-site">
-        <div class="cr-send-grid" data-reveal>
-          <div class="cr-send-head">
-            <Eyebrow>What to send</Eyebrow>
-            <p class="cr-send-lead">Your specialist sends the exact list for your file. It usually starts here:</p>
-          </div>
-          <ul class="cr-send-list">
-            {SEND.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    {/* 9 FAQ */}
+    {/* 10 FAQ — the last band before the sitewide closing band. */}
     <section
       class="cr-band cr-faq-band"
       id="faq"
