@@ -37,6 +37,7 @@ const livePaths = new Set([
   '/resources/business-loan-calculator',
   '/resources/credit-repair-loan-prep',
   '/partners',
+  '/partners/apply',
 ]);
 
 const serviceSlugs = [

@@ -2,12 +2,16 @@
 /**
  * `/partners` — brokers, ISOs, funding partners and service partners.
  *
- * Copy: the 23 Oct 2026 partners contract, verbatim, as Ling edited it in Notion that day.
- * Four bands, in its order:
+ * Copy: the 23 Oct 2026 partners contract as Ling edited it in Notion, plus her
+ * 24 Oct round (hero lead trimmed, "Let’s grow our businesses together." + the
+ * OnDeck-shaped lede, and the enquiry form replaced by the requirements band).
+ *
+ * Bands, in order:
  *
  *    1  hero ................ TF-00 header + TF-01 still, no CTA, no eyebrow
  *    3  partner types ....... TF-05 3-up titled prose, no chrome
- *    9  partner enquiries ... HOME-07 heading left, the enquiry form (placeholder) right
+ *    9  partner fit ......... LS-04 / "What it helps" shape: block head, intro left,
+ *                             requirements list right, acknowledgement + CTA under it
  *   10  FAQ ................. APM-08 / PWS-09 via the shared FaqList + FAQPage schema
  *
  * Bands 2, 4, 5, 6, 7 and 8b (answer-first, product shelf, submission, shared client, speed,
@@ -23,6 +27,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import FaqList from '@/components/FaqList.astro';
+import Button040 from '@/components/Button040.astro';
+import { SITE } from '@/data/site';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import partnersHero from '@/assets/images/partners-hero.webp';
@@ -45,6 +51,39 @@ const PARTNER_TYPES = [
   },
 ];
 
+/**
+ * Minimum requirements, in the OnDeck partner-page shape (bold title, one line of proof).
+ * TODO(client): the years-in-business and monthly-volume rows are deliberately unnumbered —
+ * OnDeck's own page states "2+ years" and "$1M+ per month", and those are their programme's
+ * thresholds, not Falcon's. Give me the real numbers and they replace the generic wording.
+ */
+const PARTNER_REQUIREMENTS = [
+  {
+    title: 'Two or more years in business',
+    body: 'Your firm has been placing or funding business deals for at least two years.',
+  },
+  {
+    title: 'Volume every month',
+    body: 'You place business funding every month, not once or twice a year.',
+  },
+  {
+    title: 'An encrypted website and a privacy policy',
+    body: 'Your site runs over HTTPS and publishes a privacy policy.',
+  },
+  {
+    title: 'Business insurance',
+    body: 'You carry general or professional liability cover.',
+  },
+  {
+    title: 'Straight dealing',
+    body: 'You quote the full cost, you do not stack fees, and you do not promise a deal you cannot place.',
+  },
+  {
+    title: 'A U.S.-based business',
+    body: 'Your business is registered and operating in the United States.',
+  },
+];
+
 const FAQS = [
   {
     q: 'Do you accept broker and ISO submissions?',
@@ -64,7 +103,7 @@ const FAQS = [
   },
   {
     q: 'How do I become a Falcon partner?',
-    a: 'Email information@falconequity.ai with "Partner enquiry" in the subject, or call the direct line. Say what you place and who you place it for. The desk reads one file, tells you what Falcon can and cannot place, and agrees terms before anything is submitted.',
+    a: 'Check the minimum requirements on this page, then start the partner application. Say what you place and who you place it for. The desk reads one file, tells you what Falcon can and cannot place, and agrees terms before anything is submitted.',
   },
 ];
 
@@ -101,7 +140,8 @@ const schema = [
 
   <!-- 1. Hero — TF-00 header + TF-01 still: H1 in tracks 1-7, lead in 12-16, one 5:2 still.
        The still is the supplied boardroom photograph Ling sent on 23 Oct (src/assets/images/partners-hero.webp). No CTA.
-       Copy (Notion, 23 Oct, edited by Ling): the H1 is the audience line, and there is no eyebrow above it. -->
+       Copy: the H1 is the audience line, there is no eyebrow, and (Ling, 24 Oct) the lead stops after
+       "before they send it" — the "one specialist stays on the relationship" sentence is gone. -->
   <section
     class="ptn-hero"
     aria-labelledby="page-hero-heading"
@@ -118,8 +158,7 @@ const schema = [
         </div>
         <p class="ptn-hero-lead">
           We work with the most reputable companies in the private sector — brokers, ISOs and funding partners who
-          read a file before they send it. One specialist stays on the relationship, and the answer is honest —
-          placeable, or not.
+          read a file before they send it.
         </p>
       </div>
       <div class="ptn-hero-media" data-reveal-media>
@@ -136,13 +175,18 @@ const schema = [
   </section>
 
 
-  <!-- 3. Partner types — TF-05 3-up titled prose on the house 1/5 · 6/6 · 12/5 split. -->
+  <!-- 3. Partner types — TF-05 3-up titled prose on the house 1/5 · 6/6 · 12/5 split.
+       Ling, 24 Oct: the H2 is "Let’s grow our businesses together." and the lede follows the
+       OnDeck partner page she pasted ("...some of the partners we work with include:"), in our words. -->
   <section class="ptn-types" aria-labelledby="types-heading" data-band="light" data-ptn-section="types" data-reveal-root>
     <div class="container-site">
       <div class="ptn-block-head" data-reveal>
         <Eyebrow>Partner types</Eyebrow>
-        <h2 id="types-heading">Three kinds of partner.</h2>
-        <p class="ptn-lede">If you are not sure which one you are, send the file anyway and the desk will tell you.</p>
+        <h2 id="types-heading">Let’s grow our businesses together.</h2>
+        <p class="ptn-lede">
+          Falcon Equity provides flexible lending products, competitive commissions and great service when you
+          partner with us. Together, we can help small businesses succeed. Some of the partners we work with include:
+        </p>
       </div>
       <div class="ptn-three" data-reveal>
         {
@@ -157,10 +201,11 @@ const schema = [
     </div>
   </section>
 
-  <!-- 9. Partner enquiries — HOME-07 dark: heading left, the form in the right-hand tracks.
-       Ling, 23 Oct: the H2 is now "Want to partner with us?" and the band holds an enquiry form
-       instead of copy. THE FORM IS A PLACEHOLDER — replace the div below with the form she sends.
-       Nothing else in this band is copy: no "what to send", no contact rows. -->
+  <!-- 9. Partner fit — the OnDeck "Ready to see if we're a good fit?" band, built on the service
+       pages' "What it helps" layout (LS-04): Eyebrow + H2 as a full-width block head, sub-head and
+       intro in the left tracks, the requirement list in the right tracks, then the acknowledgement
+       and the one CTA under it. The enquiry-form placeholder is gone (Ling, 24 Oct): the form she
+       is building lives on /partners/apply, and this band links to it. -->
   <section
     class="ptn-become on-dark"
     id="become-a-partner"
@@ -170,17 +215,48 @@ const schema = [
     data-reveal-root
   >
     <div class="container-site">
-      <div class="ptn-shell ptn-split">
-        <div class="ptn-split-head" data-reveal>
+      <div class="ptn-shell ptn-become-head" data-reveal>
+        <div class="ptn-block-head">
           <Eyebrow>Partner enquiries</Eyebrow>
-          <h2 id="become-heading">Want to partner with us?</h2>
+          <h2 id="become-heading">Ready to see if we’re a good fit?</h2>
         </div>
-        <div class="ptn-split-body" data-reveal>
-          <!-- TODO(form): swap this placeholder for the partner enquiry form when Ling supplies it. -->
-          <div class="ptn-form-slot" data-form-placeholder>
-            <p class="ptn-form-slot-note">Form placeholder — the partner enquiry form goes here.</p>
-          </div>
+      </div>
+
+      <div class="ptn-shell ptn-split ptn-become-split" data-reveal>
+        <div class="ptn-split-head ptn-become-intro">
+          <h3 class="ptn-become-sub">Apply to be a partner.</h3>
+          <p class="ptn-body">Review the minimum requirements before you go on to the partner application.</p>
         </div>
+        <div class="ptn-split-body">
+          <ul class="ptn-req-list">
+            {
+              PARTNER_REQUIREMENTS.map((req) => (
+                <li class="ptn-req">
+                  <strong class="ptn-req-title">{req.title}</strong>
+                  <p class="ptn-req-body">{req.body}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="ptn-shell ptn-become-ack" data-reveal>
+        <label class="ptn-ack">
+          <input class="ptn-ack-input" type="checkbox" name="partner-requirements-ack" />
+          <span>I acknowledge that my business meets all requirements above.</span>
+        </label>
+        <div class="ptn-ack-cta">
+          <Button040
+            href="/partners/apply"
+            label="Start the partner application"
+            compactLabel="Start application"
+            variant="light"
+          />
+        </div>
+        <p class="ptn-ack-alt">
+          For another kind of partnership, email <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
       </div>
     </div>
   </section>

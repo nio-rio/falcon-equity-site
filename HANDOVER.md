@@ -1576,3 +1576,35 @@ falcon live site."*
   1440 with both pills at 222 and labels on one line; hover reads `scale(1.2)` + disc `opacity 1` + flipped arrow on
   both variants with no underline; 390 has `scrollWidth == clientWidth == 390`. `npm run build` (50 pages),
   `npm run check` (0 errors / 0 warnings / 7 hints) and `npm run test:titles` pass.
+
+## Partners — hero trimmed, "Let’s grow our businesses together.", the fit band replaces the form placeholder (Ling, 2026-10-24)
+
+- **Hero.** The lead now stops after "…who read a file before they send it." The sentence "One specialist stays on
+  the relationship, and the answer is honest — placeable, or not." is gone.
+- **Types band.** H2 is **"Let’s grow our businesses together."** (curly apostrophe) and the lede is the
+  OnDeck-shaped paragraph Ling pasted, in our words: *"Falcon Equity provides flexible lending products, competitive
+  commissions and great service when you partner with us. Together, we can help small businesses succeed. Some of the
+  partners we work with include:"* — which then runs into the three existing partner cards. The "three kinds of
+  partner" H2 and the "if you are not sure which one you are" lede are deleted.
+- **Band 9 is now "Ready to see if we’re a good fit?"** (OnDeck's `ondeck.com/partner` section), built on the service
+  pages' **"What it helps"** layout: Eyebrow + H2 as a full-width `.ptn-block-head`, then `.ptn-split` with the
+  sub-head ("Apply to be a partner.") and intro in tracks 1-7 and the six-row requirement list in tracks 9-16, then
+  the acknowledgement checkbox, one `Button040` (`variant="light"`) and the alt-partnership email line under it.
+  The enquiry **form placeholder, `.ptn-form-slot` and its CSS are deleted** — the form now lives on
+  `/partners/apply`. FAQ item 5 points at the requirements + application instead of an email subject line.
+- **The requirement list is our wording, not OnDeck's numbers.** Theirs states "2+ years" and "$1M+ per month"; those
+  are *their* programme's thresholds, so the two quantitative rows are deliberately unnumbered
+  ("Two or more years in business", "Volume every month") and carry a `TODO(client)` in `partners.astro`. Give the
+  desk the real thresholds and they go in. The other four rows (encrypted site + privacy policy, business insurance,
+  straight dealing, U.S.-based) are programme-neutral.
+- **New page `/partners/apply`** — the same shape as `/apply` and nothing else (Ling: "very simple, h1 and then jotform
+  embed"): one H1, the form, `cta={false}`, no contact rows. `PARTNER_JOTFORM_ID` is an empty constant with a
+  `TODO(form)`; until it is filled the page draws a quiet reserved-space placeholder instead of a broken embed. Paste
+  the Jotform ID there and the `jsform` + noscript pair renders automatically. Added to `livePaths` in
+  `astro.config.mjs` so it lands in the sitemap.
+- **Checks:** `npm run build` 51 pages, `npm run check` 0 errors / 0 warnings / 7 hints, `npm run test:titles` passes
+  (it now also asserts the partners H2, the removed hero sentence, the acknowledgement copy, the `/partners/apply`
+  link and the new page's title/H1). Widths measured on the built `dist/` at 390 / 768 / 1024 / 1440 / 1920: no
+  horizontal overflow at any width; the fit band verified as a crop at 1440 and 390.
+- **Not gated yet:** the checkbox is an acknowledgement only — the button is a plain link, so checking it is not
+  required to continue. Say the word and it becomes a disabled-until-checked control.

@@ -1,0 +1,113 @@
+---
+/**
+ * `/partners/apply` — the partner application page.
+ *
+ * Deliberately the same shape as `/apply` (Ling, 24 Oct): one H1, then the form, nothing else.
+ * No section heads, no contact rows, no CTA band (`cta={false}`), so the page is the form.
+ *
+ * TODO(form): Ling is building the partner application Jotform. Paste its form ID into
+ * PARTNER_JOTFORM_ID below and the real embed replaces the placeholder — the markup either side
+ * of it is already the same `jsform` / noscript pair `/apply` uses.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const PARTNER_JOTFORM_ID = '';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Partners', path: '/partners' },
+  { name: 'Partner application', path: '/partners/apply' },
+];
+---
+
+<BaseLayout
+  title="Partner application"
+  description="Apply to become a Falcon Equity partner. Brokers, ISOs, funding partners and service partners: one desk, seven products from $5,000 to $5,000,000, and a 0% agreement fee."
+  schema={[breadcrumbSchema(crumbs)]}
+  cta={false}
+>
+  <section class="section bg-white">
+    <div class="container-site">
+      <div class="bx-grid">
+        <h1 class="partner-apply-head bx-span-4 bx-lg-span-8 bx-lg-start-3">
+          Apply to become a Falcon partner.
+        </h1>
+
+        <div class="partner-apply-form bx-span-4 bx-lg-span-8 bx-lg-start-3">
+          {
+            PARTNER_JOTFORM_ID ? (
+              <>
+                <div class="partner-apply-embed">
+                  <script
+                    type="text/javascript"
+                    src={`https://form.jotform.com/jsform/${PARTNER_JOTFORM_ID}`}
+                    is:inline
+                  />
+                </div>
+                <noscript>
+                  <p class="partner-apply-noscript">
+                    Our application form requires JavaScript. Please enable it, or
+                    <a class="link" href={`https://form.jotform.com/${PARTNER_JOTFORM_ID}`}
+                      >open the partner application directly</a
+                    >.
+                  </p>
+                </noscript>
+              </>
+            ) : (
+              <div class="partner-apply-placeholder">
+                <p class="partner-apply-placeholder-note">Partner application form — embed pending.</p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Same simplicity as /apply: H1, form, nothing else. */
+  .partner-apply-head {
+    margin: 0;
+    text-align: center;
+  }
+
+  .partner-apply-form {
+    margin-top: var(--bx-space-48);
+  }
+
+  .partner-apply-embed {
+    min-height: 40rem;
+    background: #fff;
+    padding: var(--bx-space-16);
+  }
+
+  .partner-apply-noscript {
+    margin-top: var(--bx-space-24);
+  }
+
+  /* Draws the reserved space only; it disappears the moment the form ID lands. */
+  .partner-apply-placeholder {
+    display: grid;
+    place-items: center;
+    min-height: 40rem;
+    padding: var(--bx-space-40);
+    background: var(--color-tint);
+    text-align: center;
+  }
+
+  .partner-apply-placeholder-note {
+    margin: 0;
+    max-width: 32ch;
+    font-size: var(--bx-fs-16);
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 48em) {
+    .partner-apply-embed {
+      padding: var(--bx-space-24);
+    }
+  }
+</style>

@@ -136,6 +136,37 @@ if (h1Of('dist/blog.html') !== 'Blog') {
   throw new Error(`Blog <h1> was ${JSON.stringify(h1Of('dist/blog.html'))}`);
 }
 
+/**
+ * Partners — /partners plus the partner application page (Ling's 24 Oct round):
+ * the hero sentence about "one specialist" is gone, the types band opens with
+ * "Let’s grow our businesses together.", and the fit band links to /partners/apply.
+ */
+const partnersTitle = titleOf('dist/partners.html');
+if (partnersTitle !== 'Partners | Brokers, ISOs and funding partners | Falcon Equity Group') {
+  throw new Error(`Partners <title> was ${JSON.stringify(partnersTitle)}`);
+}
+const partnersHtml = readFileSync('dist/partners.html', 'utf8');
+if (partnersHtml.includes('One specialist stays on the relationship')) {
+  throw new Error('dist/partners.html still carries the hero sentence Ling removed on 24 Oct 2026');
+}
+if (!partnersHtml.includes('Let’s grow our businesses together.')) {
+  throw new Error('dist/partners.html is missing the 24 Oct "Let’s grow our businesses together." H2');
+}
+if (!partnersHtml.includes('I acknowledge that my business meets all requirements above.')) {
+  throw new Error('dist/partners.html is missing the partner acknowledgement checkbox');
+}
+if (!partnersHtml.includes('href="/partners/apply"')) {
+  throw new Error('dist/partners.html has no link to /partners/apply');
+}
+
+const partnerApplyTitle = titleOf('dist/partners/apply.html');
+if (partnerApplyTitle !== 'Partner application | Falcon Equity Group') {
+  throw new Error(`Partner application <title> was ${JSON.stringify(partnerApplyTitle)}`);
+}
+if (h1Of('dist/partners/apply.html') !== 'Apply to become a Falcon partner.') {
+  throw new Error(`Partner application <h1> was ${JSON.stringify(h1Of('dist/partners/apply.html'))}`);
+}
+
 console.log(`${home}\n${applyTitle}\n${servicesTitle}  <- dist/services.html`);
 for (const [route, name] of servicePages) {
   console.log(`${name} | Falcon Equity Group  <- dist/${route}.html`);

@@ -278,28 +278,109 @@ section.ptn-hero[data-band='light'] {
 }
 
 /* ------------------------------------------- 8 partner row ---- */
-/* ------------------------------------------- 9 partner enquiries ---- */
-/* PLACEHOLDER. The band's content is the enquiry form, which Ling has not supplied yet.
-   These rules only draw the empty slot; when the form lands, drop them and style the form
-   itself. Neutral fill, no border, so it reads as "space reserved" and not as a component. */
-.ptn-form-slot {
-  display: grid;
-  place-items: center;
-  min-height: 22rem;
-  padding: 40px;
-  background: rgb(255 255 255 / 0.04);
-  text-align: center;
+/* ------------------------------------------- 9 partner fit ---- */
+/* LS-04 / "What it helps" on the service pages: block head across the page,
+   sub-head + intro in the left tracks, the requirement list in the right ones.
+   Type is the shared .ptn-card-* ladder (25/36 display title, 18/27 body).
+   Nothing in this band is a card: no tile, no border, one list. */
+.ptn-become-split {
+  margin-top: var(--space-head-to-content);
 }
 
-.ptn-form-slot-note {
+.ptn-become-sub {
+  margin: 0 0 24px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ptn-req-list {
   margin: 0;
-  max-width: 32ch;
-  color: var(--bx-on-dark-muted);
+  padding: 0;
+  list-style: none;
+}
+
+.ptn-req + .ptn-req {
+  margin-top: var(--bx-space-32);
+}
+
+.ptn-req-title {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+}
+
+.ptn-req-body {
+  margin: 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ptn-become-ack {
+  margin-top: var(--bx-space-48);
+}
+
+.ptn-ack {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bx-space-12);
+  cursor: pointer;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ptn-ack-input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 3px 0 0;
+  cursor: pointer;
+}
+
+.ptn-ack-cta {
+  margin-top: var(--bx-space-24);
+}
+
+.ptn-ack-alt {
+  margin: var(--bx-space-24) 0 0;
+  color: var(--bx-on-dark);
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 300;
   line-height: 24px;
   letter-spacing: 0.008em;
+}
+
+.ptn-ack-alt .link {
+  color: var(--color-white);
+}
+
+@media (min-width: 48em) {
+  .ptn-become-sub {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ptn-become-ack > * {
+    grid-column: 1 / span 8;
+  }
 }
 
 /* -------------------------------------------------- 10 FAQ ---- */
@@ -310,7 +391,8 @@ section.ptn-hero[data-band='light'] {
 
 /* ------------------------------------------------- motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .ptn-form-slot a {
+  .ptn-ack,
+  .ptn-ack-alt .link {
     transition: none;
   }
 }
