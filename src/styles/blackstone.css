@@ -1869,8 +1869,25 @@ button.primary-nav__list-lvl-3-link {
   width: 100%;
 }
 
-.site-footer__disclosure {
+/* Affiliate line (Ling, 23 Oct): Cardiff is an affiliate, not a partner, so the link
+   lives sitewide here rather than on /partners. */
+.site-footer__affiliate {
   margin: var(--bx-space-24) 0 0;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  font-weight: 400;
+  line-height: 21px;
+  color: #fff;
+}
+
+.site-footer__affiliate a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer__disclosure {
+  margin: var(--bx-space-8) 0 0;
   max-width: none;
   font-family: var(--font-sans);
   font-size: var(--bx-fs-14);

@@ -12,12 +12,11 @@ Contact details come from `SITE`. The partner row comes from `src/data/partners.
 
 | # | Band | Theme | Donor | Why it fits / adaptation | Content |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Hero | white | **TF-00** + **TF-01** | Title with the standfirst beside it, then one wide still. Same geometry as `/about`. No CTA, as the contract asks. | H1 `Brokers, ISOs and funding partners`, lead, 5:2 still — the supplied boardroom photograph (`src/assets/images/partners-hero.webp`, Ling 23 Oct): four colleagues in a glass-walled boardroom, two shaking hands. The alt text describes that image. No eyebrow above the H1. |
+| 1 | Hero | white | **TF-00** + **TF-01** | Title with the standfirst beside it, then one wide still. Same geometry as `/about`. No CTA, as the contract asks. | H1 `Brokers, ISOs and funding partners`, lead ("We work with the most reputable companies in the private sector —"), 5:2 still — the supplied boardroom photograph (`src/assets/images/partners-hero.webp`, Ling 23 Oct): four colleagues in a glass-walled boardroom, two shaking hands. The alt text describes that image. No eyebrow above the H1. |
 | 2 | Partner types | white | **TF-05** / **BXCI-07** | Three equal text cards, no art. Uses the house 1/5 · 6/6 · 12/5 split from `/about` values. | Eyebrow, H2, lede, three cards (Brokers and ISOs · Funding partners · Service partners). |
-| 3 | Our partners | white | a plain list, measured off **PE-04** and then stripped back | Ling, 23 Oct: minimal, no tinted card, no divider line, no "Become a partner" tile. Each partner is one row — logo on the left (14rem track), type label, one plain line and a link on the right. Adding an entry to `PARTNERS` adds a row in the same shape. | Eyebrow, H2, lede, one row per partner (Cardiff today). |
-| 4 | Partner enquiries | dark | **HOME-07** (form variant) | Heading on the left, the enquiry form in the right-hand tracks — the donor shape, used as intended now that the band is a form. | `id="become-a-partner"`, eyebrow `Partner enquiries`, H2 `Want to partner with us?`, and **a form placeholder** in place of copy. Ling supplies the form; the placeholder is the only thing to swap. |
-| 5 | FAQ | white | **PWS-09** / **APM-08** | A short FAQ of five rows. Uses the shared `FaqList` and the FAQPage schema. | Eyebrow `FAQ`, H2 `Partner questions.` (the contract has no FAQ H2, so this one was added), five Q&As. |
-Bands run white → white → white → dark → white. Same-theme followers collapse their top padding through
+| 3 | Partner enquiries | dark | **HOME-07** (form variant) | Heading on the left, the enquiry form in the right-hand tracks — the donor shape, used as intended now that the band is a form. | `id="become-a-partner"`, eyebrow `Partner enquiries`, H2 `Want to partner with us?`, and **a form placeholder** in place of copy. Ling supplies the form; the placeholder is the only thing to swap. |
+| 4 | FAQ | white | **PWS-09** / **APM-08** | A short FAQ of five rows. Uses the shared `FaqList` and the FAQPage schema. | Eyebrow `FAQ`, H2 `Partner questions.` (the contract has no FAQ H2, so this one was added), five Q&As. |
+Bands run white → white → dark → white. Same-theme followers collapse their top padding through
 the global `[data-band]` rule. **The page has no closing CTA band:** Ling deleted the last section above
 the footer, so it now ends on the FAQ. The layout's default pre-footer band is switched off with
 `cta={false}` on `BaseLayout` — the prop already existed for `/apply`, so no shared component changed.
@@ -50,6 +49,17 @@ page-header comment were retuned to what is left:
   output: `/about` and `/faq` still carry theirs.
 - **Small additions to the contract:** the link label "Visit Cardiff" on the partner item, and the FAQ
   H2. Both were flagged to Ling when the page was first built.
+- **No partner list on the page (Ling, 23 Oct).** "Our partners" is deleted: Falcon does not publish its
+  investors, and Cardiff is an **affiliate**, not a partner. So `src/data/partners.ts` is gone with its only
+  user, the row's CSS is out, and the Cardiff affiliate link now lives in the **site footer** — one line,
+  sitewide, `rel="noopener sponsored"`, new tab, labelled as an affiliate. That footer change touches every
+  page (Footer.astro + one rule in blackstone.css), so it is not partners-only.
+- **Cardiff out of the "Service partners" card too.** The card used to name Cardiff as a service partner; it
+  now reads "Firms that get an owner ready rather than fund them. They send a cleaner file, and the desk
+  picks it up from there."
+- **Hero lede rewritten** to her line: "We work with the most reputable companies in the private sector —
+  brokers, ISOs and funding partners who read a file before they send it. One specialist stays on the
+  relationship, and the answer is honest — placeable, or not."
 - **Hero still is the client's own photograph (Ling, 23 Oct).** `partners-hero.webp` (1440×617) replaces the
   falcon placeholder, cropped to the house 5:2 ratio — the crop takes a little off the top and bottom and
   leaves the faces and the handshake intact. It is the only image on the site with people in it, which

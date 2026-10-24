@@ -3,17 +3,17 @@
  * `/partners` — brokers, ISOs, funding partners and service partners.
  *
  * Copy: the 23 Oct 2026 partners contract, verbatim, as Ling edited it in Notion that day.
- * Five bands, in its order:
+ * Four bands, in its order:
  *
- *    1  hero ............... TF-00 header + TF-01 still, no CTA, no eyebrow
- *    3  partner types ...... TF-05 3-up titled prose, no chrome
- *    8  our partners ....... PE-04 card row from src/data/partners.ts, plus the Become tile
- *    9  become a partner ... HOME-07 heading left, two text columns right (no form)
- *   10  FAQ ................ APM-08 / PWS-09 via the shared FaqList + FAQPage schema
+ *    1  hero ................ TF-00 header + TF-01 still, no CTA, no eyebrow
+ *    3  partner types ....... TF-05 3-up titled prose, no chrome
+ *    9  partner enquiries ... HOME-07 heading left, the enquiry form (placeholder) right
+ *   10  FAQ ................. APM-08 / PWS-09 via the shared FaqList + FAQPage schema
  *
- * The contract's bands 2, 4, 5, 6, 7 and 8b — answer-first, product shelf, submission,
- * shared client, speed and the dedicated Cardiff band — were deleted from the Notion
- * contract, so they are deleted from this page and its CSS. There is no closing CTA band:
+ * Bands 2, 4, 5, 6, 7 and 8b (answer-first, product shelf, submission, shared client, speed,
+ * the dedicated Cardiff band) were deleted from the Notion contract, and band 8 — "Our partners" —
+ * was deleted on 23 Oct too: Falcon does not publish its investors, and Cardiff is an affiliate
+ * rather than a partner, so its link now sits in the site footer instead. There is no closing CTA band:
  * Ling deleted the last section above the footer, so the page now ends on the FAQ and the
  * layout's default pre-footer band is switched off with `cta={false}`. Nothing here publishes
  * a rate or the approval figure.
@@ -22,15 +22,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import CircleArrow from '@/components/CircleArrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { PARTNERS } from '@/data/partners';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import partnersHero from '@/assets/images/partners-hero.webp';
 import '@/styles/partners.css';
 
-const OUTBOUND_REL = 'noopener sponsored';
 
 const PARTNER_TYPES = [
   {
@@ -44,7 +41,7 @@ const PARTNER_TYPES = [
   },
   {
     title: 'Service partners',
-    body: 'Firms that get an owner ready rather than fund them. Cardiff is one: a small-business financing marketplace whose application Falcon links to for products such as business credit cards.',
+    body: 'Firms that get an owner ready rather than fund them. They send a cleaner file, and the desk picks it up from there.',
   },
 ];
 
@@ -120,8 +117,9 @@ const schema = [
           <h1 id="page-hero-heading" class="ptn-hero-title">Brokers, ISOs and funding partners</h1>
         </div>
         <p class="ptn-hero-lead">
-          Falcon works with brokers, ISOs and funding partners who read a file before they send it. One specialist
-          stays on the relationship, and the answer is honest — placeable, or not.
+          We work with the most reputable companies in the private sector — brokers, ISOs and funding partners who
+          read a file before they send it. One specialist stays on the relationship, and the answer is honest —
+          placeable, or not.
         </p>
       </div>
       <div class="ptn-hero-media" data-reveal-media>
@@ -156,59 +154,6 @@ const schema = [
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <!-- 8. Our partners — a plain list, not a card row (Ling, 23 Oct: "keep it minimal",
-       no divider, no tinted card, no "Become a partner" tile). One partner today; a new
-       entry in src/data/partners.ts adds a row, logo left and copy right, with no card. -->
-  <section class="ptn-row" aria-labelledby="row-heading" data-band="light" data-ptn-section="partners" data-reveal-root>
-    <div class="container-site">
-      <div class="ptn-block-head" data-reveal>
-        <Eyebrow>Our partners</Eyebrow>
-        <h2 id="row-heading">The firms we work with.</h2>
-        <p class="ptn-lede">
-          We are actively adding partners in three areas: lenders and funds that take positions Falcon does not hold,
-          service firms that get an owner loan-ready, and the software owners already run their books on.
-        </p>
-      </div>
-      <ul class="ptn-tiles" data-reveal>
-        {
-          PARTNERS.map((partner) => (
-            <li class="ptn-tile">
-              <div class="ptn-tile-mark">
-                {partner.logo ? (
-                  <img
-                    class="ptn-tile-logo"
-                    src={partner.logo}
-                    alt={partner.name}
-                    width={partner.logoSize?.width}
-                    height={partner.logoSize?.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : (
-                  <p class="ptn-tile-name">{partner.name}</p>
-                )}
-              </div>
-              <div class="ptn-tile-body">
-                <p class="ptn-tile-type">{partner.type}</p>
-                <p class="ptn-tile-line">{partner.line}</p>
-                {partner.url && (
-                  <a
-                    class="arrow-cta ptn-tile-link"
-                    href={partner.url}
-                    {...(partner.external ? { target: '_blank', rel: OUTBOUND_REL } : {})}
-                  >
-                    <span class="arrow-cta-label link-draw">Visit {partner.name}</span>
-                    <CircleArrow />
-                  </a>
-                )}
-              </div>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 

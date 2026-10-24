@@ -11,14 +11,14 @@
 
    Band order and theme (the global [data-band] rule pads each band; a same-theme
    follower collapses its top to --pilot-section-y-stack on its own):
-     hero L · types L · partner row L · become D · FAQ L · SiteCta D
-   (The contract's answer-first, product-shelf, submission, shared-client, speed and
-   dedicated-Cardiff bands were deleted from the Notion contract, so they are gone here.) */
+     hero L · types L · become D · FAQ L
+   (Deleted from the contract and from this file: answer-first, product shelf, submission,
+   shared client, speed, the dedicated Cardiff band, and "Our partners" — Falcon does not
+   publish its investors and Cardiff is an affiliate, so its link lives in the site footer.) */
 
 /* ------------------------------------------------------------ bands ---- */
 .ptn-hero,
 .ptn-types,
-.ptn-row,
 .ptn-faq {
   background: var(--color-white);
   color: var(--color-ink);
@@ -278,73 +278,6 @@ section.ptn-hero[data-band='light'] {
 }
 
 /* ------------------------------------------- 8 partner row ---- */
-/* 8. Our partners — a plain list, not a card row (Ling, 23 Oct: minimal, no tinted
-   card, no divider, no "Become a partner" tile). Logo on the left, one plain line on
-   the right; a new entry in src/data/partners.ts adds another row in the same shape. */
-.ptn-tiles {
-  display: grid;
-  gap: 40px;
-  margin: var(--space-head-to-content) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ptn-tile {
-  display: grid;
-  gap: 16px 48px;
-  align-items: start;
-  min-width: 0;
-}
-
-.ptn-tile-mark,
-.ptn-tile-body {
-  min-width: 0;
-}
-
-.ptn-tile-logo {
-  display: block;
-  width: auto;
-  height: 32px;
-  max-width: 100%;
-}
-
-.ptn-tile-name {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 24px;
-  line-height: 32px;
-}
-
-.ptn-tile-type {
-  margin: 0 0 8px;
-  font-family: var(--font-sans);
-  font-size: var(--type-eyebrow-size);
-  line-height: var(--type-eyebrow-lh);
-  font-weight: var(--type-eyebrow-weight);
-  letter-spacing: var(--type-eyebrow-ls);
-  text-transform: uppercase;
-}
-
-.ptn-tile-line {
-  margin: 0;
-  max-width: 46ch;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.ptn-tile-link {
-  margin-top: 20px;
-}
-
-@media (min-width: 48em) {
-  .ptn-tile {
-    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
-  }
-}
-
 /* ------------------------------------------- 9 partner enquiries ---- */
 /* PLACEHOLDER. The band's content is the enquiry form, which Ling has not supplied yet.
    These rules only draw the empty slot; when the form lands, drop them and style the form

@@ -66,6 +66,13 @@ const phone = SITE.phones.direct;
         </nav>
         <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
       </div>
+      <p class="site-footer__affiliate">
+        Falcon is an affiliate of <a
+          href={SITE.partner.url}
+          target="_blank"
+          rel="noopener sponsored">Cardiff<span class="sr-only"> (affiliate link, opens in a new tab)</span></a
+        >, a small-business financing marketplace for products we do not place.
+      </p>
       {
         disclosure && (
           <p class="site-footer__disclosure">{disclosure}</p>
