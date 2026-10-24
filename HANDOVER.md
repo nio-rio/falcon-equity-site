@@ -1139,3 +1139,13 @@ Page is now **five bands**: hero · two files · business programs · personal p
 - Removed constants and CSS: `CAN_DO`, `CANNOT_DO`, `LAW`, `SEND`, `.cr-limits*`, `.cr-law*`, `.cr-send*`, `.cr-band--lilac`.
 
 Verified: build 47 pages, `check` 0 errors, one `<h1>`, 5 content bands, no `cr-band--lilac` in the built HTML, no "Straight answers" / "What to send" / "federal law" strings, FAQPage (7) + BreadcrumbList intact, no overflow at 390/768/1024/1280/1440.
+
+### About — contact band deleted (2026-10-23, revision 5)
+
+Ling: *"Delete contact section on about page."* The band, its `.abt-contact*` rules, the `Button040` /
+`ArrowCta` imports and the `address` constant are gone. The page now ends on the values band, and the
+sitewide `SiteCta` in `BaseLayout` still closes it with one Apply.
+
+Contact details survive in the footer's Get In Touch column and the sitewide contact overlay; nothing
+linked to the About contact band, so no link rots. Build clean, `check` 0 errors, no overflow at 1440 /
+390, five sections verified on the built HTML.

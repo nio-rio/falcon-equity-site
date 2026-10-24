@@ -10,6 +10,21 @@ pushed to Notion the same day). Ten bands, in the order written there — no ban
 Donor ids are from `docs/section-library-live/LIBRARY.md`. Numbers below were measured on the live
 reference in real Chrome over CDP, not read off a screenshot.
 
+## Revision 5 — 23 Oct 2026: the contact band is gone
+
+Ling: *"Delete contact section on about page."* So the band is deleted outright — markup, `.abt-contact*`
+rules, and the now-unused `Button040` / `ArrowCta` imports and the `address` constant. The page reads hero →
+by the numbers → founder → our people → our values, and the sitewide `SiteCta` in `BaseLayout` closes it
+("Need funding to purchase inventory…" + one Apply), exactly as it closed the page behind the old band.
+
+Contact details still reach the visitor two ways: the footer's Get In Touch column (email, phone, 11
+Broadway) and the contact overlay every page carries. Nothing on the site links to the About contact band,
+so no link rots.
+
+Checked at 1440 and 390 on the built page: zero `abt-contact` nodes, no "Talk to a specialist", no office
+number in the body, five sections in order, values band 160px / 80px of bottom space into the CTA band, no
+overflow, `npm run build` clean, `npm run check` 0 errors.
+
 ## Revision 4 — 23 Oct 2026: values H2, and no rules in the contact band
 
 Ling: *"For our value section, H2, use something that means this: 'We forge intelligent financial

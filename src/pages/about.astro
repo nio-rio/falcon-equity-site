@@ -14,8 +14,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import PilotStats from '@/components/pilot/PilotStats.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import Button040 from '@/components/Button040.astro';
-import ArrowCta from '@/components/ArrowCta.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE, STATS } from '@/data/site';
 import founderPortrait from '@/assets/images/dwight-holly.webp';
@@ -61,8 +59,6 @@ const values = [
   { name: 'Partnership', body: 'Long relationships over one-off transactions.' },
 ];
 
-
-const address = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postalCode}`;
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -217,41 +213,6 @@ const breadcrumbSchema = {
             </article>
           ))
         }
-      </div>
-    </div>
-  </section>
-
-
-  <!-- 10. Where we are — address, email, direct and office lines, one Apply. -->
-  <section class="abt-contact" aria-labelledby="contact-heading" data-band="light" data-abt-section="contact" data-reveal-root>
-    <div class="container-site">
-      <div class="abt-shell abt-contact-grid">
-        <div class="abt-contact-copy" data-reveal>
-          <Eyebrow>Contact</Eyebrow>
-          <h2 id="contact-heading">Talk to a specialist.</h2>
-        </div>
-        <dl class="abt-contact-list" data-reveal>
-          <div class="abt-contact-row">
-            <dt class="abt-contact-label">Address</dt>
-            <dd class="abt-contact-value">{address}</dd>
-          </div>
-          <div class="abt-contact-row">
-            <dt class="abt-contact-label">Email</dt>
-            <dd class="abt-contact-value"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
-          </div>
-          <div class="abt-contact-row">
-            <dt class="abt-contact-label">{SITE.phones.direct.label}</dt>
-            <dd class="abt-contact-value"><a href={SITE.phones.direct.href}>{SITE.phones.direct.display}</a></dd>
-          </div>
-          <div class="abt-contact-row">
-            <dt class="abt-contact-label">{SITE.phones.office.label}</dt>
-            <dd class="abt-contact-value"><a href={SITE.phones.office.href}>{SITE.phones.office.display}</a></dd>
-          </div>
-        </dl>
-        <div class="abt-contact-cta" data-reveal>
-          <Button040 href="/apply" label="Get funding today" variant="dark" />
-          <ArrowCta href="/#services" label="See all services" />
-        </div>
       </div>
     </div>
   </section>

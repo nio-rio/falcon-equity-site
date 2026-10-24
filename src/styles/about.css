@@ -902,8 +902,7 @@ section.abt-blog[data-band='light'] {
    declare bottom space only. The exception is the band straight after the dark
    quote band — the black padding belongs to the black, so the light band needs
    its own full top space or its eyebrow would sit on the seam. */
-section.abt-values[data-band='light'],
-section.abt-contact[data-band='light'] {
+section.abt-values[data-band='light'] {
   padding-bottom: var(--pilot-section-y);
 }
 
@@ -1292,93 +1291,5 @@ section.abt-founder[data-band='dark'] {
     grid-column: 12 / span 5;
     padding-left: 32px;
     padding-right: 0;
-  }
-}
-
-/* ------------------------------------------------------------- contact ---- */
-.abt-contact-grid {
-  row-gap: 40px;
-}
-
-.abt-contact-copy {
-  grid-column: 1 / -1;
-}
-
-/* No rules: Ling asked for the divider lines to come out of this band, so the rows
-   are held apart by space alone (24px between rows, 4px label to value). */
-.abt-contact-list {
-  grid-column: 1 / -1;
-  margin: 0;
-}
-
-.abt-contact-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 4px;
-  padding: 24px 0 0;
-}
-
-.abt-contact-label {
-  margin: 0;
-  color: var(--ink-a63);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0.008em;
-}
-
-.abt-contact-value {
-  margin: 0;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.144px;
-}
-
-.abt-contact-value a {
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0 1px;
-  transition: background-size 350ms ease;
-}
-
-.abt-contact-value a:hover,
-.abt-contact-value a:focus-visible {
-  background-size: 100% 1px;
-}
-
-/* Was 8px while the last row's rule closed the list; without the rules the buttons
-   need real air after the final value. */
-.abt-contact-cta {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
-  margin-top: 40px;
-}
-
-@media (min-width: 80em) {
-  .abt-contact-grid {
-    row-gap: 0;
-  }
-
-  .abt-contact-copy {
-    grid-column: 1 / span 7;
-    align-self: start;
-  }
-
-  .abt-contact-list {
-    grid-column: 9 / span 8;
-  }
-
-  .abt-contact-cta {
-    grid-column: 9 / span 8;
   }
 }
