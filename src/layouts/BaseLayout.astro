@@ -22,6 +22,7 @@ interface Props extends SEOProps {
   disclosure?: string;
   /** Set false to drop the pre-footer Apply band on a page (Ling, 2026-10-23: `/apply`). */
   cta?: boolean;
+  /* A page may pass its own `<SiteCta slot="cta" heading=…>` to replace the default band. */
 }
 
 const { schema = [], title, disclosure, cta = true, ...seo } = Astro.props;
@@ -65,7 +66,7 @@ const jsonLd = [
     <main id="main" class="flex-1" tabindex="-1">
       <slot />
     </main>
-    {cta && <SiteCta />}
+    {cta && (Astro.slots.has('cta') ? <slot name="cta" /> : <SiteCta />)}
     <Footer disclosure={disclosure} />
     <ContactOverlay />
   </body>
