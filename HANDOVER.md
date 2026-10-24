@@ -1587,11 +1587,18 @@ falcon live site."*
   partners we work with include:"* — which then runs into the three existing partner cards. The "three kinds of
   partner" H2 and the "if you are not sure which one you are" lede are deleted.
 - **Band 9 is now "Ready to see if we’re a good fit?"** (OnDeck's `ondeck.com/partner` section), built on the service
-  pages' **"What it helps"** layout: Eyebrow + H2 as a full-width `.ptn-block-head`, then `.ptn-split` with the
-  sub-head ("Apply to be a partner.") and intro in tracks 1-7 and the six-row requirement list in tracks 9-16, then
-  the acknowledgement checkbox, one `Button040` (`variant="light"`) and the alt-partnership email line under it.
+  pages' **"What it helps"** layout exactly as Ling asked on 24 Oct — *"layout is image on the left, text on the
+  right"*: Eyebrow + H2 as a full-width `.ptn-block-head`, then the split with the **3:4 still in tracks 1-8** and
+  **every piece of text in tracks 11-16** (sub-head "Apply to be a partner." · intro · six-row requirement list ·
+  acknowledgement checkbox · one `Button040 variant="light"` · alt-partnership email line). Same 72/88 head → content
+  gap, same stacked-under-80em behaviour, same 25/36 + 18/27 type ladder as `business-term-loan`'s helps band —
+  measured against that page at 1024 (image 944×1259 there, ours identical) rather than eyeballed.
   The enquiry **form placeholder, `.ptn-form-slot` and its CSS are deleted** — the form now lives on
   `/partners/apply`. FAQ item 5 points at the requirements + application instead of an email subject line.
+- **The still is a placeholder and it is soft.** `src/assets/images/partners-fit.webp` is a 3:4 centre-right crop
+  (665×887) of `hero-meeting.webp` — Ling's own advisor-meeting photo from the earlier home hero. The only source is
+  2:1, so a 3:4 crop cannot exceed 665px wide, against the service pages' 1200×1600. It holds at the 624px box but
+  will read soft on a retina screen. **A supplied 3:4 photo (1200×1600) drops straight into the same import.**
 - **The requirement list is our wording, not OnDeck's numbers.** Theirs states "2+ years" and "$1M+ per month"; those
   are *their* programme's thresholds, so the two quantitative rows are deliberately unnumbered
   ("Two or more years in business", "Volume every month") and carry a `TODO(client)` in `partners.astro`. Give the

@@ -279,12 +279,28 @@ section.ptn-hero[data-band='light'] {
 
 /* ------------------------------------------- 8 partner row ---- */
 /* ------------------------------------------- 9 partner fit ---- */
-/* LS-04 / "What it helps" on the service pages: block head across the page,
-   sub-head + intro in the left tracks, the requirement list in the right ones.
-   Type is the shared .ptn-card-* ladder (25/36 display title, 18/27 body).
-   Nothing in this band is a card: no tile, no border, one list. */
+/* LS-04 / "What it helps" exactly as the service pages build it, and as Ling asked on 24 Oct:
+   the 3:4 still in the left tracks (1-8), every piece of text in the right ones (11-16), stacked
+   with the house 72/88 head → content gap under 80em. Type is the shared .ptn-card-* ladder
+   (25/36 display title, 18/27 body). Nothing in this band is a card: no tile, no border, one list. */
 .ptn-become-split {
   margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.ptn-become-image {
+  grid-column: 1 / -1;
+}
+
+.ptn-become-image .media,
+.ptn-become-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.ptn-become-body {
+  grid-column: 1 / -1;
+  min-width: 0;
 }
 
 .ptn-become-sub {
@@ -295,6 +311,10 @@ section.ptn-hero[data-band='light'] {
   font-weight: 400;
   line-height: 36px;
   letter-spacing: 0.16px;
+}
+
+.ptn-become-intro {
+  margin-bottom: var(--bx-space-48);
 }
 
 .ptn-req-list {
@@ -329,7 +349,7 @@ section.ptn-hero[data-band='light'] {
 }
 
 .ptn-become-ack {
-  margin-top: var(--bx-space-48);
+  margin-top: var(--bx-space-56);
 }
 
 .ptn-ack {
@@ -372,14 +392,27 @@ section.ptn-hero[data-band='light'] {
 }
 
 @media (min-width: 48em) {
+  .ptn-become-split {
+    row-gap: 88px;
+  }
+
   .ptn-become-sub {
     font-size: 24px;
   }
 }
 
 @media (min-width: 80em) {
-  .ptn-become-ack > * {
+  .ptn-become-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ptn-become-image {
     grid-column: 1 / span 8;
+  }
+
+  .ptn-become-body {
+    grid-column: 11 / span 6;
   }
 }
 
