@@ -1,29 +1,35 @@
 /* /resources/credit-repair-loan-prep — Credit Repair & Loan Prep.
-   Copy contract: the Notion page-copy note (Ling's 23 Oct 2026 edit).
-   Ten bands: hero · which situation · two files · business programs ·
-   personal programs · process · can/cannot · what to send · FAQ · SiteCta.
+   Copy contract: the Notion page-copy note (Ling's 23 Oct 2026 00:35Z edit).
 
-   Geometry follows the industry pages (docs/retail-structure-plan-v3.md): the
-   16-track shell of 64px inside 1264 with a 16px gutter, band rhythm
-   80 / 96 / 144 / 160, hero 40/64 → 48/96 → 48/120. Type and colours are the
-   house ones: --font-display / --font-sans, ink on white, Lilac for the
-   secondary band, --color-surface-dark for the two dark bands.
+   Bands: hero · two files · business programs · personal programs · process ·
+   can/cannot · what to send · FAQ · SiteCta.
 
-   Every class is .cr-* and lives only here. Nothing in this file may restyle a
-   shared component (button-040, arrow-button, faq-list, eyebrow) — this page
-   places them and nothing more. */
+   Every slot in the page anatomy comes from a token (DESIGN-SYSTEM.md § “Page
+   anatomy”, the 2026-10-23 consistency pass): H1 --page-title-size/-lh, header
+   pads --page-header-pt/-pb, band pads --pilot-section-y, section H2
+   --type-h2-*, heading → content --space-head-to-content. The same-theme band
+   collapse is the global `[data-band] + [data-band]` rule — not re-declared.
+
+   Two layouts are borrowed, not invented:
+   - the 3-up is the industry products section's `.mca-cards--3` measured at
+     390 / 768 / 1024 / 1280 / 1440 (16 tracks, cards 1/5 · 6/6 · 12/5,
+     32 / 56 / 32 inner padding = 104px between text columns, title 24/36).
+   - the process band is the home “Why choose us” grid (PilotWhy): eyebrow,
+     H2, lede and CTA left; the numbered steps in the card right.
+
+   Every class is .cr-* and lives only here. Nothing in this file restyles a
+   shared component (arrow-button, faq-list, eyebrow) — this page places them. */
 
 /* ---------------------------------------------------------------------------
-   Page wrapper + Ling's 16px floor (2026-10-23, the same rule she set on
-   /resources/business-loan-calculator and the industry pages): the shared
-   eyebrow is 14px below 1280 and may not show at that size here.
+   Ling's 16px floor on this template (2026-10-23): the shared eyebrow is 14px
+   below 1280, and no text on this page may show at that size.
    --------------------------------------------------------------------------- */
 .cr-page .eyebrow {
   font-size: 16px;
 }
 
 /* ---------------------------------------------------------------------------
-   Band rhythm
+   Band rhythm — tokens only
    --------------------------------------------------------------------------- */
 .cr-hero,
 .cr-band {
@@ -40,44 +46,12 @@
   background: var(--color-lilac);
 }
 
+.cr-hero {
+  padding-block: var(--page-header-pt) var(--page-header-pb);
+}
+
 .cr-band {
-  padding-block: 80px;
-}
-
-/* Business programs sits directly under the files band and continues it: no
-   top pad, so the two program sections read as one run of cards. */
-.cr-band--top-only {
-  padding-block: 0 80px;
-}
-
-@media (min-width: 48em) {
-  .cr-band {
-    padding-block: 96px;
-  }
-
-  .cr-band--top-only {
-    padding-block: 0 96px;
-  }
-}
-
-@media (min-width: 80em) {
-  .cr-band {
-    padding-block: 144px;
-  }
-
-  .cr-band--top-only {
-    padding-block: 0 144px;
-  }
-}
-
-@media (min-width: 90em) {
-  .cr-band {
-    padding-block: 160px;
-  }
-
-  .cr-band--top-only {
-    padding-block: 0 160px;
-  }
+  padding-block: var(--pilot-section-y);
 }
 
 /* ---------------------------------------------------------------------------
@@ -119,9 +93,9 @@
   max-width: 20ch;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: balance;
 }
@@ -138,44 +112,17 @@
 @media (min-width: 80em) {
   .cr-h1 {
     max-width: 18ch;
-    font-size: 56px;
-    line-height: 84px;
   }
 }
 
-.cr-band--dark .cr-body,
-.cr-band--dark .eyebrow,
-.cr-band--dark .cr-case-claim,
-.cr-band--dark .cr-step-title,
-.cr-band--dark .cr-step-body,
-.cr-band--dark .cr-step-num {
+.cr-band--dark .cr-body {
   color: var(--color-white);
 }
 
-.cr-band--dark .cr-step-body {
-  color: color-mix(in srgb, var(--color-white) 76%, transparent);
-}
-
 /* ---------------------------------------------------------------------------
-   1 Hero — H1 in columns 1–9, standfirst in 12–16, phone CTA under it, the
-   still full width at 5:2.
+   1 Hero — H1 in columns 1–9, standfirst in 12–16, the contact CTA under it,
+   the still full width at 5:2. No eyebrow above the H1 (Ling, 23 Oct 2026).
    --------------------------------------------------------------------------- */
-.cr-hero {
-  padding-block: 40px 64px;
-}
-
-@media (min-width: 48em) {
-  .cr-hero {
-    padding-block: 48px 96px;
-  }
-}
-
-@media (min-width: 80em) {
-  .cr-hero {
-    padding-block: 48px 120px;
-  }
-}
-
 .cr-hero-grid {
   row-gap: 32px;
 }
@@ -207,13 +154,13 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Shared band head
+   Shared band head — eyebrow (its own --eyebrow-gap) → H2 → lede
    --------------------------------------------------------------------------- */
 .cr-block-head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 56px;
+  margin-bottom: var(--space-head-to-content);
 }
 
 .cr-block-head h2 {
@@ -221,9 +168,10 @@
   max-width: 24ch;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: var(--type-h2-size);
   font-weight: var(--type-h2-weight, 400);
-  line-height: 1.15;
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
   text-wrap: balance;
 }
 
@@ -231,389 +179,291 @@
   color: var(--color-white);
 }
 
-@media (min-width: 80em) {
-  .cr-block-head {
-    margin-bottom: 72px;
+/* Band lede: the page-lead role (20/30/300), sitting under the H2. */
+.cr-lede {
+  margin: 24px 0 0;
+  max-width: 62ch;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+/* ---------------------------------------------------------------------------
+   4–6 The 3-up — the industry products section's geometry, card for card.
+   Phone: one column, 72px apart, title 25/36.
+   48em: 8 tracks, two per row (1/4 · 5/4, 24px inner pad), third wraps under
+   the first. 1024: same tracks, 104px row gap. 1280: 16 tracks, 1/5 · 6/6 ·
+   12/5 with 32 / 56 / 32 inner padding — 104px between the text columns.
+   --------------------------------------------------------------------------- */
+.cr-cols-3,
+.cr-prog-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 72px;
+}
+
+.cr-file,
+.cr-prog {
+  min-width: 0;
+}
+
+.cr-file-title,
+.cr-prog-title {
+  margin: 0 0 24px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.cr-file-body,
+.cr-prog-body {
+  margin: 0;
+  color: var(--color-ink-a72, var(--color-ink));
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+@media (min-width: 48em) {
+  .cr-cols-3,
+  .cr-prog-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
   }
 
-  .cr-block-head h2 {
-    font-size: 40px;
+  .cr-cols-3 > *,
+  .cr-prog-grid > * {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .cr-cols-3 > *:nth-child(2n),
+  .cr-prog-grid > *:nth-child(2n) {
+    grid-column: 5 / span 4;
+    padding-right: 0;
+    padding-left: 24px;
+  }
+
+  .cr-file-title,
+  .cr-prog-title {
+    font-size: 24px;
+    letter-spacing: 0.192px;
+  }
+}
+
+@media (min-width: 64em) {
+  .cr-cols-3,
+  .cr-prog-grid {
+    row-gap: 104px;
+  }
+}
+
+@media (min-width: 80em) {
+  .cr-cols-3,
+  .cr-prog-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .cr-cols-3 > *:nth-child(3n + 1),
+  .cr-prog-grid > *:nth-child(3n + 1) {
+    grid-column: 1 / span 5;
+    padding: 0 32px 0 0;
+  }
+
+  .cr-cols-3 > *:nth-child(3n + 2),
+  .cr-prog-grid > *:nth-child(3n + 2) {
+    grid-column: 6 / span 6;
+    padding: 0 56px;
+  }
+
+  .cr-cols-3 > *:nth-child(3n),
+  .cr-prog-grid > *:nth-child(3n) {
+    grid-column: 12 / span 5;
+    padding: 0 0 0 32px;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   2 Which situation — the industry accordion, at their measured geometry:
-   32/32 around a 24/36 question, 36px caret box, single hairline above each row.
+   7 Process — the home “Why choose us” band. Left: eyebrow, H2, lede, CTA.
+   Right: the card, one row per step, numeral in the display face, 1.5px rules
+   between rows. Geometry and row spec are PilotWhy's; the H2 takes the section
+   ladder rather than the home-only display size.
    --------------------------------------------------------------------------- */
-.cr-case-head {
+/* The left column is one wrapper, not four grid areas: with a card this tall,
+   four auto rows the card spans would distribute 500px of slack into the gaps
+   and strand the lede. Stacked, it keeps the home band's own rhythm. */
+.cr-process-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-process-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 56px;
 }
 
-.cr-case-claim {
+.cr-process-title {
   margin: 0;
-  color: var(--color-ink);
+  color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: var(--type-h2-size);
   font-weight: var(--type-h2-weight, 400);
-  line-height: 1.15;
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
   text-wrap: balance;
 }
 
-@media (min-width: 80em) {
-  .cr-case-head {
-    margin-bottom: 72px;
-  }
-
-  .cr-case-claim {
-    font-size: 40px;
-  }
+.cr-process-lede {
+  margin: 2.5rem 0 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
-.cr-case-list {
+.cr-process-cta {
+  margin-top: 3.5rem;
+}
+
+.cr-process-card {
+  margin-top: 5rem;
+  background: var(--white-a12);
+  padding: 3rem 1rem;
+}
+
+.cr-process-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.cr-case-item {
-  position: relative;
-  border-top: 1px solid color-mix(in srgb, var(--color-white) 24%, transparent);
-}
-
-.cr-case-item:last-child {
-  border-bottom: 1px solid color-mix(in srgb, var(--color-white) 24%, transparent);
-}
-
-.cr-case-h {
-  margin: 0;
-}
-
-.cr-case-trigger {
-  display: grid;
-  grid-template-columns: 1fr 36px;
-  align-items: start;
-  column-gap: 24px;
-  width: 100%;
-  padding: 24px 0;
-  border: 0;
-  background: none;
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.3;
-  text-align: left;
-  cursor: pointer;
-}
-
-.cr-case-trigger:hover .cr-case-question {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-}
-
-.cr-case-trigger:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 4px;
-}
-
-.cr-case-caret {
+.cr-process-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  color: var(--color-white);
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 2.5rem;
 }
 
-.cr-case-caret svg {
-  transition: transform 0.3s cubic-bezier(0.45, 0, 0.55, 1);
+.cr-process-row:not(:last-child) {
+  border-bottom: 1.5px solid var(--bx-on-dark-rule);
 }
 
-.cr-case-item.is-open .cr-case-caret svg {
-  transform: rotate(180deg);
+.cr-process-row:first-child {
+  padding-top: 0;
 }
 
-@media (min-width: 48em) {
-  .cr-case-trigger {
-    padding: 32px 0;
-    font-size: 24px;
-    line-height: 36px;
-  }
+.cr-process-row:last-child {
+  padding-bottom: 0;
 }
 
-/* Panel: 0 → auto height through a grid row trick, 350ms, reduced-motion off.
-   `visibility` keeps a closed panel out of the tab order and the accessibility
-   tree — without it the links inside a collapsed row stay focusable, which is
-   the one thing a height-only accordion gets wrong. */
-.cr-case-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  visibility: hidden;
-  transition:
-    grid-template-rows 0.35s cubic-bezier(0.45, 0, 0.55, 1),
-    visibility 0s linear 0.35s;
+.cr-process-row-copy {
+  min-width: 0;
 }
 
-.cr-case-panel-inner {
-  overflow: hidden;
-}
-
-.cr-case-item.is-open .cr-case-panel {
-  grid-template-rows: 1fr;
-  visibility: visible;
-  transition:
-    grid-template-rows 0.35s cubic-bezier(0.45, 0, 0.55, 1),
-    visibility 0s;
-}
-
-.cr-case-item.is-open .cr-case-panel-inner {
-  padding-bottom: 40px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cr-case-panel,
-  .cr-case-caret svg {
-    transition: none;
-  }
-}
-
-.cr-case-means {
-  margin: 0;
-  max-width: 60ch;
-  color: color-mix(in srgb, var(--color-white) 80%, transparent);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.cr-case-means-label {
-  display: block;
-  margin-bottom: 4px;
-  color: color-mix(in srgb, var(--color-white) 56%, transparent);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.cr-case-does {
-  margin-top: 24px;
-  max-width: 60ch;
-}
-
-.cr-case-does-label {
-  margin: 0 0 4px;
-  color: color-mix(in srgb, var(--color-white) 56%, transparent);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.cr-case-does-body {
+.cr-process-row-title {
   margin: 0;
   color: var(--color-white);
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
+  line-height: 1.3;
+  letter-spacing: 0;
 }
 
-.cr-case-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 20px;
+.cr-process-row-body {
+  margin: 0.75rem 0 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.cr-process-step {
+  flex: none;
+  min-width: 1.25em;
   color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.cr-case-link span {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 1px;
-  padding-bottom: 2px;
-  transition: background-size 0.3s ease;
-}
-
-.cr-case-link:hover span,
-.cr-case-link:focus-visible span {
-  background-size: 100% 1px;
-}
-
-/* ---------------------------------------------------------------------------
-   3 The two files — 3-up on the home ratio, then the note line.
-   --------------------------------------------------------------------------- */
-.cr-cols-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px 16px;
-}
-
-.cr-file {
-  padding-top: 24px;
-  border-top: 1px solid var(--color-line);
-}
-
-.cr-file-title {
-  margin: 0 0 12px;
-  color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 36px;
-}
-
-.cr-file-body {
-  margin: 0;
-  color: var(--color-ink-a72, var(--color-ink));
-  font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: 2.5rem;
   font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-.cr-note {
-  margin: 48px 0 0;
-  max-width: 62ch;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 36px;
-  text-wrap: balance;
-}
-
-@media (min-width: 80em) {
-  .cr-cols-3 {
-    grid-template-columns: 5fr 6fr 5fr;
-    column-gap: 32px;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   4 + 5 Programs — two columns of hairline-topped cards on mobile, three at
-   desktop (the home 5/6/5 ratio), so the six business cards run 3 × 2.
-   --------------------------------------------------------------------------- */
-.cr-prog-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px 16px;
-}
-
-.cr-prog {
-  padding-top: 24px;
-  border-top: 1px solid var(--color-line);
-}
-
-.cr-prog-title {
-  margin: 0 0 12px;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 36px;
-}
-
-.cr-prog-body {
-  margin: 0;
-  max-width: 44ch;
-  color: var(--color-ink-a72, var(--color-ink));
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
-@media (min-width: 48em) {
-  .cr-prog-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 32px;
-  }
-}
-
-@media (min-width: 80em) {
-  .cr-prog-grid {
-    grid-template-columns: 5fr 6fr 5fr;
-    column-gap: 32px;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   6 Process — four steps, the number in the display face.
-   --------------------------------------------------------------------------- */
-.cr-steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cr-step {
-  padding-top: 24px;
-  border-top: 1px solid color-mix(in srgb, var(--color-white) 24%, transparent);
-}
-
-.cr-step-num {
-  display: block;
-  margin-bottom: 16px;
-  color: color-mix(in srgb, var(--color-white) 40%, transparent);
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 400;
   line-height: 1;
+  letter-spacing: 0.008em;
+  text-align: right;
 }
 
-.cr-step-title {
-  margin: 0 0 12px;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 36px;
-}
-
-.cr-step-body {
-  margin: 0;
-  max-width: 40ch;
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
+@media (min-width: 26em) {
+  .cr-process-card {
+    padding: 3rem 1.5rem;
+  }
 }
 
 @media (min-width: 48em) {
-  .cr-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 32px;
+  .cr-process-card {
+    padding: 3.5rem 5.5rem;
+  }
+
+  .cr-process-row {
+    padding-block: 2rem;
+  }
+
+  .cr-process-row-copy {
+    width: 65%;
   }
 }
 
 @media (min-width: 80em) {
-  .cr-steps {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .cr-process-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  .cr-process-copy {
+    grid-column: 1 / span 6;
+  }
+
+  .cr-process-lede {
+    margin-top: 3rem;
+  }
+
+  .cr-process-card {
+    grid-column: 9 / span 8;
+    margin-top: 0;
+    padding: 3.5rem 4.5rem;
+  }
+}
+
+@media (min-width: 90em) {
+  .cr-process-lede {
+    margin-top: 3.5rem;
+  }
+
+  .cr-process-cta {
+    margin-top: 4rem;
+  }
+
+  .cr-process-card {
+    padding: 4rem 5rem;
+  }
+
+  .cr-process-row {
+    padding-block: 2.5rem;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   7 Can / cannot — two lists, then the federal-law line on its own rule.
+   8 Can / cannot — two lists, then the federal-law line on its own rule.
    --------------------------------------------------------------------------- */
 .cr-limits {
   display: grid;
@@ -700,7 +550,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   8 What to send — label and lead left, the list right.
+   What to send — label and lead left, the list right.
    --------------------------------------------------------------------------- */
 .cr-send-grid {
   display: grid;
@@ -751,14 +601,8 @@
 }
 
 /* ---------------------------------------------------------------------------
-   9 FAQ — the shared FaqList places itself; this is the band's head gap only.
+   10 FAQ — the shared FaqList places itself; this is the band's head gap only.
    --------------------------------------------------------------------------- */
 .cr-faq-band .cr-block-head {
-  margin-bottom: 40px;
-}
-
-@media (min-width: 80em) {
-  .cr-faq-band .cr-block-head {
-    margin-bottom: 56px;
-  }
+  margin-bottom: var(--space-head-to-content);
 }
