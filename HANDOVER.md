@@ -1243,3 +1243,120 @@ else.
   list's first line **level with the still, not the H2**.
 - **How we work**: both paragraphs are now in the **body face** (Archivo 20/30/300). The AI statement was
   in At Gambit; Ling asked for body font on both.
+### FAQ accordion → ONE site-wide component; `/faq` built (2026-10-23, owner requests)
+
+Ling: *"Build FAQ page. Learn this layout: blackstone.com/our-businesses/registered-products"*
+→ then *"We have FAQ on pages like service, industry pages, they are all using the same FAQ
+component. So you should use the same component for FAQ page"* → then *"All FAQ accordions
+should be like the one on industry pages… Can we make this accordion into a component that
+can be used site-wide? Service pages FAQ accordions need update. FAQ page accordions need
+update."*
+
+**The accordion is now one component.** It existed as seven clones — `mca-`, `btl-`, `loc-`,
+`ift-`, `cal-`, `cons-`, `abt-` — with identical markup and seven stylesheets drifting apart.
+Extracted to:
+
+- `src/components/FaqList.astro` — props `items`, `idPrefix`, `class` (placement only)
+- `src/styles/faq-list.css` — the `faq-` prefix, every visual rule, numbers unchanged from
+  the industry clone: 2px rules at 40% ink, a 2px full-ink line drawn left → right under the
+  hovered row in 0.5s ease-out, 32px round caret that fills on hover and turns 180° when
+  open, questions 20/30 → 24/36 at 768, answers 18/27 at 72% ink on a 38.5rem measure,
+  panel 350ms
+- the one binder, `src/scripts/accordion.ts` (at most one open row per list)
+
+Consumers: six service pages, twelve industry pages (via `IndustryPage.astro`) and `/faq`.
+Each keeps only its old list class as a *placement* hook (`.btl-faq-list`, `.mca-faq-list`, …)
+so band gaps and grid placement did not move. Dead per-page row rules were stripped with
+`strip_dead_css_rules.cjs`; band padding (`section.X-faq[data-band='light']`) and head
+typography stayed.
+
+**Measured on the deployed pages before the change:** service and industry FAQ rows were
+already pixel-identical (24/36, pad 32, row 100, caret 32px at x=1320, same panel), so the
+only page whose accordion changes is `/faq` — it moves from the reference's arrow rows onto
+this component, which is exactly the instruction.
+
+**`/faq` itself** keeps the reference's *architecture* — page header pad 48/0/120 with the H1
+in columns 1–9 and a standfirst in columns 12–16; group headings 48/84 centred across columns
+3–14 (32/48 left at 390); group rhythm 56/160 (40/80 at 390); heading → first row 106 — with
+six product groups in `SERVICES` order and 37 questions. Full table, the departures and the
+rejected candidates: `docs/faq-structure-plan.md`.
+
+**Copy lives once.** The 37 Q&As were lifted verbatim out of the six `services/*.astro` files
+into `src/data/service-faqs.ts`; those pages and `/faq` both read it (37/37 strings verified
+in the built pages).
+
+**Verified in the build:** `/faq` 89.7 KB, real `<h1>`, no meta refresh, in `sitemap-0.xml`,
+37 rows in 6 lists with unique panel ids, `FAQPage` schema with 37 questions; `class="faq-list
+btl-faq-list"` on all six service pages and `class="faq-list mca-faq-list"` on the industry
+pages; old hooks (`btl-faq-trigger`, `btl-faq-icon`, `btl-acc-panel`) return **0**; trigger
+counts unchanged (6/6/6/6/6/7); one open row per list, `aria-expanded` follows, caret rotates;
+0 horizontal overflow at 390 / 768 / 1024 / 1440 / 1920.
+
+**Route lift, four places:** `astro.config.mjs` (`/faq` into `livePaths`, out of `retired`),
+`netlify.toml`, `public/_redirects`, `RESOURCE_LINKS` + `FOOTER_QUICK_LINKS` in
+`src/data/site.ts`, plus the header dropdown's hardcoded href.
+
+**Still open:** `about.astro` keeps its `abt-` clone (that route is retired and unshipped) —
+it should adopt `FaqList` when /about is built. And two pre-existing failures need an owner:
+`npm run check` errors at `src/pages/about.astro:253` (a `Media` call missing `intent`), and
+`npm run test:titles` fails on `dist/apply.html`'s H1.
+
+### Home hero still, footer to three columns, Cardiff in a column, nav click always opens (2026-10-23, Ling in Slack)
+
+**Hero.** Ling sent two stills, the second one superseded the first: *"Use this image for homepage hero"*, then
+*"Change home hero to this image"*. The shipped one is her 2000×857 in-flight peregrine (wings raised, slate sky
+above a burning orange horizon), resized to the existing **1800×771** box — same 2.334 ratio, so **no crop** and
+the whole bird survives. `src/assets/images/hero-falcon.webp` replaced in place (62 KB), and `public/og-home.jpg`
+regenerated from the same still (1200×630, `position: 'right'`) so the share card and the hero are one photograph.
+Alt rewritten from the picture: *"Peregrine falcon gliding with wings raised against a burning orange and slate
+sky"*, on both the hero `Media` and the `BaseLayout` OG props. The intermediate still she sent first (790×316
+close-up on golden bokeh) was built, then replaced — do not resurrect it; it needed a 2.3× upscale.
+
+**One CSS change came with the still.** The bird now sits right of centre, so the below-48em 16:9 crop moved from
+`object-position: 30% 50%` to **`100% 50%`** (`.pilot-hero-media img` in `pilot.css`); at 30% the tail was outside
+the box. Measured at 1440: box 1440×617, `object-position 100% 50%`, no horizontal overflow.
+
+**Footer: three link columns, and Cardiff is a link, not a sentence (Ling).** *"Footer links can be 3 columns like
+black stone"* then *"remove 'Falcon is an affiliate of Cardiff…' from footer, just add cardiff to one of the footer
+link column. Use its blue logo text like how it is on live falcon site footer."*
+- Columns are now **Quick Links · Services · Get in Touch**. The middle column is new and generated from
+  `SERVICES` (`shortName`, `/services/<slug>`) — seven real routes, nothing invented. If she wants a *Social*
+  column instead, that is the one block to swap (the live site has X alone, which reads as an empty column).
+- `.site-footer__nav` is a 3-column grid at 48em and at 80em (`repeat(3, minmax(0,1fr))`; at 80em it replaced the
+  old `display: flex; justify-content: flex-end`, so the columns now share the 12-col span instead of hugging right).
+- **The affiliate paragraph and `.site-footer__affiliate` are gone.** Cardiff is a `span`-free logo link at the
+  bottom of Get in Touch: `SITE.partner.logo` at 16px tall (the live site's `.icon-height-xxsmall` is exactly
+  `height: 1rem`), `rel="noopener sponsored"`, new tab, sr-only "Cardiff, affiliate link (opens in a new tab)".
+- **The wordmark needed a plate.** It is royal blue `rgb(43, 76, 163)` on a transparent PNG, and this footer is
+  dark purple `--color-surface-dark` — **1.7:1, effectively invisible** raw. It therefore sits on a white
+  2px-radius plate (`.site-footer__cardiff`, `padding: 4px 6px`). The live site gets away without one because its
+  footer is white. Two intended alternatives if she dislikes the plate: make the footer light, or invert the
+  wordmark to white (`filter: brightness(0) invert(1)`) — both are one rule, neither is done.
+
+**Nav: a click on a dropdown trigger always opens it (Ling).** *"edit the nav bar code, so that if a user click on
+the dropdown button, the dropdown should open, no matter its previous state."* Desktop hover opens the menu after
+120ms, so the old `if (open && same panel) closeDropdown(); else openDropdown()` meant the click that was meant to
+open the panel closed it. `nav.ts` now calls `openDropdown(name)` unconditionally on click **and** on
+Enter/Space (`openDropdown` already no-ops when that panel is open). Escape, the backdrop and a click outside
+still close. Verified in Chrome at 1440 by `npm run test:nav-click` (new, 9/9): closed-at-rest, hover-opens,
+click-while-hover-open-stays-open, escape-still-closes, click-when-closed-opens, second-click-stays-open,
+keyboard-enter-opens, keyboard-enter-while-open-stays-open, escape-after-keyboard-closes.
+- **Why the check is its own file, not a line in `tests/nav.spec.mjs`:** that suite runs one long sequential page
+  session, and adding an open/close there moved the scroll state the later theme/geometry checks assume — it turned
+  4 passing checks red. `tests/nav-click.spec.mjs` + `npm run test:nav-click`, same `QA_BASE` / `CHROME_PATH`
+  env as `test:nav`.
+
+**Spec expectations brought up to date** (`tests/nav.spec.mjs`): `home-hero-falcon-still` now wants the new alt and
+`100% 50%`; `footer-social-in-get-in-touch` now wants three titles `Quick Links · Services · Get in Touch`.
+
+**Test state after this round** (local preview, `QA_BASE=http://localhost:4399`): `npm run build` 49 pages,
+`npm run check` **0 errors / 0 warnings / 6 hints**, `test:nav-click` **9/9**, `test:nav` **pre-existing failures
+only** — `home-testimonial-slider`, `home-scroll-in-targets`, `home-section-spacing`, `nav-inflow-on-return`,
+`site-cta-lead-heading-font`, `tel-hover-matches-menu`, `backdrop-on-when-open`, `no-gap-close-into-panel`,
+`home-theme-light-on-scroll`, `home-theme-light-once-hero-clears-bar`, `apply-040-theme-scrolled`,
+`open-at-y0-panel-under-header`. The same twelve fail with `nav.ts` reverted, so none of them belongs to this round;
+`test:nav` also still crashes at a `locator.hover` outside the viewport in the y-loop.
+
+**Shared-tree warning, learned the hard way.** `falcon-equity-site` had another lane committing into it while this
+round ran; `git stash` / `git stash pop` here collided with it (a `HANDOVER.md` `UU` that had to be union-merged by
+hand, and one round of my own edits was swept into another lane's `add -A` commit). Do not stash in this worktree.

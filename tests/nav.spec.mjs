@@ -2381,24 +2381,6 @@ for (const vp of VIEWPORTS) {
       });
       log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
 
-      /* Ling (23 Oct): a click on a trigger always opens its panel, whatever its
-         previous state. Hover opens the menu first on desktop, so the old toggle
-         closed the panel on the very click meant to open it. */
-      if (vp.mode === 'desktop' && hoverOpen) {
-        await first.locator('[data-nav-trigger]').click({ force: true });
-        await page.waitForTimeout(450);
-        const clickStaysOpen = await first.evaluate(
-          (el) =>
-            el.classList.contains('is-open') &&
-            el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true',
-        );
-        log({ ...tag, check: 'click-while-open-stays-open', ok: clickStaysOpen, detail: label });
-        /* Leave the panel closed again: the checks below assume the state the
-           hover left behind, and an open panel locks scroll. */
-        await page.keyboard.press('Escape');
-        await page.waitForTimeout(600);
-      }
-
       const openChrome = await readPanelChrome(page);
       const aligned =
         openChrome.colLeft != null && Math.abs(openChrome.colLeft - openChrome.logoLeft) <= 1;

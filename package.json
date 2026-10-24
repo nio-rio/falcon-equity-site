@@ -13,6 +13,7 @@
     "check": "astro check",
     "astro": "astro",
     "test:nav": "node tests/nav.spec.mjs",
+    "test:nav-click": "node tests/nav-click.spec.mjs",
     "test:testimonial": "node tests/testimonial.spec.mjs",
     "test:titles": "node tests/titles.spec.mjs"
   },
