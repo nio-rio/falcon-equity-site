@@ -1478,3 +1478,34 @@ Ling: *"In process section, remove the divider line for all steps."* The 1px `--
 *You provide / You get* block is gone (border and its 24px padding-top); the 32px gap alone separates the block
 from the paragraph. The three hand-off blocks still start on the same line, because the value cells reserve
 three lines.
+
+### `/services` is a page again — the home Services band, reused (2026-10-24, Ling)
+
+Ling: *"Create a page called /services, that is just reusing the 'services' section on home page."*
+
+- **The page is the band, not a copy of it.** `src/pages/services/index.astro` renders `PilotLinkList` with the
+  same props the home page passes and the same data source (`getHomeServices()`), so it carries the identical
+  seven products, order, teasers and `rangeLine`s. Nothing is retyped; a product-copy change on `/` lands here too.
+- **One component change, off by default.** `PilotLinkList` gained `pageHeader` (default `false`). When set, the
+  band's head is promoted: the `h2` becomes the page `h1` on the page-title ladder (40/48/56, weight 400) and the
+  band takes `--page-header-pt` at the top with `--pilot-section-y` at the foot. The class rule is
+  `section.pilot-ll-section--page-header[data-band='light']` in `pilot.css`, because `[data-band]` sets the band
+  padding at equal specificity. **Home and the calculator's reuse of the row render exactly as before** — verified
+  on the built output: both still emit `<h2 id="services-heading">` with a 56px top pad (they are same-theme
+  followers of the doc flow) and the 104px head gap.
+- **Measured on the built page** (`/tmp/svc-serve.cjs` + `playwright-core` against `dist`, not the Astro preview,
+  because another lane's preview already held port 4400): h1 40/48/56 at 390/768/1280, band pad 40/48/48 top and
+  80/96/144/160 bottom, heading → first row 72/72/96/104, exactly one `h1`, seven rows, no horizontal overflow at
+  360 / 390 / 768 / 1024 / 1280 / 1440 / 1920. Every row reaches `opacity: 1` after a scroll pass (the un-revealed
+  rows are invisible in a full-page screenshot — that is the reveal script working, not missing content).
+- **Route lifted in four places:** `/services` added to `livePaths` and removed from `retired` in
+  `astro.config.mjs`, the `[[redirects]]` block deleted from `netlify.toml` (replaced by a do-not-re-add note), and
+  the line deleted from `public/_redirects`. `dist/services.html` is 47 KB, carries the H1 and no
+  `http-equiv="refresh"`; the route is in `sitemap-0.xml`.
+- **Links repointed at the real page:** header Services widget ("Learn More" / "Services overview") in
+  `Header.astro`, `FOOTER_WHAT_WE_DO` Services in `site.ts`, the article rail's "See your options" button in
+  `blog/[slug].astro`, and the two blog posts that had been sent to `/#services` on 23 Oct.
+- **Tests:** `tests/titles.spec.mjs` now asserts `/services`'s `<title>` and H1. `npm run build` 50 pages,
+  `npm run check` 0 errors / 0 warnings / 7 hints, `test:titles` passes.
+- **`vercel.json` still 301s `/services`** (and `/about`, `/faq`, `/blog`). Not touched: Netlify is the host, and
+  that file is stale overall. Fix it if the site ever moves to Vercel.

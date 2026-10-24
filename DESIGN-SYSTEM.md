@@ -555,9 +555,10 @@ Run this before you call a page done. Every item is a measurement, not an opinio
 | Buttons | **697 — all wired**: `type="button"` plus `data-*` or `aria-label`. No dead control. |
 | Forms | None. Apply is a route (`/apply`), never a form post. |
 | External links | Maps, X, JotForm, LinkedIn/X/WhatsApp share all 200. **Facebook `sharer.php` answers 400 to non-browser clients** — it works in a browser; do not “fix” it. |
-| Known placeholders | Footer **Privacy Policy / Terms & Conditions** and nav **Partners** point at `/#main`; `src/legal/*.md` is unpublished. `/services` and `/how-it-works` are redirect stubs to `/`. |
+| Known placeholders | Footer **Privacy Policy / Terms & Conditions** point at `/#main`; `src/legal/*.md` is unpublished. `/how-it-works` is a redirect stub to `/`. **`/services` is a real page since 24 Oct 2026** — the home Services band reused, with the same component and data; its band head is promoted to the page `h1`. |
 
-**Fixed in this pass:** two blog posts linked to `/services` (a retired route), one of them to `/services#compare-heading`, an anchor that never existed on the rebuilt site — both now point at `/#services`.
+**Fixed in this pass:** two blog posts linked to `/services` (a retired route), one of them to `/services#compare-heading`, an anchor that never existed on the rebuilt site — both now point at `/#services`. **Superseded 24 Oct:** `/services` is a live page, so those two posts, the article rail's “See your options” button, the header's Services widget and the footer's Services link all point at `/services` again.
+
 
 **Not fixed, needs a decision:** publishing the legal pages. The footer legal links are the only dead-end links left on the site, and the copy exists in `src/legal/privacy-policy.md` and `src/legal/terms-conditions.md`. Rebuilding them is a page build, not a link fix.
 

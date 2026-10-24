@@ -1,0 +1,73 @@
+---
+/**
+ * `/services` — the services overview.
+ *
+ * Ling, 24 Oct 2026: "Create a page called /services, that is just reusing the
+ * 'services' section on home page."
+ *
+ * So this page is not a new design. It renders the home page's Services band —
+ * the same component (`PilotLinkList`), the same data (`getHomeServices()`, so
+ * the same seven products, in the same order, with the same teasers and range
+ * lines), the same eyebrow and the same title. Nothing on it is retyped, so the
+ * page cannot drift from `/` when a product's copy changes.
+ *
+ * One difference, deliberately: `pageHeader` promotes that band's head to the
+ * page's own header — the `h2` becomes the `h1` on the page-title ladder, and
+ * the band takes the page-header pad top (40/48/48) with the standard section
+ * pad at the foot (80/96/144/160). Everything below the head — rules, row grid,
+ * hover, reveal stagger — is the home page's, unchanged.
+ *
+ * Route: this file is the page that `/services` used to redirect away from. The
+ * 301 is lifted in `astro.config.mjs`, `netlify.toml` and `public/_redirects`.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getHomeServices } from '@/data/services';
+import { SITE } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
+
+const homeServices = getHomeServices().map((service) => ({
+  href: service.href,
+  name: service.name,
+  teaser: service.teaser,
+  rangeLine: service.rangeLine,
+}));
+
+const TITLE = 'Services | Seven funding products | Falcon Equity Group';
+const DESCRIPTION =
+  'Seven business funding products, from $5,000 to $5,000,000, at a 0% agreement fee: merchant cash advance, line of credit, term loan, collateral and asset loans, invoice factoring, consolidation and decentralized business financing.';
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Business funding products',
+    numberOfItems: homeServices.length,
+    itemListElement: homeServices.map((service, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: service.name,
+      url: new URL(service.href, SITE.url).href,
+    })),
+  },
+];
+---
+
+<BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
+  <PilotLinkList
+    pageHeader
+    eyebrow="Services"
+    title="How we can bring you victory."
+    items={homeServices}
+  />
+
+  <script>
+    import '@/scripts/scroll-in';
+  </script>
+</BaseLayout>

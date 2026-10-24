@@ -94,6 +94,19 @@ for (const [route, name] of servicePages) {
   }
 }
 
+/**
+ * `/services` — the home Services band reused as its own page. It shipped on
+ * 24 Oct 2026, so the route must render a document, not the old 301 stub, and
+ * its H1 is the band's own title (promoted from h2, word for word).
+ */
+const servicesTitle = titleOf('dist/services.html');
+if (servicesTitle !== 'Services | Seven funding products | Falcon Equity Group') {
+  throw new Error(`Services <title> was ${JSON.stringify(servicesTitle)}`);
+}
+if (h1Of('dist/services.html') !== 'How we can bring you victory.') {
+  throw new Error(`Services <h1> was ${JSON.stringify(h1Of('dist/services.html'))}`);
+}
+
 /** Rebuilt industry pages. The H1 is the page's label, not the route slug. */
 const industryPages = [['industries/retail', 'Retail business loans']];
 
@@ -118,7 +131,7 @@ if (h1Of('dist/blog.html') !== 'Blog') {
   throw new Error(`Blog <h1> was ${JSON.stringify(h1Of('dist/blog.html'))}`);
 }
 
-console.log(`${home}\n${applyTitle}`);
+console.log(`${home}\n${applyTitle}\n${servicesTitle}  <- dist/services.html`);
 for (const [route, name] of servicePages) {
   console.log(`${name} | Falcon Equity Group  <- dist/${route}.html`);
 }

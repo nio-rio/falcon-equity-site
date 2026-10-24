@@ -19,13 +19,19 @@ interface Props {
   eyebrow?: string;
   title: string;
   items: readonly Item[];
+  /**
+   * `/services` only: the same head and rows, promoted to a page header.
+   * Off by default, so the home page and the calculator's reuse of this row
+   * render exactly as before (h2, full section band).
+   */
+  pageHeader?: boolean;
 }
 
-const { id = 'services-heading', eyebrow, title, items } = Astro.props;
+const { id = 'services-heading', eyebrow, title, items, pageHeader = false } = Astro.props;
 ---
 
 <section
-  class="pilot-ll-section"
+  class:list={['pilot-ll-section', pageHeader && 'pilot-ll-section--page-header']}
   aria-labelledby={id}
   id="services"
   data-band="light"
@@ -38,9 +44,17 @@ const { id = 'services-heading', eyebrow, title, items } = Astro.props;
       (eyebrow || title) && (
         <div class="pilot-ll-head">
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <h2 id={id} data-reveal>
-            {title}
-          </h2>
+          {
+            pageHeader ? (
+              <h1 id={id} data-reveal>
+                {title}
+              </h1>
+            ) : (
+              <h2 id={id} data-reveal>
+                {title}
+              </h2>
+            )
+          }
         </div>
       )
     }

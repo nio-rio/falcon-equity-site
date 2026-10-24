@@ -1366,6 +1366,29 @@
   color: var(--bx-black);
 }
 
+/* `/services` — the identical head and rows, standing as a page header instead
+   of a mid-page band (PilotLinkList `pageHeader`). Page-header pad top, the
+   standard section pad at the foot, and the shared heading -> content gap, so
+   the page opens like every other inner page. `[data-band]` sets the band pad
+   at equal specificity, hence the element+attribute selector, same as about.css. */
+section.pilot-ll-section--page-header[data-band='light'] {
+  padding-block: var(--page-header-pt) var(--pilot-section-y);
+}
+
+.pilot-ll-section--page-header .pilot-ll-head {
+  margin-bottom: var(--space-head-to-content);
+}
+
+.pilot-ll-head h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
 .pilot-ll-head {
   margin-bottom: var(--pilot-heading-to-items);
 }
