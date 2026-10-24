@@ -1549,3 +1549,30 @@ falcon live site."*
   header/hero/`nav-widget` hover flakes: 11 on the pre-change deploy preview, 13 locally, and the two sets differ
   only in those hover checks (`nav-widget-services`, `nav-widget-theme-scrolled`, `nav-widget-contrast-scrolled`,
   `no-gap-close-into-panel`) — no footer check moved.
+
+## Blog rail — white "Read more insights" pill + the reference's pill hover (Ling, 2026-10-24) — approved, do not revert
+
+- **The ask.** *"For blog post pages, right sticky sidebar, learn from this structure. Let's add a white button 'read
+  more insights' in its own division, above the CTA division. Make both our black and white buttons' hovering
+  animation like the example one."* Reference: `blackstone.com/insights/article/modernas-dr-stephen-hoge-on-ai-and-the-future-of-healthcare/`.
+- **Measured, not guessed** (real Chrome over CDP, 1440, resting AND hovered with `Input.dispatchMouseEvent`):
+  link `210×48`, radius 100, pad `8/8/8/24`, gap 16, label `16/24 w500`, icon drawn at 32 inside a 40-unit viewBox,
+  ring 1.5 units, arrow 14.5 units. Ink variant = ink fill + white label; white variant = white fill + 1px ink border.
+  **Hover is identical on both and the pill itself never changes colour:** icon `scale(1.2)` (0.3s) · disc
+  `opacity 0 → 1` (0.3s) painted in the label's colour · arrow flips to the **opposite** colour with no transition.
+  So the ink pill grows a white disc under a black arrow, the white pill an ink disc under a white arrow.
+- **No label underline.** Their `.bx-article-cta__label` carries a `background-size` transition but no `:hover` rule
+  ever sets it — a real hover leaves it at `0px 1.008px`. The previous pass's underline was an invention; it is gone.
+- **Structure.** New `src/components/RailPill.astro` (one markup, `ink` + `outline` variants) so the two pills cannot
+  drift. The rail is now category + date · author · **white pill in its own division** (hairline + 24/24, same module
+  rhythm as the rest) · CTA panel with the ink pill · share row. The white pill links to `/blog`.
+- **Width deviation, stated.** The reference fixes 210 and lets a longer label wrap. "Read more insights" measures
+  139px against the 128px that 210 leaves, which produced a 66px two-line pill next to the 48px ink one. Both pills now
+  use `width: max-content` with a **222px floor** (24 + 139 + 16 + 32 + 8 + 2): a matched pair, single-line labels.
+- **Pre-existing duplicate fixed in the same pass.** Below 80em the rail stacks under the body and its category/date
+  module repeated what the article head already prints under the title; `.art-rail-meta` is now hidden at that width,
+  which is what the reference does with its own module.
+- **Verified on the built artifact and on the deploy preview:** 20/20 blog pages carry the module; rail 304 wide at
+  1440 with both pills at 222 and labels on one line; hover reads `scale(1.2)` + disc `opacity 1` + flipped arrow on
+  both variants with no underline; 390 has `scrollWidth == clientWidth == 390`. `npm run build` (50 pages),
+  `npm run check` (0 errors / 0 warnings / 7 hints) and `npm run test:titles` pass.
