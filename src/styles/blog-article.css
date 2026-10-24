@@ -19,8 +19,8 @@
  *   · H1 weight 400, not the reference's 300 — house page-title weight.
  *   · The rail is category+date, ONE Falcon CTA, then a share row. The
  *     reference's author block, "Watch on YouTube" CTA and newsletter form are
- *     gone per Ling's instruction (and there is no author to credit); the share
- *     row was rebuilt to the Osmo pattern — src/components/ShareRow.astro.
+ *     gone per Ling's instruction (and there is no author to credit). The share
+ *     row keeps the reference's shape; only its motion is Osmo's.
  *   · Category + date print under the title below 80em, where the rail is not
  *     visible; the reference simply drops them at that width.
  */
@@ -317,8 +317,8 @@
      eyebrow  14/21 w400 ls 1.12 UPPERCASE  ·  text 20/30 w400
      button   210x48, radius 100, ink fill, 8/8/8/24, label 16/24 w500, 40px
               circle-arrow at the right
-     share    six 44px circles, 6px apart (Osmo: 128px circles, 40 apart at
-              1440) — the row is a component now, see ShareRow.astro
+     share    print 24, then a 1px 24-tall rule, then 24px marks 24 apart.
+              Hover/tap only: Osmo's springy scale, no layout change.
  */
 
 .art-rail-inner {
@@ -508,6 +508,9 @@
 /* share */
 
 .art-rail-share {
+  display: flex;
+  align-items: center;
+  gap: 24px;
   margin-top: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
@@ -515,5 +518,60 @@
   border-bottom: 1px solid var(--color-line);
 }
 
-/* The row itself is src/components/ShareRow.astro — six 44px circles, 6px
-   apart, hover scales 1.14; the ticks and borders live there. */
+/* Print on the left, then a 1px rule, then the share links — the reference's
+   row, kept as it was. The motion is Osmo's: the mark springs up on hover and
+   presses down on click instead of the old 0.6 opacity fade. */
+.art-share {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+  appearance: none;
+  transform-origin: 50% 50%;
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.art-share:hover,
+.art-share:focus-visible {
+  transform: scale(1.18);
+}
+
+.art-share:active {
+  transform: scale(0.92);
+  transition-duration: 90ms;
+}
+
+.art-share:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.art-share svg {
+  width: 24px;
+  height: 24px;
+}
+
+.art-share-rule {
+  width: 1px;
+  height: 24px;
+  background: var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-share {
+    transition: none;
+  }
+
+  .art-share:hover,
+  .art-share:focus-visible,
+  .art-share:active {
+    transform: none;
+  }
+}

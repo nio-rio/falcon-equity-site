@@ -16,14 +16,16 @@
  * provide fast business funding. and a button: see your options."* So the rail is
  * category + date, then one Falcon CTA panel, then the share row.
  *
- * The share row is the Osmo pattern (round buttons, hover scale, copy-link that
- * ticks) — see src/components/ShareRow.astro for what was measured and adapted.
+ * The share row keeps the reference's shape — print on the left, a 1px rule, then
+ * the share links on the right — with Osmo's motion on the links: a springy
+ * scale on hover and a press-down on tap (measured off osmo.supply's demo:
+ * circles scale ~1.25 on hover). Ling, 23 Oct: *"I just want our previous share
+ * buttons to have this functionality, and interaction animations."*
  */
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
-import ShareRow from '@/components/ShareRow.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
 import { formatDate, getPublicPosts } from '@/lib/blog';
@@ -44,6 +46,22 @@ const documentTitle = seoTitle ?? `${title} | Falcon Equity Group`;
 
 /* Canonical URL for the share targets — never the preview host. */
 const pageUrl = `${SITE.url}/blog/${post.id}`;
+
+/* Print sits on the left of the row; these three sit on the right. */
+const shareLinks = [
+  {
+    label: 'Share on LinkedIn',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
+  },
+  {
+    label: 'Share on X',
+    href: `https://x.com/intent/post?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(title)}`,
+  },
+  {
+    label: 'Share on Facebook',
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+  },
+];
 
 const schema = [
   articleSchema({
@@ -158,10 +176,44 @@ const schema = [
           </div>
 
           <div class="art-rail-share">
-            <ShareRow url={pageUrl} title={title} />
+            <button type="button" class="art-share" data-share-print aria-label="Print this page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 9V3.75h10V9"></path>
+                <path d="M7 18H5.25A2.25 2.25 0 0 1 3 15.75v-4.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v4.5A2.25 2.25 0 0 1 18.75 18H17"></path>
+                <rect x="7" y="13.75" width="10" height="6.5" rx="0.8"></rect>
+              </svg>
+            </button>
+            <span class="art-share-rule" aria-hidden="true"></span>
+            {
+              shareLinks.map((link, index) => (
+                <a class="art-share" href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                  {index === 0 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path>
+                    </svg>
+                  )}
+                  {index === 1 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93 6.06-6.93zm-1.29 19.49h2.04L6.49 3.24H4.3l13.31 17.4z"></path>
+                    </svg>
+                  )}
+                  {index === 2 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.02 24 18.06 24 12.07z"></path>
+                    </svg>
+                  )}
+                </a>
+              ))
+            }
           </div>
         </div>
       </aside>
     </div>
   </article>
+  <script>
+    /* The print control on the left of the share row. */
+    document.querySelectorAll('[data-share-print]').forEach((button) => {
+      button.addEventListener('click', () => window.print());
+    });
+  </script>
 </BaseLayout>
