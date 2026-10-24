@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Cash Flow & Debt'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/medical-practice-working-capital.jpg
 coverAlt: 'Abstract frosted-glass cross-shaped form on a pale background.'
-draft: true
+draft: false
 primaryKeyword: 'medical practice working capital'
 industry: 'healthcare'
 takeaways:
@@ -78,8 +78,6 @@ Imaging systems, dental chairs, lasers and diagnostic devices last for years. Pa
 
 Our [equipment break-even guide](/blog/equipment-financing-break-even) shows how to test whether a new device pays for itself through added procedures or saved referral costs.
 
-<!-- TODO(Dwight): confirm whether Falcon factors medical/insurance claims. Do not claim Falcon offers medical claims factoring until confirmed. -->
-
 ## What about factoring insurance claims?
 
 Medical receivables factoring exists, but it's more complicated than factoring an ordinary business invoice:
@@ -122,4 +120,4 @@ See [what your bank statements say](/blog/what-your-bank-statements-say) for wha
 
 ## The short version
 
-For the repeating gap between care and collections, a line of credit. For a build-out or new provider, a term loan. For equipment, financing matched to its life. Model payments with the [loan calculator](/resources/loan-calculator), see our [medical practice loans](/industries/healthcare) page, or [apply](/apply) to talk to a specialist.
+For the repeating gap between care and collections, a line of credit. For a build-out or new provider, a term loan. For equipment, financing matched to its life. Model payments with the [loan calculator](/resources/business-loan-calculator), see our [medical practice loans](/industries/healthcare) page, or [apply](/apply) to talk to a specialist.

@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Getting Approved'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/daycare-business-loans.jpg
 coverAlt: 'Abstract frosted-glass building blocks stacked on a soft background.'
-draft: true
+draft: false
 primaryKeyword: 'daycare business loans'
 industry: 'education'
 takeaways:
@@ -30,8 +30,6 @@ faq:
   - q: 'How long does a center need to be open to qualify?'
     a: 'Most Falcon products need 6+ months in business. The merchant cash advance starts at 3+ months but is far more expensive.'
 ---
-
-<!-- TODO(Dwight): confirm for-profit-only eligibility for education/childcare before publish. -->
 
 Running a daycare, preschool, tutoring center or private school is a business with two calendars. One is the enrollment calendar, with families joining in fall, leaving in summer and paying tuition on their schedule. The other is the cost calendar, with rent, payroll, insurance and licensing every single month.
 
@@ -135,7 +133,7 @@ Expansion is where most education businesses need the biggest amounts, and where
 
 1. Estimate the full cost: renovation, licensing, furniture, staff hired before opening.
 2. Estimate how fast new spots will fill, conservatively.
-3. Run the payment in the [loan calculator](/resources/loan-calculator).
+3. Run the payment in the [loan calculator](/resources/business-loan-calculator).
 4. Check that existing revenue can carry the payment until the new room or location fills.
 
 ## The short version

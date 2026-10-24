@@ -85,7 +85,7 @@ Underwriters will ask, so have these ready:
 - [ ] **How much you need** and **what it's for**
 - [ ] A rough idea of **the payment you can comfortably support**
 
-Not sure what payment fits? Try our [loan calculator](/resources/loan-calculator).
+Not sure what payment fits? Try our [loan calculator](/resources/business-loan-calculator).
 
 ## 7. Be reachable
 

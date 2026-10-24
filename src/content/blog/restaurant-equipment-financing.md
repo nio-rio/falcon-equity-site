@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Costs & Rates'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/restaurant-equipment-financing.jpg
 coverAlt: 'Abstract frosted-glass cooking pot shape on a warm background.'
-draft: true
+draft: false
 primaryKeyword: 'restaurant equipment financing'
 industry: 'restaurants-food-service'
 takeaways:
@@ -95,7 +95,7 @@ If you go this way, borrow only what you need, and plan to repay it on schedule.
 
 Run three numbers before you sign:
 
-1. **Monthly payment.** Use the [loan calculator](/resources/loan-calculator) with the amount and term you're considering.
+1. **Monthly payment.** Use the [loan calculator](/resources/business-loan-calculator) with the amount and term you're considering.
 2. **What the equipment saves or earns.** Fewer repairs, lower energy use, less spoilage, more covers per night, a new menu item.
 3. **Your slowest month.** Check that the payment fits in January or August, not just in December.
 

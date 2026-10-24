@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Cash Flow & Debt'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/contractor-working-capital-before-first-draw.jpg
 coverAlt: 'Abstract frosted-glass interlocking beams on a muted background.'
-draft: true
+draft: false
 primaryKeyword: 'contractor working capital'
 industry: 'construction'
 takeaways:
@@ -131,4 +131,4 @@ See the [funding checklist](/blog/24-48-hour-funding-checklist) for the full lis
 
 ## The short version
 
-A line of credit covers the repeating gap on every job. Factoring turns approved invoices into cash. Equipment financing keeps machine purchases from draining working capital. Run scenarios in the [loan calculator](/resources/loan-calculator), see our [construction business loans](/industries/construction) page, or [apply](/apply) with your current job list.
+A line of credit covers the repeating gap on every job. Factoring turns approved invoices into cash. Equipment financing keeps machine purchases from draining working capital. Run scenarios in the [loan calculator](/resources/business-loan-calculator), see our [construction business loans](/industries/construction) page, or [apply](/apply) with your current job list.

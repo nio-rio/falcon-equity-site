@@ -118,6 +118,6 @@ Financing should end before the asset stops earning. Stretching a six-year machi
 
 ## Get Funding Today
 
-If you have a quote in hand, [start an application](/apply) and ask about [collateral and asset loans](/services/collateral-asset-loans). You can also size a payment with the [loan calculator](/resources/loan-calculator). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If you have a quote in hand, [start an application](/apply) and ask about [collateral and asset loans](/services/collateral-asset-loans). You can also size a payment with the [loan calculator](/resources/business-loan-calculator). Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Figures shown are illustrative examples, not offers or quotes. All funding is subject to approval, and approval is not guaranteed.*

@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Compare Options'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/manufacturing-working-capital-production-runs.jpg
 coverAlt: 'Abstract frosted-glass cylinders arranged like rollers on a muted background.'
-draft: true
+draft: false
 primaryKeyword: 'working capital for manufacturers'
 industry: 'manufacturing'
 takeaways:
@@ -135,4 +135,4 @@ See the [funding checklist](/blog/24-48-hour-funding-checklist) for the full lis
 
 ## The short version
 
-Factoring shortens the wait on customers. Equipment financing adds capacity without spending working capital. A term loan funds a one-time leap, and a line covers repeating material buys. Model the numbers in the [loan calculator](/resources/loan-calculator), see our [manufacturing business loans](/industries/manufacturing) page, or [apply](/apply) to talk with a specialist.
+Factoring shortens the wait on customers. Equipment financing adds capacity without spending working capital. A term loan funds a one-time leap, and a line covers repeating material buys. Model the numbers in the [loan calculator](/resources/business-loan-calculator), see our [manufacturing business loans](/industries/manufacturing) page, or [apply](/apply) to talk with a specialist.

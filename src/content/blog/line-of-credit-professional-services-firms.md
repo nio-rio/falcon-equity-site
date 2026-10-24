@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Getting Approved'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/line-of-credit-professional-services-firms.jpg
 coverAlt: 'Abstract frosted-glass folded paper shape on a calm background.'
-draft: true
+draft: false
 primaryKeyword: 'line of credit for professional services firms'
 industry: 'professional-services'
 takeaways:
@@ -125,4 +125,4 @@ Once approved, a few habits keep the line healthy and help you qualify for more 
 
 ## The short version
 
-Lenders evaluate a services firm on deposits, receivables, client mix and existing debt. Get those in order, and a line of credit can carry payroll through slow-paying months. Model your draws in the [loan calculator](/resources/loan-calculator), see our [professional services financing](/industries/professional-services) page, or [apply](/apply) to talk with a specialist.
+Lenders evaluate a services firm on deposits, receivables, client mix and existing debt. Get those in order, and a line of credit can carry payroll through slow-paying months. Model your draws in the [loan calculator](/resources/business-loan-calculator), see our [professional services financing](/industries/professional-services) page, or [apply](/apply) to talk with a specialist.

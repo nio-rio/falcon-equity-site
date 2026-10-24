@@ -96,7 +96,7 @@ Still not sure? A [Business Line of Credit](/services/business-line-of-credit) c
 
 ## Run the numbers first
 
-Before choosing, compare the **total cost** of each option, not only the payment. Our [loan calculator](/resources/loan-calculator) can help you estimate payments on a term loan.
+Before choosing, compare the **total cost** of each option, not only the payment. Our [loan calculator](/resources/business-loan-calculator) can help you estimate payments on a term loan.
 
 **Want a straight answer for your business?** [Apply in minutes](/apply) and a Falcon specialist will lay out your options side by side.
 

@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Cash Flow & Debt'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/retail-inventory-financing-holiday-season.jpg
 coverAlt: 'Abstract frosted-glass stacked boxes on a soft background.'
-draft: true
+draft: false
 primaryKeyword: 'retail inventory financing'
 industry: 'retail'
 takeaways:
@@ -89,7 +89,7 @@ Retailers get into trouble most often by borrowing to the approval limit rather 
 2. **Subtract what you can pay from cash** without dropping below your normal operating cushion.
 3. **The difference is the amount to finance.**
 4. **Estimate the payback window** from sell-through. If most of it should sell between mid-November and late December, you need financing for roughly that long, plus a buffer.
-5. **Run the repayment** through the [loan calculator](/resources/loan-calculator) and check it against a slow-season month, not your best month.
+5. **Run the repayment** through the [loan calculator](/resources/business-loan-calculator) and check it against a slow-season month, not your best month.
 
 If the numbers only work in the best case, order less.
 

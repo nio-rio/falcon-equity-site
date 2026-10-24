@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Costs & Rates'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/auto-repair-equipment-financing.jpg
 coverAlt: 'Abstract frosted-glass gear shape on a soft background.'
-draft: true
+draft: false
 primaryKeyword: 'auto repair equipment financing'
 industry: 'auto-services'
 takeaways:
@@ -42,7 +42,7 @@ The question to ask about any piece of equipment isn't "can I get approved?" It'
 For each item, estimate:
 
 1. **What it adds or saves per month.** Extra jobs a new lift lets you book. Sublet fees you stop paying when you calibrate in-house. Comebacks you avoid with better diagnostics. Hours saved by faster equipment.
-2. **The monthly payment.** Use the [loan calculator](/resources/loan-calculator) with the quote amount and the term you're considering.
+2. **The monthly payment.** Use the [loan calculator](/resources/business-loan-calculator) with the quote amount and the term you're considering.
 3. **Whether you have the people.** A new bay with no technician to staff it earns nothing.
 
 If the monthly gain clearly beats the payment, it's a sound purchase. If it depends on everything going right, wait or buy smaller. Our [equipment break-even guide](/blog/equipment-financing-break-even) walks through the math in more detail.

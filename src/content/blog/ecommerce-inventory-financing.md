@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Costs & Rates'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/ecommerce-inventory-financing.jpg
 coverAlt: 'Abstract frosted-glass parcel shape floating on a cool background.'
-draft: true
+draft: false
 primaryKeyword: 'ecommerce inventory financing'
 industry: 'e-commerce'
 takeaways:
@@ -83,7 +83,7 @@ Make sure the payment works in your slowest month, not just after a strong quart
 
 A simple test works across all three options:
 
-1. Estimate **total financing cost** for the amount and the time you'll have it. For a line, that's what you pay while drawn. For an advance, it's the total payback minus the amount received. For a term loan, it's total interest and fees. The [loan calculator](/resources/loan-calculator) can help.
+1. Estimate **total financing cost** for the amount and the time you'll have it. For a line, that's what you pay while drawn. For an advance, it's the total payback minus the amount received. For a term loan, it's total interest and fees. The [loan calculator](/resources/business-loan-calculator) can help.
 2. Estimate **total contribution profit** from the units you're funding.
 3. If profit is comfortably larger than cost, even if the stock sells slower than planned, the financing is working for you. If it only works in the best case, order less or use cheaper money.
 

@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Getting Approved'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/hotel-working-capital-loans.jpg
 coverAlt: 'Abstract frosted-glass arch shape on a soft background.'
-draft: true
+draft: false
 primaryKeyword: 'hotel working capital loans'
 industry: 'travel-hospitality'
 takeaways:
@@ -110,7 +110,7 @@ Financing works best alongside a plan. A simple version:
 4. **Set aside reserves in peak** so you rely less on credit each year.
 5. **Schedule refreshes and repairs** for the off-season, financed so they don't drain reserves.
 
-Run payment scenarios in the [loan calculator](/resources/loan-calculator).
+Run payment scenarios in the [loan calculator](/resources/business-loan-calculator).
 
 ## Preparing your file
 

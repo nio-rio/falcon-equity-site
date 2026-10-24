@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Compare Options'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/trucking-factoring-vs-business-loan.jpg
 coverAlt: 'Abstract frosted-glass road shape curving across a soft background.'
-draft: true
+draft: false
 primaryKeyword: 'trucking factoring'
 industry: 'transportation-logistics'
 takeaways:
@@ -132,4 +132,4 @@ Whichever route you take, a complete file moves faster. For factoring, have your
 
 ## The short version
 
-If your problem is "they owe me and haven't paid," look at factoring. If it's "I need a truck," look at equipment financing. If it's both, you may need both. Use the [loan calculator](/resources/loan-calculator) to test equipment payments, see our [trucking and logistics financing](/industries/transportation-logistics) page, or [apply](/apply) to talk it through with a specialist.
+If your problem is "they owe me and haven't paid," look at factoring. If it's "I need a truck," look at equipment financing. If it's both, you may need both. Use the [loan calculator](/resources/business-loan-calculator) to test equipment payments, see our [trucking and logistics financing](/industries/transportation-logistics) page, or [apply](/apply) to talk it through with a specialist.

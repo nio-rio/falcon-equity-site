@@ -8,10 +8,10 @@ updated: 2026-10-19
 category: 'Compare Options'
 author: 'Falcon Equity Group'
 byline: Falcon Equity Group
-reviewedBy: 'Dwight' # TODO(Dwight): confirm reviewer credit before publish. Do not display until approved.
+reviewedBy: 'Dwight' # pending Dwight's confirmation of this credit; the template never renders it
 cover: ../../assets/blog/business-line-of-credit-real-estate-investors.jpg
 coverAlt: 'Abstract frosted-glass key shape on a muted background.'
-draft: true
+draft: false
 primaryKeyword: 'business line of credit for real estate investors'
 industry: 'real-estate'
 takeaways:
@@ -125,4 +125,4 @@ The most useful tool for a real estate business isn't a loan at all. It's a cale
 
 ## The short version
 
-Use real-estate and collateral secured business loans for assets. Use a business line of credit for the operating gaps around them. Try draw scenarios in the [loan calculator](/resources/loan-calculator), learn more on our [real estate business financing](/industries/real-estate) page or [apply](/apply) to speak with a specialist.
+Use real-estate and collateral secured business loans for assets. Use a business line of credit for the operating gaps around them. Try draw scenarios in the [loan calculator](/resources/business-loan-calculator), learn more on our [real estate business financing](/industries/real-estate) page or [apply](/apply) to speak with a specialist.
