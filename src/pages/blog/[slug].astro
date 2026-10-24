@@ -1,0 +1,270 @@
+---
+/**
+ * One page per published guide: /blog/<slug>.
+ *
+ * Layout from blackstone.com/insights/article/…, measured live 23 Oct 2026 at
+ * 1440 and 390 (numbers in the header comment of src/styles/blog-article.css):
+ *
+ *   title 784 wide (columns 1-10), 48/72 at 1440 and 32/48 at 390
+ *   media (16:9) directly under the title, in the same 784 slot
+ *   body 704 wide (columns 1-9), 18/27
+ *   right rail 304 wide (columns 13-16), sticky, modules separated by hairlines
+ *
+ * The reference's rail carries category + date, an author, a "Watch on YouTube"
+ * CTA, a newsletter signup and share icons. Ling, 23 Oct: *"On the right, change
+ * watch on youtube and the subscribe part to a CTA, that basically says Falcon
+ * provide fast business funding. and a button: see your options."* Then 24 Oct:
+ * *"For blog post pages, right sticky sidebar, learn from this structure. Let's
+ * add a white button 'read more insights' in its own division, above the CTA
+ * division. Make both our black and white buttons' hovering animation like the
+ * example one."* So the rail is category + date, the author, a white
+ * "Read more insights" pill in its own division, the Falcon CTA panel with its
+ * ink pill, then the share row.
+ *
+ * The share row keeps the reference's shape — print on the left, a 1px rule, then
+ * the share links on the right — with Osmo's motion on the links: a springy
+ * scale on hover and a press-down on tap (measured off osmo.supply's demo:
+ * circles scale ~1.25 on hover). Ling, 23 Oct: *"I just want our previous share
+ * buttons to have this functionality, and interaction animations."*
+ */
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button040 from '@/components/Button040.astro';
+import Media from '@/components/Media.astro';
+import RailPill from '@/components/RailPill.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { SITE } from '@/data/site';
+import { formatDate, getPublicPosts } from '@/lib/blog';
+import { articleSchema, breadcrumbSchema } from '@/lib/schema';
+import '@/styles/blog-article.css';
+
+export async function getStaticPaths() {
+  const posts = await getPublicPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, category, date, updated, description, cover, coverAlt, seoTitle, author } = post.data;
+
+const documentTitle = seoTitle ?? `${title} | Falcon Equity Group`;
+
+/* Canonical URL for the share targets — never the preview host. */
+const pageUrl = `${SITE.url}/blog/${post.id}`;
+
+/* Print sits on the left of the row; these three sit on the right. */
+const shareLinks = [
+  {
+    label: 'Share on LinkedIn',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`,
+  },
+  {
+    label: 'Share on X',
+    href: `https://x.com/intent/post?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(title)}`,
+  },
+  {
+    label: 'Share on Facebook',
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+  },
+];
+
+const schema = [
+  articleSchema({
+    title,
+    description,
+    slug: post.id,
+    date,
+    updated,
+    author,
+    image: cover?.src,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: title, path: `/blog/${post.id}` },
+  ]),
+];
+---
+
+<BaseLayout title={documentTitle} description={description} schema={schema} disclosure={PAGE_DISCLOSURE} type="article">
+  <article class="art-band" data-band="light">
+    <div class="container-site art-layout">
+      <div class="art-main">
+        <header class="art-head">
+          {/* Below 80em the rail stacks under the body and hides its own
+              category/date module, so print them under the title here — or a
+              phone reader never sees the date at all. */}
+          <p class="art-meta">
+            <span class="art-meta-category">{category}</span>
+            <span class="art-meta-sep" aria-hidden="true">·</span>
+            <time datetime={date.toISOString()}>{formatDate(date)}</time>
+          </p>
+          <h1 class="art-h1">{title}</h1>
+        </header>
+
+        {
+          cover && (
+            <div class="art-media">
+              <Media
+                image={cover}
+                alt={coverAlt}
+                intent={coverAlt || `Illustration for ${title}`}
+                ratio="16 / 9"
+                sizes="(min-width: 80em) 784px, 100vw"
+                priority
+              />
+            </div>
+          )
+        }
+
+        <div class="art-prose">
+          <Content />
+        </div>
+      </div>
+
+      <aside class="art-rail" aria-label="About Falcon Equity Group">
+        <div class="art-rail-inner">
+          <div class="art-rail-meta">
+            <p class="art-rail-category">{category}</p>
+            <p class="art-rail-date">
+              <time datetime={date.toISOString()}>{formatDate(date)}</time>
+            </p>
+          </div>
+
+          {/* Company as the author — there is no byline to credit, and inventing
+              a person is off-limits (CLAUDE.md). */}
+          <div class="art-rail-author">
+            <img
+              class="art-rail-avatar"
+              src={SITE.logo}
+              alt=""
+              width="40"
+              height="40"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="art-rail-author-text">
+              <p class="art-rail-author-name">Falcon Equity Group</p>
+              <p class="art-rail-author-role">Business funding</p>
+            </div>
+          </div>
+
+          {/* Insights — the reference puts its pill alone in its own division,
+              above the CTA division, with a hairline over it (its
+              `.bx-article-cta` module sits between two rules). */}
+          <div class="art-rail-more">
+            <RailPill label="Read more insights" href="/blog" variant="outline" />
+          </div>
+
+          <div class="art-rail-cta">
+            <p class="art-rail-cta-eyebrow">Small business funding</p>
+            <p class="art-rail-cta-text">
+              Ask Falcon Equity about a funding solution for your business.
+            </p>
+            <RailPill label="See your options" href="/services" />
+          </div>
+
+          <div class="art-rail-share">
+            <button type="button" class="art-share" data-share-print aria-label="Print this page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 9V3.75h10V9"></path>
+                <path d="M7 18H5.25A2.25 2.25 0 0 1 3 15.75v-4.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v4.5A2.25 2.25 0 0 1 18.75 18H17"></path>
+                <rect x="7" y="13.75" width="10" height="6.5" rx="0.8"></rect>
+              </svg>
+            </button>
+            <span class="art-share-rule" aria-hidden="true"></span>
+            {
+              shareLinks.map((link, index) => (
+                <a class="art-share" href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+                  {index === 0 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path>
+                    </svg>
+                  )}
+                  {index === 1 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93 6.06-6.93zm-1.29 19.49h2.04L6.49 3.24H4.3l13.31 17.4z"></path>
+                    </svg>
+                  )}
+                  {index === 2 && (
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.02 24 18.06 24 12.07z"></path>
+                    </svg>
+                  )}
+                </a>
+              ))
+            }
+            <button
+              type="button"
+              class="art-share art-share--copy"
+              data-share-copy={pageUrl}
+              aria-label="Copy link to this page"
+            >
+              <span class="art-share-ico art-share-ico--link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </span>
+              <span class="art-share-ico art-share-ico--check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+              </span>
+            </button>
+            <p class="art-share-status" role="status" aria-live="polite" data-share-status></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+  <script>
+    /* The print control on the left of the share row. */
+    document.querySelectorAll('[data-share-print]').forEach((button) => {
+      button.addEventListener('click', () => window.print());
+    });
+
+    /* Copy link, the Osmo control: put the canonical URL on the clipboard, then
+       swap the chain for a tick for two seconds. A textarea fallback covers
+       browsers that refuse the clipboard API outside a secure context. */
+    document.querySelectorAll<HTMLElement>('[data-share-copy]').forEach((button) => {
+      const status = document.querySelector<HTMLElement>('[data-share-status]');
+      const label = button.getAttribute('aria-label') ?? 'Copy link';
+      let timer: number | undefined;
+
+      button.addEventListener('click', async () => {
+        const url = button.dataset.shareCopy || window.location.href;
+
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          const field = document.createElement('textarea');
+          field.value = url;
+          field.setAttribute('readonly', '');
+          field.style.position = 'fixed';
+          field.style.top = '-9999px';
+          document.body.appendChild(field);
+          field.select();
+          try {
+            document.execCommand('copy');
+          } catch {
+            /* Nothing else to try — the address bar still holds the URL. */
+          }
+          field.remove();
+        }
+
+        button.dataset.copied = 'true';
+        button.setAttribute('aria-label', 'Link copied');
+        if (status) status.textContent = 'Link copied to clipboard';
+
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          delete button.dataset.copied;
+          button.setAttribute('aria-label', label);
+          if (status) status.textContent = '';
+        }, 2000);
+      });
+    });
+  </script>
+</BaseLayout>

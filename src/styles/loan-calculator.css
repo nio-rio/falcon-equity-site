@@ -1,0 +1,674 @@
+/* Business loan calculator (/resources/business-loan-calculator).
+   Structure plan: docs/business-loan-calculator-structure-plan.md
+   One light band: page head, the tool (mode tabs + fields + results panel),
+   then three definitions. Site CTA band and footer come from BaseLayout.
+
+   Field surfaces copy the home page's sector field (`.pilot-tabs-drop`):
+   Lilac Light fill, 2px ink bottom rule, square corners. The results panel is
+   the only other surface, in Lilac, so the tool reads as fields + one answer.
+
+   Tokens only: --color-*, --bx-space-* / px values from the 8px scale,
+   --font-display / --font-sans. No hex greys, no reds, no radii. */
+
+/* Ling's 16px floor on this page (2026-10-23). Two things the page imports are
+   14px sitewide: the shared section eyebrow below 1280, and home's services
+   range line. Raised here only — home keeps 14. */
+.calc-page .eyebrow {
+  font-size: 16px;
+}
+
+.calc-page .pilot-ll-range {
+  font-size: 16px;
+}
+
+section.calc-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+  /* Ling, 2026-10-23: the gap above the services band was too small. Home's own
+     rhythm is a full --pilot-section-y bottom on the band (144 at 1280, 160 at
+     1440) plus the follower's --pilot-section-y-stack top (48), which is what
+     the stats → services boundary on / uses. */
+  padding: var(--page-header-pt) 0 var(--pilot-section-y);
+}
+
+.calc-shell {
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 40px;
+  align-items: start;
+}
+
+.calc-title,
+.calc-tool,
+.calc-defs {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* Hero is the H1 alone (Ling, 2026-10-23: "Let's just use the H1. Delete the
+   intro text and the button on hero."). It takes the shared page-title ladder:
+   40 / 48 / 56 at 390 / 768 / 1280+, 1.1 leading, H1 in cols 1-9 at 1280. */
+.calc-title {
+  margin: 0;
+  max-width: 20ch;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+.calc-tool {
+  margin-top: 48px;
+}
+
+/* ---------- Mode tabs (radios, styled as tabs) ---------- */
+
+.calc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.calc-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 0 20px;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* The radio itself is the control; it stays in the layout but invisible so
+   focus, arrow keys and form semantics all come from the browser. */
+.calc-tab input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.calc-tab::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--color-ink);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.calc-tab:has(input:checked) {
+  color: var(--color-ink);
+}
+
+.calc-tab:has(input:checked)::after {
+  transform: scaleX(1);
+}
+
+.calc-tab:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .calc-tab:hover {
+    color: var(--color-ink);
+  }
+}
+
+/* ---------- Fields + results ---------- */
+
+.calc-tool-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 40px;
+  align-items: start;
+  margin-top: 40px;
+}
+
+.calc-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.calc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+.calc-fields[hidden],
+.calc-results[hidden],
+.calc-prompt[hidden],
+.calc-bar-wrap[hidden] {
+  display: none;
+}
+
+.calc-field {
+  min-width: 0;
+}
+
+.calc-field-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 8px;
+}
+
+.calc-label {
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.calc-hint {
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.calc-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 20px;
+  background: var(--color-lilac-light);
+}
+
+.calc-affix {
+  flex: none;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.calc-input {
+  width: 100%;
+  min-width: 0;
+  padding: 18px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+
+.calc-input:focus {
+  outline: none;
+}
+
+.calc-input-wrap:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.calc-input::placeholder {
+  color: var(--color-lilac-darkest);
+  opacity: 1;
+}
+
+/* Select: same surface as the input, native control with our own chevron. */
+.calc-select-wrap {
+  position: relative;
+  display: block;
+  background: var(--color-lilac-light);
+}
+
+.calc-select-wrap:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.calc-select {
+  width: 100%;
+  padding: 18px 56px 18px 20px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  appearance: none;
+  cursor: pointer;
+}
+
+.calc-select-wrap svg {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  flex: none;
+  color: var(--color-ink);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* Range slider: 2px rail, ink thumb. */
+.calc-range {
+  width: 100%;
+  height: 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.calc-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--color-lilac-darker);
+}
+
+.calc-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-ink);
+  appearance: none;
+}
+
+.calc-range::-moz-range-track {
+  height: 2px;
+  background: var(--color-lilac-darker);
+}
+
+.calc-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-ink);
+}
+
+.calc-range:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+/* ---------- Results panel ---------- */
+
+.calc-results {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 32px 24px;
+  background: var(--color-lilac);
+  color: var(--color-ink);
+}
+
+.calc-big-label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.calc-big-value {
+  display: block;
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 300;
+  line-height: 1.02;
+  word-break: break-word;
+}
+
+.calc-big-cur,
+.calc-big-per {
+  font-family: var(--font-sans);
+  font-size: 0.5em;
+  font-weight: 400;
+  color: var(--color-martinique-light);
+}
+
+.calc-big-cur {
+  margin-right: 0.06em;
+}
+
+.calc-big-per {
+  margin-left: 0.1em;
+}
+
+.calc-results.is-empty .calc-big-cur,
+.calc-results.is-empty .calc-big-per {
+  display: none;
+}
+
+.calc-results.is-empty .calc-big-value {
+  color: var(--color-martinique-light);
+}
+
+.calc-rows {
+  display: flex;
+  flex-direction: column;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calc-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.calc-row-label {
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.calc-row-value {
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.calc-bar-wrap {
+  margin-top: 24px;
+}
+
+.calc-bar {
+  display: flex;
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-lilac-dark);
+}
+
+.calc-bar-principal {
+  background: var(--color-ink);
+}
+
+.calc-bar-cost {
+  background: var(--color-martinique-lightest);
+}
+
+.calc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calc-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.calc-swatch {
+  width: 8px;
+  height: 8px;
+  flex: none;
+}
+
+.calc-swatch--principal {
+  background: var(--color-ink);
+}
+
+.calc-swatch--cost {
+  background: var(--color-martinique-lightest);
+}
+
+.calc-note {
+  margin: 24px 0 0;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.calc-prompt {
+  margin: 24px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.calc-noscript {
+  margin: 24px 0 0;
+  color: var(--color-martinique-light);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ---------- Definitions ---------- */
+
+/* Three definitions: the /industries product section's own 3-up spacing
+   (`.mca-cards--3` in mca.css, measured on /industries/real-estate at 1280:
+   16-col shell, 16px column gap, cards at 1/5 · 6/11 · 12/16 with 32 / 56 / 32
+   inner padding, which lands 104px gutters — 384→488 and 792→896 — and 24px
+   from title to body). Copied rather than eyeballed so the two 3-up layouts
+   read as one system. */
+.calc-defs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+  padding-top: 32px;
+}
+
+.calc-def {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* Below 48em the two mode labels cannot share a line (187 + 118 + 40 > 328), so
+   they stack as full-width rows: every row carries the 1px rule, the selected
+   row carries its 2px ink underline. No half-wrapped tab row. */
+@media (max-width: 47.99em) {
+  .calc-tabs {
+    flex-direction: column;
+    align-items: flex-start; /* underline stays text-width, so it reads as an
+                                active tab, not another divider line */
+    gap: 0;
+  }
+
+  .calc-tab {
+    padding: 14px 0;
+  }
+
+  .calc-tab::after {
+    bottom: 0;
+  }
+}
+
+.calc-def-title {
+  margin: 0 0 24px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0.16px;
+}
+
+/* Owner round 2026-10-23: these three are the industry/service process H3 size —
+   1.5rem (24px) on tablet and desktop, never under 1.25rem (20px) on the phone.
+   The base rule above already sits on the floor, so only the step up is added. */
+@media (min-width: 48em) {
+  .calc-def-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+.calc-def-body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.calc-def-body a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (min-width: 48em) {
+  .calc-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    row-gap: 48px;
+  }
+
+
+  .calc-results {
+    padding: 40px;
+  }
+
+  .calc-defs {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    padding-top: 40px;
+  }
+
+  .calc-defs > .calc-def:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .calc-defs > .calc-def:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .calc-defs > .calc-def:nth-child(3) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 64em) {
+  .calc-tool-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+    row-gap: 48px;
+    margin-top: 48px;
+  }
+
+  .calc-form {
+    gap: 40px;
+  }
+
+  /* Same row gap the reference's 3-up carries from 64em up. */
+  .calc-defs {
+    row-gap: 104px;
+  }
+}
+
+@media (min-width: 80em) {
+  .calc-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 56px;
+  }
+
+  /* Industry hero: the H1 holds cols 1-9. */
+  .calc-title {
+    grid-column: 1 / span 9;
+    max-width: 18ch;
+  }
+
+  .calc-big-value {
+    font-size: 56px;
+  }
+
+  .calc-results {
+    padding: 40px 48px 48px;
+  }
+
+  /* The reference's 16-col placement, exactly: 1/5 · 6/11 · 12/16 with
+     32 / 56 / 32 inner padding — measured 104px gutters at 1280 and 1440. */
+  .calc-defs {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .calc-defs > .calc-def:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .calc-defs > .calc-def:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .calc-defs > .calc-def:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calc-tab::after {
+    transition: none;
+  }
+}

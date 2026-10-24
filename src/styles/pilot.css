@@ -1,0 +1,2689 @@
+/* Pilot design layer — home + Merchant Cash Advance only.
+   Canonical spec: /DESIGN-SYSTEM.md. Classes are prefixed `pilot-`.
+   Tokens and `.container-site` / `.bx-grid` stay the site grid.
+   Spacing is the priority: section 64/88/120, eyebrow→H2 40, H2→body 48, what-we-do 80/56. */
+
+/* Home hero — Ling-approved Blackstone promo-header + carousel measures.
+   80em = 1280 values, 90em = 1440 values. Fixed steps, no clamp.
+   16-col / 16px gutter is scoped here; site `.bx-grid` stays 12/24. */
+.pilot-hero {
+  position: relative;
+  background: var(--bx-black);
+  color: #fff;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  overflow-x: clip;
+}
+
+.pilot-hero h1,
+.pilot-hero h2,
+.pilot-hero p {
+  color: #fff;
+}
+
+.pilot-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  /* Mobile learns the Blackstone promo-header: 48/48 at 390 (measured 2026-10-22). */
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: 0.008em;
+  max-width: none;
+  text-wrap: unset;
+}
+
+.pilot-hero-line {
+  display: inline;
+}
+
+.pilot-hero-aside {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  /* BX mobile subtitle: 20/30 (was 16/24). */
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--bx-on-dark);
+}
+
+.pilot-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  /* Native 1800/771 is ~167px at 390 — too short. Keep 16/9 below 48em. */
+  aspect-ratio: 16 / 9;
+}
+
+.pilot-hero-media .media {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  aspect-ratio: auto;
+}
+
+.pilot-hero-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pilot-hero-media img,
+.pilot-hero-media .media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ≥48em the 1800/771 box is uncropped at full viewport width.
+     Below 48em the 16/9 box crops the sides; the falcon sits right of
+     center, so 100% 50% keeps the whole bird (beak to tail) in frame. */
+  object-position: 100% 50%;
+}
+
+.pilot-hero-caption {
+  margin-top: 2rem;
+}
+
+.pilot-hero-caption-title h2 {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: var(--type-h2-weight);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  max-width: none;
+}
+
+.pilot-hero-caption-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+.pilot-hero-caption-copy p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--bx-on-dark);
+}
+
+.pilot-hero-caption-cta {
+  margin-top: 1.5rem;
+}
+
+/* Scoped singular-link: 18px label, 40px circle, 44px tall.
+   The hero CTA is now the global <ArrowButton /> component, and its metrics
+   live in src/styles/arrow-button.css — not here. */
+
+@media (min-width: 48em) {
+  .pilot-hero {
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .pilot-hero h1 {
+    font-size: 3rem;
+  }
+
+  .pilot-hero-line {
+    display: block;
+  }
+
+  .pilot-hero-line--offset {
+    padding-left: 1rem;
+  }
+
+  .pilot-hero-aside {
+    margin-top: 2rem;
+    font-size: 1.125rem;
+  }
+
+  .pilot-hero-media {
+    margin-top: 4rem;
+    aspect-ratio: 1800 / 771;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 1.75rem;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 1.125rem;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 2rem;
+  }
+}
+
+/* 1280 — exact 80em steps. */
+@media (min-width: 80em) {
+  .pilot-hero {
+    padding-top: 40px;
+    padding-bottom: 112px;
+  }
+
+  .pilot-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  .pilot-hero-top {
+    align-items: end;
+  }
+
+  .pilot-hero h1 {
+    display: grid;
+    grid-column: 1 / span 8;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 16px;
+    font-size: 64px;
+    line-height: 1;
+  }
+
+  .pilot-hero-line {
+    display: block;
+    grid-column: 1 / -1;
+  }
+
+  .pilot-hero-line--offset {
+    grid-column: 2 / -1;
+    padding-left: 0;
+  }
+
+  .pilot-hero-aside {
+    grid-column: 11 / span 6;
+    align-self: end;
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  .pilot-hero-media {
+    margin-top: 112px;
+    aspect-ratio: 1800 / 771;
+    height: auto;
+  }
+
+  .pilot-hero-caption {
+    margin-top: 48px;
+  }
+
+  .pilot-hero-caption-title {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
+  .pilot-hero-caption-copy {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
+    width: 456px;
+    margin-top: 0;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 40px;
+  }
+}
+
+/* 1440 — exact 90em steps. */
+@media (min-width: 90em) {
+  .pilot-hero {
+    padding-top: 48px;
+    padding-bottom: 120px;
+  }
+
+  .pilot-hero h1 {
+    row-gap: 24px;
+    font-size: 72px;
+  }
+
+  .pilot-hero-line--offset {
+    grid-column: 3 / -1;
+  }
+
+  .pilot-hero-aside {
+    font-size: 24px;
+  }
+
+  .pilot-hero-media {
+    margin-top: 120px;
+    aspect-ratio: 1800 / 771;
+    height: auto;
+  }
+
+  .pilot-hero-caption {
+    margin-top: 56px;
+  }
+
+  .pilot-hero-caption-title {
+    grid-column: 1 / span 8;
+  }
+
+  .pilot-hero-caption-title h2 {
+    font-size: 40px;
+    max-width: 37rem;
+  }
+
+  .pilot-hero-caption-copy {
+    width: 504px;
+    margin-top: 8px;
+  }
+
+  .pilot-hero-caption-copy p {
+    font-size: 20px;
+  }
+
+  .pilot-hero-caption-cta {
+    margin-top: 48px;
+  }
+}
+
+/* Inner-page hero — BXCI / Insights title + still. */
+.pilot-page-hero {
+  background: #fff;
+  padding-block: 3.5rem 2.5rem;
+}
+
+.pilot-page-hero-lead {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-page-hero-cta {
+  margin-top: var(--bx-space-24);
+}
+
+.pilot-page-hero-media {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-page-hero-media .media,
+.pilot-page-hero-media img {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .pilot-page-hero {
+    padding-block: 5rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-page-hero {
+    padding-block: 6.5rem 3.5rem;
+  }
+
+  .pilot-page-hero .bx-grid {
+    align-items: end;
+  }
+}
+
+.pilot-on-dark .eyebrow {
+  color: #fff;
+}
+
+.pilot-section {
+  padding-block: var(--bx-section);
+  background: #fff;
+}
+
+.pilot-section--tint {
+  background: var(--color-tint);
+}
+
+.pilot-section-head h2 {
+  margin: 0;
+}
+
+.pilot-section-head--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pilot-section-body {
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-on-dark .pilot-section-body {
+  color: var(--bx-on-dark);
+}
+
+.pilot-section-cta {
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-stack > .pilot-section-head + .pilot-section-body,
+.pilot-stack > .pilot-section-head + .pilot-section-cta {
+  margin-top: var(--bx-space-48);
+}
+
+/* Circle-arrow + drawn underline — Blackstone Learn more. */
+.pilot-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pilot-arrow-label {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.pilot-arrow:hover .pilot-arrow-label,
+.pilot-arrow:focus-visible .pilot-arrow-label {
+  background-size: 100% 1px;
+}
+
+.pilot-circle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+.pilot-circle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pilot-arrow:hover .pilot-circle,
+.pilot-arrow:focus-visible .pilot-circle {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.pilot-on-dark .pilot-arrow:hover .pilot-circle,
+.pilot-on-dark .pilot-arrow:focus-visible .pilot-circle,
+.pilot-arrow--light:hover .pilot-circle,
+.pilot-arrow--light:focus-visible .pilot-circle {
+  background: #fff;
+  border-color: #fff;
+  color: var(--color-ink);
+}
+
+/* BXCI What we do — black band, portrait 1–6, list start 8. */
+.pilot-what {
+  background: var(--bx-black);
+  color: #fff;
+}
+
+.pilot-what .container-site {
+  padding-block: var(--bx-section);
+}
+
+.pilot-what h2 {
+  color: #fff;
+}
+
+.pilot-what-content {
+  margin-top: var(--bx-space-80);
+  row-gap: var(--bx-space-80);
+}
+
+.pilot-what-media {
+  min-height: 20rem;
+  background: var(--bx-highlight-dark);
+  align-self: start;
+}
+
+.pilot-what .media--labeled,
+.pilot-what .image-slot--labeled {
+  background: var(--bx-black);
+}
+
+.pilot-what .media-label,
+.pilot-what .image-slot-label {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.pilot-what-media .media,
+.pilot-what-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+}
+
+@media (min-width: 1024px) {
+  .pilot-what-media,
+  .pilot-what-media .media,
+  .pilot-what-media figure {
+    min-height: 36rem;
+  }
+}
+
+.pilot-what-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-56);
+  align-self: start;
+}
+
+.pilot-what-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.pilot-what-body {
+  margin: 0.75rem 0 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--bx-on-dark);
+}
+
+/* Home testimonial — Blackstone `.bx-announcement` (home “EARNINGS”).
+   Live blackstone.com is Cloudflare-blocked here; values from blackstone-v2
+   frontend.css at 80em/90em (same rules getComputedStyle would return).
+   Slider keeps that layout; arrows sit in the right column, image-bottom. */
+.pilot-ann {
+  --pilot-ann-nav-gap: 2.5rem;
+  --pilot-ann-btn: 2.5rem; /* height of the shared .slider-nav row */
+  background: #fff;
+  color: var(--bx-black);
+}
+
+.pilot-ann-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-ann-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-ann-list {
+  display: grid;
+}
+
+.pilot-ann-item {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pilot-ann-item.is--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.pilot-ann-title {
+  margin: 0;
+}
+
+.pilot-ann-title p {
+  margin: 3rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  /* Mobile quote 25% smaller than the 2rem base (2rem -> 1.5rem); the 48em
+     and up overrides below keep the approved desktop sizes unchanged. */
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+  text-wrap: wrap;
+}
+
+.pilot-ann-line {
+  color: inherit;
+}
+
+.pilot-ann-line-mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.pilot-ann-media {
+  margin-top: 3.5rem;
+  overflow: hidden;
+}
+
+.pilot-ann-media .media,
+.pilot-ann-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.pilot-ann-meta {
+  margin-top: 3rem;
+}
+
+.pilot-ann-business,
+.pilot-ann-meta p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--bx-black);
+}
+
+/* The row itself is .slider-nav (src/styles/slider-nav.css) — arrows, dots and
+   the activation ring are shared with the blog slider. This block only places
+   it in the announcement grid. Do not re-declare display/gap/size here: the
+   two class names have equal specificity and whichever stylesheet lands last
+   would win silently. */
+.pilot-ann-nav {
+  margin-top: var(--pilot-ann-nav-gap);
+  z-index: 2;
+}
+
+@media (min-width: 48em) {
+  .pilot-ann {
+    --pilot-ann-nav-gap: 3.5rem;
+  }
+
+  .pilot-ann-stage {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+
+  .pilot-ann-list {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .pilot-ann-item {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas:
+      'Title Title Title Title Title Title . .'
+      'Media Media Media Media . Meta Meta Meta';
+  }
+
+  .pilot-ann-title {
+    grid-area: Title;
+  }
+
+  .pilot-ann-title p {
+    margin-top: 0;
+    font-size: 2.5rem;
+  }
+
+  .pilot-ann-media {
+    grid-area: Media;
+    margin-top: 4rem;
+  }
+
+  .pilot-ann-media .media,
+  .pilot-ann-media img {
+    max-width: 19pc; /* BX `.bx-announcement__media img` at 48em */
+  }
+
+  .pilot-ann-meta {
+    grid-area: Meta;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 0;
+    padding-bottom: calc(var(--pilot-ann-btn) + var(--pilot-ann-nav-gap));
+  }
+
+  .pilot-ann-nav {
+    /* 4 tracks, not 3: the shared nav is 264px at 1440 (two 40px arrows, 48px
+       gaps, three 24px dots at an 8px pitch); 3 tracks give only 224px and the
+       row would run 40px past the content edge. */
+    grid-column: 5 / 9;
+    grid-row: 1;
+    align-self: end;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-ann {
+    --pilot-ann-nav-gap: 4rem;
+  }
+
+  .pilot-ann-stage,
+  .pilot-ann-item {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .pilot-ann-item {
+    grid-template-areas: 'Title Title Title Title Title Title . . Media Media Media Media . Meta Meta Meta';
+  }
+
+  .pilot-ann-title p {
+    font-size: 2rem;
+  }
+
+  .pilot-ann-media {
+    margin-top: 0;
+  }
+
+  .pilot-ann-media .media,
+  .pilot-ann-media img {
+    max-width: none;
+  }
+
+  .pilot-ann-nav {
+    grid-column: 13 / 17;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-ann-item {
+    grid-template-areas: 'Title Title Title Title Title Title Title . Media Media Media Media . Meta Meta Meta';
+  }
+
+  .pilot-ann-title p {
+    font-size: 2.5rem;
+  }
+}
+
+/* Testimonial eyebrow → quote. The global component supplies type and rule;
+   this is the one section whose next sibling is a quote, not an h2. */
+.pilot-ann-eyebrow {
+  margin-bottom: var(--eyebrow-gap);
+}
+
+/* BMACX featured-content panel + sector select — home Industries only.
+   Source: bmacx.com “The Latest from BMACX” (dropdown + featured panel).
+   Live site Cloudflare-blocked; values from frontend.css at 80em / 90em.
+   Dropdown sits across from the H2 from 80em; stacked under it below that. */
+.pilot-tabs {
+  background: #fff;
+  color: var(--bx-black);
+}
+
+.pilot-tabs-head {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: var(--space-head-to-content);
+}
+
+.pilot-tabs-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--type-h2-weight);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+}
+
+.pilot-tabs-nav {
+  min-width: 0;
+}
+
+.pilot-tabs-dropwrap {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
+
+/* Sector field: Lilac Light fill, 2px ink bottom, in-field label, chevron. */
+.pilot-tabs-drop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem;
+  border: 0;
+  border-bottom: 2px solid var(--bx-black);
+  border-radius: 0;
+  background: var(--bx-lilac-light);
+  color: var(--bx-black);
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-20);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pilot-tabs-drop svg {
+  flex: none;
+  transition: transform 0.2s ease;
+}
+
+.pilot-tabs-drop[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.pilot-tabs-drop:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.pilot-tabs-menu {
+  position: absolute;
+  z-index: 8;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--bx-lilac-light);
+  color: var(--bx-black);
+  border: 1px solid var(--bx-lilac-dark);
+  box-shadow: 0 0.5rem 1.25rem rgb(15 12 23 / 0.14);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  opacity: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bx-martinique-light) var(--bx-lilac-light);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: var(--bx-lilac-light);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-track {
+  background: var(--bx-lilac-light);
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-thumb {
+  background-color: var(--bx-martinique-light);
+  border: none;
+  border-radius: 0;
+}
+
+.pilot-tabs-menu::-webkit-scrollbar-button,
+.pilot-tabs-menu::-webkit-scrollbar-corner {
+  display: none;
+  width: 0;
+  height: 0;
+  background: var(--bx-lilac-light);
+}
+
+.pilot-tabs-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  background: var(--bx-lilac-light);
+  color: var(--bx-black);
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-20);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pilot-tabs-menu button[aria-selected='true'] {
+  color: var(--bx-martinique);
+  font-weight: 500;
+  background: var(--bx-lilac-darker);
+}
+
+.pilot-tabs-menu button[aria-selected='true']::after {
+  content: '';
+  flex: none;
+  width: 0.7rem;
+  height: 0.35rem;
+  margin-right: 0.15rem;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.pilot-tabs-menu button:hover,
+.pilot-tabs-menu button:focus-visible {
+  background: var(--bx-lilac-dark);
+}
+
+.pilot-tabs-menu button[aria-selected='true']:hover,
+.pilot-tabs-menu button[aria-selected='true']:focus-visible {
+  background: var(--bx-lilac-darker);
+}
+
+.pilot-tabs-menu button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.pilot-tabs-panels {
+  position: relative;
+  z-index: 1;
+}
+
+.pilot-tabs-panel {
+  display: none;
+}
+
+.pilot-tabs-panel[hidden] {
+  display: none !important;
+}
+
+.pilot-tabs-panel.is-active {
+  display: grid;
+  gap: 2rem;
+  animation: pilot-tabs-in 0.5s ease both;
+}
+
+.pilot-tabs-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1.25;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+}
+
+.pilot-tabs-body {
+  margin: 0 0 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--bx-fs-18);
+  line-height: 1.5;
+  color: var(--bx-black);
+}
+
+.pilot-tabs-media {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.pilot-tabs-media .media,
+.pilot-tabs-media .media--labeled,
+.pilot-tabs-media .image-slot--labeled {
+  width: 100%;
+  height: 11.563rem;
+  aspect-ratio: 16 / 9;
+  background: var(--bx-lilac-dark);
+}
+
+.pilot-tabs-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes pilot-tabs-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+@media (min-width: 48em) {
+  .pilot-tabs-dropwrap {
+    max-width: 26.5rem;
+  }
+
+  .pilot-tabs-media .media {
+    height: 24.188rem;
+  }
+
+  .pilot-tabs-body {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-tabs-head {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    align-items: end;
+  }
+
+  .pilot-tabs-heading {
+    grid-column: 1 / span 7;
+  }
+
+  .pilot-tabs-nav {
+    grid-column: 11 / span 6;
+    padding: 0;
+  }
+
+  .pilot-tabs-dropwrap {
+    max-width: none;
+  }
+
+  .pilot-tabs-panel.is-active {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .pilot-tabs-copy {
+    grid-column: 1 / span 6;
+    min-width: 0;
+  }
+
+  .pilot-tabs-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .pilot-tabs-body {
+    margin-bottom: 3rem;
+  }
+
+  .pilot-tabs-media {
+    grid-column: 8 / span 9;
+  }
+
+  .pilot-tabs-media .media {
+    height: 22.25rem;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-tabs-heading {
+    grid-column: 1 / span 8;
+  }
+
+  .pilot-tabs-nav {
+    grid-column: 12 / span 5;
+  }
+
+  .pilot-tabs-copy {
+    grid-column: 1 / span 5;
+  }
+
+  .pilot-tabs-media .media {
+    height: 24.75rem;
+  }
+}
+
+/* Home Why choose us — blackstone.com Private Wealth `.bx-two-up-content`
+   + `.bx-tickertape`. 16-col / 16px. See docs/refs/bx-private-wealth.md. */
+.pilot-why {
+  background: var(--bx-black);
+  color: #fff;
+}
+
+.pilot-why h2,
+.pilot-why h3,
+.pilot-why p {
+  color: #fff;
+}
+
+.pilot-why-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-why-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--type-h2-weight);
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: 0.008em;
+  max-width: none;
+}
+
+.pilot-why-copy {
+  margin: 2.5rem 0 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--bx-on-dark);
+}
+
+.pilot-why-cta {
+  margin-top: 3.5rem;
+}
+
+.pilot-why-card {
+  margin-top: 5rem;
+  background: color-mix(in srgb, var(--bx-white) 8%, var(--bx-black));
+  padding: 3rem 1rem;
+}
+
+.pilot-why-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pilot-why-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.pilot-why-row:first-child {
+  padding-top: 0;
+  border-bottom: 1.5px solid var(--bx-on-dark-rule);
+}
+
+.pilot-why-row:nth-child(2) {
+  padding-top: 2.5rem;
+  border-bottom: 0.094rem solid var(--bx-on-dark-rule);
+}
+
+.pilot-why-row:last-child {
+  padding-bottom: 0;
+}
+
+.pilot-why-row-copy {
+  min-width: 0;
+}
+
+.pilot-why-row-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.pilot-why-row-body {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--bx-on-dark);
+}
+
+.pilot-why-step {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: 0.008em;
+  color: #fff;
+  min-width: 1.25em;
+  text-align: right;
+}
+
+.pilot-why-tape {
+  display: block;
+  overflow: hidden;
+  margin-top: 5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pilot-why-tape:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+.pilot-why-tape-track {
+  display: flex;
+  width: max-content;
+  animation: pilot-why-tape 24s linear infinite;
+}
+
+.pilot-why-tape-item {
+  flex: none;
+  margin-right: 7.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.pilot-why-tape-item strong {
+  font-weight: 700;
+}
+
+@keyframes pilot-why-tape {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@media (min-width: 26em) {
+  .pilot-why-card {
+    padding: 3rem 1.5rem;
+  }
+
+  .pilot-why-tape-item {
+    font-size: 4.5rem;
+    margin-right: 8rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .pilot-why-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    grid-template-areas:
+      'eyebrow eyebrow eyebrow eyebrow eyebrow . . .'
+      'title title title title title . . .'
+      '. copy copy copy copy copy copy .'
+      'cta cta cta cta cta cta cta cta'
+      'card card card card card card card card';
+  }
+
+  /* Placement only — the eyebrow's size and gap come from the global `.eyebrow`. */
+  .pilot-why-eyebrow {
+    grid-area: eyebrow;
+  }
+
+  .pilot-why-title {
+    grid-area: title;
+    font-size: 2.5rem;
+  }
+
+  .pilot-why-copy {
+    grid-area: copy;
+    margin-top: 2.5rem;
+  }
+
+  .pilot-why-cta {
+    grid-area: cta;
+    margin-top: 3.5rem;
+  }
+
+  .pilot-why-card {
+    grid-area: card;
+    margin-top: 5rem;
+    padding: 3.5rem 5.5rem;
+  }
+
+  .pilot-why-row {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .pilot-why-row:nth-child(2) {
+    padding-top: 2rem;
+  }
+
+  .pilot-why-row-copy {
+    width: 65%;
+  }
+
+  .pilot-why-tape {
+    margin-top: 6rem;
+  }
+
+  .pilot-why-tape-item {
+    font-size: 6.5rem;
+    margin-right: 8.5rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-why-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    grid-template-areas:
+      'eyebrow eyebrow eyebrow eyebrow eyebrow eyebrow . . . . . . . . . .'
+      'title title title title title title . . card card card card card card card card'
+      '. copy copy copy copy copy . . card card card card card card card card'
+      'cta cta cta cta cta cta . . card card card card card card card card';
+    align-items: start;
+  }
+
+  .pilot-why-copy {
+    margin-top: 3rem;
+  }
+
+  .pilot-why-cta {
+    margin-top: 3.5rem;
+  }
+
+  .pilot-why-card {
+    margin-top: 0;
+    padding: 3.5rem 4.5rem;
+  }
+
+  .pilot-why-tape {
+    margin-top: 9rem;
+  }
+
+  .pilot-why-tape-item {
+    font-size: 10.5rem;
+    margin-right: 12rem;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-why-title {
+    font-size: 3rem;
+  }
+
+  .pilot-why-copy {
+    margin-top: 3.5rem;
+  }
+
+  .pilot-why-cta {
+    margin-top: 4rem;
+  }
+
+  .pilot-why-card {
+    padding: 4rem 5rem;
+  }
+
+  .pilot-why-row {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .pilot-why-row:nth-child(2) {
+    padding-top: 2.5rem;
+  }
+
+  .pilot-why-tape {
+    margin-top: 10rem;
+  }
+
+  .pilot-why-tape-item {
+    font-size: 12rem;
+    margin-right: 13.5rem;
+  }
+}
+
+/* BMACX `bx-link-list` — home Services only (`.pilot-ll-*`).
+   Source: bmacx.com “Explore More About BMACX”, blackstone-v2 frontend.css
+   (Wayback 20261001234616) + frontend.js tabsscript mouseover. */
+.pilot-ll-section {
+  background: #fff;
+  color: var(--bx-black);
+}
+
+/* `/services` — the identical head and rows, standing as a page header instead
+   of a mid-page band (PilotLinkList `pageHeader`). Page-header pad top, the
+   standard section pad at the foot, and the shared heading -> content gap, so
+   the page opens like every other inner page. `[data-band]` sets the band pad
+   at equal specificity, hence the element+attribute selector, same as about.css. */
+section.pilot-ll-section--page-header[data-band='light'] {
+  padding-block: var(--page-header-pt) var(--pilot-section-y);
+}
+
+.pilot-ll-section--page-header .pilot-ll-head {
+  margin-bottom: var(--space-head-to-content);
+}
+
+.pilot-ll-head h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+.pilot-ll-head {
+  margin-bottom: var(--pilot-heading-to-items);
+}
+
+.pilot-ll-head h2 {
+  margin: 0;
+}
+
+.pilot-ll {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pilot-ll-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'main btn'
+    'desc desc';
+  align-items: start;
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-12);
+  padding-block: var(--bx-space-32);
+  border-top: 2px solid var(--bx-black);
+  color: var(--bx-black);
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.pilot-ll li:last-child .pilot-ll-row {
+  border-bottom: 2px solid var(--bx-black);
+}
+
+/* BMACX `.bx-link-list__animated:after`: 2px bottom rule, scaleX, origin left.
+   Hover draws 0.5s ease-out. Mouse-out snaps off (no reverse animation);
+   the static divider stays at 40% under the draw so rows stay split. */
+.pilot-ll-row::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -2px;
+  border-bottom: solid 2px var(--bx-black);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  pointer-events: none;
+}
+
+.pilot-ll li:last-child .pilot-ll-row::after {
+  bottom: -2px;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.5s ease-out;
+}
+
+.pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
+  border-top-color: var(--ink-a40);
+}
+
+.pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
+  border-bottom-color: var(--ink-a40);
+}
+
+@media (min-width: 768px) {
+  .pilot-ll-row {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-areas: none;
+    padding-block: var(--bx-space-40);
+    row-gap: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-ll-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Sibling recede: non-hovered/focused rows at 36% (BMACX `.bx-link-list__title-animation`). */
+.pilot-ll:is(:hover, :focus-within) .pilot-ll-row {
+  opacity: 0.36;
+}
+
+.pilot-ll:is(:hover, :focus-within) .pilot-ll-row:is(:hover, :focus-visible),
+.pilot-ll-row:is(:hover, :focus-visible) {
+  opacity: 1;
+}
+
+.pilot-ll-main {
+  grid-area: main;
+  min-width: 0;
+}
+
+.pilot-ll-title {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+  color: var(--bx-black);
+}
+
+.pilot-ll-range {
+  display: block;
+  margin-top: 1em;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-18);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.pilot-ll-desc {
+  grid-area: desc;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--bx-black);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.pilot-ll-btn {
+  grid-area: btn;
+  align-self: center;
+  justify-self: end;
+  line-height: 0;
+}
+
+@media (min-width: 768px) {
+  .pilot-ll-main {
+    grid-area: auto;
+    grid-column: 1 / span 4;
+  }
+
+  .pilot-ll-desc {
+    grid-area: auto;
+    grid-column: 5 / span 3;
+    align-self: start;
+  }
+
+  .pilot-ll-btn {
+    grid-area: auto;
+    grid-column: 8;
+  }
+
+  .pilot-ll-title {
+    font-size: 1.75rem;
+  }
+
+  .pilot-ll-range {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-ll-main {
+    grid-column: 1 / span 6;
+  }
+
+  .pilot-ll-desc {
+    grid-column: 8 / span 4;
+  }
+
+  .pilot-ll-btn {
+    grid-column: 12;
+  }
+}
+
+.pilot-ll-icon {
+  display: block;
+  width: var(--bx-space-32);
+  height: var(--bx-space-32);
+  color: var(--bx-black);
+  transition: transform 0.3s;
+}
+
+@media (min-width: 768px) {
+  .pilot-ll-icon {
+    width: var(--bx-space-40);
+    height: var(--bx-space-40);
+  }
+}
+
+@media (min-width: 1440px) {
+  .pilot-ll-icon {
+    width: var(--bx-space-48);
+    height: var(--bx-space-48);
+  }
+}
+
+.pilot-ll-icon-fill {
+  opacity: 0;
+}
+
+.pilot-ll-icon-arrow,
+.pilot-ll-icon-fill {
+  transition: opacity 0.3s;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon {
+  transform: scale(1.1666666667);
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon-fill {
+  opacity: 1;
+}
+
+.pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon-arrow {
+  opacity: 0;
+}
+
+.pilot-ll-row:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+/* Insights / industry image cards. */
+.pilot-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.pilot-card-media {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--color-tint);
+}
+
+.pilot-card-media .media,
+.pilot-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 350ms ease;
+}
+
+.pilot-card:hover .pilot-card-media img,
+.pilot-card:hover .pilot-card-media .media,
+.pilot-card:focus-visible .pilot-card-media img,
+.pilot-card:focus-visible .pilot-card-media .media {
+  transform: scale(1.06);
+}
+
+.pilot-card-kicker {
+  margin: var(--bx-space-24) 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: var(--bx-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--bx-black);
+}
+
+.pilot-card-title {
+  margin-top: 0.75rem;
+}
+
+.pilot-card-title-text {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.pilot-card:hover .pilot-card-title-text,
+.pilot-card:focus-visible .pilot-card-title-text {
+  background-size: 100% 1px;
+}
+
+.pilot-card-body {
+  margin-top: 0.75rem;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.pilot-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+/* Home Insights — BX Life Sciences horizontal-static-list.
+   Measured 1440 / 1280; docs/refs/bx-life-sciences-news.md. 16-col / 16px. */
+.pilot-news {
+  background: #fff;
+  color: var(--bx-black);
+}
+
+.pilot-news-head {
+  padding-bottom: var(--pilot-heading-to-items);
+}
+
+.pilot-news-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--type-h2-weight);
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--bx-black);
+}
+
+.pilot-news-grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4.5rem;
+}
+
+.pilot-news-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.pilot-news-media {
+  overflow: hidden;
+  width: 100%;
+  max-width: 20.5rem;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 2rem;
+  background: var(--color-tint);
+}
+
+.pilot-news-media .media,
+.pilot-news-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pilot-news-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pilot-news-title {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  /* Mobile matches the 25/36 h3 approved on the service pages; 48em+ stays 20/32. */
+  font-size: 1.5625rem;
+  line-height: 2.25rem;
+  letter-spacing: 0.008em;
+  color: var(--bx-black);
+}
+
+.pilot-news-excerpt {
+  margin: 0 0 2rem;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--bx-black);
+}
+
+.pilot-news-more {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  color: var(--bx-black);
+}
+
+.pilot-news-more-label {
+  display: inline-block;
+  margin-right: 1rem;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.688rem;
+  letter-spacing: 0.016em;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.063rem;
+  transition: background-size 0.3s;
+  vertical-align: -0.1em;
+}
+
+.pilot-news-icon {
+  display: inline-block;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  color: var(--bx-black);
+  transition: transform 0.3s;
+}
+
+.pilot-news-icon-fill {
+  opacity: 0;
+}
+
+.pilot-news-icon-arrow,
+.pilot-news-icon-fill {
+  transition: opacity 0.3s;
+}
+
+.pilot-news-card:hover .pilot-news-more-label,
+.pilot-news-card:focus-visible .pilot-news-more-label {
+  background-size: 100% 0.063rem;
+}
+
+.pilot-news-card:hover .pilot-news-icon,
+.pilot-news-card:focus-visible .pilot-news-icon {
+  transform: scale(1.1666666667);
+}
+
+.pilot-news-card:hover .pilot-news-icon-fill,
+.pilot-news-card:focus-visible .pilot-news-icon-fill {
+  opacity: 1;
+}
+
+.pilot-news-card:hover .pilot-news-icon-arrow,
+.pilot-news-card:focus-visible .pilot-news-icon-arrow {
+  opacity: 0;
+}
+
+.pilot-news-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+@media (min-width: 26em) {
+  .pilot-news-media {
+    max-width: 23rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .pilot-news-head h2 {
+    font-size: 2.5rem;
+    line-height: 1.5;
+  }
+
+  .pilot-news-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 5rem;
+  }
+
+  .pilot-news-card:nth-child(odd) {
+    grid-column: 1 / span 4;
+    padding-right: 1.5rem;
+  }
+
+  .pilot-news-card:nth-child(even) {
+    grid-column: 5 / span 4;
+    padding-left: 1.5rem;
+  }
+
+  .pilot-news-media {
+    max-width: 19.5rem;
+  }
+
+  .pilot-news-title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 80em) {
+  .pilot-news-head h2 {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .pilot-news-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 88px;
+    padding-top: 0;
+  }
+
+  .pilot-news-card:nth-child(odd),
+  .pilot-news-card:nth-child(even) {
+    grid-column: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .pilot-news-card:nth-of-type(3n-2) {
+    grid-column: 1 / span 5;
+    padding-left: 0;
+    padding-right: 24px;
+  }
+
+  .pilot-news-card:nth-of-type(3n-1) {
+    grid-column: 6 / span 6;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .pilot-news-card:nth-of-type(3n) {
+    grid-column: 12 / span 5;
+    padding-left: 24px;
+    padding-right: 0;
+  }
+
+  .pilot-news-media {
+    width: 20rem;
+    height: 11.25rem;
+    max-width: none;
+    aspect-ratio: auto;
+    margin-bottom: 32px;
+  }
+
+  .pilot-news-title {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 24px;
+  }
+
+  .pilot-news-excerpt {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+@media (min-width: 90em) {
+  .pilot-news-head h2 {
+    font-size: 48px;
+    line-height: 72px;
+  }
+
+  .pilot-news-grid {
+    row-gap: 104px;
+    padding-top: 0;
+  }
+
+  .pilot-news-card:nth-of-type(3n-2) {
+    padding-right: 32px;
+  }
+
+  .pilot-news-card:nth-of-type(3n-1) {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .pilot-news-card:nth-of-type(3n) {
+    padding-left: 32px;
+  }
+
+  .pilot-news-media {
+    width: 22rem;
+    height: 12.375rem;
+  }
+
+  .pilot-news-title {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .pilot-news-excerpt {
+    font-size: 18px;
+    line-height: 27px;
+    margin-bottom: 40px;
+  }
+}
+
+/* Process — type only. */
+.pilot-step-num {
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  line-height: 1;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+
+.pilot-step-title {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-step-body {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-step-note {
+  margin-top: var(--bx-space-16);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* BREIT quote split. */
+.pilot-quote {
+  display: grid;
+  grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-40);
+  align-items: stretch;
+  width: 100%;
+}
+
+.pilot-quote-photo {
+  background: var(--color-tint);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.pilot-quote-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.pilot-quote-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bx-space-40);
+  min-height: 100%;
+}
+
+.pilot-quote blockquote {
+  margin: 0;
+}
+
+.pilot-quote-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 2vw + 1rem, 3rem);
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.pilot-quote-attr {
+  text-align: right;
+  margin-top: auto;
+}
+
+.pilot-quote-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.pilot-quote-role {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* FAQ accordion. */
+.pilot-acc {
+  border-top: 1px solid var(--color-line);
+}
+
+.pilot-acc-item {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pilot-acc-item h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.pilot-acc-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.35rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.pilot-acc-item.is-open .pilot-acc-trigger {
+  color: var(--color-ink);
+}
+
+.pilot-acc-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.pilot-acc-icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.pilot-acc-item.is-open .pilot-acc-icon {
+  background-color: var(--bx-black);
+  border-color: var(--bx-black);
+  color: #fff;
+  transform: rotate(180deg);
+}
+
+.pilot-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 350ms ease;
+}
+
+.pilot-acc-item.is-open .pilot-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.pilot-acc-panel-inner {
+  overflow: hidden;
+}
+
+.pilot-acc-panel-inner p,
+.pilot-acc-panel-inner ul {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  font-size: var(--bx-fs-16);
+}
+
+.pilot-acc-panel-inner ul {
+  padding-left: 1.125em;
+  list-style: square;
+}
+
+.pilot-acc-panel-inner li + li {
+  margin-top: 0.75rem;
+}
+
+/* BXCI Credit strategies variant. */
+.pilot-acc--strategies {
+  border-top-color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item {
+  border-bottom-color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item h3 {
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+}
+
+.pilot-acc--strategies .pilot-acc-trigger {
+  color: var(--color-ink);
+  padding-block: var(--bx-space-24);
+}
+
+@media (min-width: 768px) {
+  .pilot-acc--strategies .pilot-acc-trigger {
+    padding-block: var(--bx-space-32);
+  }
+}
+
+.pilot-acc--strategies .pilot-acc-icon {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-ink);
+}
+
+.pilot-acc--strategies .pilot-acc-item.is-open .pilot-acc-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--bx-black);
+  border-radius: 50%;
+  background-color: var(--bx-black);
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .pilot-acc--strategies .pilot-acc-panel-inner p,
+  .pilot-acc--strategies .pilot-acc-panel-inner ul {
+    max-width: 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pilot-why-tape-track {
+    animation: none;
+  }
+
+  .pilot-arrow-label,
+  .pilot-circle,
+  .pilot-acc-icon,
+  .pilot-acc-panel,
+  .pilot-card-media img,
+  .pilot-card-media .media,
+  .pilot-card-title-text,
+  .pilot-news-more-label,
+  .pilot-news-icon,
+  .pilot-news-icon-arrow,
+  .pilot-news-icon-fill,
+  .pilot-ll-row,
+  .pilot-ll-icon,
+  .pilot-ll-icon-arrow,
+  .pilot-ll-icon-fill,
+  .pilot-ll-row::after {
+    transition: none;
+    animation: none;
+  }
+
+  .pilot-ll-row:is(:hover, :focus-visible) .pilot-ll-icon {
+    transform: none;
+  }
+
+  /* Drop the draw overlay; static 2px rules already mark each edge. */
+  .pilot-ll-row::after {
+    display: none;
+  }
+
+  .pilot-tabs-drop svg,
+  .pilot-tabs-panel.is-active {
+    animation: none;
+    transition: none;
+  }
+
+  .pilot-ll li:has(.pilot-ll-row:is(:hover, :focus-visible)) + li .pilot-ll-row {
+    border-top-color: var(--bx-black);
+  }
+
+  .pilot-ll li:last-child .pilot-ll-row:is(:hover, :focus-visible) {
+    border-bottom-color: var(--bx-black);
+  }
+
+  .pilot-card:hover .pilot-card-media img,
+  .pilot-card:hover .pilot-card-media .media {
+    transform: none;
+  }
+
+  .pilot-news-card:hover .pilot-news-icon,
+  .pilot-news-card:focus-visible .pilot-news-icon {
+    transform: none;
+  }
+
+  html.has-js [data-reveal],
+  html.has-js [data-reveal-media] img,
+  html.has-js [data-reveal-media] .media,
+  html.has-js [data-reveal-stat],
+  html.has-js [data-reveal-stat='value'] {
+    opacity: 1;
+    transform: none;
+    color: inherit;
+    background: none;
+    animation: none;
+    visibility: visible;
+  }
+
+
+  html.has-js .pilot-reveal-curtain {
+    display: none;
+  }
+}
+
+/* BXCI / blackstone-v2 scroll-in. Hidden only when JS opted in; no-JS stays visible. */
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  html.has-js [data-reveal-stat] {
+    opacity: 0;
+  }
+
+  html.has-js [data-reveal-stat].is-active {
+    animation: pilot-fade-in 0.75s forwards;
+  }
+
+  html.has-js [data-reveal-stat='value'].is-active {
+    animation: pilot-fade-in 0.75s 0.15s both;
+  }
+
+
+  html.has-js [data-reveal-media] {
+    position: relative;
+  }
+
+  html.has-js [data-reveal-media] img,
+  html.has-js [data-reveal-media] .media {
+    opacity: 0;
+  }
+
+  html.has-js [data-reveal-media].is-on img,
+  html.has-js [data-reveal-media].is-on .media {
+    animation: pilot-image-fade-in 0.5s 0.4s forwards;
+  }
+
+  .pilot-reveal-curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    height: 0;
+    background: var(--bx-black);
+    pointer-events: none;
+  }
+
+  .pilot-reveal-curtain.is-on {
+    animation: pilot-curtain-reveal 1s forwards;
+  }
+}
+
+@keyframes pilot-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pilot-divider-line {
+  0%,
+  20% {
+    transform: scaleX(0);
+  }
+  40%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pilot-curtain-reveal {
+  0% {
+    bottom: 0;
+    height: 0;
+  }
+  50% {
+    bottom: 0;
+    height: 100%;
+  }
+  to {
+    bottom: 100%;
+    height: 0;
+  }
+}
+
+@keyframes pilot-image-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Inner-page patterns — answer, glance, fit, trust, intent, docs. */
+.pilot-answer-lead {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.pilot-answer-list {
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-answer-list li {
+  position: relative;
+  padding-left: var(--bx-space-24);
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-answer-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-answer-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 8px;
+  height: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+
+.pilot-glance {
+  padding-block: var(--bx-space-40);
+  background: #fff;
+  border-block: 1px solid var(--color-line);
+}
+
+.pilot-section .pilot-glance {
+  margin-top: var(--bx-space-40);
+  padding-block: var(--bx-space-32);
+  border-bottom: 0;
+}
+
+.pilot-glance-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-glance-cell {
+  min-width: 0;
+}
+
+.pilot-glance-value,
+.pilot-glance-label {
+  margin: 0;
+}
+
+.pilot-glance-value {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.pilot-glance--copy .pilot-glance-value {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+}
+
+.pilot-glance-label {
+  margin-top: var(--bx-space-8);
+  font-size: var(--bx-fs-14);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.pilot-section-note {
+  margin-top: var(--bx-space-24);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.pilot-fit-list,
+.pilot-docs-list,
+.pilot-product-list,
+.pilot-text-band,
+.pilot-intent-grid,
+.pilot-trust-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--bx-space-40);
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-fit-item,
+.pilot-docs-item,
+.pilot-product-item,
+.pilot-text-band li {
+  min-width: 0;
+}
+
+.pilot-docs-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--bx-space-16);
+  align-items: start;
+}
+
+.pilot-docs-item .pilot-step-title {
+  margin-top: 0;
+}
+
+.pilot-intent-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.pilot-intent-title {
+  margin: 0;
+}
+
+.pilot-intent-body {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-intent-hint {
+  margin-top: var(--bx-space-16);
+  font-size: var(--bx-fs-14);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.pilot-intent-go {
+  display: inline-flex;
+  margin-top: auto;
+  padding-top: var(--bx-space-24);
+}
+
+.pilot-intent-card:hover .pilot-intent-title,
+.pilot-intent-card:focus-visible .pilot-intent-title {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+}
+
+.pilot-intent-card:hover .pilot-circle,
+.pilot-intent-card:focus-visible .pilot-circle {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.pilot-trust-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--bx-fs-32);
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.pilot-trust-label {
+  margin: var(--bx-space-8) 0 0;
+  font-size: var(--bx-fs-14);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.pilot-trust-phone {
+  margin-top: var(--bx-space-40);
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+}
+
+.pilot-product-item .pilot-arrow {
+  margin-top: var(--bx-space-24);
+}
+
+.pilot-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bx-space-24);
+  margin-top: var(--bx-space-40);
+}
+
+.pilot-people-grid,
+.pilot-sector-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--bx-space-16) var(--bx-gutter);
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-people-grid li,
+.pilot-sector-list a {
+  font-size: var(--bx-fs-16);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.pilot-contact-list {
+  margin: var(--bx-space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pilot-contact-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.pilot-quote-bio {
+  display: block;
+  margin-top: var(--bx-space-8);
+  font-size: var(--bx-fs-14);
+  line-height: 1.3;
+  color: var(--color-muted);
+}
+
+.pilot-acc-panel-inner a {
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .pilot-glance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-fit-list,
+  .pilot-intent-grid,
+  .pilot-product-list,
+  .pilot-text-band,
+  .pilot-trust-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-people-grid,
+  .pilot-sector-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-glance-grid,
+  .pilot-trust-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pilot-fit-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pilot-intent-grid,
+  .pilot-text-band:has(> :nth-child(4)) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pilot-text-band:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pilot-product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pilot-page-hero-cta {
+    margin-top: 0;
+  }
+}

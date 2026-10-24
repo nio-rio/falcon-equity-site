@@ -1,0 +1,15 @@
+---
+/**
+ * Construction industry page (construction). Copy contract: nio rio Notion
+ * "Construction industry page – content outline (stage 1)" (402eacd0-19c7-8150-bb4a-dd81fe940ef5), approved 23 Oct 2026.
+ *
+ * Copy lives in `src/data/industry-pages.ts`; the five bands are the shared
+ * `IndustryPage` component, which is the approved retail page's build.
+ */
+import IndustryPage from '@/components/IndustryPage.astro';
+import { INDUSTRY_PAGES } from '@/data/industry-pages';
+
+const content = INDUSTRY_PAGES['construction'];
+---
+
+<IndustryPage content={content} />

@@ -1,0 +1,6710 @@
+{
+ "capturedAt": "2026-10-22T06:24:08.500480Z",
+ "note": "Captured from Wayback snapshots (live blackstone.com is Cloudflare-gated here)",
+ "pages": {
+  "PE": {
+   "prefix": "PE",
+   "name": "Private Equity",
+   "url": "https://www.blackstone.com/our-businesses/private-equity/",
+   "kind": "bx",
+   "desktop": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom       wp-block-blackstone-v2-page-header",
+     "y": 204,
+     "w": 1425,
+     "h": 284,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "48px",
+     "padB": "120px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Private Equity",
+       "fontSize": "56px",
+       "lineHeight": "84px",
+       "fontWeight": "300",
+       "letterSpacing": "0.448px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "We play a vital role in helping companies realize their growth potential. We uncover and unlock value by identifying great companies with untapped potential and enhancing their performance.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 30,
+     "preview": "Private Equity We play a vital role in helping companies realize their growth potential. We uncover and unlock value by identifying great companies with untapped potential and enhancing their performance.",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-01",
+     "file": "docs/section-library/img/PE-01-d.png"
+    },
+    {
+     "index": 1,
+     "blockType": "hero-media",
+     "idAttr": "",
+     "class": "bx-block-component bx-hero-media_video-icon-color-black alignfull bx-hero-media bx-hero-media__is-custom-default bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom  wp-block-b",
+     "y": 488,
+     "w": 1425,
+     "h": 646,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "104px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "16px",
+       "colGap": "16px",
+       "rowGap": "16px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 1264,
+       "h": 542,
+       "aspect": 2.333,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-02",
+     "file": "docs/section-library/img/PE-02-d.png"
+    },
+    {
+     "index": 2,
+     "blockType": "stat-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-stat__ui bx-stat alignfull   bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-stat-block",
+     "y": 1134,
+     "w": 1425,
+     "h": 621,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H4",
+       "text": "Corporate Private Equity AUM",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Available Capital to Invest",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "300",
+       "letterSpacing": "0.128px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Portfolio Companies",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "300",
+       "letterSpacing": "0.128px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Note: All figures as of June 30, 2026, unless otherwise indicated.",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 24,
+     "preview": "Corporate Private Equity AUM $174B Available Capital to Invest $43B Portfolio Companies 104 Note: All figures as of June 30, 2026, unless otherwise indicated.",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "1264px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "24px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 7,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-03",
+     "file": "docs/section-library/img/PE-03-d.png"
+    },
+    {
+     "index": 3,
+     "blockType": "vertical-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-vertical-list alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-vertical-list",
+     "y": 1755,
+     "w": 1425,
+     "h": 1488,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHAT WE DO",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "We invest across industries in both established and growth-oriented businesses across the globe.",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Disciplined Due Diligence",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Transformative Impact",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Staying Power",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHAT WE DO",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(255, 255, 255)"
+     },
+     "body": {
+      "text": "Our investment approach is based on a disciplined due diligence process that measures risk while identifying the catalysts for increased value. We engage only in friendly transactions and work with ta",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 125,
+     "preview": "WHAT WE DO We invest across industries in both established and growth-oriented businesses across the globe. Disciplined Due Diligence Our investment approach is based on a disciplined due diligence process that measures risk while identifying the catalysts for increased value. We engage only in friendly transactions an",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 624,
+       "h": 832,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-04",
+     "file": "docs/section-library/img/PE-04-d.png"
+    },
+    {
+     "index": 4,
+     "blockType": "horizontal-static-list",
+     "idAttr": "our-portfolio",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-base-padding-top bx-component-base-padding-bottom   wp-block-blackstone-v",
+     "y": 3243,
+     "w": 1425,
+     "h": 2074,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "OUR PORTFOLIO",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Jersey Mike\u2019s",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Copeland",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Adevinta",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Medline",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "OUR PORTFOLIO",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Jersey Mike\u2019s Subs is a leading franchisor of fast-casual submarine sandwich stores, known for its fresh sliced and grilled subs on in-store freshly baked bread. Blackstone has deep experience helping",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 235,
+     "preview": "OUR PORTFOLIO We are proud of Blackstone\u2019s role as a positive economic catalyst for the companies in our Corporate Private Equity portfolio. We work to identify, invest in and enhance the value of great businesses. Jersey Mike\u2019s Jersey Mike\u2019s Subs is a leading franchisor of fast-casual submarine sandwich stores, known ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "104px 16px",
+       "colGap": "16px",
+       "rowGap": "104px",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 464,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 40,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 12
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "PE-05",
+     "file": "docs/section-library/img/PE-05-d.png"
+    },
+    {
+     "index": 5,
+     "blockType": "accordion",
+     "idAttr": "",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-option5-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 5316,
+     "w": 1425,
+     "h": 484,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "16px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H4",
+       "text": "Legence",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "TDI",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Ancestry",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 3,
+     "preview": "Legence TDI Ancestry",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 2
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "PE-06",
+     "file": "docs/section-library/img/PE-06-d.png"
+    },
+    {
+     "index": 6,
+     "blockType": "horizontal-static-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom   wp-bloc",
+     "y": 5800,
+     "w": 1425,
+     "h": 1182,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "NEWS & INSIGHTS",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Bloomberg: Joe Baratta on Investment Opportunities in Electrification and Power Demand",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Propelling the Growth of Leading Franchisors",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Supporting Opportunity Through Shared Ownership",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "NEWS & INSIGHTS",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Joe Baratta, Global Head of Private Equity Strategies, speaks on Bloomberg TV about the investment opportunities Blackstone sees in areas like energy and power that are fueling the AI revolution, as w",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 167,
+     "preview": "NEWS & INSIGHTS Updates from Private Equity Bloomberg: Joe Baratta on Investment Opportunities in Electrification and Power Demand Joe Baratta, Global Head of Private Equity Strategies, speaks on Bloomberg TV about the investment opportunities Blackstone sees in areas like energy and power that are fueling the AI revol",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "104px 16px",
+       "colGap": "16px",
+       "rowGap": "104px",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 464,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 30,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 9
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "PE-07",
+     "file": "docs/section-library/img/PE-07-d.png"
+    },
+    {
+     "index": 7,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 6982,
+     "w": 1425,
+     "h": 723,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cWe are constantly looking for situations where we are able to add value in a way that our competitors don\u2019t.\u201d",
+      "fontSize": "40px",
+      "lineHeight": "60px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 36,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cWe are constantly looking for situations where we are able to add value in a way that our competitors don\u2019t.\u201d Joseph Baratta Global Head of Private Equity Strategies",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 304,
+       "h": 403,
+       "aspect": 0.754,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "PE-08",
+     "file": "docs/section-library/img/PE-08-d.png"
+    }
+   ],
+   "mobile": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom       wp-block-blackstone-v2-page-header",
+     "y": 112,
+     "w": 375,
+     "h": 347,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Private Equity",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "We play a vital role in helping companies realize their growth potential. We uncover and unlock value by identifying great companies with untapped potential and enhancing their performance.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 30,
+     "preview": "Private Equity We play a vital role in helping companies realize their growth potential. We uncover and unlock value by identifying great companies with untapped potential and enhancing their performance.",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-01",
+     "file": "docs/section-library/img/PE-01-m.png"
+    },
+    {
+     "index": 1,
+     "blockType": "hero-media",
+     "idAttr": "",
+     "class": "bx-block-component bx-hero-media_video-icon-color-black alignfull bx-hero-media bx-hero-media__is-custom-default bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom  wp-block-b",
+     "y": 459,
+     "w": 375,
+     "h": 477,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "40px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "16px",
+       "colGap": "16px",
+       "rowGap": "16px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 437,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-02",
+     "file": "docs/section-library/img/PE-02-m.png"
+    },
+    {
+     "index": 2,
+     "blockType": "stat-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-stat__ui bx-stat alignfull   bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-stat-block",
+     "y": 936,
+     "w": 375,
+     "h": 744,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H4",
+       "text": "Corporate Private Equity AUM",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Available Capital to Invest",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "300",
+       "letterSpacing": "0.128px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Portfolio Companies",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "300",
+       "letterSpacing": "0.128px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Note: All figures as of June 30, 2026, unless otherwise indicated.",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 24,
+     "preview": "Corporate Private Equity AUM $174B Available Capital to Invest $43B Portfolio Companies 104 Note: All figures as of June 30, 2026, unless otherwise indicated.",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "16px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 7,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-03",
+     "file": "docs/section-library/img/PE-03-m.png"
+    },
+    {
+     "index": 3,
+     "blockType": "vertical-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-vertical-list alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-vertical-list",
+     "y": 1680,
+     "w": 375,
+     "h": 1793,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHAT WE DO",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "We invest across industries in both established and growth-oriented businesses across the globe.",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Disciplined Due Diligence",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Transformative Impact",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Staying Power",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHAT WE DO",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(255, 255, 255)"
+     },
+     "body": {
+      "text": "Our investment approach is based on a disciplined due diligence process that measures risk while identifying the catalysts for increased value. We engage only in friendly transactions and work with ta",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 125,
+     "preview": "WHAT WE DO We invest across industries in both established and growth-oriented businesses across the globe. Disciplined Due Diligence Our investment approach is based on a disciplined due diligence process that measures risk while identifying the catalysts for increased value. We engage only in friendly transactions an",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 437,
+       "aspect": 0.751,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "PE-04",
+     "file": "docs/section-library/img/PE-04-m.png"
+    },
+    {
+     "index": 4,
+     "blockType": "horizontal-static-list",
+     "idAttr": "our-portfolio",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-base-padding-top bx-component-base-padding-bottom   wp-block-blackstone-v",
+     "y": 3473,
+     "w": 375,
+     "h": 3310,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "OUR PORTFOLIO",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Jersey Mike\u2019s",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Copeland",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Adevinta",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Medline",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "OUR PORTFOLIO",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Jersey Mike\u2019s Subs is a leading franchisor of fast-casual submarine sandwich stores, known for its fresh sliced and grilled subs on in-store freshly baked bread. Blackstone has deep experience helping",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 235,
+     "preview": "OUR PORTFOLIO We are proud of Blackstone\u2019s role as a positive economic catalyst for the companies in our Corporate Private Equity portfolio. We work to identify, invest in and enhance the value of great businesses. Jersey Mike\u2019s Jersey Mike\u2019s Subs is a leading franchisor of fast-casual submarine sandwich stores, known ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "72px 16px",
+       "colGap": "16px",
+       "rowGap": "72px",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 40,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 12
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "PE-05",
+     "file": "docs/section-library/img/PE-05-m.png"
+    },
+    {
+     "index": 5,
+     "blockType": "accordion",
+     "idAttr": "",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-option5-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 6783,
+     "w": 375,
+     "h": 356,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "16px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H4",
+       "text": "Legence",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "TDI",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Ancestry",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 3,
+     "preview": "Legence TDI Ancestry",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 2
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "PE-06",
+     "file": "docs/section-library/img/PE-06-m.png"
+    },
+    {
+     "index": 6,
+     "blockType": "horizontal-static-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom   wp-bloc",
+     "y": 7139,
+     "w": 375,
+     "h": 2280,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "NEWS & INSIGHTS",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Bloomberg: Joe Baratta on Investment Opportunities in Electrification and Power Demand",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Propelling the Growth of Leading Franchisors",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Supporting Opportunity Through Shared Ownership",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "NEWS & INSIGHTS",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Joe Baratta, Global Head of Private Equity Strategies, speaks on Bloomberg TV about the investment opportunities Blackstone sees in areas like energy and power that are fueling the AI revolution, as w",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 167,
+     "preview": "NEWS & INSIGHTS Updates from Private Equity Bloomberg: Joe Baratta on Investment Opportunities in Electrification and Power Demand Joe Baratta, Global Head of Private Equity Strategies, speaks on Bloomberg TV about the investment opportunities Blackstone sees in areas like energy and power that are fueling the AI revol",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "72px 16px",
+       "colGap": "16px",
+       "rowGap": "72px",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 30,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 9
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "PE-07",
+     "file": "docs/section-library/img/PE-07-m.png"
+    },
+    {
+     "index": 7,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 9419,
+     "w": 375,
+     "h": 913,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cWe are constantly looking for situations where we are able to add value in a way that our competitors don\u2019t.\u201d",
+      "fontSize": "24px",
+      "lineHeight": "36px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 36,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cWe are constantly looking for situations where we are able to add value in a way that our competitors don\u2019t.\u201d Joseph Baratta Global Head of Private Equity Strategies",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "0px 0px 0px 0px 0px 328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "82px 82px 82px 82px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 435,
+       "aspect": 0.754,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "PE-08",
+     "file": "docs/section-library/img/PE-08-m.png"
+    }
+   ],
+   "chrome": []
+  },
+  "APM": {
+   "prefix": "APM",
+   "name": "Accessing Private Markets",
+   "url": "https://www.blackstone.com/pws/accessing-private-markets/",
+   "kind": "bx",
+   "desktop": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom     bx-component-option3-bottom wp-block-b",
+     "y": 204,
+     "w": 1425,
+     "h": 228,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "48px",
+     "padB": "64px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Accessing Private Markets",
+       "fontSize": "56px",
+       "lineHeight": "84px",
+       "fontWeight": "300",
+       "letterSpacing": "0.448px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Private markets are more accessible to individual investors today amid the rise of perpetual funds.\n\nDownload brochure",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 20,
+     "preview": "Accessing Private Markets Private markets are more accessible to individual investors today amid the rise of perpetual funds. Download brochure",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-01",
+     "file": "docs/section-library/img/APM-01-d.png"
+    },
+    {
+     "index": 1,
+     "blockType": "horizontal-static-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-option1-top bx-component-base-padding-bottom   wp-block-blackstone-v2-hor",
+     "y": 432,
+     "w": 1425,
+     "h": 932,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "INTRODUCTION TO ACCESSING PRIVATE MARKETS",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Choice Redefined",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Adoption Gaining Momentum",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Same Goals, Familiar Approach",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "INTRODUCTION TO ACCESSING PRIVATE MARKETS",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Private markets are more accessible to individual investors today amid the rise of\u00a0perpetual funds. These funds are attracting investors who seek immediate exposure and the flexibility to subscribe an",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 121,
+     "preview": "INTRODUCTION TO ACCESSING PRIVATE MARKETS What You Need to Know Choice Redefined Private markets are more accessible to individual investors today amid the rise of perpetual funds. These funds are attracting investors who seek immediate exposure and the flexibility to subscribe and redeem at regular intervals, subject ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "104px 16px",
+       "colGap": "16px",
+       "rowGap": "104px",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 464,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 352,
+       "h": 198,
+       "aspect": 1.778,
+       "fit": "cover"
+      },
+      {
+       "tag": "IMG",
+       "w": 352,
+       "h": 198,
+       "aspect": 1.778,
+       "fit": "cover"
+      },
+      {
+       "tag": "IMG",
+       "w": 352,
+       "h": 198,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 18,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-02",
+     "file": "docs/section-library/img/APM-02-d.png"
+    },
+    {
+     "index": 2,
+     "blockType": "charting",
+     "idAttr": "",
+     "class": "bx-block-component bx-charting-component alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-charting-component",
+     "y": 1364,
+     "w": 1425,
+     "h": 1669,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "How to Invest in Private Markets?",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Exhibit 1: Perpetual Funds are a Middle Ground Between Liquid and Illiquid Funds",
+       "fontSize": "18px",
+       "lineHeight": "27px",
+       "fontWeight": "300",
+       "letterSpacing": "0.144px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Perpetual funds have emerged as a middle path between the long-term commitments of traditional drawdown funds and the daily liquidity of structures that primarily focus on public markets.\n\nPerpetual f",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 247,
+     "preview": "How to Invest in Private Markets? Perpetual funds have emerged as a middle path between the long-term commitments of traditional drawdown funds and the daily liquidity of structures that primarily focus on public markets. Perpetual funds have attributes that may be appealing to individual investors: Capital is fully in",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "1264px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "24px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 1264,
+       "h": 586,
+       "aspect": 2.157,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 2,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-03",
+     "file": "docs/section-library/img/APM-03-d.png"
+    },
+    {
+     "index": 3,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-base-padding-top bx-component-stacked-same-theme-fc-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 3033,
+     "w": 1425,
+     "h": 944,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "64px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "The Power of Compounding",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "One of the key innovations of perpetual funds is their ability to provide immediate investment in private and illiquid assets. Unlike drawdown funds, which gradually call capital and acquire assets ov",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 80,
+     "preview": "The Power of Compounding One of the key innovations of perpetual funds is their ability to provide immediate investment in private and illiquid assets. Unlike drawdown funds, which gradually call capital and acquire assets over time, perpetual funds put capital to work immediately, allowing investors to harness the pow",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "1264px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "24px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 397,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-04",
+     "file": "docs/section-library/img/APM-04-d.png"
+    },
+    {
+     "index": 4,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-fc-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 3977,
+     "w": 1425,
+     "h": 1019,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "64px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Across a range of scenarios (Exhibit 3), the ability to harness compounding can result in a higher multiple over time. A multiple represents the ratio of total returns to the initial capital invested\u2014",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 294,
+     "preview": "Across a range of scenarios (Exhibit 3), the ability to harness compounding can result in a higher multiple over time. A multiple represents the ratio of total returns to the initial capital invested\u2014for example, a 2x multiple means the investment has doubled in value. Drawdown funds are useful for investors seeking ex",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "1264px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "24px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 397,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-05",
+     "file": "docs/section-library/img/APM-05-d.png"
+    },
+    {
+     "index": 5,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 4995,
+     "w": 1425,
+     "h": 998,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Adoption Gaining Momentum",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Individual investors are markedly under-allocated to private markets, especially when compared to sophisticated investors such as endowments who have used alternative investments for decades. [ 2 ]\u00a0Th",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 108,
+     "preview": "Adoption Gaining Momentum Individual investors are markedly under-allocated to private markets, especially when compared to sophisticated investors such as endowments who have used alternative investments for decades. [ 2 ] This is changing, however, partly due to the evolution of fund structures. Allocations to the mo",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 397,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "APM-06",
+     "file": "docs/section-library/img/APM-06-d.png"
+    },
+    {
+     "index": 6,
+     "blockType": "charting",
+     "idAttr": "",
+     "class": "bx-block-component bx-charting-component alignfull  bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-charting-component",
+     "y": 5993,
+     "w": 1425,
+     "h": 1216,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Same Goals, Familiar Approach",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "",
+       "fontSize": "18px",
+       "lineHeight": "27px",
+       "fontWeight": "300",
+       "letterSpacing": "0.144px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Investors can pursue specific objectives using private markets, such as capital appreciation, income generation, diversification, inflation mitigation, and favorable tax treatment on income. Introduci",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 102,
+     "preview": "Same Goals, Familiar Approach Investors can pursue specific objectives using private markets, such as capital appreciation, income generation, diversification, inflation mitigation, and favorable tax treatment on income. Introducing private markets in this way can help individual investors understand where these assets",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "1264px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "24px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 1264,
+       "h": 433,
+       "aspect": 2.917,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-07",
+     "file": "docs/section-library/img/APM-07-d.png"
+    },
+    {
+     "index": 7,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-option2-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 7209,
+     "w": 1425,
+     "h": 540,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "88px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 8,
+     "preview": "Read the complete Accessing Private Markets Download Brochure",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-08",
+     "file": "docs/section-library/img/APM-08-d.png"
+    },
+    {
+     "index": 8,
+     "blockType": "accordion",
+     "idAttr": "",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 7749,
+     "w": 1425,
+     "h": 598,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Frequently Asked Questions",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "What is an evergreen fund?",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "What is a drawdown fund?",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 13,
+     "preview": "Frequently Asked Questions What is an evergreen fund? What is a drawdown fund?",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "APM-09",
+     "file": "docs/section-library/img/APM-09-d.png"
+    },
+    {
+     "index": 9,
+     "blockType": "link-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-link-list alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-link-list",
+     "y": 8347,
+     "w": 1425,
+     "h": 1134,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Explore Essentials",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Markets",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Equity",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Credit",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Real Estate",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Infrastructure",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "For Financial Advisors: Allocating to Private Assets",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 30,
+     "preview": "Explore Essentials Essentials of Private Markets Essentials of Private Equity Essentials of Private Credit Essentials of Private Real Estate Essentials of Private Infrastructure For Financial Advisors: Allocating to Private Assets",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 12
+     },
+     "flags": [],
+     "id": "APM-10",
+     "file": "docs/section-library/img/APM-10-d.png"
+    }
+   ],
+   "mobile": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom     bx-component-option3-bottom wp-block-b",
+     "y": 112,
+     "w": 375,
+     "h": 383,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "56px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Accessing Private Markets",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Private markets are more accessible to individual investors today amid the rise of perpetual funds.\n\nDownload brochure",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 20,
+     "preview": "Accessing Private Markets Private markets are more accessible to individual investors today amid the rise of perpetual funds. Download brochure",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-01",
+     "file": "docs/section-library/img/APM-01-m.png"
+    },
+    {
+     "index": 1,
+     "blockType": "horizontal-static-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-option1-top bx-component-base-padding-bottom   wp-block-blackstone-v2-hor",
+     "y": 495,
+     "w": 375,
+     "h": 1781,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "24px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "INTRODUCTION TO ACCESSING PRIVATE MARKETS",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Choice Redefined",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Adoption Gaining Momentum",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Same Goals, Familiar Approach",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "INTRODUCTION TO ACCESSING PRIVATE MARKETS",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Private markets are more accessible to individual investors today amid the rise of\u00a0perpetual funds. These funds are attracting investors who seek immediate exposure and the flexibility to subscribe an",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 121,
+     "preview": "INTRODUCTION TO ACCESSING PRIVATE MARKETS What You Need to Know Choice Redefined Private markets are more accessible to individual investors today amid the rise of perpetual funds. These funds are attracting investors who seek immediate exposure and the flexibility to subscribe and redeem at regular intervals, subject ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "72px 16px",
+       "colGap": "16px",
+       "rowGap": "72px",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 184,
+       "aspect": 1.783,
+       "fit": "cover"
+      },
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 184,
+       "aspect": 1.783,
+       "fit": "cover"
+      },
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 184,
+       "aspect": 1.783,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 18,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-02",
+     "file": "docs/section-library/img/APM-02-m.png"
+    },
+    {
+     "index": 2,
+     "blockType": "charting",
+     "idAttr": "",
+     "class": "bx-block-component bx-charting-component alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-charting-component",
+     "y": 2276,
+     "w": 375,
+     "h": 1529,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "How to Invest in Private Markets?",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Exhibit 1: Perpetual Funds are a Middle Ground Between Liquid and Illiquid Funds",
+       "fontSize": "18px",
+       "lineHeight": "27px",
+       "fontWeight": "300",
+       "letterSpacing": "0.144px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Perpetual funds have emerged as a middle path between the long-term commitments of traditional drawdown funds and the daily liquidity of structures that primarily focus on public markets.\n\nPerpetual f",
+      "fontSize": "20px",
+      "lineHeight": "30px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 247,
+     "preview": "How to Invest in Private Markets? Perpetual funds have emerged as a middle path between the long-term commitments of traditional drawdown funds and the daily liquidity of structures that primarily focus on public markets. Perpetual funds have attributes that may be appealing to individual investors: Capital is fully in",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "16px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 152,
+       "aspect": 2.157,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 2,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-03",
+     "file": "docs/section-library/img/APM-03-m.png"
+    },
+    {
+     "index": 3,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-base-padding-top bx-component-stacked-same-theme-fc-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 3805,
+     "w": 375,
+     "h": 949,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "32px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "The Power of Compounding",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "One of the key innovations of perpetual funds is their ability to provide immediate investment in private and illiquid assets. Unlike drawdown funds, which gradually call capital and acquire assets ov",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 80,
+     "preview": "The Power of Compounding One of the key innovations of perpetual funds is their ability to provide immediate investment in private and illiquid assets. Unlike drawdown funds, which gradually call capital and acquire assets over time, perpetual funds put capital to work immediately, allowing investors to harness the pow",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "16px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-04",
+     "file": "docs/section-library/img/APM-04-m.png"
+    },
+    {
+     "index": 4,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-fc-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 4754,
+     "w": 375,
+     "h": 1458,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "32px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Across a range of scenarios (Exhibit 3), the ability to harness compounding can result in a higher multiple over time. A multiple represents the ratio of total returns to the initial capital invested\u2014",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 294,
+     "preview": "Across a range of scenarios (Exhibit 3), the ability to harness compounding can result in a higher multiple over time. A multiple represents the ratio of total returns to the initial capital invested\u2014for example, a 2x multiple means the investment has doubled in value. Drawdown funds are useful for investors seeking ex",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "16px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-05",
+     "file": "docs/section-library/img/APM-05-m.png"
+    },
+    {
+     "index": 5,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 6212,
+     "w": 375,
+     "h": 1125,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Adoption Gaining Momentum",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Individual investors are markedly under-allocated to private markets, especially when compared to sophisticated investors such as endowments who have used alternative investments for decades. [ 2 ]\u00a0Th",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 108,
+     "preview": "Adoption Gaining Momentum Individual investors are markedly under-allocated to private markets, especially when compared to sophisticated investors such as endowments who have used alternative investments for decades. [ 2 ] This is changing, however, partly due to the evolution of fund structures. Allocations to the mo",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.775,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "APM-06",
+     "file": "docs/section-library/img/APM-06-m.png"
+    },
+    {
+     "index": 6,
+     "blockType": "charting",
+     "idAttr": "",
+     "class": "bx-block-component bx-charting-component alignfull  bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-charting-component",
+     "y": 7336,
+     "w": 375,
+     "h": 961,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Same Goals, Familiar Approach",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "",
+       "fontSize": "18px",
+       "lineHeight": "27px",
+       "fontWeight": "300",
+       "letterSpacing": "0.144px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Investors can pursue specific objectives using private markets, such as capital appreciation, income generation, diversification, inflation mitigation, and favorable tax treatment on income. Introduci",
+      "fontSize": "20px",
+      "lineHeight": "30px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 102,
+     "preview": "Same Goals, Familiar Approach Investors can pursue specific objectives using private markets, such as capital appreciation, income generation, diversification, inflation mitigation, and favorable tax treatment on income. Introducing private markets in this way can help individual investors understand where these assets",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "16px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 112,
+       "aspect": 2.917,
+       "fit": "fill"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "APM-07",
+     "file": "docs/section-library/img/APM-07-m.png"
+    },
+    {
+     "index": 7,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-option2-bottom  wp-block-blackstone-v2-featured-content",
+     "y": 8298,
+     "w": 375,
+     "h": 521,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "56px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 8,
+     "preview": "Read the complete Accessing Private Markets Download Brochure",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "APM-08",
+     "file": "docs/section-library/img/APM-08-m.png"
+    },
+    {
+     "index": 8,
+     "blockType": "accordion",
+     "idAttr": "",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 8819,
+     "w": 375,
+     "h": 462,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Frequently Asked Questions",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "What is an evergreen fund?",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "What is a drawdown fund?",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 13,
+     "preview": "Frequently Asked Questions What is an evergreen fund? What is a drawdown fund?",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "APM-09",
+     "file": "docs/section-library/img/APM-09-m.png"
+    },
+    {
+     "index": 9,
+     "blockType": "link-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-link-list alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-link-list",
+     "y": 9281,
+     "w": 375,
+     "h": 906,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Explore Essentials",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Markets",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Equity",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Credit",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Real Estate",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Essentials of Private Infrastructure",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "For Financial Advisors: Allocating to Private Assets",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 30,
+     "preview": "Explore Essentials Essentials of Private Markets Essentials of Private Equity Essentials of Private Credit Essentials of Private Real Estate Essentials of Private Infrastructure For Financial Advisors: Allocating to Private Assets",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 12
+     },
+     "flags": [],
+     "id": "APM-10",
+     "file": "docs/section-library/img/APM-10-m.png"
+    }
+   ],
+   "chrome": []
+  },
+  "BMX": {
+   "prefix": "BMX",
+   "name": "Why Blackstone (bmacx)",
+   "url": "https://www.bmacx.com/why-blackstone/",
+   "kind": "bx",
+   "desktop": [
+    {
+     "index": 0,
+     "blockType": "page-header-no-desc",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header-no-desc__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom    wp-block-blackstone-v2-page-hea",
+     "y": 204,
+     "w": 1425,
+     "h": 252,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "48px",
+     "padB": "120px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Why Blackstone",
+       "fontSize": "56px",
+       "lineHeight": "84px",
+       "fontWeight": "300",
+       "letterSpacing": "0.448px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 2,
+     "preview": "Why Blackstone",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-01",
+     "file": "docs/section-library/img/BMX-01-d.png"
+    },
+    {
+     "index": 1,
+     "blockType": "promo-carousel",
+     "idAttr": "bxPromoCarousel1",
+     "class": "bx-block-component bx-promo-carousel alignfull  bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom wp-block-blackstone-v2-promo-carousel",
+     "y": 456,
+     "w": 1425,
+     "h": 982,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "104px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "World\u2019s Largest Alternative Asset Manager",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Blackstone is the world\u2019s largest alternative asset manager with investment businesses spanning private equity, real estate, credit and hedge fund solutions. [ 1 ] We remain committed to delivering st",
+      "fontSize": "20px",
+      "lineHeight": "30px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 54,
+     "preview": "slide 1 of 1 World\u2019s Largest Alternative Asset Manager Blackstone is the world\u2019s largest alternative asset manager with investment businesses spanning private equity, real estate, credit and hedge fund solutions. [ 1 ] We remain committed to delivering strong performance across market cycles on behalf of pension funds,",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 1264,
+       "h": 542,
+       "aspect": 2.332,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "BMX-02",
+     "file": "docs/section-library/img/BMX-02-d.png"
+    },
+    {
+     "index": 2,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-base-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blackstone-v2-featured-",
+     "y": 1438,
+     "w": 1425,
+     "h": 921,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "64px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Why Blackstone Credit & Insurance",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "As one of the world\u2019s largest alternative credit managers, [ 2 ] we focus on capital preservation and delivering strong risk-adjusted returns for our clients across market cycles.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 59,
+     "preview": "Why Blackstone Credit & Insurance As one of the world\u2019s largest alternative credit managers, [ 2 ] we focus on capital preservation and delivering strong risk-adjusted returns for our clients across market cycles. Cycle Tested Performance Global credit platform with a proven track record of delivering for investors acr",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "BMX-03",
+     "file": "docs/section-library/img/BMX-03-d.png"
+    },
+    {
+     "index": 3,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 2359,
+     "w": 1425,
+     "h": 524,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "64px",
+     "padB": "64px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Largest third-party alternative credit platform [ 4 ] and manager of the world\u2019s largest BDC, with broad and extensive capabilities [ 5 ]",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 32,
+     "preview": "Scale Largest third-party alternative credit platform [ 4 ] and manager of the world\u2019s largest BDC, with broad and extensive capabilities [ 5 ] Corporate issuers across portfolios [ 6 ] 5,100+",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 4
+     },
+     "flags": [],
+     "id": "BMX-04",
+     "file": "docs/section-library/img/BMX-04-d.png"
+    },
+    {
+     "index": 4,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 2883,
+     "w": 1425,
+     "h": 524,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "64px",
+     "padB": "64px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Proprietary sourcing capabilities drive investment opportunities",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 11,
+     "preview": "Origination Engine Proprietary sourcing capabilities drive investment opportunities Sponsor/advisor relationships 550+",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-05",
+     "file": "docs/section-library/img/BMX-05-d.png"
+    },
+    {
+     "index": 5,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 3407,
+     "w": 1425,
+     "h": 524,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "64px",
+     "padB": "64px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Private equity, real estate, infrastructure, and insurance platforms create connections and deal flow",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 22,
+     "preview": "Global Presence Private equity, real estate, infrastructure, and insurance platforms create connections and deal flow Assets Under Management [ 7 ] $1.3T",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 2
+     },
+     "flags": [],
+     "id": "BMX-06",
+     "file": "docs/section-library/img/BMX-06-d.png"
+    },
+    {
+     "index": 6,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-",
+     "y": 3931,
+     "w": 1425,
+     "h": 620,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "64px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Leverage the broader Blackstone network which drives valuable insights",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 15,
+     "preview": "Deep Sector Expertise Leverage the broader Blackstone network which drives valuable insights Data scientists 50",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-07",
+     "file": "docs/section-library/img/BMX-07-d.png"
+    },
+    {
+     "index": 7,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 4551,
+     "w": 1425,
+     "h": 750,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cOur capital enables transactions of all sizes, helps stabilize viable businesses and allows companies to grow while producing attractive returns for our investors.\u201d",
+      "fontSize": "40px",
+      "lineHeight": "60px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 40,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cOur capital enables transactions of all sizes, helps stabilize viable businesses and allows companies to grow while producing attractive returns for our investors.\u201d Jon Gray President and Chief Operating Officer of Blackstone",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 304,
+       "h": 403,
+       "aspect": 0.754,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-08",
+     "file": "docs/section-library/img/BMX-08-d.png"
+    },
+    {
+     "index": 8,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-content",
+     "y": 5301,
+     "w": 1425,
+     "h": 612,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 13,
+     "preview": "Discover the power of Blackstone by exploring recent news & insights Learn More",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 704,
+       "h": 396,
+       "aspect": 1.778,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "BMX-09",
+     "file": "docs/section-library/img/BMX-09-d.png"
+    },
+    {
+     "index": 9,
+     "blockType": "link-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-link-list alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-link-list",
+     "y": 5913,
+     "w": 1425,
+     "h": 606,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Explore More About BMACX",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Why Invest in BMACX",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Leadership and Governance",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 11,
+     "preview": "Explore More About BMACX Why Invest in BMACX Leadership and Governance",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 4
+     },
+     "flags": [],
+     "id": "BMX-10",
+     "file": "docs/section-library/img/BMX-10-d.png"
+    },
+    {
+     "index": 10,
+     "blockType": "page-disclaimer",
+     "idAttr": "",
+     "class": "bx-block-component bx-page-disclaimer alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-page-disclaimer",
+     "y": 6519,
+     "w": 1425,
+     "h": 464,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Important Disclosure Information",
+       "fontSize": "40px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 10,
+     "preview": "Important Disclosure Information Summary of Risk Factors Forward Looking Statements",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 12,
+      "links": 7
+     },
+     "flags": [],
+     "id": "BMX-11",
+     "file": "docs/section-library/img/BMX-11-d.png"
+    }
+   ],
+   "mobile": [
+    {
+     "index": 0,
+     "blockType": "page-header-no-desc",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header-no-desc__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom    wp-block-blackstone-v2-page-hea",
+     "y": 112,
+     "w": 375,
+     "h": 180,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "Why Blackstone",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 2,
+     "preview": "Why Blackstone",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-01",
+     "file": "docs/section-library/img/BMX-01-m.png"
+    },
+    {
+     "index": 1,
+     "blockType": "promo-carousel",
+     "idAttr": "bxPromoCarousel1",
+     "class": "bx-block-component bx-promo-carousel alignfull  bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom wp-block-blackstone-v2-promo-carousel",
+     "y": 292,
+     "w": 375,
+     "h": 718,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "40px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "World\u2019s Largest Alternative Asset Manager",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Blackstone is the world\u2019s largest alternative asset manager with investment businesses spanning private equity, real estate, credit and hedge fund solutions. [ 1 ] We remain committed to delivering st",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 54,
+     "preview": "slide 1 of 1 World\u2019s Largest Alternative Asset Manager Blackstone is the world\u2019s largest alternative asset manager with investment businesses spanning private equity, real estate, credit and hedge fund solutions. [ 1 ] We remain committed to delivering strong performance across market cycles on behalf of pension funds,",
+     "grids": [],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "BMX-02",
+     "file": "docs/section-library/img/BMX-02-m.png"
+    },
+    {
+     "index": 2,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-base-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blackstone-v2-featured-",
+     "y": 1010,
+     "w": 375,
+     "h": 1041,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "32px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Why Blackstone Credit & Insurance",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "As one of the world\u2019s largest alternative credit managers, [ 2 ] we focus on capital preservation and delivering strong risk-adjusted returns for our clients across market cycles.",
+      "fontSize": "20px",
+      "lineHeight": "30px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 59,
+     "preview": "Why Blackstone Credit & Insurance As one of the world\u2019s largest alternative credit managers, [ 2 ] we focus on capital preservation and delivering strong risk-adjusted returns for our clients across market cycles. Cycle Tested Performance Global credit platform with a proven track record of delivering for investors acr",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 3
+     },
+     "flags": [],
+     "id": "BMX-03",
+     "file": "docs/section-library/img/BMX-03-m.png"
+    },
+    {
+     "index": 3,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 2051,
+     "w": 375,
+     "h": 614,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "32px",
+     "padB": "32px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Largest third-party alternative credit platform [ 4 ] and manager of the world\u2019s largest BDC, with broad and extensive capabilities [ 5 ]",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 32,
+     "preview": "Scale Largest third-party alternative credit platform [ 4 ] and manager of the world\u2019s largest BDC, with broad and extensive capabilities [ 5 ] Corporate issuers across portfolios [ 6 ] 5,100+",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 4
+     },
+     "flags": [],
+     "id": "BMX-04",
+     "file": "docs/section-library/img/BMX-04-m.png"
+    },
+    {
+     "index": 4,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 2665,
+     "w": 375,
+     "h": 560,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "32px",
+     "padB": "32px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Proprietary sourcing capabilities drive investment opportunities",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 11,
+     "preview": "Origination Engine Proprietary sourcing capabilities drive investment opportunities Sponsor/advisor relationships 550+",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-05",
+     "file": "docs/section-library/img/BMX-05-m.png"
+    },
+    {
+     "index": 5,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-stacked-same-theme-fc-padding-bottom wp-block-blacks",
+     "y": 3225,
+     "w": 375,
+     "h": 587,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "32px",
+     "padB": "32px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Private equity, real estate, infrastructure, and insurance platforms create connections and deal flow",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 22,
+     "preview": "Global Presence Private equity, real estate, infrastructure, and insurance platforms create connections and deal flow Assets Under Management [ 7 ] $1.3T",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 2
+     },
+     "flags": [],
+     "id": "BMX-06",
+     "file": "docs/section-library/img/BMX-06-m.png"
+    },
+    {
+     "index": 6,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull is-color-theme-dark bx-component-stacked-same-theme-fc-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-",
+     "y": 3812,
+     "w": 375,
+     "h": 608,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "32px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "Leverage the broader Blackstone network which drives valuable insights",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 15,
+     "preview": "Deep Sector Expertise Leverage the broader Blackstone network which drives valuable insights Data scientists 50",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-07",
+     "file": "docs/section-library/img/BMX-07-m.png"
+    },
+    {
+     "index": 7,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 4420,
+     "w": 375,
+     "h": 1009,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cOur capital enables transactions of all sizes, helps stabilize viable businesses and allows companies to grow while producing attractive returns for our investors.\u201d",
+      "fontSize": "24px",
+      "lineHeight": "36px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 40,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cOur capital enables transactions of all sizes, helps stabilize viable businesses and allows companies to grow while producing attractive returns for our investors.\u201d Jon Gray President and Chief Operating Officer of Blackstone",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "0px 0px 0px 0px 0px 328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "82px 82px 82px 82px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 435,
+       "aspect": 0.754,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "BMX-08",
+     "file": "docs/section-library/img/BMX-08-m.png"
+    },
+    {
+     "index": 8,
+     "blockType": "featured-content",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured bx-featured_content__front alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-content",
+     "y": 5429,
+     "w": 375,
+     "h": 593,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 13,
+     "preview": "Discover the power of Blackstone by exploring recent news & insights Learn More",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "54px 54px 54px 54px 0px 0px 0px 0px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 185,
+       "aspect": 1.773,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "BMX-09",
+     "file": "docs/section-library/img/BMX-09-m.png"
+    },
+    {
+     "index": 9,
+     "blockType": "link-list",
+     "idAttr": "",
+     "class": "bx-block-component bx-link-list alignfull  bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-link-list",
+     "y": 6022,
+     "w": 375,
+     "h": 462,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Explore More About BMACX",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Why Invest in BMACX",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Leadership and Governance",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 11,
+     "preview": "Explore More About BMACX Why Invest in BMACX Leadership and Governance",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 4
+     },
+     "flags": [],
+     "id": "BMX-10",
+     "file": "docs/section-library/img/BMX-10-m.png"
+    },
+    {
+     "index": 10,
+     "blockType": "page-disclaimer",
+     "idAttr": "",
+     "class": "bx-block-component bx-page-disclaimer alignfull is-color-theme-dark bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-page-disclaimer",
+     "y": 6484,
+     "w": 375,
+     "h": 428,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H3",
+       "text": "Important Disclosure Information",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": null,
+     "words": 10,
+     "preview": "Important Disclosure Information Summary of Risk Factors Forward Looking Statements",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 12,
+      "links": 7
+     },
+     "flags": [],
+     "id": "BMX-11",
+     "file": "docs/section-library/img/BMX-11-m.png"
+    }
+   ],
+   "chrome": []
+  },
+  "TF": {
+   "prefix": "TF",
+   "name": "The Firm",
+   "url": "https://www.blackstone.com/the-firm/",
+   "kind": "bx",
+   "desktop": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom       wp-block-blackstone-v2-page-header",
+     "y": 204,
+     "w": 1425,
+     "h": 365,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "48px",
+     "padB": "120px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "About the Firm",
+       "fontSize": "56px",
+       "lineHeight": "84px",
+       "fontWeight": "300",
+       "letterSpacing": "0.448px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Blackstone is the world\u2019s largest alternative asset manager, with more than $1.3 trillion in AUM. We serve institutional and individual investors by building strong businesses that deliver lasting val",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 58,
+     "preview": "About the Firm Blackstone is the world\u2019s largest alternative asset manager, with more than $1.3 trillion in AUM. We serve institutional and individual investors by building strong businesses that deliver lasting value. Our scale \u2013 with ~13,000 real estate assets and 270+ portfolio companies[ 1 ] \u2013 enables us to invest ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-01",
+     "file": "docs/section-library/img/TF-01-d.png"
+    },
+    {
+     "index": 1,
+     "blockType": "hero-media",
+     "idAttr": "",
+     "class": "bx-block-component bx-hero-media_video-icon-color-black alignfull bx-hero-media bx-hero-media__is-custom-default bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom  wp-block-b",
+     "y": 569,
+     "w": 1425,
+     "h": 646,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "104px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "16px",
+       "colGap": "16px",
+       "rowGap": "16px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 1264,
+       "h": 542,
+       "aspect": 2.333,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-02",
+     "file": "docs/section-library/img/TF-02-d.png"
+    },
+    {
+     "index": 2,
+     "blockType": "vertical-list",
+     "idAttr": "our-clients",
+     "class": "bx-block-component bx-vertical-list alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-vertical-list",
+     "y": 1215,
+     "w": 1425,
+     "h": 1488,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHAT WE DO",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "At Blackstone, we deliver for investors by building businesses that power tomorrow\u2019s economy.",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build financial security",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build your career",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build strong businesses",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHAT WE DO",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(255, 255, 255)"
+     },
+     "body": {
+      "text": "We seek to deliver outstanding performance for institutional and individual investors by stewarding their capital with integrity and conviction.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 89,
+     "preview": "WHAT WE DO At Blackstone, we deliver for investors by building businesses that power tomorrow\u2019s economy. Build financial security We seek to deliver outstanding performance for institutional and individual investors by stewarding their capital with integrity and conviction. Build your career We offer an environment whe",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 624,
+       "h": 832,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-03",
+     "file": "docs/section-library/img/TF-03-d.png"
+    },
+    {
+     "index": 3,
+     "blockType": "accordion",
+     "idAttr": "Footnotes",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 2703,
+     "w": 1425,
+     "h": 1126,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHO DOES BLACKSTONE SERVE",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Our Clients",
+       "fontSize": "48px",
+       "lineHeight": "72px",
+       "fontWeight": "300",
+       "letterSpacing": "0.384px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Institutional Investors",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Financial Advisors & Individual Investors",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Family Offices, Endowments & Foundations",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Insurers",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHO DOES BLACKSTONE SERVE",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Note:\u00a0All figures as of June 30, 2026, unless otherwise indicated.\n\n1. As of March 31, 2026.\n2. Gains figure represents gains (realized and unrealized) LTD as of June 30, 2026.",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 50,
+     "preview": "WHO DOES BLACKSTONE SERVE Our Clients Institutional Investors Financial Advisors & Individual Investors Family Offices, Endowments & Foundations Insurers Note: All figures as of June 30, 2026, unless otherwise indicated. 1. As of March 31, 2026. 2. Gains figure represents gains (realized and unrealized) LTD as of June ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "48px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "32px/32px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 5
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "TF-04",
+     "file": "docs/section-library/img/TF-04-d.png"
+    },
+    {
+     "index": 4,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 3829,
+     "w": 1425,
+     "h": 906,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cThe firm\u2019s achievements are only possible because of our most valuable asset: our people. I often say that there are no patents in finance. Our success instead relies on the talent of our teams aroun",
+      "fontSize": "40px",
+      "lineHeight": "60px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 74,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cThe firm\u2019s achievements are only possible because of our most valuable asset: our people. I often say that there are no patents in finance. Our success instead relies on the talent of our teams around the world, knit together by a shared mission to be the best in the world at what we do on be",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 784,
+       "cols": "78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px 78.3906px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 304,
+       "h": 405,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "TF-05",
+     "file": "docs/section-library/img/TF-05-d.png"
+    },
+    {
+     "index": 5,
+     "blockType": "horizontal-static-list",
+     "idAttr": "values",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-base-padding-top bx-component-base-padding-bottom   wp-block-blackstone-v",
+     "y": 4735,
+     "w": 1425,
+     "h": 1174,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "160px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "OUR VALUES",
+       "fontSize": "16px",
+       "lineHeight": "24px",
+       "fontWeight": "400",
+       "letterSpacing": "1.28px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Relentlessly pursue excellence",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Never compromise\nintegrity",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Outperform through innovation",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Deliver for our customers",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Work humbly, work together",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "OUR VALUES",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.28px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "We strive to be the best at what we do, applying our global talent and scale to generate compelling outcomes for our clients.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 134,
+     "preview": "OUR VALUES Our global employees are deeply committed to the values that define our character and culture. Learn More About Our People Relentlessly pursue excellence We strive to be the best at what we do, applying our global talent and scale to generate compelling outcomes for our clients. Never compromise integrity We",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "104px 16px",
+       "colGap": "16px",
+       "rowGap": "104px",
+       "justify": "normal",
+       "pad": "48px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 464,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 384,
+       "cols": "352px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 25,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "TF-06",
+     "file": "docs/section-library/img/TF-06-d.png"
+    },
+    {
+     "index": 6,
+     "blockType": "featured-video",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured-video alignfull   bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-video",
+     "y": 5909,
+     "w": 1425,
+     "h": 927,
+     "bg": "rgba(0, 0, 0, 0)",
+     "padT": "56px",
+     "padB": "160px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 1264,
+       "cols": "64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px 64px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "VIDEO",
+       "w": 1264,
+       "h": 711,
+       "aspect": 1.778,
+       "fit": "contain"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 3,
+      "links": 1
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "TF-07",
+     "file": "docs/section-library/img/TF-07-d.png"
+    }
+   ],
+   "mobile": [
+    {
+     "index": 0,
+     "blockType": "page-header",
+     "idAttr": "",
+     "class": "bx-block-component bx-block-no-spacing bx-page-header__animation alignfull bx-stacked-component-header-padding-top bx-stacked-component-header-padding-bottom       wp-block-blackstone-v2-page-header",
+     "y": 112,
+     "w": 375,
+     "h": 455,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H1",
+       "text": "About the Firm",
+       "fontSize": "40px",
+       "lineHeight": "60px",
+       "fontWeight": "300",
+       "letterSpacing": "0.32px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": null,
+     "body": {
+      "text": "Blackstone is the world\u2019s largest alternative asset manager, with more than $1.3 trillion in AUM. We serve institutional and individual investors by building strong businesses that deliver lasting val",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 58,
+     "preview": "About the Firm Blackstone is the world\u2019s largest alternative asset manager, with more than $1.3 trillion in AUM. We serve institutional and individual investors by building strong businesses that deliver lasting value. Our scale \u2013 with ~13,000 real estate assets and 270+ portfolio companies[ 1 ] \u2013 enables us to invest ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-01",
+     "file": "docs/section-library/img/TF-01-m.png"
+    },
+    {
+     "index": 1,
+     "blockType": "hero-media",
+     "idAttr": "",
+     "class": "bx-block-component bx-hero-media_video-icon-color-black alignfull bx-hero-media bx-hero-media__is-custom-default bx-component-main-no-padding-top bx-component-main-alternate-padding-bottom  wp-block-b",
+     "y": 567,
+     "w": 375,
+     "h": 477,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "0px",
+     "padB": "40px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "16px",
+       "colGap": "16px",
+       "rowGap": "16px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 437,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-02",
+     "file": "docs/section-library/img/TF-02-m.png"
+    },
+    {
+     "index": 2,
+     "blockType": "vertical-list",
+     "idAttr": "our-clients",
+     "class": "bx-block-component bx-vertical-list alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-vertical-list",
+     "y": 1044,
+     "w": 375,
+     "h": 1610,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHAT WE DO",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "At Blackstone, we deliver for investors by building businesses that power tomorrow\u2019s economy.",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build financial security",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build your career",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Build strong businesses",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHAT WE DO",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(255, 255, 255)"
+     },
+     "body": {
+      "text": "We seek to deliver outstanding performance for institutional and individual investors by stewarding their capital with integrity and conviction.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 89,
+     "preview": "WHAT WE DO At Blackstone, we deliver for investors by building businesses that power tomorrow\u2019s economy. Build financial security We seek to deliver outstanding performance for institutional and individual investors by stewarding their capital with integrity and conviction. Build your career We offer an environment whe",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 437,
+       "aspect": 0.751,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 0
+     },
+     "flags": [],
+     "id": "TF-03",
+     "file": "docs/section-library/img/TF-03-m.png"
+    },
+    {
+     "index": 3,
+     "blockType": "accordion",
+     "idAttr": "Footnotes",
+     "class": "bx-block-component bx-accordion alignfull  bx-component-base-padding-top bx-component-base-padding-bottom  wp-block-blackstone-v2-accordion",
+     "y": 2654,
+     "w": 375,
+     "h": 933,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "WHO DOES BLACKSTONE SERVE",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Our Clients",
+       "fontSize": "32px",
+       "lineHeight": "48px",
+       "fontWeight": "300",
+       "letterSpacing": "0.256px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H4",
+       "text": "Institutional Investors",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Financial Advisors & Individual Investors",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Family Offices, Endowments & Foundations",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H4",
+       "text": "Insurers",
+       "fontSize": "24px",
+       "lineHeight": "36px",
+       "fontWeight": "300",
+       "letterSpacing": "0.192px",
+       "textTransform": "none",
+       "fontFamily": "Guardian Sans"
+      }
+     ],
+     "eyebrow": {
+      "text": "WHO DOES BLACKSTONE SERVE",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "Note:\u00a0All figures as of June 30, 2026, unless otherwise indicated.\n\n1. As of March 31, 2026.\n2. Gains figure represents gains (realized and unrealized) LTD as of June 30, 2026.",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 50,
+     "preview": "WHO DOES BLACKSTONE SERVE Our Clients Institutional Investors Financial Advisors & Individual Investors Family Offices, Endowments & Foundations Insurers Note: All figures as of June 30, 2026, unless otherwise indicated. 1. As of March 31, 2026. 2. Gains figure represents gains (realized and unrealized) LTD as of June ",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "32px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "space-between",
+       "pad": "24px/24px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 5
+     },
+     "flags": [
+      "accordion"
+     ],
+     "id": "TF-04",
+     "file": "docs/section-library/img/TF-04-m.png"
+    },
+    {
+     "index": 4,
+     "blockType": "quote-block",
+     "idAttr": "",
+     "class": "bx-block-component bx-quote-block alignfull is-color-theme-dark  bx-component-base-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-quote-block",
+     "y": 3587,
+     "w": 375,
+     "h": 1131,
+     "bg": "rgb(0, 0, 0)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "dark",
+     "headings": [],
+     "eyebrow": null,
+     "body": {
+      "text": "\u201cThe firm\u2019s achievements are only possible because of our most valuable asset: our people. I often say that there are no patents in finance. Our success instead relies on the talent of our teams aroun",
+      "fontSize": "24px",
+      "lineHeight": "36px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(255, 255, 255)"
+     },
+     "words": 74,
+     "preview": "slide 1 of 1 slide 1 of 1 \u201cThe firm\u2019s achievements are only possible because of our most valuable asset: our people. I often say that there are no patents in finance. Our success instead relies on the talent of our teams around the world, knit together by a shared mission to be the best in the world at what we do on be",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "normal 16px",
+       "colGap": "16px",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "0px 0px 0px 0px 0px 328px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "82px 82px 82px 82px",
+       "gap": "normal",
+       "colGap": "normal",
+       "rowGap": "normal",
+       "justify": "normal",
+       "pad": "0px/0px"
+      }
+     ],
+     "images": [
+      {
+       "tag": "IMG",
+       "w": 328,
+       "h": 437,
+       "aspect": 0.75,
+       "fit": "cover"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "TF-05",
+     "file": "docs/section-library/img/TF-05-m.png"
+    },
+    {
+     "index": 5,
+     "blockType": "horizontal-static-list",
+     "idAttr": "values",
+     "class": "bx-block-component bx-horizontal-list__wrap bx-horizontal-static-list bx-horizontal-static-list__front alignfull  bx-component-base-padding-top bx-component-base-padding-bottom   wp-block-blackstone-v",
+     "y": 4718,
+     "w": 375,
+     "h": 1707,
+     "bg": "rgb(255, 255, 255)",
+     "padT": "80px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [
+      {
+       "t": "H2",
+       "text": "OUR VALUES",
+       "fontSize": "14px",
+       "lineHeight": "21px",
+       "fontWeight": "400",
+       "letterSpacing": "1.12px",
+       "textTransform": "uppercase",
+       "fontFamily": "Guardian Sans"
+      },
+      {
+       "t": "H3",
+       "text": "Relentlessly pursue excellence",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Never compromise\nintegrity",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Outperform through innovation",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Deliver for our customers",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      },
+      {
+       "t": "H3",
+       "text": "Work humbly, work together",
+       "fontSize": "20px",
+       "lineHeight": "32px",
+       "fontWeight": "300",
+       "letterSpacing": "0.16px",
+       "textTransform": "none",
+       "fontFamily": "Sanomat"
+      }
+     ],
+     "eyebrow": {
+      "text": "OUR VALUES",
+      "fontSize": "14px",
+      "lineHeight": "21px",
+      "fontWeight": "400",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "1.12px",
+      "textTransform": "uppercase",
+      "color": "rgb(0, 0, 0)"
+     },
+     "body": {
+      "text": "We strive to be the best at what we do, applying our global talent and scale to generate compelling outcomes for our clients.",
+      "fontSize": "18px",
+      "lineHeight": "27px",
+      "fontWeight": "300",
+      "fontFamily": "Guardian Sans",
+      "letterSpacing": "0.32px",
+      "textTransform": "none",
+      "color": "rgb(0, 0, 0)"
+     },
+     "words": 134,
+     "preview": "OUR VALUES Our global employees are deeply committed to the values that define our character and culture. Learn More About Our People Relentlessly pursue excellence We strive to be the best at what we do, applying our global talent and scale to generate compelling outcomes for our clients. Never compromise integrity We",
+     "grids": [
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "0px 16px",
+       "colGap": "16px",
+       "rowGap": "0px",
+       "justify": "normal",
+       "pad": "0px/0px"
+      },
+      {
+       "display": "grid",
+       "w": 328,
+       "cols": "70px 70px 70px 70px",
+       "gap": "72px 16px",
+       "colGap": "16px",
+       "rowGap": "72px",
+       "justify": "normal",
+       "pad": "32px/0px"
+      }
+     ],
+     "images": [],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 25,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 0,
+      "links": 1
+     },
+     "flags": [],
+     "id": "TF-06",
+     "file": "docs/section-library/img/TF-06-m.png"
+    },
+    {
+     "index": 6,
+     "blockType": "featured-video",
+     "idAttr": "",
+     "class": "bx-block-component bx-featured-video alignfull   bx-component-stacked-same-theme-padding-top bx-component-base-padding-bottom wp-block-blackstone-v2-featured-video",
+     "y": 6425,
+     "w": 375,
+     "h": 557,
+     "bg": "rgba(0, 0, 0, 0)",
+     "padT": "40px",
+     "padB": "80px",
+     "theme": "light",
+     "headings": [],
+     "eyebrow": null,
+     "body": null,
+     "words": 0,
+     "preview": "",
+     "grids": [],
+     "images": [
+      {
+       "tag": "VIDEO",
+       "w": 0,
+       "h": 0,
+       "aspect": 0,
+       "fit": "contain"
+      }
+     ],
+     "items": {
+      "stats": 0,
+      "accordionRows": 0,
+      "cards": 0,
+      "pillars": 0,
+      "tabs": 0,
+      "rows": 3,
+      "links": 1
+     },
+     "flags": [
+      "video"
+     ],
+     "id": "TF-07",
+     "file": "docs/section-library/img/TF-07-m.png"
+    }
+   ],
+   "chrome": []
+  }
+ }
+}

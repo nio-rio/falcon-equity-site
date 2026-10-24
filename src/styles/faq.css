@@ -1,0 +1,133 @@
+/*
+ * faq.css — the /faq PAGE's own layout only.
+ *
+ * Page architecture copied from blackstone.com/our-businesses/registered-products,
+ * captured LIVE in a real Chrome over CDP on 23 Oct 2026 and measured at 1440 and
+ * 390. The reference | ours table is in docs/faq-structure-plan.md:
+ *
+ *   reference                                          | ours
+ *   ---------------------------------------------------|-------------------------
+ *   page header pad 48/0/120 at 1440, 40/0/80 at 390    | same
+ *   H1 56/84 w300 in columns 1-9 at 1440, 40/60 at 390  | same sizes, weight 400
+ *                                                      |   (house page title)
+ *   intro 18/27 in columns 12-16 at 1440, under the H1  | same
+ *     below 1280                                       |
+ *   group heading 48/84 centred across columns 3-14    | same
+ *     48/72 at 1024/768, 32/48 left at 390              | same
+ *   group rhythm 56 above / 160 below at 1440,         | same
+ *     40 / 80 at 390                                   |
+ *   heading -> first row 106 (56 heading pad + 48 list) | same
+ *
+ * The ROWS are not styled here. They are the site's one FAQ component —
+ * FaqList.astro + faq-list.css — the same list the service and industry pages
+ * render (2px rules at 40% ink, 32px caret that fills on hover, 20/30 → 24/36
+ * questions, 350ms panel). This file only places that list under a group heading.
+ */
+
+/* ── page header ──────────────────────────────────────────────────────────── */
+
+.faq-header {
+  background: var(--color-white);
+  color: var(--color-ink);
+  padding-block: var(--page-header-pt) var(--page-header-pb);
+}
+
+.faq-h1 {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: 0.008em;
+}
+
+.faq-intro {
+  margin: 32px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* 16-track shell with the house 16px gutters; children span the full width
+   unless a rule says otherwise, so nothing is auto-placed into one 64px track. */
+.faq-shell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  width: 100%;
+}
+
+.faq-shell > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* ── groups ───────────────────────────────────────────────────────────────── */
+
+.faq-group {
+  padding-block: var(--pilot-section-y-stack) var(--pilot-section-y);
+}
+
+.faq-group-title {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-align: left;
+  text-wrap: balance;
+}
+
+/* Placement only — heading → first row is the shared
+   --space-head-to-content gap (72 / 72 / 96 / 104), the same value every
+   other section head uses. The rows themselves belong to faq-list.css. */
+.faq-group-list {
+  padding-top: var(--space-head-to-content);
+}
+
+/* ── 768 and up ───────────────────────────────────────────────────────────── */
+
+@media (min-width: 48em) {
+  .faq-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .faq-group-title {
+    text-align: center;
+  }
+}
+
+/* ── 1280 and up ──────────────────────────────────────────────────────────── */
+
+@media (min-width: 80em) {
+  .faq-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .faq-header-inner .faq-h1 {
+    grid-column: 1 / 10;
+    grid-row: 1;
+  }
+
+  .faq-header-inner .faq-intro {
+    grid-column: 12 / 17;
+    grid-row: 1;
+    margin-top: 0;
+  }
+
+  .faq-group-title {
+    grid-column: 3 / 15;
+  }
+}
+
+/* ── 1440 and up ──────────────────────────────────────────────────────────── */
+/* Header, title, group and list spacing all come from the shared page-title /
+   page-header / --pilot-section-y / --space-head-to-content ladders, so there
+   is no 1440-only step left in this file. */

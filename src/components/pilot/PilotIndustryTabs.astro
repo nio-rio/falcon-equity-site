@@ -1,0 +1,246 @@
+---
+/**
+ * BMACX featured-content panel + sector select (home Industries).
+ * Heading row holds the picker (stacked under the H2 on small screens,
+ * top-right across from “Sectors we fund.” from 80em). Panel is title +
+ * blurb + Learn more / Ling 16:9 still (all lazy; only the home hero is high-priority).
+ */
+import Media from '@/components/Media.astro';
+import PilotArrow from './PilotArrow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { INDUSTRIES } from '@/data/industries';
+import { INDUSTRY_STILLS } from '@/data/industry-stills';
+---
+
+<section
+  class="pilot-tabs"
+  aria-labelledby="industries-heading"
+  data-band="light"
+  data-reveal-root
+  data-reveal-start="top 92%"
+  data-reveal-stagger="0"
+  data-reveal-duration="0.6"
+>
+  <div class="container-site">
+    <div class="pilot-tabs-head">
+      <div class="pilot-tabs-heading">
+        <Eyebrow>Industries</Eyebrow>
+        <h2 id="industries-heading" data-reveal>Sectors we fund.</h2>
+      </div>
+      <div class="pilot-tabs-nav" data-reveal>
+        <div class="pilot-tabs-dropwrap">
+          <button
+            type="button"
+            class="pilot-tabs-drop"
+            id="industry-select"
+            aria-labelledby="industry-select-value"
+            aria-expanded="false"
+            aria-controls="industry-select-menu"
+            aria-haspopup="listbox"
+          >
+            <span class="pilot-tabs-drop-label" id="industry-select-value">Select your sector</span>
+            <svg width="14" height="8" viewBox="0 0 14 8" aria-hidden="true">
+              <path
+                d="M7 8 1.35 2.29a.9.9 0 0 1 1.28-1.27L7 5.4l4.37-4.38a.9.9 0 1 1 1.28 1.27L7 8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          <ul
+            class="pilot-tabs-menu"
+            id="industry-select-menu"
+            role="listbox"
+            aria-labelledby="industry-select-value"
+            hidden
+          >
+            {
+              INDUSTRIES.map((ind, i) => (
+                <li role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    id={`industry-option-${ind.slug}`}
+                    data-index={i}
+                    aria-selected="false"
+                  >
+                    {ind.name}
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pilot-tabs-panels" data-reveal>
+      {
+        INDUSTRIES.map((ind, i) => (
+          <div
+            class:list={['pilot-tabs-panel', i === 0 && 'is-active']}
+            id={`industry-panel-${ind.slug}`}
+            role="region"
+            aria-labelledby={`industry-title-${ind.slug}`}
+            hidden={i !== 0}
+          >
+            <div class="pilot-tabs-copy">
+              <h3 class="pilot-tabs-title" id={`industry-title-${ind.slug}`}>{ind.name}</h3>
+              <p class="pilot-tabs-body">{ind.blurb}</p>
+              <PilotArrow
+                href={ind.href ?? '/industries'}
+                label="Learn more"
+                accessibleName={`${ind.name} funding`}
+              />
+            </div>
+            <div class="pilot-tabs-media">
+              <Media
+                image={INDUSTRY_STILLS[ind.slug].image}
+                intent={INDUSTRY_STILLS[ind.slug].imageIntent}
+                alt={INDUSTRY_STILLS[ind.slug].imageAlt}
+                ratio="16 / 9"
+                sizes="(min-width: 80em) 704px, 100vw"
+                widths={[480, 768, 1120, 1400]}
+                fallbackFormat="webp"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector('.pilot-tabs');
+  if (root) {
+    const panels = [...root.querySelectorAll<HTMLElement>('.pilot-tabs-panel')];
+    const options = [...root.querySelectorAll<HTMLButtonElement>('.pilot-tabs-menu [role="option"]')];
+    const drop = root.querySelector<HTMLButtonElement>('.pilot-tabs-drop');
+    const menu = root.querySelector<HTMLElement>('.pilot-tabs-menu');
+    const dropwrap = root.querySelector('.pilot-tabs-dropwrap');
+    const valueEl = root.querySelector<HTMLElement>('#industry-select-value');
+    let current = 0;
+
+    const select = (index: number) => {
+      current = index;
+      const name = options[index]?.textContent?.trim() ?? '';
+      if (valueEl && name) valueEl.textContent = name;
+      panels.forEach((panel, i) => {
+        const on = i === index;
+        panel.hidden = !on;
+        panel.classList.toggle('is-active', on);
+      });
+      options.forEach((opt, i) => {
+        opt.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      });
+    };
+
+    const capMenu = () => {
+      if (!menu || !dropwrap) return;
+      const section = root.getBoundingClientRect();
+      const wrap = dropwrap.getBoundingClientRect();
+      const optionH = options[0]?.getBoundingClientRect().height || 54;
+      const six = optionH * 6;
+      const room = Math.max(optionH, section.bottom - wrap.bottom - 8);
+      menu.style.maxHeight = `${Math.min(six, room)}px`;
+    };
+
+    const closeMenu = () => {
+      if (!drop || !menu) return;
+      menu.hidden = true;
+      drop.setAttribute('aria-expanded', 'false');
+    };
+
+    const openMenu = () => {
+      if (!menu || !drop) return;
+      menu.hidden = false;
+      drop.setAttribute('aria-expanded', 'true');
+      capMenu();
+    };
+
+    const selectedOption = () => options.find((opt) => opt.getAttribute('aria-selected') === 'true') ?? options[current] ?? options[0];
+
+    drop?.addEventListener('click', () => {
+      if (!menu) return;
+      if (menu.hidden) openMenu();
+      else closeMenu();
+    });
+
+    options.forEach((opt, i) => {
+      opt.addEventListener('click', () => {
+        select(i);
+        closeMenu();
+        drop?.focus();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!dropwrap?.contains(event.target as Node)) closeMenu();
+    });
+
+    dropwrap?.addEventListener('focusout', (event) => {
+      if (!dropwrap.contains((event as FocusEvent).relatedTarget as Node)) closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (menu && !menu.hidden) capMenu();
+    });
+
+    drop?.addEventListener('keydown', (event) => {
+      const key = event.key;
+      if (key === 'Escape') {
+        closeMenu();
+        drop.focus();
+        return;
+      }
+      if (key === 'Enter' || key === ' ') {
+        event.preventDefault();
+        if (menu?.hidden) {
+          openMenu();
+          selectedOption()?.focus();
+        } else closeMenu();
+        return;
+      }
+      if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'Home' || key === 'End') {
+        event.preventDefault();
+        openMenu();
+        let target = current;
+        if (key === 'Home') target = 0;
+        else if (key === 'End') target = options.length - 1;
+        else if (key === 'ArrowDown') target = current;
+        else if (key === 'ArrowUp') target = current;
+        options[target]?.focus();
+      }
+    });
+
+    menu?.addEventListener('keydown', (event) => {
+      const key = event.key;
+      if (key === 'Escape') {
+        event.preventDefault();
+        closeMenu();
+        drop?.focus();
+        return;
+      }
+      if (key === 'Enter' || key === ' ') {
+        const i = options.findIndex((opt) => opt === document.activeElement);
+        if (i >= 0) {
+          event.preventDefault();
+          select(i);
+          closeMenu();
+          drop?.focus();
+        }
+        return;
+      }
+      let next = options.findIndex((opt) => opt === document.activeElement);
+      if (next < 0) next = current;
+      if (key === 'ArrowDown') next = (next + 1) % options.length;
+      else if (key === 'ArrowUp') next = (next - 1 + options.length) % options.length;
+      else if (key === 'Home') next = 0;
+      else if (key === 'End') next = options.length - 1;
+      else return;
+      event.preventDefault();
+      options[next]?.focus();
+    });
+  }
+</script>

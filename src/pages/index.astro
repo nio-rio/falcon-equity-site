@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PilotHero from '@/components/pilot/PilotHero.astro';
+import PilotStats from '@/components/pilot/PilotStats.astro';
+import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
+import PilotTestimonial from '@/components/pilot/PilotTestimonial.astro';
+import PilotIndustryTabs from '@/components/pilot/PilotIndustryTabs.astro';
+import PilotWhy from '@/components/pilot/PilotWhy.astro';
+import PilotNews from '@/components/pilot/PilotNews.astro';
+import { getHomeServices } from '@/data/services';
+import { STATS } from '@/data/site';
+import { getPublicPosts } from '@/lib/blog';
+import heroFalcon from '@/assets/images/hero-falcon.webp';
+import '@/styles/pilot.css';
+
+const homeServices = getHomeServices();
+const published = await getPublicPosts();
+const insightIds = [
+  '24-48-hour-funding-checklist',
+  'merchant-cash-advance-vs-business-term-loan',
+  'bridging-a-slow-season',
+];
+const insights = insightIds
+  .map((id) => published.find((post) => post.id === id))
+  .filter((post): post is (typeof published)[number] => Boolean(post));
+
+const fundingTime = STATS.find((s) => s.label === 'Average funding time')!;
+const deployed = STATS.find((s) => s.label === 'Funding deployed')!;
+const approval = STATS.find((s) => s.label === 'Approval for qualified applicants')!;
+---
+
+<BaseLayout
+  description="Business funding from New York City. Merchant cash advances, lines of credit, term loans, invoice factoring and consolidation, with funding in as little as 24-48 hours."
+  image="/og-home.jpg"
+  imageAlt="Peregrine falcon gliding with wings raised against a burning orange and slate sky"
+  imageWidth={1200}
+  imageHeight={630}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+  <PilotHero
+    line1="Fuel Success with"
+    line2="Fast Funding"
+    aside="Unlock rapid financial solutions tailored to your business needs."
+    captionTitle="Apply to get same-day funding"
+    captionBody="One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval."
+    captionHref="/apply"
+    captionLabel="Apply for funding"
+    image={heroFalcon}
+    imageAlt="Peregrine falcon gliding with wings raised against a burning orange and slate sky"
+  />
+
+  <PilotStats
+    featured={{ label: fundingTime.label, value: fundingTime.value }}
+    side={[
+      { label: deployed.label, value: deployed.value },
+      { label: approval.label, value: approval.value },
+    ]}
+  />
+
+  <PilotLinkList
+    eyebrow="Services"
+    title="How we can bring you victory."
+    items={homeServices.map((s) => ({
+      href: s.href,
+      name: s.name,
+      teaser: s.teaser,
+      rangeLine: s.rangeLine,
+    }))}
+  />
+
+  <PilotTestimonial />
+
+  <PilotIndustryTabs />
+
+  <PilotWhy />
+
+  <PilotNews posts={insights} />
+
+  <script>
+    import '@/scripts/scroll-in';
+  </script>
+</BaseLayout>

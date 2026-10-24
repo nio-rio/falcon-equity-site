@@ -1,0 +1,3459 @@
+import { existsSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+
+const require = createRequire(import.meta.url);
+
+const pickChromium = (mod) => mod?.chromium || mod?.default?.chromium;
+
+const loadChromium = async () => {
+  const candidates = [
+    new URL('../node_modules/playwright-core/index.js', import.meta.url).pathname,
+    '/tmp/nav-qa/node_modules/playwright-core/index.js',
+  ];
+  for (const file of candidates) {
+    if (!existsSync(file)) continue;
+    const mod = await import(pathToFileURL(file).href);
+    const chromium = pickChromium(mod);
+    if (chromium) return chromium;
+  }
+  return pickChromium(require('playwright-core'));
+};
+
+const chromium = await loadChromium();
+
+const BASE = process.env.QA_BASE || 'http://127.0.0.1:4321';
+const OUT = process.env.QA_OUT || '/opt/cursor/artifacts/screenshots';
+const CHROME = process.env.CHROME_PATH || '/usr/local/bin/google-chrome';
+await mkdir(OUT, { recursive: true });
+
+const VIEWPORTS = [
+  { name: '1440', width: 1440, height: 900, mode: 'desktop' },
+  { name: '1280', width: 1280, height: 800, mode: 'mobile' },
+  { name: '1024', width: 1024, height: 768, mode: 'mobile' },
+  { name: '768', width: 768, height: 1024, mode: 'mobile' },
+  { name: '390', width: 390, height: 844, mode: 'mobile' },
+];
+
+/** Ling nav CTA rule: Apply stays on the bar as long as it fits. */
+const NAV_APPLY_BAR_MIN = 375; // extra-compact “Apply” + hamburger
+const NAV_APPLY_COMPACT_MIN = 528; // 33em — compact “Apply for funding”
+const NAV_APPLY_FULL_MIN = 608; // 38em — full-size Apply
+const NAV_PHONE_BAR_MIN = 800; // 50em — phone joins Apply on the bar
+const NAV_DESKTOP_MIN = 1440; // 90em — inline links, no hamburger
+
+const applyOnBar = (width) => width >= NAV_APPLY_BAR_MIN;
+const applyShort = (width) => width >= NAV_APPLY_BAR_MIN && width < NAV_APPLY_COMPACT_MIN;
+const applyCompact = (width) => width >= NAV_APPLY_COMPACT_MIN && width < NAV_APPLY_FULL_MIN;
+const phoneOnBar = (width) => width >= NAV_PHONE_BAR_MIN;
+
+const PAGES = [
+  { name: 'home', path: '/' },
+  { name: 'inner', path: '/apply' },
+];
+
+const results = [];
+const log = (entry) => {
+  results.push(entry);
+  const mark = entry.ok ? 'PASS' : 'FAIL';
+  console.log(`${mark} [${entry.vp}/${entry.page}] ${entry.check}${entry.detail ? ' — ' + entry.detail : ''}`);
+};
+
+const browser = await chromium.launch({
+  executablePath: CHROME,
+  headless: true,
+  args: ['--no-sandbox', '--disable-gpu', '--hide-scrollbars'],
+});
+
+const shot = async (page, name) => {
+  const file = `${OUT}/qa-${name}.png`;
+  await page.screenshot({ path: file, fullPage: false });
+  return file;
+};
+
+const headerPanelGeom = (page) =>
+  page.evaluate(() => {
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]');
+    const desktopPanel = document.querySelector('[data-nav-panel][aria-hidden="false"]');
+    const mobileInner = document.querySelector('[data-nav-inner].is-open');
+    const panel = desktopPanel || mobileInner;
+    const hr = header.getBoundingClientRect();
+    const br = bar.getBoundingClientRect();
+    const pr = panel ? panel.getBoundingClientRect() : null;
+    const cs = getComputedStyle(header);
+    const barCs = getComputedStyle(bar);
+    const noHairline = (elCs) =>
+      (elCs.borderBottomWidth === '0px' || elCs.borderBottomStyle === 'none') &&
+      (elCs.boxShadow === 'none' || elCs.boxShadow === '');
+    return {
+      headerTop: Math.round(hr.top * 10) / 10,
+      barBottom: Math.round(br.bottom * 10) / 10,
+      panelTop: pr ? Math.round(pr.top * 10) / 10 : null,
+      headerH: Math.round(hr.height * 10) / 10,
+      headerBottom: Math.round(hr.bottom * 10) / 10,
+      visible:
+        br.height > 8 &&
+        br.bottom > 8 &&
+        br.top < window.innerHeight &&
+        (document.documentElement.classList.contains('has-scroll-lock') ||
+          !header.classList.contains('is-hidden') ||
+          header.classList.contains('is-shown')) &&
+        cs.visibility !== 'hidden' &&
+        cs.display !== 'none',
+      noHairline: noHairline(cs) && noHairline(barCs),
+      pos: cs.position,
+      locked: document.documentElement.classList.contains('has-scroll-lock'),
+      fixed: header.classList.contains('is-fixed'),
+      hidden: header.classList.contains('is-hidden'),
+      shown: header.classList.contains('is-shown'),
+      y: Math.round(window.scrollY),
+    };
+  });
+
+const openMenu = async (page, mode) => {
+  if (mode === 'desktop') {
+    await page.mouse.move(2, 2);
+    await page.waitForTimeout(80);
+    const trigger = page.locator('[data-nav-trigger]').first();
+    await trigger.hover({ force: true });
+    await page.waitForTimeout(280);
+    const opened = await page.locator('[data-nav-item]').first().evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
+    if (!opened) await trigger.click();
+  } else {
+    const toggle = page.locator('[data-mobile-toggle]');
+    const expanded = await toggle.getAttribute('aria-expanded');
+    if (expanded !== 'true') await toggle.click();
+  }
+  await page.waitForTimeout(280);
+};
+
+const readBarWrap = (page) =>
+  page.evaluate(() => {
+    const bar = document.querySelector('[data-header-bar]');
+    const items = [...document.querySelectorAll('[data-nav-list] > [data-nav-item]')];
+    const burger = document.querySelector('[data-mobile-toggle]');
+    const tel = document.querySelector('.site-header__tel--bar');
+    const apply = document.querySelector('.site-header__apply--bar');
+    const logo = document.querySelector('.site-header__logo');
+    const visible = (el) => {
+      if (!el) return false;
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 1 && r.height > 1;
+    };
+    const tops = items.filter(visible).map((el) => Math.round(el.getBoundingClientRect().top));
+    const chrome = [logo, tel, apply, burger].filter(visible);
+    const chromeTops = chrome.map((el) => Math.round(el.getBoundingClientRect().top));
+    const chromeBottoms = chrome.map((el) => Math.round(el.getBoundingClientRect().bottom));
+    const barR = bar?.getBoundingClientRect();
+    const chromeSpread = chromeTops.length ? Math.max(...chromeTops) - Math.min(...chromeTops) : 0;
+    const inner = document.querySelector('.site-header__inner');
+    const tools = document.querySelector('.site-header__tools');
+    return {
+      barH: barR ? Math.round(barR.height * 10) / 10 : null,
+      burger: visible(burger),
+      tel: visible(tel),
+      apply: visible(apply),
+      itemRows: new Set(tops).size,
+      chromeAligned: chromeSpread <= 24,
+      chromeSpread,
+      chromeTop: chromeTops.length ? Math.min(...chromeTops) : null,
+      chromeBottom: chromeBottoms.length ? Math.max(...chromeBottoms) : null,
+      wrap: getComputedStyle(document.querySelector('[data-nav-list]')).flexWrap,
+      innerWrap: inner ? getComputedStyle(inner).flexWrap : null,
+      toolsWrap: tools ? getComputedStyle(tools).flexWrap : null,
+    };
+  });
+
+const readHomeTheme = (page) =>
+  page.evaluate(() => {
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]') || header;
+    const hero = document.querySelector('[data-home-hero]');
+    const br = bar?.getBoundingClientRect();
+    const er = hero?.getBoundingClientRect();
+    const hidden = Boolean(header?.classList.contains('is-hidden') && !header.classList.contains('is-shown'));
+    const headerBottom = hidden ? 0 : br ? Math.round(br.bottom * 10) / 10 : null;
+    return {
+      dark: header?.classList.contains('is-color-theme-dark') || false,
+      compact: header?.classList.contains('is-fixed') || false,
+      hidden,
+      headerBottom,
+      barH: br ? Math.round(br.height * 10) / 10 : null,
+      heroBottom: er ? Math.round(er.bottom * 10) / 10 : null,
+      overlap: headerBottom != null && er ? Math.round((er.bottom - headerBottom) * 10) / 10 : null,
+      y: Math.round(window.scrollY),
+    };
+  });
+
+const releaseNavScroll = (page) =>
+  page.evaluate(() => {
+    document.documentElement.classList.remove('has-scroll-lock');
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+  });
+
+const revealCompactBar = async (page) => {
+  const hidden = await page.evaluate(
+    () => document.querySelector('[data-header]')?.classList.contains('is-hidden') && !document.querySelector('[data-header]')?.classList.contains('is-shown'),
+  );
+  if (!hidden) return;
+  const y = await page.evaluate(() => {
+    const h = document.querySelector('[data-header]')?.offsetHeight || 0;
+    const floor = 2 * h + 8;
+    return Math.max(floor, window.scrollY - 48);
+  });
+  await scrollPageTo(page, y);
+};
+
+const readScrollNav = (page) =>
+  page.evaluate(() => {
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-nav-bar], [data-header-bar]');
+    const br = bar?.getBoundingClientRect();
+    const hr = header?.getBoundingClientRect();
+    const cs = bar ? getComputedStyle(bar) : null;
+    return {
+      y: Math.round(window.scrollY),
+      inflowH: header?.offsetHeight || 0,
+      fixed: header?.classList.contains('is-fixed') || false,
+      hidden: header?.classList.contains('is-hidden') || false,
+      shown: header?.classList.contains('is-shown') || false,
+      headerH: hr ? Math.round(hr.height) : 0,
+      barH: br ? Math.round(br.height) : 0,
+      barTop: br ? Math.round(br.top * 10) / 10 : null,
+      innerTop: (() => {
+        const inner = document.querySelector('.site-header__inner');
+        return inner ? Math.round(inner.getBoundingClientRect().top * 10) / 10 : null;
+      })(),
+      padTop: cs ? parseFloat(cs.paddingTop) : null,
+      transition: cs?.transitionDuration || '',
+    };
+  });
+
+const scrollPageTo = async (page, y) => {
+  const top = Math.max(0, Math.round(y));
+  await releaseNavScroll(page);
+  await page.evaluate((n) => {
+    const root = document.scrollingElement || document.documentElement;
+    window.scrollTo({ top: n, left: 0, behavior: 'auto' });
+    root.scrollTop = n;
+    document.documentElement.scrollTop = n;
+    document.body.scrollTop = n;
+  }, top);
+  await page.waitForFunction((n) => Math.abs(window.scrollY - n) <= 2, top, { timeout: 1500 }).catch(() => {});
+  await page.waitForTimeout(80);
+};
+
+const scrollOverHomeHero = async (page) => {
+  const y = await page.evaluate(() => {
+    const hero = document.querySelector('[data-home-hero]');
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 40;
+    const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+    const heroH = hero.getBoundingClientRect().height;
+    const barH = bar.getBoundingClientRect().height;
+    return Math.min(heroTop + Math.max(80, heroH * 0.35), heroTop + heroH - barH - 48);
+  });
+  await scrollPageTo(page, Math.max(y, 40));
+  await revealCompactBar(page);
+};
+
+const scrollPastHomeHero = async (page) => {
+  const y = await page.evaluate(() => {
+    const hero = document.querySelector('[data-home-hero]');
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 1;
+    return Math.ceil(
+      hero.getBoundingClientRect().bottom + window.scrollY - bar.getBoundingClientRect().height + 16,
+    );
+  });
+  await scrollPageTo(page, Math.max(y, 1));
+  await revealCompactBar(page);
+};
+
+/** offset > 0 keeps that many px of hero below the bar (still dark). offset < 0 is past. */
+const scrollHeroToBarOffset = async (page, offset) => {
+  const y = await page.evaluate((off) => {
+    const hero = document.querySelector('[data-home-hero]');
+    const bar = document.querySelector('[data-header-bar]') || document.querySelector('[data-header]');
+    if (!hero || !bar) return 0;
+    const heroDocBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+    const barH = bar.getBoundingClientRect().height;
+    return Math.round(heroDocBottom - barH - off);
+  }, offset);
+  await scrollPageTo(page, Math.max(y, 0));
+  await revealCompactBar(page);
+};
+
+const closeMenu = async (page, mode) => {
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(150);
+  if (mode === 'mobile') {
+    const toggle = page.locator('[data-mobile-toggle]');
+    if ((await toggle.getAttribute('aria-expanded')) === 'true') {
+      await toggle.click();
+      await page.waitForTimeout(150);
+    }
+  }
+};
+
+const readToggleIcons = (page) =>
+  page.evaluate(() => {
+    const shown = (el) => {
+      if (!el) return false;
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return (
+        cs.display !== 'none' &&
+        cs.visibility !== 'hidden' &&
+        Number(cs.opacity) > 0 &&
+        r.width > 1 &&
+        r.height > 1
+      );
+    };
+    const toggle = document.querySelector('[data-mobile-toggle]');
+    const lines = toggle?.querySelector('.primary-nav__toggle-lines');
+    const cross = toggle?.querySelector('.primary-nav__toggle-cross');
+    const tr = toggle?.getBoundingClientRect();
+    const lr = lines?.getBoundingClientRect();
+    const cr = cross?.getBoundingClientRect();
+    const linesOn = shown(lines);
+    const crossOn = shown(cross);
+    return {
+      expanded: toggle?.getAttribute('aria-expanded') || null,
+      label: toggle?.querySelector('[data-mobile-label]')?.textContent.trim() || '',
+      toggleDisplay: toggle ? getComputedStyle(toggle).display : null,
+      toggleW: tr ? Math.round(tr.width * 10) / 10 : null,
+      toggleH: tr ? Math.round(tr.height * 10) / 10 : null,
+      linesOn,
+      crossOn,
+      bothOn: linesOn && crossOn,
+      sideBySide:
+        linesOn &&
+        crossOn &&
+        lr &&
+        cr &&
+        Math.abs(lr.left - cr.left) > 4,
+    };
+  });
+
+const toggleIconsOk = (icons, open) =>
+  icons.expanded === String(open) &&
+  icons.linesOn === !open &&
+  icons.crossOn === open &&
+  !icons.bothOn &&
+  !icons.sideBySide &&
+  icons.toggleDisplay !== 'none' &&
+  icons.toggleW != null &&
+  icons.toggleW <= 40 &&
+  icons.label === (open ? 'Close menu' : 'Open menu');
+
+const isBlur5 = (value) =>
+  typeof value === 'string' && /blur\(\s*5px\s*\)/.test(value) && !/saturate/i.test(value);
+
+const isFilterNone = (value) => !value || value === 'none';
+
+const readFilters = (page) =>
+  page.evaluate(() => {
+    const read = (el) => {
+      if (!el) return null;
+      const cs = getComputedStyle(el);
+      return {
+        backdropFilter: cs.backdropFilter || cs.webkitBackdropFilter || 'none',
+        webkitBackdropFilter: cs.webkitBackdropFilter || '',
+        backgroundColor: cs.backgroundColor,
+        display: cs.display,
+        isolation: cs.isolation,
+        transform: cs.transform,
+        filter: cs.filter,
+      };
+    };
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]');
+    const overlay = document.querySelector('[data-nav-backdrop]');
+    const panel =
+      document.querySelector('[data-nav-panel][aria-hidden="false"]') ||
+      document.querySelector('[data-nav-inner].is-open') ||
+      null;
+    let ancestorTrap = false;
+    for (let n = overlay?.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      if (cs.transform !== 'none' || cs.filter !== 'none' || cs.isolation === 'isolate') ancestorTrap = true;
+    }
+    return {
+      header: read(header),
+      bar: read(bar),
+      overlay: read(overlay),
+      panel: read(panel),
+      overlayParent: overlay?.parentElement?.tagName || null,
+      ancestorTrap,
+    };
+  });
+
+const readTypeChrome = (page, telSel = '.site-header__tel--bar') =>
+  page.evaluate((sel) => {
+    const tel = document.querySelector(sel);
+    const menu = document.querySelector('.primary-nav__list-item-link');
+    const telLabel = tel?.querySelector('.site-header__tel-label');
+    const menuLabel = document.querySelector('.primary-nav__list-item-label');
+    const typeOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        fontFamily: cs.fontFamily,
+        fontSize: cs.fontSize,
+        fontWeight: cs.fontWeight,
+        color: cs.color,
+        letterSpacing: cs.letterSpacing,
+        textTransform: cs.textTransform,
+        textDecorationLine: cs.textDecorationLine,
+        fontStyle: cs.fontStyle,
+      };
+    };
+    const labelOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        backgroundImage: cs.backgroundImage,
+        backgroundSize: cs.backgroundSize,
+        backgroundPosition: cs.backgroundPosition,
+        backgroundRepeat: cs.backgroundRepeat,
+      };
+    };
+    const chromeOf = (el) => {
+      const cs = getComputedStyle(el);
+      return {
+        backgroundColor: cs.backgroundColor,
+        borderWidth: cs.borderTopWidth,
+        boxShadow: cs.boxShadow,
+        padding: cs.padding,
+      };
+    };
+    return {
+      tel: typeOf(tel),
+      menu: typeOf(menu),
+      telLabel: labelOf(telLabel),
+      menuLabel: labelOf(menuLabel),
+      telChrome: chromeOf(tel),
+    };
+  }, telSel);
+
+const openCount = (page) =>
+  page.locator('[data-nav-item].is-open, [data-nav-item]:has([data-nav-trigger][aria-expanded="true"])').count();
+
+const LILAC_DARK = 'rgb(229, 228, 242)';
+const LILAC_DARKER = 'rgb(196, 191, 225)';
+const LILAC_LIGHT = 'rgb(246, 245, 252)';
+const WHITE_A16 = 'rgba(255, 255, 255, 0.16)';
+const MARTINIQUE_LIGHTER = 'rgb(96, 90, 123)';
+const MARTINIQUE_DARKER = 'rgb(20, 16, 31)';
+const MARTINIQUE = 'rgb(51, 42, 78)';
+const LILAC = 'rgb(243, 242, 251)';
+const CTA_PHRASES = [
+  'purchase inventory',
+  'cover payroll',
+  'expand or renovate',
+  'launch marketing campaigns',
+  'stabilize cash flow',
+  'upgrade equipment',
+  'hire more employees',
+  'consolidate business debt',
+];
+const CTA_SR =
+  'Need funding to purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, or consolidate business debt';
+const APPLY_LIGHT = {
+  color: MARTINIQUE,
+  textBg: LILAC,
+  arrow: LILAC,
+  arrowBg: MARTINIQUE,
+  focus: '#f3f2fb',
+};
+const APPLY_DARK = {
+  color: LILAC,
+  textBg: MARTINIQUE,
+  arrow: MARTINIQUE,
+  arrowBg: LILAC_DARKER,
+  focus: '#332a4e',
+};
+const WHITE = 'rgb(255, 255, 255)';
+const WIDGET_DARK = {
+  bg: MARTINIQUE_DARKER,
+  copy: WHITE,
+  circleBg: WHITE,
+  circleFg: MARTINIQUE_DARKER,
+};
+const WIDGET_LIGHT = {
+  bg: LILAC,
+  copy: MARTINIQUE_DARKER,
+  circleBg: MARTINIQUE_DARKER,
+  circleFg: LILAC,
+};
+
+const readButton040 = (page, sel) =>
+  page.evaluate((selector) => {
+    const btn = document.querySelector(selector);
+    if (!btn) return null;
+    const textWrap = btn.querySelector('.button-040__text-wrap');
+    const text = btn.querySelector('.button-040__text');
+    const full = btn.querySelector('.button-040__text-full');
+    const compact = btn.querySelector('.button-040__text-compact');
+    const shownLabel = [compact, full].find((el) => el && getComputedStyle(el).display !== 'none');
+    const dup = btn.querySelector('.button-040__icon-wrap.is--duplicate');
+    const icon = dup?.querySelector('.button-040__icon');
+    const svgs = [...btn.querySelectorAll('svg')];
+    const cs = getComputedStyle(btn);
+    const tcs = textWrap ? getComputedStyle(textWrap) : null;
+    const dcs = dup ? getComputedStyle(dup) : null;
+    const ics = icon ? getComputedStyle(icon) : null;
+    const header = document.querySelector('[data-header]');
+    const hr = header?.getBoundingClientRect();
+    const br = btn.getBoundingClientRect();
+    return {
+      href: btn.getAttribute('href'),
+      aria: btn.getAttribute('aria-label'),
+      visible: shownLabel?.textContent?.trim() || text?.textContent?.trim() || '',
+      color: cs.color,
+      textBg: tcs?.backgroundColor || null,
+      radius: tcs?.borderRadius || null,
+      arrow: ics?.color || null,
+      arrowBg: dcs?.backgroundColor || null,
+      focus: cs.getPropertyValue('--button-040-color-focus').trim(),
+      height: br.height,
+      computedH: parseFloat(cs.height),
+      fontSize: parseFloat(cs.fontSize),
+      padX: tcs ? parseFloat(tcs.paddingLeft) : null,
+      icon: ics ? parseFloat(ics.width) : null,
+      headerH: hr?.height ?? null,
+      svgCount: svgs.length,
+      svgsHidden: svgs.length > 0 && svgs.every((s) => s.getAttribute('aria-hidden') === 'true'),
+    };
+  }, sel);
+
+const normFocus = (c) => {
+  const n = String(c || '')
+    .replace(/\s/g, '')
+    .toLowerCase();
+  if (
+    n === '#f3f2fb' ||
+    n === 'rgb(243,242,251)' ||
+    n === 'var(--bx-lilac)'
+  )
+    return '#f3f2fb';
+  if (
+    n === '#332a4e' ||
+    n === 'rgb(51,42,78)' ||
+    n === 'var(--bx-martinique)'
+  )
+    return '#332a4e';
+  if (n === '#fff' || n === '#ffffff' || n === 'rgb(255,255,255)' || n === 'white') return '#ffffff';
+  if (n === '#000' || n === '#000000' || n === 'rgb(0,0,0)' || n === 'black') return '#000000';
+  return n;
+};
+
+const parseRgb = (c) => {
+  const m = String(c || '').match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/);
+  if (!m) return null;
+  return [Number(m[1]), Number(m[2]), Number(m[3])];
+};
+const relLum = ([r, g, b]) => {
+  const chan = (v) => {
+    v /= 255;
+    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * chan(r) + 0.7152 * chan(g) + 0.0722 * chan(b);
+};
+const contrastRatio = (fg, bg) => {
+  const a = parseRgb(fg);
+  const b = parseRgb(bg);
+  if (!a || !b) return 0;
+  const L1 = relLum(a);
+  const L2 = relLum(b);
+  const hi = Math.max(L1, L2);
+  const lo = Math.min(L1, L2);
+  return (hi + 0.05) / (lo + 0.05);
+};
+const aaMin = (fontPx, weight) => (fontPx >= 24 || (fontPx >= 18.66 && weight >= 700) ? 3 : 4.5);
+const roundRatio = (n) => Math.round(n * 100) / 100;
+
+const readNavWidget = (page) =>
+  page.evaluate(() => {
+    const widgets = [...document.querySelectorAll('.primary-nav-widget')];
+    const header = document.querySelector('[data-header]');
+    const isPanelVisible = (p) => {
+      if (!p) return false;
+      const cs = getComputedStyle(p);
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && p.getAttribute('aria-hidden') !== 'true';
+    };
+    /* Each mega panel carries its own card, so read the card of the panel that is actually open. */
+    const openPanel = [...document.querySelectorAll('[data-nav-panel]')].find(isPanelVisible) || null;
+    const el = openPanel ? openPanel.querySelector('.primary-nav-widget') : widgets[0] || null;
+    const styleOf = (node) => {
+      if (!node) return null;
+      const cs = getComputedStyle(node);
+      return {
+        color: cs.color,
+        bg: cs.backgroundColor,
+        fontSize: cs.fontSize,
+        fontWeight: Number.parseInt(cs.fontWeight, 10) || 400,
+      };
+    };
+    if (!el) {
+      return { count: widgets.length, dark: header?.classList.contains('is-color-theme-dark') || false, visible: false };
+    }
+    const wcs = getComputedStyle(el);
+    const title = el.querySelector('.primary-nav-widget__title');
+    const body = el.querySelector('.primary-nav-widget__content p');
+    const eyebrow = el.querySelector('.eyebrow, .primary-nav-widget__eyebrow');
+    /* The card itself is the anchor (whole-card link). Fall back to a
+       descendant anchor so an older build still reads instead of crashing. */
+    const cta = el.tagName === 'A' ? el : el.querySelector('a');
+    const label = el.querySelector('.arrow-cta-label');
+    const circle = el.querySelector('.circle-arrow');
+    return {
+      count: widgets.length,
+      dark: header?.classList.contains('is-color-theme-dark') || false,
+      visible: wcs.display !== 'none' && !el.closest('[data-nav-panel][aria-hidden="true"]'),
+      bg: wcs.backgroundColor,
+      border: wcs.borderTopColor,
+      borderWidth: wcs.borderTopWidth,
+      isLink: el.tagName === 'A',
+      anchorsInside: el.querySelectorAll('a').length,
+      linkIsCard: Boolean(cta) && cta === el,
+      cursor: wcs.cursor,
+      title: title ? { ...styleOf(title), text: title.textContent.trim() } : null,
+      body: body ? { ...styleOf(body) } : null,
+      eyebrow: eyebrow ? styleOf(eyebrow) : null,
+      link: cta ? { ...styleOf(cta), href: cta.getAttribute('href') } : null,
+      label: label
+        ? { ...styleOf(label), text: label.textContent.trim(), underline: getComputedStyle(label).backgroundSize }
+        : null,
+      circle: circle ? styleOf(circle) : null,
+    };
+  });
+
+const contrastRecord = (fg, bg, fontPx = 16, weight = 400, ui = false) => {
+  const ratio = contrastRatio(fg, bg);
+  const min = ui ? 3 : aaMin(fontPx, weight);
+  return {
+    ratio: roundRatio(ratio),
+    min,
+    ok: ratio + 1e-6 >= min,
+    fontPx: Number.isFinite(fontPx) ? roundRatio(fontPx) : null,
+    weight,
+  };
+};
+
+const WIDGET_COPY = { title: 'Guides for getting funded', href: '/blog', label: 'Learn More' };
+
+const widgetPasses = (got, expected, copy = WIDGET_COPY) => {
+  const ratios = {};
+  if (!got?.visible) {
+    return { ok: false, colorsOk: false, contrastOk: false, ratios, reason: 'missing-widget' };
+  }
+  const checkText = (name, node, required) => {
+    if (!node) {
+      ratios[name] = required ? { ratio: 0, min: 4.5, ok: false } : null;
+      return !required;
+    }
+    const rec = contrastRecord(node.color, got.bg, parseFloat(node.fontSize), node.fontWeight);
+    rec.colorOk = node.color === expected.copy;
+    ratios[name] = rec;
+    return rec.ok;
+  };
+  const titleOk = checkText('title', got.title, true);
+  const bodyOk = checkText('body', got.body, true);
+  const linkOk = checkText('link', got.link, true);
+  const labelOk = checkText('label', got.label, true);
+  const eyebrowOk = checkText('eyebrow', got.eyebrow, false);
+  const circleOnCard = got.circle
+    ? contrastRecord(got.circle.bg, got.bg, 24, 400, true)
+    : { ratio: 0, min: 3, ok: false };
+  const arrowOnCircle = got.circle
+    ? contrastRecord(got.circle.color, got.circle.bg, 24, 400, true)
+    : { ratio: 0, min: 3, ok: false };
+  ratios.circleOnCard = circleOnCard;
+  ratios.arrowOnCircle = arrowOnCircle;
+  /* Card = one anchor covering the whole surface: the href lives on the card
+     itself (so no anchor descendant), the "Learn More" row is not a second
+     link, and there is no 1px edge. */
+  const anchorOk = got.isLink === true && got.anchorsInside === 0 && got.linkIsCard === true;
+  const colorsOk =
+    anchorOk &&
+    got.bg === expected.bg &&
+    got.borderWidth === '0px' &&
+    got.circle?.bg === expected.circleBg &&
+    got.circle?.color === expected.circleFg &&
+    got.link?.href === copy.href &&
+    got.title?.text === copy.title &&
+    got.label?.text === copy.label &&
+    ratios.title?.colorOk &&
+    ratios.body?.colorOk &&
+    ratios.link?.colorOk &&
+    ratios.label?.colorOk &&
+    (got.eyebrow == null || ratios.eyebrow?.colorOk);
+  const contrastOk =
+    titleOk && bodyOk && linkOk && labelOk && eyebrowOk && circleOnCard.ok && arrowOnCircle.ok;
+  return { ok: colorsOk && contrastOk, colorsOk, contrastOk, ratios };
+};
+
+const widgetContrastReports = [];
+const recordWidgetContrast = (tag, state, themeName, check) => {
+  widgetContrastReports.push({
+    vp: tag.vp,
+    page: tag.page,
+    state,
+    theme: themeName,
+    ok: check.contrastOk,
+    ratios: check.ratios,
+  });
+};
+
+const formatWidgetDetail = (themeName, got, check) =>
+  JSON.stringify({
+    theme: themeName,
+    bg: got?.bg || null,
+    dark: got?.dark ?? null,
+    ratios: check.ratios,
+  });
+
+const button040Matches = (got, expected) =>
+  Boolean(got) &&
+  got.href === '/apply' &&
+  got.aria === 'Apply for funding' &&
+  (got.visible === 'Apply for funding' || got.visible === 'Apply') &&
+  got.color === expected.color &&
+  got.textBg === expected.textBg &&
+  got.arrow === expected.arrow &&
+  got.arrowBg === expected.arrowBg &&
+  normFocus(got.focus) === expected.focus &&
+  got.svgsHidden &&
+  got.svgCount === 2;
+
+const panelIsOpen = (el) => {
+  if (!el) return false;
+  const cs = getComputedStyle(el);
+  return (
+    cs.display !== 'none' &&
+    cs.visibility !== 'hidden' &&
+    Number(cs.opacity) > 0.05 &&
+    el.getAttribute('aria-hidden') !== 'true'
+  );
+};
+
+const countOpenPanels = (page) =>
+  page.locator('[data-nav-panel]').evaluateAll((els) =>
+    els.filter((el) => {
+      const cs = getComputedStyle(el);
+      return (
+        cs.display !== 'none' &&
+        cs.visibility !== 'hidden' &&
+        Number(cs.opacity) > 0.05 &&
+        el.getAttribute('aria-hidden') !== 'true'
+      );
+    }).length,
+  );
+
+const readPanelChrome = (page) =>
+  page.evaluate(() => {
+    const logo = document.querySelector('.site-header__logo');
+    const apply = document.querySelector('.site-header__apply--bar');
+    const panel =
+      document.querySelector('[data-nav-panel][aria-hidden="false"]') ||
+      document.querySelector('[data-nav-item].is-open [data-nav-panel]') ||
+      document.querySelector('[data-nav-inner].is-open [data-nav-panel]');
+    const heading = panel?.querySelector('.primary-nav__list-lvl-2-link');
+    const list = panel?.querySelector('[data-nav-panel-list]');
+    const header = document.querySelector('[data-header]');
+    const bar = document.querySelector('[data-header-bar]');
+    const lr = logo.getBoundingClientRect();
+    const hr = heading?.getBoundingClientRect();
+    const pr = list?.getBoundingClientRect();
+    const ar = apply?.getBoundingClientRect();
+    const listCs = list ? getComputedStyle(list) : null;
+    const panelCs = panel ? getComputedStyle(panel) : null;
+    const headerCs = getComputedStyle(header);
+    const barCs = getComputedStyle(bar);
+    const panelVisible =
+      Boolean(panelCs) &&
+      panelCs.display !== 'none' &&
+      panelCs.visibility !== 'hidden' &&
+      Number(panelCs.opacity) > 0.05 &&
+      panel?.getAttribute('aria-hidden') !== 'true';
+    return {
+      logoLeft: Math.round(lr.left * 10) / 10,
+      colLeft: hr ? Math.round(hr.left * 10) / 10 : null,
+      listLeft: pr ? Math.round(pr.left * 10) / 10 : null,
+      listRight: pr ? Math.round(pr.right * 10) / 10 : null,
+      applyRight: ar ? Math.round(ar.right * 10) / 10 : null,
+      applyDisplay: apply ? getComputedStyle(apply).display : null,
+      borderTopWidth: listCs?.borderTopWidth ?? null,
+      borderTopColor: listCs?.borderTopColor ?? null,
+      borderTopStyle: listCs?.borderTopStyle ?? null,
+      panelVisible: Boolean(panelVisible),
+      headerBorder: headerCs.borderBottomWidth,
+      barBorder: barCs.borderBottomWidth,
+      dark: header.classList.contains('is-color-theme-dark'),
+    };
+  });
+
+const parseSitemapLocs = (xml) => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+
+for (const vp of VIEWPORTS) {
+  for (const pg of PAGES) {
+    const context = await browser.newContext({
+      viewport: { width: vp.width, height: vp.height },
+      deviceScaleFactor: vp.width <= 390 ? 2 : 1,
+    });
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', (err) => errors.push(String(err)));
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') errors.push(msg.text());
+    });
+
+    const tag = { vp: vp.name, page: pg.name };
+    await page.goto(`${BASE}${pg.path}`, { waitUntil: 'networkidle' });
+    await page.waitForSelector('[data-header]');
+
+    const theme = await page.evaluate(() => {
+      const h = document.querySelector('[data-header]');
+      const cs = getComputedStyle(h);
+      return {
+        dark: h.classList.contains('is-color-theme-dark'),
+        bg: cs.backgroundColor,
+        color: cs.color,
+      };
+    });
+
+    if (pg.name === 'home') {
+      log({
+        ...tag,
+        check: 'home-theme-dark-at-top',
+        ok: theme.dark && theme.bg === MARTINIQUE_DARKER,
+        detail: `bg=${theme.bg}`,
+      });
+      const testi = await page.evaluate(() => {
+        const wrap = document.querySelector('[data-testimonial-wrap]');
+        const items = [...document.querySelectorAll('[data-testimonial-item]')];
+        const quotes = items.map(
+          (el) => el.querySelector('[data-testimonial-text]')?.textContent.replace(/\s+/g, ' ').trim() || '',
+        );
+        const businesses = items.map((el) => el.querySelector('[data-testimonial-split]')?.textContent.trim() || '');
+        const quote = quotes[0] || '';
+        const business = businesses[0] || '';
+        const prev = wrap?.querySelector('[data-prev]');
+        const next = wrap?.querySelector('[data-next]');
+        const prevCircle = prev?.querySelector('.circle-arrow');
+        const nextCircle = next?.querySelector('.circle-arrow');
+        const line = wrap?.querySelector('.pilot-ann-line');
+        const quoteEl = wrap?.querySelector('[data-testimonial-text]');
+        const red = 'rgb(184, 0, 0)';
+        const redHit = wrap
+          ? [...wrap.querySelectorAll('*')].some((el) => {
+              const cs = getComputedStyle(el);
+              return cs.color === red || cs.backgroundColor === red || cs.borderColor === red;
+            })
+          : true;
+        return {
+          count: items.length,
+          autoplay: wrap?.getAttribute('data-autoplay'),
+          duration: wrap?.getAttribute('data-autoplay-duration'),
+          quote,
+          business,
+          businesses,
+          quotes,
+          prevDisabled: prev?.disabled === true,
+          nextDisabled: next?.disabled === true,
+          prevLabel: prev?.getAttribute('aria-label'),
+          nextLabel: next?.getAttribute('aria-label'),
+          markCount: wrap ? wrap.querySelectorAll('.pilot-ann-mark').length : -1,
+          hasPrevCircle: Boolean(prevCircle),
+          hasNextCircle: Boolean(nextCircle),
+          prevTransform: prevCircle ? getComputedStyle(prevCircle).transform : null,
+          nextTransform: nextCircle ? getComputedStyle(nextCircle).transform : null,
+          circleW: nextCircle ? Math.round(nextCircle.getBoundingClientRect().width * 10) / 10 : null,
+          circleH: nextCircle ? Math.round(nextCircle.getBoundingClientRect().height * 10) / 10 : null,
+          quoteColor: quoteEl ? getComputedStyle(quoteEl).color : null,
+          lineColor: line ? getComputedStyle(line).color : null,
+          redHit,
+        };
+      });
+      const prevMirrored =
+        testi.prevTransform === 'matrix(-1, 0, 0, 1, 0, 0)' ||
+        (typeof testi.prevTransform === 'string' && testi.prevTransform.includes('matrix(-1,'));
+      const nextUpright =
+        testi.nextTransform === 'none' || testi.nextTransform === 'matrix(1, 0, 0, 1, 0, 0)';
+      log({
+        ...tag,
+        check: 'home-testimonial-slider',
+        ok:
+          testi.count === 3 &&
+          testi.autoplay === 'true' &&
+          testi.duration === '5000' &&
+          testi.business === 'Falcon client' &&
+          testi.businesses.every((b) => b === 'Falcon client') &&
+          testi.quote.includes('Excellent service') &&
+          testi.quote.includes('same day!') &&
+          testi.quote.startsWith('“') &&
+          testi.quote.endsWith('”') &&
+          testi.quotes[1].includes('The team and Dwight') &&
+          testi.quotes[1].includes('24 hours') &&
+          !testi.quotes[1].includes('I look forward to working with them in the future as needed') &&
+          testi.quotes[2].includes('Second round with Falcon') &&
+          !/JJJ Enterprise Trucking|Retail business|Business line of credit client/i.test(
+            testi.businesses.join(' '),
+          ) &&
+          !/After covid|game-changer for my retail|personal consultant, Mark/i.test(
+            testi.quotes.join(' '),
+          ) &&
+          !/Ava Chen|River Stone Bakery|demo/i.test(testi.quotes.join(' ')) &&
+          !testi.prevDisabled &&
+          !testi.nextDisabled &&
+          testi.prevLabel === 'Previous testimonial' &&
+          testi.nextLabel === 'Next testimonial' &&
+          testi.markCount === 0 &&
+          testi.hasPrevCircle &&
+          testi.hasNextCircle &&
+          prevMirrored &&
+          nextUpright &&
+          testi.circleW != null &&
+          Math.abs(testi.circleW - 44) <= 1 &&
+          testi.circleH != null &&
+          Math.abs(testi.circleH - 44) <= 1 &&
+          testi.quoteColor === MARTINIQUE_DARKER &&
+          (testi.lineColor == null || testi.lineColor === MARTINIQUE_DARKER) &&
+          testi.redHit === false,
+        detail: JSON.stringify(testi),
+      });
+
+      const reveal = await page.evaluate(() => {
+        const roots = [...document.querySelectorAll('[data-reveal-root]')].map(
+          (el) => el.className.split(/\s+/)[0],
+        );
+        const skipped = {
+          hero: Boolean(document.querySelector('.pilot-hero [data-reveal], .pilot-hero[data-reveal-root]')),
+          ann: Boolean(document.querySelector('.pilot-ann [data-reveal], .pilot-ann[data-reveal-root]')),
+          cta: Boolean(document.querySelector('.site-cta [data-reveal], .site-cta[data-reveal-root]')),
+        };
+        const heroOpacity = document.querySelector('.pilot-hero-line')
+          ? getComputedStyle(document.querySelector('.pilot-hero-line')).opacity
+          : null;
+        const quoteOpacity = document.querySelector('.pilot-ann-title')
+          ? getComputedStyle(document.querySelector('.pilot-ann-title')).opacity
+          : null;
+        const featLabel = document.querySelector('.pilot-stats-feat-label')?.textContent.trim() || '';
+        const featValue = document.querySelector('.pilot-stats-feat-value')?.textContent.trim() || '';
+        const sideLabels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
+          el.textContent.trim(),
+        );
+        const sideValues = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
+          el.textContent.trim(),
+        );
+        const services = document.querySelector('.pilot-ll-section');
+        const serviceItems = [...document.querySelectorAll('.pilot-ll > li[data-reveal]')];
+        const tabsPanel = document.querySelector('.pilot-tabs-panels');
+        return {
+          roots,
+          skipped,
+          heroOpacity,
+          quoteOpacity,
+          hasJs: document.documentElement.classList.contains('has-js'),
+          featLabel,
+          featValue,
+          sideLabels,
+          sideValues,
+          serviceStart: services?.getAttribute('data-reveal-start') || '',
+          serviceStagger: services?.getAttribute('data-reveal-stagger') || '',
+          serviceItemCount: serviceItems.length,
+          tabsPanelReveal: tabsPanel?.hasAttribute('data-reveal') ?? false,
+          tabsPanelAfter: tabsPanel?.hasAttribute('data-reveal-after') ?? false,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-targets',
+        ok:
+          reveal.roots.includes('pilot-stats') &&
+          reveal.roots.includes('pilot-ll-section') &&
+          reveal.roots.includes('pilot-tabs') &&
+          reveal.roots.includes('pilot-why') &&
+          reveal.roots.includes('pilot-news') &&
+          !reveal.roots.includes('pilot-hero') &&
+          !reveal.roots.includes('pilot-ann') &&
+          !reveal.roots.includes('site-cta') &&
+          reveal.skipped.hero === false &&
+          reveal.skipped.ann === false &&
+          reveal.skipped.cta === false &&
+          reveal.heroOpacity === '1' &&
+          reveal.quoteOpacity === '1' &&
+          reveal.featLabel === 'Average funding time' &&
+          reveal.featValue === '24-48h' &&
+          reveal.sideLabels[0] === 'Funding deployed' &&
+          reveal.sideValues[0] === '$100M+' &&
+          reveal.sideLabels[1] === 'Approval for qualified applicants' &&
+          reveal.sideValues[1] === '98%' &&
+          reveal.serviceStart === 'top 85%' &&
+          Number(reveal.serviceStagger) > 0 &&
+          Number(reveal.serviceStagger) <= 0.4 &&
+          reveal.serviceItemCount >= 2 &&
+          reveal.tabsPanelReveal === true &&
+          reveal.tabsPanelAfter === true,
+        detail: JSON.stringify(reveal),
+      });
+
+      const why = await page.evaluate(() => {
+        const nextBand = (el) => {
+          let n = el?.nextElementSibling || null;
+          while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+          return n;
+        };
+        const section = document.querySelector('#why-choose-us');
+        const tabs = document.querySelector('.pilot-tabs');
+        const news = document.querySelector('.pilot-news');
+        const eyebrow = section?.querySelector('.pilot-why-eyebrow')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        const heading = section?.querySelector('#why-heading')?.textContent.trim() || '';
+        const copy = section?.querySelector('.pilot-why-copy')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        const how = section?.querySelector('a[href="/#why-choose-us"]');
+        const rows = [...(section?.querySelectorAll('.pilot-why-row') || [])].map((row) => ({
+          title: row.querySelector('.pilot-why-row-title')?.textContent.trim() || '',
+          body: row.querySelector('.pilot-why-row-body')?.textContent.trim() || '',
+          step: row.querySelector('.pilot-why-step')?.textContent.trim() || '',
+          hasIcon: Boolean(row.querySelector('.circle-arrow')),
+          isLink: row.tagName === 'A' || Boolean(row.querySelector('a')),
+        }));
+        const tape = section?.querySelector('.pilot-why-tape');
+        const note = section?.querySelector('.pilot-why-note')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        return {
+          eyebrow,
+          heading,
+          copy,
+          howHref: how?.getAttribute('href') || '',
+          howLabel: how?.textContent.replace(/\s+/g, ' ').trim() || '',
+          rows,
+          tapeHref: tape?.getAttribute('href') || '',
+          tapeLabel: tape?.getAttribute('aria-label') || '',
+          note,
+          hasDagger: Boolean(section?.textContent.includes('†')),
+          hasTimingNote: Boolean(section?.textContent.includes('Funding timing depends on approval')),
+          afterTabs: Boolean(tabs && section && nextBand(tabs) === section),
+          beforeNews: Boolean(news && section && nextBand(section) === news),
+          bg: section ? getComputedStyle(section).backgroundColor : null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-why-choose-us',
+        ok:
+          why.afterTabs &&
+          why.beforeNews &&
+          /why choose us/i.test(why.eyebrow) &&
+          why.heading === 'Capital, without the runaround.' &&
+          why.copy ===
+            'No brokers in the middle and no hard pull just to see where you stand. Just a direct line to the people who fund you.' &&
+          why.howHref === '/#why-choose-us' &&
+          why.howLabel.includes('See how it works') &&
+          why.rows.length === 3 &&
+          why.rows[0].title === 'Easy process' &&
+          why.rows[0].body.includes('without going through a third party') &&
+          why.rows[1].title === 'Same-Day Funding' &&
+          why.rows[1].body.includes('same day') &&
+          !why.rows[1].body.includes('†') &&
+          why.rows[2].title === 'No hard credit pulls' &&
+          why.rows[2].body.includes('without affecting your credit score') &&
+          why.rows.every((row) => !row.hasIcon && !row.isLink) &&
+          why.rows.map((row) => row.step).join(',') === '1,2,3' &&
+          why.tapeHref === '/apply' &&
+          why.tapeLabel === 'Apply for funding' &&
+          why.note === '' &&
+          why.hasDagger === false &&
+          why.hasTimingNote === false &&
+          why.bg === 'rgb(20, 16, 31)',
+        detail: JSON.stringify(why),
+      });
+
+      const spacing = await page.evaluate(() => {
+        const px = (el) => {
+          const cs = getComputedStyle(el);
+          return {
+            top: Math.round(parseFloat(cs.paddingTop)),
+            bottom: Math.round(parseFloat(cs.paddingBottom)),
+          };
+        };
+        const root = getComputedStyle(document.documentElement);
+        const toPx = (token) => {
+          const probe = document.createElement('div');
+          probe.style.paddingTop = `var(${token})`;
+          document.body.append(probe);
+          const v = Math.round(parseFloat(getComputedStyle(probe).paddingTop));
+          probe.remove();
+          return v;
+        };
+        const y = toPx('--pilot-section-y');
+        const stack = toPx('--pilot-section-y-stack');
+        const stats = document.querySelector('.pilot-stats');
+        const ll = document.querySelector('.pilot-ll-section');
+        const ann = document.querySelector('.pilot-ann');
+        const tabs = document.querySelector('.pilot-tabs');
+        const whyEl = document.querySelector('.pilot-why');
+        const news = document.querySelector('.pilot-news');
+        const cta = document.querySelector('.site-cta');
+        const hero = document.querySelector('.pilot-hero');
+        const gap = (a, b) => {
+          if (!a || !b) return null;
+          return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
+        };
+        return {
+          y,
+          stack,
+          stats: px(stats),
+          ll: px(ll),
+          ann: px(ann),
+          tabs: px(tabs),
+          why: px(whyEl),
+          news: px(news),
+          cta: px(cta),
+          hero: hero ? px(hero) : null,
+          gaps: {
+            statsToLl: gap(stats, ll),
+            llToAnn: gap(ll, ann),
+            annToTabs: gap(ann, tabs),
+            tabsToWhy: gap(tabs, whyEl),
+            whyToNews: gap(whyEl, news),
+            newsToCta: gap(news, cta),
+          },
+        };
+      });
+      const flush = (n) => n != null && Math.abs(n) <= 1;
+      log({
+        ...tag,
+        check: 'home-section-spacing',
+        ok:
+          spacing.y > 0 &&
+          spacing.stack > 0 &&
+          spacing.stack < spacing.y &&
+          spacing.stats.top === spacing.y &&
+          spacing.stats.bottom === spacing.y &&
+          spacing.ll.top === spacing.stack &&
+          spacing.ll.bottom === spacing.y &&
+          spacing.ann.top === spacing.stack &&
+          spacing.ann.bottom === spacing.y &&
+          spacing.tabs.top === spacing.stack &&
+          spacing.tabs.bottom === spacing.y &&
+          spacing.why.top === spacing.y &&
+          spacing.why.bottom === spacing.y &&
+          spacing.news.top === spacing.y &&
+          spacing.news.bottom === spacing.y &&
+          spacing.cta.top === spacing.y &&
+          spacing.cta.bottom === spacing.y &&
+          flush(spacing.gaps.statsToLl) &&
+          flush(spacing.gaps.llToAnn) &&
+          flush(spacing.gaps.annToTabs) &&
+          flush(spacing.gaps.tabsToWhy) &&
+          flush(spacing.gaps.whyToNews) &&
+          flush(spacing.gaps.newsToCta),
+        detail: JSON.stringify(spacing),
+      });
+
+      const heroStill = await page.evaluate(() => {
+        const box = document.querySelector('.pilot-hero-media');
+        const img = document.querySelector('.pilot-hero-media img');
+        const picture = document.querySelector('.pilot-hero-media picture');
+        const heading = document.querySelector('#hero-heading');
+        const container = document.querySelector('.pilot-hero .container-site');
+        const sources = [...(picture?.querySelectorAll('source') || [])].map((source) => ({
+          type: source.getAttribute('type') || '',
+          srcset: source.getAttribute('srcset') || '',
+        }));
+        const r = box?.getBoundingClientRect();
+        const headingR = heading?.getBoundingClientRect();
+        const containerR = container?.getBoundingClientRect();
+        const imgCs = img ? getComputedStyle(img) : null;
+        const srcset = [
+          ...sources.map((source) => source.srcset),
+          img?.getAttribute('srcset') || '',
+        ].join(' ');
+        return {
+          alt: img?.getAttribute('alt') || '',
+          loading: img?.getAttribute('loading') || '',
+          fetchPriority: (img?.getAttribute('fetchpriority') || '').toLowerCase(),
+          src: img?.currentSrc || img?.getAttribute('src') || '',
+          hasAvif: sources.some((source) => source.type === 'image/avif'),
+          hasWebp:
+            sources.some((source) => source.type === 'image/webp') ||
+            /\.webp(?:\?|$)/.test(img?.getAttribute('src') || ''),
+          srcsetCount: (srcset.match(/\s+\d+w/g) || []).length,
+          boxW: r ? Math.round(r.width) : null,
+          boxH: r ? Math.round(r.height) : null,
+          boxLeft: r ? Math.round(r.left) : null,
+          ratio: r && r.height ? Math.round((r.width / r.height) * 100) / 100 : null,
+          objectFit: imgCs?.objectFit || null,
+          objectPosition: imgCs?.objectPosition || null,
+          headingLeft: headingR ? Math.round(headingR.left) : null,
+          containerLeft: containerR ? Math.round(containerR.left) : null,
+          scrollW: document.documentElement.scrollWidth,
+          innerW: window.innerWidth,
+        };
+      });
+      const nativeRatio = 1800 / 771;
+      const mobileHero = vp.width < 768;
+      const expectedRatio = mobileHero ? 16 / 9 : nativeRatio;
+      log({
+        ...tag,
+        check: 'home-hero-falcon-still',
+        ok:
+          heroStill.alt === 'Peregrine falcon gliding with wings raised against a burning orange and slate sky' &&
+          (heroStill.loading === 'eager' || heroStill.fetchPriority === 'high') &&
+          heroStill.fetchPriority === 'high' &&
+          heroStill.hasAvif &&
+          heroStill.hasWebp &&
+          heroStill.srcsetCount >= 3 &&
+          heroStill.objectFit === 'cover' &&
+          /^100%\s+50%$/.test(heroStill.objectPosition || '') &&
+          heroStill.ratio != null &&
+          Math.abs(heroStill.ratio - expectedRatio) <= 0.04 &&
+          heroStill.boxLeft === 0 &&
+          Math.abs((heroStill.boxW ?? 0) - vp.width) <= 1 &&
+          (heroStill.headingLeft ?? 0) > 0 &&
+          (heroStill.scrollW ?? 9999) <= (heroStill.innerW ?? 0) + 1 &&
+          !/hero-meeting/.test(heroStill.src),
+        detail: JSON.stringify({ ...heroStill, expectedRatio: Math.round(expectedRatio * 100) / 100 }),
+      });
+
+      const statsGaps = await page.evaluate(() => {
+        const boxGap = (a, b) => {
+          if (!a || !b) return null;
+          return Math.round(b.getBoundingClientRect().top - a.getBoundingClientRect().bottom);
+        };
+        const featLabel = document.querySelector('.pilot-stats-feat-label');
+        const featValue = document.querySelector('.pilot-stats-feat-value');
+        const sideLabels = [...document.querySelectorAll('.pilot-stats-side-label')];
+        const sideValues = [...document.querySelectorAll('.pilot-stats-side-value p')];
+        const sideRules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')];
+        const featCs = featValue ? getComputedStyle(featValue) : null;
+        const sideLabelCs = sideLabels[0] ? getComputedStyle(sideLabels[0]) : null;
+        const sideValueCs = sideValues[0] ? getComputedStyle(sideValues[0]) : null;
+        const sideGaps = sideLabels.map((lab, i) => boxGap(lab, sideValues[i]));
+        return {
+          featLabelToNumber: boxGap(featLabel, featValue),
+          featMt: featCs ? Math.round(parseFloat(featCs.marginTop)) : null,
+          featPb: featCs ? Math.round(parseFloat(featCs.paddingBottom)) : null,
+          sideLabelToNumber: sideGaps[0] ?? null,
+          sideGaps,
+          sideMb: sideLabelCs ? Math.round(parseFloat(sideLabelCs.marginBottom)) : null,
+          sideValuePb: sideValueCs ? Math.round(parseFloat(sideValueCs.paddingBottom)) : null,
+          sideNumberToRuleBox: boxGap(sideValues[0], sideRules[0]),
+        };
+      });
+      const stackedStats = vp.width < 768;
+      const minSideGap = Math.min(...(statsGaps.sideGaps || []).filter((n) => n != null));
+      log({
+        ...tag,
+        check: 'home-stats-label-number-gap',
+        ok:
+          statsGaps.featMt === 12 &&
+          Math.abs((statsGaps.featLabelToNumber ?? -1) - 12) <= 1 &&
+          statsGaps.sideMb === 12 &&
+          (stackedStats
+            ? (statsGaps.sideGaps || []).every((g) => Math.abs((g ?? -1) - 12) <= 1)
+            : minSideGap >= 11) &&
+          statsGaps.sideValuePb === 16 &&
+          statsGaps.sideNumberToRuleBox === 0,
+        detail: JSON.stringify(statsGaps),
+      });
+      if (!stackedStats) {
+        const statsPair = await page.evaluate(() => {
+          const round = (n) => Math.round(n * 10) / 10;
+          const labels = [...document.querySelectorAll('.pilot-stats-side-label')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const values = [...document.querySelectorAll('.pilot-stats-side-value p')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const rules = [...document.querySelectorAll('.pilot-stats-side .pilot-stats-rule')].map((el) =>
+            el.getBoundingClientRect(),
+          );
+          const featLabel = document.querySelector('.pilot-stats-feat-label')?.getBoundingClientRect();
+          const labelTops = labels.map((r) => round(r.top));
+          const valueTops = values.map((r) => round(r.top));
+          const ruleBottoms = rules.map((r) => round(r.bottom));
+          const withFeat = window.innerWidth >= 1280;
+          const featTop = featLabel ? round(featLabel.top) : null;
+          return {
+            labelTops,
+            valueTops,
+            ruleBottoms,
+            labelSpread: labelTops.length > 1 ? Math.abs(labelTops[0] - labelTops[1]) : 0,
+            valueSpread: valueTops.length > 1 ? Math.abs(valueTops[0] - valueTops[1]) : 0,
+            ruleSpread: ruleBottoms.length > 1 ? Math.abs(ruleBottoms[0] - ruleBottoms[1]) : 0,
+            featTop,
+            featLabelSpread:
+              withFeat && featTop != null && labelTops.length
+                ? Math.max(...labelTops.map((t) => Math.abs(t - featTop)))
+                : 0,
+            withFeat,
+          };
+        });
+        log({
+          ...tag,
+          check: 'home-stats-side-pair-align',
+          ok:
+            statsPair.valueTops.length >= 2 &&
+            statsPair.labelSpread <= 1 &&
+            statsPair.valueSpread <= 1 &&
+            statsPair.ruleSpread <= 1 &&
+            (!statsPair.withFeat || statsPair.featLabelSpread <= 1),
+          detail: JSON.stringify(statsPair),
+        });
+      }
+
+      const industry = await page.evaluate(() => {
+        const section = document.querySelector('.pilot-tabs');
+        const head = document.querySelector('.pilot-tabs-head');
+        const heading = document.querySelector('#industries-heading');
+        const drop = document.querySelector('.pilot-tabs-drop');
+        const menu = document.querySelector('.pilot-tabs-menu');
+        const title = document.querySelector('.pilot-tabs-title');
+        const panels = document.querySelector('.pilot-tabs-panels');
+        const media = document.querySelector('.pilot-tabs-media .media');
+        const stills = [...document.querySelectorAll('.pilot-tabs-panel')].map((panel) => {
+          const img = panel.querySelector('.pilot-tabs-media img');
+          const sources = [...panel.querySelectorAll('.pilot-tabs-media source')].map((source) => source.getAttribute('type') || '');
+          const slot = panel.querySelector('.pilot-tabs-media .media');
+          const box = slot?.getBoundingClientRect();
+          return {
+            slug: panel.id.replace('industry-panel-', ''),
+            hidden: panel.hidden,
+            alt: img?.getAttribute('alt') || '',
+            loading: img?.getAttribute('loading') || '',
+            fetchPriority: (img?.getAttribute('fetchpriority') || '').toLowerCase(),
+            src: img?.currentSrc || img?.getAttribute('src') || '',
+            hasAvif: sources.includes('image/avif'),
+            hasWebp: sources.includes('image/webp'),
+            objectFit: img ? getComputedStyle(img).objectFit : null,
+            ratio: slot ? getComputedStyle(slot).aspectRatio : null,
+            boxAspect: box && box.height ? Math.round((box.width / box.height) * 100) / 100 : null,
+          };
+        });
+        const headerH = document.querySelector('[data-header-bar]')?.getBoundingClientRect().height || 108;
+        if (drop) {
+          const top = drop.getBoundingClientRect().top + window.scrollY - headerH - 16;
+          window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'auto' });
+        }
+        const headingR = heading?.getBoundingClientRect();
+        const dropR = drop?.getBoundingClientRect();
+        const titleBefore = title ? Math.round(title.getBoundingClientRect().top * 10) / 10 : null;
+        const defaultLabel = document.querySelector('#industry-select-value')?.textContent.trim() || '';
+        const fieldBg = drop ? getComputedStyle(drop).backgroundColor : null;
+        drop?.click();
+        const options = [...(menu?.querySelectorAll('[role="option"]') || [])];
+        const first = options[0];
+        const cs = menu ? getComputedStyle(menu) : null;
+        const sr = section?.getBoundingClientRect();
+        const mr = menu?.getBoundingClientRect();
+        const tr = title?.getBoundingClientRect();
+        const optR = first?.getBoundingClientRect();
+        const hitX = mr
+          ? Math.min(Math.max((optR?.left ?? mr.left) + 24, mr.left + 8), mr.right - 8, innerWidth - 4)
+          : 0;
+        const hitY = mr
+          ? Math.min(Math.max((optR?.top ?? mr.top) + 12, mr.top + 8), mr.bottom - 8, innerHeight - 4)
+          : 0;
+        let hit = mr ? document.elementFromPoint(hitX, hitY) : null;
+        if (menu && hit && !menu.contains(hit) && mr) {
+          hit = document.elementFromPoint(
+            Math.min(mr.left + mr.width / 2, innerWidth - 4),
+            Math.min(mr.top + 16, innerHeight - 4),
+          );
+        }
+        const open = {
+          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
+          defaultLabel,
+          expanded: drop?.getAttribute('aria-expanded') || null,
+          hidden: menu?.hidden ?? null,
+          optionCount: options.length,
+          bg: cs?.backgroundColor || null,
+          opacity: cs?.opacity || null,
+          border: cs ? `${cs.borderTopWidth} ${cs.borderTopColor}` : null,
+          position: cs?.position || null,
+          overflow: cs?.overflowY || null,
+          shadow: cs?.boxShadow || null,
+          maxH: cs?.maxHeight || null,
+          zMenu: cs ? Number(cs.zIndex) || 0 : 0,
+          zHead: head ? Number(getComputedStyle(head).zIndex) || 0 : 0,
+          zPanels: panels ? Number(getComputedStyle(panels).zIndex) || 0 : 0,
+          scrollbar: cs?.scrollbarColor || null,
+          hitClass: hit?.className || hit?.tagName || null,
+          hitInMenu: Boolean(menu && hit && menu.contains(hit)),
+          menuInView: Boolean(
+            mr && mr.bottom > 0 && mr.top < innerHeight && mr.right > 0 && mr.left < innerWidth,
+          ),
+          menuH: mr ? Math.round(mr.height * 10) / 10 : null,
+          optionH: first ? Math.round(first.getBoundingClientRect().height * 10) / 10 : null,
+          pastSection: Boolean(sr && mr && mr.bottom > sr.bottom + 1),
+          titleBefore,
+          titleAfter: tr ? Math.round(tr.top * 10) / 10 : null,
+          hasIntro: Boolean(section?.querySelector('.pilot-tabs-intro')),
+          introCopy: section?.textContent.includes('twelve sectors') ?? false,
+          mediaBg: media ? getComputedStyle(media).backgroundColor : null,
+          stacked: Boolean(headingR && dropR && dropR.top >= headingR.bottom - 2),
+          beside: Boolean(headingR && dropR && dropR.left >= headingR.right - 2),
+          headingBottom: headingR ? Math.round(headingR.bottom) : null,
+          dropTop: dropR ? Math.round(dropR.top) : null,
+          dropLeft: dropR ? Math.round(dropR.left) : null,
+          headingRight: headingR ? Math.round(headingR.right) : null,
+          fieldBg,
+          stills,
+        };
+        first?.click();
+        const selected = document.querySelector('.pilot-tabs-menu [aria-selected="true"]');
+        const picked = {
+          label: document.querySelector('#industry-select-value')?.textContent.trim() || '',
+          expanded: drop?.getAttribute('aria-expanded') || null,
+          hidden: menu?.hidden ?? null,
+          selected: selected?.textContent.trim() || '',
+          selectedAria: selected?.getAttribute('aria-selected') || null,
+          color: selected ? getComputedStyle(selected).color : null,
+          selectedBg: selected ? getComputedStyle(selected).backgroundColor : null,
+          check: selected ? getComputedStyle(selected, '::after').borderLeftWidth : null,
+        };
+        drop?.click();
+        const reopened = drop?.getAttribute('aria-expanded') || null;
+        drop?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        const afterEsc = drop?.getAttribute('aria-expanded') || null;
+        drop?.click();
+        document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        const afterOutside = drop?.getAttribute('aria-expanded') || null;
+        return { open, picked, reopened, afterEsc, afterOutside };
+      });
+      const sixCap =
+        industry.open.optionH != null &&
+        industry.open.menuH != null &&
+        industry.open.menuH <= industry.open.optionH * 6 + 4;
+      const desktopIndustry = vp.width >= 1280;
+      log({
+        ...tag,
+        check: 'industry-menu-overlay',
+        ok:
+          industry.open.expanded === 'true' &&
+          industry.open.hidden === false &&
+          industry.open.position === 'absolute' &&
+          industry.open.bg === LILAC_LIGHT &&
+          industry.open.fieldBg === LILAC_LIGHT &&
+          industry.open.opacity === '1' &&
+          industry.open.border === '1px rgb(229, 228, 242)' &&
+          industry.open.shadow !== 'none' &&
+          (industry.open.overflow === 'auto' || industry.open.overflow === 'scroll') &&
+          industry.open.zHead > industry.open.zPanels &&
+          (industry.open.menuInView !== true || industry.open.hitInMenu === true) &&
+          sixCap &&
+          !industry.open.pastSection &&
+          industry.open.titleBefore != null &&
+          industry.open.titleAfter === industry.open.titleBefore,
+        detail: JSON.stringify({ ...industry.open, sixCap }),
+      });
+      log({
+        ...tag,
+        check: 'industry-head-layout',
+        ok:
+          industry.open.hasIntro === false &&
+          industry.open.introCopy === false &&
+          industry.open.defaultLabel === 'Select your sector' &&
+          industry.open.label === 'Select your sector' &&
+          (desktopIndustry ? industry.open.beside === true : industry.open.stacked === true),
+        detail: JSON.stringify({
+          hasIntro: industry.open.hasIntro,
+          introCopy: industry.open.introCopy,
+          defaultLabel: industry.open.defaultLabel,
+          stacked: industry.open.stacked,
+          beside: industry.open.beside,
+          headingBottom: industry.open.headingBottom,
+          dropTop: industry.open.dropTop,
+          dropLeft: industry.open.dropLeft,
+          headingRight: industry.open.headingRight,
+        }),
+      });
+      log({
+        ...tag,
+        check: 'industry-placeholder-scrollbar',
+        ok:
+          industry.open.mediaBg === 'rgb(229, 228, 242)' &&
+          typeof industry.open.scrollbar === 'string' &&
+          industry.open.scrollbar.includes('rgb(82, 74, 104)') &&
+          industry.open.scrollbar.includes(LILAC_LIGHT) &&
+          !industry.open.scrollbar.includes('rgb(128, 128, 128)'),
+        detail: JSON.stringify({ mediaBg: industry.open.mediaBg, scrollbar: industry.open.scrollbar }),
+      });
+      const stills = industry.open.stills || [];
+      const firstStill = stills[0];
+      const restStills = stills.slice(1);
+      log({
+        ...tag,
+        check: 'industry-tab-stills',
+        ok:
+          stills.length === 12 &&
+          firstStill?.slug === 'retail' &&
+          firstStill?.hidden === false &&
+          firstStill?.alt.includes('folded jeans') &&
+          firstStill?.objectFit === 'cover' &&
+          firstStill?.loading === 'lazy' &&
+          firstStill?.fetchPriority !== 'high' &&
+          firstStill?.hasAvif === true &&
+          firstStill?.hasWebp === true &&
+          restStills.every(
+            (still) =>
+              still.hidden === true &&
+              still.loading === 'lazy' &&
+              still.alt.length > 20 &&
+              still.objectFit === 'cover' &&
+              still.hasAvif === true &&
+              still.hasWebp === true,
+          ),
+        detail: JSON.stringify(
+          stills.map((still) => ({
+            slug: still.slug,
+            hidden: still.hidden,
+            loading: still.loading,
+            fetchPriority: still.fetchPriority,
+            alt: still.alt.slice(0, 48),
+            src: still.src.split('/').pop(),
+          })),
+        ),
+      });
+      log({
+        ...tag,
+        check: 'industry-menu-selects',
+        ok:
+          industry.picked.label === 'Retail' &&
+          industry.picked.selected === 'Retail' &&
+          industry.picked.selectedAria === 'true' &&
+          industry.picked.expanded === 'false' &&
+          industry.picked.hidden === true &&
+          industry.picked.color === MARTINIQUE &&
+          industry.picked.selectedBg === LILAC_DARKER &&
+          parseFloat(industry.picked.check || '0') >= 2,
+        detail: JSON.stringify(industry.picked),
+      });
+      const swapped = await page.evaluate(() => {
+        document.querySelector('#industry-option-transportation-logistics')?.click();
+        const panel = document.querySelector('#industry-panel-transportation-logistics');
+        const img = panel?.querySelector('.pilot-tabs-media img');
+        return {
+          hidden: panel?.hidden ?? null,
+          active: panel?.classList.contains('is-active') ?? false,
+          alt: img?.getAttribute('alt') || '',
+          loading: img?.getAttribute('loading') || '',
+        };
+      });
+      log({
+        ...tag,
+        check: 'industry-tab-swap-still',
+        ok:
+          swapped.hidden === false &&
+          swapped.active === true &&
+          swapped.alt.includes('tractor-trailers') &&
+          swapped.loading === 'lazy',
+        detail: JSON.stringify(swapped),
+      });
+      const dropBtn = page.locator('.pilot-tabs-drop');
+      await dropBtn.click();
+      const hoverOption = page.locator('.pilot-tabs-menu [role="option"]:not([aria-selected="true"])').first();
+      await hoverOption.hover();
+      const hoverBg = await hoverOption.evaluate((el) => getComputedStyle(el).backgroundColor);
+      const selectedStay = await page
+        .locator('.pilot-tabs-menu [role="option"][aria-selected="true"]')
+        .evaluate((el) => getComputedStyle(el).backgroundColor);
+      await page.keyboard.press('Escape');
+      log({
+        ...tag,
+        check: 'industry-menu-hover',
+        ok: hoverBg === LILAC_DARK && selectedStay === LILAC_DARKER,
+        detail: JSON.stringify({ hoverBg, selectedStay }),
+      });
+      log({ ...tag, check: 'industry-menu-esc', ok: industry.reopened === 'true' && industry.afterEsc === 'false', detail: JSON.stringify({ reopened: industry.reopened, afterEsc: industry.afterEsc }) });
+      log({ ...tag, check: 'industry-menu-outside', ok: industry.afterOutside === 'false', detail: industry.afterOutside });
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForFunction(
+        () =>
+          window.scrollY < 8 &&
+          document.querySelector('[data-header]')?.classList.contains('is-color-theme-dark'),
+      );
+    } else {
+      log({ ...tag, check: 'inner-theme-light', ok: !theme.dark, detail: `bg=${theme.bg}` });
+    }
+
+    const logoBox = await page.evaluate(() => {
+      const el = document.querySelector('.site-header__logo');
+      const mark = el?.querySelector('.brand-logo__mark');
+      const word = el?.querySelector('.brand-logo__wordmark');
+      const cs = getComputedStyle(el);
+      const markR = mark?.getBoundingClientRect();
+      const wordR = word?.getBoundingClientRect();
+      const wordCs = word ? getComputedStyle(word) : null;
+      const markCs = mark ? getComputedStyle(mark) : null;
+      const lines = word ? word.getClientRects().length : 0;
+      return {
+        pad: cs.padding,
+        border: cs.borderTopWidth,
+        bg: cs.backgroundColor,
+        label: el?.getAttribute('aria-label') || '',
+        href: el?.getAttribute('href') || '',
+        markTag: mark?.tagName || null,
+        markFill: mark?.querySelector('path')?.getAttribute('fill') || null,
+        markW: markR ? Math.round(markR.width * 10) / 10 : null,
+        markH: markR ? Math.round(markR.height * 10) / 10 : null,
+        word: word?.textContent.trim() || '',
+        wordSize: wordCs?.fontSize || null,
+        wordWeight: wordCs?.fontWeight || null,
+        wordFamily: wordCs?.fontFamily || null,
+        wordTracking: wordCs?.letterSpacing || null,
+        wordLh: wordCs?.lineHeight || null,
+        wordW: wordR ? Math.round(wordR.width * 10) / 10 : null,
+        wordH: wordR ? Math.round(wordR.height * 10) / 10 : null,
+        gap: markR && wordR ? Math.round((wordR.left - markR.right) * 10) / 10 : null,
+        lines,
+        markColor: markCs?.color || null,
+      };
+    });
+    const logoBare =
+      (logoBox.pad === '0px' || logoBox.pad === '0px 0px') &&
+      (logoBox.border === '0px' || logoBox.border === '0px none') &&
+      (logoBox.bg === 'rgba(0, 0, 0, 0)' || logoBox.bg === 'transparent' || logoBox.bg === 'none');
+    log({ ...tag, check: 'logo-unboxed', ok: logoBare, detail: JSON.stringify(logoBox) });
+
+    const barWrap = await readBarWrap(page);
+    const expectBarH = vp.width < 1024 ? 112 : 204;
+    const expectPad = vp.width < 1024 ? 32 : 72;
+    const expectCompact = vp.width < 1024 ? 102 : 108;
+    log({
+      ...tag,
+      check: 'nav-no-wrap',
+      ok:
+        Math.abs((barWrap.barH ?? 0) - expectBarH) <= 8 &&
+        barWrap.itemRows <= 1 &&
+        barWrap.chromeAligned &&
+        barWrap.wrap === 'nowrap' &&
+        barWrap.innerWrap === 'nowrap' &&
+        barWrap.toolsWrap === 'nowrap' &&
+        barWrap.apply === applyOnBar(vp.width) &&
+        barWrap.tel === phoneOnBar(vp.width) &&
+        (vp.mode === 'desktop' ? barWrap.burger === false : barWrap.burger === true),
+      detail: JSON.stringify({ ...barWrap, expectBarH, mode: vp.mode }),
+    });
+
+    const inflow = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-inflow-top',
+      ok:
+        !inflow.fixed &&
+        inflow.barTop != null &&
+        Math.abs(inflow.barTop) <= 2 &&
+        Math.abs((inflow.innerTop ?? expectPad) - expectPad) <= 2 &&
+        Math.abs(inflow.headerH - expectBarH) <= 8 &&
+        Math.abs((inflow.padTop ?? 0) - expectPad) <= 1,
+      detail: JSON.stringify({ ...inflow, expectPad, expectBarH }),
+    });
+
+    const measuredH = inflow.inflowH || expectBarH;
+    const pastY = measuredH * 2 + 80;
+    await scrollPageTo(page, pastY);
+    await page.waitForTimeout(80);
+    const past = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-hides-past-2x',
+      ok: past.fixed && past.hidden && !past.shown && (past.barTop ?? 0) < -40,
+      detail: JSON.stringify({ ...past, pastY }),
+    });
+
+    await scrollPageTo(page, pastY - 20);
+    await page.waitForTimeout(80);
+    const underTol = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-tolerance-20-stays-hidden',
+      ok: underTol.fixed && underTol.hidden && !underTol.shown,
+      detail: JSON.stringify(underTol),
+    });
+
+    await scrollPageTo(page, pastY - 50);
+    await page.waitForTimeout(700);
+    const shown = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-show-on-up-40',
+      ok:
+        shown.fixed &&
+        shown.shown &&
+        !shown.hidden &&
+        Math.abs(shown.barTop ?? 99) <= 2 &&
+        Math.abs(shown.barH - expectCompact) <= 8,
+      detail: JSON.stringify({ ...shown, expectCompact }),
+    });
+
+    await scrollPageTo(page, pastY);
+    await page.waitForTimeout(80);
+    const hidAgain = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-hide-on-down-40',
+      ok: hidAgain.fixed && hidAgain.hidden && !hidAgain.shown,
+      detail: JSON.stringify(hidAgain),
+    });
+
+    await scrollPageTo(page, 0);
+    await page.waitForTimeout(80);
+    const back = await readScrollNav(page);
+    log({
+      ...tag,
+      check: 'nav-inflow-on-return',
+      ok: !back.fixed && back.barTop != null && Math.abs(back.barTop) <= 2 && Math.abs((back.innerTop ?? expectPad) - expectPad) <= 2,
+      detail: JSON.stringify(back),
+    });
+
+    const liveLogo = vp.width < 1280
+      ? { mark: 32, word: '20.8px', weight: '600', lh: '31.2px', gap: 16 }
+      : { mark: 36.8, word: '24px', weight: '600', lh: '36px', gap: 24 };
+    const logoLive =
+      logoBox.label === 'Falcon Equity Group' &&
+      logoBox.href === '/' &&
+      logoBox.markTag === 'svg' &&
+      logoBox.markFill === 'currentColor' &&
+      logoBox.word === 'Falcon Equity Group' &&
+      logoBox.lines === 1 &&
+      /At Gambit/i.test(logoBox.wordFamily || '') &&
+      logoBox.wordSize === liveLogo.word &&
+      logoBox.wordWeight === liveLogo.weight &&
+      (logoBox.wordTracking === 'normal' || logoBox.wordTracking === '0px') &&
+      logoBox.wordLh === liveLogo.lh &&
+      logoBox.markW != null &&
+      Math.abs(logoBox.markW - liveLogo.mark) <= 1 &&
+      logoBox.markH != null &&
+      Math.abs(logoBox.markH - liveLogo.mark) <= 1 &&
+      logoBox.gap != null &&
+      Math.abs(logoBox.gap - liveLogo.gap) <= 1.5;
+    log({
+      ...tag,
+      check: 'logo-live-lockup',
+      ok: logoLive,
+      detail: `got mark ${logoBox.markW}x${logoBox.markH} ${logoBox.wordSize}/${logoBox.wordWeight} lh=${logoBox.wordLh} gap=${logoBox.gap} expected mark ${liveLogo.mark} ${liveLogo.word}/${liveLogo.weight} lh=${liveLogo.lh} gap=${liveLogo.gap}`,
+    });
+
+    const noHairline = async () =>
+      page.evaluate(() => {
+        const header = document.querySelector('[data-header]');
+        const bar = document.querySelector('[data-header-bar]');
+        const check = (el) => {
+          const cs = getComputedStyle(el);
+          return {
+            borderBottom: cs.borderBottomWidth,
+            borderBottomStyle: cs.borderBottomStyle,
+            boxShadow: cs.boxShadow,
+            outline: cs.outlineWidth,
+          };
+        };
+        const h = check(header);
+        const b = check(bar);
+        const none = (x) =>
+          (x.borderBottom === '0px' || x.borderBottomStyle === 'none') &&
+          (x.boxShadow === 'none' || x.boxShadow === '');
+        return { ok: none(h) && none(b), h, b };
+      });
+
+    const hairlineTop = await noHairline();
+    log({ ...tag, check: 'header-no-bottom-rule', ok: hairlineTop.ok, detail: JSON.stringify(hairlineTop) });
+
+    const overlap = await page.evaluate(() => {
+      const logo = document.querySelector('.site-header__logo').getBoundingClientRect();
+      const tools = document.querySelector('.site-header__tools').getBoundingClientRect();
+      const nav = document.querySelector('.site-header__nav').getBoundingClientRect();
+      const hits = (a, b) => a.right > b.left + 1 && a.left < b.right - 1 && a.bottom > b.top + 1 && a.top < b.bottom - 1;
+      return {
+        logoTools: hits(logo, tools),
+        logoNav: hits(logo, nav),
+        navTools: hits(nav, tools),
+        logo: { l: Math.round(logo.left), r: Math.round(logo.right) },
+        nav: { l: Math.round(nav.left), r: Math.round(nav.right) },
+        tools: { l: Math.round(tools.left), r: Math.round(tools.right) },
+      };
+    });
+    log({
+      ...tag,
+      check: 'logo-no-overlap',
+      ok:
+        !overlap.logoTools &&
+        !overlap.logoNav &&
+        (vp.mode !== 'desktop' || !overlap.navTools),
+      detail: JSON.stringify(overlap),
+    });
+
+    const telHref = await page.locator('.site-header__tel--bar').getAttribute('href');
+    log({ ...tag, check: 'tel-real-number', ok: telHref === 'tel:+19172455277', detail: telHref });
+
+    const typeRest = await readTypeChrome(page);
+    const typeMatch =
+      typeRest.tel.fontFamily === typeRest.menu.fontFamily &&
+      typeRest.tel.fontSize === typeRest.menu.fontSize &&
+      typeRest.tel.fontWeight === typeRest.menu.fontWeight &&
+      typeRest.tel.color === typeRest.menu.color &&
+      typeRest.tel.letterSpacing === typeRest.menu.letterSpacing &&
+      typeRest.tel.textTransform === typeRest.menu.textTransform &&
+      typeRest.tel.textDecorationLine === typeRest.menu.textDecorationLine &&
+      typeRest.tel.fontStyle === typeRest.menu.fontStyle;
+    const noButtonChrome =
+      (typeRest.telChrome.backgroundColor === 'rgba(0, 0, 0, 0)' ||
+        typeRest.telChrome.backgroundColor === 'transparent') &&
+      (typeRest.telChrome.borderWidth === '0px' || typeRest.telChrome.borderWidth === '0px none') &&
+      (typeRest.telChrome.boxShadow === 'none' || typeRest.telChrome.boxShadow === '') &&
+      (typeRest.telChrome.padding === '0px' || typeRest.telChrome.padding === '0px 0px');
+    log({
+      ...tag,
+      check: 'tel-matches-menu-link',
+      ok: typeMatch && noButtonChrome,
+      detail: JSON.stringify(typeRest),
+    });
+
+    const filtersClosed = await readFilters(page);
+    log({
+      ...tag,
+      check: 'overlay-blur-5px',
+      ok:
+        isBlur5(filtersClosed.overlay?.backdropFilter) &&
+        !filtersClosed.ancestorTrap &&
+        filtersClosed.overlayParent === 'BODY',
+      detail: JSON.stringify(filtersClosed.overlay),
+    });
+    log({
+      ...tag,
+      check: 'header-backdrop-none',
+      ok: isFilterNone(filtersClosed.header?.backdropFilter) && isFilterNone(filtersClosed.bar?.backdropFilter),
+      detail: JSON.stringify({ header: filtersClosed.header, bar: filtersClosed.bar }),
+    });
+
+    const applyHref = await page.locator('a.site-header__apply[href="/apply"]').first().getAttribute('href');
+    log({ ...tag, check: 'apply-href', ok: applyHref === '/apply' });
+    const applyCount = await page.locator('.site-header [data-button-040][href="/apply"]').count();
+    const applySel = applyOnBar(vp.width)
+      ? '.site-header__apply--bar'
+      : '.site-header__cta--menu [data-button-040]';
+    const apply040 = await readButton040(page, applySel);
+    const applyExpected = theme.dark ? APPLY_LIGHT : APPLY_DARK;
+    log({
+      ...tag,
+      check: 'apply-040-present',
+      ok: applyCount >= 2 && apply040?.href === '/apply',
+      detail: JSON.stringify({ applyCount, href: apply040?.href }),
+    });
+    log({
+      ...tag,
+      check: 'apply-040-theme',
+      ok: button040Matches(apply040, applyExpected),
+      detail: JSON.stringify({ dark: theme.dark, apply040, expected: applyExpected }),
+    });
+    if (applyOnBar(vp.width)) {
+      log({
+        ...tag,
+        check: 'apply-040-fits-bar',
+        ok:
+          apply040 != null &&
+          apply040.headerH != null &&
+          apply040.height > 0 &&
+          apply040.height <= apply040.headerH - 8,
+        detail: JSON.stringify({ height: apply040?.height, headerH: apply040?.headerH }),
+      });
+    }
+    const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const shortApply = applyShort(vp.width);
+    const compactApply = applyCompact(vp.width);
+    log({
+      ...tag,
+      check: 'apply-040-larger',
+      ok: shortApply
+        ? apply040 != null &&
+          apply040.fontSize >= 11 &&
+          apply040.fontSize <= 13 &&
+          sizedH >= 28 &&
+          sizedH <= 36 &&
+          apply040.visible === 'Apply'
+        : compactApply
+        ? apply040 != null &&
+          apply040.fontSize >= 13.5 &&
+          apply040.fontSize <= 15 &&
+          sizedH >= 32 &&
+          sizedH <= 40 &&
+          apply040.padX != null &&
+          apply040.padX >= 10 &&
+          apply040.icon != null &&
+          Math.abs(apply040.icon - apply040.fontSize) <= 1.5
+        : apply040 != null &&
+          apply040.fontSize >= 16 &&
+          sizedH >= 44 &&
+          apply040.padX != null &&
+          apply040.padX >= 16 &&
+          apply040.icon != null &&
+          Math.abs(apply040.icon - apply040.fontSize) <= 1.5,
+      detail: JSON.stringify({
+        compact: compactApply,
+        fontSize: apply040?.fontSize,
+        height: apply040?.height,
+        computedH: apply040?.computedH,
+        padX: apply040?.padX,
+        icon: apply040?.icon,
+      }),
+    });
+    if (applyOnBar(vp.width)) {
+      const applyFit = await page.evaluate(() => {
+        const btn = document.querySelector('.site-header__apply--bar');
+        const logo = document.querySelector('.site-header__logo');
+        const burger = document.querySelector('[data-mobile-toggle]');
+        const text =
+          [...(btn?.querySelectorAll('.button-040__text-compact, .button-040__text-full, .button-040__text') || [])].find(
+            (el) => getComputedStyle(el).display !== 'none',
+          ) || null;
+        const circle = btn?.querySelector('.button-040__icon-wrap.is--duplicate');
+        if (!btn || !text) return null;
+        const br = btn.getBoundingClientRect();
+        const tr = text.getBoundingClientRect();
+        const cr = circle?.getBoundingClientRect();
+        const ccs = circle ? getComputedStyle(circle) : null;
+        const circleOn = Boolean(ccs && ccs.display !== 'none' && cr && cr.width > 1);
+        const logoR = logo?.getBoundingClientRect();
+        const burgerR = burger && getComputedStyle(burger).display !== 'none' ? burger.getBoundingClientRect() : null;
+        return {
+          text: text.textContent.trim(),
+          textRight: Math.round(tr.right * 10) / 10,
+          btnRight: Math.round(br.right * 10) / 10,
+          circleOn,
+          circleLeft: cr ? Math.round(cr.left * 10) / 10 : null,
+          overlapCircle: circleOn && tr.right > cr.left + 0.5,
+          overlapLogo: Boolean(logoR && br.left < logoR.right - 1),
+          overlapBurger: Boolean(burgerR && br.right > burgerR.left + 1),
+        };
+      });
+      log({
+        ...tag,
+        check: 'apply-040-text-readable',
+        ok:
+          applyFit != null &&
+          applyFit.text.length > 0 &&
+          applyFit.overlapCircle === false &&
+          applyFit.overlapLogo === false &&
+          applyFit.overlapBurger === false &&
+          applyFit.textRight <= applyFit.btnRight + 0.5,
+        detail: JSON.stringify(applyFit),
+      });
+    }
+    if (phoneOnBar(vp.width) && applyOnBar(vp.width)) {
+      const telApply = await page.evaluate(() => {
+        const tel = document.querySelector('.site-header__tel--bar');
+        const apply = document.querySelector('.site-header__apply--bar');
+        if (!tel || !apply) return null;
+        const vis = (el) => {
+          const cs = getComputedStyle(el);
+          const r = el.getBoundingClientRect();
+          return cs.display !== 'none' && r.width > 1;
+        };
+        if (!vis(tel) || !vis(apply)) return null;
+        const gap = apply.getBoundingClientRect().left - tel.getBoundingClientRect().right;
+        const em = parseFloat(getComputedStyle(apply).fontSize);
+        return { gap: Math.round(gap * 10) / 10, em, min: Math.round(0.7 * em * 10) / 10 };
+      });
+      log({
+        ...tag,
+        check: 'apply-tel-gap',
+        ok: telApply != null && telApply.gap + 1 >= telApply.min,
+        detail: JSON.stringify(telApply),
+      });
+    }
+
+    const ctaN = await page.locator('[data-site-cta]').count();
+    log({ ...tag, check: 'site-cta-once', ok: ctaN === 1, detail: `count=${ctaN}` });
+    await page.waitForSelector('.site-cta__phrase.is-active');
+    await page.waitForFunction(() => {
+      const active = document.querySelector('.site-cta__phrase.is-active');
+      return Boolean(active) && getComputedStyle(active).color === 'rgb(255, 255, 255)';
+    });
+    const ctaChrome = await page.evaluate(() => {
+      const cta = document.querySelector('[data-site-cta]');
+      const footer = document.querySelector('.site-footer');
+      const btn = document.querySelector('.site-cta [data-button-040]');
+      const lead = document.querySelector('.site-cta__lead');
+      const tail = document.querySelector('.site-cta__tail');
+      const sr = document.querySelector('#site-cta-heading');
+      const active = document.querySelector('.site-cta__phrase.is-active');
+      const past = document.querySelector('.site-cta__phrase.is-past');
+      const rest = [...document.querySelectorAll('.site-cta__phrase')].find(
+        (el) => !el.classList.contains('is-active') && !el.classList.contains('is-past'),
+      );
+      const cs = btn ? getComputedStyle(btn) : null;
+      const heading = [...document.querySelectorAll('h2')].find(
+        (el) => !el.classList.contains('sr-only') && !el.classList.contains('primary-nav-widget__title'),
+      );
+      const headingCs = heading ? getComputedStyle(heading) : null;
+      const bodyFont = getComputedStyle(document.body).fontFamily;
+      const leadCs = lead ? getComputedStyle(lead) : null;
+      const activeCs = active ? getComputedStyle(active) : null;
+      const sentence = document.querySelector('.site-cta__sentence');
+      const sentenceR = sentence?.getBoundingClientRect();
+      const btnR = btn?.getBoundingClientRect();
+      const phraseOverflow = [...document.querySelectorAll('.site-cta__copy:first-of-type [data-cta-phrase]')].some(
+        (el) => el.scrollWidth > el.clientWidth + 1,
+      );
+      const pastCs = past ? getComputedStyle(past) : null;
+      const restCs = rest ? getComputedStyle(rest) : null;
+      const wheel = document.querySelector('[data-cta-wheel]');
+      const wheelCs = wheel ? getComputedStyle(wheel) : null;
+      const baselineOf = (el) => {
+        if (!el) return null;
+        const probe = document.createElement('span');
+        probe.style.cssText =
+          'display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;';
+        el.appendChild(probe);
+        const y = probe.getBoundingClientRect().top;
+        probe.remove();
+        return Math.round(y * 10) / 10;
+      };
+      return {
+        beforeFooter: Boolean(
+          cta &&
+            footer &&
+            (() => {
+              let n = cta.nextElementSibling;
+              while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+              return n === footer;
+            })(),
+        ),
+        href: btn?.getAttribute('href') || null,
+        bg: cs?.backgroundColor || null,
+        ctaBg: cta ? getComputedStyle(cta).backgroundColor : null,
+        footerBg: footer ? getComputedStyle(footer).backgroundColor : null,
+        radius: cs?.borderRadius || null,
+        color: cs?.color || null,
+        phrases: [...document.querySelectorAll('.site-cta__copy:first-of-type [data-cta-phrase]')].map(
+          (el) => el.textContent.trim(),
+        ),
+        tailCount: document.querySelectorAll('.site-cta__tail').length,
+        srText: sr?.textContent?.trim() || '',
+        leadText: lead?.textContent?.trim() || '',
+        leadFont: leadCs?.fontFamily || null,
+        leadWeight: leadCs?.fontWeight || null,
+        phraseFont: activeCs?.fontFamily || null,
+        phraseWeight: activeCs?.fontWeight || null,
+        headingFont: headingCs?.fontFamily || null,
+        headingWeight: headingCs?.fontWeight || null,
+        bodyFont,
+        btnGap: sentenceR && btnR
+          ? Math.round((btnR.top >= sentenceR.bottom - 2 ? btnR.top - sentenceR.bottom : btnR.left - sentenceR.right) * 10) / 10
+          : null,
+        phraseOverflow,
+        phraseLine: activeCs?.lineHeight || null,
+        phraseH: active ? Math.round(active.getBoundingClientRect().height * 10) / 10 : null,
+        wheelH: wheel ? Math.round(wheel.getBoundingClientRect().height * 10) / 10 : null,
+        wheelCssH: wheelCs?.height || null,
+        leadBaseline: baselineOf(lead),
+        activeBaseline: baselineOf(active),
+        activeColor: activeCs?.color || null,
+        pastColor: pastCs?.color || null,
+        restColor: restCs?.color || null,
+        hasTailEl: Boolean(tail),
+      };
+    });
+    log({
+      ...tag,
+      check: 'site-cta-above-footer',
+      ok: ctaChrome.beforeFooter,
+      detail: JSON.stringify(ctaChrome),
+    });
+    const cta040 = await readButton040(page, '.site-cta [data-button-040]');
+    log({
+      ...tag,
+      check: 'site-cta-apply-040',
+      ok: button040Matches(cta040, APPLY_LIGHT),
+      detail: JSON.stringify(cta040),
+    });
+    const ctaBtnSize =
+      vp.width >= 1440
+        ? { font: 30, height: 90 }
+        : vp.width >= 1280
+          ? { font: 28, height: 84 }
+          : vp.width >= 768
+            ? { font: 24, height: 72 }
+            : { font: 22, height: 66 };
+    log({
+      ...tag,
+      check: 'site-cta-apply-larger-than-nav',
+      ok:
+        cta040 != null &&
+        apply040 != null &&
+        cta040.fontSize > apply040.fontSize + 2 &&
+        cta040.height > apply040.height + 8 &&
+        Math.abs(cta040.fontSize - ctaBtnSize.font) <= 1.5 &&
+        Math.abs(cta040.height - ctaBtnSize.height) <= 2,
+      detail: JSON.stringify({
+        cta: { font: cta040?.fontSize, height: cta040?.height },
+        nav: { font: apply040?.fontSize, height: apply040?.height },
+        expected: ctaBtnSize,
+      }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-no-tail',
+      ok:
+        !ctaChrome.hasTailEl &&
+        ctaChrome.tailCount === 0 &&
+        ctaChrome.leadText === 'Need funding to' &&
+        ctaChrome.srText === CTA_SR &&
+        !ctaChrome.srText.includes('for your business'),
+      detail: JSON.stringify({
+        leadText: ctaChrome.leadText,
+        srText: ctaChrome.srText,
+        tailCount: ctaChrome.tailCount,
+      }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-phrases',
+      ok: JSON.stringify(ctaChrome.phrases) === JSON.stringify(CTA_PHRASES),
+      detail: JSON.stringify(ctaChrome.phrases),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-matches-footer',
+      ok:
+        ctaChrome.ctaBg === MARTINIQUE_DARKER &&
+        ctaChrome.footerBg === MARTINIQUE_DARKER &&
+        ctaChrome.ctaBg === ctaChrome.footerBg,
+      detail: JSON.stringify({ ctaBg: ctaChrome.ctaBg, footerBg: ctaChrome.footerBg }),
+    });
+    const footerLogo = await page.evaluate(() => {
+      const link = document.querySelector('.site-footer__logo-link');
+      const mark = link?.querySelector('.brand-logo__mark');
+      const word = link?.querySelector('.brand-logo__wordmark');
+      const markR = mark?.getBoundingClientRect();
+      const wordR = word?.getBoundingClientRect();
+      const wordCs = word ? getComputedStyle(word) : null;
+      return {
+        label: link?.getAttribute('aria-label') || '',
+        href: link?.getAttribute('href') || '',
+        markTag: mark?.tagName || null,
+        markFill: mark?.querySelector('path')?.getAttribute('fill') || null,
+        markW: markR ? Math.round(markR.width * 10) / 10 : null,
+        markH: markR ? Math.round(markR.height * 10) / 10 : null,
+        word: word?.textContent.trim() || '',
+        wordSize: wordCs?.fontSize || null,
+        wordWeight: wordCs?.fontWeight || null,
+        wordFamily: wordCs?.fontFamily || null,
+        wordTracking: wordCs?.letterSpacing || null,
+        wordLh: wordCs?.lineHeight || null,
+        gap: markR && wordR ? Math.round((wordR.left - markR.right) * 10) / 10 : null,
+        lines: word ? word.getClientRects().length : 0,
+      };
+    });
+    const liveFooter = vp.width < 1280
+      ? { mark: 32, word: '20.8px', lh: '31.2px' }
+      : { mark: 36.8, word: '24px', lh: '36px' };
+    log({
+      ...tag,
+      check: 'footer-logo-live-lockup',
+      ok:
+        footerLogo.label === 'Falcon Equity Group' &&
+        footerLogo.href === '/' &&
+        footerLogo.markTag === 'svg' &&
+        footerLogo.markFill === 'currentColor' &&
+        footerLogo.word === 'Falcon Equity Group' &&
+        footerLogo.lines === 1 &&
+        /At Gambit/i.test(footerLogo.wordFamily || '') &&
+        footerLogo.wordSize === liveFooter.word &&
+        footerLogo.wordWeight === '400' &&
+        (footerLogo.wordTracking === 'normal' || footerLogo.wordTracking === '0px') &&
+        footerLogo.wordLh === liveFooter.lh &&
+        footerLogo.markW != null &&
+        Math.abs(footerLogo.markW - liveFooter.mark) <= 1 &&
+        footerLogo.markH != null &&
+        Math.abs(footerLogo.markH - liveFooter.mark) <= 1 &&
+        footerLogo.gap != null &&
+        Math.abs(footerLogo.gap - 19.2) <= 1.5,
+      detail: JSON.stringify(footerLogo),
+    });
+    const footerNav = await page.evaluate(() => {
+      const cols = [...document.querySelectorAll('.site-footer__col')];
+      const git = cols.find(
+        (col) => col.querySelector('.site-footer__col-title')?.textContent.trim() === 'Get in Touch',
+      );
+      const styleOf = (a) => {
+        if (!a) return null;
+        const cs = getComputedStyle(a);
+        const visible = [...a.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent.trim())
+          .join('');
+        return {
+          href: a.getAttribute('href'),
+          visible,
+          className: a.className,
+          color: cs.color,
+          fontSize: cs.fontSize,
+          fontWeight: cs.fontWeight,
+          fontFamily: cs.fontFamily,
+          lineHeight: cs.lineHeight,
+          backgroundImage: cs.backgroundImage,
+          backgroundSize: cs.backgroundSize,
+        };
+      };
+      return {
+        titles: cols.map((col) => col.querySelector('.site-footer__col-title')?.textContent.trim() || ''),
+        x: styleOf(git?.querySelector('a[href="https://x.com/FalconEquitynyc"]')),
+        /* No Contact link in the footer any more (it opens the contact panel
+           from the header instead), so the X link is compared with the email
+           link, which is the first plain link left in this column. */
+        email: styleOf(git?.querySelector('a[href^="mailto:"]')),
+      };
+    });
+    const xMatchesEmail =
+      Boolean(footerNav.x) &&
+      Boolean(footerNav.email) &&
+      footerNav.x.className === footerNav.email.className &&
+      footerNav.x.color === footerNav.email.color &&
+      footerNav.x.fontSize === footerNav.email.fontSize &&
+      footerNav.x.fontWeight === footerNav.email.fontWeight &&
+      footerNav.x.fontFamily === footerNav.email.fontFamily &&
+      footerNav.x.lineHeight === footerNav.email.lineHeight &&
+      footerNav.x.backgroundImage === footerNav.email.backgroundImage &&
+      footerNav.x.backgroundSize === footerNav.email.backgroundSize;
+    log({
+      ...tag,
+      check: 'footer-social-in-get-in-touch',
+      ok:
+        footerNav.titles.length === 3 &&
+        footerNav.titles[0] === 'What we do' &&
+        footerNav.titles[1] === 'Resources' &&
+        footerNav.titles[2] === 'Get in Touch' &&
+        !footerNav.titles.includes('Social') &&
+        footerNav.x?.visible === 'X (Twitter)' &&
+        footerNav.x?.href === 'https://x.com/FalconEquitynyc' &&
+        xMatchesEmail,
+      detail: JSON.stringify(footerNav),
+    });
+    const xHover = page.locator('.site-footer a[href="https://x.com/FalconEquitynyc"]');
+    await xHover.scrollIntoViewIfNeeded();
+    await xHover.hover();
+    await page.waitForTimeout(400);
+    const xHoverSize = await xHover.evaluate((el) => getComputedStyle(el).backgroundSize);
+    log({
+      ...tag,
+      check: 'footer-social-hover-underline',
+      ok: xHoverSize === '100% 1px',
+      detail: xHoverSize,
+    });
+    /* The bar hides on scroll-down, so the logo is off-viewport while the page
+       sits on the footer: come back to the top first, then hover it. Without
+       this the hover times out and the whole run aborts before the nav checks. */
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(300);
+    await page.locator('.site-header__logo').hover();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(200);
+    if (pg.name === 'home') {
+      await page.waitForFunction(
+        () =>
+          window.scrollY < 8 &&
+          document.querySelector('[data-header]')?.classList.contains('is-color-theme-dark'),
+      );
+    }
+    log({
+      ...tag,
+      check: 'site-cta-lead-heading-font',
+      ok:
+        Boolean(ctaChrome.leadFont) &&
+        ctaChrome.leadFont === ctaChrome.headingFont &&
+        ctaChrome.phraseFont === ctaChrome.leadFont &&
+        ctaChrome.leadFont !== ctaChrome.bodyFont &&
+        ctaChrome.leadWeight === '300' &&
+        ctaChrome.phraseWeight === '300' &&
+        ctaChrome.leadWeight === ctaChrome.headingWeight &&
+        ctaChrome.phraseOverflow === false,
+      detail: JSON.stringify({
+        leadFont: ctaChrome.leadFont,
+        phraseFont: ctaChrome.phraseFont,
+        headingFont: ctaChrome.headingFont,
+        bodyFont: ctaChrome.bodyFont,
+        leadWeight: ctaChrome.leadWeight,
+        phraseWeight: ctaChrome.phraseWeight,
+        headingWeight: ctaChrome.headingWeight,
+        phraseOverflow: ctaChrome.phraseOverflow,
+      }),
+    });
+    log({
+      ...tag,
+      check: 'site-cta-phrase-pitch',
+      ok:
+        ctaChrome.phraseLine === '72px' &&
+        ctaChrome.phraseH != null &&
+        Math.abs(ctaChrome.phraseH - 72) <= 1 &&
+        ctaChrome.wheelH != null &&
+        Math.abs(ctaChrome.wheelH - 504) <= 1,
+      detail: JSON.stringify({
+        phraseLine: ctaChrome.phraseLine,
+        phraseH: ctaChrome.phraseH,
+        wheelH: ctaChrome.wheelH,
+      }),
+    });
+    const fadedWhite = (c) =>
+      c === 'rgba(255, 255, 255, 0.5)' || c === 'rgb(255, 255, 255, 0.5)';
+    log({
+      ...tag,
+      check: 'site-cta-active-white',
+      ok:
+        ctaChrome.activeColor === 'rgb(255, 255, 255)' &&
+        (ctaChrome.pastColor == null || ctaChrome.pastColor === MARTINIQUE_LIGHTER) &&
+        (ctaChrome.restColor == null || fadedWhite(ctaChrome.restColor)),
+      detail: JSON.stringify({
+        activeColor: ctaChrome.activeColor,
+        pastColor: ctaChrome.pastColor,
+        restColor: ctaChrome.restColor,
+      }),
+    });
+    if (vp.mode === 'desktop') {
+      log({
+        ...tag,
+        check: 'site-cta-baseline-align',
+        ok:
+          ctaChrome.leadBaseline != null &&
+          ctaChrome.activeBaseline != null &&
+          Math.abs(ctaChrome.leadBaseline - ctaChrome.activeBaseline) <= 2,
+        detail: JSON.stringify({
+          leadBaseline: ctaChrome.leadBaseline,
+          activeBaseline: ctaChrome.activeBaseline,
+        }),
+      });
+    }
+
+    const dividerClosed = await readPanelChrome(page);
+    log({
+      ...tag,
+      check: 'divider-hidden-when-closed',
+      ok: !dividerClosed.panelVisible && dividerClosed.headerBorder === '0px' && dividerClosed.barBorder === '0px',
+      detail: JSON.stringify(dividerClosed),
+    });
+
+    if (vp.mode === 'desktop') {
+      const first = page.locator('[data-nav-item]').first();
+      const trigger = first.locator('[data-nav-trigger]');
+      const controls = await trigger.getAttribute('aria-controls');
+      const panel = page.locator(`#${controls}`);
+      const label = (await trigger.innerText()).trim().split('\n')[0];
+
+      await page.locator('.site-header__tel--bar').hover();
+      await page.waitForTimeout(350);
+      const telHoverSize = await page
+        .locator('.site-header__tel--bar .site-header__tel-label')
+        .evaluate((el) => getComputedStyle(el).backgroundSize);
+      await page.mouse.move(2, 2);
+      await page.waitForTimeout(80);
+      await trigger.hover();
+      await page.waitForTimeout(350);
+      const menuHoverSize = await page
+        .locator('.primary-nav__list-item-label')
+        .first()
+        .evaluate((el) => getComputedStyle(el).backgroundSize);
+      const restSizes = typeRest;
+      log({
+        ...tag,
+        check: 'tel-hover-matches-menu',
+        ok:
+          telHoverSize === menuHoverSize &&
+          telHoverSize === '100% 1px' &&
+          restSizes.telLabel.backgroundSize === restSizes.menuLabel.backgroundSize &&
+          restSizes.telLabel.backgroundImage === restSizes.menuLabel.backgroundImage,
+        detail: JSON.stringify({
+          telHoverSize,
+          menuHoverSize,
+          telRest: restSizes.telLabel,
+          menuRest: restSizes.menuLabel,
+        }),
+      });
+
+      const hoverOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
+      const panelVisible = await panel.evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+      });
+      log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
+
+      const openChrome = await readPanelChrome(page);
+      const aligned =
+        openChrome.colLeft != null && Math.abs(openChrome.colLeft - openChrome.logoLeft) <= 1;
+      log({
+        ...tag,
+        check: 'panel-aligns-logo',
+        ok: aligned,
+        detail: JSON.stringify(openChrome),
+      });
+      const applyAligned =
+        openChrome.applyDisplay === 'none' ||
+        (openChrome.applyRight != null &&
+          openChrome.listRight != null &&
+          Math.abs(openChrome.listRight - openChrome.applyRight) <= 1);
+      log({
+        ...tag,
+        check: 'panel-aligns-apply',
+        ok: applyAligned,
+        detail: JSON.stringify(openChrome),
+      });
+      log({
+        ...tag,
+        check: 'divider-open-color',
+        ok:
+          openChrome.panelVisible &&
+          openChrome.borderTopWidth === '1px' &&
+          openChrome.borderTopStyle === 'solid' &&
+          openChrome.borderTopColor === (theme.dark ? WHITE_A16 : LILAC_DARK) &&
+          openChrome.headerBorder === '0px',
+        detail: JSON.stringify(openChrome),
+      });
+
+      const chevron = await trigger.locator('.primary-nav__list-item-icon').evaluate((el) => getComputedStyle(el).transform);
+      log({ ...tag, check: 'chevron-flips-on-open', ok: chevron !== 'none' && chevron !== 'matrix(1, 0, 0, 1, 0, 0)', detail: chevron });
+
+      const backdropOn = await page.evaluate(() => {
+        const b = document.querySelector('[data-nav-backdrop]');
+        const cs = getComputedStyle(b);
+        return !b.hidden && cs.display !== 'none' && cs.backgroundColor.includes('20, 16, 31');
+      });
+      log({ ...tag, check: 'backdrop-on-when-open', ok: backdropOn });
+
+      const filtersOpen = await readFilters(page);
+      log({
+        ...tag,
+        check: 'overlay-blur-5px-open',
+        ok:
+          isBlur5(filtersOpen.overlay?.backdropFilter) &&
+          filtersOpen.overlay?.display !== 'none' &&
+          !filtersOpen.ancestorTrap,
+        detail: JSON.stringify(filtersOpen.overlay),
+      });
+      log({
+        ...tag,
+        check: 'panel-backdrop-none',
+        ok: isFilterNone(filtersOpen.panel?.backdropFilter),
+        detail: JSON.stringify(filtersOpen.panel),
+      });
+      log({
+        ...tag,
+        check: 'header-backdrop-none-open',
+        ok: isFilterNone(filtersOpen.header?.backdropFilter) && isFilterNone(filtersOpen.bar?.backdropFilter),
+        detail: JSON.stringify({ header: filtersOpen.header, bar: filtersOpen.bar }),
+      });
+
+      const z = await page.evaluate(() => {
+        const header = document.querySelector('[data-header]');
+        const panel = document.querySelector('[data-nav-panel][aria-hidden="false"]') || document.querySelector('[data-nav-panel]');
+        const hz = Number(getComputedStyle(header).zIndex) || 0;
+        const main = document.querySelector('main');
+        const mz = Number(getComputedStyle(main).zIndex) || 0;
+        const tabs = document.querySelector('.pilot-tabs-menu');
+        const tz = tabs ? Number(getComputedStyle(tabs).zIndex) || 0 : 0;
+        const box = panel.getBoundingClientRect();
+        const hit = document.elementFromPoint(Math.min(box.left + 40, innerWidth - 4), Math.min(box.top + 40, innerHeight - 4));
+        return {
+          hz,
+          mz,
+          tz,
+          above: hz > mz && (tz === 0 || hz > tz),
+          hit: hit && (panel.contains(hit) || header.contains(hit)) ? hit.className : hit?.className || String(hit),
+        };
+      });
+      log({ ...tag, check: 'panel-above-content', ok: z.above, detail: JSON.stringify(z) });
+
+      await shot(page, `${vp.name}-${pg.name}-hover-${label.toLowerCase().replace(/\s+/g, '-')}`);
+
+      const panelBox = await panel.boundingBox();
+      const triggerBox = await trigger.boundingBox();
+      if (panelBox && triggerBox) {
+        const midX = triggerBox.x + triggerBox.width / 2;
+        const fromY = triggerBox.y + triggerBox.height;
+        const toY = panelBox.y + 24;
+        await page.mouse.move(midX, fromY - 2);
+        await page.mouse.move(midX, (fromY + toY) / 2, { steps: 8 });
+        await page.mouse.move(midX, toY, { steps: 8 });
+        await page.waitForTimeout(250);
+        const stillOpen = await first.evaluate((el) => el.classList.contains('is-open') || el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true');
+        const stillVisible = await panel.evaluate((el) => {
+          const cs = getComputedStyle(el);
+          return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+        });
+        log({ ...tag, check: 'no-gap-close-into-panel', ok: stillOpen && stillVisible, detail: `from ${Math.round(fromY)} to ${Math.round(toY)}` });
+      } else {
+        log({ ...tag, check: 'no-gap-close-into-panel', ok: false, detail: 'missing boxes' });
+      }
+
+      const resourcesTrigger = page.locator('[aria-controls="menu-resources"]');
+      await resourcesTrigger.hover();
+      /* 200ms was under the panel's open animation: the card read as not
+         visible and every widget check failed for the wrong reason. */
+      await page.waitForTimeout(500);
+      const expectedWidget = theme.dark ? WIDGET_DARK : WIDGET_LIGHT;
+      const themeName = theme.dark ? 'dark' : 'light';
+      const widgetRest = await readNavWidget(page);
+      const widgetRestCheck = widgetPasses(widgetRest, expectedWidget);
+      recordWidgetContrast(tag, 'rest', themeName, widgetRestCheck);
+      log({
+        ...tag,
+        check: 'nav-widget-theme',
+        ok: widgetRestCheck.colorsOk && widgetRest.dark === theme.dark,
+        detail: formatWidgetDetail(themeName, widgetRest, widgetRestCheck),
+      });
+      log({
+        ...tag,
+        check: 'nav-widget-contrast',
+        ok: widgetRestCheck.contrastOk,
+        detail: formatWidgetDetail(themeName, widgetRest, widgetRestCheck),
+      });
+      await page.locator('#menu-resources .arrow-cta').hover();
+      await page.waitForTimeout(300);
+      const widgetHover = await readNavWidget(page);
+      const widgetHoverCheck = widgetPasses(widgetHover, expectedWidget);
+      recordWidgetContrast(tag, 'hover', themeName, widgetHoverCheck);
+      log({
+        ...tag,
+        check: 'nav-widget-contrast-hover',
+        ok: widgetHoverCheck.ok,
+        detail: formatWidgetDetail(themeName, widgetHover, widgetHoverCheck),
+      });
+      /* The CTA's hover-in belongs to the card: pointing anywhere on the card
+         draws the "Learn More" underline although the pointer is nowhere near
+         the CTA. force: the panel's height animation keeps failing Playwright's
+         "stable" check, and the card's centre is well inside the card anyway. */
+      let cardHover = await readNavWidget(page);
+      for (let attempt = 0; attempt < 3 && cardHover.label?.underline !== '100% 1px'; attempt++) {
+        /* The panel can have closed since the CTA hover: re-open it, then park
+           the pointer on the card. force, because the open animation keeps the
+           card from ever passing Playwright's "stable" check. */
+        if (!cardHover.visible) {
+          await page.locator('[aria-controls="menu-resources"]').hover();
+          await page.waitForTimeout(500);
+        }
+        await page.locator('#menu-resources .primary-nav-widget').hover({ force: true });
+        await page.waitForTimeout(450);
+        cardHover = await readNavWidget(page);
+      }
+      /* Leave the pointer off the menu so the geometry loop below starts from
+         the same state a user's page would. */
+      await page.mouse.move(2, 2);
+      await page.waitForTimeout(150);
+      log({
+        ...tag,
+        check: 'nav-widget-card-hover-cta',
+        ok: cardHover.label?.underline === '100% 1px',
+        detail: `underline=${cardHover.label?.underline ?? null} rest=${widgetRest.label?.underline ?? null}`,
+      });
+
+      /* Services and Industries carry the same card, rewired to their own overview. */
+      for (const card of [
+        { trigger: 'menu-services', title: 'Services overview', href: '/#services' },
+        { trigger: 'menu-industries', title: 'Industries overview', href: '/industries' },
+      ]) {
+        await page.locator(`[aria-controls="${card.trigger}"]`).hover();
+        await page.waitForTimeout(320);
+        const got = await readNavWidget(page);
+        const check = widgetPasses(got, expectedWidget, { title: card.title, href: card.href, label: 'Learn More' });
+        log({
+          ...tag,
+          check: `nav-widget-${card.trigger.replace('menu-', '')}`,
+          ok: got.visible && got.title?.text === card.title && got.link?.href === card.href && check.ok,
+          detail: JSON.stringify({
+            theme: themeName,
+            title: got.title?.text ?? null,
+            href: got.link?.href ?? null,
+            ratios: check.ratios,
+          }),
+        });
+      }
+
+      const second = page.locator('[data-nav-item]').nth(1);
+      await second.locator('[data-nav-trigger]').hover();
+      await page.waitForTimeout(280);
+      const openN = await page.locator('[data-nav-item].is-open').count();
+      const visN = await countOpenPanels(page);
+      log({ ...tag, check: 'only-one-open', ok: visN === 1 && openN <= 1, detail: `is-open=${openN} visible=${visN}` });
+
+      await page.evaluate(() => document.querySelector('[data-nav-backdrop]')?.click());
+      await page.waitForTimeout(400);
+      const afterOutside = await countOpenPanels(page);
+      const backdropOff = await page.evaluate(() => {
+        const b = document.querySelector('[data-nav-backdrop]');
+        return b.hidden || getComputedStyle(b).display === 'none';
+      });
+      log({ ...tag, check: 'outside-click-closes', ok: afterOutside === 0, detail: `visible=${afterOutside}` });
+      log({ ...tag, check: 'backdrop-clears', ok: backdropOff });
+
+      await trigger.hover();
+      await page.waitForTimeout(150);
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(400);
+      const afterEsc = await countOpenPanels(page);
+      log({ ...tag, check: 'esc-closes', ok: afterEsc === 0, detail: `visible=${afterEsc}` });
+
+      await trigger.hover();
+      await page.waitForTimeout(150);
+      await page.mouse.move(10, vp.height - 20);
+      await page.waitForTimeout(400);
+      const afterLeave = await countOpenPanels(page);
+      log({ ...tag, check: 'leave-closes', ok: afterLeave === 0, detail: `visible=${afterLeave}` });
+
+      await page.mouse.click(10, 10);
+      await trigger.click();
+      await page.waitForTimeout(200);
+      const clickOpen = await panel.evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
+      });
+      log({ ...tag, check: 'click-opens', ok: clickOpen });
+
+      const href = await panel.locator('a.primary-nav__list-lvl-3-link').first().getAttribute('href');
+      await panel.locator('a.primary-nav__list-lvl-3-link').first().click();
+      await page.waitForLoadState('networkidle');
+      const url = page.url();
+      log({ ...tag, check: 'link-navigates', ok: href && url.includes(href.replace(/\/$/, '')), detail: `${href} -> ${url}` });
+      await page.goto(`${BASE}${pg.path}`, { waitUntil: 'networkidle' });
+
+      await page.locator('.site-header__logo').focus();
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(200);
+      const kbOpen = await countOpenPanels(page);
+      log({ ...tag, check: 'keyboard-enter-opens', ok: kbOpen === 1, detail: `visible=${kbOpen}` });
+      await page.keyboard.press('Tab');
+      const focused = await page.evaluate(() => document.activeElement?.className || document.activeElement?.tagName);
+      log({ ...tag, check: 'keyboard-tab-into-panel', ok: /primary-nav__list-lvl-3-link|arrow-cta/.test(focused), detail: focused });
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(400);
+      await closeMenu(page, vp.mode);
+
+      if (pg.name === 'home') {
+        await scrollOverHomeHero(page);
+        const overHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-over-hero',
+          ok: overHero.dark === true && overHero.heroBottom > overHero.headerBottom,
+          detail: JSON.stringify(overHero),
+        });
+        await scrollPastHomeHero(page);
+        const scrolled = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-on-scroll',
+          ok: scrolled.dark === false && scrolled.heroBottom <= scrolled.headerBottom + 1,
+          detail: JSON.stringify(scrolled),
+        });
+        await scrollHeroToBarOffset(page, 8);
+        const stillDark = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-until-hero-clears-bar',
+          ok: stillDark.dark === true && stillDark.overlap >= 0,
+          detail: JSON.stringify(stillDark),
+        });
+        await scrollHeroToBarOffset(page, -2);
+        const justPast = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-once-hero-clears-bar',
+          ok: justPast.dark === false && justPast.overlap < 0,
+          detail: JSON.stringify(justPast),
+        });
+        const applyScrolled = await readButton040(page, applySel);
+        log({
+          ...tag,
+          check: 'apply-040-theme-scrolled',
+          ok: button040Matches(applyScrolled, APPLY_DARK),
+          detail: JSON.stringify(applyScrolled),
+        });
+        const typeScrolled = await readTypeChrome(page);
+        log({
+          ...tag,
+          check: 'tel-matches-menu-link-scrolled',
+          ok:
+            typeScrolled.tel.fontFamily === typeScrolled.menu.fontFamily &&
+            typeScrolled.tel.fontSize === typeScrolled.menu.fontSize &&
+            typeScrolled.tel.fontWeight === typeScrolled.menu.fontWeight &&
+            typeScrolled.tel.color === typeScrolled.menu.color &&
+            typeScrolled.tel.textDecorationLine === typeScrolled.menu.textDecorationLine,
+          detail: JSON.stringify(typeScrolled),
+        });
+        const filtersScrolled = await readFilters(page);
+        log({
+          ...tag,
+          check: 'overlay-blur-5px-scrolled',
+          ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
+          detail: JSON.stringify(filtersScrolled),
+        });
+        await page.locator('[aria-controls="menu-resources"]').hover();
+        await page.waitForTimeout(500);
+        const widgetScrolled = await readNavWidget(page);
+        const widgetScrolledCheck = widgetPasses(widgetScrolled, WIDGET_LIGHT);
+        recordWidgetContrast(tag, 'rest-scrolled', 'light', widgetScrolledCheck);
+        log({
+          ...tag,
+          check: 'nav-widget-theme-scrolled',
+          ok: widgetScrolledCheck.colorsOk && widgetScrolled.dark === false,
+          detail: formatWidgetDetail('light', widgetScrolled, widgetScrolledCheck),
+        });
+        log({
+          ...tag,
+          check: 'nav-widget-contrast-scrolled',
+          ok: widgetScrolledCheck.contrastOk,
+          detail: formatWidgetDetail('light', widgetScrolled, widgetScrolledCheck),
+        });
+        await page.locator('#menu-resources .arrow-cta').hover();
+        await page.waitForTimeout(300);
+        const widgetScrolledHover = await readNavWidget(page);
+        const widgetScrolledHoverCheck = widgetPasses(widgetScrolledHover, WIDGET_LIGHT);
+        recordWidgetContrast(tag, 'hover-scrolled', 'light', widgetScrolledHoverCheck);
+        log({
+          ...tag,
+          check: 'nav-widget-contrast-hover-scrolled',
+          ok: widgetScrolledHoverCheck.ok,
+          detail: formatWidgetDetail('light', widgetScrolledHover, widgetScrolledHoverCheck),
+        });
+        await page.keyboard.press('Escape');
+        await scrollOverHomeHero(page);
+        const backHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-on-scroll-back',
+          ok: backHero.dark === true && backHero.heroBottom > backHero.headerBottom,
+          detail: JSON.stringify(backHero),
+        });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(150);
+      }
+    } else {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForTimeout(150);
+      const toggle = page.locator('[data-mobile-toggle]');
+      const visibleToggle = await toggle.isVisible();
+      log({ ...tag, check: 'hamburger-visible', ok: visibleToggle });
+
+      const iconsClosed = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-closed',
+        ok: toggleIconsOk(iconsClosed, false),
+        detail: JSON.stringify(iconsClosed),
+      });
+
+      await toggle.click();
+      await page.waitForTimeout(200);
+      const innerOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open') && getComputedStyle(el).display !== 'none');
+      log({ ...tag, check: 'mobile-opens', ok: innerOpen });
+
+      const iconsOpen = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-open',
+        ok: toggleIconsOk(iconsOpen, true),
+        detail: JSON.stringify(iconsOpen),
+      });
+
+      await page.locator('.site-header__cta--menu .site-header__tel').hover();
+      await page.waitForTimeout(200);
+      const mobileHover = await readTypeChrome(page, '.site-header__cta--menu .site-header__tel');
+      log({
+        ...tag,
+        check: 'tel-hover-matches-menu',
+        ok:
+          mobileHover.tel.fontFamily === mobileHover.menu.fontFamily &&
+          mobileHover.tel.fontSize === mobileHover.menu.fontSize &&
+          mobileHover.tel.fontWeight === mobileHover.menu.fontWeight &&
+          mobileHover.tel.color === mobileHover.menu.color &&
+          mobileHover.telLabel.backgroundSize === mobileHover.menuLabel.backgroundSize,
+        detail: JSON.stringify(mobileHover),
+      });
+
+      const filtersOpen = await readFilters(page);
+      log({
+        ...tag,
+        check: 'overlay-blur-5px-open',
+        ok:
+          isBlur5(filtersOpen.overlay?.backdropFilter) &&
+          filtersOpen.overlay?.display !== 'none' &&
+          !filtersOpen.ancestorTrap,
+        detail: JSON.stringify(filtersOpen.overlay),
+      });
+      log({
+        ...tag,
+        check: 'panel-backdrop-none',
+        ok: isFilterNone(filtersOpen.panel?.backdropFilter),
+        detail: JSON.stringify(filtersOpen.panel),
+      });
+      await shot(page, `${vp.name}-${pg.name}-mobile-open`);
+
+      const scrollable = await page.evaluate(() => {
+        const inner = document.querySelector('[data-nav-inner]');
+        const cs = getComputedStyle(inner);
+        return {
+          overflow: cs.overflowY,
+          maxH: cs.maxHeight,
+          client: inner.clientHeight,
+          scroll: inner.scrollHeight,
+        };
+      });
+      log({
+        ...tag,
+        check: 'mobile-scrolls',
+        ok: scrollable.overflow === 'auto' || scrollable.overflow === 'scroll' || scrollable.scroll <= scrollable.client + 1,
+        detail: JSON.stringify(scrollable),
+      });
+
+      await page.locator('[data-nav-trigger]').first().click();
+      await page.waitForTimeout(450);
+      const drilled = await page.evaluate(() => {
+        const inner = document.querySelector('[data-nav-inner]');
+        const panel = document.querySelector('[data-nav-panel][aria-hidden="false"]');
+        const back = document.querySelector('[data-mobile-back]');
+        const backCs = back ? getComputedStyle(back) : null;
+        return {
+          drilled: inner?.classList.contains('is-drilled') ?? false,
+          itemOpen: document.querySelector('[data-nav-item]')?.classList.contains('is-open') ?? false,
+          panelOn: Boolean(
+            panel &&
+              getComputedStyle(panel).display !== 'none' &&
+              getComputedStyle(panel).visibility !== 'hidden' &&
+              Number(getComputedStyle(panel).opacity) > 0.05,
+          ),
+          backOn: Boolean(backCs && backCs.opacity !== '0' && backCs.pointerEvents !== 'none'),
+        };
+      });
+      log({ ...tag, check: 'mobile-drill-opens', ok: drilled.drilled && drilled.itemOpen && drilled.panelOn, detail: JSON.stringify(drilled) });
+      log({ ...tag, check: 'mobile-back-visible', ok: drilled.backOn, detail: JSON.stringify(drilled) });
+      const mobileChrome = await readPanelChrome(page);
+      log({
+        ...tag,
+        check: 'panel-aligns-logo',
+        ok: (() => {
+          const alignLeft = mobileChrome.listLeft ?? mobileChrome.colLeft;
+          return alignLeft != null && Math.abs(alignLeft - mobileChrome.logoLeft) <= 1;
+        })(),
+        detail: JSON.stringify(mobileChrome),
+      });
+      const mobileRule = await page.evaluate(() => {
+        const item = document.querySelector('[data-nav-inner].is-open .primary-nav__list-item');
+        if (!item) return null;
+        const cs = getComputedStyle(item);
+        return { width: cs.borderTopWidth, color: cs.borderTopColor, style: cs.borderTopStyle };
+      });
+      log({
+        ...tag,
+        check: 'divider-open-color',
+        ok:
+          mobileChrome.panelVisible &&
+          mobileChrome.headerBorder === '0px' &&
+          mobileChrome.barBorder === '0px' &&
+          mobileRule?.width === '1px' &&
+          mobileRule?.color === (theme.dark ? WHITE_A16 : LILAC_DARK),
+        detail: JSON.stringify({ ...mobileChrome, mobileRule }),
+      });
+      await shot(page, `${vp.name}-${pg.name}-mobile-drill`);
+
+      const ones = await page.locator('[data-nav-item].is-open').count();
+      log({ ...tag, check: 'mobile-only-one-panel', ok: ones === 1, detail: `open=${ones}` });
+
+      await page.locator('[data-mobile-back]').click();
+      await page.waitForTimeout(700);
+      const afterBack = await page.evaluate(() => {
+        const inner = document.querySelector('[data-nav-inner]');
+        const openItems = document.querySelectorAll('[data-nav-item].is-open').length;
+        return { drilled: inner?.classList.contains('is-drilled') ?? false, menuOpen: inner?.classList.contains('is-open') ?? false, openItems };
+      });
+      log({ ...tag, check: 'mobile-back-returns', ok: afterBack.menuOpen && !afterBack.drilled && afterBack.openItems === 0, detail: JSON.stringify(afterBack) });
+
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(500);
+      const closedEsc = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
+      log({ ...tag, check: 'mobile-esc-closes', ok: closedEsc });
+
+      await toggle.click();
+      await page.waitForTimeout(400);
+      await toggle.click();
+      await page.waitForTimeout(450);
+      const closedToggle = await page.locator('[data-nav-inner]').evaluate((el) => !el.classList.contains('is-open') || getComputedStyle(el).display === 'none');
+      log({ ...tag, check: 'mobile-toggle-closes', ok: closedToggle });
+      const iconsClosedAgain = await readToggleIcons(page);
+      log({
+        ...tag,
+        check: 'toggle-icon-closed-after-js',
+        ok: toggleIconsOk(iconsClosedAgain, false),
+        detail: JSON.stringify(iconsClosedAgain),
+      });
+
+      await toggle.focus();
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(150);
+      const kbOpen = await page.locator('[data-nav-inner]').evaluate((el) => el.classList.contains('is-open'));
+      log({ ...tag, check: 'mobile-keyboard-enter-opens', ok: kbOpen });
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(400);
+      await closeMenu(page, vp.mode);
+
+      if (pg.name === 'home') {
+        await scrollOverHomeHero(page);
+        const overHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-over-hero',
+          ok: overHero.dark === true && overHero.heroBottom > overHero.headerBottom,
+          detail: JSON.stringify(overHero),
+        });
+        await scrollPastHomeHero(page);
+        const pastHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-on-scroll',
+          ok: pastHero.dark === false && pastHero.heroBottom <= pastHero.headerBottom + 1,
+          detail: JSON.stringify(pastHero),
+        });
+        await scrollHeroToBarOffset(page, 8);
+        const stillDark = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-until-hero-clears-bar',
+          ok: stillDark.dark === true && stillDark.overlap >= 0,
+          detail: JSON.stringify(stillDark),
+        });
+        await scrollHeroToBarOffset(page, -2);
+        const justPast = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-light-once-hero-clears-bar',
+          ok: justPast.dark === false && justPast.overlap < 0,
+          detail: JSON.stringify(justPast),
+        });
+        const typeScrolled = await readTypeChrome(page);
+        log({
+          ...tag,
+          check: 'tel-matches-menu-link-scrolled',
+          ok:
+            typeScrolled.tel.fontFamily === typeScrolled.menu.fontFamily &&
+            typeScrolled.tel.fontSize === typeScrolled.menu.fontSize &&
+            typeScrolled.tel.fontWeight === typeScrolled.menu.fontWeight &&
+            typeScrolled.tel.color === typeScrolled.menu.color &&
+            typeScrolled.tel.textDecorationLine === typeScrolled.menu.textDecorationLine,
+          detail: JSON.stringify(typeScrolled),
+        });
+        const filtersScrolled = await readFilters(page);
+        log({
+          ...tag,
+          check: 'overlay-blur-5px-scrolled',
+          ok: isBlur5(filtersScrolled.overlay?.backdropFilter) && isFilterNone(filtersScrolled.header?.backdropFilter),
+          detail: JSON.stringify(filtersScrolled),
+        });
+        await scrollOverHomeHero(page);
+        const backHero = await readHomeTheme(page);
+        log({
+          ...tag,
+          check: 'home-theme-dark-on-scroll-back',
+          ok: backHero.dark === true && backHero.heroBottom > backHero.headerBottom,
+          detail: JSON.stringify(backHero),
+        });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(150);
+      }
+    }
+
+    await closeMenu(page, vp.mode);
+    const maxY = await page.evaluate(() => Math.max(0, document.documentElement.scrollHeight - innerHeight));
+    for (const y of [0, 800, 2000]) {
+      const target = Math.min(y, maxY);
+      await page.evaluate((n) => window.scrollTo({ top: n, left: 0, behavior: 'auto' }), target);
+      await page.waitForTimeout(350);
+      await openMenu(page, vp.mode);
+      /* The panel animates open and the previous one can still carry
+         aria-hidden="false" while it closes, so a single read measures a
+         mid-flight box. Re-read until the settled panel is attached. */
+      const attachedTo = (geo) => geo.panelTop != null && Math.abs(geo.panelTop - geo.barBottom) <= 2;
+      let g = await headerPanelGeom(page);
+      for (let attempt = 0; attempt < 8 && !attachedTo(g); attempt++) {
+        await page.waitForTimeout(250);
+        g = await headerPanelGeom(page);
+      }
+      const attached = attachedTo(g);
+      log({
+        ...tag,
+        check: `open-at-y${y}-header-in-view`,
+        ok: g.visible && g.noHairline,
+        detail: JSON.stringify(g),
+      });
+      log({
+        ...tag,
+        check: `open-at-y${y}-panel-under-header`,
+        ok: attached,
+        detail: JSON.stringify(g),
+      });
+      await shot(page, `${vp.name}-${pg.name}-open-y${y}`);
+      await closeMenu(page, vp.mode);
+    }
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(100);
+    await openMenu(page, vp.mode);
+    const beforeY = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, 800);
+    await page.waitForTimeout(200);
+    const afterScroll = await headerPanelGeom(page);
+    const yUnchanged = Math.abs(afterScroll.y - beforeY) <= 2;
+    const stillAttached =
+      afterScroll.panelTop != null && Math.abs(afterScroll.panelTop - afterScroll.barBottom) <= 2;
+    log({
+      ...tag,
+      check: 'scroll-while-open-locks',
+      ok: yUnchanged && afterScroll.locked,
+      detail: JSON.stringify({ beforeY, ...afterScroll }),
+    });
+    log({
+      ...tag,
+      check: 'scroll-while-open-header-stays',
+      ok: afterScroll.visible && stillAttached && afterScroll.noHairline,
+      detail: JSON.stringify(afterScroll),
+    });
+    await closeMenu(page, vp.mode);
+
+    const mid = Math.min(1200, await page.evaluate(() => Math.max(0, document.documentElement.scrollHeight - innerHeight)));
+    await page.evaluate((n) => window.scrollTo({ top: n, left: 0, behavior: 'auto' }), mid);
+    await page.waitForTimeout(350);
+    await openMenu(page, vp.mode);
+    const after = await headerPanelGeom(page);
+    log({
+      ...tag,
+      check: 'open-after-scroll-header-in-view',
+      ok: after.visible && after.noHairline,
+      detail: JSON.stringify(after),
+    });
+    log({
+      ...tag,
+      check: 'open-after-scroll-panel-under-header',
+      ok: after.panelTop != null && Math.abs(after.panelTop - after.barBottom) <= 2,
+      detail: JSON.stringify(after),
+    });
+    await closeMenu(page, vp.mode);
+
+    log({ ...tag, check: 'no-console-errors', ok: errors.length === 0, detail: errors.join(' | ') });
+
+    if (vp.name === '1440' && pg.name === 'home') {
+      const playCtx = await browser.newContext({
+        viewport: { width: vp.width, height: vp.height },
+      });
+      const playPage = await playCtx.newPage();
+      await playPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+      await playPage.locator('.pilot-stats').scrollIntoViewIfNeeded();
+      await playPage.waitForTimeout(1400);
+      const afterReveal = await playPage.evaluate(() => {
+        const label = document.querySelector('.pilot-stats-feat-label');
+        const value = document.querySelector('.pilot-stats-feat-value');
+        const rule = document.querySelector('.pilot-stats-rule');
+        const labelCs = label ? getComputedStyle(label) : null;
+        const valueCs = value ? getComputedStyle(value) : null;
+        const ruleCs = rule ? getComputedStyle(rule) : null;
+        const scaleX = (cs) => {
+          const t = cs?.transform || 'none';
+          if (t === 'none') return 1;
+          const m = t.match(/matrix\(([^)]+)\)/);
+          if (!m) return null;
+          return Number(m[1].split(',')[0]);
+        };
+        return {
+          labelOn: label?.classList.contains('is-active') ?? false,
+          valueOn: value?.classList.contains('is-active') ?? false,
+          ruleOn: rule?.classList.contains('is-active') ?? false,
+          labelOpacity: labelCs?.opacity ?? null,
+          valueOpacity: valueCs?.opacity ?? null,
+          valueColor: valueCs?.color ?? null,
+          ruleH: ruleCs ? Math.round(parseFloat(ruleCs.height)) : null,
+          ruleBg: ruleCs?.backgroundColor ?? null,
+          ruleScale: scaleX(ruleCs),
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-plays',
+        ok:
+          afterReveal.labelOn &&
+          afterReveal.valueOn &&
+          afterReveal.ruleOn &&
+          afterReveal.labelOpacity === '1' &&
+          afterReveal.valueOpacity === '1' &&
+          afterReveal.valueColor === 'rgb(20, 16, 31)' &&
+          afterReveal.ruleH === 1 &&
+          afterReveal.ruleBg === 'rgb(20, 16, 31)' &&
+          afterReveal.ruleScale != null &&
+          afterReveal.ruleScale > 0.95,
+        detail: JSON.stringify(afterReveal),
+      });
+      await playCtx.close();
+
+      const reducedCtx = await browser.newContext({
+        viewport: { width: vp.width, height: vp.height },
+        reducedMotion: 'reduce',
+      });
+      const reducedPage = await reducedCtx.newPage();
+      await reducedPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+      const reduced = await reducedPage.evaluate(() => {
+        const label = document.querySelector('.pilot-stats-feat-label');
+        const title = document.querySelector('.pilot-ll-head h2');
+        const media = document.querySelector('[data-reveal-media] img, [data-reveal-media] .media');
+        const whyTitle = document.querySelector('.pilot-why-title');
+        const tape = document.querySelector('.pilot-why-tape-track');
+        const rule = document.querySelector('.pilot-stats-rule');
+        const tabsPanel = document.querySelector('.pilot-tabs-panels');
+        const serviceItem = document.querySelector('.pilot-ll > li[data-reveal]');
+        return {
+          hasJs: document.documentElement.classList.contains('has-js'),
+          labelOpacity: label ? getComputedStyle(label).opacity : null,
+          titleOpacity: title ? getComputedStyle(title).opacity : null,
+          mediaOpacity: media ? getComputedStyle(media).opacity : null,
+          whyOpacity: whyTitle ? getComputedStyle(whyTitle).opacity : null,
+          tapeAnimation: tape ? getComputedStyle(tape).animationName : null,
+          ruleScale: (() => {
+            if (!rule) return 0;
+            const t = getComputedStyle(rule).transform;
+            if (t === 'none') return 1;
+            const m = t.match(/matrix\(([^)]+)\)/);
+            return m ? Number(m[1].split(',')[0]) : 0;
+          })(),
+          tabsOpacity: tabsPanel ? getComputedStyle(tabsPanel).opacity : null,
+          serviceOpacity: serviceItem ? getComputedStyle(serviceItem).opacity : null,
+        };
+      });
+      log({
+        ...tag,
+        check: 'home-scroll-in-reduced-motion',
+        ok:
+          reduced.hasJs === false &&
+          reduced.labelOpacity === '1' &&
+          reduced.titleOpacity === '1' &&
+          (reduced.mediaOpacity == null || reduced.mediaOpacity === '1') &&
+          reduced.whyOpacity === '1' &&
+          (reduced.tapeAnimation === 'none' || reduced.tapeAnimation === '') &&
+          reduced.ruleScale > 0.95 &&
+          reduced.tabsOpacity === '1' &&
+          reduced.serviceOpacity === '1',
+        detail: JSON.stringify(reduced),
+      });
+      await scrollPageTo(reducedPage, 500);
+      const reducedNav = await readScrollNav(reducedPage);
+      const instant = /^(0s|0\.0+s)(, (0s|0\.0+s))*$/.test(reducedNav.transition) || reducedNav.transition === '0s';
+      log({
+        ...tag,
+        check: 'nav-reduced-motion-instant',
+        ok: reducedNav.fixed && reducedNav.hidden && instant,
+        detail: JSON.stringify(reducedNav),
+      });
+      await reducedCtx.close();
+    }
+
+    await context.close();
+  }
+}
+
+{
+  const context = await browser.newContext({ viewport: { width: 320, height: 900 } });
+  const page = await context.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
+  const heights = [];
+  const tabletHeights = [];
+  const widths = [];
+  for (let width = 320; width <= 1440; width += 16) widths.push(width);
+  for (const extra of [320, 375, 390, 400, 528, 607, 608, 768, 799, 800, 1024, 1280, 1439, 1440]) {
+    if (!widths.includes(extra)) widths.push(extra);
+  }
+  widths.sort((a, b) => a - b);
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.waitForTimeout(350);
+    const wrap = await readBarWrap(page);
+    heights.push(wrap.barH);
+    if (width >= 768) tabletHeights.push(wrap.barH);
+    const expectBarH = width < 1024 ? 112 : 204;
+    const clip = await page.evaluate(() => {
+      const logo = document.querySelector('.site-header__logo')?.getBoundingClientRect();
+      const tools = document.querySelector('.site-header__tools')?.getBoundingClientRect();
+      const inner = document.querySelector('.site-header__inner')?.getBoundingClientRect();
+      const btn = document.querySelector('.site-header__apply--bar');
+      const burger = document.querySelector('[data-mobile-toggle]');
+      const text = btn
+        ? [...btn.querySelectorAll('.button-040__text-compact, .button-040__text-full, .button-040__text')].find(
+            (el) => getComputedStyle(el).display !== 'none',
+          )
+        : null;
+      const circle = btn?.querySelector('.button-040__icon-wrap.is--duplicate');
+      if (!logo || !tools || !inner) return { overlap: true, clipRight: true };
+      const br = btn?.getBoundingClientRect();
+      const tr = text?.getBoundingClientRect();
+      const cr = circle?.getBoundingClientRect();
+      const ccs = circle ? getComputedStyle(circle) : null;
+      const circleOn = Boolean(ccs && ccs.display !== 'none' && cr && cr.width > 1);
+      const burgerR = burger && getComputedStyle(burger).display !== 'none' ? burger.getBoundingClientRect() : null;
+      const btnCs = btn ? getComputedStyle(btn) : null;
+      const applyShown = Boolean(btnCs && btnCs.display !== 'none' && br && br.width > 1);
+      return {
+        overlap: logo.right > tools.left + 1,
+        clipRight: tools.right > inner.right + 1,
+        applyShown,
+        text: text?.textContent.trim() || '',
+        overlapCircle: Boolean(applyShown && circleOn && tr && cr && tr.right > cr.left + 0.5),
+        overlapBurger: Boolean(applyShown && br && burgerR && br.right > burgerR.left + 1),
+        textFits: Boolean(!applyShown || (tr && br && tr.right <= br.right + 0.5)),
+      };
+    });
+    const apply040 = applyOnBar(width) ? await readButton040(page, '.site-header__apply--bar') : null;
+    const sizedH = apply040?.height > 0 ? apply040.height : apply040?.computedH;
+    const shortApply = applyShort(width);
+    const compactApply = applyCompact(width);
+    const applySizeOk = !applyOnBar(width)
+      ? true
+      : shortApply
+        ? apply040 != null &&
+          apply040.fontSize >= 11 &&
+          apply040.fontSize <= 13 &&
+          sizedH >= 28 &&
+          sizedH <= 36 &&
+          apply040.visible === 'Apply'
+        : compactApply
+        ? apply040 != null &&
+          apply040.fontSize >= 13.5 &&
+          apply040.fontSize <= 15 &&
+          sizedH >= 32 &&
+          sizedH <= 40
+        : apply040 != null && apply040.fontSize >= 16 && sizedH >= 44;
+    log({
+      vp: String(width),
+      page: 'home',
+      check: 'nav-width-step',
+      ok:
+        Math.abs((wrap.barH ?? 0) - expectBarH) <= 8 &&
+        wrap.itemRows <= 1 &&
+        wrap.chromeAligned &&
+        wrap.wrap === 'nowrap' &&
+        wrap.innerWrap === 'nowrap' &&
+        wrap.toolsWrap === 'nowrap' &&
+        wrap.apply === applyOnBar(width) &&
+        wrap.tel === phoneOnBar(width) &&
+        wrap.burger === width < NAV_DESKTOP_MIN &&
+        clip.overlap === false &&
+        clip.clipRight === false &&
+        clip.overlapCircle === false &&
+        clip.overlapBurger === false &&
+        clip.textFits === true &&
+        applySizeOk,
+      detail: JSON.stringify({
+        ...wrap,
+        expectBarH,
+        ...clip,
+        compact: compactApply,
+        fontSize: apply040?.fontSize,
+        height: sizedH,
+      }),
+    });
+  }
+  log({
+    vp: '768-1440',
+    page: 'home',
+    check: 'nav-bar-height-constant',
+    ok: tabletHeights.length > 0 && tabletHeights.every((h) => h === 108),
+    detail: JSON.stringify({ heights: [...new Set(tabletHeights)] }),
+  });
+  await context.close();
+}
+
+{
+  const shortHeights = [
+    { name: '384x640', width: 384, height: 640 },
+    { name: '384x300', width: 384, height: 300 },
+    { name: '384x160', width: 384, height: 160 },
+  ];
+  const panelLabels = ['Industries', 'Resources', 'Our Firm'];
+  for (const vp of shortHeights) {
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
+    const page = await context.newPage();
+    await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(250);
+    await page.locator('[data-mobile-toggle]').click();
+    await page.waitForTimeout(400);
+    for (const label of panelLabels) {
+      await page.evaluate((panelLabel) => {
+        const triggerEl = [...document.querySelectorAll('[data-dropdown-toggle]')].find((el) =>
+          el.textContent.includes(panelLabel),
+        );
+        triggerEl?.click();
+      }, label);
+      await page.waitForFunction(() => document.querySelector('[data-nav-inner]')?.classList.contains('is-drilled'), null, {
+        timeout: 2000,
+      }).catch(() => {});
+      await page.waitForTimeout(400);
+      const drilled = await page.evaluate((panelLabel) => {
+        const triggerEl = [...document.querySelectorAll('[data-dropdown-toggle]')].find((el) =>
+          el.textContent.includes(panelLabel),
+        );
+        const id = triggerEl?.getAttribute('data-dropdown-toggle');
+        const panel = document.querySelector(`[data-nav-content="${id}"]`);
+        const container = document.querySelector('[data-dropdown-container]');
+        const inner = document.querySelector('[data-nav-inner]');
+        const cs = panel ? getComputedStyle(panel) : null;
+        const ccs = container ? getComputedStyle(container) : null;
+        const links = [...(panel?.querySelectorAll('.primary-nav__list-lvl-3-link') || [])].map((a) => {
+          const r = a.getBoundingClientRect();
+          const acs = getComputedStyle(a);
+          return {
+            text: a.textContent.trim(),
+            inView:
+              r.width > 1 &&
+              r.height > 1 &&
+              r.bottom > 0 &&
+              r.top < window.innerHeight &&
+              r.right > 0 &&
+              r.left < window.innerWidth &&
+              acs.visibility !== 'hidden' &&
+              acs.display !== 'none' &&
+              Number(acs.opacity) > 0.05,
+          };
+        });
+        const overflowX = `${cs?.overflowX || ''}|${ccs?.overflowX || ''}`;
+        return {
+          drilled: inner?.classList.contains('is-drilled') ?? false,
+          panelOn: Boolean(cs && cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05),
+          innerScrollTop: inner?.scrollTop ?? null,
+          overflowX,
+          canScrollY: Boolean(
+            panel && (panel.scrollHeight > panel.clientHeight + 1 || container?.scrollHeight > container.clientHeight + 1),
+          ),
+          linkCount: links.length,
+          visibleLinks: links.filter((l) => l.inView).length,
+          firstVisible: links.find((l) => l.inView)?.text || null,
+        };
+      }, label);
+      log({
+        vp: vp.name,
+        page: 'home',
+        check: `short-drill-${label.toLowerCase().replace(/\s+/g, '-')}`,
+        ok:
+          drilled.drilled &&
+          drilled.panelOn &&
+          drilled.innerScrollTop === 0 &&
+          drilled.linkCount > 0 &&
+          drilled.visibleLinks > 0 &&
+          /clip|hidden/.test(drilled.overflowX),
+        detail: JSON.stringify(drilled),
+      });
+      await page.evaluate(() => document.querySelector('[data-mobile-back]')?.click());
+      await page.waitForTimeout(400);
+    }
+    await context.close();
+  }
+}
+
+const sitemapPaths = async () => {
+  const paths = new Set();
+  try {
+    const indexXml = await fetch(`${BASE}/sitemap-index.xml`).then((r) => r.text());
+    let maps = parseSitemapLocs(indexXml).filter((u) => /sitemap/i.test(u));
+    if (!maps.length) maps = [`${BASE}/sitemap-0.xml`];
+    if (indexXml.includes('<url>')) {
+      for (const loc of parseSitemapLocs(indexXml)) {
+        try {
+          paths.add(new URL(loc).pathname);
+        } catch {
+          paths.add(loc);
+        }
+      }
+    }
+    for (const map of maps) {
+      const url = map.startsWith('http') ? map.replace(/^https?:\/\/[^/]+/, BASE) : `${BASE}${map}`;
+      const xml = await fetch(url).then((r) => r.text()).catch(() => '');
+      for (const loc of parseSitemapLocs(xml)) {
+        try {
+          paths.add(new URL(loc).pathname);
+        } catch {
+          paths.add(loc);
+        }
+      }
+    }
+  } catch (err) {
+    console.log(`WARN sitemap crawl: ${err}`);
+  }
+  paths.add('/');
+  paths.add('/apply');
+  paths.add('/404');
+  return [...paths];
+};
+
+{
+  const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const page = await context.newPage();
+  const routes = await sitemapPaths();
+  log({
+    vp: 'all',
+    page: 'sitemap',
+    check: 'site-cta-route-count',
+    ok: routes.length > 2,
+    detail: `routes=${routes.length}`,
+  });
+  for (const route of routes) {
+    const candidates = route.endsWith('.html') ? [route] : [route, `${route === '/' ? '/index.html' : `${route}.html`}`];
+    let used = route;
+    let loaded = false;
+    for (const candidate of candidates) {
+      const res = await page.goto(`${BASE}${candidate}`, { waitUntil: 'domcontentloaded' }).catch(() => null);
+      if (res && res.ok()) {
+        used = candidate;
+        loaded = true;
+        break;
+      }
+    }
+    const count = loaded ? await page.locator('[data-site-cta]').count() : -1;
+    const beforeFooter = loaded
+      ? await page.evaluate(() => {
+          const cta = document.querySelector('[data-site-cta]');
+          const footer = document.querySelector('.site-footer');
+          if (!cta || !footer) return false;
+          let n = cta.nextElementSibling;
+          while (n && n.tagName === 'SCRIPT') n = n.nextElementSibling;
+          return n === footer;
+        })
+      : false;
+    log({
+      vp: 'all',
+      page: used,
+      check: 'site-cta-once-every-page',
+      ok: loaded && count === 1 && beforeFooter,
+      detail: `count=${count} beforeFooter=${beforeFooter} loaded=${loaded}`,
+    });
+  }
+  await context.close();
+}
+
+await browser.close();
+
+const failed = results.filter((r) => !r.ok);
+console.log('\n==== NAV WIDGET CONTRAST ====');
+const ratioKeys = ['title', 'body', 'eyebrow', 'link', 'label', 'circleOnCard', 'arrowOnCircle'];
+for (const row of widgetContrastReports) {
+  console.log(`[${row.vp}/${row.page}] ${row.theme} ${row.state}${row.ok ? '' : ' FAIL'}`);
+  for (const key of ratioKeys) {
+    const rec = row.ratios?.[key];
+    if (!rec) {
+      console.log(`  ${key}: n/a`);
+      continue;
+    }
+    const mark = rec.ok ? 'PASS' : 'FAIL';
+    console.log(`  ${key}: ${rec.ratio}:1 (min ${rec.min}:1) ${mark}`);
+  }
+}
+console.log('\n==== SUMMARY ====');
+console.log(`total=${results.length} pass=${results.length - failed.length} fail=${failed.length}`);
+if (failed.length) {
+  console.log('FAILURES:');
+  for (const f of failed) console.log(` - [${f.vp}/${f.page}] ${f.check}: ${f.detail || ''}`);
+}
+process.exit(failed.length ? 1 : 0);

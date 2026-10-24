@@ -1,0 +1,69 @@
+---
+/**
+ * Home Insights — BX Life Sciences “News & Insights” horizontal-static-list.
+ * Measured at 1440 / 1280; see docs/refs/bx-life-sciences-news.md.
+ */
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import type { Post } from '@/lib/blog';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="pilot-news" aria-labelledby="insights-heading" data-band="light" data-reveal-root data-reveal-start="top 92%" data-reveal-stagger="0.08" data-reveal-duration="0.6">
+      <div class="container-site">
+        <div class="pilot-news-head">
+          <Eyebrow>News &amp; Insights</Eyebrow>
+          <h2 id="insights-heading" data-reveal>Guides for getting funded.</h2>
+        </div>
+        <div class="pilot-news-grid">
+          {posts.map((post) => (
+            <a class="pilot-news-card" href="/#insights-heading">
+              <div class="pilot-news-media" data-reveal-media>
+                <Media
+                  image={post.data.cover}
+                  alt={post.data.coverAlt || ''}
+                  intent={post.data.coverAlt || 'editorial photograph for this article'}
+                  labeled={!post.data.cover}
+                  ratio="16 / 9"
+                  sizes="(min-width: 90em) 352px, (min-width: 80em) 320px, (min-width: 48em) 50vw, 100vw"
+                />
+              </div>
+              <div class="pilot-news-body" data-reveal>
+                <h3 class="pilot-news-title">{post.data.title}</h3>
+                {post.data.excerpt && <p class="pilot-news-excerpt">{post.data.excerpt}</p>}
+                <span class="pilot-news-more">
+                  <span class="pilot-news-more-label">Read More</span>
+                  <svg class="pilot-news-icon" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path
+                      class="pilot-news-icon-arrow"
+                      d="M29 20c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      class="pilot-news-icon-fill"
+                      fill-rule="evenodd"
+                      d="M20 0a20 20 0 1 1 0 40 20 20 0 0 1 0-40Zm3.2 14.8c-.3.3-.3.8 0 1.1l3.1 3.3H11.8a.8.8 0 1 0 0 1.6h14.5l-3 3.3c-.4.3-.4.8 0 1.2.3.3.8.2 1.1 0l4.4-4.7.2-.6c0-.2 0-.4-.2-.6l-4.4-4.6a1 1 0 0 0-1.2 0Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      class="pilot-news-icon-border"
+                      d="M20 0a20 20 0 1 0 0 40 20 20 0 0 0 0-40Zm0 1.5a18.5 18.5 0 1 1 0 37 18.5 18.5 0 0 1 0-37Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

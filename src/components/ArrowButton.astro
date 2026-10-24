@@ -1,0 +1,42 @@
+---
+import Icon from '@/components/Icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+/**
+ * ArrowButton — the home hero's circle-arrow CTA, as a global component.
+ *
+ * Ling, 23 Oct 2026: "Retail page hero button should be like the home page hero
+ * button. You should just make that button into a global component and use it
+ * directly." The metrics in `src/styles/arrow-button.css` are the measured home
+ * hero values (18px label, 44px tall, 40px circle), moved verbatim out of
+ * pilot.css — so a hero that uses this component matches the home hero exactly
+ * and no page needs to restyle it.
+ *
+ * `tone="light"` inverts the hover fill for dark bands (home hero). The default
+ * fills ink on hover, which is correct on a light band (retail hero).
+ *
+ * Not the same component as `ArrowCta` (`.arrow-cta`, 16.8px/500, 44px circle):
+ * that one is the service-page link row and is approved as it is.
+ */
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  label: string;
+  /** Accessible name when the visible label is generic (e.g. “Learn more”). */
+  accessibleName?: string;
+  tone?: 'dark' | 'light';
+}
+
+const { href, label, accessibleName, tone = 'dark', class: className, ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['arrow-button', tone === 'light' && 'arrow-button--light', className]}
+  aria-label={accessibleName}
+  {...rest}
+>
+  <span class="arrow-button-label">{label}</span>
+  <span class="arrow-button-circle" aria-hidden="true">
+    <Icon name="arrow-right" size={16} />
+  </span>
+</a>

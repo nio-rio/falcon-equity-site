@@ -1,0 +1,100 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[context.deploy-preview.headers]]
+  for = "/*"
+  [context.deploy-preview.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[context.branch-deploy.headers]]
+  for = "/*"
+  [context.branch-deploy.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Production too, until launch. falconequity.ai is still served by Webflow; this repo is not
+# attached to that domain yet. When it is, delete this block in the same commit that points DNS
+# at Netlify, or the new site will ship invisible to search.
+[[context.production.headers]]
+  for = "/*"
+  [context.production.headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Retired inner pages. Hashes are best-effort; in-app hrefs carry the anchors.
+[[redirects]]
+  from = "/contact"
+  to = "/#contact"
+  status = 301
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/terms-conditions"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/how-it-works"
+  to = "/#why-choose-us"
+  status = 301
+
+# /services is a real page (built 24 Oct 2026: the home Services band, reused as
+# its own overview page), so the rule that sent it to /#services is gone. Do not
+# re-add one: a redirect here 301s a real page.
+
+# All twelve /industries/<slug> pages are live (built 2026-10-22/23) and the
+# /industries overview page shipped on 23 Oct, so the wildcard that used to send
+# this family to the home Industries section is gone and no /industries rule
+# replaces it. Do not re-add one: a redirect here 301s a real page.
+
+# /blog and /blog/<slug> are real pages (built 23 Oct), so the wildcard that used
+# to send the whole family home is gone. Netlify has no exclusion syntax, so the
+# only surviving /blog/* routes — the four category archives, which are not built
+# yet — are listed explicitly. Delete a line here when its category page ships.
+[[redirects]]
+  from = "/blog/category/getting-approved"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/compare-options"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/costs-and-rates"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog/category/cash-flow-and-debt"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/resources/loan-calculator"
+  to = "/apply"
+  status = 301
+
+# Pretty URLs: rewrite /apply/ to apply.html (force beats Pretty URLs).
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 200
+  force = true

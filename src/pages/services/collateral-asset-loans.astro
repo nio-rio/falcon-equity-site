@@ -1,0 +1,306 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSlider from '@/components/BlogSlider.astro';
+import Media from '@/components/Media.astro';
+import collateralImage from '@/assets/images/services/collateral-asset-loans.webp';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
+import '@/styles/collateral-asset-loans.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
+
+const published = await getPublicPosts();
+/** Published collateral and asset loan posts only, most relevant first. Drafts stay out. */
+const CAL_BLOG_IDS = [
+  'equipment-financing-break-even',
+  'what-your-bank-statements-say',
+  '24-48-hour-funding-checklist',
+  'how-to-read-a-factor-rate',
+  'merchant-cash-advance-vs-business-term-loan',
+] as const;
+const blogSlides = CAL_BLOG_IDS.map((id) => published.find((post) => post.id === id)).filter(
+  (post): post is (typeof published)[number] => Boolean(post),
+);
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'Businesses purchasing machinery, vehicles, technology, or other equipment',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$10,000 – $1,000,000',
+  },
+  {
+    label: 'Terms',
+    value: '12 – 60 months',
+  },
+  {
+    label: 'Requirements',
+    value: 'Equipment quote or invoice',
+  },
+  {
+    label: 'Requirements',
+    value: '6+ months in business',
+  },
+  {
+    label: 'Requirements',
+    value: 'Active business',
+  },
+];
+
+const helps = [
+  {
+    title: 'Buying or upgrading equipment and vehicles',
+    body: 'The thing you are buying becomes the security behind the loan, so a machine, a vehicle or a fit-out can be paid for out of what it will earn.',
+  },
+  {
+    title: 'Opening a second location',
+    body: 'A collateral-secured loan can put commercial real estate to work for the expansion, instead of holding cash back for years.',
+  },
+  {
+    title: 'Unlocking equity in commercial real estate',
+    body: 'If you own the building, the equity in it can fund growth somewhere else without selling the property.',
+  },
+  {
+    title: 'Financing technology and infrastructure',
+    body: 'Servers, software and infrastructure earn for years. Spreading the cost over that time keeps working cash inside the business.',
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If you have nothing you want to pledge',
+    body: 'A line of credit comes in an unsecured option, so you are not putting equipment or property behind it.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: 'If the cost is small and comes round often',
+    body: 'Small recurring costs are cheaper to draw and repay as you go than to tie to an asset. A line of credit is built for that rhythm.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: 'If the money you are owed is the real problem',
+    body: 'When the cash exists but sits in unpaid invoices, factoring sells those invoices instead of borrowing against equipment.',
+    linkLabel: 'Invoice Factoring Tool',
+    href: '/services/invoice-factoring-tool',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Apply in minutes',
+    body: 'Fill out one short online application. Tell us what your business does and how much capital you need.',
+    note: 'You provide: an equipment quote or invoice, six months of business bank statements, a photo ID, a voided check and a list of any current advances or loans.',
+  },
+  {
+    num: '02',
+    title: 'Talk to a specialist',
+    body: 'A Falcon specialist reviews your file, confirms what qualifies as collateral and walks you through your options.',
+    note: 'You get: a call about the amount, the term and the full cost, before anything is signed.',
+  },
+  {
+    num: '03',
+    title: 'Approve and get funded',
+    body: 'Once you are approved, review and sign your agreement. Equipment financing typically funds in about 2 days, and real estate loans in about 2 weeks.',
+    note: 'You see: the amount, the term and the full cost, all spelled out on the agreement.',
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = SERVICE_FAQS['collateral-asset-loans'];
+---
+
+<BaseLayout title="Collateral & Asset Loans" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="cal-hero" aria-labelledby="page-hero-heading" data-band="light" data-cal-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="cal-shell" data-reveal>
+        <div class="cal-hero-inner">
+          <h1 id="page-hero-heading" class="cal-hero-title">Collateral &amp; Asset Loans</h1>
+          <div class="cal-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="cal-stat">
+                  <p class="cal-stat-label">{stat.label}</p>
+                  <p class="cal-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="cal-hero-lead">
+            Your equipment and property already carry value. This turns that value into money you can use, instead of
+            waiting to save it up first.
+          </p>
+          <div class="cal-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cal-band cal-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-cal-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="cal-shell cal-helps-head" data-reveal>
+        <div class="cal-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When a collateral or asset loan is the right fit.</h2>
+        </div>
+      </div>
+      <div class="cal-shell cal-helps-split" data-reveal>
+        <div class="cal-helps-image">
+          <Media
+            image={collateralImage}
+            intent="House keys, car key fob and a watch on a desk, a house through the window"
+            alt="House keys, a car key fob and a watch on a desk in front of a window looking out to a house and a parked car."
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="cal-helps-list">
+          {
+            helps.map((item) => (
+              <article class="cal-help">
+                <h3 class="cal-help-title">{item.title}</h3>
+                <p class="cal-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="cal-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="cal-helps-tape-track" data-cal-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="cal-helps-tape-item" data-cal-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="cal-band cal-process" aria-labelledby="process-heading" data-band="light" data-cal-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="cal-shell cal-process-head" data-reveal>
+        <div class="cal-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to get funded.</h2>
+        </div>
+      </div>
+      <div class="cal-shell cal-cards cal-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="cal-card cal-step">
+              <p class="cal-step-num">{step.num}</p>
+              <h3 class="cal-card-title">{step.title}</h3>
+              <p class="cal-card-body">{step.body}</p>
+              <p class="cal-card-body cal-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="cal-shell" data-reveal>
+        <div class="cal-cta cal-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cal-band cal-faq" aria-labelledby="cal-faq-heading" data-band="light" data-cal-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="cal-shell cal-faq-head" data-reveal>
+        <div class="cal-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="cal-faq-heading">Collateral and asset loan questions</h2>
+        </div>
+      </div>
+      <div class="cal-shell">
+      <FaqList items={faqs} idPrefix="cal" class="cal-faq-list" data-reveal />
+      </div>
+    </div>
+  </section>
+
+  <section class="cal-band cal-fit" aria-labelledby="fit-heading" data-band="light" data-cal-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="cal-shell cal-fit-head" data-reveal>
+        <div class="cal-block-head">
+          <Eyebrow>When a collateral or asset loan isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            This product is tied to something you own. That is the point, and it is also the limit. Here are three
+            situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="cal-shell cal-cards cal-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="cal-card">
+              <h3 class="cal-card-title">{item.title}</h3>
+              <p class="cal-card-body">{item.body}</p>
+              <a class="cal-card-link" href={item.href}>
+                <span class="cal-card-link-label">{item.linkLabel}</span>
+                <span class="cal-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <BlogSlider
+    posts={blogSlides}
+    label="Collateral and asset loan articles"
+    bandClass="cal-band cal-blog"
+    sectionKey="cal"
+  />
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-cal-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-cal-tape]').forEach(arm);
+  </script>
+</BaseLayout>

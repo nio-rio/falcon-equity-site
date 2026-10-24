@@ -1,0 +1,129 @@
+---
+/**
+ * Industries overview — `/industries`, the index the twelve industry pages hang off.
+ *
+ * Reference (Ling, 23 Oct 2026): "looking just like
+ * blackstone.com/insights/market-views". Measured live over CDP at 1440 / 1280 /
+ * 1024 / 768 / 390 — the numbers are in `docs/industries-structure-plan.md`:
+ *
+ *   page header ... H1 only. No eyebrow, standfirst, CTA or breadcrumb (the
+ *                   reference has none). 48 top / 120 bottom pad at 1440,
+ *                   56 / 96 at 768-1024, 40 / 80 at 390.
+ *   card grid ..... 4-up at 1440 (1264 content, 24px columns, 120px rows),
+ *                   4-up at 1280 (1136 content), 2-up at 768-1024 (96px rows),
+ *                   1-up at 390 (88px rows). Card image 16:9 at every width.
+ *   card .......... 16:9 still, 32px, title 20/30, meta line 16/24 pinned to the
+ *                   card foot — the reference pins its post date there, and its
+ *                   dates line up across a row.
+ *
+ * Adaptations, stated rather than hidden:
+ *   - the reference's meta line is a post date; ours is the sector blurb, which
+ *     is the only short copy we hold per industry;
+ *   - card titles are the industry name, one line against the reference's two
+ *     or three;
+ *   - no per-card "Read More" arrow and no pagination: the whole card is the
+ *     link, and there are twelve of them (the reference's own page has twelve,
+ *     which is why its rhythm carries over one for one).
+ *
+ * Brand stays Falcon's, not Blackstone's: tokens, display/sans faces, and the
+ * underline-draw hover the site's own cards use. Layout numbers are the
+ * reference's.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import { INDUSTRIES } from '@/data/industries';
+import { INDUSTRY_STILLS } from '@/data/industry-stills';
+import { SITE } from '@/data/site';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { breadcrumbSchema } from '@/lib/schema';
+import '@/styles/industries-index.css';
+
+const cards = INDUSTRIES.map((industry) => ({
+  name: industry.name,
+  blurb: industry.blurb,
+  href: `/industries/${industry.slug}`,
+  still: INDUSTRY_STILLS[industry.slug],
+}));
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Industries', path: '/industries' },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Industries Falcon funds',
+    numberOfItems: cards.length,
+    itemListElement: cards.map((card, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: card.name,
+      url: `${SITE.url}${card.href}`,
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Industries"
+  description="The twelve industries Falcon funds, from retail and construction to healthcare, logistics and professional services. See which funding fits how your sector earns and spends."
+  schema={schema}
+  disclosure={PAGE_DISCLOSURE}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* One band, as the reference is: header, then the rows. The 120px gap under
+      the H1 is Blackstone's own header pad-bottom, not a second band's pad. */}
+  <section
+    class="indx-band"
+    aria-labelledby="industries-page-heading"
+    data-band="light"
+    data-reveal-root
+    data-reveal-duration="0.6"
+    data-reveal-stagger="0.08"
+  >
+    <div class="container-site">
+      <h1 id="industries-page-heading" class="indx-h1" data-reveal>Industries</h1>
+
+      <ul class="indx-grid">
+        {
+          cards.map((card) => (
+            <li class="indx-item" data-reveal>
+              <a class="indx-card" href={card.href}>
+                <div class="indx-media">
+                  <Media
+                    image={card.still.image}
+                    alt={card.still.imageAlt}
+                    intent={card.still.imageIntent}
+                    ratio="16 / 9"
+                    loading="lazy"
+                    sizes="(min-width: 80em) 300px, (min-width: 48em) 46vw, 100vw"
+                  />
+                </div>
+                <h2 class="indx-title">{card.name}</h2>
+                <p class="indx-blurb">{card.blurb}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    import '@/scripts/scroll-in';
+  </script>
+</BaseLayout>

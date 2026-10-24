@@ -1,0 +1,565 @@
+@import './tokens.css';
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Trial At Gambit covers A–Z a–z 0–9 space and ! , - . : ; ? only.
+   unicode-range lets $ % & ' " + / ( ) and en-dashes fall back to Manrope. */
+@font-face {
+  font-family: 'At Gambit';
+  src: url('/fonts/AtGambit-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-0021, U+002C-002E, U+0030-003B, U+003F, U+0041-005A, U+0061-007A;
+}
+@font-face {
+  font-family: 'At Gambit';
+  src: url('/fonts/AtGambit-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-0021, U+002C-002E, U+0030-003B, U+003F, U+0041-005A, U+0061-007A;
+}
+@font-face {
+  font-family: 'At Gambit';
+  src: url('/fonts/AtGambit-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-0021, U+002C-002E, U+0030-003B, U+003F, U+0041-005A, U+0061-007A;
+}
+@font-face {
+  font-family: 'At Gambit';
+  src: url('/fonts/AtGambit-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-0021, U+002C-002E, U+0030-003B, U+003F, U+0041-005A, U+0061-007A;
+}
+
+/* Archivo variable (Google Fonts / Omnibus-Type, OFL 1.1). Weight axis
+   100–900 covers body 400, buttons 500, quotes 300, names 700.
+   Metric-matched Arial fallback avoids CLS while swap loads the woff2.
+   Overrides from the latin file at wght 400 vs Liberation Sans / Arial. */
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/Archivo-latin-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/Archivo-latin-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial'), local('Liberation Sans');
+  size-adjust: 101.18%;
+  ascent-override: 86.78%;
+  descent-override: 20.76%;
+  line-gap-override: 0%;
+}
+
+/* Real Tailwind utilities so leftover `bx-lg-span-*` / `bx-lg-start-*` class
+   names still compose (end + start, never the grid-column shorthand). Primary
+   layout classes are the unprefixed `bx-lg-*` rules in blackstone.css. */
+@utility bx-span-1 { grid-column-end: span 1; }
+@utility bx-span-2 { grid-column-end: span 2; }
+@utility bx-span-3 { grid-column-end: span 3; }
+@utility bx-span-4 { grid-column-end: span 4; }
+@utility bx-span-5 { grid-column-end: span 5; }
+@utility bx-span-6 { grid-column-end: span 6; }
+@utility bx-span-7 { grid-column-end: span 7; }
+@utility bx-span-8 { grid-column-end: span 8; }
+@utility bx-span-9 { grid-column-end: span 9; }
+@utility bx-span-10 { grid-column-end: span 10; }
+@utility bx-span-11 { grid-column-end: span 11; }
+@utility bx-span-12 { grid-column: 1 / -1; }
+@utility bx-full { grid-column: 1 / -1; }
+@utility bx-start-1 { grid-column-start: 1; }
+@utility bx-start-2 { grid-column-start: 2; }
+@utility bx-start-3 { grid-column-start: 3; }
+@utility bx-start-4 { grid-column-start: 4; }
+@utility bx-start-5 { grid-column-start: 5; }
+@utility bx-start-6 { grid-column-start: 6; }
+@utility bx-start-7 { grid-column-start: 7; }
+@utility bx-start-8 { grid-column-start: 8; }
+@utility bx-start-9 { grid-column-start: 9; }
+@utility bx-start-10 { grid-column-start: 10; }
+@utility bx-start-11 { grid-column-start: 11; }
+@utility bx-start-12 { grid-column-start: 12; }
+
+/* Canonical Falcon theme. Palette and type live in tokens.css /
+   DESIGN-SYSTEM.md. Do not add colors here. `--spacing-*` integers are
+   Tailwind’s default scale — use `--spacing-bx-*` / CSS vars for the
+   Falcon 8px scale so `p-8` stays 2rem. */
+@theme {
+  --color-ink: var(--bx-black);
+  --color-ink-soft: var(--bx-variant-black);
+  --color-muted: var(--bx-slate-1);
+  --color-line: var(--bx-slate-2);
+  --color-accent: var(--falcon-accent);
+  --color-accent-hover: var(--falcon-accent-hover);
+  --color-brand: var(--falcon-accent);
+  --color-brand-dark: var(--falcon-accent-hover);
+  --color-brand-light: var(--bx-martinique-lighter);
+  --color-tint: var(--bx-slate-3);
+  --color-cta: var(--bx-martinique-darker);
+  --color-featured: var(--falcon-featured);
+  --color-surface-dark: var(--bx-martinique-darker);
+  --color-error: var(--bx-martinique);
+  --color-white: var(--bx-white);
+  --color-martinique: var(--bx-martinique);
+  --color-martinique-dark: var(--bx-martinique-dark);
+  --color-martinique-darker: var(--bx-martinique-darker);
+  --color-martinique-darkest: var(--bx-martinique-darkest);
+  --color-martinique-light: var(--bx-martinique-light);
+  --color-martinique-lighter: var(--bx-martinique-lighter);
+  --color-martinique-lightest: var(--bx-martinique-lightest);
+  --color-lilac: var(--bx-lilac);
+  --color-lilac-lightest: var(--bx-lilac-lightest);
+  --color-lilac-lighter: var(--bx-lilac-lighter);
+  --color-lilac-light: var(--bx-lilac-light);
+  --color-lilac-dark: var(--bx-lilac-dark);
+  --color-lilac-darker: var(--bx-lilac-darker);
+  --color-lilac-darkest: var(--bx-lilac-darkest);
+  --color-ink-a72: var(--ink-a72);
+  --color-ink-a65: var(--ink-a65);
+  --color-ink-a63: var(--ink-a63);
+  --color-ink-a40: var(--ink-a40);
+  --color-ink-a36: var(--ink-a36);
+  --color-ink-a32: var(--ink-a32);
+  --color-ink-a16: var(--ink-a16);
+  --color-ink-a9: var(--ink-a9);
+  --color-ink-a4: var(--ink-a4);
+  --color-ink-a3: var(--ink-a3);
+  --color-white-a88: var(--white-a88);
+  --color-white-a82: var(--white-a82);
+  --color-white-a50: var(--white-a50);
+  --color-white-a34: var(--white-a34);
+  --color-white-a16: var(--white-a16);
+  --color-white-a12: var(--white-a12);
+  --font-display: var(--bx-font-display);
+  --font-sans: var(--bx-font-sans);
+  --font-heading: var(--bx-font-display);
+  --font-body: var(--bx-font-sans);
+  --text-eyebrow: var(--type-eyebrow-size);
+  --text-eyebrow--line-height: var(--type-eyebrow-lh);
+  --text-eyebrow--letter-spacing: var(--type-eyebrow-ls);
+  --text-h2: var(--type-h2-size);
+  --text-h2--line-height: var(--type-h2-lh);
+  --text-h3: var(--type-h3-size);
+  --text-h3--line-height: var(--type-h3-lh);
+  --text-body: var(--type-body-size);
+  --text-body--line-height: var(--type-body-lh);
+  --text-lead: var(--type-lead-size);
+  --text-lead--line-height: var(--type-lead-lh);
+  --spacing-bx-8: var(--bx-space-8);
+  --spacing-bx-12: var(--bx-space-12);
+  --spacing-bx-16: var(--bx-space-16);
+  --spacing-bx-24: var(--bx-space-24);
+  --spacing-bx-32: var(--bx-space-32);
+  --spacing-bx-40: var(--bx-space-40);
+  --spacing-bx-48: var(--bx-space-48);
+  --spacing-bx-56: var(--bx-space-56);
+  --spacing-bx-64: var(--bx-space-64);
+  --spacing-bx-80: var(--bx-space-80);
+  --spacing-bx-88: var(--bx-space-88);
+  --spacing-bx-96: var(--bx-space-96);
+  --spacing-bx-104: var(--bx-space-104);
+  --spacing-bx-112: var(--bx-space-112);
+  --spacing-bx-120: var(--bx-space-120);
+  --spacing-section: var(--pilot-section-y);
+  --spacing-section-stack: var(--pilot-section-y-stack);
+  --spacing-heading-to-items: var(--pilot-heading-to-items);
+  --spacing-gutter: var(--bx-gutter);
+  --spacing-margin: var(--bx-margin);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-soft antialiased;
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-lh);
+  }
+
+  /* Body is 16px / 24px (`--type-body-*`). Do not bump to 18px. */
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    letter-spacing: normal;
+  }
+
+  /* Balanced wrapping is for headlines only — h1 and h2. On h3/h4 and on body
+     copy it re-breaks paragraphs into rags that are hard to scan. */
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  /* H1 stays large for page heroes. Home hero overrides so line 1 fits. */
+  h1 {
+    font-weight: var(--type-h1-weight);
+    font-size: var(--type-h1-size);
+    line-height: var(--type-h1-lh);
+  }
+  /* Section title: 32 / 40 / 48 at 0 / 768 / 1440 via `--type-h2-size`. */
+  h2 {
+    font-weight: var(--type-h2-weight);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    color: var(--bx-black);
+  }
+  h3 {
+    font-weight: var(--type-h3-weight);
+    font-size: var(--type-h3-size);
+    line-height: var(--type-h3-lh);
+  }
+  h4 {
+    font-weight: var(--type-h4-weight);
+    font-size: var(--type-h4-size);
+    line-height: var(--type-h4-lh);
+  }
+  h5 {
+    font-family: var(--font-sans);
+    font-weight: var(--type-h5-weight);
+    font-size: var(--type-h5-size);
+    line-height: var(--type-h5-lh);
+  }
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: var(--type-h6-weight);
+    font-size: var(--type-h6-size);
+    line-height: var(--type-h6-lh);
+  }
+
+  /* Text links always inherit the surrounding text color (no purple links). Buttons set their own colors. */
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Section eyebrow — one component, one ladder, site-wide.
+     Reference is the home “News & Insights” head: 14/21 at 390–1024,
+     16/24 from 1280; 48×2px rule 16px to the right, 56px/24px from 1280,
+     64px/24px from 1440; 40px to the heading, 56 from 1280, 64 from 1440. */
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--type-eyebrow-size);
+    line-height: var(--type-eyebrow-lh);
+    font-weight: var(--type-eyebrow-weight);
+    letter-spacing: var(--type-eyebrow-ls);
+    text-transform: uppercase;
+    color: var(--bx-black);
+  }
+
+  /* Eyebrow → heading. Margin on the eyebrow, not `margin-top` on the h2:
+     every page stylesheet sets `h2 { margin: 0 }` inside its head block, so a
+     sibling rule on the heading loses to them. */
+  .eyebrow:has(+ h2) {
+    margin-bottom: var(--eyebrow-gap);
+  }
+
+  .eyebrow--line {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .eyebrow--line::after {
+    content: '';
+    display: block;
+    width: var(--eyebrow-rule);
+    height: 2px;
+    margin-left: var(--eyebrow-rule-gap);
+    background: currentColor;
+    flex: none;
+  }
+
+  .eyebrow--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--eyebrow-rule-gap);
+    text-align: center;
+  }
+
+  .eyebrow--center::before {
+    content: '';
+    display: block;
+    width: var(--eyebrow-rule);
+    height: 2px;
+    background: currentColor;
+  }
+
+  .btn-primary,
+  .btn-accent,
+  .btn-on-dark,
+  .btn-outline-light,
+  .btn-outline-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 13px 24px;
+    border-radius: 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: normal;
+    white-space: nowrap;
+    transition: background-color var(--bx-ease), color var(--bx-ease), border-color var(--bx-ease);
+  }
+
+  .btn-primary,
+  .btn-accent {
+    background: var(--bx-black);
+    color: #fff;
+  }
+
+  .btn-primary:hover,
+  .btn-accent:hover {
+    background: var(--color-accent-hover);
+    color: #fff;
+  }
+
+  .btn-on-dark {
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .btn-on-dark:hover {
+    background: var(--color-tint);
+  }
+
+  .btn-outline-light {
+    border: 1px solid #fff;
+    color: #fff;
+  }
+
+  .btn-outline-light:hover {
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .btn-outline-dark {
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+    border-color: var(--ink-a36);
+  }
+
+  .btn-outline-dark:hover {
+    background: var(--color-ink);
+    color: #fff;
+  }
+
+  .image-slot {
+    width: 100%;
+    background: var(--color-tint);
+  }
+
+  .tile-card {
+    background: var(--color-tint);
+    padding: 2rem;
+  }
+
+  .contact-tile {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    color: var(--color-ink);
+  }
+
+  .link {
+    font-weight: 500;
+    color: inherit;
+  }
+
+  .prose .r-table-wrap {
+    overflow: visible;
+    max-width: 100%;
+  }
+
+  .prose {
+    --tw-prose-body: var(--color-ink-soft);
+    --tw-prose-headings: var(--color-ink);
+    --tw-prose-links: inherit;
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-quotes: var(--color-ink);
+    --tw-prose-quote-borders: transparent;
+    --tw-prose-counters: var(--color-muted);
+    --tw-prose-bullets: var(--color-muted);
+    --tw-prose-th-borders: transparent;
+    --tw-prose-td-borders: transparent;
+  }
+
+}
+
+
+/* Shared responsive tables: grid on desktop, stacked blocks below 768px. */
+.r-table-wrap {
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.r-table {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: inherit;
+  line-height: 1.55;
+}
+
+.r-table th,
+.r-table td {
+  border: 1px solid var(--color-line);
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.r-table thead th {
+  font-weight: 500;
+  color: var(--color-ink);
+  text-align: left;
+}
+
+.r-table tbody th {
+  font-weight: 500;
+  color: var(--color-ink);
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .r-table,
+  .r-table tbody,
+  .r-table thead {
+    display: block;
+    width: 100%;
+  }
+
+  .r-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* The clipped thead keeps table-row layout on its rows/cells, which leaves a
+     row as wide as the full 5-column table (~816px on /industries/retail) and
+     pushes the document scrollWidth past the viewport — horizontal scroll on a
+     page whose table otherwise stacks correctly. Collapse the head rows to block
+     so nothing inside the clipped box can be wider than its 1px container. */
+  .r-table thead tr,
+  .r-table thead th {
+    display: block;
+    width: auto;
+  }
+
+  .r-table tbody tr {
+    display: block;
+    width: 100%;
+    padding: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .r-table tbody tr:first-child {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .r-table tbody th,
+  .r-table tbody td {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    border: 0;
+    padding: 0.2rem 0;
+  }
+
+  .r-table tbody tr > :first-child {
+    font-weight: 600;
+    color: var(--color-ink);
+    padding-bottom: 0.55rem;
+  }
+
+  .r-table tbody tr > :not(:first-child)[data-label]::before {
+    content: attr(data-label) ': ';
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   FAQ hover — the home Services list's behaviour, carried to every FAQ
+   accordion on the site (the service pages and the industry page use .mca-,
+   .loc- and .btl- prefixes for what is the same component).
+   Hovering the list settles it: every row drops to 36%, the hovered row stays
+   at 100% and holds its top rule at full ink, so exactly one strong line is
+   visible at a time. :focus-within gives keyboard users the same reading.
+   --------------------------------------------------------------------------- */
+@media (hover: hover) {
+  :is(.mca-faq-item, .loc-faq-item, .btl-faq-item) {
+    transition: opacity 0.3s ease;
+  }
+
+  :is(.mca-faq-list, .loc-faq-list, .btl-faq-list):is(:hover, :focus-within)
+    :is(.mca-faq-item, .loc-faq-item, .btl-faq-item) {
+    opacity: 0.36;
+  }
+
+  :is(.mca-faq-list, .loc-faq-list, .btl-faq-list):is(:hover, :focus-within)
+    :is(.mca-faq-item, .loc-faq-item, .btl-faq-item):is(:hover, :focus-within) {
+    opacity: 1;
+    border-top-color: var(--color-ink);
+  }
+}

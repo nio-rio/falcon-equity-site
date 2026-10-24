@@ -1,0 +1,735 @@
+/* Business Line of Credit only. Copied from mca.css with mca-* → loc-*.
+   The blog band uses the loc-blog-* rules plus the shared .mca-blog-line* names at the end.
+   Numbers from live Blackstone measurements:
+   IR-01 + IR-02 hero (bx-share-information), dark LS-04 helps, BXCI-07 fit,
+   PWS What you need to know process, DC-06 FAQ type + BXCI-05 accordion motion,
+   BXCI-08 portfolio spotlight for the blog band.
+   Fonts → --font-display / --font-sans. Colors → Falcon tokens.
+   Do not touch home. */
+
+/* Per-section pads beat home [data-band] / stacked-same-theme tokens.
+   Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
+   Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
+   Process top is R − 2px at 1280 / 768 / 390 so Helps → Process measures R
+   (144 / 96 / 80). FAQ bottom stays R − 2px. Fit and Blog bottoms are full R.
+   Helps bottom sits slightly under R for the tape.
+   Hero title sits 50px below the header. */
+section.loc-hero[data-band='light'] {
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
+}
+
+section.loc-helps[data-band='dark'] {
+  padding: 80px 0 80px;
+}
+
+section.loc-process[data-band='light'] {
+  padding: 80px 0 80px;
+}
+
+section.loc-faq[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+section.loc-fit[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+section.loc-blog[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+.loc-hero,
+.loc-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.loc-helps {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+/* Home Why-choose-us dark type: headings/eyebrow #fff, body --bx-on-dark.
+   Global h2/eyebrow are --bx-black, the same token as this band. */
+.loc-helps h2,
+.loc-helps h3,
+.loc-helps .eyebrow {
+  color: #fff;
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at
+   390 / 768 / 1280 / 1440. Shell fills that content box with 1fr tracks. */
+.loc-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+  justify-content: stretch;
+}
+
+.loc-kicker,
+.loc-block-head,
+.loc-cta--after,
+.loc-faq-list,
+.loc-cards > .loc-card,
+.loc-helps-image,
+.loc-helps-list,
+.loc-hero-inner {
+  grid-column: 1 / -1;
+}
+
+/* IR-01 page title: 49/61/400 at 390, margin-bottom 90px to the first rule. */
+.loc-hero h1,
+.loc-hero-title {
+  margin: 0 0 90px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.loc-hero-lead {
+  margin: 90px 0 0;
+  max-width: 40rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.loc-hero-cta {
+  margin-top: 40px;
+}
+
+.loc-block-head h2,
+.loc-faq-head h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.loc-cards,
+.loc-fit .loc-cards,
+.loc-process .loc-cards {
+  margin-top: var(--space-head-to-content);
+}
+
+.loc-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.loc-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.loc-card-body + .loc-card-body {
+  margin-top: 24px;
+}
+
+.loc-fit .loc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* BXCI-07 / horizontal-static-list card CTA = .bx-singular-link
+   18/27/400 ls 0.288, 40px tall, 1px label draw, icon scale 1.16667. */
+.loc-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  /* Owner round 2026-10-23: link sits 32px off the copy, 40px at 1440 —
+     the home "News & Insights" gap (.pilot-news-excerpt margin-bottom 32/40). */
+  padding-top: 32px;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.288px;
+}
+
+.loc-card-link-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.loc-card-link-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.loc-card-link-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.loc-card-link:hover .loc-card-link-label,
+.loc-card-link:focus-visible .loc-card-link-label {
+  background-size: 100% 1px;
+}
+
+.loc-card-link:hover .loc-card-link-icon,
+.loc-card-link:focus-visible .loc-card-link-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.loc-fit .eyebrow--line {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.loc-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.loc-cta--after {
+  margin-top: 72px;
+}
+
+/* IR-01 + IR-02 stats live in `.loc-shell` (home column). Hairline ABOVE each cell. */
+.loc-hero-inner {
+  min-width: 0;
+}
+
+.loc-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+  row-gap: 40px;
+  margin: 0;
+  width: 100%;
+}
+
+.loc-stat {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  padding: 40px 0 0;
+  border-top: 2px solid var(--color-ink);
+}
+
+.loc-stat-label,
+.loc-stat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+
+.loc-stat-label {
+  margin-bottom: 25px;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.loc-stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 34px;
+}
+
+/* Dark LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
+.loc-helps-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.loc-helps-image .media,
+.loc-helps-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.loc-helps .image-slot--labeled {
+  background: var(--white-a12);
+}
+
+.loc-helps .image-slot-label {
+  color: var(--white-a82);
+}
+
+.loc-help-title {
+  margin: 0 0 24px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.loc-help-body {
+  margin: 0 0 64px;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.loc-help:last-child .loc-help-body {
+  margin-bottom: 0;
+}
+
+/* Home Why-choose-us tickertape, loc-* only. Same SPEED 125 / 3 copies. */
+.loc-helps-tape {
+  display: block;
+  overflow: hidden;
+  margin-top: 5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.loc-helps-tape:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: -2px;
+}
+
+.loc-helps-tape-track {
+  display: flex;
+  width: max-content;
+  animation: loc-helps-tape 24s linear infinite;
+}
+
+.loc-helps-tape-item {
+  flex: none;
+  margin-right: 7.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+.loc-helps-tape-item strong {
+  font-weight: 700;
+}
+
+@keyframes loc-helps-tape {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@media (min-width: 26em) {
+  .loc-helps-tape-item {
+    font-size: 4.5rem;
+    margin-right: 8rem;
+  }
+}
+
+/* PWS What you need to know: 01/02/03 are Scene7 number images in a 16:9
+   media box (11.5rem / 10.938rem / 12.375rem). Mapped to display type,
+   weight 300, tracking normal. Image-space under the number is 32px. */
+.loc-step-num {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  /* Mobile: BX's 328x184 number image renders its digit ~112px tall; 184px of
+     At Gambit ink was ~133px. 48em+ restores the 184px box measure. */
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.loc-step .loc-card-title {
+  margin-top: 0;
+}
+
+/* Owner round 2026-10-23 (same spec as the industry products H3): the process
+   title is 1.5rem (24px) on tablet and desktop, never under 1.25rem (20px) on
+   the phone. The 48em rule below steps the shared card title DOWN to 20px —
+   this replaces that for the process band only, so the fit cards keep theirs. */
+@media (min-width: 48em) {
+  .loc-process .loc-card-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+/* BXCI-05 accordion motion on DC-06 light FAQ type.
+   Base rule 2px ink at 40%. Hover overlay draws 2px ink, 0.5s ease-out,
+   snaps off. Caret 0.3s. */
+.loc-faq-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-head-to-content);
+}
+
+/* The rule belongs to the TOP edge of each row so the hovered row can hold a
+   solid line above it (home Services behaviour), and the line below it stays
+   at 40% while its neighbour recedes. */
+
+.loc-faq .loc-block-head h2,
+.loc-faq-head h2 {
+  color: var(--color-ink);
+}
+
+/* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
+   MCA slider: title + Read the article, prev/next under the link. */
+
+@media (prefers-reduced-motion: reduce) {
+  .loc-card-link-label,
+  .loc-card-link-icon,
+  .loc-helps-tape-track {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* 768 — home 8-col / 688 content, 40px sides. R = 96. */
+@media (min-width: 48em) {
+  section.loc-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.loc-helps[data-band='dark'] {
+    padding: 96px 0 96px;
+  }
+
+  section.loc-process[data-band='light'] {
+    padding: 96px 0 96px;
+  }
+
+  section.loc-faq[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  section.loc-fit[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  section.loc-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  .loc-help-title,
+  .loc-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  /* Number: the 184px box measure from 48em up (this round is mobile-only). */
+  .loc-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+
+  .loc-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .loc-helps-tape {
+    margin-top: 6rem;
+  }
+
+  .loc-helps-tape-item {
+    font-size: 6.5rem;
+    margin-right: 8.5rem;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(3) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .loc-cta--after {
+    grid-column: 1 / span 4;
+  }
+}
+
+/* 1024 — BX type steps. Shell already 8-col from 48em. */
+@media (min-width: 64em) {
+  .loc-hero h1,
+  .loc-hero-title {
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .loc-block-head h2,
+  .loc-faq-head h2 {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
+  }
+
+  .loc-cta--after {
+    margin-top: 104px;
+  }
+
+  .loc-process .loc-cards {
+    row-gap: 80px;
+  }
+
+  .loc-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
+  .loc-helps-split {
+    row-gap: 88px;
+  }
+
+  .loc-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+    margin: 0;
+  }
+
+  .loc-stat {
+    max-width: 320px;
+  }
+
+  .loc-stat-value {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .loc-shell {
+    row-gap: 104px;
+  }
+}
+
+/* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
+@media (min-width: 80em) {
+  section.loc-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.loc-helps[data-band='dark'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.loc-process[data-band='light'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.loc-faq[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  section.loc-fit[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  section.loc-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  .loc-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 104px;
+  }
+
+  .loc-helps-tape {
+    margin-top: 9rem;
+  }
+
+  .loc-helps-tape-item {
+    font-size: 10.5rem;
+    margin-right: 12rem;
+  }
+
+  .loc-kicker,
+  .loc-block-head,
+  .loc-faq-head .loc-block-head {
+    grid-column: 1 / span 16;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .loc-cards--3 > .loc-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .loc-cta--after {
+    grid-column: 1 / span 8;
+  }
+
+  .loc-helps-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .loc-helps-image {
+    grid-column: 1 / span 8;
+  }
+
+  .loc-helps-list {
+    grid-column: 11 / span 6;
+  }
+
+  .loc-faq-list {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
+@media (min-width: 90em) {
+  .loc-card-link {
+    padding-top: 40px;
+  }
+
+  section.loc-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.loc-helps[data-band='dark'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.loc-process[data-band='light'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.loc-faq[data-band='light'],
+  section.loc-fit[data-band='light'],
+  section.loc-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  .loc-helps-tape {
+    margin-top: 10rem;
+  }
+
+  .loc-helps-tape-item {
+    font-size: 12rem;
+    margin-right: 13.5rem;
+  }
+
+  .loc-hero h1,
+  .loc-hero-title {
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .loc-block-head h2 {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
+  }
+
+  .loc-faq-head h2 {
+    max-width: 624px;
+  }
+
+  .loc-card-title,
+  .loc-help-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  .loc-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+
+  .loc-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+  }
+
+  /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .loc-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .loc-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

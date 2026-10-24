@@ -1,0 +1,79 @@
+---
+/**
+ * FaqList — THE FAQ list. One component for every page that shows questions.
+ *
+ * Before this, the same list existed as seven clones (`mca-faq-`, `btl-faq-`,
+ * `ift-faq-`, `cons-faq-`, `cal-faq-`, `loc-faq-`, `abt-faq-`) with identical
+ * markup and seven stylesheets drifting apart. Service pages, industry pages and
+ * /faq now all render this component, styled by src/styles/faq-list.css, driven
+ * by the one binder in src/scripts/accordion.ts (at most one row open per list).
+ *
+ * Props:
+ *   items     the question/answer pairs (see src/data/service-faqs.ts)
+ *   idPrefix  unique per list on a page — ids become faq-trigger-<prefix>-<i>
+ *   class     the consumer's PLACEMENT class only (band gap, grid-column);
+ *             any visual rule belongs in faq-list.css, never in a host page
+ */
+import type { FaqItem } from '@/data/service-faqs';
+import '@/styles/faq-list.css';
+
+interface Props {
+  items: FaqItem[];
+  idPrefix: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { items, idPrefix, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={['faq-list', className]} data-accordion {...rest}>
+  {
+    items.map((item, i) => (
+      <div class="faq-item" data-acc-item>
+        <h3>
+          <button
+            type="button"
+            class="faq-trigger"
+            id={`faq-trigger-${idPrefix}-${i}`}
+            aria-expanded="false"
+            aria-controls={`faq-panel-${idPrefix}-${i}`}
+            data-acc-trigger
+          >
+            <span>{item.q}</span>
+            <span class="faq-caret" aria-hidden="true">
+              <span class="faq-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="8"
+                  viewBox="0 0 18 10"
+                  fill="none"
+                  class="faq-caret-svg"
+                >
+                  <path
+                    d="M1 1L9 9L17 1"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </h3>
+        <div
+          class="faq-panel"
+          id={`faq-panel-${idPrefix}-${i}`}
+          role="region"
+          aria-labelledby={`faq-trigger-${idPrefix}-${i}`}
+        >
+          <div class="faq-panel-inner">
+            <p>{item.a}</p>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>

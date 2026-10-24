@@ -1,0 +1,12 @@
+---
+interface Props {
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { align = 'left', class: className } = Astro.props;
+---
+
+<p class:list={['eyebrow', align === 'center' ? 'eyebrow--center' : 'eyebrow--line', className]}>
+  <slot />
+</p>

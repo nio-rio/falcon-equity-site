@@ -1,0 +1,132 @@
+/* Industries overview (`/industries`) — the archive-style index above the twelve
+   industry pages. One band: page header, then the card rows.
+   Layout numbers are measured from blackstone.com/insights/market-views (live
+   CDP, 1440 / 1280 / 1024 / 768 / 390); type, colour and components are Falcon's.
+   Full measurement table: docs/industries-structure-plan.md. Do not touch home. */
+
+.indx-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+  /* Top pad is the reference's page-header pad (40 / 56 / 48). The BOTTOM pad
+     is not: the reference ends on its last card row with 40-64px, because its
+     footer sits straight under it. Ours has the sitewide CTA band next, and the
+     home page gives every band above that CTA a full section pad (160px at
+     1440, measured on `.pilot-news`). Ling, 23 Oct: the first build's 64px read
+     as too tight. So the bottom takes the site token and scales with it. */
+  padding-block: var(--page-header-pt) var(--pilot-section-y);
+}
+
+/* Page title — the shared page-title ladder (40 / 48 / 56 at 390 / 768 /
+   1280+, 1.1 leading, weight 400), and the shared heading → content gap. */
+.indx-h1 {
+  margin: 0 0 var(--space-head-to-content);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+/* Grid — 1-up, 2-up, 4-up. Column gap 24px at every width, which is what the
+   reference uses inside a 1264 container (4 × 298 + 3 × 24). */
+.indx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 88px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48em) {
+  .indx-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 96px 24px;
+  }
+}
+
+@media (min-width: 80em) {
+  .indx-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 120px 24px;
+  }
+}
+
+.indx-item {
+  min-width: 0;
+}
+
+/* Card — the whole card is the link, as on the reference. */
+.indx-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.indx-media {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--color-tint);
+}
+
+.indx-media .media,
+.indx-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 32px under the image, 20/30 — both measured; weight 400, not the reference's
+   300: Ling asked for a little more on 23 Oct, and AtGambit Regular is the step
+   that reads heavier without competing with the H1. `width: fit-content` keeps
+   the hover rule hugging the words instead of the column. */
+.indx-title {
+  width: fit-content;
+  margin: 32px 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.063rem;
+  transition: background-size 350ms ease;
+}
+
+/* The reference pins its meta line to the card foot with a 40px pad above it,
+   so dates line up across a row. Ours is the blurb, in the same slot. */
+.indx-blurb {
+  margin: auto 0 0;
+  padding-top: 40px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+/* Hover — the same underline draw the site's own cards use (`.pilot-news-more`
+   label), so the affordance belongs to this site rather than the reference. */
+@media (hover: hover) {
+  .indx-card:hover .indx-title {
+    background-size: 100% 0.063rem;
+  }
+}
+
+.indx-card:focus-visible .indx-title {
+  background-size: 100% 0.063rem;
+}
+
+.indx-card:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}

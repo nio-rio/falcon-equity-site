@@ -1,0 +1,131 @@
+---
+/**
+ * /blog — every published guide, newest first.
+ *
+ * Layout copied from blackstone.com/insights, measured live 23 Oct 2026 at
+ * 1440 / 1024 / 768 / 390 (numbers and the diff against our build:
+ * docs/blog-index-structure-plan.md):
+ *
+ *   page header  pad 48/0/120, H1 56/84 in columns 1-9
+ *   article grid 4-up at 1440, 2-up at 1024 and 768, 1-up at 390,
+ *                card 298 wide, image 16:9, column gap 24, row gap 120
+ *   card         category label 14/21 w400 UPPERCASE, title 20/30 w300,
+ *                date 16/24 pinned to the foot so dates line up across a row
+ *   link         no underline at rest; a 1px rule draws left to right in 0.3s
+ *
+ * Nothing else: no intro, no filters, no pager. Eight guides published, all of
+ * them listed.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
+import { breadcrumbSchema } from '@/lib/schema';
+import '@/styles/blog-index.css';
+
+const TITLE = 'Blog | Falcon Equity Group';
+const DESCRIPTION =
+  'Every guide from Falcon Equity Group: how merchant cash advances, term loans, credit lines and invoice factoring work, and what underwriters read before a decision.';
+const H1 = 'Blog';
+
+/**
+ * How many guides show per page. Ling, 23 Oct: *"Show 12 blogs per page for
+ * pagination."* (Supersedes her earlier test value of 4: *"Let's test this
+ * pagination by having only 4 blog posts on load."*)
+ * Three full rows at the reference's 4-up grid; the pager only appears once
+ * there is more than one page, i.e. from the 13th published guide onwards.
+ */
+const PAGE_SIZE = 12;
+
+const posts = await getPublicPosts();
+const paged = posts.length > PAGE_SIZE;
+const dotCount = paged ? Math.ceil(posts.length / PAGE_SIZE) : 0;
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: H1, path: '/blog' },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: TITLE,
+    description: DESCRIPTION,
+    url: 'https://falconequity.ai/blog',
+    hasPart: posts.map((post) => ({
+      '@type': 'Article',
+      headline: post.data.title,
+      datePublished: post.data.date.toISOString().slice(0, 10),
+      url: `https://falconequity.ai/blog/${post.id}`,
+    })),
+  },
+];
+---
+
+<BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* Page header — reference .bx-page-header: H1 in columns 1-9, nothing beside it. */}
+  <section
+    class="blg-header"
+    aria-labelledby="blog-heading"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
+    <div class="container-site">
+      <div class="blg-shell">
+        <h1 id="blog-heading" class="blg-h1" data-reveal>{H1}</h1>
+      </div>
+    </div>
+  </section>
+
+  {/* The list — the reference's archive grid, every published guide, newest first. */}
+  <section class="blg-archive" aria-label="All guides" data-band="light" data-reveal-root>
+    <div class="container-site">
+      <div class="blg-cards" data-blg-archive data-page-size={PAGE_SIZE} data-reveal>
+        {posts.map((post, index) => <BlogCard post={post} loading={index < PAGE_SIZE ? 'eager' : 'lazy'} />)}
+      </div>
+
+      {paged && (
+        <div class="blg-pager" data-blg-pager>
+          <button type="button" class="blg-load" data-blg-load>
+            <span class="blg-load-label">Load More</span>
+            <CircleArrow />
+          </button>
+          <span class="blg-pager-rule" aria-hidden="true"></span>
+          <ul class="blg-dots">
+            {Array.from({ length: dotCount }, (_, i) => (
+              <li>
+                <button
+                  type="button"
+                  class="blg-dot"
+                  data-blg-dot={i}
+                  aria-current={i === 0 ? 'true' : 'false'}
+                  aria-label={`Show guides ${i * PAGE_SIZE + 1} to ${Math.min((i + 1) * PAGE_SIZE, posts.length)} of ${posts.length}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <script>
+    import '@/scripts/blog-index';
+  </script>
+</BaseLayout>

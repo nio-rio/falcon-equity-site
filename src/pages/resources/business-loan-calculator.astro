@@ -1,0 +1,453 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PilotLinkList from '@/components/pilot/PilotLinkList.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getHomeServices } from '@/data/services';
+import { SITE } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
+import '@/styles/loan-calculator.css';
+
+/** The homepage services row, same order and copy as `/` (#services). */
+const homeServices = getHomeServices().map((service) => ({
+  href: service.href,
+  name: service.name,
+  teaser: service.teaser,
+  rangeLine: service.rangeLine,
+}));
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Business loan calculator', path: '/resources/business-loan-calculator' },
+];
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Business loan calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  browserRequirements: 'Requires JavaScript',
+  url: new URL('/resources/business-loan-calculator', SITE.url).href,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  description:
+    'Estimate the payment, total repayment and annualized cost of a business loan or a factor-rate cash advance.',
+};
+
+const definitions = [
+  {
+    title: 'Payment',
+    body: 'What leaves the account on each due date. A term loan instalment splits into principal and interest. A cash advance remittance is a fixed slice of a fixed total, collected daily, weekly or monthly.',
+  },
+  {
+    title: 'Total cost',
+    body: 'Interest on the loan tab and factor cost on the advance tab: the dollars on top of what you received. Compare offers on this number and on total repayment, never on the headline decimal alone.',
+  },
+  {
+    title: 'Annualized cost',
+    body: 'The same total cost stretched across a year, so a four-month quote can sit beside a 36-month loan. The arithmetic is total cost ÷ amount, then scaled by 365 ÷ the days in the term.',
+  },
+];
+
+const paymentOptions = [
+  { value: 'weekly', label: 'Weekly' },
+  { value: 'daily', label: 'Daily (business days)' },
+  { value: 'monthly', label: 'Monthly' },
+];
+---
+
+<BaseLayout
+  title="Business Loan Calculator"
+  description="Work out what a business loan or a factor-rate cash advance really costs: the payment, the total repaid and the annualized cost. No sign-up, no rate published by us — your own quote drives the numbers."
+  schema={[breadcrumbSchema(crumbs), toolSchema]}
+  disclosure={`${PAGE_DISCLOSURE} Calculator results are estimates for illustration only and are not an offer of credit.`}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* Page wrapper: the only hook the page-scoped 16px floor hangs off. Ling,
+      2026-10-23: "no text under 16px" on this page — the shared eyebrow and the
+      services range line are 14px sitewide, so they are raised here only and
+      the home page is untouched. */}
+  <div class="calc-page">
+  <section
+    class="calc-band"
+    data-band="light"
+    aria-labelledby="calc-heading"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
+    <div class="container-site">
+      <div class="calc-shell">
+        <h1 id="calc-heading" class="calc-title" data-reveal>Business loan calculator</h1>
+
+        <div class="calc-tool" data-calc-tool data-calc-mode="factor">
+          <fieldset class="calc-tabs">
+            <legend class="sr-only">Type of financing</legend>
+            <label class="calc-tab">
+              <input type="radio" name="calc-mode" value="factor" data-calc-mode checked />
+              <span>Cash advance (factor rate)</span>
+            </label>
+            <label class="calc-tab">
+              <input type="radio" name="calc-mode" value="term" data-calc-mode />
+              <span>Term loan (APR)</span>
+            </label>
+          </fieldset>
+
+          <div class="calc-tool-grid">
+            <div class="calc-form">
+              <div class="calc-fields" data-calc-fields="factor">
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-factor-amount">Amount advanced</label>
+                    <span class="calc-hint" id="calc-factor-amount-hint">$5,000 – $5,000,000</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <span class="calc-affix" aria-hidden="true">$</span>
+                    <input
+                      class="calc-input"
+                      id="calc-factor-amount"
+                      type="text"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      value="50,000"
+                      data-calc-number="factor-amount"
+                      data-format="money"
+                      data-min="5000"
+                      data-max="5000000"
+                      aria-describedby="calc-factor-amount-hint"
+                    />
+                  </div>
+                  <input
+                    class="calc-range"
+                    type="range"
+                    min="5000"
+                    max="5000000"
+                    step="1000"
+                    value="50000"
+                    aria-label="Amount advanced, slider"
+                    data-calc-range="factor-amount"
+                  />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-factor-rate">Factor rate</label>
+                    <span class="calc-hint" id="calc-factor-rate-hint">e.g. 1.30</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <input
+                      class="calc-input"
+                      id="calc-factor-rate"
+                      type="text"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      value="1.30"
+                      data-calc-number="factor-factor"
+                      data-format="factor"
+                      data-min="1.01"
+                      data-max="2"
+                      aria-describedby="calc-factor-rate-hint"
+                    />
+                  </div>
+                  <input
+                    class="calc-range"
+                    type="range"
+                    min="1.01"
+                    max="2"
+                    step="0.01"
+                    value="1.30"
+                    aria-label="Factor rate, slider"
+                    data-calc-range="factor-factor"
+                  />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-factor-months">Term</label>
+                    <span class="calc-hint" id="calc-factor-months-hint">3 – 18 months</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <input
+                      class="calc-input"
+                      id="calc-factor-months"
+                      type="text"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      value="12"
+                      data-calc-number="factor-months"
+                      data-format="plain"
+                      data-min="3"
+                      data-max="18"
+                      aria-describedby="calc-factor-months-hint"
+                    />
+                    <span class="calc-affix" aria-hidden="true">months</span>
+                  </div>
+                  <input
+                    class="calc-range"
+                    type="range"
+                    min="3"
+                    max="18"
+                    step="1"
+                    value="12"
+                    aria-label="Term in months, slider"
+                    data-calc-range="factor-months"
+                  />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-factor-freq">Payments</label>
+                  </div>
+                  <div class="calc-select-wrap">
+                    <select class="calc-select" id="calc-factor-freq" data-calc-freq>
+                      {
+                        paymentOptions.map((option) => (
+                          <option value={option.value} selected={option.value === 'weekly'}>
+                            {option.label}
+                          </option>
+                        ))
+                      }
+                    </select>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true">
+                      <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calc-fields" data-calc-fields="term" hidden>
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-term-amount">Loan amount</label>
+                    <span class="calc-hint" id="calc-term-amount-hint">$10,000 – $2,000,000</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <span class="calc-affix" aria-hidden="true">$</span>
+                    <input
+                      class="calc-input"
+                      id="calc-term-amount"
+                      type="text"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      value="50,000"
+                      data-calc-number="term-amount"
+                      data-format="money"
+                      data-min="10000"
+                      data-max="2000000"
+                      aria-describedby="calc-term-amount-hint"
+                    />
+                  </div>
+                  <input
+                    class="calc-range"
+                    type="range"
+                    min="10000"
+                    max="2000000"
+                    step="1000"
+                    value="50000"
+                    aria-label="Loan amount, slider"
+                    data-calc-range="term-amount"
+                  />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-term-months">Term</label>
+                    <span class="calc-hint" id="calc-term-months-hint">6 – 36 months</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <input
+                      class="calc-input"
+                      id="calc-term-months"
+                      type="text"
+                      inputmode="numeric"
+                      autocomplete="off"
+                      value="24"
+                      data-calc-number="term-months"
+                      data-format="plain"
+                      data-min="6"
+                      data-max="36"
+                      aria-describedby="calc-term-months-hint"
+                    />
+                    <span class="calc-affix" aria-hidden="true">months</span>
+                  </div>
+                  <input
+                    class="calc-range"
+                    type="range"
+                    min="6"
+                    max="36"
+                    step="1"
+                    value="24"
+                    aria-label="Term in months, slider"
+                    data-calc-range="term-months"
+                  />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-field-head">
+                    <label class="calc-label" for="calc-term-apr">APR on your offer</label>
+                    <span class="calc-hint" id="calc-term-apr-hint">your quoted rate</span>
+                  </div>
+                  <div class="calc-input-wrap">
+                    <input
+                      class="calc-input"
+                      id="calc-term-apr"
+                      type="text"
+                      inputmode="decimal"
+                      autocomplete="off"
+                      placeholder="e.g. 15"
+                      data-calc-number="term-apr"
+                      data-format="plain"
+                      data-min="0.1"
+                      data-max="300"
+                      aria-describedby="calc-term-apr-hint"
+                    />
+                    <span class="calc-affix" aria-hidden="true">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-results" data-calc-results="factor" role="group" aria-label="Cash advance estimate">
+              <p class="calc-big-label" data-calc-out="factor-payment-label">Payment (weekly)</p>
+              <p class="calc-big-value" aria-live="polite" aria-atomic="true">
+                <span class="calc-big-cur" aria-hidden="true">$</span><span data-calc-out="factor-payment">1,250</span><span class="calc-big-per" data-calc-out="factor-payment-unit">/week</span>
+              </p>
+              <ul class="calc-rows">
+                <li class="calc-row">
+                  <span class="calc-row-label">Total repayment</span>
+                  <span class="calc-row-value" data-calc-out="factor-total">$65,000</span>
+                </li>
+                <li class="calc-row">
+                  <span class="calc-row-label">Cost of the money</span>
+                  <span class="calc-row-value" data-calc-out="factor-cost">$15,000</span>
+                </li>
+                <li class="calc-row">
+                  <span class="calc-row-label">Annualized cost</span>
+                  <span class="calc-row-value" data-calc-out="factor-annual">30.0%</span>
+                </li>
+              </ul>
+              <div class="calc-bar-wrap" data-calc-out="factor-bar">
+                <div class="calc-bar">
+                  <span class="calc-bar-principal" data-calc-out="factor-bar-principal"></span>
+                  <span class="calc-bar-cost" data-calc-out="factor-bar-cost"></span>
+                </div>
+                <ul class="calc-legend">
+                  <li>
+                    <span class="calc-swatch calc-swatch--principal" aria-hidden="true"></span>
+                    <span>Advanced</span>
+                    <span data-calc-out="factor-legend-amount">$50,000</span>
+                  </li>
+                  <li>
+                    <span class="calc-swatch calc-swatch--cost" aria-hidden="true"></span>
+                    <span>Cost</span>
+                    <span data-calc-out="factor-legend-cost">$15,000</span>
+                  </li>
+                </ul>
+              </div>
+              <p class="calc-prompt" data-calc-out="factor-prompt" hidden>
+                Add the amount, the factor and the term to see the numbers.
+              </p>
+              <p class="calc-note">
+                Annualized cost is a comparison, calculated the same way as our factor-rate guide. It
+                is not a regulated APR disclosure, and the terms on your agreement govern.
+              </p>
+              <p class="calc-note">
+                Falcon charges a 0% agreement fee, so there is no fee to add here. Other costs, if a
+                lender charges them, are disclosed before you sign.
+              </p>
+            </div>
+
+            <div class="calc-results is-empty" data-calc-results="term" role="group" aria-label="Term loan estimate" hidden>
+              <p class="calc-big-label">Monthly payment</p>
+              <p class="calc-big-value" aria-live="polite" aria-atomic="true">
+                <span class="calc-big-cur" aria-hidden="true">$</span><span data-calc-out="term-payment">—</span>
+              </p>
+              <p class="calc-prompt" data-calc-out="term-prompt">
+                Add the APR from your offer and the numbers appear here. We do not publish a rate: your
+                offer is the only rate that counts, and it is confirmed in writing before you sign.
+              </p>
+              <ul class="calc-rows">
+                <li class="calc-row">
+                  <span class="calc-row-label">Total interest</span>
+                  <span class="calc-row-value" data-calc-out="term-interest">—</span>
+                </li>
+                <li class="calc-row">
+                  <span class="calc-row-label">Total repaid</span>
+                  <span class="calc-row-value" data-calc-out="term-total">—</span>
+                </li>
+              </ul>
+              <div class="calc-bar-wrap" data-calc-out="term-bar" hidden>
+                <div class="calc-bar">
+                  <span class="calc-bar-principal" data-calc-out="term-bar-principal"></span>
+                  <span class="calc-bar-cost" data-calc-out="term-bar-cost"></span>
+                </div>
+                <ul class="calc-legend">
+                  <li>
+                    <span class="calc-swatch calc-swatch--principal" aria-hidden="true"></span>
+                    <span>Principal</span>
+                    <span data-calc-out="term-legend-principal"></span>
+                  </li>
+                  <li>
+                    <span class="calc-swatch calc-swatch--cost" aria-hidden="true"></span>
+                    <span>Interest</span>
+                    <span data-calc-out="term-legend-interest"></span>
+                  </li>
+                </ul>
+              </div>
+              <p class="calc-note">
+                Estimates only, on an amortizing schedule. Falcon charges a 0% agreement fee, so there
+                is no fee to add here.
+              </p>
+            </div>
+          </div>
+
+          <noscript>
+            <p class="calc-noscript">
+              This calculator runs in your browser, so it needs JavaScript. Call
+              <a href={SITE.phones.direct.href}>{SITE.phones.direct.display}</a> and a specialist will run
+              the same numbers with you.
+            </p>
+          </noscript>
+        </div>
+
+        <div class="calc-defs">
+          {
+            definitions.map((item) => (
+              <div class="calc-def">
+                <h2 class="calc-def-title">{item.title}</h2>
+                <p class="calc-def-body">{item.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* The homepage services row (`/` #services), unchanged: same component,
+      same order, same copy, same reveal and hover. */}
+  <PilotLinkList
+    eyebrow="Services"
+    title="How we can bring you victory."
+    items={homeServices}
+  />
+  </div>
+
+  <script>
+    import '@/scripts/scroll-in';
+    import '@/scripts/loan-calculator';
+  </script>
+</BaseLayout>

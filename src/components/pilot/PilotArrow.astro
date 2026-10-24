@@ -1,0 +1,25 @@
+---
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  /** Accessible name when the visible label is generic (e.g. “Learn more”). */
+  accessibleName?: string;
+  tone?: 'dark' | 'light';
+  class?: string;
+}
+
+const { href, label, accessibleName, tone = 'dark', class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['pilot-arrow', tone === 'light' && 'pilot-arrow--light', className]}
+  aria-label={accessibleName}
+>
+  <span class="pilot-arrow-label">{label}</span>
+  <span class="pilot-circle" aria-hidden="true">
+    <Icon name="arrow-right" size={16} />
+  </span>
+</a>

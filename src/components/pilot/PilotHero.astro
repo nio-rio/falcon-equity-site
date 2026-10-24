@@ -1,0 +1,55 @@
+---
+import Media from '@/components/Media.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  line1: string;
+  line2: string;
+  aside: string;
+  captionTitle: string;
+  captionBody: string;
+  captionHref: string;
+  captionLabel: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { line1, line2, aside, captionTitle, captionBody, captionHref, captionLabel, image, imageAlt } = Astro.props;
+---
+
+<section class="pilot-hero pilot-on-dark" aria-labelledby="hero-heading" data-home-hero>
+  <div class="container-site">
+    <div class="pilot-hero-grid pilot-hero-top">
+      <h1 id="hero-heading">
+        <span class="pilot-hero-line">{line1}{' '}</span>
+        <span class="pilot-hero-line pilot-hero-line--offset">{line2}</span>
+      </h1>
+      <p class="pilot-hero-aside">{aside}</p>
+    </div>
+  </div>
+  <div class="pilot-hero-media">
+    <Media
+      image={image}
+      alt={imageAlt}
+      intent={imageAlt}
+      ratio="1800 / 771"
+      sizes="100vw"
+      widths={[640, 960, 1280, 1600, 1800]}
+      priority
+    />
+  </div>
+  <div class="container-site">
+    <div class="pilot-hero-grid pilot-hero-caption">
+      <div class="pilot-hero-caption-title">
+        <h2>{captionTitle}</h2>
+      </div>
+      <div class="pilot-hero-caption-copy">
+        <p>{captionBody}</p>
+        <div class="pilot-hero-caption-cta">
+          <ArrowButton href={captionHref} label={captionLabel} tone="light" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

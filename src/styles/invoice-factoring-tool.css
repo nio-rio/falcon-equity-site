@@ -1,0 +1,731 @@
+/* Invoice Factoring Tool only. Copied from mca.css with mca-* → ift-*.
+   The blog band uses the ift-blog-* rules plus the shared .mca-blog-line* names at the end.
+   Numbers from live Blackstone measurements:
+   IR-01 + IR-02 hero (bx-share-information), dark LS-04 helps, BXCI-07 fit,
+   PWS What you need to know process, DC-06 FAQ type + BXCI-05 accordion motion,
+   BXCI-08 portfolio spotlight for the blog band.
+   Fonts → --font-display / --font-sans. Colors → Falcon tokens.
+   Do not touch home. */
+
+/* Per-section pads beat home [data-band] / stacked-same-theme tokens.
+   Visible gap R = 80 / 96 / 144 / 160 (390 / 768 / 1280 / 1440).
+   Order: hero → helps (dark) → process → FAQ → fit → blog → SiteCta (dark).
+   Process top is R − 2px at 1280 / 768 / 390 so Helps → Process measures R
+   (144 / 96 / 80). FAQ bottom stays R − 2px. Fit and Blog bottoms are full R.
+   Helps bottom sits slightly under R for the tape.
+   Hero title sits 50px below the header. */
+section.ift-hero[data-band='light'] {
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
+}
+
+section.ift-helps[data-band='dark'] {
+  padding: 80px 0 80px;
+}
+
+section.ift-process[data-band='light'] {
+  padding: 80px 0 80px;
+}
+
+section.ift-faq[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+section.ift-fit[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+section.ift-blog[data-band='light'] {
+  padding: var(--pilot-section-y-stack) 0 80px;
+}
+
+.ift-hero,
+.ift-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.ift-helps {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+/* Home Why-choose-us dark type: headings/eyebrow #fff, body --bx-on-dark.
+   Global h2/eyebrow are --bx-black, the same token as this band. */
+.ift-helps h2,
+.ift-helps h3,
+.ift-helps .eyebrow {
+  color: #fff;
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at
+   390 / 768 / 1280 / 1440. Shell fills that content box with 1fr tracks. */
+.ift-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+  justify-content: stretch;
+}
+
+.ift-kicker,
+.ift-block-head,
+.ift-cta--after,
+.ift-faq-list,
+.ift-cards > .ift-card,
+.ift-helps-image,
+.ift-helps-list,
+.ift-hero-inner {
+  grid-column: 1 / -1;
+}
+
+/* IR-01 page title: 49/61/400 at 390, margin-bottom 90px to the first rule. */
+.ift-hero h1,
+.ift-hero-title {
+  margin: 0 0 90px;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.ift-hero-lead {
+  margin: 90px 0 0;
+  max-width: 40rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.ift-hero-cta {
+  margin-top: 40px;
+}
+
+.ift-block-head h2,
+.ift-faq-head h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.ift-cards,
+.ift-fit .ift-cards,
+.ift-process .ift-cards {
+  margin-top: var(--space-head-to-content);
+}
+
+.ift-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ift-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ift-card-body + .ift-card-body {
+  margin-top: 24px;
+}
+
+.ift-fit .ift-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* BXCI-07 / horizontal-static-list card CTA = .bx-singular-link
+   18/27/400 ls 0.288, 40px tall, 1px label draw, icon scale 1.16667. */
+.ift-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  /* Owner round 2026-10-23: link sits 32px off the copy, 40px at 1440 —
+     the home "News & Insights" gap (.pilot-news-excerpt margin-bottom 32/40). */
+  padding-top: 32px;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.288px;
+}
+
+.ift-card-link-label {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.ift-card-link-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.ift-card-link-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ift-card-link:hover .ift-card-link-label,
+.ift-card-link:focus-visible .ift-card-link-label {
+  background-size: 100% 1px;
+}
+
+.ift-card-link:hover .ift-card-link-icon,
+.ift-card-link:focus-visible .ift-card-link-icon {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  transform: scale(1.16667);
+}
+
+.ift-fit .eyebrow--line {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.ift-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.ift-cta--after {
+  margin-top: 72px;
+}
+
+/* IR-01 + IR-02 stats live in `.ift-shell` (home column). Hairline ABOVE each cell. */
+.ift-hero-inner {
+  min-width: 0;
+}
+
+.ift-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+  row-gap: 40px;
+  margin: 0;
+  width: 100%;
+}
+
+.ift-stat {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  padding: 40px 0 0;
+  border-top: 2px solid var(--color-ink);
+}
+
+.ift-stat-label,
+.ift-stat-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+
+.ift-stat-label {
+  margin-bottom: 25px;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.ift-stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 34px;
+}
+
+/* Dark LS-04 — 3:4 still + stacked title/body pillars. Intro dropped. */
+.ift-helps-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.ift-helps-image .media,
+.ift-helps-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.ift-helps .image-slot--labeled {
+  background: var(--white-a12);
+}
+
+.ift-helps .image-slot-label {
+  color: var(--white-a82);
+}
+
+.ift-help-title {
+  margin: 0 0 24px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ift-help-body {
+  margin: 0 0 64px;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ift-help:last-child .ift-help-body {
+  margin-bottom: 0;
+}
+
+/* Home Why-choose-us tickertape, ift-* only. Same SPEED 125 / 3 copies. */
+.ift-helps-tape {
+  display: block;
+  overflow: hidden;
+  margin-top: 5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ift-helps-tape:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: -2px;
+}
+
+.ift-helps-tape-track {
+  display: flex;
+  width: max-content;
+  animation: ift-helps-tape 24s linear infinite;
+}
+
+.ift-helps-tape-item {
+  flex: none;
+  margin-right: 7.5rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.3;
+  letter-spacing: 0.008em;
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+.ift-helps-tape-item strong {
+  font-weight: 700;
+}
+
+@keyframes ift-helps-tape {
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@media (min-width: 26em) {
+  .ift-helps-tape-item {
+    font-size: 4.5rem;
+    margin-right: 8rem;
+  }
+}
+
+/* PWS What you need to know: 01/02/03 are Scene7 number images in a 16:9
+   media box (11.5rem / 10.938rem / 12.375rem). Mapped to display type,
+   weight 300, tracking normal. Image-space under the number is 32px. */
+.ift-step-num {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  /* Mobile: BX's 328x184 number image renders its digit ~112px tall; 184px of
+     At Gambit ink was ~133px. 48em+ restores the 184px box measure. */
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.ift-step .ift-card-title {
+  margin-top: 0;
+}
+
+/* Owner round 2026-10-23 (same spec as the industry products H3): the process
+   title is 1.5rem (24px) on tablet and desktop, never under 1.25rem (20px) on
+   the phone. The 48em rule below steps the shared card title DOWN to 20px —
+   this replaces that for the process band only, so the fit cards keep theirs. */
+@media (min-width: 48em) {
+  .ift-process .ift-card-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+/* BXCI-05 accordion motion on DC-06 light FAQ type.
+   Base rule 2px ink at 40%. Hover overlay draws 2px ink, 0.5s ease-out,
+   snaps off. Caret 0.3s. */
+.ift-faq-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-head-to-content);
+}
+
+.ift-faq .ift-block-head h2,
+.ift-faq-head h2 {
+  color: var(--color-ink);
+}
+
+/* BXCI-08 featured-content: eyebrow + title + singular-link left, 16:9 right.
+   MCA slider: title + Read the article, prev/next under the link. */
+
+@media (prefers-reduced-motion: reduce) {
+  .ift-card-link-label,
+  .ift-card-link-icon,
+  .ift-helps-tape-track {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* 768 — home 8-col / 688 content, 40px sides. R = 96. */
+@media (min-width: 48em) {
+  section.ift-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.ift-helps[data-band='dark'] {
+    padding: 96px 0 96px;
+  }
+
+  section.ift-process[data-band='light'] {
+    padding: 96px 0 96px;
+  }
+
+  section.ift-faq[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  section.ift-fit[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  section.ift-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 96px;
+  }
+
+  .ift-help-title,
+  .ift-card-title {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.16px;
+  }
+
+  /* Number: the 184px box measure from 48em up (this round is mobile-only). */
+  .ift-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+
+  .ift-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .ift-helps-tape {
+    margin-top: 6rem;
+  }
+
+  .ift-helps-tape-item {
+    font-size: 6.5rem;
+    margin-right: 8.5rem;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(3) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .ift-cta--after {
+    grid-column: 1 / span 4;
+  }
+}
+
+/* 1024 — BX type steps. Shell already 8-col from 48em. */
+@media (min-width: 64em) {
+  .ift-hero h1,
+  .ift-hero-title {
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .ift-block-head h2,
+  .ift-faq-head h2 {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
+  }
+
+  .ift-cta--after {
+    margin-top: 104px;
+  }
+
+  .ift-process .ift-cards {
+    row-gap: 80px;
+  }
+
+  .ift-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
+  .ift-helps-split {
+    row-gap: 88px;
+  }
+
+  .ift-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+    margin: 0;
+  }
+
+  .ift-stat {
+    max-width: 320px;
+  }
+
+  .ift-stat-value {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .ift-shell {
+    row-gap: 104px;
+  }
+}
+
+/* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
+@media (min-width: 80em) {
+  section.ift-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.ift-helps[data-band='dark'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.ift-process[data-band='light'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.ift-faq[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  section.ift-fit[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  section.ift-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  .ift-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 104px;
+  }
+
+  .ift-helps-tape {
+    margin-top: 9rem;
+  }
+
+  .ift-helps-tape-item {
+    font-size: 10.5rem;
+    margin-right: 12rem;
+  }
+
+  .ift-kicker,
+  .ift-block-head,
+  .ift-faq-head .ift-block-head {
+    grid-column: 1 / span 16;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding-right: 32px;
+    padding-left: 0;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .ift-cards--3 > .ift-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .ift-cta--after {
+    grid-column: 1 / span 8;
+  }
+
+  .ift-helps-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ift-helps-image {
+    grid-column: 1 / span 8;
+  }
+
+  .ift-helps-list {
+    grid-column: 11 / span 6;
+  }
+
+  .ift-faq-list {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 1440 — BX 16-col / 1264, sides ~80. R = 160. */
+@media (min-width: 90em) {
+  .ift-card-link {
+    padding-top: 40px;
+  }
+
+  section.ift-hero[data-band='light'] {
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
+  }
+
+  section.ift-helps[data-band='dark'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.ift-process[data-band='light'] {
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
+  }
+
+  section.ift-faq[data-band='light'],
+  section.ift-fit[data-band='light'],
+  section.ift-blog[data-band='light'] {
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
+  }
+
+  .ift-helps-tape {
+    margin-top: 10rem;
+  }
+
+  .ift-helps-tape-item {
+    font-size: 12rem;
+    margin-right: 13.5rem;
+  }
+
+  .ift-hero h1,
+  .ift-hero-title {
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .ift-block-head h2 {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
+  }
+
+  .ift-faq-head h2 {
+    max-width: 624px;
+  }
+
+  .ift-card-title,
+  .ift-help-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  .ift-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+
+  .ift-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 90px;
+  }
+
+  /* BXCI-08 at 90em: Content × 5, skip 2, Image × 9 (704×396). */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .ift-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .ift-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

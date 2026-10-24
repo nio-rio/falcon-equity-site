@@ -1,0 +1,308 @@
+---
+/**
+ * One component for every /industries/<slug> page (twelve of them).
+ *
+ * The retail page is the approved spec: five bands — hero · what's your case ·
+ * products · blog · FAQ — with the shared SiteCta coming from BaseLayout. Each
+ * page supplies only its copy (`src/data/industry-pages.ts`); figures resolve
+ * from SERVICES, so no page can type an amount or a term of its own.
+ *
+ * Band sources (Ling, 22-23 Oct 2026):
+ *   hero ............ TF-00 header + TF-01 still (blackstone.com/financial-advisors)
+ *   what's your case . blackstone.com/pws/essentials-of-private-markets accordion
+ *   products ........ the service pages' "When X isn't the right fit" cards
+ *   blog ............ the shared BlogSlider
+ *   faq ............. the service pages' FAQ band
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSlider from '@/components/BlogSlider.astro';
+import Media from '@/components/Media.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { INDUSTRY_STILLS } from '@/data/industry-stills';
+import { SERVICES } from '@/data/services';
+import type { IndustryPageContent } from '@/data/industry-pages';
+import { getPublicPosts } from '@/lib/blog';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
+import '@/styles/mca.css';
+import '@/styles/industry.css';
+
+type Props = { content: IndustryPageContent };
+
+const { content } = Astro.props;
+
+/** The hero still is the sector's own photograph — the same file the home
+    Sectors band and the /industries index card use (Ling, 23 Oct 2026), so a
+    page and its card can never show two different pictures. */
+const heroStill = INDUSTRY_STILLS[content.slug];
+
+const service = (slug: string) => {
+  const found = SERVICES.find((s) => s.slug === slug && s.spec);
+  if (!found) throw new Error(`Industry page "${content.slug}": missing spec for ${slug}`);
+  return found;
+};
+
+/** Accordion rows: name, amount range and term all read from SERVICES. */
+const situations = content.situations.map((item) => {
+  const svc = service(item.slug);
+  const terms = svc.spec!.terms;
+  return {
+    ...item,
+    product: svc.name,
+    range: svc.spec!.amounts,
+    term: `${terms.charAt(0).toLowerCase()}${terms.slice(1)}`,
+  };
+});
+
+const productCards = content.products.map(({ slug, fit }) => ({ service: service(slug), fit }));
+
+const published = await getPublicPosts();
+/** Published posts only, the note's relevance order. Drafts stay out. */
+const blogSlides = content.blogIds
+  .map((id) => published.find((post) => post.id === id))
+  .filter((post): post is (typeof published)[number] => Boolean(post));
+
+const faqs = content.faqs;
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Industries', path: '/industries' },
+    { name: content.h1, path: `/industries/${content.slug}` },
+  ]),
+  faqSchema(faqs),
+  ...productCards.map(({ service: svc }) =>
+    serviceSchema({ name: svc.name, summary: svc.summary, slug: svc.slug }),
+  ),
+];
+---
+
+<BaseLayout
+  title={content.h1}
+  description={content.description}
+  schema={schema}
+  disclosure={PAGE_DISCLOSURE}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  {/* 1 page header — blackstone.com/financial-advisors: H1 cols 1-9, standfirst
+       cols 12-16, no stats. Ling 23 Oct: the H1 and the standfirst appear
+       together (stagger 0) and the still is always visible — no reveal on it. */}
+  <section
+    class="ind-hero"
+    aria-labelledby="page-hero-heading"
+    data-band="light"
+    data-ind-section="header"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
+    <div class="container-site">
+      <div class="ind-grid ind-hero-grid">
+        <h1 id="page-hero-heading" class="ind-h1" data-reveal>{content.h1}</h1>
+        <p class="ind-body ind-standfirst" data-reveal>{content.standfirst}</p>
+        <ArrowButton class="ind-hero-apply" href="/apply" label="Apply for funding" data-reveal />
+        <div class="ind-hero-media">
+          <Media
+            image={heroStill.image}
+            alt={heroStill.imageAlt}
+            intent={heroStill.imageIntent}
+            ratio="5 / 2"
+            sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 2 what's your case — blackstone.com/pws/essentials-of-private-markets, the
+       "Explore the Essentials" accordion. At most one row open per list — the
+       shared accordion script enforces it. */}
+  <section
+    class="ind-band ind-band--dark ind-case"
+    aria-labelledby="situations-heading"
+    data-band="dark"
+    data-ind-section="situations"
+    data-reveal-root
+    data-accordion
+  >
+    <div class="container-site">
+      <div class="ind-case-head" data-reveal>
+        <Eyebrow>{content.situationsLabel}</Eyebrow>
+        <h2 id="situations-heading" class="ind-case-claim">{content.situationsHeading}</h2>
+      </div>
+
+      <ul class="ind-case-list" data-reveal>
+        {
+          situations.map((item, i) => (
+            <li class="ind-case-item" data-acc-item>
+              <h3 class="ind-case-h">
+                <button
+                  type="button"
+                  class="ind-case-trigger"
+                  id={`ind-case-trigger-${i}`}
+                  aria-expanded="false"
+                  aria-controls={`ind-case-panel-${i}`}
+                  data-acc-trigger
+                >
+                  <span class="ind-case-question">{item.if}</span>
+                  <span class="ind-case-caret" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none">
+                      <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div class="ind-case-panel" id={`ind-case-panel-${i}`} role="region" aria-labelledby={`ind-case-trigger-${i}`}>
+                <div class="ind-case-panel-inner">
+                  <div class="ind-case-body">
+                    <p class="ind-case-means">
+                      <span class="ind-case-means-label">What it means for your cash</span>
+                      {item.means}
+                    </p>
+                    <div class="ind-case-product">
+                      <h4 class="ind-case-name">{item.product}</h4>
+                      <p class="ind-case-why">{item.why}</p>
+                      <dl class="ind-case-facts">
+                        <div>
+                          <dt>Range</dt>
+                          <dd>{item.range}</dd>
+                        </div>
+                        <div>
+                          <dt>Term</dt>
+                          <dd>{item.term}</dd>
+                        </div>
+                      </dl>
+                      <a class="ind-case-link" href={`/services/${item.slug}`}>
+                        <span>See {item.product}</span>
+                        <CircleArrow />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* 3 three products — the service pages' cards: title, one line, link. */}
+  <section
+    class="ind-band ind-products-band"
+    aria-labelledby="products-heading"
+    data-band="light"
+    data-ind-section="products"
+    data-reveal-root
+  >
+    <div class="container-site">
+      <div class="mca-shell">
+        <div class="mca-block-head" data-reveal>
+          <Eyebrow>{content.productsLabel}</Eyebrow>
+          <h2 id="products-heading">{content.productsHeading}</h2>
+        </div>
+      </div>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+        {
+          productCards.map(({ service: svc, fit }) => (
+            <article class="mca-card">
+              <h3 class="mca-card-title">{svc.name}</h3>
+              <p class="mca-card-body">{fit}</p>
+              <a class="mca-card-link" href={`/services/${svc.slug}`}>
+                <span class="mca-card-link-label">See {svc.name}</span>
+                <span class="mca-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 4 blog — the shared BlogSlider (same component as the service pages). */}
+  <BlogSlider
+    posts={blogSlides}
+    label={`${content.name} funding articles`}
+    bandClass="ind-band ind-blog-band"
+    sectionKey="ind"
+  />
+
+  {/* 5 faq — the service pages' FAQ band. */}
+  <section
+    class="ind-band ind-faq-band"
+    aria-labelledby="faq-heading"
+    data-band="light"
+    data-ind-section="faq"
+    data-reveal-root
+  >
+    <div class="container-site">
+      <div class="mca-shell mca-faq-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="faq-heading">{content.faqHeading}</h2>
+        </div>
+      </div>
+      <div class="mca-shell">
+        <div class="mca-faq-list" data-accordion data-reveal>
+          {
+            faqs.map((item, i) => (
+              <div class="mca-faq-item" data-acc-item>
+                <h3>
+                  <button
+                    type="button"
+                    class="mca-faq-trigger"
+                    aria-expanded="false"
+                    aria-controls={`ind-faq-panel-${i}`}
+                    id={`ind-faq-trigger-${i}`}
+                    data-acc-trigger
+                  >
+                    <span>{item.q}</span>
+                    <span class="mca-faq-caret" aria-hidden="true">
+                      <span class="mca-faq-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none" class="mca-faq-caret-svg">
+                          <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
+                </h3>
+                <div class="mca-acc-panel" id={`ind-faq-panel-${i}`} role="region" aria-labelledby={`ind-faq-trigger-${i}`}>
+                  <div class="mca-acc-inner">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+  </script>
+</BaseLayout>

@@ -1,0 +1,304 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSlider from '@/components/BlogSlider.astro';
+import Media from '@/components/Media.astro';
+import consolidationImage from '@/assets/images/services/consolidation-of-positions.webp';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
+import '@/styles/consolidation-of-positions.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
+
+const published = await getPublicPosts();
+/** Published consolidation posts only, most relevant first. Drafts stay out. */
+const CONS_BLOG_IDS = [
+  'consolidation-of-positions-stacked-advances',
+  'merchant-cash-advance-vs-business-term-loan',
+  'what-your-bank-statements-say',
+  'how-to-read-a-factor-rate',
+  '24-48-hour-funding-checklist',
+] as const;
+const blogSlides = CONS_BLOG_IDS.map((id) => published.find((post) => post.id === id)).filter(
+  (post): post is (typeof published)[number] => Boolean(post),
+);
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'Established businesses seeking structured financing for growth or operations.',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$10,000 – $2,000,000',
+  },
+  {
+    label: 'Terms',
+    value: '6 – 36 months',
+  },
+  {
+    label: 'Requirements',
+    value: '6+ months in business',
+  },
+  {
+    label: 'Requirements',
+    value: '$15K+ monthly revenue',
+  },
+  {
+    label: 'Requirements',
+    value: '550+ credit score',
+  },
+];
+
+const helps = [
+  {
+    title: 'Replacing several daily payments with one',
+    body: 'Each advance takes its own bite. Consolidation pays those positions off and rolls them into a single payment.',
+  },
+  {
+    title: 'Lowering what leaves the account each day or week',
+    body: 'A single position can be sized against your sales, so the total coming out is easier to live with than the stack. Falcon clients save 30%–50% on average on their daily or weekly payments.',
+  },
+  {
+    title: 'Freeing up cash flow for operations',
+    body: 'Money that was servicing four payments can go back into stock, payroll and the work that earns.',
+  },
+  {
+    title: 'Getting off the stacking treadmill',
+    body: 'Taking a new advance to cover an old one is how the stack grows. One position ends that cycle.',
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If you only have one position',
+    body: 'Restructuring a single advance into a new one mostly adds cost. A line of credit or a term loan is a cleaner way to change how you pay.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: 'If the payment is already comfortable and you need new money',
+    body: 'When the current schedule is not hurting, the real need is capital. A term loan delivers it with its own schedule.',
+    linkLabel: 'Business Term Loan',
+    href: '/services/business-term-loan',
+  },
+  {
+    title: 'If the costs are planned and repeating',
+    body: 'Rent, payroll and regular inventory come round on a schedule. A line of credit lets you draw for each one and pay for what you use.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Share your current positions',
+    body: 'Apply online and list your open advances or loans, including balances and payment amounts.',
+    note: 'You provide: recent bank statements and the details of each position — funder, balance and what it takes each day or week.',
+  },
+  {
+    num: '02',
+    title: 'Get a consolidation plan',
+    body: 'A Falcon consolidation specialist models a single position against your sales.',
+    note: 'You get: a call about the new amount, the new schedule and the full cost, before anything is signed.',
+  },
+  {
+    num: '03',
+    title: 'Consolidate and move to one payment',
+    body: 'Once you are approved, your existing positions are paid off or restructured and you move to one payment.',
+    note: 'You see: the new position, the new schedule and the full cost, all spelled out on the agreement.',
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = SERVICE_FAQS['consolidation-of-positions'];
+---
+
+<BaseLayout title="Consolidation of Positions" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="cons-hero" aria-labelledby="page-hero-heading" data-band="light" data-cons-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="cons-shell" data-reveal>
+        <div class="cons-hero-inner">
+          <h1 id="page-hero-heading" class="cons-hero-title">Consolidation of Positions</h1>
+          <div class="cons-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="cons-stat">
+                  <p class="cons-stat-label">{stat.label}</p>
+                  <p class="cons-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="cons-hero-lead">
+            Several daily payments become one. That is the whole idea — one position, one remittance, sized to what the business actually brings in.
+          </p>
+          <div class="cons-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cons-band cons-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-cons-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="cons-shell cons-helps-head" data-reveal>
+        <div class="cons-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When consolidation is the right fit.</h2>
+        </div>
+      </div>
+      <div class="cons-shell cons-helps-split" data-reveal>
+        <div class="cons-helps-image">
+          <Media
+            image={consolidationImage}
+            intent="Navy portfolio and pen beside a calculator and one stack of paper, skyline through the window"
+            alt="A navy portfolio and a pen on a desk beside a gold calculator, a single stack of paper and a city skyline through the window."
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="cons-helps-list">
+          {
+            helps.map((item) => (
+              <article class="cons-help">
+                <h3 class="cons-help-title">{item.title}</h3>
+                <p class="cons-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="cons-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="cons-helps-tape-track" data-cons-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="cons-helps-tape-item" data-cons-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="cons-band cons-process" aria-labelledby="process-heading" data-band="light" data-cons-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="cons-shell cons-process-head" data-reveal>
+        <div class="cons-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to one payment.</h2>
+        </div>
+      </div>
+      <div class="cons-shell cons-cards cons-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="cons-card cons-step">
+              <p class="cons-step-num">{step.num}</p>
+              <h3 class="cons-card-title">{step.title}</h3>
+              <p class="cons-card-body">{step.body}</p>
+              <p class="cons-card-body cons-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="cons-shell" data-reveal>
+        <div class="cons-cta cons-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cons-band cons-faq" aria-labelledby="cons-faq-heading" data-band="light" data-cons-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="cons-shell cons-faq-head" data-reveal>
+        <div class="cons-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="cons-faq-heading">Consolidation questions</h2>
+        </div>
+      </div>
+      <div class="cons-shell">
+      <FaqList items={faqs} idPrefix="cons" class="cons-faq-list" data-reveal />
+      </div>
+    </div>
+  </section>
+
+  <section class="cons-band cons-fit" aria-labelledby="fit-heading" data-band="light" data-cons-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="cons-shell cons-fit-head" data-reveal>
+        <div class="cons-block-head">
+          <Eyebrow>When consolidation isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            Consolidation exists to fix a stack. If there is no stack, there is usually nothing to fix. Here are three situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="cons-shell cons-cards cons-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="cons-card">
+              <h3 class="cons-card-title">{item.title}</h3>
+              <p class="cons-card-body">{item.body}</p>
+              <a class="cons-card-link" href={item.href}>
+                <span class="cons-card-link-label">{item.linkLabel}</span>
+                <span class="cons-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <BlogSlider
+    posts={blogSlides}
+    label="Consolidation of positions articles"
+    bandClass="cons-band cons-blog"
+    sectionKey="cons"
+  />
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-cons-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-cons-tape]').forEach(arm);
+  </script>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+/**
+ * Auto Services industry page (auto-services). Copy contract: nio rio Notion
+ * "Auto Services industry page – content outline (stage 1)" (402eacd0-19c7-8115-85f9-d94155fe8d5a), approved 23 Oct 2026.
+ *
+ * Copy lives in `src/data/industry-pages.ts`; the five bands are the shared
+ * `IndustryPage` component, which is the approved retail page's build.
+ */
+import IndustryPage from '@/components/IndustryPage.astro';
+import { INDUSTRY_PAGES } from '@/data/industry-pages';
+
+const content = INDUSTRY_PAGES['auto-services'];
+---
+
+<IndustryPage content={content} />

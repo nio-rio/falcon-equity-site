@@ -1,0 +1,11 @@
+At Gambit trial webfonts (Light, Regular, Semibold, Bold).
+
+These files are for preview only. The trial glyph set is limited to A–Z,
+a–z, 0–9, space, and ! , - . : ; ?. Missing characters fall back to Manrope.
+
+TODO: buy the At Gambit webfont license before launch.
+
+Archivo variable (latin + latin-ext, weight axis 100–900).
+SIL Open Font License 1.1 — see OFL-Archivo.txt.
+Used for body, nav, buttons, labels, and other sans roles.
+The latin file is preloaded (regular lives on the weight axis).

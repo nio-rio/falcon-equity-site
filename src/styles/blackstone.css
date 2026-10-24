@@ -1,0 +1,3060 @@
+/* Site chrome (header, footer, grid, SiteCta). Loaded after global.css.
+   Canonical spec: /DESIGN-SYSTEM.md. Tokens live in tokens.css.
+   Leave .btn-outline-dark in global.css. */
+@import './button-040.css';
+
+html {
+  scroll-padding-top: var(--bx-header);
+}
+
+/* 1280px content + matching side margins. At a 1440 viewport that is 80px + 1280 + 80px.
+   Width is content-box equivalent via border-box padding: do not also shrink width by 2*margin. */
+.container-site {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--bx-max) + 2 * var(--bx-margin));
+  margin-inline: auto;
+  padding-inline: var(--bx-margin);
+}
+
+.section {
+  padding-block: var(--bx-section);
+}
+
+/* Home bands + global CTA. Different-bg neighbors keep full pad on both
+   sides. Same-bg neighbors collapse the follower's top to the stacked token. */
+[data-band] {
+  padding-block: var(--pilot-section-y);
+}
+
+[data-band='light'] + [data-band='light'],
+[data-band='light'] + script + [data-band='light'],
+[data-band='dark'] + [data-band='dark'],
+[data-band='dark'] + script + [data-band='dark'] {
+  padding-top: var(--pilot-section-y-stack);
+}
+
+.media,
+.image-slot {
+  display: block;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--color-tint);
+  aspect-ratio: var(--media-ratio, 16 / 9);
+  border-radius: 0;
+}
+
+.media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media--labeled,
+.image-slot--labeled {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: var(--bx-lilac-light);
+}
+
+.media-label,
+.image-slot-label {
+  max-width: 28rem;
+  font-size: var(--bx-fs-12);
+  line-height: 1.4;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.statement-media .media,
+.what-we-do-media .media,
+.insights-cta-media .media {
+  height: 100%;
+  min-height: inherit;
+  aspect-ratio: auto;
+}
+
+.bx-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-40);
+}
+
+@media (min-width: 1024px) {
+  .bx-grid {
+    row-gap: var(--bx-space-48);
+  }
+}
+
+.bx-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Span sets only grid-column-end so it composes with start. Never use the
+   `grid-column: span N` shorthand — it resets start to `span N` and collapses
+   the item to one track when paired with bx-*-start-*. Class names are
+   unprefixed (bx-lg-span-6, not lg:bx-span-6) so Tailwind v4 cannot drop them. */
+.bx-span-1 { grid-column-end: span 1; }
+.bx-span-2 { grid-column-end: span 2; }
+.bx-span-3 { grid-column-end: span 3; }
+.bx-span-4 { grid-column-end: span 4; }
+.bx-span-5 { grid-column-end: span 5; }
+.bx-span-6 { grid-column-end: span 6; }
+.bx-span-7 { grid-column-end: span 7; }
+.bx-span-8 { grid-column-end: span 8; }
+.bx-span-9 { grid-column-end: span 9; }
+.bx-span-10 { grid-column-end: span 10; }
+.bx-span-11 { grid-column-end: span 11; }
+.bx-span-12,
+.bx-full { grid-column: 1 / -1; }
+
+.bx-start-1 { grid-column-start: 1; }
+.bx-start-2 { grid-column-start: 2; }
+.bx-start-3 { grid-column-start: 3; }
+.bx-start-4 { grid-column-start: 4; }
+.bx-start-5 { grid-column-start: 5; }
+.bx-start-6 { grid-column-start: 6; }
+.bx-start-7 { grid-column-start: 7; }
+.bx-start-8 { grid-column-start: 8; }
+.bx-start-9 { grid-column-start: 9; }
+.bx-start-10 { grid-column-start: 10; }
+.bx-start-11 { grid-column-start: 11; }
+.bx-start-12 { grid-column-start: 12; }
+
+@media (min-width: 768px) {
+  .bx-md-span-1 { grid-column-end: span 1; }
+  .bx-md-span-2 { grid-column-end: span 2; }
+  .bx-md-span-3 { grid-column-end: span 3; }
+  .bx-md-span-4 { grid-column-end: span 4; }
+  .bx-md-span-5 { grid-column-end: span 5; }
+  .bx-md-span-6 { grid-column-end: span 6; }
+  .bx-md-span-7 { grid-column-end: span 7; }
+  .bx-md-span-8,
+  .bx-md-full { grid-column: 1 / -1; }
+  .bx-md-start-1 { grid-column-start: 1; }
+  .bx-md-start-2 { grid-column-start: 2; }
+  .bx-md-start-3 { grid-column-start: 3; }
+  .bx-md-start-4 { grid-column-start: 4; }
+  .bx-md-start-5 { grid-column-start: 5; }
+  .bx-md-start-6 { grid-column-start: 6; }
+  .bx-md-start-7 { grid-column-start: 7; }
+  .bx-md-start-8 { grid-column-start: 8; }
+}
+
+@media (min-width: 1024px) {
+  .bx-lg-span-1 { grid-column-end: span 1; }
+  .bx-lg-span-2 { grid-column-end: span 2; }
+  .bx-lg-span-3 { grid-column-end: span 3; }
+  .bx-lg-span-4 { grid-column-end: span 4; }
+  .bx-lg-span-5 { grid-column-end: span 5; }
+  .bx-lg-span-6 { grid-column-end: span 6; }
+  .bx-lg-span-7 { grid-column-end: span 7; }
+  .bx-lg-span-8 { grid-column-end: span 8; }
+  .bx-lg-span-9 { grid-column-end: span 9; }
+  .bx-lg-span-10 { grid-column-end: span 10; }
+  .bx-lg-span-11 { grid-column-end: span 11; }
+  .bx-lg-span-12,
+  .bx-lg-full { grid-column: 1 / -1; }
+  .bx-lg-start-1 { grid-column-start: 1; }
+  .bx-lg-start-2 { grid-column-start: 2; }
+  .bx-lg-start-3 { grid-column-start: 3; }
+  .bx-lg-start-4 { grid-column-start: 4; }
+  .bx-lg-start-5 { grid-column-start: 5; }
+  .bx-lg-start-6 { grid-column-start: 6; }
+  .bx-lg-start-7 { grid-column-start: 7; }
+  .bx-lg-start-8 { grid-column-start: 8; }
+  .bx-lg-start-9 { grid-column-start: 9; }
+  .bx-lg-start-10 { grid-column-start: 10; }
+  .bx-lg-start-11 { grid-column-start: 11; }
+  .bx-lg-start-12 { grid-column-start: 12; }
+}
+
+/* Default eyebrow: uppercase label + short rule to the RIGHT.
+   Centered headings: rule ABOVE the label. */
+.on-dark .eyebrow,
+.site-footer .eyebrow {
+  color: inherit;
+}
+
+/* Tech-and-innovations section header: 10-col H2, 40px eyebrow-to-H2, 48px H2-to-body
+   (desktop row-gap). Body starts ~col 7, spans ~6. Circle-arrow 40px below body. */
+.section-head h2 {
+  margin: 0;
+}
+
+.section-body,
+.section-lead {
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.on-dark .section-body,
+.on-dark .section-lead {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.section-cta {
+  margin-top: var(--bx-space-40);
+}
+
+/* Same-column header + body (feature splits, dark CTAs) still need the 48px H2-to-body gap. */
+.section-stack > .section-head + .section-body,
+.section-stack > .section-head + .section-cta {
+  margin-top: var(--bx-space-48);
+}
+
+.link,
+.prose a:not(.btn-primary):not(.btn-accent):not(.btn-on-dark):not(.btn-outline-light):not(.btn-outline-dark) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: background-size 350ms ease;
+}
+
+.link:hover,
+.link:focus-visible,
+.prose a:not(.btn-primary):not(.btn-accent):not(.btn-on-dark):not(.btn-outline-light):not(.btn-outline-dark):hover,
+.prose a:not(.btn-primary):not(.btn-accent):not(.btn-on-dark):not(.btn-outline-light):not(.btn-outline-dark):focus-visible {
+  background-size: 100% 1px;
+  text-decoration: none;
+}
+
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  text-decoration: none;
+  transition: background-size 350ms ease;
+}
+
+.link-draw.is-on,
+a:hover .link-draw,
+a:focus-visible .link-draw,
+.group:hover .link-draw,
+.group:focus-within .link-draw {
+  background-size: 100% 1px;
+}
+
+.circle-arrow {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+.circle-arrow svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.arrow-cta:hover .circle-arrow,
+.arrow-cta:focus-visible .circle-arrow,
+.explore-row:hover .circle-arrow,
+.explore-row:focus-visible .circle-arrow {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.on-dark .arrow-cta:hover .circle-arrow,
+.on-dark .arrow-cta:focus-visible .circle-arrow,
+.arrow-cta--on-dark:hover .circle-arrow,
+.arrow-cta--on-dark:focus-visible .circle-arrow {
+  background: #fff;
+  border-color: #fff;
+  color: var(--color-ink);
+}
+
+.arrow-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.arrow-cta-label {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.explore-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.explore-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color 250ms ease;
+}
+
+.explore-row:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.explore-list:hover .explore-row,
+.explore-list:focus-within .explore-row {
+  color: var(--color-muted);
+}
+
+.explore-list .explore-row:hover,
+.explore-list .explore-row:focus-visible {
+  color: var(--color-ink);
+}
+
+.on-dark .explore-row {
+  border-color: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+
+.on-dark .explore-list:hover .explore-row,
+.on-dark .explore-list:focus-within .explore-row {
+  color: rgb(255 255 255 / 0.45);
+}
+
+.on-dark .explore-list .explore-row:hover,
+.on-dark .explore-list .explore-row:focus-visible {
+  color: #fff;
+}
+
+.explore-row-copy {
+  min-width: 0;
+}
+
+.explore-row-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2.25rem);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+.explore-row-meta {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* Home hero — Blackstone #slide-1-2: black band, split H1, image, caption row. */
+.home-hero {
+  position: relative;
+  background: var(--bx-black);
+  color: #fff;
+  padding-block: 3rem 4rem;
+}
+
+.home-hero h1,
+.home-hero h2,
+.home-hero p {
+  color: #fff;
+}
+
+.home-hero h1 {
+  font-weight: 300;
+  max-width: none;
+  /* Span-7 at 1024 is ~541px; clamp so “Fuel success with” stays one line. */
+  font-size: clamp(2rem, 0.9rem + 4.2vw, 4.25rem);
+  line-height: 1.05;
+}
+
+.home-hero-line1,
+.home-hero-line2 {
+  display: block;
+}
+
+.home-hero-aside {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.home-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.home-hero-media .media {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-width: 0;
+  aspect-ratio: auto;
+}
+
+.home-hero-media img,
+.home-hero-media .media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 30%;
+}
+
+.home-hero-below {
+  margin-top: 2.75rem;
+  align-items: end;
+}
+
+.home-hero-below h2 {
+  color: #fff;
+}
+
+.home-hero-below-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home-hero-below-copy p {
+  margin: 0;
+  color: rgb(255 255 255 / 0.88);
+}
+
+@media (min-width: 768px) {
+  .home-hero {
+    padding-block: 4rem 5.5rem;
+  }
+
+  .home-hero-media {
+    aspect-ratio: 21 / 9;
+    min-height: 22rem;
+  }
+
+  .home-hero-top {
+    align-items: end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero {
+    padding-block: 5rem 7.5rem;
+  }
+
+  .home-hero-line1,
+  .home-hero-line2 {
+    white-space: nowrap;
+  }
+
+  .home-hero-line2 {
+    padding-left: calc(100% / 7);
+  }
+
+  .home-hero-aside {
+    padding-bottom: 0.35rem;
+  }
+
+  .home-hero-media {
+    margin-top: 3.5rem;
+    min-height: 28rem;
+  }
+
+  .home-hero-below {
+    margin-top: 3.25rem;
+  }
+}
+
+/* Site header — BXCI in-flow at the top, compact fixed after 2× height.
+   Hide on scroll down / show on scroll up (nav.ts, no GSAP). */
+.site-header {
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+  width: 100%;
+  overflow: visible;
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: #fff;
+  color: var(--bx-black);
+  --nav-copy: var(--bx-black);
+  --nav-bg: #fff;
+  --nav-highlight: var(--bx-slate-3);
+  --nav-rule: var(--bx-lilac-dark);
+  /* One ramp step off the white panel, not a card that competes with it. */
+  --nav-widget-bg: var(--bx-lilac);
+  --nav-widget-copy: var(--bx-black);
+  --nav-widget-on: var(--bx-lilac);
+}
+
+.site-header.is-fixed {
+  height: calc(var(--nav-bar-h) + 2 * var(--nav-pad-top));
+}
+
+/* Do not set overflow:hidden on html/body: that makes a scrolled
+   document the containing block for position:fixed, so the bar
+   vanishes. Blackstone pins #masthead with .has-scroll-lock and
+   stops page scroll in JS. */
+html.has-scroll-lock {
+  overscroll-behavior: none;
+}
+
+html.has-scroll-lock body {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+html.has-scroll-lock [data-nav-inner] {
+  touch-action: pan-y;
+}
+
+.site-header.is-color-theme-dark {
+  background: var(--bx-black);
+  color: #fff;
+  --nav-copy: #fff;
+  --nav-bg: var(--bx-black);
+  --nav-highlight: var(--bx-highlight-dark);
+  --nav-rule: var(--white-a16);
+  --nav-widget-bg: var(--bx-black);
+  --nav-widget-copy: #fff;
+  --nav-widget-on: var(--bx-martinique-darker);
+}
+
+.site-header,
+.site-header__container,
+.site-header.is-open .site-header__container,
+.site-header.is-fixed .site-header__container,
+.site-header.is-color-theme-dark .site-header__container {
+  border: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.site-header__container,
+.site-header [data-nav-bar] {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--nav-bar-h);
+  padding-block: var(--nav-pad-top);
+  background: var(--nav-bg);
+  color: var(--nav-copy);
+  isolation: auto;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.site-header.is-fixed [data-nav-bar] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding-block: var(--nav-pad-fixed);
+  background: var(--nav-bg);
+}
+
+.site-header.is-fixed.is-hidden [data-nav-bar] {
+  transform: translateY(-100%);
+}
+
+.site-header.is-fixed.is-shown [data-nav-bar] {
+  transform: translateY(0);
+  transition-duration: 0.6s;
+}
+
+.site-header.no-anim [data-nav-bar] {
+  transition: none;
+}
+
+html.has-scroll-lock .site-header [data-nav-bar] {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header [data-nav-bar] {
+    transition: none;
+  }
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bx-space-24);
+  width: 100%;
+  min-height: var(--nav-bar-h);
+}
+
+@media (min-width: 64em) {
+  .site-header__inner {
+    height: var(--nav-bar-h);
+  }
+}
+
+/* 23.4375–48em `.container-site` is 20.5/23rem, too narrow for logo +
+   compact Apply + hamburger. Uncap the bar and match the drawer inset
+   to --bx-margin so the open panel still lines up with the logo. Below
+   375px keep the cap — Apply is in the drawer and the logo stays with
+   the list. */
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
+  .site-header__inner.container-site {
+    max-width: none;
+  }
+}
+
+/* Hamburger layouts keep brand | nav | tools. The closed nav is 0-wide
+   but still consumes the 24px flex gap on both sides, which clips the
+   hamburger at 320. Drop the unused gaps; space-between does the rest. */
+@media (max-width: 89.9375em) {
+  .site-header__inner {
+    gap: 0;
+  }
+}
+
+.site-header__brand {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: center;
+  min-width: max-content;
+}
+
+.site-header__back {
+  appearance: none;
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bx-space-8);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.site-header__back svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
+.site-header__logo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: center;
+  box-sizing: content-box;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  overflow: visible;
+}
+
+.site-header__logo:hover,
+.site-header__logo:focus-visible {
+  opacity: 0.85;
+}
+
+/* Live falconequity.ai: SVG mark + HTML wordmark in At Gambit. */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--logo-nav-gap);
+  color: inherit;
+}
+
+.brand-logo--footer {
+  gap: var(--logo-footer-gap);
+}
+
+.brand-logo__mark {
+  display: block;
+  flex: none;
+  width: var(--logo-mark);
+  height: var(--logo-mark);
+}
+
+.brand-logo__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--logo-word);
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.brand-logo--footer .brand-logo__wordmark {
+  font-weight: 400;
+}
+
+.site-header__nav {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: center;
+}
+
+.site-header__tools {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+/* Phone → Apply: extra 0.7em only while the phone is actually on the bar. */
+@media (min-width: 50em) {
+  .site-header__tel--bar + .site-header__apply--bar {
+    margin-inline-start: 0.7em;
+  }
+}
+
+.site-header__tel {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Ling CTA rule: Apply stays on the bar as long as it fits. Drop the
+   phone first, then compact Apply next to the hamburger, then move
+   Apply into the menu only when logo + Apply + hamburger cannot fit.
+   Phone → menu below 50em. Extra-compact Apply from 375px. Compact
+   full-label 33–38em. Apply → menu below 375px. Phone always remains
+   in the open drawer. */
+.site-header__tel--bar {
+  display: none;
+}
+
+@media (min-width: 50em) {
+  .site-header__tel--bar {
+    display: inline-flex;
+  }
+}
+
+.site-header__tel-label {
+  color: inherit;
+  font: inherit;
+}
+
+.site-header__tel:hover,
+.site-header__tel:focus-visible {
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  box-shadow: none;
+}
+
+.site-header__apply {
+  display: none;
+}
+
+.button-040__text-compact {
+  display: none;
+}
+
+/* Extra-compact “Apply” on the bar from 375px (logo + CTA + hamburger).
+   Drop the arrow circle so the full word stays readable in ~70px.
+   Do not set `translate` on the text wrap — that override beats Ling's
+   hover slide and leaked through every wider breakpoint.
+   Label type is 0.875rem (14px), not 0.75rem: Ling's floor is "no text under
+   14px" (2026-10-23, raised on /resources/business-loan-calculator). Measured at
+   375 / 390 / 430 / 527: pill 51 -> 59px wide, 11px clear of the logo at the
+   tightest, header stays 112px and no horizontal overflow. */
+@media (min-width: 23.4375em) {
+  .site-header .site-header__apply--bar {
+    display: inline-flex;
+    font-size: 0.875rem;
+    --button-040-height: 2.5em;
+    --button-040-padding-x: 0.85em;
+    --button-040-border-radius: 2.5em;
+  }
+
+  .site-header__tools {
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 23.4375em) and (max-width: 32.99em) {
+  .site-header .site-header__apply--bar {
+    --button-040-translate-x: 0;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-full {
+    display: none;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-compact {
+    display: inline;
+  }
+
+  .site-header .site-header__apply--bar .button-040__icon-wrap {
+    display: none;
+  }
+}
+
+/* Full-label compact Apply from 33em (logo + Apply + hamburger).
+   Arrow is visible: leave 040 internals (ghost icon, translated pill,
+   duplicate circle, hover translate) to button-040.css. */
+@media (min-width: 33em) {
+  .site-header .site-header__apply--bar {
+    font-size: 0.875rem;
+    --button-040-height: 2.5em;
+    --button-040-padding-x: 0.85em;
+    --button-040-border-radius: 2.5em;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-full {
+    display: inline;
+  }
+
+  .site-header .site-header__apply--bar .button-040__text-compact {
+    display: none;
+  }
+
+  .site-header .site-header__apply--bar .button-040__icon-wrap {
+    display: flex;
+  }
+
+  .site-header__tools {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 38em) {
+  .site-header .site-header__apply--bar {
+    font-size: 1.0625rem;
+    --button-040-height: 3em;
+    --button-040-padding-x: 1.25em;
+    --button-040-border-radius: 3em;
+  }
+}
+
+.site-header__cta--menu {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bx-space-16);
+  margin-top: 0;
+  padding: var(--bx-space-16) 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--nav-rule);
+  background: var(--nav-bg);
+}
+
+.site-header__cta--menu .site-header__tel + .site-header__apply {
+  margin-inline-start: 0;
+}
+
+.site-header__cta--menu .site-header__apply {
+  display: inline-flex;
+}
+
+@media (min-width: 23.4375em) {
+  .site-header__cta--menu .site-header__apply {
+    display: none;
+  }
+
+  /* Apply lives on the bar from 375px, and the phone moved to the drawer's foot,
+     so the top block has nothing left to show — drop it rather than leave an
+     empty padded band with a rule under it. */
+  .site-header__cta--menu {
+    display: none;
+  }
+}
+
+.site-header__cta--menu .site-header__tel {
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+}
+
+.primary-nav__toggle {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 2.125rem;
+  height: 1.5rem;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.primary-nav__toggle svg {
+  display: block;
+  width: 2.125rem;
+  height: 1.5rem;
+}
+
+/* `.primary-nav__toggle svg` is more specific than a lone class, so both
+   icons used to stay `display:block` when closed and sit side by side. */
+.primary-nav__toggle svg.primary-nav__toggle-lines,
+.primary-nav__toggle svg.primary-nav__toggle-cross {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.primary-nav__toggle svg.primary-nav__toggle-cross,
+.primary-nav__toggle[aria-expanded='true'] svg.primary-nav__toggle-lines {
+  display: none;
+}
+
+.primary-nav__toggle svg.primary-nav__toggle-lines,
+.primary-nav__toggle[aria-expanded='true'] svg.primary-nav__toggle-cross {
+  display: block;
+}
+
+/* Overlay: blur(5px) + Martinique Darkest at .32 (`--ink-a32`). Header/panel stay opaque. */
+.primary-nav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: auto;
+  isolation: auto;
+  transform: none;
+  filter: none;
+  background-color: var(--bx-overlay);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.primary-nav__backdrop--hidden {
+  display: none;
+}
+
+.primary-nav__inner {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-top));
+  overflow: auto;
+  /* Same content inset as `.container-site` / the logo. */
+  padding-inline: max(var(--bx-margin), calc((100% - var(--bx-max)) / 2));
+  background: var(--nav-bg);
+  color: var(--nav-copy);
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* After the bar uncaps at 375px, keep the drawer on --bx-margin so
+   list items still share the logo’s left edge. */
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
+  .primary-nav__inner {
+    padding-inline: var(--bx-margin);
+  }
+}
+
+.primary-nav__inner.is-open {
+  display: block;
+  min-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-top));
+}
+
+.primary-nav__inner.is-drilled {
+  overflow: hidden;
+}
+
+.primary-nav__inner.is-drilled .site-header__cta--menu {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.primary-nav__inner.is-drilled .primary-nav__dropdown {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: auto;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.primary-nav__inner.is-drilled .primary-nav__dropdown-container {
+  height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.primary-nav__inner.is-drilled .primary-nav__dropdown-bg {
+  display: none;
+}
+
+.primary-nav__inner.is-drilled .primary-nav__lvl-2-wrap {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+  padding-inline: max(var(--bx-margin), calc((100% - var(--bx-max)) / 2));
+  background: var(--nav-bg);
+  color: var(--nav-copy);
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+/* Short windows (~500% zoom on an 800px-tall display) only have a sliver
+   of drawer. Pull the first link into view and keep the list scrollable. */
+@media (max-height: 12.5em) {
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2 {
+    padding-bottom: var(--bx-space-16);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2-item {
+    padding-top: var(--bx-space-8);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-2-item + .primary-nav__list-lvl-2-item {
+    margin-top: var(--bx-space-12);
+  }
+
+  .primary-nav__inner.is-drilled .primary-nav__list-lvl-3 {
+    margin-top: var(--bx-space-8);
+  }
+}
+
+@media (min-width: 23.4375em) and (max-width: 47.99em) {
+  .primary-nav__inner.is-drilled .primary-nav__lvl-2-wrap {
+    padding-inline: var(--bx-margin);
+  }
+}
+
+.site-header.is-fixed .primary-nav__inner {
+  max-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-fixed));
+}
+
+.site-header.is-fixed .primary-nav__inner.is-open {
+  min-height: calc(100dvh - var(--nav-bar-h) - 2 * var(--nav-pad-fixed));
+}
+
+.primary-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.primary-nav__list-item {
+  border-top: 1px solid var(--nav-rule);
+}
+
+.primary-nav__list-item-label {
+  white-space: nowrap;
+}
+
+.primary-nav__list-item-link {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bx-space-16);
+  width: 100%;
+  margin: 0;
+  padding: var(--bx-space-16) 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--bx-fs-16);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+}
+
+.primary-nav__list-item-icon {
+  flex-shrink: 0;
+  width: var(--bx-space-16);
+  height: var(--bx-space-16);
+  transition: transform 0.3s ease;
+}
+
+/* Ling (23 Oct): the tablet/mobile drawer rows are half again larger (16 → 24px),
+   and the phone sits at the end of the drawer instead of above the list. */
+@media (max-width: 89.9375em) {
+  .primary-nav__list-item-link {
+    font-size: var(--bx-fs-24);
+    line-height: 1.35;
+  }
+
+  .site-header__menu-foot {
+    padding: var(--bx-space-16) 0;
+    border-top: 1px solid var(--nav-rule);
+  }
+
+  .site-header__menu-foot .site-header__tel {
+    font-size: var(--bx-fs-24);
+    line-height: 1.35;
+    font-weight: 400;
+  }
+}
+
+/* Ling (23 Oct, follow-up): phones get 20px, not 24 — the +50% step stays for the
+   tablet drawer only. */
+@media (max-width: 47.9375em) {
+  .primary-nav__list-item-link {
+    font-size: var(--bx-fs-20);
+  }
+
+  .site-header__menu-foot .site-header__tel {
+    font-size: var(--bx-fs-20);
+  }
+}
+
+/* From 90em the nav is the inline bar, so the drawer's foot block would render as a
+   second phone number sitting in the middle of it. The bar's own
+   `.site-header__tel--bar` is the desktop phone. */
+@media (min-width: 90em) {
+  .site-header__menu-foot {
+    display: none;
+  }
+}
+
+.primary-nav__list-item-link[aria-expanded='true'] .primary-nav__list-item-icon {
+  transform: rotate(180deg);
+}
+
+.primary-nav__dropdown {
+  display: none;
+  pointer-events: none;
+}
+
+.primary-nav__dropdown-container {
+  position: relative;
+  overflow: hidden;
+  height: 0;
+}
+
+.primary-nav__dropdown-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--nav-bg);
+}
+
+.primary-nav__lvl-2-wrap {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  isolation: auto;
+  transform: none;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.primary-nav__list-lvl-2 {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--bx-space-40);
+}
+
+.primary-nav__list-lvl-2-item {
+  padding-top: var(--bx-space-32);
+  font-size: var(--bx-fs-20);
+}
+
+.primary-nav__list-lvl-2-item + .primary-nav__list-lvl-2-item {
+  margin-top: var(--bx-space-32);
+  border-top: 1px solid var(--nav-rule);
+}
+
+.primary-nav__list-lvl-2-link {
+  display: block;
+  color: inherit;
+  font-weight: 500;
+}
+
+.primary-nav__list-lvl-3 {
+  list-style: none;
+  margin: var(--bx-space-24) 0 0;
+  padding: 0;
+  font-size: var(--bx-fs-16);
+}
+
+.primary-nav__list-lvl-3-item + .primary-nav__list-lvl-3-item {
+  margin-top: var(--bx-space-16);
+}
+
+.primary-nav__list-lvl-3-link {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.primary-nav__list-lvl-3-link:hover,
+.primary-nav__list-lvl-3-link:focus-visible,
+.primary-nav__list-lvl-3-link[aria-current='page'] {
+  background-size: 100% 1px;
+}
+
+/* Contact is a dialog opener, so it is a <button>; give it the anchor's box
+   and type so the two read identically in the menu. */
+button.primary-nav__list-lvl-3-link {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.primary-nav__list-lvl-2-item.has-nav-widget {
+  display: none;
+}
+
+.primary-nav-widget {
+  display: none;
+  background: var(--nav-widget-bg);
+  color: var(--nav-widget-copy);
+  /* The whole card is the link (Header.astro), so it carries the anchor's
+     reset and the pointer. No border: the surface step alone sets it apart. */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary-nav-widget:focus-visible {
+  outline: 2px solid var(--nav-widget-copy);
+  outline-offset: 2px;
+}
+
+.primary-nav-widget__media {
+  display: none;
+}
+
+.primary-nav-widget__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.primary-nav-widget__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--bx-space-24);
+  row-gap: var(--bx-space-32);
+}
+
+.primary-nav-widget__title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-20);
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  line-height: 1.5;
+  color: var(--nav-widget-copy);
+}
+
+.primary-nav-widget__content-inner > p:not(.primary-nav-widget__title) {
+  margin: var(--bx-space-16) 0 0;
+  font-size: var(--bx-fs-18);
+  line-height: 1.5;
+  color: var(--nav-widget-copy);
+  text-wrap: pretty;
+}
+
+.primary-nav-widget .eyebrow,
+.primary-nav-widget__eyebrow {
+  color: var(--nav-widget-copy);
+}
+
+.primary-nav-widget__cta {
+  flex-grow: 0;
+}
+
+.primary-nav-widget .arrow-cta {
+  color: var(--nav-widget-copy);
+}
+
+.primary-nav-widget .arrow-cta-label {
+  color: var(--nav-widget-copy);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+/* The CTA's hover-in belongs to the card now: pointing anywhere on it draws
+   the label's underline, which is the only affordance change the card has. */
+.primary-nav-widget:hover .arrow-cta-label,
+.primary-nav-widget:focus-visible .arrow-cta-label {
+  background-size: 100% 1px;
+}
+
+/* The circle stays ink-filled on this card in every state: the global
+   `.arrow-cta:hover .circle-arrow` must not re-tint it, or the arrow reads
+   white-on-white on the dark card. */
+.primary-nav-widget .circle-arrow,
+.primary-nav-widget .arrow-cta:hover .circle-arrow,
+.primary-nav-widget .arrow-cta:focus-visible .circle-arrow {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--nav-widget-copy);
+  border-color: var(--nav-widget-copy);
+  color: var(--nav-widget-on);
+}
+
+.primary-nav__list-item-link:focus-visible,
+.primary-nav__toggle:focus-visible,
+.site-header__logo:focus-visible,
+.site-header__apply:not(.button-040):focus-visible,
+.site-header__tel:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (min-width: 90em) {
+  .primary-nav {
+    --column-gap: var(--bx-space-88);
+  }
+
+  .primary-nav__toggle {
+    display: none;
+  }
+
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    align-items: stretch;
+    column-gap: var(--bx-space-24);
+  }
+
+  .site-header__brand,
+  .site-header__logo {
+    justify-self: start;
+    align-self: center;
+    min-width: max-content;
+  }
+
+  .site-header__back {
+    display: none;
+  }
+
+  .site-header__nav {
+    justify-content: center;
+    flex: none;
+    min-width: 0;
+    margin: 0;
+    align-self: stretch;
+  }
+
+  .site-header__tools {
+    margin-left: 0;
+    align-self: center;
+    justify-self: end;
+    min-width: max-content;
+  }
+
+  .site-header__apply--bar {
+    display: inline-flex;
+  }
+
+  .site-header__cta--menu {
+    display: none;
+  }
+
+  .primary-nav__inner,
+  .primary-nav__inner.is-open {
+    display: flex;
+    align-items: stretch;
+    position: static;
+    top: auto;
+    left: auto;
+    width: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    padding-inline: 0;
+    background: transparent;
+    height: 100%;
+  }
+
+  .primary-nav__list {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    height: 100%;
+    column-gap: var(--bx-space-24);
+    white-space: nowrap;
+  }
+
+  .primary-nav__list-item {
+    position: static;
+    display: flex;
+    align-items: center;
+    border-top: none;
+    padding: 0;
+    font-size: var(--bx-fs-16);
+  }
+
+  .primary-nav__list-item-link {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    gap: 0;
+    white-space: nowrap;
+  }
+
+  .primary-nav__list-item-label,
+  .site-header__tel-label {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 350ms ease;
+  }
+
+  .primary-nav__list-item-link:hover .primary-nav__list-item-label,
+  .primary-nav__list-item-link:focus-visible .primary-nav__list-item-label,
+  .primary-nav__list-item-link[aria-expanded='true'] .primary-nav__list-item-label,
+  .site-header__tel:hover .site-header__tel-label,
+  .site-header__tel:focus-visible .site-header__tel-label {
+    background-size: 100% 1px;
+  }
+
+  .primary-nav__list-item-icon {
+    width: var(--bx-space-12);
+    height: var(--bx-space-12);
+    margin-left: var(--bx-space-8);
+    vertical-align: -0.5px;
+  }
+
+  .primary-nav__dropdown {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .primary-nav__dropdown::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 0.75rem;
+    pointer-events: auto;
+  }
+
+  .primary-nav__dropdown-container {
+    pointer-events: auto;
+  }
+
+  .primary-nav__lvl-2-wrap {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--nav-copy);
+  }
+
+  .primary-nav__list-lvl-2 {
+    display: flex;
+    column-gap: var(--column-gap);
+    width: 100%;
+    max-width: var(--bx-max);
+    margin-inline: auto;
+    padding-inline: 0;
+    padding-bottom: var(--bx-space-48);
+    /* 1px hairline on --container-width, only while open. Light: Lilac Dark. */
+    border-top: 1px solid var(--nav-rule);
+  }
+
+  .primary-nav__list-lvl-2-item {
+    max-width: 20rem;
+    min-width: 5rem;
+    padding-top: var(--bx-space-48);
+    border-top: none;
+  }
+
+  .primary-nav__list-lvl-2-item + .primary-nav__list-lvl-2-item {
+    margin-top: 0;
+    border-top: none;
+  }
+
+  .primary-nav__list-lvl-2-item.has-two-column-list {
+    max-width: 36.5rem;
+  }
+
+  .has-two-column-list .primary-nav__list-lvl-3 {
+    column-count: 2;
+    column-gap: var(--column-gap);
+  }
+
+  .has-two-column-list .primary-nav__list-lvl-3-item {
+    break-inside: avoid;
+  }
+
+  .primary-nav__list-lvl-2-item.has-nav-widget {
+    display: block;
+    flex-grow: 1;
+    margin-left: auto;
+    max-width: 36.5rem;
+    padding-top: 0;
+  }
+
+  .primary-nav-widget {
+    display: flex;
+    min-height: 14.5rem;
+    height: 100%;
+  }
+
+  .primary-nav-widget__media {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .primary-nav-widget__media picture,
+  .primary-nav-widget__media img,
+  .primary-nav-widget__img {
+    display: block;
+    width: 12.5rem;
+    min-height: 12rem;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .primary-nav-widget__content {
+    align-items: flex-start;
+    flex: 1 0;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 90em) {
+  .primary-nav {
+    --column-gap: var(--bx-space-96);
+  }
+
+  .primary-nav__list-lvl-2-item.has-nav-widget {
+    max-width: 39rem;
+  }
+
+  .primary-nav-widget__content {
+    padding: var(--bx-space-32);
+  }
+
+  .primary-nav-widget__media picture,
+  .primary-nav-widget__media img,
+  .primary-nav-widget__img {
+    width: 14rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__container,
+  .primary-nav__list-item-icon,
+  .primary-nav__list-item-label,
+  .site-header__tel-label,
+  .primary-nav__list-lvl-3-link {
+    transition: none;
+  }
+}
+
+.process-num {
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  line-height: 1;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+
+.process-title {
+  margin-top: var(--bx-space-16);
+}
+
+.process-body {
+  margin-top: 0.75rem;
+  color: var(--color-ink-soft);
+}
+
+/* Global pre-footer CTA — Govwell `.section_cta` wheel, Falcon type/palette.
+   Band shares `--color-surface-dark` with the footer (Martinique Darker).
+   7-line wrap, mask 5%/40-60%/95%, stepped translateY, ~400ms cubic ease
+   + ~1200ms hold. Pitch is 4.5rem so the wheel is 31.5rem. Active phrase is
+   plain white; neighbors above Martinique Lighter; rest --white-a50. Apply is
+   button-040 light.
+
+   Ling, 2026-10-23 (supersedes the display-face lead/phrase below):
+   - Sentence (lead + rotating phrases) takes the BODY face (`--font-sans`,
+     Archivo 400), not `--font-display`. Owned by one rule on
+     `.site-cta__sentence`; lead and phrase still `inherit`.
+   - Type ladder stepped down one token: 20 / 24 / 28 / 32 / 36 at
+     390 / 768 / 992 / 1280 / 1440 (was 24 / 32 / 36 / 40 / 48).
+   - Sentence and Apply sit LEFT and RIGHT from 64em (independent of the type
+     step): the block now declares `flex-direction: row`; before this it set
+     `justify-content: space-between` on a column, so the band stacked at every
+     width. Sizes stay at 32/36 (not 40/48) so lead + longest phrase + button fit
+     one row inside the 944 / 1136 / 1264 container. Below 64em it stays stacked
+     and centred by design. */
+.site-cta {
+  --site-cta-line: 4.5rem;
+  --site-cta-wheel: calc(var(--site-cta-line) * 7);
+  --site-cta-type: 1.25rem;
+  --site-cta-lead: rgb(255 255 255 / 0.5);
+  --site-cta-active: #fff;
+  --site-cta-past: var(--bx-martinique-lighter);
+  background: var(--color-surface-dark);
+  color: #fff;
+  font-family: var(--font-sans);
+}
+
+.site-cta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--bx-space-40) + 1.5rem);
+  padding-block: 0;
+  text-align: center;
+}
+
+.site-cta__sentence {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--site-cta-lead);
+  /* Body face (Archivo) — the sentence is not a display-type line. */
+  font-family: var(--font-sans);
+  font-size: var(--site-cta-type);
+  font-weight: var(--bx-fw-regular);
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: var(--site-cta-line);
+}
+
+.site-cta__lead {
+  color: var(--site-cta-lead);
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  letter-spacing: inherit;
+  line-height: var(--site-cta-line);
+}
+
+.site-cta__wheel {
+  display: block;
+  flex: none;
+  width: max-content;
+  max-width: 100%;
+  height: var(--site-cta-wheel);
+  /* Collapse the 7-line wrap to one line in flow so the masked center
+     sits on the same baseline as the lead in the stacked layout. */
+  margin-block: calc((var(--site-cta-wheel) - var(--site-cta-line)) / -2);
+  overflow: hidden;
+  font-size: 1rem;
+  /* #000 / #0000 in mask-image only — never painted. Allowed exception (DESIGN-SYSTEM.md). */
+  -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+  mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+}
+
+.site-cta__track,
+.site-cta__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+}
+
+.site-cta__phrase {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  color: var(--site-cta-lead);
+  font-family: inherit;
+  font-size: var(--site-cta-type);
+  font-weight: inherit;
+  font-style: inherit;
+  letter-spacing: inherit;
+  line-height: var(--site-cta-line);
+  white-space: nowrap;
+  transition: color 400ms cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.site-cta__phrase.is-past {
+  color: var(--site-cta-past);
+}
+
+.site-cta__phrase.is-active {
+  color: var(--site-cta-active);
+}
+
+.site-cta__btn {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.site-cta .button-040 {
+  font-size: 1.375rem;
+  --button-040-height: 3em;
+  --button-040-padding-x: 1.35em;
+  --button-040-border-radius: 3em;
+}
+
+.site-cta.is-static .site-cta__wheel {
+  height: var(--site-cta-line);
+  margin-block: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.site-cta.is-static .site-cta__track {
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (min-width: 48em) {
+  .site-cta {
+    --site-cta-type: 1.5rem;
+  }
+
+  .site-cta .button-040 {
+    font-size: 1.5rem;
+    --button-040-padding-x: 1.4em;
+  }
+}
+
+@media (min-width: 62em) {
+  .site-cta {
+    --site-cta-type: 1.75rem;
+  }
+
+  .site-cta__wheel {
+    /* Mask stops only; see DESIGN-SYSTEM.md. */
+    -webkit-mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+    mask-image: linear-gradient(#0000 40%, #000 47% 53%, #0000 60%);
+  }
+
+  .site-cta__content {
+    padding-block: 0;
+  }
+}
+
+@media (min-width: 64em) {
+  /* Sentence left, Apply right. Before this the block kept the base `column`
+     and only set `space-between`, so the band stacked at every width.
+     The gap is 40px here (64px from 80em) so the row still clears the 944px
+     container at 1024: sentence + Apply needs ~885px plus the gap. */
+  .site-cta__content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bx-space-40);
+    padding-block: 0;
+    text-align: left;
+  }
+
+  .site-cta__sentence {
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .site-cta__wheel {
+    height: var(--site-cta-wheel);
+    margin-block: 0;
+    /* Mask stops only; see DESIGN-SYSTEM.md. */
+    -webkit-mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
+    mask-image: linear-gradient(#0000 5%, #000 40% 60%, #0000 95%);
+  }
+
+  .site-cta__track,
+  .site-cta__copy {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 80em) {
+  .site-cta {
+    --site-cta-type: 2rem;
+  }
+
+  .site-cta .button-040 {
+    font-size: 1.75rem;
+    --button-040-padding-x: 1.5em;
+  }
+
+  .site-cta__content {
+    gap: calc(var(--bx-space-40) + 1.5rem);
+  }
+}
+
+@media (min-width: 90em) {
+  .site-cta {
+    --site-cta-type: 2.25rem;
+  }
+
+  .site-cta .button-040 {
+    font-size: 1.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-cta__phrase {
+    transition: none;
+  }
+
+  .site-cta__wheel {
+    height: var(--site-cta-line);
+    margin-block: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Site footer — Blackstone `.site-footer` at 80em / 90em. See docs/refs/bx-footer.md. */
+.site-footer {
+  background: var(--color-surface-dark);
+  color: #fff;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* Cardiff (Ling, 23 Oct): an affiliate, not a partner, so the link lives in a footer
+   column rather than on /partners. The wordmark is royal blue and the footer is dark
+   purple, so it sits on a light plate — 1.7:1 raw, unreadable. */
+.site-footer__cardiff {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2px;
+  padding: 4px 6px;
+  line-height: 0;
+  transition: opacity 250ms ease;
+}
+
+.site-footer__cardiff:hover,
+.site-footer__cardiff:focus-visible {
+  opacity: 0.85;
+}
+
+.site-footer__cardiff img {
+  display: block;
+  width: auto;
+  height: 1rem;
+}
+
+.site-footer__cardiff:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.site-footer__disclosure {
+  margin: var(--bx-space-8) 0 0;
+  max-width: none;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-14);
+  font-weight: 400;
+  line-height: 21px;
+  color: #fff;
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--bx-space-16);
+  grid-template-areas:
+    'brand brand brand brand'
+    'nav nav nav nav';
+  padding-top: var(--bx-space-40);
+  padding-bottom: var(--bx-space-64);
+  border-bottom: 1px solid #fff;
+}
+
+.site-cta + .site-footer .site-footer__top,
+.site-cta + script + .site-footer .site-footer__top {
+  padding-top: 0;
+}
+
+.site-footer__brand {
+  grid-area: brand;
+}
+
+.site-footer__logo-link {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+}
+
+.site-footer__nav {
+  grid-area: nav;
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 3.5rem;
+  margin-top: 4.5rem;
+}
+
+.site-footer__col-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-18);
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* Legacy /contact redirects to /#contact; keep the landing row clear of the
+   fixed header when the browser jumps to it. */
+#contact {
+  scroll-margin-top: 96px;
+}
+
+.site-footer__list,
+.site-footer__legal-list {
+  list-style: none;
+  margin: var(--bx-space-24) 0 0;
+  padding: 0;
+}
+
+.site-footer__list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.site-footer__link {
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-16);
+  font-weight: 300;
+  line-height: 1.5;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 350ms ease;
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  background-size: 100% 1px;
+}
+
+.site-footer__link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+/* Get in Touch carries every contact row the live footer has (Ling, 24 Oct):
+   email, Office, Direct, Fax, address, X. The three numbers are labelled so they
+   can be told apart; the label is secondary to the number, so it drops to the
+   82% white already used for muted text on dark. The row stays one link. */
+.site-footer__contact-label {
+  color: var(--color-white-a82);
+}
+
+.site-footer__bottom {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--bx-space-16);
+  padding-top: var(--bx-space-64);
+  padding-bottom: 4.5rem;
+}
+
+.site-footer__bottom-bar {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--bx-space-16);
+  grid-template-areas:
+    'legal legal legal legal'
+    'copy copy copy copy';
+}
+
+.site-footer__disclosure {
+  grid-column: 1 / -1;
+}
+
+.site-footer__legal {
+  grid-area: legal;
+  margin-bottom: 3.5rem;
+}
+
+.site-footer__legal-list {
+  margin: 0;
+}
+
+.site-footer__legal-list li + li {
+  margin-top: var(--bx-space-16);
+}
+
+.site-footer__copy {
+  grid-area: copy;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--bx-fs-18);
+  font-weight: 400;
+  color: #fff;
+}
+
+@media (min-width: 26em) {
+  .site-footer__bottom {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (min-width: 48em) {
+  .site-footer__top {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-areas:
+      'brand brand brand brand brand brand brand brand'
+      'nav nav nav nav nav nav nav nav';
+    padding-bottom: var(--bx-space-80);
+  }
+
+  .site-footer__nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--bx-space-16);
+    row-gap: var(--bx-space-64);
+    margin-top: var(--bx-space-80);
+  }
+
+  .site-footer__col {
+    max-width: 10.5rem;
+  }
+
+  /* Get in Touch now carries the live footer's six rows — email, Office, Direct,
+     Fax, address, X (Ling, 24 Oct). At the 168px column cap a labelled number
+     broke mid-dial ("+1 (917) 645-" / "3826"), so this one column takes its whole
+     grid track (~220px at 768) and the numbers stay on one line. */
+  #contact {
+    max-width: none;
+  }
+
+  .site-footer__bottom {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    padding-top: var(--bx-space-80);
+    padding-bottom: var(--bx-space-80);
+  }
+
+  .site-footer__bottom-bar {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-areas: 'copy copy copy copy legal legal legal legal';
+  }
+
+  .site-footer__disclosure {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer__legal {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 80em) {
+  .site-footer__top {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    column-gap: var(--bx-space-16);
+    grid-template-areas: 'brand brand brand brand nav nav nav nav nav nav nav nav nav nav nav nav';
+    padding-top: var(--bx-space-48);
+    padding-bottom: var(--bx-space-112);
+  }
+
+  /* Blackstone `.site-footer__primary-nav` at 80em: content-width columns pushed to
+     the right edge, 112px between them (docs/refs/bx-footer.md). A 3-column grid
+     spread them across the whole span and read nothing like the reference. */
+  .site-footer__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    column-gap: var(--bx-space-112);
+    margin-top: 0;
+  }
+
+  .site-footer__col {
+    max-width: none;
+  }
+
+  .site-footer__bottom {
+    grid-template-columns: 1fr;
+    padding-top: var(--bx-space-32);
+    padding-bottom: var(--bx-space-32);
+  }
+
+  .site-footer__bottom-bar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .site-footer__disclosure {
+    font-size: var(--bx-fs-14);
+    line-height: 21px;
+  }
+
+  .site-footer__legal-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    column-gap: var(--bx-space-24);
+    row-gap: var(--bx-space-16);
+  }
+
+  .site-footer__legal-list li + li {
+    margin-top: 0;
+  }
+
+  .site-footer__copy {
+    flex-shrink: 0;
+    font-size: var(--bx-fs-16);
+  }
+}
+
+@media (min-width: 90em) {
+  .site-footer__top {
+    padding-top: var(--bx-space-56);
+    padding-bottom: var(--bx-space-120);
+  }
+
+  .site-footer__nav {
+    column-gap: var(--bx-space-120);
+  }
+
+  .site-footer__col-title {
+    font-size: var(--bx-fs-20);
+  }
+
+  .site-footer__list {
+    margin-top: var(--bx-space-32);
+  }
+
+  .site-footer__list li {
+    font-size: var(--bx-fs-18);
+  }
+
+  .site-footer__link {
+    font-size: inherit;
+  }
+
+  .site-footer__list li + li {
+    margin-top: var(--bx-space-16);
+  }
+
+  .site-footer__bottom {
+    padding-top: var(--bx-space-40);
+    padding-bottom: var(--bx-space-40);
+  }
+
+  .site-footer__legal-list {
+    column-gap: var(--bx-space-32);
+  }
+
+  .site-footer__legal-list .site-footer__link,
+  .site-footer__copy {
+    font-size: var(--bx-fs-18);
+  }
+
+  .site-footer__disclosure {
+    font-size: var(--bx-fs-14);
+    line-height: 21px;
+  }
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.post-card-media {
+  aspect-ratio: 16 / 9;
+}
+
+.post-card-cat {
+  margin-top: 1.5rem;
+}
+
+.post-card-title {
+  margin-top: 0.75rem;
+}
+
+.post-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-card:has(a:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+.service-list,
+.service-list > li {
+  min-width: 0;
+  width: 100%;
+}
+
+.service-list > li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.quote-card-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.quote-card-amount {
+  margin-top: var(--bx-space-24);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.quote-card-biz {
+  margin-top: 0.5rem;
+  color: var(--color-ink);
+}
+
+.quote-card-meta {
+  margin-top: 0.25rem;
+  font-size: var(--bx-fs-14);
+  color: var(--color-muted);
+}
+
+.page-hero-pad {
+  padding-block: 3.5rem 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-hero-pad {
+    padding-block: 5rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-hero-pad {
+    padding-block: 6.5rem 3.5rem;
+  }
+
+  .page-hero .bx-grid {
+    align-items: end;
+  }
+}
+
+.page-hero-lead {
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+.page-hero-note {
+  margin-top: var(--bx-space-24);
+  max-width: 40rem;
+}
+
+.page-hero-media {
+  margin-top: 2.5rem;
+}
+
+.page-hero-media img,
+.page-hero-media .media,
+.page-hero-media .image-slot,
+.page-hero-media figure:not(.bx-grid) {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+}
+
+/* FAQ accordion — full-width rows, thin rules, open = ink + filled circle. */
+.bx-accordion {
+  border-top: 1px solid var(--color-line);
+}
+
+.bx-acc-item {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.bx-acc-item h2,
+.bx-acc-item h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+.bx-acc-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.35rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.bx-acc-item.is-open .bx-acc-trigger {
+  color: var(--color-ink);
+}
+
+.bx-acc-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.bx-acc-icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.bx-acc-item.is-open .bx-acc-icon {
+  background-color: var(--bx-black);
+  border-color: var(--bx-black);
+  color: #fff;
+  transform: rotate(180deg);
+}
+
+.bx-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 350ms ease;
+}
+
+.bx-acc-item.is-open .bx-acc-panel {
+  grid-template-rows: 1fr;
+}
+
+.bx-acc-panel-inner {
+  overflow: hidden;
+}
+
+.bx-acc-panel-inner p {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* BXCI Credit strategies: black rules, plain closed chevron, filled circle when open. */
+.bx-accordion--strategies {
+  border-top-color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item {
+  border-bottom-color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item h3 {
+  font-weight: 300;
+  font-size: var(--bx-fs-24);
+  line-height: 1.25;
+}
+
+.bx-accordion--strategies .bx-acc-trigger {
+  color: var(--color-ink);
+  padding-block: var(--bx-space-24);
+}
+
+@media (min-width: 768px) {
+  .bx-accordion--strategies .bx-acc-trigger {
+    padding-block: var(--bx-space-32);
+  }
+}
+
+.bx-accordion--strategies .bx-acc-icon {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-item.is-open .bx-acc-icon {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--bx-black);
+  border-radius: 50%;
+  background-color: var(--bx-black);
+  color: #fff;
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner > p,
+.bx-accordion--strategies .bx-acc-panel-inner > ul,
+.bx-accordion--strategies .bx-acc-figures {
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .bx-accordion--strategies .bx-acc-panel-inner > p,
+  .bx-accordion--strategies .bx-acc-panel-inner > ul,
+  .bx-accordion--strategies .bx-acc-figures {
+    max-width: 50%;
+  }
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner ul {
+  margin: 0 0 1.5rem;
+  padding-left: 1.125em;
+  list-style: square;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.bx-accordion--strategies .bx-acc-panel-inner li + li {
+  margin-top: 0.75rem;
+}
+
+.bx-accordion--strategies .bx-acc-figures {
+  margin: 0;
+  font-size: var(--bx-fs-16);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.bx-accordion--strategies .bx-acc-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bx-space-24) var(--bx-space-40);
+  margin-top: var(--bx-space-40);
+  padding-bottom: var(--bx-space-32);
+}
+
+/* BXCI “What we do”: black band, 10-col statement, portrait left (1–6), list right (8–12). */
+.what-we-do {
+  background: var(--bx-black);
+  color: #fff;
+}
+
+.what-we-do .container-site {
+  padding-block: var(--bx-section);
+}
+
+.what-we-do h2 {
+  color: #fff;
+}
+
+.what-we-do .bx-grid {
+  row-gap: var(--bx-space-80);
+}
+
+.what-we-do-media {
+  min-height: 20rem;
+  background: var(--bx-black);
+  align-self: start;
+}
+
+.what-we-do-media .image-slot,
+.what-we-do-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .what-we-do-media,
+  .what-we-do-media .image-slot,
+  .what-we-do-media figure {
+    min-height: 36rem;
+  }
+}
+
+.what-we-do-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bx-space-56);
+  align-self: start;
+}
+
+.what-we-do-item-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-fs-24);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #fff;
+}
+
+.what-we-do-item-body {
+  margin: 0.75rem 0 0;
+  font-size: var(--bx-fs-16);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.statement-band {
+  background: var(--bx-black);
+  color: #fff;
+}
+
+.statement-band .container-site {
+  padding-block: var(--bx-section);
+}
+
+.statement-band h3 {
+  color: #fff;
+}
+
+.statement-band p,
+.statement-band li {
+  color: rgb(255 255 255 / 0.82);
+}
+
+.statement-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.statement-list li + li {
+  padding-top: 1.75rem;
+  border-top: 1px solid rgb(255 255 255 / 0.16);
+}
+
+.statement-media {
+  min-height: 16rem;
+  background: var(--bx-black);
+}
+
+.statement-media img,
+.statement-media .image-slot,
+.statement-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .statement-media,
+  .statement-media img,
+  .statement-media .image-slot,
+  .statement-media figure {
+    min-height: 28rem;
+  }
+}
+
+.insights-cta {
+  background: var(--bx-black);
+  color: #fff;
+}
+
+.insights-cta-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  padding-block: 5.5rem;
+}
+
+.insights-cta-copy h2 {
+  color: #fff;
+}
+
+.insights-cta-media {
+  min-height: 16rem;
+  background: var(--bx-black);
+}
+
+.insights-cta-media img,
+.insights-cta-media .image-slot,
+.insights-cta-media figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  object-fit: cover;
+  aspect-ratio: auto !important;
+}
+
+@media (min-width: 1024px) {
+  .insights-cta-copy {
+    padding-block: 5rem;
+    padding-right: 3rem;
+  }
+
+  .insights-cta-media,
+  .insights-cta-media img,
+  .insights-cta-media .image-slot,
+  .insights-cta-media figure {
+    min-height: 100%;
+  }
+}
+
+/* BREIT quote: portrait in its own column, large sans quote, name+title bottom-right.
+   BX .bx-quote-block__inner at 80em: image 4 of 16, content 10 of 16 → 4 + start-6 span-7 on 12.
+   Must set display:grid here: .page-hero-media figure { display:block } is more specific than .bx-grid. */
+.quote-split {
+  display: grid;
+  grid-template-columns: repeat(var(--bx-columns), minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: var(--bx-space-40);
+  align-items: stretch;
+  width: 100%;
+}
+
+.quote-split-photo {
+  background: var(--color-tint);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+}
+
+.quote-split-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.quote-split-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bx-space-40);
+  min-height: 100%;
+}
+
+.quote-split blockquote {
+  margin: 0;
+}
+
+.quote-split-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 2vw + 1rem, 3rem);
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.quote-split-attr {
+  text-align: right;
+  margin-top: auto;
+}
+
+.quote-split-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.quote-split-role {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+@media (min-width: 1024px) {
+  .quote-split-copy {
+    min-height: 100%;
+  }
+}
+
+.chart-table-tabs {
+  display: flex;
+  gap: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-table-tab {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.chart-table-tab[aria-selected='true'] {
+  color: var(--color-ink);
+  box-shadow: inset 0 -1px 0 var(--color-ink);
+}
+
+.chart-bars {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+}
+
+.chart-bar-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 639px) {
+  .chart-bar-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'label value'
+      'track track';
+  }
+
+  .chart-bar-label {
+    grid-area: label;
+  }
+
+  .chart-bar-track {
+    grid-area: track;
+  }
+
+  .chart-bar-value {
+    grid-area: value;
+  }
+}
+
+.chart-bar-label {
+  font-size: 0.95rem;
+  color: var(--color-ink);
+}
+
+.chart-bar-track {
+  height: 8px;
+  background: var(--color-tint);
+}
+
+.chart-bar-fill {
+  height: 100%;
+  background: var(--color-ink);
+}
+
+.chart-bar-value {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.r-table-scroll {
+  width: 100%;
+  min-width: 0;
+}
+
+.r-table-scroll-view {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.r-table-scroll .r-table {
+  min-width: 40rem;
+}
+
+.r-table-progress {
+  display: none;
+  height: 2px;
+  margin-top: 1rem;
+  background: var(--color-line);
+}
+
+.r-table-progress-thumb {
+  height: 100%;
+  width: 0;
+  background: var(--color-ink);
+}
+
+.r-table-scroll.is-scrollable .r-table-progress {
+  display: block;
+}
+
+.r-table th,
+.r-table td {
+  border: 0;
+  border-bottom: 1px solid var(--color-line);
+  padding: 1.1rem 1.25rem 1.1rem 0;
+  background: transparent;
+}
+
+.r-table thead th {
+  font-size: 0.72rem;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-ink);
+  padding-top: 0;
+}
+
+@media (max-width: 767px) {
+  .r-table-scroll .r-table {
+    min-width: 0;
+  }
+
+  .r-table tbody tr {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .r-table tbody th,
+  .r-table tbody td {
+    border: 0;
+    padding: 0.2rem 0;
+  }
+}
+
+.media-zoom {
+  overflow: hidden;
+}
+
+.media-zoom img,
+.media-zoom .media,
+.media-zoom .image-slot,
+.media-zoom :is(img, .media, .image-slot, figure) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 600ms ease;
+}
+
+.group:hover .media-zoom img,
+.group:hover .media-zoom .media,
+.group:hover .media-zoom .image-slot,
+.group:focus-within .media-zoom img,
+.group:focus-within .media-zoom .media,
+.group:focus-within .media-zoom .image-slot,
+a:hover .media-zoom img,
+a:hover .media-zoom .media,
+a:hover .media-zoom .image-slot,
+a:focus-visible .media-zoom img,
+a:focus-visible .media-zoom .media,
+a:focus-visible .media-zoom .image-slot {
+  transform: scale(1.06);
+}
+
+.blog-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.blog-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-page {
+  min-width: 2.25rem;
+  padding: 0.35rem 0.15rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.blog-page[aria-current='page'] {
+  color: var(--color-ink);
+  box-shadow: inset 0 -1px 0 var(--color-ink);
+}
+
+.blog-load-more {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 500;
+  color: inherit;
+  cursor: pointer;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--bx-gutter);
+  row-gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+}
+
+.stat-cell dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2vw + 1rem, 2.75rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+
+.stat-cell dt {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .link-draw,
+  .prose a,
+  .site-footer__link,
+  .circle-arrow,
+  .explore-row,
+  .media-zoom img,
+  .media-zoom .media,
+  .bx-acc-panel,
+  .bx-acc-icon {
+    transition: none;
+  }
+
+  .group:hover .media-zoom img,
+  .group:hover .media-zoom .media,
+  .group:hover .media-zoom .image-slot,
+  a:hover .media-zoom img,
+  a:hover .media-zoom .media,
+  a:hover .media-zoom .image-slot {
+    transform: none;
+  }
+}

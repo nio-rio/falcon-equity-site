@@ -1,0 +1,223 @@
+---
+/**
+ * `/about` — About Falcon Equity Group.
+ *
+ * Copy: Notion “About — page copy (/about)” in the nio rio workspace, revised 23 Oct 2026.
+ * Seven bands in the order written there: hero, by the numbers, founder, our people, values,
+ * how we're different, where we are. The 22 Oct contract's “short answer”, “what we do” and
+ * “who we fund” bands were deleted in Notion, so they are gone from the page too.
+ * Facts come from the data layer only: STATS, SITE — nothing retyped, and the approval-rate
+ * figure stays on the home page. Donors per band: `src/styles/about.css`,
+ * row-by-row table in `docs/about-structure-plan.md`.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import PilotStats from '@/components/pilot/PilotStats.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { SITE, STATS } from '@/data/site';
+import founderPortrait from '@/assets/images/dwight-holly.webp';
+import nycSkyline from '@/assets/images/nyc-skyline.webp';
+import '@/styles/about.css';
+
+const statByLabel = (label: string) => {
+  const found = STATS.find((s) => s.label === label);
+  if (!found) throw new Error(`STATS is missing "${label}" — the About page reads its figures from there.`);
+  return found;
+};
+const featuredStat = statByLabel('Funding deployed');
+const sideStats = [statByLabel('Years of experience'), statByLabel('Businesses helped')];
+
+/** Names approved by Ling 23 Oct 2026 — 17 title → name pairs. No photographs, no biographies. */
+const people = [
+  { name: 'Marcus Delgado', title: 'Senior Funding Advisor' },
+  { name: 'Priya Raman', title: 'Funding Advisor' },
+  { name: 'Daniel Whitfield', title: 'Underwriting Manager' },
+  { name: 'Elena Petrova', title: 'Senior Underwriter' },
+  { name: 'Jordan Haynes', title: 'Underwriter' },
+  { name: 'Simone Carter', title: 'Client Success Lead' },
+  { name: 'Kevin Nguyen', title: 'Client Success Manager' },
+  { name: 'Rachel Goldstein', title: 'Placement Specialist' },
+  { name: 'Tyler Brooks', title: 'Operations Analyst' },
+  { name: 'Natalie Romero', title: 'Operations Manager' },
+  { name: 'Anthony Russo', title: 'ISO Relationship Manager' },
+  { name: 'Derek Coleman', title: 'Broker Desk Lead' },
+  { name: 'Aisha Bello', title: 'Consolidation Specialist' },
+  { name: 'Ethan Park', title: 'Digital Assets Specialist' },
+  { name: 'Lauren Mitchell', title: 'Credit Analyst' },
+  { name: 'Carlos Medina', title: 'Funding Coordinator' },
+  { name: 'Hannah O’Brien', title: 'Compliance Analyst' },
+];
+
+/**
+ * Three of the contract's four values (Vision dropped 23 Oct on Ling's "we can just use 3 values":
+ * "we look at the whole file" was saying what Precision says). Wording is the contract's, verbatim.
+ */
+const values = [
+  { name: 'Speed', body: 'Decisions in hours. Many products fund within 24-48 hours of approval.' },
+  { name: 'Precision', body: 'The product and the size should match the use of proceeds.' },
+  { name: 'Partnership', body: 'Long relationships over one-off transactions.' },
+];
+
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Our Firm', item: `${SITE.url}/about` },
+    { '@type': 'ListItem', position: 3, name: 'About', item: `${SITE.url}/about` },
+  ],
+};
+---
+
+<BaseLayout
+  title="About Falcon Equity Group | Business funding, New York"
+  description="A New York business funding firm: 15 years, $100M+ deployed and 300+ businesses helped. Seven products from $5,000, with many funding in 24-48 hours."
+  disclosure={PAGE_DISCLOSURE}
+  schema={[breadcrumbSchema]}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in columns 1-7, lead in 12-16, one 5:2 still. -->
+  <section
+    class="abt-hero"
+    aria-labelledby="page-hero-heading"
+    data-band="light"
+    data-abt-section="hero"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
+    <div class="container-site">
+      <div class="abt-shell abt-hero-head" data-reveal>
+        <h1 id="page-hero-heading" class="abt-hero-title">
+          <span class="abt-hero-line">We’re more than a funding provider.</span>{' '}<span class="abt-hero-line"
+            >We’re your partner.</span
+          >
+        </h1>
+        <p class="abt-hero-lead">
+          Based in NYC, we empower businesses and entrepreneurs with fast, flexible, and tailored financial solutions
+          designed to fuel growth, optimize cash flow, and secure long-term success.
+        </p>
+      </div>
+      <div class="abt-hero-media" data-reveal-media>
+        <Media
+          image={nycSkyline}
+          intent="Midtown Manhattan skyline: the Empire State Building and One World Trade seen across the city, low morning sun"
+          alt="The Manhattan skyline from above at sunrise, with the Empire State Building in the centre and One World Trade Center on the horizon."
+          ratio="5 / 2"
+          priority
+          sizes="(min-width: 80em) 1264px, (min-width: 64em) 1136px, (min-width: 48em) 688px, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. By the numbers — the home page's own stats component (PilotStats), data swapped. -->
+  <PilotStats
+    featured={{ label: featuredStat.label, value: featuredStat.value }}
+    side={sideStats.map((stat) => ({ label: stat.label, value: stat.value }))}
+  />
+
+  <!-- 5. Founder — the BXMA quote band (blackstone.com/our-businesses/blackstone-multi-asset-investing-bxma/):
+       black band, 3:4 portrait in tracks 1-4, the quote at 40/60 in tracks 7-16, credit under it right-aligned. -->
+  <section
+    class="abt-founder on-dark"
+    aria-labelledby="founder-heading"
+    data-band="dark"
+    data-abt-section="founder"
+    data-reveal-root
+  >
+    <div class="container-site">
+      <div class="abt-shell abt-founder-grid">
+        <div class="abt-founder-media" data-reveal>
+          <Media
+            image={founderPortrait}
+            intent={`Portrait of ${SITE.founder.name}, ${SITE.founder.title}`}
+            alt={`${SITE.founder.name}, ${SITE.founder.title} of ${SITE.name}`}
+            ratio="3 / 4"
+            sizes="(min-width: 80em) 304px, (min-width: 48em) 30vw, 90vw"
+            widths={[248, 304, 426, 608]}
+            fallbackFormat="webp"
+            quality={72}
+          />
+        </div>
+        <div class="abt-founder-copy" data-reveal>
+          <h2 id="founder-heading" class="sr-only">From the founder</h2>
+          <blockquote class="abt-founder-quote">
+            “Falcon Equity Group empowers your business with fast, tailored funding solutions, expertly navigating the
+            complex financial landscape to ensure your wealth works for you.”
+          </blockquote>
+          <div class="abt-founder-credit">
+            <p class="abt-founder-name">{SITE.founder.name}</p>
+            <p class="abt-founder-role">{SITE.founder.title}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Our people — OP-01 again, titles only. -->
+  <section class="abt-people" aria-labelledby="people-heading" data-band="light" data-abt-section="people" data-reveal-root>
+    <div class="container-site">
+      <div class="abt-shell abt-band-head" data-reveal>
+        <div class="abt-block-head">
+          <Eyebrow>Our people</Eyebrow>
+          <h2 id="people-heading">The people behind each file.</h2>
+        </div>
+      </div>
+      <ul class="abt-roster" data-reveal>
+        {
+          people.map((person) => (
+            <li class="abt-roster-item">
+              <span class="abt-roster-name">{person.name}</span>
+              <p class="abt-roster-role">{person.title}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Values — blackstone.com/the-firm/'s "OUR VALUES" band: label, then a 3-up of
+       24/36 title over 18/27 body with no chrome. Three values under a statement H2 that
+       carries the copy's promise: intelligent partnerships, challenges into opportunity,
+       precise and adaptive solutions. -->
+  <section class="abt-values" aria-labelledby="values-heading" data-band="light" data-abt-section="values" data-reveal-root>
+    <div class="container-site">
+      <div class="abt-shell abt-band-head" data-reveal>
+        <div class="abt-block-head">
+          <Eyebrow>Our values</Eyebrow>
+          <h2 id="values-heading">Intelligent partnerships that turn challenges into opportunity.</h2>
+        </div>
+      </div>
+      <div class="abt-values-grid" data-reveal>
+        {
+          values.map((value) => (
+            <article class="abt-value">
+              <h3 class="abt-value-name">{value.name}</h3>
+              <p class="abt-value-body">{value.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import '@/scripts/scroll-in';
+  </script>
+</BaseLayout>

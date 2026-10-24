@@ -1,0 +1,307 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogSlider from '@/components/BlogSlider.astro';
+import Media from '@/components/Media.astro';
+import cashAdvanceImage from '@/assets/images/services/merchant-cash-advance.webp';
+import Eyebrow from '@/components/Eyebrow.astro';
+import Button040 from '@/components/Button040.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { getPublicPosts } from '@/lib/blog';
+import '@/styles/mca.css';
+import { SERVICE_FAQS } from '@/data/service-faqs';
+import FaqList from '@/components/FaqList.astro';
+
+const published = await getPublicPosts();
+/** Published MCA-relevant posts only, most relevant first. Drafts stay out. */
+const MCA_BLOG_IDS = [
+  'merchant-cash-advance-vs-business-term-loan',
+  'how-to-read-a-factor-rate',
+  'consolidation-of-positions-stacked-advances',
+  'bridging-a-slow-season',
+  '24-48-hour-funding-checklist',
+  'what-your-bank-statements-say',
+] as const;
+const blogSlides = MCA_BLOG_IDS.map((id) => published.find((post) => post.id === id)).filter(
+  (post): post is (typeof published)[number] => Boolean(post),
+);
+
+const stats = [
+  {
+    label: "Who it's for",
+    value: 'Businesses with $10K+ monthly revenue and 3+ months in operation',
+  },
+  {
+    label: 'Typical amounts',
+    value: '$5,000 – $5,000,000',
+  },
+  {
+    label: 'Terms',
+    value: '3 – 18 months',
+  },
+  {
+    label: 'Requirements',
+    value: '3+ months in business',
+  },
+  {
+    label: 'Requirements',
+    value: '$10K+ monthly revenue',
+  },
+  {
+    label: 'Requirements',
+    value: 'Active bank account',
+  },
+];
+
+const helps = [
+  {
+    title: 'Buying inventory while the price is good',
+    body: "When a supplier offers a deal or a limited lot, you can pay for it now and cover the cost from the sales that inventory brings in. Often the same day you're approved.",
+  },
+  {
+    title: 'Getting through a slow season',
+    body: 'Payroll, rent and insurance keep coming when work slows down. This covers the gap until your busy season is back.',
+  },
+  {
+    title: 'Paying for a marketing push',
+    body: 'Ads cost money before they bring any in. This lets you start a campaign ahead of your busy stretch and cover it from the sales it creates.',
+  },
+  {
+    title: "Fixing equipment that can't wait",
+    body: "When a repair or replacement can't wait until you've saved up, this gets it done now and takes the cost out of your sales.",
+  },
+];
+
+const fitItems = [
+  {
+    title: 'If the cost is planned and repeats',
+    body: 'Rent, payroll and regular inventory orders come around on a schedule. A line of credit lets you draw what you need, when you need it, and only pay for what you use.',
+    linkLabel: 'Business Line of Credit',
+    href: '/services/business-line-of-credit',
+  },
+  {
+    title: "If you're buying equipment or a vehicle",
+    body: "Equipment, vehicles and fixtures earn for years, so the cost should be spread over that time. Asset-based loans use what you're buying as collateral, so the cost is tied to the equipment rather than to your daily sales.",
+    linkLabel: 'Collateral & Asset Loans',
+    href: '/services/collateral-asset-loans',
+  },
+  {
+    title: "If you're carrying more than one advance",
+    body: 'Two or three daily payments stacking on top of each other is how a good month turns into a bad one. Consolidation pays off the positions you have and rolls them into one payment sized to your sales.',
+    linkLabel: 'Consolidation of Positions',
+    href: '/services/consolidation-of-positions',
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Apply in minutes',
+    body: 'Fill out one short online application. Tell us what your business does and how much you need.',
+    note: 'You provide: six months of business bank statements, a photo ID, a voided check and a list of any current advances or loans.',
+  },
+  {
+    num: '02',
+    title: 'Talk to a specialist',
+    body: "A Falcon specialist reviews your file, asks for anything that's missing and walks you through your options.",
+    note: "You get: a call about the amount, the share of sales you'd pay and the timing, before anything is signed.",
+  },
+  {
+    num: '03',
+    title: 'Approve and get funded',
+    body: "Once you're approved, review and sign your agreement. Funding can happen the same day.",
+    note: "You see: the total amount you're selling and the percentage of sales that goes toward it, both spelled out on the agreement.",
+  },
+];
+
+const tapeCopies = 3;
+
+const faqs = SERVICE_FAQS['merchant-cash-advance'];
+---
+
+<BaseLayout title="Merchant Cash Advance" disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <section class="mca-hero" aria-labelledby="page-hero-heading" data-band="light" data-mca-section="hero" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell" data-reveal>
+        <div class="mca-hero-inner">
+          <h1 id="page-hero-heading" class="mca-hero-title">Merchant Cash Advance</h1>
+          <div class="mca-stat-grid">
+            {
+              stats.map((stat) => (
+                <div class="mca-stat">
+                  <p class="mca-stat-label">{stat.label}</p>
+                  <p class="mca-stat-value">{stat.value}</p>
+                </div>
+              ))
+            }
+          </div>
+          <p class="mca-hero-lead">
+            A merchant cash advance is money now in exchange for a share of your future sales. It's a purchase of
+            future receivables, not a loan, so what you pay follows how your business is doing.
+          </p>
+          <div class="mca-hero-cta">
+            <Button040 href="/apply" label="Apply for funding" variant="dark" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-helps on-dark" aria-labelledby="helps-heading" data-band="dark" data-mca-section="helps" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-helps-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>What it helps</Eyebrow>
+          <h2 id="helps-heading">When a cash advance is the right fit.</h2>
+        </div>
+      </div>
+      <div class="mca-shell mca-helps-split" data-reveal>
+        <div class="mca-helps-image">
+          <Media
+            image={cashAdvanceImage}
+            intent="Shop counter with an open cash drawer, card terminal, paper bags and stocked shelves"
+            alt="A shop counter with an open brass cash drawer, a card terminal, paper bags and folded linen, stocked shelves behind."
+            ratio="3 / 4"
+            sizes="(min-width: 90em) 624px, (min-width: 64em) 688px, 100vw"
+          />
+        </div>
+        <div class="mca-helps-list">
+          {
+            helps.map((item) => (
+              <article class="mca-help">
+                <h3 class="mca-help-title">{item.title}</h3>
+                <p class="mca-help-body">{item.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a class="mca-helps-tape" href="/apply" aria-label="Apply for funding">
+      <span class="mca-helps-tape-track" data-mca-tape aria-hidden="true">
+        {
+          Array.from({ length: tapeCopies }, (_, i) => (
+            <span class="mca-helps-tape-item" data-mca-tape-item={i === 0 ? true : undefined}>
+              <strong>Apply</strong> for funding
+            </span>
+          ))
+        }
+      </span>
+    </a>
+  </section>
+
+  <section class="mca-band mca-process" aria-labelledby="process-heading" data-band="light" data-mca-section="process" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-process-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Three steps to get funded.</h2>
+        </div>
+      </div>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+        {
+          steps.map((step) => (
+            <article class="mca-card mca-step">
+              <p class="mca-step-num">{step.num}</p>
+              <h3 class="mca-card-title">{step.title}</h3>
+              <p class="mca-card-body">{step.body}</p>
+              <p class="mca-card-body mca-step-note">{step.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mca-shell" data-reveal>
+        <div class="mca-cta mca-cta--after">
+          <Button040 href="/apply" label="Apply for funding" variant="dark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-faq" aria-labelledby="mca-faq-heading" data-band="light" data-mca-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-faq-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="mca-faq-heading">Cash advance questions</h2>
+        </div>
+      </div>
+      <div class="mca-shell">
+      <FaqList items={faqs} idPrefix="mca" class="mca-faq-list" data-reveal />
+      </div>
+    </div>
+  </section>
+
+  <section class="mca-band mca-fit" aria-labelledby="fit-heading" data-band="light" data-mca-section="fit" data-reveal-root>
+    <div class="container-site">
+      <div class="mca-shell mca-fit-head" data-reveal>
+        <div class="mca-block-head">
+          <Eyebrow>When a cash advance isn't the right fit.</Eyebrow>
+          <h2 id="fit-heading">
+            A cash advance is the fastest money you can get, and usually the most expensive. Here are three
+            situations where another Falcon product fits better.
+          </h2>
+        </div>
+      </div>
+      <div class="mca-shell mca-cards mca-cards--3" data-reveal>
+        {
+          fitItems.map((item) => (
+            <article class="mca-card">
+              <h3 class="mca-card-title">{item.title}</h3>
+              <p class="mca-card-body">{item.body}</p>
+              <a class="mca-card-link" href={item.href}>
+                <span class="mca-card-link-label">{item.linkLabel}</span>
+                <span class="mca-card-link-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M14 19L21 12L14 5" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                    <path d="M21 12H2" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"></path>
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <BlogSlider
+    posts={blogSlides}
+    label="Merchant cash advance articles"
+    bandClass="mca-band mca-blog"
+    sectionKey="mca"
+  />
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+    bindAccordions();
+
+    const SPEED = 125;
+    const arm = (track: HTMLElement) => {
+      const item = track.querySelector<HTMLElement>('[data-mca-tape-item]');
+      if (!item) return;
+      const set = () => {
+        const cs = getComputedStyle(item);
+        const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+        if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+      };
+      set();
+      window.addEventListener('resize', set, { passive: true });
+    };
+    document.querySelectorAll<HTMLElement>('[data-mca-tape]').forEach(arm);
+  </script>
+</BaseLayout>

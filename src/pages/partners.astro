@@ -1,0 +1,290 @@
+---
+/**
+ * `/partners` — brokers, ISOs, funding partners and service partners.
+ *
+ * Copy: the 23 Oct 2026 partners contract as Ling edited it in Notion, plus her
+ * 24 Oct round (hero lead trimmed, "Let’s grow our businesses together." + the
+ * OnDeck-shaped lede, and the enquiry form replaced by the requirements band).
+ *
+ * Bands, in order:
+ *
+ *    1  hero ................ TF-00 header + TF-01 still, no CTA, no eyebrow
+ *    3  partner types ....... TF-05 3-up titled prose, no chrome
+ *    9  partner fit ......... LS-04 / "What it helps" shape: block head, intro left,
+ *                             requirements list right, acknowledgement + CTA under it
+ *   10  FAQ ................. APM-08 / PWS-09 via the shared FaqList + FAQPage schema
+ *
+ * Bands 2, 4, 5, 6, 7 and 8b (answer-first, product shelf, submission, shared client, speed,
+ * the dedicated Cardiff band) were deleted from the Notion contract, and band 8 — "Our partners" —
+ * was deleted on 23 Oct too: Falcon does not publish its investors, and Cardiff is an affiliate
+ * rather than a partner, so its link now sits in the site footer instead. There is no closing CTA band:
+ * Ling deleted the last section above the footer, so the page now ends on the FAQ and the
+ * layout's default pre-footer band is switched off with `cta={false}`. Nothing here publishes
+ * a rate or the approval figure.
+ * Plan: docs/partners-structure-plan.md.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import FaqList from '@/components/FaqList.astro';
+import Button040 from '@/components/Button040.astro';
+import { SITE } from '@/data/site';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import partnersHero from '@/assets/images/partners-hero.webp';
+import partnersFitImage from '@/assets/images/partners-fit.webp';
+import '@/styles/partners.css';
+
+
+const PARTNER_TYPES = [
+  {
+    title: 'Brokers and ISOs',
+    body: 'You talk to owners all day and you have already read the statements before you send them. Submit once; the answer covers every product Falcon can place, not just the one you asked about.',
+  },
+  {
+    // TODO(client): confirm the funding-partner programme. Card and wording approved as written.
+    title: 'Funding partners',
+    body: 'Lenders, funds and syndicators who take positions Falcon does not hold itself.',
+  },
+  {
+    title: 'Service partners',
+    body: 'Firms that get an owner ready rather than fund them. They send a cleaner file, and the desk picks it up from there.',
+  },
+];
+
+/**
+ * Minimum requirements, in the OnDeck partner-page shape (bold title, one line of proof).
+ * TODO(client): the years-in-business and monthly-volume rows are deliberately unnumbered —
+ * OnDeck's own page states "2+ years" and "$1M+ per month", and those are their programme's
+ * thresholds, not Falcon's. Give me the real numbers and they replace the generic wording.
+ */
+const PARTNER_REQUIREMENTS = [
+  {
+    title: 'Two or more years in business',
+    body: 'Your firm has been placing or funding business deals for at least two years.',
+  },
+  {
+    title: 'Volume every month',
+    body: 'You place business funding every month, not once or twice a year.',
+  },
+  {
+    title: 'An encrypted website and a privacy policy',
+    body: 'Your site runs over HTTPS and publishes a privacy policy.',
+  },
+  {
+    title: 'Business insurance',
+    body: 'You carry general or professional liability cover.',
+  },
+  {
+    title: 'Straight dealing',
+    body: 'You quote the full cost, you do not stack fees, and you do not promise a deal you cannot place.',
+  },
+  {
+    title: 'A U.S.-based business',
+    body: 'Your business is registered and operating in the United States.',
+  },
+];
+
+const FAQS = [
+  {
+    q: 'Do you accept broker and ISO submissions?',
+    a: 'Yes. Send the file to information@falconequity.ai with the subject "Partner enquiry". One application covers all seven products, and the desk tells you which one fits.',
+  },
+  {
+    q: 'What is an ISO, in Falcon’s terms?',
+    a: 'An Independent Sales Organization introduces business owners to a lender and helps assemble the file. Falcon treats an ISO the same as a broker: one desk contact, one application, the same answer on whether the file is placeable.',
+  },
+  {
+    q: 'Is there a restricted-industry or restricted-state list?',
+    a: 'No. Falcon keeps neither list, so a file is judged on the business rather than its sector or location. Underwriting and approval still apply.',
+  },
+  {
+    q: 'Who is my contact?',
+    a: 'One specialist is assigned to each partner relationship and stays on it. Use the direct line and ask for the partner desk.',
+  },
+  {
+    q: 'How do I become a Falcon partner?',
+    a: 'Check the minimum requirements on this page, then start the partner application. Say what you place and who you place it for. The desk reads one file, tells you what Falcon can and cannot place, and agrees terms before anything is submitted.',
+  },
+];
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Our Firm', path: '/about' },
+    { name: 'Partners', path: '/partners' },
+  ]),
+  faqSchema(FAQS),
+];
+---
+
+<BaseLayout
+  title="Partners | Brokers, ISOs and funding partners | Falcon Equity Group"
+  description="Send one file to one desk. Seven products from $5,000 to $5,000,000, no restricted-industry or restricted-state list, a 0% agreement fee, and a straight answer on whether a file is placeable."
+  disclosure={PAGE_DISCLOSURE}
+  schema={schema}
+  cta={false}
+>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in tracks 1-7, lead in 12-16, one 5:2 still.
+       The still is the supplied boardroom photograph Ling sent on 23 Oct (src/assets/images/partners-hero.webp). No CTA.
+       Copy: the H1 is the audience line, there is no eyebrow, and (Ling, 24 Oct) the lead stops after
+       "before they send it" — the "one specialist stays on the relationship" sentence is gone. -->
+  <section
+    class="ptn-hero"
+    aria-labelledby="page-hero-heading"
+    data-band="light"
+    data-ptn-section="hero"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
+    <div class="container-site">
+      <div class="ptn-shell ptn-hero-head" data-reveal>
+        <div class="ptn-hero-title-block">
+          <h1 id="page-hero-heading" class="ptn-hero-title">Brokers, ISOs and funding partners</h1>
+        </div>
+        <p class="ptn-hero-lead">
+          We work with the most reputable companies in the private sector — brokers, ISOs and funding partners who
+          read a file before they send it.
+        </p>
+      </div>
+      <div class="ptn-hero-media" data-reveal-media>
+        <Media
+          image={partnersHero}
+          intent="Supplied photograph: four colleagues in a glass-walled boardroom, two shaking hands."
+          alt="Four colleagues in a glass-walled boardroom: two men shake hands across the table while a woman holding a tablet and a seated colleague watch, the city beyond the windows."
+          ratio="5 / 2"
+          priority
+          sizes="(min-width: 90em) 1264px, (min-width: 80em) 1136px, (min-width: 48em) 688px, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 3. Partner types — TF-05 3-up titled prose on the house 1/5 · 6/6 · 12/5 split.
+       Ling, 24 Oct: the H2 is "Let’s grow our businesses together." and the lede follows the
+       OnDeck partner page she pasted ("...some of the partners we work with include:"), in our words. -->
+  <section class="ptn-types" aria-labelledby="types-heading" data-band="light" data-ptn-section="types" data-reveal-root>
+    <div class="container-site">
+      <div class="ptn-block-head" data-reveal>
+        <Eyebrow>Partner types</Eyebrow>
+        <h2 id="types-heading">Let’s grow our businesses together.</h2>
+        <p class="ptn-lede">
+          Falcon Equity provides flexible lending products, competitive commissions and great service when you
+          partner with us. Together, we can help small businesses succeed. Some of the partners we work with include:
+        </p>
+      </div>
+      <div class="ptn-three" data-reveal>
+        {
+          PARTNER_TYPES.map((type) => (
+            <article class="ptn-three-item">
+              <h3 class="ptn-card-title">{type.title}</h3>
+              <p class="ptn-card-body">{type.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Partner fit — the OnDeck "Ready to see if we're a good fit?" band on the service pages'
+       "What it helps" layout (LS-04), which is the shape Ling asked for on 24 Oct: Eyebrow + H2 as a
+       full-width block head, then a split with the 3:4 still in the left tracks (1-8) and every piece of
+       text in the right ones (11-16) — sub-head, intro, requirement list, acknowledgement and the one CTA.
+       The enquiry-form placeholder is gone: the form Ling is building lives on /partners/apply. -->
+  <section
+    class="ptn-become on-dark"
+    id="become-a-partner"
+    aria-labelledby="become-heading"
+    data-band="dark"
+    data-ptn-section="become"
+    data-reveal-root
+  >
+    <div class="container-site">
+      <div class="ptn-shell ptn-become-head" data-reveal>
+        <div class="ptn-block-head">
+          <Eyebrow>Partner enquiries</Eyebrow>
+          <h2 id="become-heading">Ready to see if we’re a good fit?</h2>
+        </div>
+      </div>
+
+      <div class="ptn-shell ptn-become-split" data-reveal>
+        <div class="ptn-become-image">
+          <Media
+            image={partnersFitImage}
+            intent="Advisor across the table from two business owners, pen in hand over a statement"
+            alt="An advisor in a black blazer smiles as she points with a pen at paperwork spread over a meeting table, a laptop open beside her and the hands of a client resting on the pages in front."
+            ratio="3 / 4"
+            sizes="(min-width: 80em) 624px, 100vw"
+          />
+        </div>
+        <div class="ptn-become-body">
+          <h3 class="ptn-become-sub">Apply to be a partner.</h3>
+          <p class="ptn-body ptn-become-intro">
+            Review the minimum requirements before you go on to the partner application.
+          </p>
+          <ul class="ptn-req-list">
+            {
+              PARTNER_REQUIREMENTS.map((req) => (
+                <li class="ptn-req">
+                  <strong class="ptn-req-title">{req.title}</strong>
+                  <p class="ptn-req-body">{req.body}</p>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="ptn-become-ack">
+            <label class="ptn-ack">
+              <input class="ptn-ack-input" type="checkbox" name="partner-requirements-ack" />
+              <span>I acknowledge that my business meets all requirements above.</span>
+            </label>
+            <div class="ptn-ack-cta">
+              <Button040
+                href="/partners/apply"
+                label="Start the partner application"
+                compactLabel="Start application"
+                variant="light"
+              />
+            </div>
+            <p class="ptn-ack-alt">
+              For another kind of partnership, email <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FAQ — the shared FaqList (PWS-09 shape: five rows) + FAQPage schema. -->
+  <section class="ptn-faq" aria-labelledby="faq-heading" data-band="light" data-ptn-section="faq" data-reveal-root>
+    <div class="container-site">
+      <div class="ptn-block-head" data-reveal>
+        <Eyebrow>FAQ</Eyebrow>
+        <h2 id="faq-heading">Partner questions.</h2>
+      </div>
+      <FaqList items={FAQS} idPrefix="ptn" class="ptn-faq-list" data-reveal />
+    </div>
+  </section>
+
+  <script>
+    import { bindAccordions } from '@/scripts/accordion';
+    import '@/scripts/scroll-in';
+
+    bindAccordions();
+  </script>
+</BaseLayout>

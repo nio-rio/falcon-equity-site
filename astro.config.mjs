@@ -1,0 +1,134 @@
+// @ts-check
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+import { satteri } from '@astrojs/markdown-satteri';
+import { tableDataLabelsPlugin } from './src/lib/table-labels.js';
+
+const livePaths = new Set([
+  '/',
+  '/apply',
+  '/about',
+  '/industries',
+  '/services',
+  '/services/merchant-cash-advance',
+  '/services/collateral-asset-loans',
+  '/services/business-line-of-credit',
+  '/services/business-term-loan',
+  '/services/invoice-factoring-tool',
+  '/services/consolidation-of-positions',
+  '/services/decentralized-business-financing',
+  '/industries/retail',
+  '/industries/transportation-logistics',
+  '/industries/restaurants-food-service',
+  '/industries/real-estate',
+  '/industries/healthcare',
+  '/industries/construction',
+  '/industries/e-commerce',
+  '/industries/auto-services',
+  '/industries/manufacturing',
+  '/industries/professional-services',
+  '/industries/education',
+  '/industries/travel-hospitality',
+  '/blog',
+  '/faq',
+  '/resources/business-loan-calculator',
+  '/resources/credit-repair-loan-prep',
+  '/partners',
+  '/partners/apply',
+]);
+
+const serviceSlugs = [
+  'collateral-asset-loans',
+  'business-line-of-credit',
+  'merchant-cash-advance',
+  'business-term-loan',
+  'invoice-factoring-tool',
+  'consolidation-of-positions',
+  'decentralized-business-financing',
+];
+
+const industrySlugs = [
+  'retail',
+  'transportation-logistics',
+  'restaurants-food-service',
+  'real-estate',
+  'healthcare',
+  'construction',
+  'e-commerce',
+  'auto-services',
+  'manufacturing',
+  'professional-services',
+  'education',
+  'travel-hospitality',
+];
+
+const blogDir = join('src', 'content', 'blog');
+const blogSlugs = readdirSync(blogDir)
+  .filter((file) => /\.mdx?$/.test(file))
+  .map((file) => file.replace(/\.mdx?$/, ''));
+
+const blogCategories = ['getting-approved', 'compare-options', 'costs-and-rates', 'cash-flow-and-debt'];
+
+/** /blog/<slug> pages ship 2026-10-23 — src/pages/blog/[slug].astro renders one per post. */
+for (const slug of blogSlugs) livePaths.add(`/blog/${slug}`);
+
+/** Astro static redirects cannot splat onto a parameter-less destination. */
+/** @type {Record<string, string>} */
+const retired = {
+  '/contact': '/#contact',
+  '/privacy-policy': '/',
+  '/terms-conditions': '/',
+  '/how-it-works': '/',
+  '/resources/loan-calculator': '/apply',
+};
+
+for (const slug of serviceSlugs) {
+  if (slug === 'merchant-cash-advance') continue;
+  if (slug === 'collateral-asset-loans') continue;
+  if (slug === 'business-line-of-credit') continue;
+  if (slug === 'business-term-loan') continue;
+  if (slug === 'invoice-factoring-tool') continue;
+  if (slug === 'consolidation-of-positions') continue;
+  if (slug === 'decentralized-business-financing') continue;
+  retired[`/services/${slug}`] = '/';
+}
+// All twelve industry pages ship 2026-10-23, so no /industries/* redirect is generated.
+for (const slug of industrySlugs) {
+  if (!livePaths.has(`/industries/${slug}`)) retired[`/industries/${slug}`] = '/';
+}
+for (const slug of blogCategories) retired[`/blog/category/${slug}`] = '/';
+
+export default defineConfig({
+  site: 'https://falconequity.ai',
+  output: 'static',
+  trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
+  markdown: {
+    processor: satteri({
+      hastPlugins: [tableDataLabelsPlugin],
+    }),
+  },
+  redirects: retired,
+  integrations: [
+    sitemap({
+      filter: (page) => {
+        if (page.includes('/404')) return false;
+        try {
+          const { pathname } = new URL(page);
+          const path = pathname.replace(/\/+$/, '') || '/';
+          return livePaths.has(path);
+        } catch {
+          return false;
+        }
+      },
+    }),
+  ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});

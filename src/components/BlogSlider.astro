@@ -1,0 +1,147 @@
+---
+/**
+ * Blog slider — GLOBAL COMPONENT.
+ *
+ * The one place the "From the blog" band is defined. Service pages and
+ * /industries/retail all render this; nothing about the slider's markup,
+ * layout or navigation lives in a page anymore.
+ *
+ * Props carry page identity only — the posts to show, the carousel's
+ * accessible name, and the band classes the page's own stylesheet needs for
+ * its padding/rhythm. Anything visual belongs in blog-slider.css.
+ */
+import Eyebrow from '@/components/Eyebrow.astro';
+import Media from '@/components/Media.astro';
+import SliderNav from '@/components/SliderNav.astro';
+import type { Post } from '@/lib/blog';
+import '@/styles/blog-slider.css';
+
+interface Props {
+  /** Published posts, in the order they should slide. */
+  posts: Post[];
+  /** Accessible name for the carousel region, e.g. "Retail funding articles". */
+  label: string;
+  /** Page band classes — padding and theme hooks only. */
+  bandClass?: string;
+  /** Section hook for the page's data attributes, e.g. "mca" → data-mca-section. */
+  sectionKey?: string;
+}
+
+const { posts, label, bandClass = '', sectionKey } = Astro.props;
+
+const sectionAttrs = sectionKey ? { [`data-${sectionKey}-section`]: 'blog' } : {};
+
+const showNav = posts.length > 1;
+---
+
+<section
+  class:list={['blog-band', bandClass]}
+  aria-label="From the blog"
+  data-band="light"
+  {...sectionAttrs}
+  data-reveal-root
+>
+  <div class="container-site">
+    <div
+      class="blog-slider"
+      data-blog-slider
+      data-autoplay="true"
+      data-autoplay-duration="5000"
+      data-reveal
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+      tabindex="0"
+    >
+      <div class="blog-split">
+        <div class="blog-copy">
+          <Eyebrow>From the blog</Eyebrow>
+          <div class="blog-copy-slides">
+            {
+              posts.map((post, i) => (
+                <div
+                  class:list={['blog-copy-slide', i === 0 && 'is-active']}
+                  data-blog-copy-slide
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} of ${posts.length}`}
+                  aria-hidden={i === 0 ? 'false' : 'true'}
+                >
+                  <h2 class="blog-title" data-blog-title>
+                    {post.data.title}
+                  </h2>
+                  <a class="blog-link" href={`/blog/${post.id}`} data-blog-link>
+                    <span class="blog-link-label">Read the article</span>
+                    <span class="blog-link-icon" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M14 19L21 12L14 5"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M21 12H2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-miterlimit="10"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              ))
+            }
+          </div>
+
+          {
+            showNav && (
+              <SliderNav
+                class="blog-nav"
+                items={posts.map((post) => ({ label: post.data.title }))}
+                prevLabel="Previous article"
+                nextLabel="Next article"
+              />
+            )
+          }
+        </div>
+
+        <div class="blog-media">
+          {
+            posts.map((post, i) => (
+              <div
+                class:list={['blog-media-slide', i === 0 && 'is-active']}
+                data-blog-media-slide
+                aria-hidden={i === 0 ? 'false' : 'true'}
+                data-blog-img
+              >
+                <Media
+                  image={post.data.cover}
+                  alt={post.data.coverAlt || post.data.title}
+                  intent={post.data.coverAlt || post.data.title}
+                  labeled={!post.data.cover}
+                  ratio="16 / 9"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  sizes="(min-width: 90em) 704px, (min-width: 80em) 632px, (min-width: 48em) 688px, 100vw"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-blog-live></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { bindBlogSlider } from '@/scripts/blog-slider';
+
+  bindBlogSlider();
+</script>

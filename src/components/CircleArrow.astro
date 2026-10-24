@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={['circle-arrow', className]} aria-hidden="true">
+  <Icon name="arrow-right" size={16} />
+</span>

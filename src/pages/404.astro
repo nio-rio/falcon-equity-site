@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArrowCta from '@/components/ArrowCta.astro';
+---
+
+<BaseLayout title="Page Not Found" description="This Falcon Equity Group page could not be found. Return home or apply for funding." noindex>
+  <section class="bg-white">
+    <div class="container-site page-hero-pad">
+      <div class="bx-grid">
+        <div class="bx-span-4 bx-lg-span-7">
+          <h1>Page not found.</h1>
+        </div>
+        <div class="bx-span-4 bx-lg-span-5">
+          <p class="page-hero-lead">The page has moved or does not exist.</p>
+          <div class="mt-8 flex flex-col gap-6">
+            <ArrowCta href="/" label="Home" />
+            <ArrowCta href="/apply" label="Apply" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,88 @@
+---
+/**
+ * Home “Why choose us” — blackstone.com Private Wealth two-up + tickertape.
+ * Measured from blackstone-v2 `.bx-two-up-content` + `.bx-tickertape`
+ * (frontend.css / frontend.js). Falcon fonts and Martinique Darker.
+ */
+import PilotArrow from './PilotArrow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+
+const rows = [
+  {
+    title: 'Easy process',
+    body: 'You can work with Falcon directly from application to funding, without going through a third party.',
+  },
+  {
+    title: 'Same-Day Funding',
+    body: 'After approval, you can get funds as soon as the same day.',
+  },
+  {
+    title: 'No hard credit pulls',
+    body: 'Check your eligibility without affecting your credit score.',
+  },
+] as const;
+
+const tapeCopies = 3;
+---
+
+<section class="pilot-why pilot-on-dark" aria-labelledby="why-heading" id="why-choose-us" data-band="dark" data-reveal-root data-reveal-start="top 92%" data-reveal-stagger="0.08" data-reveal-duration="0.6">
+  <div class="container-site">
+    <div class="pilot-why-grid">
+      <Eyebrow class="pilot-why-eyebrow">Why choose us</Eyebrow>
+      <h2 id="why-heading" class="pilot-why-title" data-reveal>Capital, without the runaround.</h2>
+      <p class="pilot-why-copy" data-reveal>
+        No brokers in the middle and no hard pull just to see where you stand. Just a direct line to the people who fund you.
+      </p>
+      <div class="pilot-why-cta" data-reveal>
+        <PilotArrow href="/#why-choose-us" label="See how it works" tone="light" />
+      </div>
+      <div class="pilot-why-card" data-reveal>
+        <ol class="pilot-why-list">
+          {
+            rows.map((row, i) => (
+              <li class="pilot-why-row">
+                <div class="pilot-why-row-copy">
+                  <h3 class="pilot-why-row-title">{row.title}</h3>
+                  <p class="pilot-why-row-body">{row.body}</p>
+                </div>
+                <span class="pilot-why-step" aria-hidden="true">
+                  {i + 1}
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <a class="pilot-why-tape" href="/apply" aria-label="Apply for funding">
+    <span class="pilot-why-tape-track" data-why-tape aria-hidden="true">
+      {
+        Array.from({ length: tapeCopies }, (_, i) => (
+          <span class="pilot-why-tape-item" data-why-tape-item={i === 0 ? true : undefined}>
+            <strong>Apply</strong> for funding
+          </span>
+        ))
+      }
+    </span>
+  </a>
+</section>
+
+<script>
+  const SPEED = 125;
+
+  const arm = (track: HTMLElement) => {
+    const item = track.querySelector<HTMLElement>('[data-why-tape-item]');
+    if (!item) return;
+    const set = () => {
+      const cs = getComputedStyle(item);
+      const span = item.getBoundingClientRect().width + Number.parseFloat(cs.marginRight || '0');
+      if (span > 0) track.style.animationDuration = `${span / SPEED}s`;
+    };
+    set();
+    window.addEventListener('resize', set, { passive: true });
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-why-tape]').forEach(arm);
+</script>

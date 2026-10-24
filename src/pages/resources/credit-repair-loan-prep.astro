@@ -1,0 +1,389 @@
+---
+/**
+ * /resources/credit-repair-loan-prep — Credit Repair & Loan Prep.
+ *
+ * Copy contract: Notion “Credit Repair & Loan Prep — page copy v2
+ * (/resources/credit-repair-loan-prep)”, as edited by Ling on 23 Oct 2026
+ * (00:35Z). Her edit deleted the answer-first block (old 2) and the situation
+ * router (old 3), so the note now numbers itself 1, 4–8, 10, 11.
+ *
+ *   1   hero .............. page header + 5:2 still, CTA opens the contact panel
+ *   4   two files ......... three definitions in the house 3-up, lede under the H2
+ *   5   business programs . six, same 3-up (3 × 2)
+ *   6   personal programs . three, same 3-up
+ *   7   process ........... the home “Why choose us” band: the summary of the
+ *                           old straight-answers band as its lede, 4 numbered
+ *                           steps in the card right
+ *   10  FAQ ............... the shared FaqList + FAQPage schema
+ *   11  closing band ...... SiteCta from BaseLayout
+ *
+ * Sections 8 (straight answers: what it does / what it does not / federal law)
+ * and 9 (what to send) were removed on Ling's instruction, 23 Oct 2026 — the
+ * first survives only as the process lede, the second is gone. Every band on
+ * this page is white or dark; there is no Lilac band.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import FaqList from '@/components/FaqList.astro';
+import Media from '@/components/Media.astro';
+import heroStill from '@/assets/images/credit-repair-hero.webp';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
+import '@/styles/credit-repair.css';
+
+const TITLE = 'Credit repair and loan prep';
+const DESCRIPTION =
+  "Falcon's pre-application program: personal and business credit review, challenges on inaccurate items, and PAYDEX and FICO SBSS preparation.";
+
+const HERO = {
+  h1: 'Credit Repair & Loan Prep',
+  sub: 'A specialist reads both of your credit files, challenges what is wrong in them, and lines up the documents underwriting asks for — before the next application is the one that gets declined.',
+  cta: 'Talk to a specialist',
+  mediaIntent:
+    'Two owners and a specialist at a table with a laptop, a tablet showing a rising chart, and paperwork.',
+  mediaAlt:
+    'Two business owners and a funding specialist at a wooden table, going through paperwork beside a tablet showing a rising chart.',
+};
+
+/** The note lists this as the band's lede, not a footnote under the cards. */
+const FILES_LEDE =
+  'Which one is blocking you is the first thing a specialist works out — and it is rarely the one the decline letter names.';
+
+/** The short summary of the deleted “Straight answers” band, which Ling asked
+    to keep as this band's lede (23 Oct 2026): what the work does, and what it
+    never promises. Every clause is one of that band's own lines. */
+const PROCESS_LEDE =
+  'Preparation, not a funding product. Challenges target what is inaccurate, duplicated, outdated or unverifiable, and nothing here promises a score, a timeline or an approval.';
+
+const FILES = [
+  {
+    title: 'Personal credit report',
+    body: 'The three consumer bureaus — Experian, Equifax and TransUnion — each hold their own version. Payment history, balances against limits, account age, mix and recent inquiries are what get scored. A lender reads this because the owner usually guarantees the debt.',
+  },
+  {
+    title: 'Business credit file',
+    body: 'Dun & Bradstreet scores payment behaviour as PAYDEX, 0–100, where 80 means paid on time. Experian Business and Equifax Business keep their own files. These are built from vendors that report, which is why a business with revenue but no tradelines still looks empty.',
+  },
+  {
+    title: 'FICO SBSS',
+    body: 'The score SBA 7(a) lenders use as a prescreen. It weighs personal and business credit together with time in business, revenue and cash flow, on a 0–300 scale. A bank term loan committee usually reads the same inputs under its own model.',
+  },
+];
+
+const BUSINESS_PROGRAMS = [
+  {
+    name: 'Business Funding Prep',
+    body: 'Personal and business credit monitoring, challenge work and tradeline planning, sequenced around the date you actually need the money.',
+  },
+  {
+    name: 'Credit Ready Business',
+    body: 'A business credit plan run in-house: file set-up, vendor accounts that report, and the payment behaviour that moves PAYDEX.',
+  },
+  {
+    name: 'Startup Capital Prep',
+    body: 'Entity formation alongside personal credit work, for a venture with revenue ahead of it and no history behind it.',
+  },
+  {
+    name: 'SBA & Term Loan Prep',
+    body: 'Prep aimed at the two readers that score hardest: SBA 7(a) lenders and bank credit committees.',
+  },
+  {
+    name: 'MBE, Veteran & WOSB Prep',
+    body: 'Certification paperwork and credit preparation in one track, for owners selling to agencies and larger buyers.',
+  },
+  {
+    name: 'Federal Contracting Prep',
+    body: 'SAM registration and 8(a) guidance, paired with the credit file a federal award expects the business to hold.',
+  },
+];
+
+const PERSONAL_PROGRAMS = [
+  {
+    name: 'Mortgage & Loan Prep',
+    body: 'Personal credit work sequenced against a mortgage timetable, so the rate you are offered reflects the file you actually have on the day you apply.',
+  },
+  {
+    name: 'Student Loan & Credit Plan',
+    body: 'Refinance and consolidation options weighed alongside personal credit repair, in that order.',
+  },
+  {
+    name: 'The Inquirer',
+    body: 'Ongoing monitoring: continuous bureau tracking, alerts, and dispute support while the file is being worked.',
+  },
+];
+
+const STEPS = [
+  {
+    name: 'Free consultation',
+    body: 'One call, both files read out loud, and a straight answer about which one is the problem. No fee to talk and no obligation.',
+  },
+  {
+    name: 'Written plan',
+    body: 'What to challenge, what to build, in what order, and what it costs — set out in writing before any work begins.',
+  },
+  {
+    name: 'Active work',
+    body: 'Challenges, tradeline building and score work, with the specialist reporting what moved and what did not.',
+  },
+  {
+    name: 'Application',
+    body: "Once the file is ready it goes to the product that fits it, Falcon's or another lender's.",
+  },
+];
+
+const FAQS = [
+  {
+    q: 'Does this guarantee I get approved?',
+    a: 'No. Preparation changes what underwriting sees; it does not decide the outcome. A specialist will tell you when a product is wrong for your file rather than take an application that will fail.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'The consultation is free. If a program fits, the fee is set out in a written contract before any work starts, with the total you will pay and your three-day right to cancel stated in it.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'It depends on what needs correcting and how fast each bureau answers. A mortgage-timetable program is planned in months; business credit building takes longer because tradelines have to age. Nobody can give you a date in advance, and a specialist will say so.',
+  },
+  {
+    q: 'Will this remove a late payment that really happened?',
+    a: 'No. Accurate and timely items stay. Challenges target what is inaccurate, duplicated, outdated or unverifiable.',
+  },
+  {
+    q: 'Does checking my credit hurt my score?',
+    a: "Reading your own reports for a review does not. A lender's application can, which is one reason the review comes before the application.",
+  },
+  {
+    q: 'Do I have to be a Falcon funding client?',
+    a: 'No. Plenty of files go through prep because a bank or SBA application is next. If a Falcon product fits afterwards, a specialist will say so.',
+  },
+  {
+    q: 'Can I apply for funding while the prep is running?',
+    a: 'Yes, if a product fits the file you have today. Some do; the ones that do not are the reason the prep exists.',
+  },
+];
+
+/** `/resources` has no index page, so the crumb stops at the page — same shape as
+    the calculator's. A middle crumb pointing at a 404 would be worse than none. */
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Credit Repair & Loan Prep', path: '/resources/credit-repair-loan-prep' },
+];
+
+const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
+---
+
+<BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <div class="cr-page">
+    {/* 1 hero — page header only: H1, standfirst, one CTA, still below.
+        No eyebrow above an H1 (Ling, 23 Oct 2026 — “Never eyebrow on h1”), and
+        the CTA opens the contact panel rather than starting an application,
+        because prep is not a funding product. */}
+    <section
+      class="cr-hero"
+      aria-labelledby="page-hero-heading"
+      data-band="light"
+      data-cr-section="header"
+      data-reveal-root
+      data-reveal-stagger="0"
+      data-reveal-duration="0.55"
+    >
+      <div class="container-site">
+        <div class="cr-grid cr-hero-grid">
+          <div class="cr-hero-head" data-reveal>
+            <h1 id="page-hero-heading" class="cr-h1">{HERO.h1}</h1>
+          </div>
+          <p class="cr-body cr-standfirst" data-reveal>{HERO.sub}</p>
+          <ArrowButton
+            class="cr-hero-cta"
+            href="#contact"
+            label={HERO.cta}
+            data-contact-open
+            aria-haspopup="dialog"
+            data-reveal
+          />
+          <div class="cr-hero-media">
+            <Media
+              image={heroStill}
+              intent={HERO.mediaIntent}
+              alt={HERO.mediaAlt}
+              ratio="5 / 2"
+              priority
+              sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 4 the two files — three definitions in the house 3-up (the industry
+        products section's `.mca-cards--3` geometry), lede under the H2. */}
+    <section
+      class="cr-band"
+      id="files"
+      aria-labelledby="files-heading"
+      data-band="light"
+      data-cr-section="files"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>The basics</Eyebrow>
+          <h2 id="files-heading">Two files, three scores, one decision</h2>
+          <p class="cr-lede">{FILES_LEDE}</p>
+        </div>
+        <div class="cr-cols-3" data-reveal>
+          {
+            FILES.map((file) => (
+              <article class="cr-file">
+                <h3 class="cr-file-title">{file.title}</h3>
+                <p class="cr-file-body">{file.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 5 business credit programs — same 3-up, six cards (3 × 2) */}
+    <section
+      class="cr-band"
+      id="business-credit"
+      aria-labelledby="business-heading"
+      data-band="light"
+      data-cr-section="business-programs"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Business credit</Eyebrow>
+          <h2 id="business-heading">Business credit programs</h2>
+        </div>
+        <div class="cr-prog-grid" data-reveal>
+          {
+            BUSINESS_PROGRAMS.map((program) => (
+              <article class="cr-prog">
+                <h3 class="cr-prog-title">{program.name}</h3>
+                <p class="cr-prog-body">{program.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 6 personal credit programs — the same 3-up, white like the band above. */}
+    <section
+      class="cr-band"
+      id="personal-credit"
+      aria-labelledby="personal-heading"
+      data-band="light"
+      data-cr-section="personal-programs"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Personal credit</Eyebrow>
+          <h2 id="personal-heading">Personal credit programs</h2>
+        </div>
+        <div class="cr-prog-grid" data-reveal>
+          {
+            PERSONAL_PROGRAMS.map((program) => (
+              <article class="cr-prog">
+                <h3 class="cr-prog-title">{program.name}</h3>
+                <p class="cr-prog-body">{program.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 7 process — the home “Why choose us” band (PilotWhy): eyebrow, H2, lede
+        and CTA in the left column, the four numbered steps in the card right. */}
+    <section
+      class="cr-band cr-band--dark cr-process"
+      id="process"
+      aria-labelledby="process-heading"
+      data-band="dark"
+      data-cr-section="process"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-process-grid">
+          <Eyebrow class="cr-process-eyebrow">Process</Eyebrow>
+          <div class="cr-process-copy">
+            <h2 id="process-heading" class="cr-process-title" data-reveal>Four steps</h2>
+            <p class="cr-process-lede" data-reveal>{PROCESS_LEDE}</p>
+            <div class="cr-process-cta" data-reveal>
+              <ArrowButton
+                href="#contact"
+                label="Talk to a specialist"
+                tone="light"
+                data-contact-open
+                aria-haspopup="dialog"
+              />
+            </div>
+          </div>
+          <div class="cr-process-card" data-reveal>
+            <ol class="cr-process-list">
+              {
+                STEPS.map((step, i) => (
+                  <li class="cr-process-row">
+                    <div class="cr-process-row-copy">
+                      <h3 class="cr-process-row-title">{step.name}</h3>
+                      <p class="cr-process-row-body">{step.body}</p>
+                    </div>
+                    <span class="cr-process-step" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 10 FAQ — the last band before the sitewide closing band. */}
+    <section
+      class="cr-band cr-faq-band"
+      id="faq"
+      aria-labelledby="faq-heading"
+      data-band="light"
+      data-cr-section="faq"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="faq-heading">Questions we get asked</h2>
+        </div>
+        <FaqList items={FAQS} idPrefix="cr" class="cr-faq-list" data-reveal />
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import { bindAccordions } from '@/scripts/accordion';
+  import '@/scripts/scroll-in';
+
+  bindAccordions();
+</script>

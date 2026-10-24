@@ -1,0 +1,430 @@
+/* Decentralized Business Financing only.
+   Structure from blackstone.com/our-businesses/technology-and-innovations/, measured
+   live over CDP at 1440 on 23 Oct 2026 (docs/dbf-structure-plan.md has the tables):
+     02 Start here      <- WHAT WE DO (bx-vertical-list): eyebrow + 48/72 claim, then a
+                           stacked list of titled prose in a 464 column (cols 11-16),
+                           title 24/36, 24px to the body, 64px between items.
+     04 Where it fits   <- OUR ROLES (bx-accordion): head + expandable rows.
+     05 What this is not<- same accordion, six rows.
+     06 How we work     <- BLACKSTONE INNOVATIONS INVESTMENTS (bx-headers two-up):
+                           claim left (cols 1-8, 624), description right (cols 11-16, 464),
+                           no divider line between them.
+     07 Process         <- APM-01 numbered columns; spacing from the other service pages
+                           (.cal-step-num 32px to the title, .cal-process .cal-cards row-gap 80).
+     01 hero            <- TF-00 (title + standfirst beside it).
+     FAQ                <- the shared FaqList component.
+   Type, colour, space: Falcon tokens only. Do not touch home. */
+
+/* ---------------------------------------------------------------- shell ---- */
+
+.dbf-hero,
+.dbf-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.dbf-dark {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+section.dbf-hero {
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at 390 / 768 /
+   1280 / 1440. The shell fills that content box with 1fr tracks. */
+.dbf-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  /* The shell's own row gap IS the head → content rhythm; a band that also put
+     --space-head-to-content on its grid would spend it twice. */
+  row-gap: var(--space-head-to-content);
+  justify-content: stretch;
+}
+
+/* Retail lesson: unnamed children must not land in a single 64px track. */
+.dbf-shell > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------- hero ----- */
+
+.dbf-hero-title {
+  margin: 0;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.dbf-hero-aside {
+  margin-top: 40px;
+  max-width: 40rem;
+}
+
+.dbf-hero-lead {
+  margin: 0;
+  color: var(--ink-a72);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.dbf-hero-cta {
+  margin-top: 40px;
+}
+
+/* Hero still: 5:2 (1264x506 at 1440), the frame Ling set for the supplied file,
+   sitting above a 104px gap like the reference band. */
+section.dbf-hero-media[data-band='light'] {
+  padding: 0 0 104px;
+}
+
+.dbf-hero-media .media,
+.dbf-hero-media .image-slot {
+  width: 100%;
+  aspect-ratio: 5 / 2;
+}
+
+/* ---------------------------------------------------------------- heads ---- */
+
+.dbf-block-head h2 {
+  margin: 0;
+  max-width: none;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.dbf-block-head .eyebrow {
+  color: inherit;
+}
+
+/* Gap comes from the shell's row gap; these classes are markers only. */
+.dbf-band-title,
+.dbf-list {
+  margin-top: 0;
+}
+
+/* ---------------------------------------------------------------- cards ---- */
+
+.dbf-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+  text-wrap: balance;
+}
+
+.dbf-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* ---------------------------------------------------------------- 02 list -- */
+
+/* WHAT WE DO's stacked list: title, 24px, body, 64px to the next item. */
+.dbf-start-media .media,
+.dbf-start-media .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.dbf-start-head h2 {
+  max-width: 40rem;
+}
+
+.dbf-start-item + .dbf-start-item {
+  margin-top: 64px;
+}
+
+.dbf-start-item:first-child .dbf-card-title {
+  margin-top: 0;
+}
+
+/* ---------------------------------------------------------------- 06 AI ---- */
+
+.dbf-ai-body {
+  margin: 0;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.32px;
+}
+
+/* No divider line: the statement is held apart by size only, and — per Ling —
+   both paragraphs of this band are set in the body face, not the display face. */
+.dbf-statement {
+  margin: 40px 0 0;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.32px;
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- process -- */
+
+/* Four rows per card, the body row taking the slack so every hand-off block
+   bottom-aligns. Deliberately NOT a subgrid: a shared title row stretched each
+   one-line title to the tallest title's box and pushed the paragraph ~70px down. */
+.dbf-step {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  row-gap: 0;
+  align-content: start;
+}
+
+/* Process numerals: same measure, weight and colour as every other service page. */
+.dbf-step-num {
+  margin: 0 0 32px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+}
+
+/* Reference measures 24px between an h3 and its paragraph; the owner asked for
+   tighter here, and 24 read as a gap because the numeral's large box sits above. */
+.dbf-step .dbf-card-title {
+  margin-bottom: 16px;
+}
+
+.dbf-step-body {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* No divider over the hand-off block (Ling): the 32px gap alone separates it. */
+.dbf-step-io {
+  margin: 32px 0 0;
+  width: 100%;
+}
+
+.dbf-step-io dt {
+  margin: 0 0 6px;
+  color: var(--ink-a63);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: normal;
+}
+
+.dbf-step-io dd {
+  margin: 0 0 24px;
+  /* 3 lines reserved: the hand-off blocks then read as one row across all three
+     columns instead of the shortest one starting higher. */
+  min-height: 72px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.16px;
+}
+
+.dbf-step-io dd:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------- 48em ----- */
+
+@media (min-width: 48em) {
+  .dbf-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .dbf-start-media {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .dbf-start-list {
+    grid-column: 5 / span 4;
+  }
+
+  /* Two per row from 8 tracks; the third (and fifth) wrap under the first. */
+  .dbf-cards--3 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(1),
+  .dbf-cards--3 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(5) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(4) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .dbf-card-title {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .dbf-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+}
+
+/* ---------------------------------------------------------------- 64em ----- */
+
+@media (min-width: 64em) {
+  .dbf-card-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  .dbf-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+}
+
+/* ---------------------------------------------------------------- 80em ----- */
+
+@media (min-width: 80em) {
+  .dbf-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  /* 01 hero: title left, standfirst + lead beside it (TF-00). */
+  /* TF-00: H1 in 9 of 16 tracks, the lede beside it in 12-16 (384). */
+  .dbf-hero-title {
+    grid-column: 1 / span 9;
+    grid-row: 1;
+  }
+
+  .dbf-hero-aside {
+    grid-column: 12 / span 5;
+    grid-row: 1;
+    margin-top: 0;
+    max-width: none;
+  }
+
+  /* 02 Start here, per WHAT WE DO: head above, then the still in cols 1-8 and the
+     list in cols 11-16 (464), the list's first line level with the image's top. */
+  .dbf-start-media {
+    grid-column: 1 / span 8;
+    grid-row: 2;
+    /* Flush to the container edge, 624 wide -> the donor's 624x832 still. */
+    padding-right: 0;
+  }
+
+  .dbf-start-list {
+    grid-column: 11 / span 6;
+    grid-row: 2;
+    align-self: start;
+  }
+
+  /* 06 How we work: claim left 1-8, body + statement right 11-16. */
+  .dbf-ai-head {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+  }
+
+  .dbf-ai-right {
+    grid-column: 11 / span 6;
+    grid-row: 1;
+  }
+
+  /* House 3-column: 1/5, 6/6, 12/5 with 32/56/32 pad -> 352 measure, 104 gutters. */
+  .dbf-cards--3 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(4) {
+    grid-column: 1 / span 5;
+    padding-left: 0;
+    padding-right: 32px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(5) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .dbf-cards--5 {
+    row-gap: 104px;
+  }
+
+  .dbf-process-grid {
+    row-gap: 80px;
+  }
+}
+
+/* ---------------------------------------------------------------- 90em ----- */
+
+@media (min-width: 90em) {
+  .dbf-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+}
+
+/* ------------------------------------------------------------- motion ------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .dbf-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .dbf-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

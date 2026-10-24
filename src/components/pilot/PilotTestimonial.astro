@@ -1,0 +1,78 @@
+---
+/**
+ * Blackstone home `.bx-announcement` (“EARNINGS”): eyebrow + serif title left,
+ * 3:4 portrait in the middle columns, small copy right and bottom-aligned.
+ * Home testimonial slider — only consented quotes in HOME_TESTIMONIALS.
+ */
+import SliderNav from '@/components/SliderNav.astro';
+import Media from '@/components/Media.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { HOME_TESTIMONIALS } from '@/data/home-testimonial';
+
+const slides = HOME_TESTIMONIALS;
+const canLoop = slides.length > 1;
+const eyebrow = 'Testimonial';
+---
+
+<section
+  class="pilot-ann"
+  aria-label="Testimonial"
+  data-band="light"
+  data-testimonial-wrap
+  data-autoplay="true"
+  data-autoplay-duration="5000"
+>
+  <div class="container-site">
+    <div class="pilot-ann-inner">
+      <Eyebrow class="pilot-ann-eyebrow">{eyebrow}</Eyebrow>
+      <div class="pilot-ann-stage">
+        <div class="pilot-ann-list" data-testimonial-list role="list">
+          {
+            slides.map((slide, i) => (
+              <article
+                class:list={['pilot-ann-item', i === 0 && 'is--active']}
+                data-testimonial-item
+                role="listitem"
+                aria-hidden={i === 0 ? 'false' : 'true'}
+              >
+                <blockquote class="pilot-ann-title" id={i === 0 ? 'testimonial-quote' : undefined}>
+                  <p data-testimonial-text>“{slide.quote}”</p>
+                </blockquote>
+                <div class="pilot-ann-media" data-testimonial-img>
+                  <Media
+                    image={slide.image}
+                    intent={slide.imageIntent}
+                    alt={slide.imageAlt}
+                    ratio="3 / 4"
+                    sizes="(min-width: 80em) 304px, 50vw"
+                    widths={[320, 480, 560]}
+                    fallbackFormat="webp"
+                    quality={68}
+                  />
+                </div>
+                <div class="pilot-ann-meta">
+                  <p class="pilot-ann-business" data-testimonial-split>
+                    {slide.business}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+        <p class="sr-only" aria-live="polite">
+          Testimonial <span data-current>1</span> of <span data-total>{slides.length}</span>
+        </p>
+        <SliderNav
+          class="pilot-ann-nav"
+          items={slides.map((slide, i) => ({ label: slide.business || `Testimonial ${i + 1}` }))}
+          prevLabel="Previous testimonial"
+          nextLabel="Next testimonial"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '@/scripts/testimonial-slider';
+</script>

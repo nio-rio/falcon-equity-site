@@ -1,0 +1,431 @@
+/* /partners — brokers, ISOs, funding partners and service partners.
+   Copy contract: the 23 Oct 2026 partners brief, verbatim.
+   Band-by-band donors and content: docs/partners-structure-plan.md.
+
+   Same discipline as about.css: every class is .ptn-* and lives only here, the
+   shell is the house 4 / 8 / 16-track grid inside .container-site, and every
+   page-ladder slot (title, band pad, H2, head → content, eyebrow → heading) is a
+   token, never a px value. Shared components (Eyebrow, Media, FaqList, Button040,
+   ArrowCta, CircleArrow) are placed here, not restyled — the one exception is the
+   SiteCta static variant at the end, whose first and only user is this page.
+
+   Band order and theme (the global [data-band] rule pads each band; a same-theme
+   follower collapses its top to --pilot-section-y-stack on its own):
+     hero L · types L · become D · FAQ L
+   (Deleted from the contract and from this file: answer-first, product shelf, submission,
+   shared client, speed, the dedicated Cardiff band, and "Our partners" — Falcon does not
+   publish its investors and Cardiff is an affiliate, so its link lives in the site footer.) */
+
+/* ------------------------------------------------------------ bands ---- */
+.ptn-hero,
+.ptn-types,
+.ptn-faq {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.ptn-become {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+section.ptn-hero[data-band='light'] {
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
+}
+
+.ptn-become h2,
+.ptn-become h3 {
+  color: var(--color-white);
+}
+
+/* ------------------------------------------------------------ shell ---- */
+.ptn-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 72px;
+}
+
+.ptn-shell > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+@media (min-width: 48em) {
+  .ptn-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 80em) {
+  .ptn-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 0;
+  }
+}
+
+/* ---------------------------------------------------- shared type ---- */
+.ptn-block-head h2,
+.ptn-split-head h2 {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.ptn-lede {
+  margin: 24px 0 0;
+  max-width: 40rem;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.ptn-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+  text-wrap: balance;
+}
+
+.ptn-card-body,
+.ptn-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.on-dark .ptn-card-body,
+.on-dark .ptn-lede {
+  color: var(--bx-on-dark);
+}
+
+.ptn-body + .ptn-body {
+  margin-top: 24px;
+}
+
+@media (min-width: 48em) {
+  .ptn-card-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+/* ------------------------------------------------------- 1 hero ---- */
+/* TF-00: eyebrow + title alone on the left, the lead in the right-hand tracks,
+   then a 5:2 still (TF-01). Same geometry as /about. */
+.ptn-hero-head {
+  row-gap: 32px;
+}
+
+.ptn-hero-title {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+.ptn-hero-lead {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: normal;
+}
+
+.ptn-hero-media {
+  margin-top: 56px;
+}
+
+.ptn-hero-media .media,
+.ptn-hero-media .image-slot {
+  width: 100%;
+  aspect-ratio: 5 / 2;
+}
+
+@media (min-width: 64em) {
+  .ptn-hero-head .ptn-hero-title-block,
+  .ptn-hero-head .ptn-hero-lead {
+    grid-column: 1 / span 8;
+  }
+
+  .ptn-hero-media {
+    margin-top: 72px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ptn-hero-head .ptn-hero-title-block {
+    grid-column: 1 / span 7;
+  }
+
+  .ptn-hero-head .ptn-hero-lead {
+    grid-column: 12 / span 5;
+    align-self: end;
+    padding-bottom: 6px;
+  }
+
+  .ptn-hero-media {
+    margin-top: 88px;
+  }
+}
+
+/* --------------------------------------------- split band (9) ---- */
+/* TF-02 / BMX-10 / HOME-07: head in tracks 1-7, content in tracks 9-16 from 80em.
+   Stacked under that, with the house 72px head → content. */
+.ptn-split {
+  row-gap: var(--space-head-to-content);
+}
+
+@media (min-width: 80em) {
+  .ptn-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ptn-split > .ptn-split-head {
+    grid-column: 1 / span 7;
+  }
+
+  .ptn-split > :not(.ptn-split-head) {
+    grid-column: 9 / span 8;
+  }
+}
+
+/* --------------------------------------------- 3 the house 3-up ---- */
+/* TF-05 on the same split the /about values band measured from the
+   /industries products section: 1/5 · 6/6 · 12/5 with 32 / 56 / 32 inner pad. */
+.ptn-three {
+  margin: var(--space-head-to-content) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 48px;
+}
+
+.ptn-three-item {
+  min-width: 0;
+}
+
+@media (min-width: 48em) {
+  .ptn-three {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 72px;
+  }
+
+  .ptn-three-item:nth-child(odd) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .ptn-three-item:nth-child(even) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+}
+
+@media (min-width: 64em) {
+  .ptn-three {
+    row-gap: 104px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ptn-three {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .ptn-three-item:nth-child(1) {
+    grid-column: 1 / span 5;
+    padding: 0 32px 0 0;
+  }
+
+  .ptn-three-item:nth-child(2) {
+    grid-column: 6 / span 6;
+    padding: 0 56px;
+  }
+
+  .ptn-three-item:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding: 0 0 0 32px;
+  }
+}
+
+/* ------------------------------------------- 8 partner row ---- */
+/* ------------------------------------------- 9 partner fit ---- */
+/* LS-04 / "What it helps" exactly as the service pages build it, and as Ling asked on 24 Oct:
+   the 3:4 still in the left tracks (1-8), every piece of text in the right ones (11-16), stacked
+   with the house 72/88 head → content gap under 80em. Type is the shared .ptn-card-* ladder
+   (25/36 display title, 18/27 body). Nothing in this band is a card: no tile, no border, one list. */
+.ptn-become-split {
+  margin-top: var(--space-head-to-content);
+  row-gap: 72px;
+}
+
+.ptn-become-image {
+  grid-column: 1 / -1;
+}
+
+.ptn-become-image .media,
+.ptn-become-image .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.ptn-become-body {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.ptn-become-sub {
+  margin: 0 0 24px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+}
+
+.ptn-become-intro {
+  margin-bottom: var(--bx-space-48);
+}
+
+.ptn-req-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ptn-req + .ptn-req {
+  margin-top: var(--bx-space-32);
+}
+
+.ptn-req-title {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+}
+
+.ptn-req-body {
+  margin: 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ptn-become-ack {
+  margin-top: var(--bx-space-56);
+}
+
+.ptn-ack {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bx-space-12);
+  cursor: pointer;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.ptn-ack-input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 3px 0 0;
+  cursor: pointer;
+}
+
+.ptn-ack-cta {
+  margin-top: var(--bx-space-24);
+}
+
+.ptn-ack-alt {
+  margin: var(--bx-space-24) 0 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.008em;
+}
+
+.ptn-ack-alt .link {
+  color: var(--color-white);
+}
+
+@media (min-width: 48em) {
+  .ptn-become-split {
+    row-gap: 88px;
+  }
+
+  .ptn-become-sub {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ptn-become-split {
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .ptn-become-image {
+    grid-column: 1 / span 8;
+  }
+
+  .ptn-become-body {
+    grid-column: 11 / span 6;
+  }
+}
+
+/* -------------------------------------------------- 10 FAQ ---- */
+/* Placement only — every visual rule of the list belongs to faq-list.css. */
+.ptn-faq-list {
+  margin-top: var(--space-head-to-content);
+}
+
+/* ------------------------------------------------- motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .ptn-ack,
+  .ptn-ack-alt .link {
+    transition: none;
+  }
+}

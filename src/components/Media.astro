@@ -1,0 +1,73 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  /** Photograph Ling should place here if `image` is omitted. */
+  intent: string;
+  image?: ImageMetadata;
+  alt?: string;
+  ratio?: string;
+  labeled?: boolean;
+  priority?: boolean;
+  loading?: 'eager' | 'lazy';
+  fallbackFormat?: 'avif' | 'webp' | 'png' | 'jpg' | 'jpeg';
+  quality?: number;
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+}
+
+const {
+  intent,
+  image,
+  alt,
+  ratio = '16 / 9',
+  labeled = false,
+  priority = false,
+  loading,
+  fallbackFormat = 'webp',
+  quality = 80,
+  sizes = '100vw',
+  widths = [640, 960, 1280, 1920, 2560],
+  class: className,
+} = Astro.props;
+const label = `Image placeholder: ${intent} (${ratio.replace(/\s/g, '')})`;
+const accessibleName = alt || label;
+---
+
+{
+  image ? (
+    <figure class:list={['media', 'image-slot', className]} style={`--media-ratio: ${ratio}`}>
+      <Picture
+        src={image}
+        alt={alt ?? ''}
+        widths={widths}
+        sizes={sizes}
+        formats={['avif', 'webp']}
+        fallbackFormat={fallbackFormat}
+        quality={quality}
+        class="media-img"
+        priority={priority}
+        loading={loading}
+      />
+    </figure>
+  ) : labeled ? (
+    <figure
+      class:list={['media', 'media--labeled', 'image-slot', 'image-slot--labeled', className]}
+      style={`--media-ratio: ${ratio}`}
+      role="img"
+      aria-label={accessibleName}
+    >
+      <span class="media-label image-slot-label">{label}</span>
+    </figure>
+  ) : (
+    <div
+      class:list={['media', 'image-slot', className]}
+      style={`--media-ratio: ${ratio}`}
+      aria-hidden="true"
+    >
+      <Fragment set:html={`<!-- ${intent} -->`} />
+    </div>
+  )
+}

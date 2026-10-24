@@ -1,0 +1,500 @@
+/* Retail industry page only (`/industries/retail`).
+   Six bands, in order: hero · what's your case · products · blog · FAQ · CTA
+   (the CTA is the shared SiteCta from BaseLayout).
+   Geometry comes from measurements of the live pages named in
+   docs/retail-structure-plan-v3.md; colour, typeface and components stay
+   Falcon's. Products, blog and FAQ reuse the service pages' own classes from
+   mca.css — this file only sets their band padding.
+   Do not touch home. */
+
+/* ---------------------------------------------------------------------------
+   Band rhythm — Blackstone: 160px top and bottom on a theme change, scaled to
+   the site's inner-page rhythm 80 / 96 / 144 / 160.
+   --------------------------------------------------------------------------- */
+.ind-hero,
+.ind-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.ind-band--dark {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+.ind-band {
+  padding-block: 80px;
+}
+
+@media (min-width: 48em) {
+  .ind-band {
+    padding-block: 96px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ind-band {
+    padding-block: 144px;
+  }
+}
+
+@media (min-width: 90em) {
+  .ind-band {
+    padding-block: 160px;
+  }
+}
+
+/* Hero pad: the shared page-header ladder — 40/80 → 48/96 → 48/120. */
+.ind-hero {
+  padding-block: var(--page-header-pt) var(--page-header-pb);
+}
+
+/* ---------------------------------------------------------------------------
+   Grid — the measured shell: 16 tracks of 64px inside 1264, 16px gutter.
+   Every child spans the full set unless a band places it, so nothing can be
+   auto-placed into a single 64px track.
+   --------------------------------------------------------------------------- */
+.ind-grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 40px;
+  width: 100%;
+}
+
+.ind-grid > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+@media (min-width: 48em) {
+  .ind-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    row-gap: 48px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ind-grid {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    row-gap: 56px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Type — 56/84/300 H1, 18/27/300 body, 14/21 eyebrow. Falcon families only.
+   --------------------------------------------------------------------------- */
+.ind-h1 {
+  margin: 0;
+  max-width: 20ch;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  /* 400 to match the service pages' page title (.mca-hero h1), which Ling
+     asked for; Blackstone's own header is lighter than this. */
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+.ind-body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+@media (min-width: 80em) {
+  .ind-h1 {
+    max-width: 18ch;
+  }
+
+}
+
+/* Dark-band type. Global h2 and eyebrow resolve to ink, which is this band's
+   own fill, so they have to be restated. */
+.ind-band--dark .ind-body,
+.ind-band--dark .eyebrow {
+  color: var(--color-white);
+}
+
+/* ---------------------------------------------------------------------------
+   Hero — blackstone.com/financial-advisors, measured at 1440: H1 704px wide
+   (cols 1–9), standfirst x=968 w=384 (cols 12–16, top-aligned), no stats.
+   The still below is a placeholder until Ling sends the photograph.
+   --------------------------------------------------------------------------- */
+.ind-hero-grid {
+  row-gap: 32px;
+}
+
+.ind-hero-apply {
+  margin-top: 32px;
+}
+
+.ind-hero-media {
+  margin-top: 56px;
+}
+
+@media (min-width: 80em) {
+  .ind-hero-grid > .ind-h1 {
+    grid-column: 1 / span 9;
+  }
+
+  .ind-standfirst {
+    grid-column: 12 / span 5;
+    align-self: start;
+  }
+
+  .ind-hero-apply {
+    grid-column: 12 / span 5;
+    margin-top: 0;
+    align-self: start;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   WHAT'S YOUR CASE — the Blackstone "Explore the Essentials" accordion
+   (blackstone.com/pws/essentials-of-private-markets, measured at 1440).
+   Band pad 160. The eyebrow sits 64px above the title, the title 104px above
+   the first row (their 56px header pad + 48px list pad). Each row is 32/32
+   around a 24/36 question, with a 36px caret box holding a 12x6 chevron and a
+   single hairline above it. The panel opens to 48px of foot room and holds
+   20/30 copy inside the left nine columns — their `AccordionDesc` area.
+   At most one row is open per list: `bindAccordions` closes the others.
+   --------------------------------------------------------------------------- */
+/* Ling's 16px floor on this page (2026-10-23). The shared eyebrow is 14px
+   sitewide below 1280 and the home page is frozen, so it is raised on the
+   industry templates only — the same pattern as `.calc-page .eyebrow`. Every
+   band that carries one gets it, because leaving a band at 14 would put two
+   sizes of the same label on a single page. */
+:is(.ind-case, .ind-products-band, .ind-blog-band, .ind-faq-band) .eyebrow {
+  font-size: 16px;
+}
+
+.ind-case-claim {
+  margin: 0;
+  /* No max-width: the owner wants this to sit on one line whenever the
+     container allows it (retail review round, 2026-10-23). The old 24ch cap
+     forced a break even at 1440, where the 1264px content width is ample. */
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+}
+
+.ind-case-list {
+  margin: 104px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same rule weight as the FAQ accordion (2px at 40%), inverted for the dark
+   band, and the same hover draw: a 2px line that scales out from the left. */
+.ind-case-item {
+  position: relative;
+  border-top: 2px solid var(--white-a40);
+  transition: opacity 0.3s ease;
+}
+
+.ind-case-item:last-child {
+  border-bottom: 2px solid var(--white-a40);
+}
+
+.ind-case-item::after {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  border-bottom: solid 2px var(--color-white);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  pointer-events: none;
+}
+
+.ind-case-item:is(:hover, :focus-within)::after {
+  transform: scaleX(1);
+  transition: transform 0.5s ease-out;
+}
+
+.ind-case-item:is(:hover, :focus-within) {
+  border-top-color: var(--color-white);
+}
+
+.ind-case-h {
+  margin: 0;
+  font: inherit;
+}
+
+.ind-case-trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 24px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-white);
+  /* Body face, like every FAQ question on the site (Ling, 22 Oct). */
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.32px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ind-case-trigger:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+/* Same caret as the FAQ accordion: a 32px round box holding a 16x8 chevron.
+   The box fills on hover; the chevron turns when the row opens. */
+.ind-case-caret {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 24px;
+  color: var(--color-white);
+  background: transparent;
+  transition: transform 0.3s, background 0.3s ease, color 0.3s ease;
+}
+
+.ind-case-item.is-open .ind-case-caret {
+  transform: rotate(180deg);
+}
+
+.ind-case-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms ease-in-out;
+}
+
+.ind-case-item.is-open .ind-case-panel {
+  grid-template-rows: 1fr;
+}
+
+.ind-case-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* The open row splits across the same 16-column grid as the page: the cash
+   line keeps the left seven columns, the product block starts on column 8. */
+.ind-case-body {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  column-gap: 16px;
+  padding-bottom: 48px;
+}
+
+.ind-case-means-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.64px;
+}
+
+.ind-case-means {
+  grid-column: 1 / span 6;
+  margin: 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.18px;
+}
+
+/* The product takes the chart's place in the reference: same row as the
+   cash line, starting on column 8 and running to the last column. */
+.ind-case-product {
+  grid-column: 8 / -1;
+  grid-row: 1;
+}
+
+.ind-case-name {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 36px;
+}
+
+.ind-case-why {
+  margin: 8px 0 0;
+  color: var(--bx-on-dark);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 26px;
+}
+
+.ind-case-facts {
+  margin: 20px 0 0;
+}
+
+.ind-case-facts div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 16px;
+  /* 1px + the 24px line box holds the 26px row pitch the 14px labels had. */
+  padding: 1px 0;
+}
+
+.ind-case-facts dt {
+  margin: 0;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ind-case-facts dd {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ind-case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 24px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  text-decoration: none;
+}
+
+.ind-case-link .circle-arrow {
+  width: 40px;
+  height: 40px;
+}
+
+/* Hover reading borrowed from the home Services list: the list recedes, the
+   hovered row stays at full strength — plus the FAQ's filled caret. */
+@media (hover: hover) {
+  .ind-case-list:is(:hover, :focus-within) .ind-case-item {
+    opacity: 0.36;
+  }
+
+  .ind-case-list:is(:hover, :focus-within) .ind-case-item:is(:hover, :focus-within) {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ind-case-trigger:hover .ind-case-caret,
+  .ind-case-trigger:focus-visible .ind-case-caret {
+    background: var(--color-white);
+    color: var(--color-ink);
+  }
+
+  .ind-case-item.is-open .ind-case-trigger:hover .ind-case-caret,
+  .ind-case-item.is-open .ind-case-trigger:focus-visible .ind-case-caret {
+    background: rgb(255 255 255 / 0.25);
+    color: var(--color-white);
+  }
+}
+
+@media (max-width: 63.99em) {
+  /* One column: the cash line, then the product under it. */
+  .ind-case-body {
+    grid-template-columns: 1fr;
+  }
+
+  .ind-case-means,
+  .ind-case-product {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .ind-case-product {
+    margin-top: 32px;
+  }
+}
+
+@media (min-width: 64em) {
+  /* Same step as the FAQ: 20/30 → 24/36 at 1024. */
+  .ind-case-trigger {
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
+@media (min-width: 80em) {
+  .ind-case {
+    padding-block: 160px;
+  }
+
+  .ind-case-claim {
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+  }
+
+  .ind-case-trigger {
+    padding: 32px 0;
+  }
+
+  .ind-case-body {
+    padding-bottom: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ind-case-caret,
+  .ind-case-panel {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PRODUCTS + BLOG + FAQ — the service-page bands, given this page's pads.
+   mca.css carries no top pad on .mca-fit / .mca-blog, so the rhythm is set
+   here rather than inherited.
+   --------------------------------------------------------------------------- */
+/* .mca-cards already carries --space-head-to-content above it; a second gap
+   here read as ~208px. */
+.ind-products-band .mca-block-head {
+  margin-bottom: 0;
+}
+
+/* Owner round 2026-10-23: the products H3 is 1.5rem (24px) on tablet and
+   desktop, and never under 1.25rem (20px) on the phone. mca.css steps the
+   shared .mca-card-title DOWN to 20px from 48em — that is the tablet/1280
+   value this replaces. The phone keeps its 25px base, above the floor. */
+@media (min-width: 48em) {
+  .ind-products-band .mca-card-title {
+    font-size: 1.5rem;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+/* .mca-faq-list carries --space-head-to-content above it. */
+.ind-faq-band .mca-faq-head {
+  margin-bottom: 0;
+}

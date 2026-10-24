@@ -1,0 +1,104 @@
+---
+import Logo from './Logo.astro';
+import { FOOTER_RESOURCES, FOOTER_WHAT_WE_DO, LEGAL_LINKS, SITE } from '@/data/site';
+
+interface Props {
+  disclosure?: string;
+}
+
+const { disclosure } = Astro.props;
+const year = new Date().getFullYear();
+/* Every contact detail the live falconequity.ai footer carries (Ling, 24 Oct):
+   email, Office, Direct, Fax, the office address and X. Order follows the live
+   footer. The live fax anchor mistakenly dials the Direct number — ours dials
+   the fax. */
+const { office, direct, fax } = SITE.phones;
+---
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container-site site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__logo-link" aria-label="Falcon Equity Group">
+          <Logo variant="footer" />
+        </a>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">What we do</h3>
+          <ul class="site-footer__list">
+            {FOOTER_WHAT_WE_DO.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">Resources</h3>
+          <ul class="site-footer__list">
+            {FOOTER_RESOURCES.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+            ))}
+            <li>
+              <a
+                href={SITE.partner.url}
+                class="site-footer__cardiff"
+                target="_blank"
+                rel="noopener sponsored"
+              >
+                <img src={SITE.partner.logo} alt="" width="416" height="94" loading="lazy" />
+                <span class="sr-only">Cardiff, affiliate link (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col" id="contact">
+          <h3 class="site-footer__col-title">Get in Touch</h3>
+          <ul class="site-footer__list">
+            <li>
+              <a href={`mailto:${SITE.email}`} class="site-footer__link">{SITE.email}</a>
+            </li>
+            {[office, direct, fax].map((p) => (
+              <li>
+                <a href={p.href} class="site-footer__link">
+                  <span class="site-footer__contact-label">{p.label}</span> {p.display}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={SITE.address.mapUrl} class="site-footer__link" rel="noopener" target="_blank">
+                {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+                <span class="sr-only"> (opens Google Maps in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={SITE.social.x} class="site-footer__link" rel="noopener me" target="_blank">
+                X (Twitter)<span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__bottom-bar">
+        <nav class="site-footer__legal" aria-label="Legal">
+          <ul class="site-footer__legal-list">
+            {LEGAL_LINKS.map((l) => (
+              <li><a href={l.href} class="site-footer__link">{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
+      </div>
+      {
+        disclosure && (
+          <p class="site-footer__disclosure">{disclosure}</p>
+        )
+      }
+    </div>
+  </div>
+</footer>
