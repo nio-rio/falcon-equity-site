@@ -98,6 +98,6 @@ The aging report is the file. If invoices are disputed, partially delivered, or 
 
 ## Get Funding Today
 
-If your receivables are the reason cash is tight, [start an application](/apply) and ask specifically about [invoice factoring](/services/invoice-factoring-tool). See the [product list on the home page](/#services) for how factoring sits next to other products. Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
+If your receivables are the reason cash is tight, [start an application](/apply) and ask specifically about [invoice factoring](/services/invoice-factoring-tool). See the [product list](/services) for how factoring sits next to other products. Falcon Equity Group has been in business 15 years, has helped 300+ businesses and deployed $100M+, with funding from $5,000 to $20M and many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Product features and availability vary by file. All funding is subject to approval, and approval is not guaranteed.*

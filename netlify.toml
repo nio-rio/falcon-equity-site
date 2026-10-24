@@ -54,10 +54,9 @@
   to = "/#why-choose-us"
   status = 301
 
-[[redirects]]
-  from = "/services"
-  to = "/#services"
-  status = 301
+# /services is a real page (built 24 Oct 2026: the home Services band, reused as
+# its own overview page), so the rule that sent it to /#services is gone. Do not
+# re-add one: a redirect here 301s a real page.
 
 # All twelve /industries/<slug> pages are live (built 2026-10-22/23) and the
 # /industries overview page shipped on 23 Oct, so the wildcard that used to send

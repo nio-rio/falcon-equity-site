@@ -12,6 +12,7 @@ const livePaths = new Set([
   '/apply',
   '/about',
   '/industries',
+  '/services',
   '/services/merchant-cash-advance',
   '/services/collateral-asset-loans',
   '/services/business-line-of-credit',
@@ -80,7 +81,6 @@ const retired = {
   '/privacy-policy': '/',
   '/terms-conditions': '/',
   '/how-it-works': '/',
-  '/services': '/',
   '/resources/loan-calculator': '/apply',
 };
 

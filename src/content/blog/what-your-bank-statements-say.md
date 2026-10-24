@@ -96,6 +96,6 @@ Weak statements are a reason to change the ask or the product, not necessarily a
 
 ## Get Funding Today
 
-If you want your file reviewed before you apply, gather six months of statements and [start an application](/apply). You can also see the full range of [funding products](/#services) or size a payment with the [loan calculator](/resources/business-loan-calculator). Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with many products funding within 24–48 hours of approval.
+If you want your file reviewed before you apply, gather six months of statements and [start an application](/apply). You can also see the full range of [funding products](/services) or size a payment with the [loan calculator](/resources/business-loan-calculator). Falcon Equity Group has been in business 15 years and has helped 300+ businesses, with many products funding within 24–48 hours of approval.
 
 *This article is for general information only and is not financial, legal or tax advice. Underwriting criteria vary by product and file. All funding is subject to approval, and approval is not guaranteed.*

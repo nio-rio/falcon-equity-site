@@ -85,7 +85,7 @@ export const LEGAL_LINKS: NavLink[] = [
  * the product list repeated in the footer, the Services page carries that.
  */
 export const FOOTER_WHAT_WE_DO: NavLink[] = [
-  { label: 'Services', href: '/#services' },
+  { label: 'Services', href: '/services' },
   { label: 'Industries', href: '/industries' },
   { label: 'About', href: '/about' },
   { label: 'Apply for funding', href: '/apply' },
