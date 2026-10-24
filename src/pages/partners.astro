@@ -2,25 +2,21 @@
 /**
  * `/partners` — brokers, ISOs, funding partners and service partners.
  *
- * Copy: the 23 Oct 2026 partners contract, verbatim. Twelve bands, in its order:
+ * Copy: the 23 Oct 2026 partners contract, verbatim, as Ling edited it in Notion that day.
+ * Six bands, in its order:
  *
- *    1  hero ............... TF-00 header + TF-01 still, no CTA
- *    2  in short ........... TF-02 rows-beside-a-claim, on white
+ *    1  hero ............... TF-00 header + TF-01 still, no CTA, no eyebrow
  *    3  partner types ...... TF-05 3-up titled prose, no chrome
- *    4  product shelf ...... PWS-10 dark link list, seven rows
- *    5  submission ......... BMX-10 title left, rows right, on white
- *    6  the shared client .. TF-02 dark claim band, four rows (one more than the donor)
- *    7  speed .............. APM-01 three numbered columns + one STATS figure
- *    8  our partners ....... PE-04 card row, rendered from src/data/partners.ts
- *    8b Cardiff ............ BXCI-06 featured split, logo in place of the still
+ *    8  our partners ....... PE-04 card row from src/data/partners.ts, plus the Become tile
  *    9  become a partner ... HOME-07 heading left, two text columns right (no form)
  *   10  FAQ ................ APM-08 / PWS-09 via the shared FaqList + FAQPage schema
  *   11  CTA ................ SiteCta, static variant (heading + email + direct line)
  *
- * Figures come from the data layer only: amounts, speeds and terms from SERVICES,
- * the three steps from STANDARD_STEPS, the funding-time figure from STATS, contact
- * from SITE. Nothing on this page publishes a rate, the approval figure or a
- * consolidation-savings figure. Plan: docs/partners-structure-plan.md.
+ * The contract's bands 2, 4, 5, 6, 7 and 8b — answer-first, product shelf, submission,
+ * shared client, speed and the dedicated Cardiff band — were deleted from the Notion
+ * contract, so they are deleted from this page and its CSS. Nothing here publishes a rate,
+ * the approval figure or a consolidation-savings figure. Contact comes from SITE.
+ * Plan: docs/partners-structure-plan.md.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
@@ -31,8 +27,7 @@ import CircleArrow from '@/components/CircleArrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import SiteCta from '@/components/SiteCta.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { SITE, STATS } from '@/data/site';
-import { getService, STANDARD_STEPS } from '@/data/services';
+import { SITE } from '@/data/site';
 import { PARTNERS, BECOME_A_PARTNER } from '@/data/partners';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import heroStill from '@/assets/images/hero-falcon.webp';
@@ -41,16 +36,7 @@ import '@/styles/partners.css';
 const PARTNER_SUBJECT = 'Partner enquiry';
 const PARTNER_MAILTO = `mailto:${SITE.email}?subject=${encodeURIComponent(PARTNER_SUBJECT)}`;
 const DIRECT = SITE.phones.direct;
-const CARDIFF = PARTNERS.find((p) => p.name === SITE.partner.name);
-if (!CARDIFF) throw new Error('src/data/partners.ts is missing Cardiff — the Cardiff band reads it from there.');
 const OUTBOUND_REL = 'noopener sponsored';
-
-const TAKEAWAYS = [
-  'one desk contact per partner, not a queue',
-  'seven products on one application, so a file is never re-pitched product by product',
-  'no restricted-industry or restricted-state list; underwriting still decides',
-  'a complete file gets a same-day read, and the desk says plainly when a file is not placeable',
-];
 
 const PARTNER_TYPES = [
   {
@@ -68,76 +54,10 @@ const PARTNER_TYPES = [
   },
 ];
 
-/**
- * Row labels are the contract's; every figure is read from SERVICES. A product with no
- * `speed` in the data layer shows its published terms instead — no speed is invented.
- * Decentralized Business Financing has no /services page, so it links where home does.
- */
-const SHELF_ROWS = [
-  { slug: 'merchant-cash-advance', label: 'Merchant Cash Advance' },
-  { slug: 'business-line-of-credit', label: 'Business Line of Credit' },
-  { slug: 'business-term-loan', label: 'Business Term Loan' },
-  { slug: 'collateral-asset-loans', label: 'Collateral & Asset Loans' },
-  { slug: 'invoice-factoring-tool', label: 'Invoice Factoring' },
-  { slug: 'consolidation-of-positions', label: 'Consolidation of Positions' },
-  { slug: 'decentralized-business-financing', label: 'Decentralized Business Financing' },
-].map(({ slug, label }) => {
-  const service = getService(slug);
-  if (!service) throw new Error(`SERVICES is missing "${slug}" — the partners product shelf reads it from there.`);
-  return {
-    label,
-    href: slug === 'decentralized-business-financing' ? '/#services' : `/services/${slug}`,
-    amounts: service.amounts,
-    second: service.speed ? { name: 'Speed', value: service.speed } : { name: 'Terms', value: service.terms },
-  };
-});
-
-const DOCUMENTS = [
-  {
-    name: 'Six months of business bank statements',
-    note: 'complete PDFs, every page, every account the business runs money through.',
-  },
-  { name: 'Government-issued photo ID', note: 'for the signing owner.' },
-  { name: 'A voided check', note: 'from the business account that will receive funds.' },
-  {
-    name: 'A debt schedule',
-    note: 'listing every open advance or loan: lender, amount, date taken, remaining balance.',
-  },
-];
-
-const COMMITMENTS = [
-  {
-    title: 'Full cost before signature.',
-    body: 'Falcon charges a 0% agreement fee and rates are competitive. The complete cost of the position is shown to the owner before they sign, and no rate is quoted on this page.',
-  },
-  {
-    title: 'One application, one specialist.',
-    body: 'The owner is not handed to a queue, and the partner keeps the same contact from first file onward.',
-  },
-  {
-    title: 'No invented restrictions.',
-    body: 'Falcon keeps no restricted-industry list and no restricted-state list, so an owner is judged on the business rather than its sector or ZIP code. Underwriting and approval still apply.',
-  },
-  {
-    title: 'A reason with every no.',
-    body: 'When a file is declined, the owner and the partner get the reason and what would change it — not silence.',
-  },
-];
-
-const PARTNER_LINES = [
-  'the owner completes one short online application, and you get a copy of what was submitted.',
-  'anything missing is asked for in one message, not four, and the specialist says which product fits.',
-  'funds can arrive in as little as 24–48 hours after approval.',
-];
-const STEPS = STANDARD_STEPS.map((step, i) => ({ ...step, partner: PARTNER_LINES[i] }));
-
-const fundingTime = STATS.find((s) => s.label === 'Average funding time');
-if (!fundingTime) throw new Error('STATS is missing "Average funding time" — the speed band reads it from there.');
-
 const FAQS = [
   {
     q: 'Do you accept broker and ISO submissions?',
-    a: 'Yes. Send the file to information@falconequity.ai with the subject "Partner enquiry", using the document list above. One application covers all seven products, and the desk tells you which one fits.',
+    a: 'Yes. Send the file to information@falconequity.ai with the subject "Partner enquiry". One application covers all seven products, and the desk tells you which one fits.',
   },
   {
     q: 'What is an ISO, in Falcon’s terms?',
@@ -187,7 +107,8 @@ const schema = [
     </script>
   </Fragment>
 
-  <!-- 1. Hero — TF-00 header + TF-01 still: eyebrow + H1 in tracks 1-7, lead in 12-16, one 5:2 still. No CTA. -->
+  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in tracks 1-7, lead in 12-16, one 5:2 still. No CTA.
+       Copy (Notion, 23 Oct, edited by Ling): the H1 is the audience line, and there is no eyebrow above it. -->
   <section
     class="ptn-hero"
     aria-labelledby="page-hero-heading"
@@ -200,8 +121,7 @@ const schema = [
     <div class="container-site">
       <div class="ptn-shell ptn-hero-head" data-reveal>
         <div class="ptn-hero-title-block">
-          <Eyebrow>Partners</Eyebrow>
-          <h1 id="page-hero-heading" class="ptn-hero-title">One desk. Seven products. An answer on the first file.</h1>
+          <h1 id="page-hero-heading" class="ptn-hero-title">Brokers, ISOs and funding partners</h1>
         </div>
         <p class="ptn-hero-lead">
           Falcon works with brokers, ISOs and funding partners who read a file before they send it. One specialist
@@ -221,25 +141,6 @@ const schema = [
     </div>
   </section>
 
-  <!-- 2. In short — TF-02 on white: the direct answer as the claim, four takeaways beside it. -->
-  <section class="ptn-short" aria-label="In short" data-band="light" data-ptn-section="in-short" data-reveal-root>
-    <div class="container-site">
-      <div class="ptn-shell ptn-split">
-        <div class="ptn-split-head" data-reveal>
-          <Eyebrow>In short</Eyebrow>
-          <p class="ptn-answer">
-            Falcon Equity Group is a New York business lender that works with brokers, ISOs and funding partners. A
-            partner submits one application for any of seven products, from $5,000 to $5,000,000, at a 0% agreement
-            fee. There is no restricted-industry or restricted-state list. One specialist owns the relationship and
-            answers on the file.
-          </p>
-        </div>
-        <ul class="ptn-takeaways" data-reveal>
-          {TAKEAWAYS.map((item) => <li class="ptn-takeaway">{item}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
 
   <!-- 3. Partner types — TF-05 3-up titled prose on the house 1/5 · 6/6 · 12/5 split. -->
   <section class="ptn-types" aria-labelledby="types-heading" data-band="light" data-ptn-section="types" data-reveal-root>
@@ -259,157 +160,6 @@ const schema = [
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <!-- 4. Product shelf — PWS-10 dark link list: seven titled rows, each a real route. -->
-  <section
-    class="ptn-shelf on-dark"
-    aria-labelledby="shelf-heading"
-    data-band="dark"
-    data-ptn-section="shelf"
-    data-reveal-root
-  >
-    <div class="container-site">
-      <div class="ptn-block-head" data-reveal>
-        <Eyebrow>Product shelf</Eyebrow>
-        <h2 id="shelf-heading">One application covers all seven.</h2>
-        <p class="ptn-lede">
-          A broker should not have to learn seven intake forms. One application, and the desk matches the product to
-          the need.
-        </p>
-      </div>
-      <ul class="ptn-shelf-list" data-reveal>
-        {
-          SHELF_ROWS.map((row) => (
-            <li class="ptn-shelf-item">
-              <a class="ptn-shelf-link" href={row.href}>
-                <span class="ptn-shelf-name">
-                  <span class="link-draw">{row.label}</span>
-                </span>
-                <span class="ptn-shelf-figures">
-                  <span class="ptn-shelf-figure">
-                    <span class="ptn-shelf-figure-label">Amount</span>
-                    <span class="ptn-shelf-figure-value">{row.amounts}</span>
-                  </span>
-                  <span class="ptn-shelf-figure">
-                    <span class="ptn-shelf-figure-label">{row.second.name}</span>
-                    <span class="ptn-shelf-figure-value">{row.second.value}</span>
-                  </span>
-                </span>
-                <CircleArrow class="ptn-shelf-arrow" />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="ptn-note ptn-note--on-dark" data-reveal>
-        Amounts and speeds are the published figures on each product page. Every deal is underwritten on the file, so
-        nothing here is a promise for a specific owner. Consolidation carries no published turnaround because the plan
-        depends on the positions being replaced.
-      </p>
-    </div>
-  </section>
-
-  <!-- 5. Submission — BMX-10 on white: title left, four document rows right, two paragraphs under the rows. -->
-  <section class="ptn-send" aria-labelledby="send-heading" data-band="light" data-ptn-section="submission" data-reveal-root>
-    <div class="container-site">
-      <div class="ptn-shell ptn-split">
-        <div class="ptn-split-head" data-reveal>
-          <Eyebrow>Submission</Eyebrow>
-          <h2 id="send-heading">What to send with a file.</h2>
-        </div>
-        <div class="ptn-split-body" data-reveal>
-          <dl class="ptn-docs">
-            {
-              DOCUMENTS.map((doc) => (
-                <div class="ptn-doc">
-                  <dt class="ptn-doc-name">{doc.name}</dt>
-                  <dd class="ptn-doc-note">{doc.note}</dd>
-                </div>
-              ))
-            }
-          </dl>
-          <p class="ptn-body">
-            One more item per product: an equipment quote or invoice for asset-backed funding, or the open invoices and
-            a customer list for factoring. A complete file is the difference between a same-day answer and a week of
-            email — most delays are a missing statement page, not a decision.
-          </p>
-          <p class="ptn-body">
-            If the file is not placeable, say so and send the one thing that would change it: six more months of
-            statements, a cleaner deposit pattern, or a smaller first position. That answer is faster for you than a
-            decline two days later.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. The shared client — TF-02 dark: claim + lede left, four numbered rows right. -->
-  <section
-    class="ptn-client on-dark"
-    aria-labelledby="client-heading"
-    data-band="dark"
-    data-ptn-section="shared-client"
-    data-reveal-root
-  >
-    <div class="container-site">
-      <div class="ptn-shell ptn-split">
-        <div class="ptn-split-head" data-reveal>
-          <Eyebrow>The shared client</Eyebrow>
-          <h2 id="client-heading">The owner signs, so the owner gets the truth.</h2>
-          <p class="ptn-lede">A referral is a reputation. Here is what Falcon commits to on every file a partner sends.</p>
-        </div>
-        <ol class="ptn-commitments" data-reveal>
-          {
-            COMMITMENTS.map((item, i) => (
-              <li class="ptn-commitment">
-                <span class="ptn-commitment-num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 class="ptn-card-title">{item.title}</h3>
-                  <p class="ptn-card-body">{item.body}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Speed — APM-01: three numbered columns (STANDARD_STEPS verbatim) + one partner line each, then the STATS figure. -->
-  <section class="ptn-speed" aria-labelledby="speed-heading" data-band="light" data-ptn-section="speed" data-reveal-root>
-    <div class="container-site">
-      <div class="ptn-block-head" data-reveal>
-        <Eyebrow>Speed</Eyebrow>
-        <h2 id="speed-heading">Same day, where the file allows it.</h2>
-        <p class="ptn-lede">
-          The products that fund same day are the ones with the shortest document list. That is not a coincidence — it
-          is the file, not the queue.
-        </p>
-      </div>
-      <ol class="ptn-three ptn-steps" data-reveal>
-        {
-          STEPS.map((step, i) => (
-            <li class="ptn-three-item ptn-step">
-              <span class="ptn-step-num" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 class="ptn-card-title">{step.title}</h3>
-              <p class="ptn-card-body">{step.body}</p>
-              <p class="ptn-step-partner">
-                <span class="ptn-step-partner-label">For the partner:</span> {step.partner}
-              </p>
-            </li>
-          ))
-        }
-      </ol>
-      <p class="ptn-stat" data-reveal>
-        <span class="ptn-stat-value">{fundingTime.value}</span>
-        <span class="ptn-stat-label">{fundingTime.label}</span>
-      </p>
     </div>
   </section>
 
@@ -471,43 +221,6 @@ const schema = [
         We are actively adding partners in three areas: lenders and funds that take positions Falcon does not hold,
         service firms that get an owner loan-ready, and the software owners already run their books on.
       </p>
-    </div>
-  </section>
-
-  <!-- 8b. Cardiff — BXCI-06 featured split on the Lilac band: the logo stands where the still would, copy right. -->
-  <section
-    class="ptn-cardiff"
-    aria-labelledby="cardiff-heading"
-    data-band="light"
-    data-ptn-section="cardiff"
-    data-reveal-root
-  >
-    <div class="container-site">
-      <div class="ptn-shell ptn-cardiff-grid">
-        <div class="ptn-cardiff-mark" data-reveal>
-          <img
-            class="ptn-cardiff-logo"
-            src={CARDIFF.logo}
-            alt={`${CARDIFF.name} logo`}
-            width={CARDIFF.logoSize?.width}
-            height={CARDIFF.logoSize?.height}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div class="ptn-cardiff-copy" data-reveal>
-          <Eyebrow>Service partner</Eyebrow>
-          <h2 id="cardiff-heading">Cardiff.</h2>
-          <p class="ptn-body">
-            Cardiff is a small-business financing marketplace and a Falcon partner. Its application covers products
-            Falcon does not place, business credit cards among them. The link below is Falcon’s partner link.
-          </p>
-          <a class="arrow-cta ptn-cardiff-link" href={CARDIFF.url} target="_blank" rel={OUTBOUND_REL}>
-            <span class="arrow-cta-label link-draw">Open Cardiff’s application</span>
-            <CircleArrow />
-          </a>
-        </div>
-      </div>
     </div>
   </section>
 
