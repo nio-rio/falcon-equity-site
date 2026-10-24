@@ -57,7 +57,7 @@ const nav: NavItem[] = [
         links: [
           ...SERVICES.map((s) => ({
             label: s.name,
-            href: s.slug === 'decentralized-business-financing' ? '/#services' : `/services/${s.slug}`,
+            href: `/services/${s.slug}`,
           })),
         ],
       },

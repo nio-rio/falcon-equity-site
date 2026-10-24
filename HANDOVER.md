@@ -1158,3 +1158,42 @@ linked to the About contact band, so no link rots. Build clean, `check` 0 errors
 - **No placeholder left**: the built hero figure has one `<img>`, three srcsets, no `media-label`. The labelled 5:2 placeholder is gone from this page.
 - The frame stays **5:2** as the band spec says, so `object-fit: cover` trims 617px → 506 at 1264 wide (≈20px top and bottom, faces untouched) and 166 → 131 at 390. Verified at both widths, cropped well.
 - **Known limitation:** the supplied file is 1440 wide against a 1264px container, so a 2× display picks the 1264 variant and upscales. A larger original would fix it with no layout change.
+
+
+### Decentralized Business Financing — page built (2026-10-23)
+
+`/services/decentralized-business-financing` is live as a page: `src/pages/services/decentralized-business-financing.astro`
++ `src/styles/decentralized-business-financing.css` (prefix `dbf-`), from the Notion note **"page copy v3"**
+(`402eacd0-19c7-81c0-8df9-c8b147941ef3`, nio rio workspace) including the six **Answers** pasted under its
+open questions. Donors, deviations and the rejected-donor list: `docs/dbf-structure-plan.md`.
+
+Nine bands: hero (H1 cols 1-8, the live site's sub-heading + the copy's lead beside it, **coverage strip
+replacing the term-stats grid**, one CTA) -> Start here (3-up prose, house `1/5 · 6/6 · 12/5`) -> What we do
+(dark, **five** cards in the TF-05 5/6/5 split + an advisory closing line on a 1.5px rule) -> Where it fits
+(2x2, numerals 01-04) -> What this is not (six rule-topped rows, no chevrons) -> How we work / AI (dark, claim
+left, body right, statement on a rule) -> Process (three numbered columns, subgrid so every *You provide /
+You get* block starts on the same baseline at >=80em) -> FAQ (10 rows, shared `FaqList`) -> closing band.
+
+**Route lifted:** the 301 for this slug is gone from `astro.config.mjs` (plus the `livePaths` entry and the
+`retired` skip), `netlify.toml`, `public/_redirects`; the nav dropdown and `toHomeCard` no longer special-case
+the slug to `/#services`. The page is reachable from the Services menu and the home services card.
+
+**Copy corrected against Dwight's answers** (v3 was written before they arrived): custody now says the assets
+sit with independent regulated third-party qualified custodians selected by the client and **Falcon does not
+custody**; the securities line, the licensed-payment-partner line, the fee model and minimums are in; a
+"Who provides these services?" row was added for the counterparty entity. Nothing on the page prints an
+amount, term, requirement or price — there is no published spec for this product. Details in the plan.
+
+**`cta={false}` on `BaseLayout`** — the page ends on its own "Start with a conversation." band instead of
+`SiteCta`, because the sitewide wheel is funding-shaped and this page's CTA label is `Book a consultation`.
+Recorded as the one deliberate exception in `DESIGN-SYSTEM.md`; revert is `cta={true}`.
+
+Verified: build 49 pages, `check` 0 errors, `test:titles` clean, real `<h1>`, no `http-equiv="refresh"`,
+9 sections, **no horizontal overflow at 390 / 768 / 1280 / 1440**, **0 broken internal refs across 59 built
+HTML documents**, 10 FAQ triggers. Measured at 1280/1440 against the page-anatomy table: H1 56/61.6/400,
+section H2 40/50 -> 48/60, band pad 144 / 160, card title 24/36/400 ls .192, card body 18/27/300 ls .32,
+3-col 344+344+344 with 32/56/32 pad, hero 48/120.
+
+Open for Ling: (1) **AI logos** — Dwight said "add this with the logos" and named none; no marks ship until he
+does. (2) CTA label `Book a consultation` vs the sitewide `Apply for funding`. (3) closing band vs `SiteCta`.
+(4) `/faq` now carries a tenth group (10 questions) automatically, because `SERVICE_FAQS` is one source.

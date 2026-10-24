@@ -18,6 +18,7 @@ const livePaths = new Set([
   '/services/business-term-loan',
   '/services/invoice-factoring-tool',
   '/services/consolidation-of-positions',
+  '/services/decentralized-business-financing',
   '/industries/retail',
   '/industries/transportation-logistics',
   '/industries/restaurants-food-service',
@@ -90,6 +91,7 @@ for (const slug of serviceSlugs) {
   if (slug === 'business-term-loan') continue;
   if (slug === 'invoice-factoring-tool') continue;
   if (slug === 'consolidation-of-positions') continue;
+  if (slug === 'decentralized-business-financing') continue;
   retired[`/services/${slug}`] = '/';
 }
 // All twelve industry pages ship 2026-10-23, so no /industries/* redirect is generated.

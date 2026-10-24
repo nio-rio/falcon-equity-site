@@ -1,0 +1,610 @@
+/* Decentralized Business Financing only.
+   Composed for /services/decentralized-business-financing from the measured
+   Blackstone section library; every number below is a Falcon token or the house
+   pattern from collateral-asset-loans.css. Donor ids per band:
+     TF-00 hero (title + standfirst beside) · TF-05 3-up and 5-up prose columns
+     OP-01 cell rhythm for the 2x2 fit grid · TF-03 rule-topped directory (05, chevrons dropped)
+     TF-02 dark claim + support column (06, 09) · APM-01 numbered process columns
+     DC-06 / PWS-09 FAQ via the shared FaqList component
+   Fonts -> --font-display / --font-sans. Colours -> Falcon tokens only.
+   Do not touch home. Plan + deviations: docs/dbf-structure-plan.md */
+
+/* ---------------------------------------------------------------- shell ---- */
+
+.dbf-hero,
+.dbf-band {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.dbf-dark {
+  background: var(--color-surface-dark);
+  color: var(--color-white);
+}
+
+section.dbf-hero {
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
+}
+
+/* Home `.container-site` gutters: 328 / 688 / 1136 / 1264 content at 390 / 768 /
+   1280 / 1440. The shell fills that content box with 1fr tracks. */
+.dbf-shell {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  /* The shell's own row gap IS the head → content rhythm; a band that also put
+     --space-head-to-content on its grid would spend it twice (208px at 1440). */
+  row-gap: var(--space-head-to-content);
+  justify-content: stretch;
+}
+
+/* Retail lesson: unnamed children must not land in a single 64px track. */
+.dbf-shell > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------- hero ----- */
+
+.dbf-hero-title {
+  margin: 0;
+  max-width: none;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--page-title-size);
+  font-weight: 400;
+  line-height: var(--page-title-lh);
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.dbf-hero-aside {
+  margin-top: 40px;
+  max-width: 40rem;
+}
+
+.dbf-hero-standfirst {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
+.dbf-hero-lead {
+  margin: 24px 0 0;
+  color: var(--ink-a72);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.dbf-coverage {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 16px;
+  row-gap: 40px;
+  margin: 0;
+}
+
+.dbf-hero-foot {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.dbf-coverage-item {
+  box-sizing: border-box;
+  min-width: 0;
+  padding-top: 40px;
+  border-top: 2px solid var(--color-ink);
+}
+
+.dbf-coverage-value {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: normal;
+}
+
+.dbf-hero-cta {
+  margin-top: 48px;
+}
+
+/* ---------------------------------------------------------------- heads ---- */
+
+.dbf-block-head h2 {
+  margin: 0;
+  max-width: none;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.dbf-block-head .eyebrow {
+  color: inherit;
+}
+
+/* Gap comes from the shell's row gap; this class is a marker only. */
+.dbf-band-title {
+  margin-top: 0;
+}
+
+/* ---------------------------------------------------------------- cards ---- */
+
+.dbf-cards {
+  row-gap: 72px;
+}
+
+.dbf-card-title {
+  margin: 0 0 24px;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.16px;
+  text-wrap: balance;
+}
+
+.dbf-card-body {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* 03 closing line — advisory-only statement under the five cards. */
+.dbf-work-note {
+  margin: 0;
+  padding-top: 40px;
+  border-top: 1.5px solid var(--bx-on-dark-rule);
+}
+
+.dbf-work-note-text {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* ---------------------------------------------------------------- fit ------ */
+
+.dbf-fit-item {
+  margin: 0;
+}
+
+.dbf-fit-num {
+  margin: 0 0 24px;
+  color: var(--ink-a63);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 1.28px;
+}
+
+/* ---------------------------------------------------------------- not ------ */
+
+.dbf-not-list {
+  border-top: 1px solid var(--color-line);
+}
+
+/* Each row is its own grid so the rule can span the full width while the title
+   and body keep their track positions. */
+.dbf-not-row {
+  box-sizing: border-box;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.dbf-not-title {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.16px;
+  text-wrap: balance;
+}
+
+.dbf-not-body {
+  margin: 24px 0 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+/* ---------------------------------------------------------------- AI band -- */
+
+.dbf-ai-body {
+  margin: 0;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.dbf-statement {
+  margin: 0;
+  padding-top: 40px;
+  border-top: 1.5px solid var(--bx-on-dark-rule);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.008em;
+  text-wrap: balance;
+}
+
+.dbf-ai-statement-wrap {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- process -- */
+
+/* Four fixed rows so the numeral, title, body and hand-off block line up across
+   all three columns; the body row takes the slack, so the You provide / You get
+   blocks bottom-align even when one step's paragraph is a line longer. */
+.dbf-step {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-content: start;
+}
+
+.dbf-step-num {
+  margin: 0 0 32px;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 9.625rem;
+  font-weight: 300;
+  line-height: 9.625rem;
+  letter-spacing: normal;
+}
+
+.dbf-step-body {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.dbf-step-io {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid var(--color-line);
+  padding-top: 24px;
+}
+
+.dbf-step-io dt {
+  margin: 0 0 6px;
+  color: var(--ink-a63);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: normal;
+}
+
+.dbf-step-io dd {
+  margin: 0 0 24px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.16px;
+}
+
+.dbf-step-io dd:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------- close ---- */
+
+.dbf-close-body {
+  margin: 0;
+  color: var(--bx-on-dark-muted);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0.32px;
+}
+
+.dbf-close-cta {
+  margin-top: 40px;
+}
+
+/* ---------------------------------------------------------------- 48em ----- */
+
+@media (min-width: 48em) {
+  .dbf-shell {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .dbf-coverage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 0;
+  }
+
+  .dbf-card-title,
+  .dbf-not-title {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .dbf-step-num {
+    font-size: 11.5rem;
+    line-height: 11.5rem;
+  }
+
+  /* Two per row from 8 tracks; the third wraps under the first. */
+  .dbf-cards--3 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(1) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(2) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(5) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .dbf-cards--5 > .dbf-card:nth-child(4) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .dbf-fit-item:nth-child(odd) {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
+  .dbf-fit-item:nth-child(even) {
+    grid-column: 5 / span 4;
+    padding-left: 24px;
+  }
+
+  .dbf-not-row {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+
+  .dbf-not-title {
+    grid-column: 1 / span 3;
+  }
+
+  .dbf-not-body {
+    grid-column: 4 / span 5;
+    margin-top: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- 64em ----- */
+
+@media (min-width: 64em) {
+  .dbf-block-head h2 {
+    letter-spacing: 0.008em;
+  }
+
+  .dbf-hero-standfirst {
+    font-size: 24px;
+    line-height: 34px;
+  }
+
+  .dbf-coverage-value {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .dbf-shell {
+    row-gap: 104px;
+  }
+
+  .dbf-cards {
+    row-gap: 80px;
+  }
+
+  .dbf-step-num {
+    font-size: 10.938rem;
+    line-height: 10.938rem;
+  }
+
+  .dbf-statement {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .dbf-not-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+}
+
+/* ---------------------------------------------------------------- 80em ----- */
+
+@media (min-width: 80em) {
+  .dbf-shell {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  /* 01 hero: title left, standfirst + lead beside it (TF-00). */
+  .dbf-hero-title {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+  }
+
+  .dbf-hero-aside {
+    grid-column: 10 / span 7;
+    grid-row: 1;
+    margin-top: 0;
+  }
+
+  /* 02 / 03 / 07 — house 3-column: 1/5, 6/6, 12/5 with 32/56/32 pad. */
+  .dbf-cards--3 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(1),
+  .dbf-cards--5 > .dbf-card:nth-child(4) {
+    grid-column: 1 / span 5;
+    padding-left: 0;
+    padding-right: 32px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(2),
+  .dbf-cards--5 > .dbf-card:nth-child(5) {
+    grid-column: 6 / span 6;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .dbf-cards--3 > .dbf-card:nth-child(3),
+  .dbf-cards--5 > .dbf-card:nth-child(3) {
+    grid-column: 12 / span 5;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .dbf-cards--5 {
+    row-gap: 104px;
+  }
+
+  .dbf-card-title {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.192px;
+  }
+
+  /* 04 — 2x2 prose, 7 tracks each with a 2-track gutter. */
+  .dbf-fit-item:nth-child(odd) {
+    grid-column: 1 / span 7;
+    padding-left: 0;
+    padding-right: 56px;
+  }
+
+  .dbf-fit-item:nth-child(even) {
+    grid-column: 10 / span 7;
+    padding-left: 56px;
+    padding-right: 0;
+  }
+
+  /* 05 — rule-topped rows: title 1-6, body 8-16. */
+  .dbf-not-row {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .dbf-not-title {
+    grid-column: 1 / span 6;
+    padding-right: 32px;
+  }
+
+  .dbf-not-body {
+    grid-column: 8 / span 9;
+  }
+
+  .dbf-not-row {
+    padding: 48px 0;
+  }
+
+  /* 06 — claim left, support right (TF-02). */
+  .dbf-ai-head {
+    grid-column: 1 / span 8;
+  }
+
+  .dbf-ai-body {
+    grid-column: 10 / span 7;
+  }
+
+  .dbf-statement {
+    grid-column: 1 / span 12;
+  }
+
+  /* Process: subgrid so all three steps share one row set — the body row takes
+     the height of the longest, which puts every You provide / You get block on
+     the same baseline. Unsupported browsers fall back to the auto rows above. */
+  .dbf-process-grid {
+    grid-template-rows: repeat(4, auto);
+  }
+
+  .dbf-process-grid > .dbf-step {
+    grid-row: 1 / span 4;
+    grid-template-rows: subgrid;
+  }
+
+  /* 09 — closing claim left, body + CTA right. */
+  .dbf-close-head {
+    grid-column: 1 / span 8;
+  }
+
+  .dbf-close-support {
+    grid-column: 10 / span 7;
+  }
+}
+
+/* ---------------------------------------------------------------- 90em ----- */
+
+@media (min-width: 90em) {
+  .dbf-step-num {
+    font-size: 12.375rem;
+    line-height: 12.375rem;
+  }
+}
+
+/* ------------------------------------------------------------- motion ------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .dbf-band [data-reveal] {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.has-js .dbf-band [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

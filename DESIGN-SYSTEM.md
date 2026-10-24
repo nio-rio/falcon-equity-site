@@ -301,6 +301,12 @@ Hamburger until `90em`. Opening a menu locks page scroll without `overflow: hidd
 
 **Where:** `src/components/SiteCta.astro`, styles in `src/styles/blackstone.css`. In `BaseLayout` above the footer on every page.
 
+**One deliberate exception:** `/services/decentralized-business-financing` passes `cta={false}` and ends on
+its own closing band (“Start with a conversation.”, one `Book a consultation` 040). Its whole argument is
+that the product is advisory, not funding, so the funding wheel underneath it would contradict the page;
+the copy also fixes a different CTA label. Revert is `cta={true}` in that page's `<BaseLayout>` call — do
+not “fix” it back without asking (plan + reasoning: `docs/dbf-structure-plan.md`).
+
 Darker band. Lead **Need funding to** + eight phrases (purchase inventory, cover payroll, expand or renovate, launch marketing campaigns, stabilize cash flow, upgrade equipment, hire more employees, consolidate business debt) in At Gambit light. Active line white; past lines Martinique Lighter; rest `--white-a50`. Apply is 040 **light**, larger than nav (1.375 / 1.5 / 1.75 / 1.875rem at 0 / 48em / 80em / 90em, height 3em). Hold 1200ms + ease 400ms. Reduced motion: static first phrase.
 
 **Don’t** put a footnote under this band.
@@ -517,6 +523,8 @@ Used on `/services/merchant-cash-advance`, `/industries/retail`, `/how-it-works`
 | Trust row | `PilotTrust.astro` | Confirmed STATS (`$100M+`, `300+`, `15`) + 24-48 hours line + Direct phone + human line. | Phone is a real `tel:` link. **Don’t** add Apply here — SiteCta follows. **Don’t** put the disclosure under this band. |
 | FAQ links | `PilotAccordion.astro` | `[label](/path)` in answers becomes a `.link`. | Internal, `tel:`, or `mailto:` only (`src/lib/inlineLinks.ts`). |
 | Tables | `ResponsiveTable.astro` | Desktop table; stacked cards &lt;768 with `data-label`. | Product names in the retail table are links to real service routes. |
+| Coverage strip | `.dbf-coverage` in `decentralized-business-financing.css` | Three cells, 2px ink rule over each, one display line per cell (20/28 → 24/32). Occupies the slot the other five service pages give the term-stats grid. | For a product with **no published spec** — words where the grid prints amounts. Never invent a figure to fill it. |
+| Rule-topped prose rows | `.dbf-not-list` / `.dbf-not-row` | 1px `--color-line` rules over each row, title cols 1–6, body cols 8–16, 48px row padding. | For a list of limits or rules. **No chevrons** — nothing opens, and a decorative control must not look clickable. |
 | Disclosure | `PAGE_DISCLOSURE` in `src/data/disclosure.ts` | Small type **in the footer**, above the lockup. | Never under a CTA, SiteCta, or trust row. Omit on home. |
 
 **About stats** reuse `PilotStats` with `$100M+` featured and `15` / `300+` on the sides. No satisfaction figure. No 98% (home only).

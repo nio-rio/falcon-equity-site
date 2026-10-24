@@ -59,11 +59,6 @@
   to = "/#services"
   status = 301
 
-[[redirects]]
-  from = "/services/decentralized-business-financing"
-  to = "/#services"
-  status = 301
-
 # All twelve /industries/<slug> pages are live (built 2026-10-22/23) and the
 # /industries overview page shipped on 23 Oct, so the wildcard that used to send
 # this family to the home Industries section is gone and no /industries rule

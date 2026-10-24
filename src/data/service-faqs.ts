@@ -17,7 +17,8 @@ export type ServiceFaqSlug =
   | 'merchant-cash-advance'
   | 'business-term-loan'
   | 'invoice-factoring-tool'
-  | 'consolidation-of-positions';
+  | 'consolidation-of-positions'
+  | 'decentralized-business-financing';
 
 export const SERVICE_FAQS: Record<ServiceFaqSlug, FaqItem[]> = {
   'collateral-asset-loans': [
@@ -178,6 +179,54 @@ export const SERVICE_FAQS: Record<ServiceFaqSlug, FaqItem[]> = {
     {
       q: 'What do I need to apply?',
       a: 'Six months of business bank statements, a government-issued photo ID, a voided check and the funder, balance and payment amount for every open position.',
+    },
+  ],
+  /**
+   * Decentralized Business Financing. Questions 4-6 and 8-9 carry Dwight's
+   * answered positions of 24 Oct 2026 (custody, counterparty, fees, securities,
+   * licensed payment partners) rather than draft wording. Source: Notion
+   * "Decentralized Business Financing - page copy v3", section 08 + Answers.
+   */
+  'decentralized-business-financing': [
+    {
+      q: 'Do you recommend which asset to buy or hold?',
+      a: 'No. That is not the service. We explain how things work, structure what the business needs, and run the operations. Any decision about an investment is yours, taken with your own advisors.',
+    },
+    {
+      q: 'What does "crypto onboarding" actually mean here?',
+      a: 'Integrating digital assets into how the business already holds and moves money: which accounts, which network, what stays liquid, and who can approve a transfer. It is the seamless integration of digital assets into your financial strategy.',
+    },
+    {
+      q: 'Do I need to own crypto already?',
+      a: 'No. Many conversations start with nothing on-chain. The first engagement is usually the explanation and fit conversation.',
+    },
+    {
+      q: 'Who holds the assets, and who can move them?',
+      a: 'Digital assets are held by independent, regulated third-party qualified custodians selected by the client. Falcon Equity Group does not custody client assets. Which custodian, in whose name, and which people can approve a transfer is decided in the structure phase and written down before anything is transferred.',
+    },
+    {
+      q: 'Who provides these services?',
+      a: 'Services are provided by Falcon Equity Group LLC. Digital-asset related work is limited to structuring and advisory support; Falcon does not itself custody assets or act as a virtual-currency business.',
+    },
+    {
+      q: 'What does it cost?',
+      a: 'Fees are scoped per engagement and may include a fixed consulting fee, a retainer, and/or a success-based component depending on the scope of work. The number is in writing before work starts, and nothing on this page is a price. Engagements are typically sized to justify the complexity of structuring and regulatory coordination; minimums are discussed confidentially once the scope is understood.',
+    },
+    {
+      q: 'Is this legal and regulated?',
+      a: 'Digital assets sit inside securities, money-transmission and custody rules that change with the structure and the state. Each structure is built with counsel, and one that cannot be documented cleanly is not built. Falcon assists clients in structuring vehicles and documentation; it does not offer, sell or distribute tokenized interests or other securities to investors. Any stablecoin or digital-asset payment flow runs through licensed third-party partners.',
+    },
+    {
+      q: 'What are the real risks?',
+      a: 'Smart-contract failure, forced liquidation on volatile collateral, a stablecoin losing its peg, oracle failure, thin markets, counterparty failure, and regulation that is still moving. That list is the reason the structure phase exists.',
+    },
+    {
+      q: 'How long does it take?',
+      a: 'A structure takes weeks, not days, and operations start after it. Anything digital-asset that promises the same day is skipping the legal work.',
+    },
+    {
+      q: 'What if I just need working capital?',
+      a: 'Then this is not the product. A merchant cash advance, term loan or line of credit is built for that and funds far faster. Start there, and come back to this when digital assets are actually part of how the business holds or moves money.',
     },
   ],
 };
