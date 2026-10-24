@@ -167,24 +167,6 @@ section.dbf-hero-media[data-band='light'] {
   margin-top: 0;
 }
 
-/* 03 closing line — advisory-only statement under the five cards. */
-.dbf-work-note {
-  margin: 0;
-  padding-top: 40px;
-  border-top: 1.5px solid var(--bx-on-dark-rule);
-}
-
-.dbf-work-note-text {
-  margin: 0;
-  max-width: 42rem;
-  color: var(--bx-on-dark-muted);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.32px;
-}
-
 /* ---------------------------------------------------------------- 06 AI ---- */
 
 .dbf-ai-body {

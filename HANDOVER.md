@@ -1387,3 +1387,13 @@ into 'X (Twitter)'."*
   Touch` and the visible label `X (Twitter)`.
 - Build 49 pages, `check` 0 errors / 0 warnings / 7 hints. `test:nav` footer checks pass; the same twelve
   pre-existing home/nav failures remain (they also fail with this round's changes reverted).
+
+
+### Same page — duplicate claim deleted (2026-10-23, revision 4)
+
+Ling: the closing line under the five work items *"Every one of these is advisory and operational work. None of
+it is a recommendation to buy, sell or hold any asset."* repeats the first row of **What this is not** ("Not a
+recommendation to buy, sell or hold anything" — "We do not recommend positions… Our work is education, structure
+and operations"). She was right; v3 carried it as the band's closing line before the limits band existed. The
+line and its `.dbf-work-note*` rules are deleted, and the dark band now ends on the five cards with its 160px
+pad. Nothing else moved.
