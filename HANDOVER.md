@@ -1461,3 +1461,12 @@ step stays on the tablet drawer; phones get **`--bx-fs-20`** instead of 24. `@me
 `blackstone.css` overrides `.primary-nav__list-item-link` and `.site-header__menu-foot .site-header__tel`.
 Measured on the built site with the drawer open: **20px / 59px rows at 320, 360, 390, 430, 600, 767** and
 **24px / 64px at 768, 900, 1024, 1366**; no horizontal overflow at any of them.
+
+
+### Same page — Start here still landed (2026-10-23, revision 7)
+
+Ling sent the band's still (1000x1333, a gold Bitcoin coin on a dark slate over blurred data, 117 KB). Copied to
+`src/assets/images/services/decentralized-business-financing-start.webp` and wired into the 3:4 slot; the labelled
+placeholder is gone. Native 3:4 against a 3:4 slot means **no crop at all**, and the media column was set flush
+(`padding-right: 0` at 80em) so the image measures the donor's **624x832** instead of 600x800. `widths` capped at
+1000. Both stills on the page are now real photographs; no placeholders remain.
