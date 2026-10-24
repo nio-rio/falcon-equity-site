@@ -929,6 +929,13 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   .site-header__cta--menu .site-header__apply {
     display: none;
   }
+
+  /* Apply lives on the bar from 375px, and the phone moved to the drawer's foot,
+     so the top block has nothing left to show — drop it rather than leave an
+     empty padded band with a rule under it. */
+  .site-header__cta--menu {
+    display: none;
+  }
 }
 
 .site-header__cta--menu .site-header__tel {
@@ -1143,6 +1150,26 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   width: var(--bx-space-16);
   height: var(--bx-space-16);
   transition: transform 0.3s ease;
+}
+
+/* Ling (23 Oct): the tablet/mobile drawer rows are half again larger (16 → 24px),
+   and the phone sits at the end of the drawer instead of above the list. */
+@media (max-width: 89.9375em) {
+  .primary-nav__list-item-link {
+    font-size: var(--bx-fs-24);
+    line-height: 1.35;
+  }
+
+  .site-header__menu-foot {
+    padding: var(--bx-space-16) 0;
+    border-top: 1px solid var(--nav-rule);
+  }
+
+  .site-header__menu-foot .site-header__tel {
+    font-size: var(--bx-fs-24);
+    line-height: 1.35;
+    font-weight: 400;
+  }
 }
 
 .primary-nav__list-item-link[aria-expanded='true'] .primary-nav__list-item-icon {

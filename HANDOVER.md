@@ -1397,3 +1397,24 @@ recommendation to buy, sell or hold anything" — "We do not recommend positions
 and operations"). She was right; v3 carried it as the band's closing line before the limits band existed. The
 line and its `.dbf-work-note*` rules are deleted, and the dark band now ends on the five cards with its 160px
 pad. Nothing else moved.
+
+### Tablet/mobile drawer: rows +50%, phone number moved to the end (2026-10-23, Ling)
+
+Ling, with a shot of the open tablet drawer: *"In tablet and mobile nav, make these font about 50% larger. Phone
+number at the end."* The shot showed the phone above Services, then Services / Industries / Resources / Our Firm at
+16px.
+
+- **Type:** `@media (max-width: 89.9375em)` in `blackstone.css` sets `.primary-nav__list-item-link` to
+  `font-size: var(--bx-fs-24)` (16 → 24px, exactly +50%) and `line-height: 1.35`; rows measure **64px** tall at 1024,
+  768, 390 and 360. The desktop bar is untouched — measured 16px rows at 1440, because the rule is capped below the
+  `90em` breakpoint where the bar takes over.
+- **Phone at the end:** the tel link moved out of `.site-header__cta--menu` into a new
+  `.site-header__menu-foot` block at the bottom of `#primary-nav-inner`, after the dropdown wrapper, with the same
+  `data-nav-list-item` hook so it joins the drawer's stagger. It reads as one more row: `border-top: 1px` +
+  16px padding, `--bx-fs-24`. Measured at 1024: last nav row ends at y=465, the foot block starts at 466.
+- **The emptied top block is hidden from 375px.** `.site-header__cta--menu` held Apply (hidden from 375px) and the
+  phone (now moved), so it would have left an empty 57px padded band with a rule under it. It is `display: none`
+  from 375px; below that width it still renders with the Apply button, verified at 360 (block 84px, Apply visible,
+  rows 24px, phone last).
+- `npm run build` 49 pages, `check` 0 errors. `test:nav` 11 failures, all the usual pre-existing home/nav set; the
+  drawer checks (`tel-real-number`, mobile geometry) pass.

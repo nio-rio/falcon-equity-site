@@ -163,9 +163,6 @@ const nav: NavItem[] = [
         <div id="primary-nav-inner" class="primary-nav__inner" data-nav-inner>
           <div class="site-header__cta site-header__cta--menu" data-nav-list-item>
             <Button040 class="site-header__apply" href="/apply" label="Apply for funding" variant="dark" />
-            <a class="site-header__tel" href={PRIMARY_PHONE.href}
-              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
-            >
           </div>
           <ul class="primary-nav__list" data-nav-list>
             {
@@ -291,6 +288,13 @@ const nav: NavItem[] = [
                 )
               }
             </div>
+          </div>
+          {/* Ling (23 Oct): the phone number sits at the end of the tablet/mobile
+              drawer, under the last nav row, not above the list. */}
+          <div class="site-header__menu-foot" data-nav-list-item>
+            <a class="site-header__tel site-header__tel--menu" href={PRIMARY_PHONE.href}
+              ><span class="site-header__tel-label">{PRIMARY_PHONE.display}</span></a
+            >
           </div>
         </div>
       </nav>
