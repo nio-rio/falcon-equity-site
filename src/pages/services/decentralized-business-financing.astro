@@ -19,6 +19,7 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
 import heroImage from '@/assets/images/services/decentralized-business-financing-hero.webp';
+import startImage from '@/assets/images/services/decentralized-business-financing-start.webp';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SERVICE_FAQS } from '@/data/service-faqs';
@@ -233,9 +234,11 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
         </div>
         <div class="dbf-start-media" data-reveal>
           <Media
-            intent="Still for the Start here band, to be supplied"
+            image={startImage}
+            alt="A gold Bitcoin coin standing upright on a dark slate, with blurred streams of coloured data behind it."
+            intent="Bitcoin coin on a dark slate"
             ratio="3 / 4"
-            labeled
+            widths={[480, 640, 800, 1000]}
             sizes="(min-width: 90em) 624px, (min-width: 48em) 344px, 100vw"
           />
         </div>

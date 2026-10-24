@@ -1172,6 +1172,18 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   }
 }
 
+/* Ling (23 Oct, follow-up): phones get 20px, not 24 — the +50% step stays for the
+   tablet drawer only. */
+@media (max-width: 47.9375em) {
+  .primary-nav__list-item-link {
+    font-size: var(--bx-fs-20);
+  }
+
+  .site-header__menu-foot .site-header__tel {
+    font-size: var(--bx-fs-20);
+  }
+}
+
 /* From 90em the nav is the inline bar, so the drawer's foot block would render as a
    second phone number sitting in the middle of it. The bar's own
    `.site-header__tel--bar` is the desktop phone. */

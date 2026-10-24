@@ -1453,3 +1453,11 @@ header carrying the number twice (one floating just above the bar, one in place)
   phone and the drawer's foot row are both visible by design — two different surfaces, not a duplicate.
 - **Lesson for the next pass:** the earlier check counted *an* element, not *how many*. Count the class
   (`.site-header__tel` filtered by visibility) across the width sweep, not one node's `display`.
+
+### Follow-up: mobile drawer type back to 20px (2026-10-23, Ling)
+
+Ling, immediately after the 90em phone fix: *"On mobile, make those texts you just edited to be 20px."* The +50%
+step stays on the tablet drawer; phones get **`--bx-fs-20`** instead of 24. `@media (max-width: 47.9375em)` in
+`blackstone.css` overrides `.primary-nav__list-item-link` and `.site-header__menu-foot .site-header__tel`.
+Measured on the built site with the drawer open: **20px / 59px rows at 320, 360, 390, 430, 600, 767** and
+**24px / 64px at 768, 900, 1024, 1366**; no horizontal overflow at any of them.

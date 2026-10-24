@@ -350,6 +350,8 @@ section.dbf-hero-media[data-band='light'] {
   .dbf-start-media {
     grid-column: 1 / span 8;
     grid-row: 2;
+    /* Flush to the container edge, 624 wide -> the donor's 624x832 still. */
+    padding-right: 0;
   }
 
   .dbf-start-list {
