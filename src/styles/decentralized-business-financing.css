@@ -231,11 +231,10 @@ section.dbf-hero-media[data-band='light'] {
   letter-spacing: 0.32px;
 }
 
+/* No divider over the hand-off block (Ling): the 32px gap alone separates it. */
 .dbf-step-io {
   margin: 32px 0 0;
   width: 100%;
-  border-top: 1px solid var(--color-line);
-  padding-top: 24px;
 }
 
 .dbf-step-io dt {

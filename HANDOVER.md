@@ -1470,3 +1470,11 @@ Ling sent the band's still (1000x1333, a gold Bitcoin coin on a dark slate over 
 placeholder is gone. Native 3:4 against a 3:4 slot means **no crop at all**, and the media column was set flush
 (`padding-right: 0` at 80em) so the image measures the donor's **624x832** instead of 600x800. `widths` capped at
 1000. Both stills on the page are now real photographs; no placeholders remain.
+
+
+### Same page — process hand-off divider removed (2026-10-23, revision 8)
+
+Ling: *"In process section, remove the divider line for all steps."* The 1px `--color-line` rule above each
+*You provide / You get* block is gone (border and its 24px padding-top); the 32px gap alone separates the block
+from the paragraph. The three hand-off blocks still start on the same line, because the value cells reserve
+three lines.
