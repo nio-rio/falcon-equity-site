@@ -77,9 +77,9 @@
   height: 100%;
   object-fit: cover;
   /* ≥48em the 1800/771 box is uncropped at full viewport width.
-     Below 48em the 16/9 box crops the sides; 30% 50% keeps the
-     falcon (left of center) in frame. */
-  object-position: 30% 50%;
+     Below 48em the 16/9 box crops the sides; the falcon sits right of
+     center, so 100% 50% keeps the whole bird (beak to tail) in frame. */
+  object-position: 100% 50%;
 }
 
 .pilot-hero-caption {

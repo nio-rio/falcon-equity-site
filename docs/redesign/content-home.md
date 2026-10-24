@@ -20,7 +20,7 @@ Dark band, split H1, full-bleed still (16:9 below 48em, 1800/771 from 48em), cap
 - **H1 line 1:** Fuel Success with
 - **H1 line 2:** Fast Funding *(nested 8-col offset from 1024; wraps as one phrase below)*
 - **Aside:** Unlock rapid financial solutions tailored to your business needs.
-- **Media:** `hero-falcon.webp` — Peregrine falcon perched on a weathered branch. Full-bleed (edge to edge, not in the page container). Alt: “Peregrine falcon perched on a weathered branch”. Box is 1800/771 from 48em. Below 48em stays 16:9 with `object-position: 30% 50%` so the falcon stays in frame. Copy stays on the container.
+- **Media:** `hero-falcon.webp` — Peregrine falcon gliding with wings raised against a burning orange and slate sky (Ling's 2000×857 still, downscaled to the 1800×771 box — same 2.334 ratio, no crop). Full-bleed (edge to edge, not in the page container). Alt: “Peregrine falcon gliding with wings raised against a burning orange and slate sky”. Box is 1800/771 from 48em. Below 48em stays 16:9 with `object-position: 100% 50%` so the falcon stays in frame. Copy stays on the container.
 - **Caption H2:** Apply to get same-day funding
 - **Caption body:** One short application. A specialist reviews your file promptly. Many products fund within 24-48 hours of approval.
 - **Caption CTA:** Learn more → `/apply`
