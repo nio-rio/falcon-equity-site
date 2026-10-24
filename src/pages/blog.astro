@@ -79,10 +79,16 @@ const schema = [
   </Fragment>
 
   {/* Page header — reference .bx-page-header: H1 in columns 1-9, nothing beside it. */}
-  <section class="blg-header" aria-labelledby="blog-heading">
+  <section
+    class="blg-header"
+    aria-labelledby="blog-heading"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
     <div class="container-site">
       <div class="blg-shell">
-        <h1 id="blog-heading" class="blg-h1">{H1}</h1>
+        <h1 id="blog-heading" class="blg-h1" data-reveal>{H1}</h1>
       </div>
     </div>
   </section>

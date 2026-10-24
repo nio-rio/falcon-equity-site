@@ -15,27 +15,27 @@
    Helps bottom sits slightly under R for the tape.
    Hero title sits 50px below the header. */
 section.abt-hero[data-band='light'] {
-  padding: 50px 0 80px;
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
 }
 
 section.abt-helps[data-band='dark'] {
-  padding: 80px 0 75px;
+  padding: 80px 0 80px;
 }
 
 section.abt-process[data-band='light'] {
-  padding: 78px 0 78px;
+  padding: 80px 0 80px;
 }
 
 section.abt-faq[data-band='light'] {
-  padding: 0 0 78px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 section.abt-fit[data-band='light'] {
-  padding: 0 0 80px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 section.abt-blog[data-band='light'] {
-  padding: 0 0 80px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 .abt-hero,
@@ -89,9 +89,9 @@ section.abt-blog[data-band='light'] {
   max-width: none;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 49px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 61px;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: wrap;
 }
@@ -116,10 +116,10 @@ section.abt-blog[data-band='light'] {
   margin: 0;
   max-width: none;
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: var(--type-h2-size);
   font-weight: var(--type-h2-weight);
-  line-height: 48px;
-  letter-spacing: 0.256px;
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
   text-wrap: balance;
 }
 
@@ -292,11 +292,11 @@ section.abt-blog[data-band='light'] {
 }
 
 .abt-helps .image-slot--labeled {
-  background: color-mix(in srgb, var(--color-white) 12%, transparent);
+  background: var(--white-a12);
 }
 
 .abt-helps .image-slot-label {
-  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+  color: var(--white-a82);
 }
 
 .abt-help-title {
@@ -406,11 +406,11 @@ section.abt-blog[data-band='light'] {
 .abt-faq-item {
   position: relative;
   color: var(--color-ink);
-  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-top: 2px solid var(--ink-a40);
 }
 
 .abt-faq-item:last-child {
-  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-bottom: 2px solid var(--ink-a40);
 }
 
 .abt-faq-item::after {
@@ -570,27 +570,27 @@ section.abt-blog[data-band='light'] {
 /* 768 — home 8-col / 688 content, 40px sides. R = 96. */
 @media (min-width: 48em) {
   section.abt-hero[data-band='light'] {
-    padding: 50px 0 96px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.abt-helps[data-band='dark'] {
-    padding: 96px 0 88px;
+    padding: 96px 0 96px;
   }
 
   section.abt-process[data-band='light'] {
-    padding: 94px 0 94px;
+    padding: 96px 0 96px;
   }
 
   section.abt-faq[data-band='light'] {
-    padding: 0 0 94px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   section.abt-fit[data-band='light'] {
-    padding: 0 0 96px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   section.abt-blog[data-band='light'] {
-    padding: 0 0 96px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   .abt-help-title,
@@ -648,17 +648,17 @@ section.abt-blog[data-band='light'] {
 @media (min-width: 64em) {
   .abt-hero h1,
   .abt-hero-title {
-    font-size: 55px;
-    line-height: 57px;
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
     font-weight: 400;
     letter-spacing: normal;
   }
 
   .abt-block-head h2,
   .abt-faq-head h2 {
-    font-size: 40px;
-    line-height: 60px;
-    letter-spacing: 0.32px;
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
   }
 
   .abt-cta--after {
@@ -702,27 +702,27 @@ section.abt-blog[data-band='light'] {
 /* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
 @media (min-width: 80em) {
   section.abt-hero[data-band='light'] {
-    padding: 50px 0 144px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.abt-helps[data-band='dark'] {
-    padding: 144px 0 132px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.abt-process[data-band='light'] {
-    padding: 142px 0 142px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.abt-faq[data-band='light'] {
-    padding: 0 0 142px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   section.abt-fit[data-band='light'] {
-    padding: 0 0 144px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   section.abt-blog[data-band='light'] {
-    padding: 0 0 144px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   .abt-shell {
@@ -792,21 +792,21 @@ section.abt-blog[data-band='light'] {
   }
 
   section.abt-hero[data-band='light'] {
-    padding: 50px 0 160px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.abt-helps[data-band='dark'] {
-    padding: 160px 0 144px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.abt-process[data-band='light'] {
-    padding: 160px 0;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.abt-faq[data-band='light'],
   section.abt-fit[data-band='light'],
   section.abt-blog[data-band='light'] {
-    padding: 0 0 160px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   .abt-helps-tape {
@@ -820,22 +820,19 @@ section.abt-blog[data-band='light'] {
 
   .abt-hero h1,
   .abt-hero-title {
-    font-size: 55px;
-    line-height: 57px;
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
     font-weight: 400;
     letter-spacing: normal;
   }
 
   .abt-block-head h2 {
-    font-size: 48px;
-    line-height: 72px;
-    letter-spacing: 0.384px;
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
   }
 
   .abt-faq-head h2 {
-    font-size: 40px;
-    line-height: 60px;
-    letter-spacing: 0.32px;
     max-width: 624px;
   }
 
@@ -900,39 +897,18 @@ section.abt-blog[data-band='light'] {
   grid-column: 1 / -1;
 }
 
-/* Band pads: same-theme seams collapse, so every band carries bottom space only.
-   The exception is the band straight after the dark quote band — the black padding
-   belongs to the black, so the light band needs its own top space or its eyebrow
-   would sit on the seam. */
+/* Band pads: same-theme seams collapse (the global `[data-band] + [data-band]`
+   rule sets the follower's top to --pilot-section-y-stack), so these bands
+   declare bottom space only. The exception is the band straight after the dark
+   quote band — the black padding belongs to the black, so the light band needs
+   its own full top space or its eyebrow would sit on the seam. */
 section.abt-values[data-band='light'],
 section.abt-contact[data-band='light'] {
-  padding: 0 0 80px;
+  padding-bottom: var(--pilot-section-y);
 }
 
 section.abt-people[data-band='light'] {
-  padding: 80px 0;
-}
-
-@media (min-width: 64em) {
-  section.abt-values[data-band='light'],
-    section.abt-contact[data-band='light'] {
-    padding: 0 0 104px;
-  }
-
-  section.abt-people[data-band='light'] {
-    padding: 104px 0;
-  }
-}
-
-@media (min-width: 80em) {
-  section.abt-values[data-band='light'],
-    section.abt-contact[data-band='light'] {
-    padding: 0 0 144px;
-  }
-
-  section.abt-people[data-band='light'] {
-    padding: 144px 0;
-  }
+  padding-block: var(--pilot-section-y);
 }
 
 /* ---------------------------------------------------------------- hero ---- */
@@ -940,7 +916,7 @@ section.abt-people[data-band='light'] {
    The service-page hero stacks title → stats → lead, so the 90px title margin
    is overridden here and the lead never sits 90px down the page. */
 section.abt-hero[data-band='light'] {
-  padding: 50px 0 80px;
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
 }
 
 .abt-hero-head {
@@ -990,7 +966,7 @@ section.abt-hero[data-band='light'] {
 
 @media (min-width: 80em) {
   section.abt-hero[data-band='light'] {
-    padding: 50px 0 144px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   .abt-hero-head .abt-hero-title {
@@ -1049,7 +1025,7 @@ section.abt-hero[data-band='light'] {
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
-  letter-spacing: 0.32px;
+  letter-spacing: 0.008em;
 }
 
 @media (min-width: 48em) {
@@ -1122,7 +1098,7 @@ section.abt-founder[data-band='dark'] {
   font-size: 24px;
   font-weight: 300;
   line-height: 36px;
-  letter-spacing: 0.32px;
+  letter-spacing: 0.008em;
   text-wrap: pretty;
 }
 
@@ -1148,7 +1124,7 @@ section.abt-founder[data-band='dark'] {
   font-size: 16px;
   font-weight: 300;
   line-height: 24px;
-  letter-spacing: 0.32px;
+  letter-spacing: 0.008em;
 }
 
 @media (min-width: 48em) {
@@ -1344,12 +1320,12 @@ section.abt-founder[data-band='dark'] {
 
 .abt-contact-label {
   margin: 0;
-  color: color-mix(in srgb, var(--color-ink) 62%, transparent);
+  color: var(--ink-a63);
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
-  letter-spacing: 0.32px;
+  letter-spacing: 0.008em;
 }
 
 .abt-contact-value {
@@ -1369,7 +1345,7 @@ section.abt-founder[data-band='dark'] {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-  transition: background-size 300ms ease;
+  transition: background-size 350ms ease;
 }
 
 .abt-contact-value a:hover,

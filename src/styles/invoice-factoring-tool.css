@@ -15,27 +15,27 @@
    Helps bottom sits slightly under R for the tape.
    Hero title sits 50px below the header. */
 section.ift-hero[data-band='light'] {
-  padding: 50px 0 80px;
+  padding: var(--page-header-pt) 0 var(--page-header-pb);
 }
 
 section.ift-helps[data-band='dark'] {
-  padding: 80px 0 75px;
+  padding: 80px 0 80px;
 }
 
 section.ift-process[data-band='light'] {
-  padding: 78px 0 78px;
+  padding: 80px 0 80px;
 }
 
 section.ift-faq[data-band='light'] {
-  padding: 0 0 78px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 section.ift-fit[data-band='light'] {
-  padding: 0 0 80px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 section.ift-blog[data-band='light'] {
-  padding: 0 0 80px;
+  padding: var(--pilot-section-y-stack) 0 80px;
 }
 
 .ift-hero,
@@ -89,9 +89,9 @@ section.ift-blog[data-band='light'] {
   max-width: none;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 49px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 61px;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: wrap;
 }
@@ -116,10 +116,10 @@ section.ift-blog[data-band='light'] {
   margin: 0;
   max-width: none;
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: var(--type-h2-size);
   font-weight: var(--type-h2-weight);
-  line-height: 48px;
-  letter-spacing: 0.256px;
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.008em;
   text-wrap: balance;
 }
 
@@ -292,11 +292,11 @@ section.ift-blog[data-band='light'] {
 }
 
 .ift-helps .image-slot--labeled {
-  background: color-mix(in srgb, var(--color-white) 12%, transparent);
+  background: var(--white-a12);
 }
 
 .ift-helps .image-slot-label {
-  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+  color: var(--white-a82);
 }
 
 .ift-help-title {
@@ -433,27 +433,27 @@ section.ift-blog[data-band='light'] {
 /* 768 — home 8-col / 688 content, 40px sides. R = 96. */
 @media (min-width: 48em) {
   section.ift-hero[data-band='light'] {
-    padding: 50px 0 96px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.ift-helps[data-band='dark'] {
-    padding: 96px 0 88px;
+    padding: 96px 0 96px;
   }
 
   section.ift-process[data-band='light'] {
-    padding: 94px 0 94px;
+    padding: 96px 0 96px;
   }
 
   section.ift-faq[data-band='light'] {
-    padding: 0 0 94px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   section.ift-fit[data-band='light'] {
-    padding: 0 0 96px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   section.ift-blog[data-band='light'] {
-    padding: 0 0 96px;
+    padding: var(--pilot-section-y-stack) 0 96px;
   }
 
   .ift-help-title,
@@ -506,17 +506,17 @@ section.ift-blog[data-band='light'] {
 @media (min-width: 64em) {
   .ift-hero h1,
   .ift-hero-title {
-    font-size: 55px;
-    line-height: 57px;
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
     font-weight: 400;
     letter-spacing: normal;
   }
 
   .ift-block-head h2,
   .ift-faq-head h2 {
-    font-size: 40px;
-    line-height: 60px;
-    letter-spacing: 0.32px;
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
   }
 
   .ift-cta--after {
@@ -560,27 +560,27 @@ section.ift-blog[data-band='light'] {
 /* 1280 — home 16-col / 1136 content, 72px sides. R = 144. */
 @media (min-width: 80em) {
   section.ift-hero[data-band='light'] {
-    padding: 50px 0 144px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.ift-helps[data-band='dark'] {
-    padding: 144px 0 132px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.ift-process[data-band='light'] {
-    padding: 142px 0 142px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.ift-faq[data-band='light'] {
-    padding: 0 0 142px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   section.ift-fit[data-band='light'] {
-    padding: 0 0 144px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   section.ift-blog[data-band='light'] {
-    padding: 0 0 144px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   .ift-shell {
@@ -650,21 +650,21 @@ section.ift-blog[data-band='light'] {
   }
 
   section.ift-hero[data-band='light'] {
-    padding: 50px 0 160px;
+    padding: var(--page-header-pt) 0 var(--page-header-pb);
   }
 
   section.ift-helps[data-band='dark'] {
-    padding: 160px 0 144px;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.ift-process[data-band='light'] {
-    padding: 160px 0;
+    padding: var(--pilot-section-y) 0 var(--pilot-section-y);
   }
 
   section.ift-faq[data-band='light'],
   section.ift-fit[data-band='light'],
   section.ift-blog[data-band='light'] {
-    padding: 0 0 160px;
+    padding: var(--pilot-section-y-stack) 0 var(--pilot-section-y);
   }
 
   .ift-helps-tape {
@@ -678,22 +678,19 @@ section.ift-blog[data-band='light'] {
 
   .ift-hero h1,
   .ift-hero-title {
-    font-size: 55px;
-    line-height: 57px;
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-lh);
     font-weight: 400;
     letter-spacing: normal;
   }
 
   .ift-block-head h2 {
-    font-size: 48px;
-    line-height: 72px;
-    letter-spacing: 0.384px;
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: 0.008em;
   }
 
   .ift-faq-head h2 {
-    font-size: 40px;
-    line-height: 60px;
-    letter-spacing: 0.32px;
     max-width: 624px;
   }
 

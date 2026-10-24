@@ -1217,7 +1217,7 @@ html.has-scroll-lock .site-header [data-nav-bar] {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-  transition: background-size 0.3s;
+  transition: background-size 350ms ease;
 }
 
 .primary-nav__list-lvl-3-link:hover,
@@ -1312,7 +1312,7 @@ button.primary-nav__list-lvl-3-link {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-  transition: background-size 0.3s;
+  transition: background-size 350ms ease;
 }
 
 /* The CTA's hover-in belongs to the card now: pointing anywhere on it draws
@@ -1446,7 +1446,7 @@ button.primary-nav__list-lvl-3-link {
     background-position: 0 100%;
     background-repeat: no-repeat;
     background-size: 0 1px;
-    transition: background-size 0.3s;
+    transition: background-size 350ms ease;
   }
 
   .primary-nav__list-item-link:hover .primary-nav__list-item-label,
@@ -1922,6 +1922,12 @@ button.primary-nav__list-lvl-3-link {
   letter-spacing: 0.02rem;
   line-height: 1.5;
   color: #fff;
+}
+
+/* Legacy /contact redirects to /#contact; keep the landing row clear of the
+   fixed header when the browser jumps to it. */
+#contact {
+  scroll-margin-top: 96px;
 }
 
 .site-footer__list,

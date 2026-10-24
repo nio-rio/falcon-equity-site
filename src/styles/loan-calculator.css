@@ -28,7 +28,7 @@ section.calc-band {
      rhythm is a full --pilot-section-y bottom on the band (144 at 1280, 160 at
      1440) plus the follower's --pilot-section-y-stack top (48), which is what
      the stats → services boundary on / uses. */
-  padding: 50px 0 var(--pilot-section-y);
+  padding: var(--page-header-pt) 0 var(--pilot-section-y);
 }
 
 .calc-shell {
@@ -50,16 +50,16 @@ section.calc-band {
 }
 
 /* Hero is the H1 alone (Ling, 2026-10-23: "Let's just use the H1. Delete the
-   intro text and the button on hero."). Type ladder is still the industry
-   hero's: 40/1.1/400, then 56/84 from 1280, H1 in cols 1-9. */
+   intro text and the button on hero."). It takes the shared page-title ladder:
+   40 / 48 / 56 at 390 / 768 / 1280+, 1.1 leading, H1 in cols 1-9 at 1280. */
 .calc-title {
   margin: 0;
   max-width: 20ch;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: balance;
 }
@@ -631,8 +631,6 @@ section.calc-band {
   /* Industry hero: the H1 holds cols 1-9. */
   .calc-title {
     grid-column: 1 / span 9;
-    font-size: 56px;
-    line-height: 84px;
     max-width: 18ch;
   }
 

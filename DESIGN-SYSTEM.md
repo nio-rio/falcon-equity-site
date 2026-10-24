@@ -85,6 +85,7 @@ Do not pick a new grey. On **light** surfaces, mix **Martinique Darkest** `rgb(1
 | `--white-a88` / `--bx-on-dark` | `rgb(255 255 255 / 0.88)` | Body on dark |
 | `--white-a82` / `--bx-on-dark-muted` | `rgb(255 255 255 / 0.82)` | Secondary on dark |
 | `--white-a50` | `rgb(255 255 255 / 0.5)` | CTA wheel inactive lines |
+| `--white-a40` | `rgb(255 255 255 / 0.4)` | Strong rule on dark (industry case rows) |
 | `--white-a34` | `rgb(255 255 255 / 0.34)` | |
 | `--white-a16` / `--bx-on-dark-rule` | `rgb(255 255 255 / 0.16)` | Rules on dark |
 | `--white-a12` | `rgb(255 255 255 / 0.12)` | |
@@ -125,8 +126,8 @@ Wired in `src/styles/global.css` `@layer base` from `--type-*` in `tokens.css`. 
 
 | Role | Family | Weight | Size (mobile → 768 → 1440) | Line-height | Tracking | Token |
 | --- | --- | --- | --- | --- | --- | --- |
-| **H1** inner page | display | 300 | `clamp(2.75rem, 8.83vw + 0.6rem, 6.25rem)` | 1 | normal | `--type-h1-*` |
-| **H2** section | display | 300 | 32 → 40 → 48px | 1.25 | normal | `--type-h2-*` (`text-h2`) |
+| **H1** inner page | display | 400 | **40 → 48 → 56px** (390 / 768 / 1280) | **1.1** | normal | `--page-title-*` |
+| **H2** section | display | 400 | 32 → 40 → 48px | 1.25 | normal | `--type-h2-*` (`text-h2`) |
 | **H3** | display | 400 | 24px | 1.25 | normal | `--type-h3-*` (`text-h3`) |
 | **H4** | display | 500 | 20px | 1.2 | normal | `--type-h4-*` |
 | **H5 / H6** | sans | 500 | 16 / 14 | 1.4 | normal | `--type-h5-*` / `--type-h6-*` |
@@ -184,6 +185,46 @@ Scale primitives (`--bx-fs-12` … `--bx-fs-176`) stay in `tokens.css` for compo
 Home bands use `[data-band="light"|"dark"]`. Adjacent bands of the **same** theme collapse the follower’s top pad to `--pilot-section-y-stack` (`src/styles/blackstone.css`). Different-theme neighbors keep full pad on both sides.
 
 **Do:** mark every full-width band with `data-band`. **Don’t:** add extra padding because a section “needs air” — use the tokens. **Don’t** put a disclaimer under a band to fill space.
+
+### Page anatomy — the same skeleton on every inner page
+
+Measured on the built site, 2026-10-23, after the consistency pass. Every inner template (`/about`, the six service pages, the twelve industry pages, `/industries`, `/faq`, `/blog`, `/resources/business-loan-calculator`) now renders these exact values. If a new page measures differently, it is wrong — not “a variation”.
+
+| Slot | Token | 390 | 768 | 1280 | 1440 |
+| --- | --- | --- | --- | --- | --- |
+| Page title (H1) size | `--page-title-size` | 40 | 48 | 56 | 56 |
+| Page title line-height | `--page-title-lh` | 1.1 | 1.1 | 1.1 | 1.1 |
+| Page header pad-top | `--page-header-pt` | 40 | 48 | 48 | 48 |
+| Page header pad-bottom | `--page-header-pb` | 80 | 96 | 120 | 120 |
+| Section band | `--pilot-section-y` | 80 | 96 | 144 | 160 |
+| Same-bg follower (top only) | `--pilot-section-y-stack` | 40 | 40 | 48 | 56 |
+| Section H2 | `--type-h2-size` / `-lh` | 32 / 1.25 | 40 / 1.25 | 40 / 1.25 | 48 / 1.25 |
+| Heading → content | `--space-head-to-content` | 72 | 72 | 96 | 104 |
+| Eyebrow → heading | `--eyebrow-gap` | 40 | 40 | 56 | 64 |
+| Content width | `--bx-max` + 2 × `--bx-margin` | 358 (16 sides) | 688 (40) | 1136 (72) | 1264 (80) |
+
+**How a page is assembled:**
+
+1. `<section class="…-hero|header" data-band="light" data-reveal-root data-reveal-stagger="0" data-reveal-duration="0.55">` — page header, `padding-block: var(--page-header-pt) var(--page-header-pb)`. H1 takes `--page-title-size` / `--page-title-lh` / weight 400.
+2. Each content band: `padding-block: var(--pilot-section-y)`. If the previous band has the **same** `data-band` theme, the follower’s top collapses to `--pilot-section-y-stack` (the global `[data-band] + [data-band]` rule does this — don’t re-declare `padding-top: 0`).
+3. Section heads: `eyebrow` → `--eyebrow-gap` → `h2` sized only from `--type-h2-*` → `--space-head-to-content` → first row/card.
+4. Last band above `SiteCta` keeps a full `--pilot-section-y` bottom. `SiteCta` and `Footer` come from `BaseLayout`.
+
+**Don’t:** hard-code a `px` value in a page stylesheet for any of the slots above. `mca.css` and its six clones used to carry `50/80, 80/75, 78/78, 0/78, 142`; all of that is now tokens. The one-page stylesheets that remain (`industry.css`, `faq.css`, `blog-index.css`, `industries-index.css`, `loan-calculator.css`, `about.css`) express the same ladder through the same tokens.
+
+### Type roles that are deliberately *not* the page ladder
+
+Do not “fix” these to the section-H2 size — they are card- or component-scale and are consistent across every page that uses them:
+
+| Role | Size / leading | Where |
+| --- | --- | --- |
+| Card title (products, process, fit, values) | 24/36 w400 (25/36 on the phone) | `.mca-card-title`, `.help-title` and clones |
+| Blog-slider title | 32/48 w300 | `.blog-title` — the split slider’s own component |
+| Blog card title | 20/30 w300 | `.blg-card-title` |
+| Industry index card title | 20/30 w400 | `.indx-card-title` (an `h2` in the markup, card scale in type) |
+| FAQ question | 20/30 → 24/36 | `FaqList` / `faq-list.css` — one list component sitewide |
+| Case-list row title | 16/24 w400 | `.ind-case-trigger` — a row label, not a heading |
+
 
 ---
 
@@ -417,13 +458,15 @@ Home density: **one** full-bleed hero + testimonial stills + one visible industr
 | Token / pattern | Value | Where |
 | --- | --- | --- |
 | `--bx-ease` / `--bx-duration` | `0.3s ease` | Default UI |
-| Link underline | 1px gradient, 0→100%, **350ms** | `.link`, `.arrow-cta` |
+| Link underline | 1px gradient, 0→100%, **350ms ease** — every link on the site, including nav, footer, cards and legal rows | `.link`, `.arrow-cta`, `.blog-link-label`, `.primary-nav__*`, `.blg-card`, `.indx-card` |
 | Circle-arrow fill | 250–300ms | `.circle-arrow` |
 | Button 040 swap | 0.6s / 0.735s + 0.05s delay, Ling easings | `button-040.css` |
 | Accordion | `grid-template-rows` 350ms; icon 250ms | `src/scripts/accordion.ts` |
 | Image zoom | `scale(1.06)` ~350ms | news / image cards |
 | Header dropdown | Osmo timings; chevron 0.3s | `src/scripts/nav.ts`, `docs/refs/osmo-mega-nav.md` |
 | Home scroll-in | GSAP `y: 20` + autoAlpha **800ms**, stagger **400ms**, start `top 90%` (early), once, reading order. Controls before content (`data-reveal-after`). Services: `top 85%`, 150ms/row. Stats fade 0.75s + line `scaleX` 1.125s. News curtain 1s + image 0.5s / 0.4s delay. **Skip** hero, testimonial slider, CTA wheel. | `src/scripts/scroll-in.ts` |
+| **Inner page header** | `data-reveal-root` + `data-reveal-stagger="0"` + `data-reveal-duration="0.55"` on the header section, `data-reveal` on the H1 block — title and standfirst appear **together**, never as a cascade (Ling, retail hero review). Same values on `/about`, `/faq`, `/blog`, the calculator and all six service pages. | page header `<section>` |
+| **Inner page bands** | Defaults: `top 90%`, 800ms, 400ms stagger. Card grids may pass `data-reveal-duration="0.6"` + `data-reveal-stagger="0.08"` (home Insights, `/industries`) — never a per-page custom value. | band `<section>` |
 | Testimonial | SplitText + circular clip; autoplay 5s | `src/scripts/testimonial-slider.ts` |
 | CTA wheel | 1200ms hold + 400ms ease | `SiteCta.astro` |
 | Why marquee | 125px/s | `PilotWhy.astro` |
@@ -479,6 +522,37 @@ Used on `/services/merchant-cash-advance`, `/industries/retail`, `/how-it-works`
 **About stats** reuse `PilotStats` with `$100M+` featured and `15` / `300+` on the sides. No satisfaction figure. No 98% (home only).
 
 **Retail** is a dedicated page (`src/pages/industries/retail.astro`). Other industry slugs keep the existing `[slug].astro` template until those pages are rebuilt.
+
+---
+
+## New page checklist
+
+Run this before you call a page done. Every item is a measurement, not an opinion.
+
+1. **Page header** uses `--page-header-pt` / `--page-header-pb`; the H1 is `var(--page-title-size)` / `var(--page-title-lh)`, weight 400. Measure 40 / 48 / 56 at 390 / 768 / 1280.
+2. **Every band** has `data-band` and `padding-block: var(--pilot-section-y)`. No `padding-top: 0` on a same-bg follower — the global collapse rule owns that.
+3. **Every section head** is eyebrow → `--eyebrow-gap` → `h2` (`--type-h2-*` only) → `--space-head-to-content` → content. No bespoke H2 size, no `margin-bottom` on the H2 doing the gap’s job.
+4. **No new `px` padding or heading size** in the page stylesheet. Grep your file for `padding: [0-9]` and `font-size: [0-9]` before committing; every remaining hit must be a card-scale value from the table above.
+5. **Container**: compose `.container-site` / the page’s 16-track shell. Never set a width or a side margin.
+6. **Palette**: only `var(--color-*)`, `var(--ink-a*)`, `var(--white-a*)`. Never `color-mix(... %)` or a hex. Alpha mixes that are not a token are a defect.
+7. **Links**: one Apply per band (`Button040`), body links inherit colour and draw the 350ms underline. No second CTA next to 040.
+8. **Buttons**: every `<button>` carries `type="button"` and either `data-*` (wired in a script under `src/scripts/`) or an `aria-label`. A button with neither is a dead control.
+9. **Motion**: header section `data-reveal-root data-reveal-stagger="0" data-reveal-duration="0.55"`; bands use defaults. Reduced-motion and no-JS must both render everything visible.
+10. **Links resolve**: after `npm run build`, crawl the built HTML and confirm every internal `href` returns 200 and every `#anchor` exists on its target (`/tmp/linkcheck.mjs` pattern — 46 docs, 1,806 links last run).
+
+## Link and button audit (2026-10-23)
+
+| Check | Result |
+| --- | --- |
+| Internal links | **1,806 across 46 HTML documents — 0 broken** (every route 200, every `#anchor` present) |
+| Buttons | **697 — all wired**: `type="button"` plus `data-*` or `aria-label`. No dead control. |
+| Forms | None. Apply is a route (`/apply`), never a form post. |
+| External links | Maps, X, JotForm, LinkedIn/X/WhatsApp share all 200. **Facebook `sharer.php` answers 400 to non-browser clients** — it works in a browser; do not “fix” it. |
+| Known placeholders | Footer **Privacy Policy / Terms & Conditions** and nav **Partners** point at `/#main`; `src/legal/*.md` is unpublished. `/services` and `/how-it-works` are redirect stubs to `/`. |
+
+**Fixed in this pass:** two blog posts linked to `/services` (a retired route), one of them to `/services#compare-heading`, an anchor that never existed on the rebuilt site — both now point at `/#services`.
+
+**Not fixed, needs a decision:** publishing the legal pages. The footer legal links are the only dead-end links left on the site, and the copy exists in `src/legal/privacy-policy.md` and `src/legal/terms-conditions.md`. Rebuilding them is a page build, not a link fix.
 
 ---
 

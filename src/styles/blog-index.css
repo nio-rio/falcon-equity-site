@@ -34,19 +34,7 @@
 .blg-header {
   background: var(--color-white);
   color: var(--color-ink);
-  padding-block: 40px 80px;
-}
-
-@media (min-width: 48em) {
-  .blg-header {
-    padding-block: 56px 96px;
-  }
-}
-
-@media (min-width: 90em) {
-  .blg-header {
-    padding-block: 48px 120px;
-  }
+  padding-block: var(--page-header-pt) var(--page-header-pb);
 }
 
 /* 16-track shell with the house 16px gutters; children span the full width
@@ -80,22 +68,10 @@
   margin: 0;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--page-title-lh);
   letter-spacing: 0.008em;
-}
-
-@media (min-width: 26em) {
-  .blg-h1 {
-    font-size: 48px;
-  }
-}
-
-@media (min-width: 90em) {
-  .blg-h1 {
-    font-size: 56px;
-  }
 }
 
 /* ── the list ─────────────────────────────────────────────────────────────── */
@@ -103,19 +79,7 @@
 .blg-archive {
   background: var(--color-white);
   color: var(--color-ink);
-  padding-block: 0 80px;
-}
-
-@media (min-width: 48em) {
-  .blg-archive {
-    padding-block: 0 96px;
-  }
-}
-
-@media (min-width: 90em) {
-  .blg-archive {
-    padding-block: 0 120px;
-  }
+  padding-block: 0 var(--pilot-section-y);
 }
 
 .blg-cards {
@@ -202,7 +166,7 @@
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-  transition: background-size 0.3s;
+  transition: background-size 350ms ease;
 }
 
 .blg-card-title a:hover,

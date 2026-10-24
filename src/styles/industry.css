@@ -44,21 +44,9 @@
   }
 }
 
-/* Hero pad: 48 top / 120 bottom at desktop, scaled down. */
+/* Hero pad: the shared page-header ladder — 40/80 → 48/96 → 48/120. */
 .ind-hero {
-  padding-block: 40px 64px;
-}
-
-@media (min-width: 48em) {
-  .ind-hero {
-    padding-block: 48px 96px;
-  }
-}
-
-@media (min-width: 80em) {
-  .ind-hero {
-    padding-block: 48px 120px;
-  }
+  padding-block: var(--page-header-pt) var(--page-header-pb);
 }
 
 /* ---------------------------------------------------------------------------
@@ -102,11 +90,11 @@
   max-width: 20ch;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   /* 400 to match the service pages' page title (.mca-hero h1), which Ling
      asked for; Blackstone's own header is lighter than this. */
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: balance;
 }
@@ -122,8 +110,6 @@
 
 @media (min-width: 80em) {
   .ind-h1 {
-    font-size: 56px;
-    line-height: 84px;
     max-width: 18ch;
   }
 
@@ -196,9 +182,9 @@
      forced a break even at 1440, where the 1264px content width is ample. */
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 300;
-  line-height: 1.25;
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
   letter-spacing: 0.008em;
 }
 
@@ -212,12 +198,12 @@
    band, and the same hover draw: a 2px line that scales out from the left. */
 .ind-case-item {
   position: relative;
-  border-top: 2px solid color-mix(in srgb, var(--color-white) 40%, transparent);
+  border-top: 2px solid var(--white-a40);
   transition: opacity 0.3s ease;
 }
 
 .ind-case-item:last-child {
-  border-bottom: 2px solid color-mix(in srgb, var(--color-white) 40%, transparent);
+  border-bottom: 2px solid var(--white-a40);
 }
 
 .ind-case-item::after {
@@ -465,8 +451,8 @@
   }
 
   .ind-case-claim {
-    font-size: 48px;
-    line-height: 72px;
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
   }
 
   .ind-case-trigger {

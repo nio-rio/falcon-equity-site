@@ -29,16 +29,16 @@
 .faq-header {
   background: var(--color-white);
   color: var(--color-ink);
-  padding-block: 40px 80px;
+  padding-block: var(--page-header-pt) var(--page-header-pb);
 }
 
 .faq-h1 {
   margin: 0;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 60px;
+  line-height: var(--page-title-lh);
   letter-spacing: 0.008em;
 }
 
@@ -70,56 +70,37 @@
 /* ── groups ───────────────────────────────────────────────────────────────── */
 
 .faq-group {
-  padding-block: 40px 80px;
+  padding-block: var(--pilot-section-y-stack) var(--pilot-section-y);
 }
 
 .faq-group-title {
-  margin: 0 0 40px;
+  margin: 0;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 300;
-  line-height: 48px;
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-lh);
   letter-spacing: 0.008em;
   text-align: left;
   text-wrap: balance;
 }
 
-/* Placement only — the 56 + 48 gap the reference leaves between a group heading
-   and its first row. Everything inside the list belongs to faq-list.css. */
+/* Placement only — heading → first row is the shared
+   --space-head-to-content gap (72 / 72 / 96 / 104), the same value every
+   other section head uses. The rows themselves belong to faq-list.css. */
 .faq-group-list {
-  padding-top: 32px;
+  padding-top: var(--space-head-to-content);
 }
 
 /* ── 768 and up ───────────────────────────────────────────────────────────── */
 
 @media (min-width: 48em) {
-  .faq-header {
-    padding-block: 56px 96px;
-  }
-
-  .faq-h1 {
-    font-size: 48px;
-    line-height: 72px;
-  }
-
   .faq-shell {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
-  .faq-group {
-    padding-block: 48px 96px;
-  }
-
   .faq-group-title {
-    margin-bottom: 56px;
-    font-size: 48px;
-    line-height: 72px;
     text-align: center;
-  }
-
-  .faq-group-list {
-    padding-top: 40px;
   }
 }
 
@@ -147,26 +128,6 @@
 }
 
 /* ── 1440 and up ──────────────────────────────────────────────────────────── */
-
-@media (min-width: 90em) {
-  .faq-header {
-    padding-block: 48px 120px;
-  }
-
-  .faq-h1 {
-    font-size: 56px;
-    line-height: 84px;
-  }
-
-  .faq-group {
-    padding-block: 56px 160px;
-  }
-
-  .faq-group-title {
-    line-height: 84px;
-  }
-
-  .faq-group-list {
-    padding-top: 48px;
-  }
-}
+/* Header, title, group and list spacing all come from the shared page-title /
+   page-header / --pilot-section-y / --space-head-to-content ladders, so there
+   is no 1440-only step left in this file. */

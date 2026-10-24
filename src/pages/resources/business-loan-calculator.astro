@@ -81,10 +81,17 @@ const paymentOptions = [
       services range line are 14px sitewide, so they are raised here only and
       the home page is untouched. */}
   <div class="calc-page">
-  <section class="calc-band" data-band="light" aria-labelledby="calc-heading">
+  <section
+    class="calc-band"
+    data-band="light"
+    aria-labelledby="calc-heading"
+    data-reveal-root
+    data-reveal-stagger="0"
+    data-reveal-duration="0.55"
+  >
     <div class="container-site">
       <div class="calc-shell">
-        <h1 id="calc-heading" class="calc-title">Business loan calculator</h1>
+        <h1 id="calc-heading" class="calc-title" data-reveal>Business loan calculator</h1>
 
         <div class="calc-tool" data-calc-tool data-calc-mode="factor">
           <fieldset class="calc-tabs">

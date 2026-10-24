@@ -58,6 +58,7 @@
   --white-a88: rgb(255 255 255 / 0.88);
   --white-a82: rgb(255 255 255 / 0.82);
   --white-a50: rgb(255 255 255 / 0.5);
+  --white-a40: rgb(255 255 255 / 0.4);   /* strong rule on dark (industry case rows) */
   --white-a34: rgb(255 255 255 / 0.34);
   --white-a16: rgb(255 255 255 / 0.16);
   --white-a12: rgb(255 255 255 / 0.12);
@@ -74,6 +75,7 @@
   --color-white-a88: var(--white-a88);
   --color-white-a82: var(--white-a82);
   --color-white-a50: var(--white-a50);
+  --color-white-a40: var(--white-a40);
   --color-white-a34: var(--white-a34);
   --color-white-a16: var(--white-a16);
   --color-white-a12: var(--white-a12);
@@ -122,6 +124,14 @@
   --type-h1-lh: 1;
   --type-h1-ls: normal;
   --type-h1-weight: 300;
+  /* Inner-page title (`.mca-hero h1`, `.ind-h1`, `.faq-h1`, `.blg-h1`,
+     `.indx-h1`, `.calc-title`, `.abt-hero h1`). One ladder for every template:
+     40 / 48 / 56 at 390 / 768 / 1280+, 1.1 leading, weight 400.
+     The page header's own vertical pad is separate: 40/80 → 48/96 → 48/120. */
+  --page-title-size: 2.5rem;
+  --page-title-lh: 1.1;
+  --page-header-pt: 2.5rem;
+  --page-header-pb: 5rem;
   --type-h2-size: 2rem;
   --type-h2-lh: 1.25;
   --type-h2-ls: normal;
@@ -248,6 +258,9 @@
     --bx-max: 43rem;
     --space-head-to-content: 72px;
     --type-h2-size: 2.5rem;
+    --page-title-size: 3rem;
+    --page-header-pt: 3rem;
+    --page-header-pb: 6rem;
   }
 }
 
@@ -277,6 +290,9 @@
     --space-head-to-content: 96px;
     --pilot-section-y: 9rem;
     --pilot-section-y-stack: 3rem;
+    --page-title-size: 3.5rem;
+    --page-header-pt: 3rem;
+    --page-header-pb: 7.5rem;
   }
 }
 

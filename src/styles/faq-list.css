@@ -25,11 +25,11 @@
 .faq-item {
   position: relative;
   color: var(--color-ink);
-  border-top: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-top: 2px solid var(--ink-a40);
 }
 
 .faq-item:last-child {
-  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-bottom: 2px solid var(--ink-a40);
 }
 
 .faq-item::after {

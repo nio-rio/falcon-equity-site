@@ -13,47 +13,20 @@
      home page gives every band above that CTA a full section pad (160px at
      1440, measured on `.pilot-news`). Ling, 23 Oct: the first build's 64px read
      as too tight. So the bottom takes the site token and scales with it. */
-  padding-block: 40px var(--pilot-section-y);
+  padding-block: var(--page-header-pt) var(--pilot-section-y);
 }
 
-@media (min-width: 48em) {
-  .indx-band {
-    padding-top: 56px;
-  }
-}
-
-@media (min-width: 80em) {
-  .indx-band {
-    padding-top: 48px;
-  }
-}
-
-/* Page title — same numbers as `.ind-h1` on the twelve industry pages (40/1.1,
-   56/84 from 80em, weight 400 as Ling specified for the family), so the index
-   and the pages it lists read as one set. */
+/* Page title — the shared page-title ladder (40 / 48 / 56 at 390 / 768 /
+   1280+, 1.1 leading, weight 400), and the shared heading → content gap. */
 .indx-h1 {
-  margin: 0 0 80px;
+  margin: 0 0 var(--space-head-to-content);
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: var(--page-title-size);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--page-title-lh);
   letter-spacing: normal;
   text-wrap: balance;
-}
-
-@media (min-width: 48em) {
-  .indx-h1 {
-    margin-bottom: 96px;
-  }
-}
-
-@media (min-width: 80em) {
-  .indx-h1 {
-    margin-bottom: 120px;
-    font-size: 56px;
-    line-height: 84px;
-  }
 }
 
 /* Grid — 1-up, 2-up, 4-up. Column gap 24px at every width, which is what the
@@ -125,7 +98,7 @@
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 0.063rem;
-  transition: background-size 0.3s ease;
+  transition: background-size 350ms ease;
 }
 
 /* The reference pins its meta line to the card foot with a 40px pad above it,
