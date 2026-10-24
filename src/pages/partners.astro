@@ -27,7 +27,7 @@ import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { PARTNERS } from '@/data/partners';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
-import heroStill from '@/assets/images/hero-falcon.webp';
+import partnersHero from '@/assets/images/partners-hero.webp';
 import '@/styles/partners.css';
 
 const OUTBOUND_REL = 'noopener sponsored';
@@ -102,7 +102,8 @@ const schema = [
     </script>
   </Fragment>
 
-  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in tracks 1-7, lead in 12-16, one 5:2 still. No CTA.
+  <!-- 1. Hero — TF-00 header + TF-01 still: H1 in tracks 1-7, lead in 12-16, one 5:2 still.
+       The still is the supplied boardroom photograph Ling sent on 23 Oct (src/assets/images/partners-hero.webp). No CTA.
        Copy (Notion, 23 Oct, edited by Ling): the H1 is the audience line, and there is no eyebrow above it. -->
   <section
     class="ptn-hero"
@@ -125,9 +126,9 @@ const schema = [
       </div>
       <div class="ptn-hero-media" data-reveal-media>
         <Media
-          image={heroStill}
-          intent="Placeholder still: a peregrine falcon on a branch. Replace with an approved partners still (no people)."
-          alt="A peregrine falcon perched on a twisted bare branch, looking back over its shoulder, against a dark background of soft gold light."
+          image={partnersHero}
+          intent="Supplied photograph: four colleagues in a glass-walled boardroom, two shaking hands."
+          alt="Four colleagues in a glass-walled boardroom: two men shake hands across the table while a woman holding a tablet and a seated colleague watch, the city beyond the windows."
           ratio="5 / 2"
           priority
           sizes="(min-width: 90em) 1264px, (min-width: 80em) 1136px, (min-width: 48em) 688px, 100vw"
