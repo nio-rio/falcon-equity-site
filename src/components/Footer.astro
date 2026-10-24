@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { FOOTER_QUICK_LINKS, LEGAL_LINKS, SITE } from '@/data/site';
+import { SERVICES } from '@/data/services';
 
 interface Props {
   disclosure?: string;
@@ -30,6 +31,15 @@ const phone = SITE.phones.direct;
           </ul>
         </div>
 
+        <div class="site-footer__col">
+          <h3 class="site-footer__col-title">Services</h3>
+          <ul class="site-footer__list">
+            {SERVICES.map((s) => (
+              <li><a href={`/services/${s.slug}`} class="site-footer__link">{s.shortName}</a></li>
+            ))}
+          </ul>
+        </div>
+
         <div class="site-footer__col" id="contact">
           <h3 class="site-footer__col-title">Get in Touch</h3>
           <ul class="site-footer__list">
@@ -50,6 +60,17 @@ const phone = SITE.phones.direct;
                 X<span class="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
+            <li>
+              <a
+                href={SITE.partner.url}
+                class="site-footer__cardiff"
+                target="_blank"
+                rel="noopener sponsored"
+              >
+                <img src={SITE.partner.logo} alt="" width="416" height="94" loading="lazy" />
+                <span class="sr-only">Cardiff, affiliate link (opens in a new tab)</span>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -66,13 +87,6 @@ const phone = SITE.phones.direct;
         </nav>
         <p class="site-footer__copy">© {year} {SITE.name}. All rights reserved.</p>
       </div>
-      <p class="site-footer__affiliate">
-        Falcon is an affiliate of <a
-          href={SITE.partner.url}
-          target="_blank"
-          rel="noopener sponsored">Cardiff<span class="sr-only"> (affiliate link, opens in a new tab)</span></a
-        >, a small-business financing marketplace for products we do not place.
-      </p>
       {
         disclosure && (
           <p class="site-footer__disclosure">{disclosure}</p>

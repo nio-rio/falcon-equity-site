@@ -149,6 +149,16 @@ section.dbf-hero-media[data-band='light'] {
 /* ---------------------------------------------------------------- 02 list -- */
 
 /* WHAT WE DO's stacked list: title, 24px, body, 64px to the next item. */
+.dbf-start-media .media,
+.dbf-start-media .image-slot {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.dbf-start-head h2 {
+  max-width: 40rem;
+}
+
 .dbf-start-item + .dbf-start-item {
   margin-top: 64px;
 }
@@ -187,23 +197,24 @@ section.dbf-hero-media[data-band='light'] {
   letter-spacing: 0.32px;
 }
 
-/* No divider line: the statement is held apart by size only. */
+/* No divider line: the statement is held apart by size only, and — per Ling —
+   both paragraphs of this band are set in the body face, not the display face. */
 .dbf-statement {
   margin: 40px 0 0;
   color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 24px;
+  font-family: var(--font-sans);
+  font-size: 20px;
   font-weight: 300;
-  line-height: 36px;
-  letter-spacing: 0.008em;
+  line-height: 30px;
+  letter-spacing: 0.32px;
   text-wrap: pretty;
 }
 
 /* ---------------------------------------------------------------- process -- */
 
-/* Four fixed rows so the numeral, title, body and hand-off block line up across
-   all three columns. row-gap: 0 overrides the gap a subgrid inherits from its
-   parent — without it the numeral sat 112px off its title at 1440. */
+/* Four rows per card, the body row taking the slack so every hand-off block
+   bottom-aligns. Deliberately NOT a subgrid: a shared title row stretched each
+   one-line title to the tallest title's box and pushed the paragraph ~70px down. */
 .dbf-step {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
@@ -220,6 +231,12 @@ section.dbf-hero-media[data-band='light'] {
   font-weight: 300;
   line-height: 9.625rem;
   letter-spacing: normal;
+}
+
+/* Reference measures 24px between an h3 and its paragraph; the owner asked for
+   tighter here, and 24 read as a gap because the numeral's large box sits above. */
+.dbf-step .dbf-card-title {
+  margin-bottom: 16px;
 }
 
 .dbf-step-body {
@@ -243,14 +260,17 @@ section.dbf-hero-media[data-band='light'] {
   margin: 0 0 6px;
   color: var(--ink-a63);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 21px;
+  line-height: 24px;
   letter-spacing: normal;
 }
 
 .dbf-step-io dd {
   margin: 0 0 24px;
+  /* 3 lines reserved: the hand-off blocks then read as one row across all three
+     columns instead of the shortest one starting higher. */
+  min-height: 72px;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -270,8 +290,13 @@ section.dbf-hero-media[data-band='light'] {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
+  .dbf-start-media {
+    grid-column: 1 / span 4;
+    padding-right: 24px;
+  }
+
   .dbf-start-list {
-    grid-column: 1 / span 6;
+    grid-column: 5 / span 4;
   }
 
   /* Two per row from 8 tracks; the third (and fifth) wrap under the first. */
@@ -338,15 +363,17 @@ section.dbf-hero-media[data-band='light'] {
     max-width: none;
   }
 
-  /* 02 Start here: claim in the image column's place, list in cols 11-16 (464). */
-  .dbf-start-head {
+  /* 02 Start here, per WHAT WE DO: head above, then the still in cols 1-8 and the
+     list in cols 11-16 (464), the list's first line level with the image's top. */
+  .dbf-start-media {
     grid-column: 1 / span 8;
-    grid-row: 1;
+    grid-row: 2;
   }
 
   .dbf-start-list {
     grid-column: 11 / span 6;
-    grid-row: 1;
+    grid-row: 2;
+    align-self: start;
   }
 
   /* 06 How we work: claim left 1-8, body + statement right 11-16. */
@@ -388,17 +415,8 @@ section.dbf-hero-media[data-band='light'] {
     row-gap: 104px;
   }
 
-  /* Process: subgrid so all three steps share one row set — the body row takes
-     the height of the longest, which puts every You provide / You get block on
-     the same baseline. Unsupported browsers fall back to the auto rows above. */
   .dbf-process-grid {
-    grid-template-rows: repeat(4, auto);
-  }
-
-  .dbf-process-grid > .dbf-step {
-    grid-row: 1 / span 4;
-    grid-template-rows: subgrid;
-    row-gap: 0;
+    row-gap: 80px;
   }
 }
 

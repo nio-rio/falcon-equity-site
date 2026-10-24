@@ -506,8 +506,10 @@ export function initNav() {
         if (state.mobileMenuOpen) openMobilePanel(name);
         return;
       }
-      if (state.isOpen && state.activePanel === name) closeDropdown();
-      else openDropdown(name);
+      // A click always opens the panel, whatever its previous state. Hover opens the
+      // menu after 120ms on desktop, so the old toggle closed the panel on the very
+      // click meant to open it. Escape, the backdrop and a click outside still close.
+      openDropdown(name);
     });
     btn.addEventListener('keydown', (e) => {
       if (state.isMobile) return;
@@ -515,11 +517,9 @@ export function initNav() {
       if (!name) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (state.isOpen && state.activePanel === name) closeDropdown();
-        else {
-          openDropdown(name);
-          focusFirstLink(name);
-        }
+        // Same rule as the click: activation always opens, never collapses.
+        openDropdown(name);
+        focusFirstLink(name);
       }
       if (e.key === 'ArrowDown') {
         e.preventDefault();

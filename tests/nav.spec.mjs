@@ -1202,14 +1202,14 @@ for (const vp of VIEWPORTS) {
         ...tag,
         check: 'home-hero-falcon-still',
         ok:
-          heroStill.alt === 'Peregrine falcon perched on a weathered branch' &&
+          heroStill.alt === 'Peregrine falcon gliding with wings raised against a burning orange and slate sky' &&
           (heroStill.loading === 'eager' || heroStill.fetchPriority === 'high') &&
           heroStill.fetchPriority === 'high' &&
           heroStill.hasAvif &&
           heroStill.hasWebp &&
           heroStill.srcsetCount >= 3 &&
           heroStill.objectFit === 'cover' &&
-          /^30%\s+50%$/.test(heroStill.objectPosition || '') &&
+          /^100%\s+50%$/.test(heroStill.objectPosition || '') &&
           heroStill.ratio != null &&
           Math.abs(heroStill.ratio - expectedRatio) <= 0.04 &&
           heroStill.boxLeft === 0 &&
@@ -2225,9 +2225,10 @@ for (const vp of VIEWPORTS) {
       ...tag,
       check: 'footer-social-in-get-in-touch',
       ok:
-        footerNav.titles.length === 2 &&
+        footerNav.titles.length === 3 &&
         footerNav.titles[0] === 'Quick Links' &&
-        footerNav.titles[1] === 'Get in Touch' &&
+        footerNav.titles[1] === 'Services' &&
+        footerNav.titles[2] === 'Get in Touch' &&
         !footerNav.titles.includes('Social') &&
         footerNav.x?.visible === 'X' &&
         footerNav.x?.href === 'https://x.com/FalconEquitynyc' &&
@@ -2379,6 +2380,24 @@ for (const vp of VIEWPORTS) {
         return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.05 && el.getAttribute('aria-hidden') !== 'true';
       });
       log({ ...tag, check: 'hover-opens', ok: hoverOpen && panelVisible, detail: label });
+
+      /* Ling (23 Oct): a click on a trigger always opens its panel, whatever its
+         previous state. Hover opens the menu first on desktop, so the old toggle
+         closed the panel on the very click meant to open it. */
+      if (vp.mode === 'desktop' && hoverOpen) {
+        await first.locator('[data-nav-trigger]').click({ force: true });
+        await page.waitForTimeout(450);
+        const clickStaysOpen = await first.evaluate(
+          (el) =>
+            el.classList.contains('is-open') &&
+            el.querySelector('[data-nav-trigger]')?.getAttribute('aria-expanded') === 'true',
+        );
+        log({ ...tag, check: 'click-while-open-stays-open', ok: clickStaysOpen, detail: label });
+        /* Leave the panel closed again: the checks below assume the state the
+           hover left behind, and an open panel locks scroll. */
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(600);
+      }
 
       const openChrome = await readPanelChrome(page);
       const aligned =

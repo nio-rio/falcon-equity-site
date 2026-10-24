@@ -1869,21 +1869,33 @@ button.primary-nav__list-lvl-3-link {
   width: 100%;
 }
 
-/* Affiliate line (Ling, 23 Oct): Cardiff is an affiliate, not a partner, so the link
-   lives sitewide here rather than on /partners. */
-.site-footer__affiliate {
-  margin: var(--bx-space-24) 0 0;
-  font-family: var(--font-sans);
-  font-size: var(--bx-fs-14);
-  font-weight: 400;
-  line-height: 21px;
-  color: #fff;
+/* Cardiff (Ling, 23 Oct): an affiliate, not a partner, so the link lives in a footer
+   column rather than on /partners. The wordmark is royal blue and the footer is dark
+   purple, so it sits on a light plate — 1.7:1 raw, unreadable. */
+.site-footer__cardiff {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2px;
+  padding: 4px 6px;
+  line-height: 0;
+  transition: opacity 250ms ease;
 }
 
-.site-footer__affiliate a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+.site-footer__cardiff:hover,
+.site-footer__cardiff:focus-visible {
+  opacity: 0.85;
+}
+
+.site-footer__cardiff img {
+  display: block;
+  width: auto;
+  height: 1rem;
+}
+
+.site-footer__cardiff:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
 }
 
 .site-footer__disclosure {
@@ -2043,7 +2055,7 @@ button.primary-nav__list-lvl-3-link {
   }
 
   .site-footer__nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: var(--bx-space-16);
     row-gap: var(--bx-space-64);
     margin-top: var(--bx-space-80);
@@ -2083,9 +2095,9 @@ button.primary-nav__list-lvl-3-link {
   }
 
   .site-footer__nav {
-    display: flex;
-    justify-content: flex-end;
-    column-gap: var(--bx-space-112);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--bx-space-16);
     margin-top: 0;
   }
 

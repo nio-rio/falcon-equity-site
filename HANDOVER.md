@@ -1229,3 +1229,17 @@ Verified: build 49 pages, `check` 0 errors, 10 bands (hero, hero still, four con
 **no horizontal overflow at 390 / 768 / 1024 / 1280 / 1440 / 1920**, three accordion lists with 4 / 6 / 10 rows,
 0 broken internal refs, SiteCta renders `Book a consultation` on this page and `Apply for funding` everywhere
 else.
+
+
+### Same page — type and spacing corrections (2026-10-23, revision 3)
+
+- **Process**: no text under 16px — the `You provide / You get` labels were 14/21 and are now **16/24**.
+  The **h3 → paragraph gap is 16px** (reference measures 24; 24 read as a gap under the 198px numeral).
+  Subgrid removed: a shared title row stretched each one-line title to the tallest box and pushed the
+  paragraph ~70px down. Each card is now a 4-row grid with a flexible body row, and each hand-off value
+  reserves three lines, so the three *You provide / You get* blocks start on the same line.
+- **Start here**: still light theme, but now **WHAT WE DO properly** — eyebrow + claim full width above,
+  then a 3:4 still (labelled placeholder, 624x832 at 1440) in cols 1-8 with the list in cols 11-16, the
+  list's first line **level with the still, not the H2**.
+- **How we work**: both paragraphs are now in the **body face** (Archivo 20/30/300). The AI statement was
+  in At Gambit; Ling asked for body font on both.
