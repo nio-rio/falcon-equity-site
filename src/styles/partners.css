@@ -345,83 +345,28 @@ section.ptn-hero[data-band='light'] {
   }
 }
 
-/* --------------------------------------- 9 become a partner ---- */
-.ptn-become-cols {
+/* ------------------------------------------- 9 partner enquiries ---- */
+/* PLACEHOLDER. The band's content is the enquiry form, which Ling has not supplied yet.
+   These rules only draw the empty slot; when the form lands, drop them and style the form
+   itself. Neutral fill, no border, so it reads as "space reserved" and not as a component. */
+.ptn-form-slot {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 48px;
+  place-items: center;
+  min-height: 22rem;
+  padding: 40px;
+  background: rgb(255 255 255 / 0.04);
+  text-align: center;
 }
 
-@media (min-width: 48em) {
-  .ptn-become-cols {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 48px;
-  }
-}
-
-.ptn-contact {
-  margin: 56px 0 0;
-}
-
-.ptn-contact-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 4px;
-  padding: 24px 0 0;
-}
-
-.ptn-contact-label {
+.ptn-form-slot-note {
   margin: 0;
+  max-width: 32ch;
   color: var(--bx-on-dark-muted);
   font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0.008em;
-}
-
-.ptn-contact-value {
-  margin: 0;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
-  line-height: 27px;
-  letter-spacing: 0.144px;
-}
-
-.ptn-contact-value a {
-  color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0 1px;
-  transition: background-size 350ms ease;
-}
-
-.ptn-contact-value a:hover,
-.ptn-contact-value a:focus-visible {
-  background-size: 100% 1px;
-}
-
-.ptn-become-close {
-  margin: 56px 0 0;
-  padding-top: 32px;
-  border-top: 1px solid var(--bx-on-dark-rule);
-  color: var(--bx-on-dark);
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 30px;
+  line-height: 24px;
   letter-spacing: 0.008em;
-}
-
-@media (min-width: 80em) {
-  .ptn-become-close {
-    font-size: 24px;
-    line-height: 36px;
-  }
 }
 
 /* -------------------------------------------------- 10 FAQ ---- */
@@ -432,7 +377,7 @@ section.ptn-hero[data-band='light'] {
 
 /* ------------------------------------------------- motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .ptn-contact-value a {
+  .ptn-form-slot a {
     transition: none;
   }
 }

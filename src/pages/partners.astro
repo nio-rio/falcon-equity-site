@@ -16,7 +16,7 @@
  * contract, so they are deleted from this page and its CSS. There is no closing CTA band:
  * Ling deleted the last section above the footer, so the page now ends on the FAQ and the
  * layout's default pre-footer band is switched off with `cta={false}`. Nothing here publishes
- * a rate, the approval figure or a consolidation-savings figure. Contact comes from SITE.
+ * a rate or the approval figure.
  * Plan: docs/partners-structure-plan.md.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -25,15 +25,11 @@ import Eyebrow from '@/components/Eyebrow.astro';
 import CircleArrow from '@/components/CircleArrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
-import { SITE } from '@/data/site';
 import { PARTNERS } from '@/data/partners';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import heroStill from '@/assets/images/hero-falcon.webp';
 import '@/styles/partners.css';
 
-const PARTNER_SUBJECT = 'Partner enquiry';
-const PARTNER_MAILTO = `mailto:${SITE.email}?subject=${encodeURIComponent(PARTNER_SUBJECT)}`;
-const DIRECT = SITE.phones.direct;
 const OUTBOUND_REL = 'noopener sponsored';
 
 const PARTNER_TYPES = [
@@ -215,7 +211,10 @@ const schema = [
     </div>
   </section>
 
-  <!-- 9. Become a partner — HOME-07 dark: heading left, the two text columns + contact rows right. No form. -->
+  <!-- 9. Partner enquiries — HOME-07 dark: heading left, the form in the right-hand tracks.
+       Ling, 23 Oct: the H2 is now "Want to partner with us?" and the band holds an enquiry form
+       instead of copy. THE FORM IS A PLACEHOLDER — replace the div below with the form she sends.
+       Nothing else in this band is copy: no "what to send", no contact rows. -->
   <section
     class="ptn-become on-dark"
     id="become-a-partner"
@@ -228,43 +227,13 @@ const schema = [
       <div class="ptn-shell ptn-split">
         <div class="ptn-split-head" data-reveal>
           <Eyebrow>Partner enquiries</Eyebrow>
-          <h2 id="become-heading">Start with one file.</h2>
+          <h2 id="become-heading">Want to partner with us?</h2>
         </div>
         <div class="ptn-split-body" data-reveal>
-          <div class="ptn-become-cols">
-            <div>
-              <h3 class="ptn-card-title">What to send</h3>
-              <p class="ptn-card-body">
-                your firm name and contact, the products you place, the typical file size you work with, and the
-                markets you cover. One redacted file is enough; an NDA is fine.
-              </p>
-            </div>
-            <div>
-              <h3 class="ptn-card-title">What happens next</h3>
-              <p class="ptn-card-body">
-                the desk reads the first file, tells you what Falcon can and cannot place, and agrees commercial terms
-                before anything is submitted.
-              </p>
-            </div>
+          <!-- TODO(form): swap this placeholder for the partner enquiry form when Ling supplies it. -->
+          <div class="ptn-form-slot" data-form-placeholder>
+            <p class="ptn-form-slot-note">Form placeholder — the partner enquiry form goes here.</p>
           </div>
-          <dl class="ptn-contact">
-            <div class="ptn-contact-row">
-              <dt class="ptn-contact-label">Email</dt>
-              <dd class="ptn-contact-value"><a href={PARTNER_MAILTO}>{SITE.email}</a></dd>
-            </div>
-            <div class="ptn-contact-row">
-              <dt class="ptn-contact-label">Subject</dt>
-              <dd class="ptn-contact-value">{PARTNER_SUBJECT}</dd>
-            </div>
-            <div class="ptn-contact-row">
-              <dt class="ptn-contact-label">{DIRECT.label}</dt>
-              <dd class="ptn-contact-value"><a href={DIRECT.href}>{DIRECT.display}</a></dd>
-            </div>
-          </dl>
-          <p class="ptn-become-close">
-            If the fit is right, your logo joins the row above with one line about what you do — and the desk stays
-            yours.
-          </p>
         </div>
       </div>
     </div>
