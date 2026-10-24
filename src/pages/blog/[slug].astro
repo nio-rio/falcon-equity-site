@@ -13,8 +13,13 @@
  * The reference's rail carries category + date, an author, a "Watch on YouTube"
  * CTA, a newsletter signup and share icons. Ling, 23 Oct: *"On the right, change
  * watch on youtube and the subscribe part to a CTA, that basically says Falcon
- * provide fast business funding. and a button: see your options."* So the rail is
- * category + date, then one Falcon CTA panel, then the share row.
+ * provide fast business funding. and a button: see your options."* Then 24 Oct:
+ * *"For blog post pages, right sticky sidebar, learn from this structure. Let's
+ * add a white button 'read more insights' in its own division, above the CTA
+ * division. Make both our black and white buttons' hovering animation like the
+ * example one."* So the rail is category + date, the author, a white
+ * "Read more insights" pill in its own division, the Falcon CTA panel with its
+ * ink pill, then the share row.
  *
  * The share row keeps the reference's shape — print on the left, a 1px rule, then
  * the share links on the right — with Osmo's motion on the links: a springy
@@ -26,6 +31,7 @@ import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
+import RailPill from '@/components/RailPill.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
 import { formatDate, getPublicPosts } from '@/lib/blog';
@@ -86,9 +92,9 @@ const schema = [
     <div class="container-site art-layout">
       <div class="art-main">
         <header class="art-head">
-          {/* The rail is hidden below 80em, and the reference hides its own
-              category/date there too — so print them under the title on small
-              screens, or a reader never sees the date at all. */}
+          {/* Below 80em the rail stacks under the body and hides its own
+              category/date module, so print them under the title here — or a
+              phone reader never sees the date at all. */}
           <p class="art-meta">
             <span class="art-meta-category">{category}</span>
             <span class="art-meta-sep" aria-hidden="true">·</span>
@@ -144,35 +150,19 @@ const schema = [
             </div>
           </div>
 
+          {/* Insights — the reference puts its pill alone in its own division,
+              above the CTA division, with a hairline over it (its
+              `.bx-article-cta` module sits between two rules). */}
+          <div class="art-rail-more">
+            <RailPill label="Read more insights" href="/blog" variant="outline" />
+          </div>
+
           <div class="art-rail-cta">
             <p class="art-rail-cta-eyebrow">Small business funding</p>
             <p class="art-rail-cta-text">
               Ask Falcon Equity about a funding solution for your business.
             </p>
-            <a class="art-rail-button" href="/services">
-              <span class="art-rail-button-label">See your options</span>
-              {/* The reference's icon on hover: the circle fills white, the arrow
-                  flips to ink, the whole thing scales to 1.2. */}
-              <svg class="art-rail-button-icon" viewBox="0 0 40 40" aria-hidden="true">
-                <circle class="art-rail-button-fill" cx="20" cy="20" r="18.4"></circle>
-                <circle
-                  class="art-rail-button-ring"
-                  cx="20"
-                  cy="20"
-                  r="18.4"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.2"></circle>
-                <path
-                  class="art-rail-button-arrow"
-                  d="M14.5 20h10.2M20.8 15.2 25.6 20l-4.8 4.8"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </a>
+            <RailPill label="See your options" href="/services" />
           </div>
 
           <div class="art-rail-share">

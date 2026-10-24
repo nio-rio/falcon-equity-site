@@ -316,7 +316,8 @@
      author   avatar 40 + 16 gap · name 16/24 w400 · role 14/21 w300
      eyebrow  14/21 w400 ls 1.12 UPPERCASE  ·  text 20/30 w400
      button   210x48, radius 100, ink fill, 8/8/8/24, label 16/24 w500, 40px
-              circle-arrow at the right
+              circle-arrow at the right; the white variant is the same pill with
+              a white fill and a 1px ink border, in its own division above the CTA
      share    print 24, then a 1px 24-tall rule, then 24px marks 24 apart:
               LinkedIn, X, Facebook and copy-link. Osmo's springy scale on
               hover/tap; the copy mark cross-fades to a tick for 2s.
@@ -327,8 +328,18 @@
   top: 140px;
 }
 
+/* Below 80em the rail stacks under the body (it is not hidden), where the
+   reference hides its own category/date module — and our head prints them
+   here — so the rail's copy of them is hidden at that width. Kept in the DOM
+   for the desktop rail, dropped by CSS on the stacked one. */
 .art-rail-meta {
   padding-bottom: 0;
+}
+
+@media (max-width: 79.9375em) {
+  .art-rail-meta {
+    display: none;
+  }
 }
 
 .art-rail-category {
@@ -419,29 +430,69 @@
   letter-spacing: 0.32px;
 }
 
-/* The reference's pill: ink fill, label left, 40px circle-arrow right.
-   Hover (their .bx-article-cta__link:hover rules): the pill does NOT change
-   colour — the icon scales to 1.2, its circle fills white, the arrow flips to
-   ink, and the label draws a 1px underline in from the left over .3s. */
+/* Insights — the reference keeps its pill alone in a division of its own,
+   between two hairlines, so it gets the same 24/24 rhythm as every other
+   module here. Ling, 24 Oct: "add a white button 'read more insights' in its
+   own division, above the CTA division." */
+.art-rail-more {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.art-rail-cta .art-rail-button {
+  margin-top: 16px;
+}
+
+/* The reference's pill, measured live 24 Oct 2026 at 1440 on
+   insights/article/modernas-dr-stephen-hoge-on-ai-and-the-future-of-healthcare/,
+   resting AND hovered over CDP:
+     link  210x48, radius 100, pad 8/8/8/24, gap 16, label 16/24 w500,
+           icon drawn at 32 (a 40-unit viewBox), ring 1.5 units, arrow 14.5 wide
+     ink     fill ink, label white
+     white   fill white, 1px ink border, label ink
+   Hover is identical on both variants, and the pill itself never changes:
+     icon   transform: scale(1.2)                          (.3s)
+     disc   opacity 0 -> 1, painted in the label's colour   (.3s)
+     arrow  flips to the OPPOSITE of the label colour       (no transition)
+   So the ink pill grows a white disc under a black arrow, and the white pill
+   grows an ink disc under a white arrow. The label keeps a plain face: their
+   .bx-article-cta__label carries a background-size transition but no :hover
+   rule ever sets it (a real hover leaves it at 0px 1.008px), so nothing
+   underlines — the motion is the disc, not a text underline. */
+
 .art-rail-button {
+  --rail-pill-disc: var(--color-white);
+  --rail-pill-arrow-hover: var(--color-ink);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  width: 13.125rem;
+  /* The reference fixes this at 210 (13.125rem) and lets a longer label wrap
+     with `word-break: break-word`. Our white pill's label is 139px wide against
+     the 128px that 210 leaves, so 210 would break it onto two lines and stand a
+     66px pill next to a 48px one. The floor below is that label's own fit —
+     24 + 139 + 16 + 32 + 8 + 2 = 221, rounded to 222 — applied to BOTH pills so
+     the pair stays the same width, and `max-content` keeps a future longer
+     label on one line instead of wrapping. */
+  width: max-content;
+  min-width: 13.875rem;
   max-width: 100%;
   min-height: 48px;
-  margin-top: 16px;
   padding: 8px 8px 8px 24px;
+  border: 0;
   border-radius: 100px;
   background: var(--color-ink);
   color: var(--color-white);
   text-decoration: none;
 }
 
-.art-rail-button:hover,
-.art-rail-button:focus-visible {
-  background: var(--color-ink);
+.art-rail-button--outline {
+  --rail-pill-disc: var(--color-ink);
+  --rail-pill-arrow-hover: var(--color-white);
+  border: 1px solid var(--color-ink);
+  background: var(--color-white);
+  color: var(--color-ink);
 }
 
 .art-rail-button:focus-visible {
@@ -450,27 +501,10 @@
 }
 
 .art-rail-button-label {
-  position: relative;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-}
-
-.art-rail-button-label::before {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left top;
-  transition: transform 0.3s;
-}
-
-.art-rail-button:hover .art-rail-button-label::before,
-.art-rail-button:focus-visible .art-rail-button-label::before {
-  transform: scaleX(1);
 }
 
 .art-rail-button-icon {
@@ -482,13 +516,9 @@
 }
 
 .art-rail-button-fill {
-  fill: var(--color-white);
+  fill: var(--rail-pill-disc);
   opacity: 0;
   transition: opacity 0.3s;
-}
-
-.art-rail-button-arrow {
-  transition: stroke 0.3s;
 }
 
 .art-rail-button:hover .art-rail-button-icon,
@@ -503,7 +533,14 @@
 
 .art-rail-button:hover .art-rail-button-arrow,
 .art-rail-button:focus-visible .art-rail-button-arrow {
-  stroke: var(--color-ink);
+  stroke: var(--rail-pill-arrow-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-rail-button-icon,
+  .art-rail-button-fill {
+    transition: none;
+  }
 }
 
 /* share */

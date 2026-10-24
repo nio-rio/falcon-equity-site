@@ -1,0 +1,50 @@
+---
+/**
+ * The article rail's pill button — the reference's `.bx-article-cta__link`.
+ *
+ * Measured live on
+ * blackstone.com/insights/article/modernas-dr-stephen-hoge-on-ai-and-the-future-of-healthcare/
+ * at 1440 over CDP (24 Oct 2026), resting and hovered:
+ *   210×48, radius 100, pad 8/8/8/24, gap 16, label 16/24 w500, icon drawn at 32
+ *   (a 40-unit viewBox), ring 1.5 units → 1.2px, arrow 14.5 units wide.
+ *   ink variant: ink fill, white label.  outline variant: white fill, 1px ink border.
+ *
+ * Both variants share ONE hover, and the pill itself never changes colour:
+ * the icon scales to 1.2, a disc fades in (white on the ink pill, ink on the
+ * outline pill) and the arrow flips to the opposite colour. See blog-article.css.
+ */
+interface Props {
+  label: string;
+  href: string;
+  variant?: 'ink' | 'outline';
+  class?: string;
+}
+
+const { label, href, variant = 'ink', class: className } = Astro.props;
+---
+
+<a
+  class:list={['art-rail-button', variant === 'outline' && 'art-rail-button--outline', className]}
+  href={href}
+>
+  <span class="art-rail-button-label">{label}</span>
+  <svg class="art-rail-button-icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+    <circle class="art-rail-button-fill" cx="20" cy="20" r="18.4"></circle>
+    <circle
+      class="art-rail-button-ring"
+      cx="20"
+      cy="20"
+      r="18.4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"></circle>
+    <path
+      class="art-rail-button-arrow"
+      d="M11.8 20h14.5M21.4 15.4 26.3 20l-4.9 4.6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+</a>
