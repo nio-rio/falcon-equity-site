@@ -87,8 +87,8 @@ section.dbf-hero {
   margin-top: 40px;
 }
 
-/* Hero still: the donor's 1264x711 (16:9) above a 104px gap. The slot is a
-   labelled placeholder at the same ratio until Ling sends the photograph. */
+/* Hero still: 5:2 (1264x506 at 1440), the frame Ling set for the supplied file,
+   sitting above a 104px gap like the reference band. */
 section.dbf-hero-media[data-band='light'] {
   padding: 0 0 104px;
 }
@@ -96,7 +96,7 @@ section.dbf-hero-media[data-band='light'] {
 .dbf-hero-media .media,
 .dbf-hero-media .image-slot {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 5 / 2;
 }
 
 /* ---------------------------------------------------------------- heads ---- */

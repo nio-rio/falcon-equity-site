@@ -1429,3 +1429,11 @@ the mark sits dead centre and is not clipped. `loading="eager"`, no `priority` (
 `widths=[640, 960, 1280, 1400]` so nothing upscales past the source. Alt describes the picture.
 
 The **Start here** band (3:4) is still a labelled placeholder.
+
+
+### Same page — hero set to 5:2 (2026-10-23, revision 6)
+
+Ling: *"Hero image should be 5:2 aspect ratio like how I gave you."* The hero band's ratio is now **5:2**
+(`ratio="5 / 2"` on the `Media`, `aspect-ratio: 5 / 2` in the stylesheet): **1264×506 at 1440**. The donor's
+16:9 is overridden on purpose — 5:2 sits within a hair of the supplied 1400×600, so the still is effectively
+uncropped. Verified in the built page: figure, picture and img all measure 1264×506, band pad-bottom 104.
