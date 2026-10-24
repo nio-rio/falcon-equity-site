@@ -1418,3 +1418,14 @@ number at the end."* The shot showed the phone above Services, then Services / I
   rows 24px, phone last).
 - `npm run build` 49 pages, `check` 0 errors. `test:nav` 11 failures, all the usual pre-existing home/nav set; the
   drawer checks (`tel-real-number`, mobile geometry) pass.
+
+
+### Same page — hero photograph landed (2026-10-23, revision 5)
+
+Ling sent the hero still (1400x600, a Bitcoin mark on a dark voxel landscape, 185 KB). Copied to
+`src/assets/images/services/decentralized-business-financing-hero.webp` and passed to `Media` with the labelled
+placeholder dropped. The band keeps the reference's **16:9 / 1264x711**, so the file cover-crops at the sides —
+the mark sits dead centre and is not clipped. `loading="eager"`, no `priority` (only the home hero carries that),
+`widths=[640, 960, 1280, 1400]` so nothing upscales past the source. Alt describes the picture.
+
+The **Start here** band (3:4) is still a labelled placeholder.

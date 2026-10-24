@@ -18,6 +18,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
 import Media from '@/components/Media.astro';
+import heroImage from '@/assets/images/services/decentralized-business-financing-hero.webp';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SERVICE_FAQS } from '@/data/service-faqs';
@@ -194,8 +195,9 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
     </div>
   </section>
 
-  {/* Hero still — the donor's 1264x711 slot. A labelled placeholder holds the ratio
-      until Ling sends the photograph; nothing else changes when the file lands. */}
+  {/* Hero still — the donor's 1264x711 slot, filled with the still Ling supplied
+      on 23 Oct (1400x600). 16:9 stays the band's ratio, so the file is cover-cropped
+      at the sides; the mark is centred, so nothing is lost. */}
   <section
     class="dbf-hero-media"
     aria-label="Digital assets hero image"
@@ -204,9 +206,12 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
   >
     <div class="container-site">
       <Media
-        intent="Hero photograph, to be supplied"
+        image={heroImage}
+        alt="A glowing orange Bitcoin symbol rising out of a dark, pixelated landscape."
+        intent="Bitcoin symbol on a dark voxel landscape"
         ratio="16 / 9"
-        labeled
+        loading="eager"
+        widths={[640, 960, 1280, 1400]}
         sizes="(min-width: 90em) 1264px, 100vw"
       />
     </div>
