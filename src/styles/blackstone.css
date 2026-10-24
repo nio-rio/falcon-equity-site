@@ -2042,6 +2042,14 @@ button.primary-nav__list-lvl-3-link {
   outline-offset: 4px;
 }
 
+/* Get in Touch carries every contact row the live footer has (Ling, 24 Oct):
+   email, Office, Direct, Fax, address, X. The three numbers are labelled so they
+   can be told apart; the label is secondary to the number, so it drops to the
+   82% white already used for muted text on dark. The row stays one link. */
+.site-footer__contact-label {
+  color: var(--color-white-a82);
+}
+
 .site-footer__bottom {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2111,6 +2119,14 @@ button.primary-nav__list-lvl-3-link {
 
   .site-footer__col {
     max-width: 10.5rem;
+  }
+
+  /* Get in Touch now carries the live footer's six rows — email, Office, Direct,
+     Fax, address, X (Ling, 24 Oct). At the 168px column cap a labelled number
+     broke mid-dial ("+1 (917) 645-" / "3826"), so this one column takes its whole
+     grid track (~220px at 768) and the numbers stay on one line. */
+  #contact {
+    max-width: none;
   }
 
   .site-footer__bottom {

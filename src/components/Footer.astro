@@ -8,7 +8,11 @@ interface Props {
 
 const { disclosure } = Astro.props;
 const year = new Date().getFullYear();
-const phone = SITE.phones.direct;
+/* Every contact detail the live falconequity.ai footer carries (Ling, 24 Oct):
+   email, Office, Direct, Fax, the office address and X. Order follows the live
+   footer. The live fax anchor mistakenly dials the Direct number — ours dials
+   the fax. */
+const { office, direct, fax } = SITE.phones;
 ---
 
 <footer class="site-footer" aria-label="Site footer">
@@ -56,9 +60,13 @@ const phone = SITE.phones.direct;
             <li>
               <a href={`mailto:${SITE.email}`} class="site-footer__link">{SITE.email}</a>
             </li>
-            <li>
-              <a href={phone.href} class="site-footer__link">{phone.display}</a>
-            </li>
+            {[office, direct, fax].map((p) => (
+              <li>
+                <a href={p.href} class="site-footer__link">
+                  <span class="site-footer__contact-label">{p.label}</span> {p.display}
+                </a>
+              </li>
+            ))}
             <li>
               <a href={SITE.address.mapUrl} class="site-footer__link" rel="noopener" target="_blank">
                 {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}

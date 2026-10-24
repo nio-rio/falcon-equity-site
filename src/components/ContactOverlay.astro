@@ -2,8 +2,7 @@
 import '@/styles/contact-overlay.css';
 import { SITE } from '@/data/site';
 
-const phone = SITE.phones.direct;
-const fax = SITE.phones.fax;
+const { office, direct, fax } = SITE.phones;
 /* There is no contact page. Any link that would have led to one opens this
    panel instead (data-contact-open); it closes on the cross, the scrim, or
    Escape. `inert` keeps it out of the tab order and the accessibility tree
@@ -44,20 +43,20 @@ const fax = SITE.phones.fax;
       </p>
 
       <dl class="contact-overlay__list">
-        <div class="contact-overlay__row">
-          <dt>{phone.label}</dt>
-          <dd><a href={phone.href}>{phone.display}</a></dd>
-        </div>
-        <div class="contact-overlay__row">
-          <dt>{fax.label}</dt>
-          <dd><a href={fax.href}>{fax.display}</a></dd>
-        </div>
+        {[office, direct, fax].map((p) => (
+          <div class="contact-overlay__row">
+            <dt>{p.label}</dt>
+            <dd>
+              <a href={p.href}>{p.display}</a>
+            </dd>
+          </div>
+        ))}
         <div class="contact-overlay__row">
           <dt>Email</dt>
           <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
         </div>
         <div class="contact-overlay__row">
-          <dt>Office</dt>
+          <dt>Address</dt>
           <dd>
             <a href={SITE.address.mapUrl} rel="noopener" target="_blank">
               {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}<span

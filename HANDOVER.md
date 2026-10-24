@@ -1509,3 +1509,39 @@ Ling: *"Create a page called /services, that is just reusing the 'services' sect
   `npm run check` 0 errors / 0 warnings / 7 hints, `test:titles` passes.
 - **`vercel.json` still 301s `/services`** (and `/about`, `/faq`, `/blog`). Not touched: Netlify is the host, and
   that file is stale overall. Fix it if the site ever moves to Vercel.
+
+## SITEWIDE: footer contact block now carries every Falcon contact row (Ling, 2026-10-24)
+
+Ling, in the thread: *"The footer should have all the contact info of Falcon. Source of truth for contact is on
+falcon live site."*
+
+- **What the live site's footer carries** (read from `https://falconequity.ai/` on 24 Oct, `<footer>` block):
+  `information@falconequity.ai` (its mailto adds `?subject=Inquiry`) · **Office** +1 (917) 645-3826 · **Direct**
+  +1 (917) 245-5277 · **Fax** +1 (917) 810-2494 · 11 Broadway Suite 615, New York, NY 10004 · X
+  `@FalconEquitynyc`. The rebuild's footer had email, **Direct only**, address and X — Office and Fax were missing.
+- **`Footer.astro`** now renders the live set in the live order: email, then `SITE.phones.office`, `.direct`, `.fax`
+  (one `{[office, direct, fax].map(...)}`), then the address and X. No new data: `src/data/site.ts` already held
+  all three numbers and the address; nothing was invented.
+- **Labels.** Each number is prefixed with its live label inside the same link (`<span
+  class="site-footer__contact-label">Office</span> +1 …`), so screen readers read "Office +1 (917) 645-3826" and the
+  row stays one tap target. The label drops to `--color-white-a82`; the number keeps the footer's white 300 weight.
+  `.site-footer__contact-label` is the only new rule.
+- **One layout fix.** At the 48em–80em band the footer columns are capped at `max-width: 10.5rem` (168px), and a
+  labelled number broke **mid-dial** ("+1 (917) 645-" / "3826") at 768–1024. `#contact` now takes its whole grid
+  track in that band (`max-width: none`), ~220px at 768. Measured after the fix: every phone row is **one line** at
+  320, 360, 375, 390, 430, 600, 767, 768, 900, 1024, 1200, 1280, 1366, 1440, 1600 and 1920; the address is the only
+  row that wraps (two lines below 80em, by design).
+- **Fax dials the fax.** The live site's fax anchor is a bug — it points at `tel:` Direct. Ours uses
+  `SITE.phones.fax` (+1 917 810 2494). Do not copy the live href.
+- **Contact panel brought to the same set.** `ContactOverlay.astro` (the panel the header "Contact" row opens) had
+  Direct, Fax, Email and an "Office" row that was really the **address** — the Office *number* was missing. It now
+  reads Office · Direct · Fax · Email · **Address** (that `dt` renamed from "Office"), same order as the live page's
+  `#contact` section. Verified open at 390 / 768 / 1440: five rows, panel flush to the right edge, no panel overflow.
+- **Not changed:** `/apply`'s contact block keeps the four rows Ling specified on 23 Oct (Direct, Fax, email,
+  address). And the header bar keeps a single Direct number (the duplicated-phone fix from 23 Oct stays).
+- **Checks:** `npm run build` 50 pages, `npm run check` 0 errors / 0 warnings / 7 hints. `test:nav` at 1440 on the
+  new build: `footer-logo-live-lockup`, `footer-social-in-get-in-touch` and `footer-social-hover-underline` all
+  **PASS** (they pass on the pre-change deploy preview too). The suite's other FAILs are the known
+  header/hero/`nav-widget` hover flakes: 11 on the pre-change deploy preview, 13 locally, and the two sets differ
+  only in those hover checks (`nav-widget-services`, `nav-widget-theme-scrolled`, `nav-widget-contrast-scrolled`,
+  `no-gap-close-into-panel`) — no footer check moved.
