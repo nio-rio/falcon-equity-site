@@ -119,6 +119,10 @@
   color: var(--color-white);
 }
 
+.cr-band--dark .eyebrow {
+  color: var(--color-white);
+}
+
 /* ---------------------------------------------------------------------------
    1 Hero — H1 in columns 1–9, standfirst in 12–16, the contact CTA under it,
    the still full width at 5:2. No eyebrow above the H1 (Ling, 23 Oct 2026).
@@ -310,6 +314,12 @@
   align-items: flex-start;
 }
 
+/* The eyebrow is its own grid row at 80em, so the card starts level with the
+   H2 the way it does on the home page — not level with the label. */
+.cr-process-eyebrow {
+  margin-bottom: var(--eyebrow-gap);
+}
+
 .cr-process-title {
   margin: 0;
   color: var(--color-white);
@@ -429,8 +439,14 @@
     align-items: start;
   }
 
+  .cr-process-eyebrow {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+
   .cr-process-copy {
     grid-column: 1 / span 6;
+    grid-row: 2;
   }
 
   .cr-process-lede {
@@ -439,6 +455,8 @@
 
   .cr-process-card {
     grid-column: 9 / span 8;
+    grid-row: 2;
+    align-self: start;
     margin-top: 0;
     padding: 3.5rem 4.5rem;
   }
