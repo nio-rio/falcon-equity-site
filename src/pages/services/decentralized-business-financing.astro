@@ -3,17 +3,21 @@
  * /services/decentralized-business-financing
  *
  * Copy: Notion "Decentralized Business Financing – page copy v3" (24 Oct 2026),
- * including the six Answers filed under "Open questions for Dwight". Structure,
- * donors and every deviation: docs/dbf-structure-plan.md.
+ * including the six Answers filed under "Open questions for Dwight".
+ *
+ * Structure from blackstone.com/our-businesses/technology-and-innovations/, measured
+ * live over CDP at 1440: WHAT WE DO -> Start here, OUR ROLES -> Where it fits and
+ * What this is not (as accordions), BLACKSTONE INNOVATIONS INVESTMENTS -> How we work.
+ * Donors, measurements and every deviation: docs/dbf-structure-plan.md.
  *
  * This is the one service page with no published spec — the live site prints no
  * amount, term, requirement or price for it, so no such figure appears here and
- * `ProductTermsTable` is not used. The term-stats grid the other five service
- * pages open with is replaced by a coverage strip, exactly as the copy instructs.
+ * `ProductTermsTable` is not used.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import Button040 from '@/components/Button040.astro';
+import Media from '@/components/Media.astro';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SERVICE_FAQS } from '@/data/service-faqs';
@@ -23,9 +27,6 @@ const TITLE = 'Decentralized Business Financing';
 const DESCRIPTION =
   'Digital asset solutions for modern businesses: crypto onboarding, crypto custodial services and digital-asset advisory, structured with counsel and explained in plain English before anything is switched on.';
 const CTA_LABEL = 'Book a consultation';
-
-/** Replaces the term-stats grid: what the engagement covers, no invented figures. */
-const coverage = ['Crypto onboarding', 'Crypto custodial services', 'Digital-asset advisory'];
 
 const explainers = [
   {
@@ -65,58 +66,56 @@ const work = [
   },
 ];
 
+/** "Where it fits" — four situations, as expandable rows (Blackstone OUR ROLES shape). */
 const fits = [
   {
-    num: '01',
-    title: 'You are paid in digital dollars and it has become messy',
-    body: 'Receipts spread across wallets, exchanges and networks, no clear owner, no clean records for the bookkeeper. We consolidate it, put it under controls and make it auditable.',
+    q: 'You are paid in digital dollars and it has become messy',
+    a: 'Receipts spread across wallets, exchanges and networks, no clear owner, no clean records for the bookkeeper. We consolidate it, put it under controls and make it auditable.',
   },
   {
-    num: '02',
-    title: 'You are holding assets you would rather not sell',
-    body: 'Digital assets, receivables or equipment you would rather borrow against than liquidate. The asset stays yours and the liquidity comes from it.',
+    q: 'You are holding assets you would rather not sell',
+    a: 'Digital assets, receivables or equipment you would rather borrow against than liquidate. The asset stays yours and the liquidity comes from it.',
   },
   {
-    num: '03',
-    title: 'Your treasury sits idle',
-    body: 'Cash earning nothing while the business carries a credit line. We look at whether putting the idle portion to work is worth the operational risk — and we will tell you when it is not.',
+    q: 'Your treasury sits idle',
+    a: 'Cash earning nothing while the business carries a credit line. We look at whether putting the idle portion to work is worth the operational risk — and we will tell you when it is not.',
   },
   {
-    num: '04',
-    title: 'You want to put an asset or an ownership interest on a ledger',
-    body: 'A building, a set of receivables, a fund position. We structure the legal wrapper first, with counsel, and the token comes after it — not before.',
+    q: 'You want to put an asset or an ownership interest on a ledger',
+    a: 'A building, a set of receivables, a fund position. We structure the legal wrapper first, with counsel, and the token comes after it — not before.',
   },
 ];
 
 /**
- * The custody and securities rows are built from Dwight's answered positions,
- * not from v3's stand-in wording: Falcon does not custody, does not offer or sell
- * tokenized interests, and does not transmit virtual currency. See the plan.
+ * "What this is not" — six limits, as expandable rows. The custody and securities
+ * rows carry Dwight's answered positions, not v3's stand-in wording: Falcon does
+ * not custody, does not offer or sell tokenized interests, does not transmit
+ * virtual currency. See the plan.
  */
-const linesNotCrossed = [
+const limits = [
   {
-    title: 'Not a recommendation to buy, sell or hold anything',
-    body: 'We do not recommend positions and we do not advise on which asset to hold. Our work is education, structure and operations.',
+    q: 'Not a recommendation to buy, sell or hold anything',
+    a: 'We do not recommend positions and we do not advise on which asset to hold. Our work is education, structure and operations.',
   },
   {
-    title: 'Not a return, and not a projection',
-    body: 'Nothing on this page is an APY, a yield target or a forecast, and none appears in a Falcon agreement for these services. Outcomes on anything deployed on-chain are variable and can be lost.',
+    q: 'Not a return, and not a projection',
+    a: 'Nothing on this page is an APY, a yield target or a forecast, and none appears in a Falcon agreement for these services. Outcomes on anything deployed on-chain are variable and can be lost.',
   },
   {
-    title: 'Not custody held by us',
-    body: 'Falcon Equity Group does not hold client assets. Digital assets sit with independent, regulated third-party qualified custodians that the client selects; our work is the selection, the controls and the records around them. Who holds them, in whose name, and which people can approve a transfer is written down and shown to you before anything moves.',
+    q: 'Not custody held by us',
+    a: 'Falcon Equity Group does not hold client assets. Digital assets sit with independent, regulated third-party qualified custodians that the client selects; our work is the selection, the controls and the records around them. Who holds them, in whose name, and which people can approve a transfer is written down and shown to you before anything moves.',
   },
   {
-    title: 'Not a way around the rules',
-    body: 'Securities, money-transmission and custody rules apply, and they change with the structure and the state. Falcon assists clients in structuring vehicles and documentation; it does not offer, sell or distribute tokenized interests or other securities, and any stablecoin or digital-asset payment flow runs through licensed third-party partners rather than through Falcon. Utility-only structures still get legal review. Anything that cannot be documented cleanly does not get built.',
+    q: 'Not a way around the rules',
+    a: 'Securities, money-transmission and custody rules apply, and they change with the structure and the state. Falcon assists clients in structuring vehicles and documentation; it does not offer, sell or distribute tokenized interests or other securities, and any stablecoin or digital-asset payment flow runs through licensed third-party partners rather than through Falcon. Utility-only structures still get legal review. Anything that cannot be documented cleanly does not get built.',
   },
   {
-    title: 'Not for a business with no digital assets and no plan to hold any',
-    body: 'If that is you, there is nothing here to structure yet, and the lending products are the right place to start.',
+    q: 'Not for a business with no digital assets and no plan to hold any',
+    a: 'If that is you, there is nothing here to structure yet, and the lending products are the right place to start.',
   },
   {
-    title: 'Not a platform you run alone',
-    body: 'There is no dashboard to buy. The explanation, the structure, the counsel and the controls are the service.',
+    q: 'Not a platform you run alone',
+    a: 'There is no dashboard to buy. The explanation, the structure, the counsel and the controls are the service.',
   },
 ];
 
@@ -147,7 +146,13 @@ const steps = [
 const faqs = SERVICE_FAQS['decentralized-business-financing'];
 ---
 
-<BaseLayout title={TITLE} description={DESCRIPTION} disclosure={PAGE_DISCLOSURE} cta={false}>
+<BaseLayout
+  title={TITLE}
+  description={DESCRIPTION}
+  disclosure={PAGE_DISCLOSURE}
+  ctaLabel={CTA_LABEL}
+  ctaHref="/apply"
+>
   <Fragment slot="head">
     <script is:inline>
       (function () {
@@ -175,24 +180,12 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
       <div class="dbf-shell">
         <h1 id="page-hero-heading" class="dbf-hero-title" data-reveal>Decentralized Business Financing</h1>
         <div class="dbf-hero-aside" data-reveal>
-          <p class="dbf-hero-standfirst">Next-generation digital asset solutions for modern businesses.</p>
           <p class="dbf-hero-lead">
             Some businesses now hold operating cash in digital dollars, are paid in them, or want to put an asset on a
             ledger so it can move. Falcon sets that up and runs it — onboarding, custody, controls and records — and
             explains the parts that carry risk before anything is switched on. You do not need to become the expert to
             use this.
           </p>
-        </div>
-        <div class="dbf-hero-foot" data-reveal>
-          <div class="dbf-coverage">
-            {
-              coverage.map((item) => (
-                <div class="dbf-coverage-item">
-                  <p class="dbf-coverage-value">{item}</p>
-                </div>
-              ))
-            }
-          </div>
           <div class="dbf-hero-cta">
             <Button040 href="/apply" label={CTA_LABEL} variant="dark" />
           </div>
@@ -201,6 +194,25 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
     </div>
   </section>
 
+  {/* Hero still — the donor's 1264x711 slot. A labelled placeholder holds the ratio
+      until Ling sends the photograph; nothing else changes when the file lands. */}
+  <section
+    class="dbf-hero-media"
+    aria-label="Digital assets hero image"
+    data-band="light"
+    data-dbf-section="hero-media"
+  >
+    <div class="container-site">
+      <Media
+        intent="Hero photograph, to be supplied"
+        ratio="16 / 9"
+        labeled
+        sizes="(min-width: 90em) 1264px, 100vw"
+      />
+    </div>
+  </section>
+
+  {/* 02 — WHAT WE DO: claim left, stacked titled prose in the right 464 column. */}
   <section
     class="dbf-band"
     aria-labelledby="start-heading"
@@ -210,14 +222,14 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
   >
     <div class="container-site">
       <div class="dbf-shell">
-        <div class="dbf-block-head" data-reveal>
+        <div class="dbf-block-head dbf-start-head" data-reveal>
           <Eyebrow>Start here</Eyebrow>
           <h2 id="start-heading">Three things, in plain English.</h2>
         </div>
-        <div class="dbf-shell dbf-cards dbf-cards--3 dbf-band-title" data-reveal>
+        <div class="dbf-start-list" data-reveal>
           {
             explainers.map((item) => (
-              <article class="dbf-card">
+              <article class="dbf-start-item">
                 <h3 class="dbf-card-title">{item.title}</h3>
                 <p class="dbf-card-body">{item.body}</p>
               </article>
@@ -261,6 +273,7 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
     </div>
   </section>
 
+  {/* 04 — OUR ROLES: expandable rows. */}
   <section
     class="dbf-band"
     aria-labelledby="fits-heading"
@@ -274,21 +287,12 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
           <Eyebrow>Where it fits</Eyebrow>
           <h2 id="fits-heading">Four situations where this is worth a conversation.</h2>
         </div>
-        <div class="dbf-shell dbf-cards dbf-fit-grid dbf-band-title" data-reveal>
-          {
-            fits.map((item) => (
-              <article class="dbf-fit-item">
-                <p class="dbf-fit-num">{item.num}</p>
-                <h3 class="dbf-card-title">{item.title}</h3>
-                <p class="dbf-card-body">{item.body}</p>
-              </article>
-            ))
-          }
-        </div>
+        <FaqList items={fits} idPrefix="dbf-fits" class="dbf-list" data-reveal />
       </div>
     </div>
   </section>
 
+  {/* 05 — same accordion shape, six limits. */}
   <section
     class="dbf-band"
     aria-labelledby="not-heading"
@@ -302,20 +306,12 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
           <Eyebrow>What this is not</Eyebrow>
           <h2 id="not-heading">The lines we do not cross.</h2>
         </div>
-        <div class="dbf-not-list dbf-band-title" data-reveal>
-          {
-            linesNotCrossed.map((item) => (
-              <div class="dbf-not-row">
-                <h3 class="dbf-not-title">{item.title}</h3>
-                <p class="dbf-not-body">{item.body}</p>
-              </div>
-            ))
-          }
-        </div>
+        <FaqList items={limits} idPrefix="dbf-not" class="dbf-list" data-reveal />
       </div>
     </div>
   </section>
 
+  {/* 06 — BLACKSTONE INNOVATIONS INVESTMENTS: claim left, support right, no divider. */}
   <section
     class="dbf-band dbf-dark"
     aria-labelledby="ai-heading"
@@ -329,11 +325,11 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
           <Eyebrow>How we work</Eyebrow>
           <h2 id="ai-heading">AI across the process, people on the decisions.</h2>
         </div>
-        <p class="dbf-ai-body" data-reveal>
-          Artificial intelligence sits inside how we evaluate, prepare and monitor this work. It does not make a
-          decision about your business, and it does not replace the specialist who does.
-        </p>
-        <div class="dbf-ai-statement-wrap" data-reveal>
+        <div class="dbf-ai-right" data-reveal>
+          <p class="dbf-ai-body">
+            Artificial intelligence sits inside how we evaluate, prepare and monitor this work. It does not make a
+            decision about your business, and it does not replace the specialist who does.
+          </p>
           <p class="dbf-statement">
             We leverage artificial intelligence across our core processes to deliver sharper insights, improved
             efficiency, and consistently high standards of service.
@@ -390,31 +386,7 @@ const faqs = SERVICE_FAQS['decentralized-business-financing'];
           <Eyebrow>FAQ</Eyebrow>
           <h2 id="dbf-faq-heading">Digital asset questions</h2>
         </div>
-        <FaqList items={faqs} idPrefix="dbf" class="dbf-band-title" data-reveal />
-      </div>
-    </div>
-  </section>
-
-  <section
-    class="dbf-band dbf-dark dbf-close"
-    aria-labelledby="close-heading"
-    data-band="dark"
-    data-dbf-section="close"
-    data-reveal-root
-  >
-    <div class="container-site">
-      <div class="dbf-shell">
-        <div class="dbf-block-head dbf-close-head" data-reveal>
-          <h2 id="close-heading">Start with a conversation.</h2>
-        </div>
-        <div class="dbf-close-support" data-reveal>
-          <p class="dbf-close-body">
-            One call to find out whether digital assets belong in your business at all. If they do not, we will say so.
-          </p>
-          <div class="dbf-close-cta">
-            <Button040 href="/apply" label={CTA_LABEL} variant="light" />
-          </div>
-        </div>
+        <FaqList items={faqs} idPrefix="dbf" class="dbf-list" data-reveal />
       </div>
     </div>
   </section>

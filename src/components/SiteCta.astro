@@ -1,6 +1,14 @@
 ---
 import Button040 from './Button040.astro';
 
+interface Props {
+  /** Button wording. Sitewide default is the Apply label; a consultative page overrides it. */
+  label?: string;
+  href?: string;
+}
+
+const { label = 'Apply for funding', href = '/apply' } = Astro.props;
+
 const phrases = [
   'purchase inventory',
   'cover payroll',
@@ -33,7 +41,7 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
           </span>
         </span>
       </p>
-      <Button040 class="site-cta__btn" href="/apply" label="Apply for funding" variant="light" />
+      <Button040 class="site-cta__btn" href={href} label={label} variant="light" />
     </div>
   </div>
 </section>

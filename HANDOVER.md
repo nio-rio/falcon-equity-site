@@ -1198,3 +1198,34 @@ section H2 40/50 -> 48/60, band pad 144 / 160, card title 24/36/400 ls .192, car
 Open for Ling: (1) **AI logos** — Dwight said "add this with the logos" and named none; no marks ship until he
 does. (2) CTA label `Book a consultation` vs the sitewide `Apply for funding`. (3) closing band vs `SiteCta`.
 (4) `/faq` now carries a tenth group (10 questions) automatically, because `SERVICE_FAQS` is one source.
+
+
+### Same page — rebuilt to the Technology & Innovations reference (2026-10-23, revision 2)
+
+Ling pointed at `blackstone.com/our-businesses/technology-and-innovations/` and named four bands. All four were
+measured live over CDP at 1440 before rebuilding (tables in `docs/dbf-structure-plan.md`):
+
+- **Hero** = the reference page header: H1 left in 9 of 16 tracks, the copy's lede beside it in 5 tracks (384),
+  one `Book a consultation` 040 under the lede. The sub-heading line and the coverage strip are **removed**.
+  A **16:9 hero still slot** follows at the reference's 1264x711 with its 104px bottom pad, holding a labelled
+  placeholder until Ling sends the photograph.
+- **Start here** = **WHAT WE DO**: claim left, the three explainers stacked in a 464 column (cols 11-16), title
+  24/36, 24px to the body, 64px between items. The donor's image column is replaced by the claim.
+- **Where it fits** and **What this is not** = **OUR ROLES**, as accordions, rendered by the shared `FaqList`
+  (4 and 6 rows).
+- **How we work** = **BLACKSTONE INNOVATIONS INVESTMENTS**: claim left, body + AI statement right in cols 11-16,
+  and **no divider line** as instructed.
+- **Process** spacing fixed: a subgrid inherits its parent's row-gap, which had opened 112px between each
+  numeral and its title; `row-gap: 0` on the step plus the service pages' 32px numeral margin and 80px card
+  row gap. At >=80em the three steps now share one row set, so the *You provide / You get* blocks line up.
+- **CTA** is the sitewide `SiteCta` band again, with `ctaLabel="Book a consultation"` and `ctaHref="/apply"`.
+  `SiteCta` gained optional `label`/`href` props and `BaseLayout` passes `ctaLabel`/`ctaHref`; the `cta={false}`
+  closing band this page had is deleted, and the DESIGN-SYSTEM exception note with it.
+
+Also fixed in this pass: the five-card and three-card grids had lost their column-placement rules during the
+rewrite and were stacking in one column.
+
+Verified: build 49 pages, `check` 0 errors, 10 bands (hero, hero still, four content bands, AI, process, FAQ),
+**no horizontal overflow at 390 / 768 / 1024 / 1280 / 1440 / 1920**, three accordion lists with 4 / 6 / 10 rows,
+0 broken internal refs, SiteCta renders `Book a consultation` on this page and `Apply for funding` everywhere
+else.
