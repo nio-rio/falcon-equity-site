@@ -1437,3 +1437,19 @@ Ling: *"Hero image should be 5:2 aspect ratio like how I gave you."* The hero ba
 (`ratio="5 / 2"` on the `Media`, `aspect-ratio: 5 / 2` in the stylesheet): **1264×506 at 1440**. The donor's
 16:9 is overridden on purpose — 5:2 sits within a hair of the supplied 1400×600, so the still is effectively
 uncropped. Verified in the built page: figure, picture and img all measure 1264×506, band pad-bottom 104.
+
+### Fix: a second phone number showed up in the desktop bar (2026-10-23, Ling)
+
+Ling: *"You left one more phone number on desktop. Please check your responsiveness"* — with a shot of the light
+header carrying the number twice (one floating just above the bar, one in place).
+
+- **Cause:** the drawer's new `.site-header__menu-foot` block lives inside `#primary-nav-inner`, and from **90em**
+  that container *is* the inline desktop bar. So the drawer's phone row rendered in the middle of the bar, next to
+  the real `.site-header__tel--bar`. `.site-header__menu-foot` is now `display: none` from 90em.
+- **Swept 320 → 1920** (320, 360, 375, 390, 430, 600, 768, 800, 900, 1024, 1200, 1280, 1366, 1440, 1600, 1920) on the
+  built site: **exactly one visible phone number at every width with the header closed**, `scrollWidth ==
+  clientWidth` (no horizontal overflow) at every width with the drawer shut and open, and the count is confirmed on
+  the light `/about` header at 1600 as well as the dark home header. Inside the open drawer from 800px the bar's
+  phone and the drawer's foot row are both visible by design — two different surfaces, not a duplicate.
+- **Lesson for the next pass:** the earlier check counted *an* element, not *how many*. Count the class
+  (`.site-header__tel` filtered by visibility) across the width sweep, not one node's `display`.
