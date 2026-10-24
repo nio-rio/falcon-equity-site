@@ -40,11 +40,6 @@
   status = 301
 
 [[redirects]]
-  from = "/partners"
-  to = "/"
-  status = 301
-
-[[redirects]]
   from = "/privacy-policy"
   to = "/"
   status = 301

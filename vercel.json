@@ -8,7 +8,6 @@
   "redirects": [
     { "source": "/about", "destination": "/", "permanent": true },
     { "source": "/contact", "destination": "/", "permanent": true },
-    { "source": "/partners", "destination": "/", "permanent": true },
     { "source": "/privacy-policy", "destination": "/", "permanent": true },
     { "source": "/terms-conditions", "destination": "/", "permanent": true },
     { "source": "/how-it-works", "destination": "/#why-choose-us", "permanent": true },

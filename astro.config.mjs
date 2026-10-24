@@ -34,6 +34,7 @@ const livePaths = new Set([
   '/faq',
   '/resources/business-loan-calculator',
   '/resources/credit-repair-loan-prep',
+  '/partners',
 ]);
 
 const serviceSlugs = [
@@ -75,7 +76,6 @@ for (const slug of blogSlugs) livePaths.add(`/blog/${slug}`);
 /** @type {Record<string, string>} */
 const retired = {
   '/contact': '/#contact',
-  '/partners': '/',
   '/privacy-policy': '/',
   '/terms-conditions': '/',
   '/how-it-works': '/',

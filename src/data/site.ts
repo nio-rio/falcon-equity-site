@@ -65,13 +65,13 @@ export const RESOURCE_LINKS: NavLink[] = [
 
 export const FIRM_LINKS: NavLink[] = [
   { label: 'About', href: '/about' },
-  { label: 'Partners', href: '/#main' },
+  { label: 'Partners', href: '/partners' },
 ];
 
 export const COMPANY_LINKS: NavLink[] = [
   { label: 'About', href: '/about' },
   { label: 'Industries', href: '/industries' },
-  { label: 'Partners', href: '/#main' },
+  { label: 'Partners', href: '/partners' },
   { label: 'Apply', href: '/apply' },
 ];
 
