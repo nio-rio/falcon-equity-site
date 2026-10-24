@@ -96,15 +96,20 @@ for (const [route, name] of servicePages) {
 
 /**
  * `/services` — the home Services band reused as its own page. It shipped on
- * 24 Oct 2026, so the route must render a document, not the old 301 stub, and
- * its H1 is the band's own title (promoted from h2, word for word).
+ * 24 Oct 2026, so the route must render a document, not the old 301 stub. Its
+ * H1 is the plain page label and it carries no eyebrow (Ling, 24 Oct).
  */
 const servicesTitle = titleOf('dist/services.html');
 if (servicesTitle !== 'Services | Seven funding products | Falcon Equity Group') {
   throw new Error(`Services <title> was ${JSON.stringify(servicesTitle)}`);
 }
-if (h1Of('dist/services.html') !== 'How we can bring you victory.') {
+if (h1Of('dist/services.html') !== 'Services') {
   throw new Error(`Services <h1> was ${JSON.stringify(h1Of('dist/services.html'))}`);
+}
+/** Ling, 24 Oct: no eyebrow on this page. */
+const servicesHtml = readFileSync('dist/services.html', 'utf8');
+if (servicesHtml.includes('class="eyebrow')) {
+  throw new Error('dist/services.html renders an eyebrow; Ling removed it 24 Oct 2026');
 }
 
 /** Rebuilt industry pages. The H1 is the page's label, not the route slug. */

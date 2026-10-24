@@ -17,6 +17,10 @@
  * pad at the foot (80/96/144/160). Everything below the head — rules, row grid,
  * hover, reveal stagger — is the home page's, unchanged.
  *
+ * Ling, 24 Oct 2026: "Remove eyebrow. Change H1 to 'services'." So this page
+ * passes no eyebrow and its own H1 — the only two props that differ from the
+ * home page's call. The seven rows are still the home rows.
+ *
  * Route: this file is the page that `/services` used to redirect away from. The
  * 301 is lifted in `astro.config.mjs`, `netlify.toml` and `public/_redirects`.
  */
@@ -60,12 +64,7 @@ const schema = [
 ---
 
 <BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
-  <PilotLinkList
-    pageHeader
-    eyebrow="Services"
-    title="How we can bring you victory."
-    items={homeServices}
-  />
+  <PilotLinkList pageHeader title="Services" items={homeServices} />
 
   <script>
     import '@/scripts/scroll-in';
