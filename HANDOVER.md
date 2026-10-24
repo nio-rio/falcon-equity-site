@@ -1484,8 +1484,12 @@ three lines.
 Ling: *"Create a page called /services, that is just reusing the 'services' section on home page."*
 
 - **The page is the band, not a copy of it.** `src/pages/services/index.astro` renders `PilotLinkList` with the
-  same props the home page passes and the same data source (`getHomeServices()`), so it carries the identical
-  seven products, order, teasers and `rangeLine`s. Nothing is retyped; a product-copy change on `/` lands here too.
+  same data source (`getHomeServices()`), so it carries the identical seven products, order, teasers and
+  `rangeLine`s. Nothing is retyped; a product-copy change on `/` lands here too.
+- **Two props differ from the home page's call (Ling, same session):** *"Remove eyebrow. Change H1 to 'services'."*
+  So the page passes no eyebrow at all and its own H1, `Services` — the band's own head (eyebrow `Services` + `How
+  we can bring you victory.`) is not used here. Everything below the head is still the home rows. `test:titles`
+  asserts the H1 and asserts the built page contains no `.eyebrow` node at all.
 - **One component change, off by default.** `PilotLinkList` gained `pageHeader` (default `false`). When set, the
   band's head is promoted: the `h2` becomes the page `h1` on the page-title ladder (40/48/56, weight 400) and the
   band takes `--page-header-pt` at the top with `--pilot-section-y` at the foot. The class rule is
