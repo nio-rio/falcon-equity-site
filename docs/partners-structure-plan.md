@@ -14,7 +14,7 @@ Contact details come from `SITE`. The partner row comes from `src/data/partners.
 | --- | --- | --- | --- | --- | --- |
 | 1 | Hero | white | **TF-00** + **TF-01** | Title with the standfirst beside it, then one wide still. Same geometry as `/about`. No CTA, as the contract asks. | H1 `Brokers, ISOs and funding partners`, lead, 5:2 still (`hero-falcon.webp`, a placeholder: a peregrine falcon on a branch, no people). The alt text describes that image. No eyebrow above the H1. |
 | 2 | Partner types | white | **TF-05** / **BXCI-07** | Three equal text cards, no art. Uses the house 1/5 · 6/6 · 12/5 split from `/about` values. | Eyebrow, H2, lede, three cards (Brokers and ISOs · Funding partners · Service partners). |
-| 3 | Our partners | white | **PE-04** (3-up cards with circle-arrow links) | Cards with a mark, a line and a link, rendered from `PARTNERS`. The "Become a partner" text tile always takes the last track (`grid-column: -2 / -1`). With one partner the row reads as two bookends on one standing rule: Cardiff on the left (Lilac `tile-card`), the dark text tile on the right. No ghost tiles, no centring, no "coming soon". | Eyebrow, H2, lede, partner tiles plus the Become tile, growth line under the row. |
+| 3 | Our partners | white | a plain list, measured off **PE-04** and then stripped back | Ling, 23 Oct: minimal, no tinted card, no divider line, no "Become a partner" tile. Each partner is one row — logo on the left (14rem track), type label, one plain line and a link on the right. Adding an entry to `PARTNERS` adds a row in the same shape. | Eyebrow, H2, lede, one row per partner (Cardiff today). |
 | 4 | Become a partner | dark | **HOME-07** (no form) | Heading on the left, content on the right. The donor's form is replaced by two text columns and contact rows: this is an enquiry band, not a capture form. | `id="become-a-partner"`, eyebrow, H2, `What to send` / `What happens next`, Email / Subject / Direct rows, closing line. |
 | 5 | FAQ | white | **PWS-09** / **APM-08** | A short FAQ of five rows. Uses the shared `FaqList` and the FAQPage schema. | Eyebrow `FAQ`, H2 `Partner questions.` (the contract has no FAQ H2, so this one was added), five Q&As. |
 Bands run white → white → white → dark → white. Same-theme followers collapse their top padding through
@@ -48,5 +48,10 @@ page-header comment were retuned to what is left:
   that band deleted there is no user, so both files are reverted to their pre-partners state and the
   variant's CSS is out of `partners.css`. Other pages' CTA bands are untouched — checked in the built
   output: `/about` and `/faq` still carry theirs.
-- **Small additions to the contract:** the link label "Visit Cardiff" on the partner tile, and the FAQ
+- **Small additions to the contract:** the link label "Visit Cardiff" on the partner item, and the FAQ
   H2. Both were flagged to Ling when the page was first built.
+- **The partner row is a list, not a card row (Ling, 23 Oct).** Her three instructions: the lede becomes
+  the "we are actively adding partners in three areas" line, the horizontal divider goes, and the partner
+  item must not sit in a card with a different background — so the Lilac tile, the 2px rule above the row,
+  the empty grid tracks and the "Become a partner" tile are all gone. `BECOME_A_PARTNER` came out of
+  `src/data/partners.ts` with its only user.

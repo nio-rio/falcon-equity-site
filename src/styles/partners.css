@@ -120,33 +120,11 @@ section.ptn-hero[data-band='light'] {
   margin-top: 24px;
 }
 
-/* The small closing line under a list: one step quieter than body copy. */
-.ptn-note {
-  margin: 56px 0 0;
-  max-width: 40rem;
-  color: var(--ink-a72);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 0.008em;
-}
-
-.ptn-note--on-dark {
-  color: var(--bx-on-dark-muted);
-}
-
 @media (min-width: 48em) {
   .ptn-card-title {
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 0.192px;
-  }
-}
-
-@media (min-width: 80em) {
-  .ptn-note {
-    margin-top: 72px;
   }
 }
 
@@ -300,40 +278,27 @@ section.ptn-hero[data-band='light'] {
 }
 
 /* ------------------------------------------- 8 partner row ---- */
-/* PE-04 card row. Partners fill from the left; the text tile always takes the
-   LAST track (grid-column -2 / -1), so with one partner the row is two bookends
-   on one standing rule — Cardiff left, "Become a partner" right — not a lone
-   centred logo. No ghost tiles are rendered for the empty track. */
+/* 8. Our partners — a plain list, not a card row (Ling, 23 Oct: minimal, no tinted
+   card, no divider, no "Become a partner" tile). Logo on the left, one plain line on
+   the right; a new entry in src/data/partners.ts adds another row in the same shape. */
 .ptn-tiles {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
+  gap: 40px;
   margin: var(--space-head-to-content) 0 0;
-  padding: 24px 0 0;
-  border-top: 2px solid var(--color-ink);
+  padding: 0;
   list-style: none;
 }
 
 .ptn-tile {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  gap: 16px 48px;
+  align-items: start;
   min-width: 0;
-  min-height: 18rem;
-  padding: 32px;
 }
 
-.ptn-tile--partner {
-  background: var(--color-lilac);
-  color: var(--color-ink);
-}
-
-.ptn-tile--become {
-  grid-column: -2 / -1;
-  padding: 0;
-  background: var(--color-surface-dark);
-  color: var(--color-white);
+.ptn-tile-mark,
+.ptn-tile-body {
+  min-width: 0;
 }
 
 .ptn-tile-logo {
@@ -341,18 +306,17 @@ section.ptn-hero[data-band='light'] {
   width: auto;
   height: 32px;
   max-width: 100%;
-  margin-bottom: 40px;
 }
 
 .ptn-tile-name {
-  margin: 0 0 40px;
+  margin: 0;
   font-family: var(--font-display);
   font-size: 24px;
   line-height: 32px;
 }
 
 .ptn-tile-type {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   font-family: var(--font-sans);
   font-size: var(--type-eyebrow-size);
   line-height: var(--type-eyebrow-lh);
@@ -363,6 +327,7 @@ section.ptn-hero[data-band='light'] {
 
 .ptn-tile-line {
   margin: 0;
+  max-width: 46ch;
   font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 300;
@@ -371,68 +336,12 @@ section.ptn-hero[data-band='light'] {
 }
 
 .ptn-tile-link {
-  margin-top: auto;
-  padding-top: 32px;
-}
-
-.ptn-tile-become-link {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
-  padding: 32px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.ptn-tile-become-title {
-  margin-bottom: 16px;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 36px;
-}
-
-.ptn-tile-become-link .ptn-tile-line {
-  color: var(--bx-on-dark);
-}
-
-.ptn-tile-become-arrow {
-  margin-top: auto;
-}
-
-.ptn-tile-become-link:hover .ptn-tile-become-arrow,
-.ptn-tile-become-link:focus-visible .ptn-tile-become-arrow {
-  background: var(--color-white);
-  border-color: var(--color-white);
-  color: var(--color-ink);
-}
-
-.ptn-tile-become-link:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 4px;
+  margin-top: 20px;
 }
 
 @media (min-width: 48em) {
-  .ptn-tiles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 24px;
-  }
-
-  .ptn-tile-become-link .ptn-tile-line {
-    margin-bottom: 32px;
-  }
-}
-
-@media (min-width: 64em) {
-  .ptn-tiles {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .ptn-tile {
-    min-height: 20rem;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
   }
 }
 
@@ -523,7 +432,6 @@ section.ptn-hero[data-band='light'] {
 
 /* ------------------------------------------------- motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .ptn-tile-become-arrow,
   .ptn-contact-value a {
     transition: none;
   }

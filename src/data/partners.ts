@@ -38,10 +38,3 @@ export const PARTNERS: Partner[] = [
     external: true,
   },
 ];
-
-/** The row's closing tile — always last, always text. */
-export const BECOME_A_PARTNER = {
-  title: 'Become a partner',
-  line: 'Referral, funding or service partnership. Start with one file.',
-  href: '#become-a-partner',
-} as const;

@@ -26,7 +26,7 @@ import CircleArrow from '@/components/CircleArrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
-import { PARTNERS, BECOME_A_PARTNER } from '@/data/partners';
+import { PARTNERS } from '@/data/partners';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import heroStill from '@/assets/images/hero-falcon.webp';
 import '@/styles/partners.css';
@@ -162,64 +162,56 @@ const schema = [
     </div>
   </section>
 
-  <!-- 8. Our partners — PE-04 card row from src/data/partners.ts. Partners fill from the left;
-       the "Become a partner" text tile always takes the last track, so one partner still reads
-       as a deliberate pair of bookends rather than a half-built row. -->
+  <!-- 8. Our partners — a plain list, not a card row (Ling, 23 Oct: "keep it minimal",
+       no divider, no tinted card, no "Become a partner" tile). One partner today; a new
+       entry in src/data/partners.ts adds a row, logo left and copy right, with no card. -->
   <section class="ptn-row" aria-labelledby="row-heading" data-band="light" data-ptn-section="partners" data-reveal-root>
     <div class="container-site">
       <div class="ptn-block-head" data-reveal>
         <Eyebrow>Our partners</Eyebrow>
         <h2 id="row-heading">The firms we work with.</h2>
         <p class="ptn-lede">
-          Cardiff is our first signed partner. The row is built to take more — lenders, funds and service firms that
-          cover what Falcon does not do alone. Every mark appears only after written permission, and each partner gets
-          one plain line, not a sales pitch.
+          We are actively adding partners in three areas: lenders and funds that take positions Falcon does not hold,
+          service firms that get an owner loan-ready, and the software owners already run their books on.
         </p>
       </div>
       <ul class="ptn-tiles" data-reveal>
         {
           PARTNERS.map((partner) => (
-            <li class="ptn-tile ptn-tile--partner">
-              {partner.logo ? (
-                <img
-                  class="ptn-tile-logo"
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={partner.logoSize?.width}
-                  height={partner.logoSize?.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <p class="ptn-tile-name">{partner.name}</p>
-              )}
-              <p class="ptn-tile-type">{partner.type}</p>
-              <p class="ptn-tile-line">{partner.line}</p>
-              {partner.url && (
-                <a
-                  class="arrow-cta ptn-tile-link"
-                  href={partner.url}
-                  {...(partner.external ? { target: '_blank', rel: OUTBOUND_REL } : {})}
-                >
-                  <span class="arrow-cta-label link-draw">Visit {partner.name}</span>
-                  <CircleArrow />
-                </a>
-              )}
+            <li class="ptn-tile">
+              <div class="ptn-tile-mark">
+                {partner.logo ? (
+                  <img
+                    class="ptn-tile-logo"
+                    src={partner.logo}
+                    alt={partner.name}
+                    width={partner.logoSize?.width}
+                    height={partner.logoSize?.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <p class="ptn-tile-name">{partner.name}</p>
+                )}
+              </div>
+              <div class="ptn-tile-body">
+                <p class="ptn-tile-type">{partner.type}</p>
+                <p class="ptn-tile-line">{partner.line}</p>
+                {partner.url && (
+                  <a
+                    class="arrow-cta ptn-tile-link"
+                    href={partner.url}
+                    {...(partner.external ? { target: '_blank', rel: OUTBOUND_REL } : {})}
+                  >
+                    <span class="arrow-cta-label link-draw">Visit {partner.name}</span>
+                    <CircleArrow />
+                  </a>
+                )}
+              </div>
             </li>
           ))
         }
-        <li class="ptn-tile ptn-tile--become">
-          <a class="ptn-tile-become-link" href={BECOME_A_PARTNER.href}>
-            <span class="ptn-tile-become-title">{BECOME_A_PARTNER.title}</span>
-            <span class="ptn-tile-line">{BECOME_A_PARTNER.line}</span>
-            <CircleArrow class="ptn-tile-become-arrow" />
-          </a>
-        </li>
       </ul>
-      <p class="ptn-note" data-reveal>
-        We are actively adding partners in three areas: lenders and funds that take positions Falcon does not hold,
-        service firms that get an owner loan-ready, and the software owners already run their books on.
-      </p>
     </div>
   </section>
 
