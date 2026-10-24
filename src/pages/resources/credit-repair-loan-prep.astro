@@ -3,28 +3,28 @@
  * /resources/credit-repair-loan-prep — Credit Repair & Loan Prep.
  *
  * Copy contract: Notion “Credit Repair & Loan Prep — page copy v2
- * (/resources/credit-repair-loan-prep)”, as edited by Ling on 23 Oct 2026.
- * Ten bands, in order (the note numbers them 1, 3–11; her edit deleted the
- * answer-first block that was Section 2):
+ * (/resources/credit-repair-loan-prep)”, as edited by Ling on 23 Oct 2026
+ * (00:35Z). Her edit deleted the answer-first block (old 2) and the situation
+ * router (old 3), so the note now numbers itself 1, 4–8, 10, 11.
  *
- *   1  hero .............. TF-00 header + TF-01 still, CTA is a phone link
- *   2  what's your case ... the industry pages' accordion, dark band
- *   3  two files .......... three definition blocks, 1/5 · 6/6 · 12/5
- *   4  business programs .. six cards, hairline above each
- *   5  personal programs .. same cards on the Lilac band
- *   6  process ............ four numbered steps, dark band
- *   7  can / cannot ....... two lists + the federal-law line, Lilac band
- *   8  what to send ....... lead + list, no H2 in the note
- *   9  FAQ ................ the shared FaqList + FAQPage schema
- *  10  closing band ....... SiteCta from BaseLayout
+ *   1   hero .............. page header + 5:2 still, CTA opens the contact panel
+ *   4   two files ......... three definitions in the house 3-up, lede under the H2
+ *   5   business programs . six, same 3-up (3 × 2)
+ *   6   personal programs . three, same 3-up, Lilac band
+ *   7   process ........... the home “Why choose us” band: lede left, 4 numbered
+ *                           steps in the card right
+ *   8   can / cannot ...... what the program does + what federal law gives you
+ *   10  FAQ ............... the shared FaqList + FAQPage schema
+ *       what to send ...... label + lead + list (the note nests it under 10)
+ *   11  closing band ...... SiteCta from BaseLayout
  *
- * Nothing here is invented: every string is the note's, and the page carries no
- * figure. The live page it replaces published a 76% success rate that is in no
- * approved source and is identical to a competitor's page (see the note).
+ * Every string is the note's, with two flagged exceptions noted in HANDOVER:
+ * the process lede (assembled from the note's own takeaways, because Ling asked
+ * for a lede drawn from the straight-answer copy) and the retained “what it
+ * does not do” list under an H2 that still says “what nobody can”.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArrowButton from '@/components/ArrowButton.astro';
-import CircleArrow from '@/components/CircleArrow.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
 import FaqList from '@/components/FaqList.astro';
 import Media from '@/components/Media.astro';
@@ -37,53 +37,22 @@ const TITLE = 'Credit repair and loan prep';
 const DESCRIPTION =
   "Falcon's pre-application program: personal and business credit review, challenges on inaccurate items, and PAYDEX and FICO SBSS preparation.";
 
-const PHONE = 'tel:+19172455277';
-
 const HERO = {
-  eyebrow: 'Resources',
   h1: 'Credit Repair & Loan Prep',
   sub: 'A specialist reads both of your credit files, challenges what is wrong in them, and lines up the documents underwriting asks for — before the next application is the one that gets declined.',
   cta: 'Talk to a specialist',
   mediaIntent: 'A credit report and a pen on a desk beside a closed laptop, soft daylight, no people.',
 };
 
-const SITUATIONS = [
-  {
-    if: 'You applied, and the decline letter pointed at credit',
-    means: 'The application was judged on the file as it stood that day. The business did not have to change for the answer to change.',
-    does: 'Both files are read, the entry the decision turned on is identified, and the correction is sequenced ahead of the next application.',
-    linkLabel: 'Talk to a specialist',
-    href: PHONE,
-  },
-  {
-    if: 'The business is trading, but there is no business credit file to read',
-    means: 'Underwriting sees a personal score and a blank business profile, so the company looks newer than it is.',
-    does: 'Vendor accounts that report are set up, and payment history is built until PAYDEX has something to score.',
-    linkLabel: 'Business credit programs',
-    href: '#business-credit',
-  },
-  {
-    if: 'One personal entry is holding the whole file down',
-    means: 'A collection, a duplicate, an account that is not yours, or a balance reported at the wrong figure.',
-    does: 'That entry is challenged with the bureau reporting it, and the rest of the file is left alone.',
-    linkLabel: 'Personal credit programs',
-    href: '#personal-credit',
-  },
-  {
-    if: 'The goal is an SBA or bank application, not a Falcon product',
-    means: 'Those readers score the owner and the business together, and they read a prepared file very differently from a hopeful one.',
-    does: "The plan is built backwards from that lender's own underwriting list, starting with the score it actually uses.",
-    linkLabel: 'SBA & Term Loan Prep',
-    href: '#business-credit',
-  },
-  {
-    if: 'There are advances open and the payments are already stacked',
-    means: 'New credit is hard to place while existing positions absorb the deposits.',
-    does: 'The positions are listed and weighed, and the prep work is sequenced around the payment calendar rather than in front of it.',
-    linkLabel: 'Consolidation of Positions',
-    href: '/services/consolidation-of-positions',
-  },
-];
+/** The note lists this as the band's lede, not a footnote under the cards. */
+const FILES_LEDE =
+  'Which one is blocking you is the first thing a specialist works out — and it is rarely the one the decline letter names.';
+
+/** Process lede, assembled from the note's own straight-answer copy: the
+    answer-first takeaways (nothing is borrowed, no amount is promised, one-to-
+    one with a named specialist) plus step 1's “no fee to talk”. No new claim. */
+const PROCESS_LEDE =
+  'Preparation, not a funding product: nothing is borrowed and no amount is promised. Every step is done one-to-one with a named specialist, and the first one costs nothing.';
 
 const FILES = [
   {
@@ -243,8 +212,10 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
   </Fragment>
 
   <div class="cr-page">
-    {/* 1 hero — the industry hero, with the label the note asks for and a phone
-        CTA: prep is not a funding product, so the band does not say "Apply". */}
+    {/* 1 hero — page header only: H1, standfirst, one CTA, still below.
+        No eyebrow above an H1 (Ling, 23 Oct 2026 — “Never eyebrow on h1”), and
+        the CTA opens the contact panel rather than starting an application,
+        because prep is not a funding product. */}
     <section
       class="cr-hero"
       aria-labelledby="page-hero-heading"
@@ -257,11 +228,17 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       <div class="container-site">
         <div class="cr-grid cr-hero-grid">
           <div class="cr-hero-head" data-reveal>
-            <Eyebrow>{HERO.eyebrow}</Eyebrow>
             <h1 id="page-hero-heading" class="cr-h1">{HERO.h1}</h1>
           </div>
           <p class="cr-body cr-standfirst" data-reveal>{HERO.sub}</p>
-          <ArrowButton class="cr-hero-cta" href={PHONE} label={HERO.cta} data-reveal />
+          <ArrowButton
+            class="cr-hero-cta"
+            href="#contact"
+            label={HERO.cta}
+            data-contact-open
+            aria-haspopup="dialog"
+            data-reveal
+          />
           <div class="cr-hero-media">
             <Media
               intent={HERO.mediaIntent}
@@ -275,79 +252,8 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       </div>
     </section>
 
-    {/* 2 which situation — the industry pages' accordion. At most one row open
-        per list; the shared binder enforces it. */}
-    <section
-      class="cr-band cr-band--dark cr-case"
-      id="situations"
-      aria-labelledby="situations-heading"
-      data-band="dark"
-      data-cr-section="situations"
-      data-reveal-root
-      data-accordion
-    >
-      <div class="container-site">
-        <div class="cr-case-head" data-reveal>
-          <Eyebrow>What's your case?</Eyebrow>
-          <h2 id="situations-heading" class="cr-case-claim">Which situation are you in?</h2>
-        </div>
-
-        <ul class="cr-case-list" data-reveal>
-          {
-            SITUATIONS.map((item, i) => (
-              <li class="cr-case-item" data-acc-item>
-                <h3 class="cr-case-h">
-                  <button
-                    type="button"
-                    class="cr-case-trigger"
-                    id={`cr-case-trigger-${i}`}
-                    aria-expanded="false"
-                    aria-controls={`cr-case-panel-${i}`}
-                    data-acc-trigger
-                  >
-                    <span class="cr-case-question">{item.if}</span>
-                    <span class="cr-case-caret" aria-hidden="true">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none">
-                        <path
-                          d="M1 1L9 9L17 1"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </h3>
-                <div
-                  class="cr-case-panel"
-                  id={`cr-case-panel-${i}`}
-                  role="region"
-                  aria-labelledby={`cr-case-trigger-${i}`}
-                >
-                  <div class="cr-case-panel-inner">
-                    <p class="cr-case-means">
-                      <span class="cr-case-means-label">What it means</span>
-                      {item.means}
-                    </p>
-                    <div class="cr-case-does">
-                      <h4 class="cr-case-does-label">What the program does</h4>
-                      <p class="cr-case-does-body">{item.does}</p>
-                      <a class="cr-case-link" href={item.href}>
-                        <span>{item.linkLabel}</span>
-                        <CircleArrow />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
-
-    {/* 3 the two files — three definition blocks on the home 3-up ratio. */}
+    {/* 4 the two files — three definitions in the house 3-up (the industry
+        products section's `.mca-cards--3` geometry), lede under the H2. */}
     <section
       class="cr-band"
       id="files"
@@ -360,6 +266,7 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
         <div class="cr-block-head" data-reveal>
           <Eyebrow>The basics</Eyebrow>
           <h2 id="files-heading">Two files, three scores, one decision</h2>
+          <p class="cr-lede">{FILES_LEDE}</p>
         </div>
         <div class="cr-cols-3" data-reveal>
           {
@@ -371,16 +278,12 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
             ))
           }
         </div>
-        <p class="cr-note" data-reveal>
-          Which one is blocking you is the first thing a specialist works out — and it is rarely the one the
-          decline letter names.
-        </p>
       </div>
     </section>
 
-    {/* 4 business credit programs */}
+    {/* 5 business credit programs — same 3-up, six cards (3 × 2) */}
     <section
-      class="cr-band cr-band--top-only"
+      class="cr-band"
       id="business-credit"
       aria-labelledby="business-heading"
       data-band="light"
@@ -405,7 +308,7 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       </div>
     </section>
 
-    {/* 5 personal credit programs — the same cards, on the Lilac band. */}
+    {/* 6 personal credit programs — the same 3-up, on the Lilac band. */}
     <section
       class="cr-band cr-band--lilac"
       id="personal-credit"
@@ -432,7 +335,8 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       </div>
     </section>
 
-    {/* 6 process — four steps, dark band. */}
+    {/* 7 process — the home “Why choose us” band (PilotWhy): eyebrow, H2, lede
+        and CTA in the left column, the four numbered steps in the card right. */}
     <section
       class="cr-band cr-band--dark cr-process"
       id="process"
@@ -442,21 +346,37 @@ const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
       data-reveal-root
     >
       <div class="container-site">
-        <div class="cr-block-head" data-reveal>
-          <Eyebrow>Process</Eyebrow>
-          <h2 id="process-heading">Four steps</h2>
+        <div class="cr-process-grid">
+          <Eyebrow class="cr-process-eyebrow">Process</Eyebrow>
+          <h2 id="process-heading" class="cr-process-title" data-reveal>Four steps</h2>
+          <p class="cr-process-lede" data-reveal>{PROCESS_LEDE}</p>
+          <div class="cr-process-cta" data-reveal>
+            <ArrowButton
+              href="#contact"
+              label="Talk to a specialist"
+              tone="light"
+              data-contact-open
+              aria-haspopup="dialog"
+            />
+          </div>
+          <div class="cr-process-card" data-reveal>
+            <ol class="cr-process-list">
+              {
+                STEPS.map((step, i) => (
+                  <li class="cr-process-row">
+                    <div class="cr-process-row-copy">
+                      <h3 class="cr-process-row-title">{step.name}</h3>
+                      <p class="cr-process-row-body">{step.body}</p>
+                    </div>
+                    <span class="cr-process-step" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
         </div>
-        <ol class="cr-steps" data-reveal>
-          {
-            STEPS.map((step, i) => (
-              <li class="cr-step">
-                <span class="cr-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="cr-step-title">{step.name}</h3>
-                <p class="cr-step-body">{step.body}</p>
-              </li>
-            ))
-          }
-        </ol>
       </div>
     </section>
 

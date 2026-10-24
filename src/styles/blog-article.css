@@ -17,9 +17,10 @@
  *
  * Deviations, all deliberate:
  *   · H1 weight 400, not the reference's 300 — house page-title weight.
- *   · The rail is category+date then ONE Falcon CTA. The reference's author
- *     block, "Watch on YouTube" CTA, newsletter form and share row are gone per
- *     Ling's instruction (and there is no author to credit).
+ *   · The rail is category+date, ONE Falcon CTA, then a share row. The
+ *     reference's author block, "Watch on YouTube" CTA and newsletter form are
+ *     gone per Ling's instruction (and there is no author to credit); the share
+ *     row was rebuilt to the Osmo pattern — src/components/ShareRow.astro.
  *   · Category + date print under the title below 80em, where the rail is not
  *     visible; the reference simply drops them at that width.
  */
@@ -316,7 +317,8 @@
      eyebrow  14/21 w400 ls 1.12 UPPERCASE  ·  text 20/30 w400
      button   210x48, radius 100, ink fill, 8/8/8/24, label 16/24 w500, 40px
               circle-arrow at the right
-     share    24px icons, 24 apart, a 1px 24-tall rule after the print button
+     share    six 44px circles, 6px apart (Osmo: 128px circles, 40 apart at
+              1440) — the row is a component now, see ShareRow.astro
  */
 
 .art-rail-inner {
@@ -506,9 +508,6 @@
 /* share */
 
 .art-rail-share {
-  display: flex;
-  align-items: center;
-  gap: 24px;
   margin-top: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
@@ -516,38 +515,5 @@
   border-bottom: 1px solid var(--color-line);
 }
 
-.art-share {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-ink);
-  cursor: pointer;
-  appearance: none;
-  transition: opacity 200ms ease;
-}
-
-.art-share:hover,
-.art-share:focus-visible {
-  opacity: 0.6;
-}
-
-.art-share:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.art-share svg {
-  width: 24px;
-  height: 24px;
-}
-
-.art-share-rule {
-  width: 1px;
-  height: 24px;
-  background: var(--color-line);
-}
+/* The row itself is src/components/ShareRow.astro — six 44px circles, 6px
+   apart, hover scales 1.14; the ticks and borders live there. */

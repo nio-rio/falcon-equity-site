@@ -12,7 +12,15 @@ import { INDUSTRIES } from '@/data/industries';
 import { INDUSTRY_STILLS } from '@/data/industry-stills';
 ---
 
-<section class="pilot-tabs" aria-labelledby="industries-heading" data-band="light" data-reveal-root>
+<section
+  class="pilot-tabs"
+  aria-labelledby="industries-heading"
+  data-band="light"
+  data-reveal-root
+  data-reveal-start="top 92%"
+  data-reveal-stagger="0"
+  data-reveal-duration="0.6"
+>
   <div class="container-site">
     <div class="pilot-tabs-head">
       <div class="pilot-tabs-heading">
@@ -65,7 +73,7 @@ import { INDUSTRY_STILLS } from '@/data/industry-stills';
       </div>
     </div>
 
-    <div class="pilot-tabs-panels" data-reveal data-reveal-after>
+    <div class="pilot-tabs-panels" data-reveal>
       {
         INDUSTRIES.map((ind, i) => (
           <div
