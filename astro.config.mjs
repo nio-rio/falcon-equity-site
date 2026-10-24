@@ -33,6 +33,7 @@ const livePaths = new Set([
   '/blog',
   '/faq',
   '/resources/business-loan-calculator',
+  '/resources/credit-repair-loan-prep',
 ]);
 
 const serviceSlugs = [
@@ -80,7 +81,6 @@ const retired = {
   '/how-it-works': '/',
   '/services': '/',
   '/resources/loan-calculator': '/apply',
-  '/resources/credit-repair-loan-prep': '/apply',
 };
 
 for (const slug of serviceSlugs) {

@@ -1,0 +1,539 @@
+---
+/**
+ * /resources/credit-repair-loan-prep — Credit Repair & Loan Prep.
+ *
+ * Copy contract: Notion “Credit Repair & Loan Prep — page copy v2
+ * (/resources/credit-repair-loan-prep)”, as edited by Ling on 23 Oct 2026.
+ * Ten bands, in order (the note numbers them 1, 3–11; her edit deleted the
+ * answer-first block that was Section 2):
+ *
+ *   1  hero .............. TF-00 header + TF-01 still, CTA is a phone link
+ *   2  what's your case ... the industry pages' accordion, dark band
+ *   3  two files .......... three definition blocks, 1/5 · 6/6 · 12/5
+ *   4  business programs .. six cards, hairline above each
+ *   5  personal programs .. same cards on the Lilac band
+ *   6  process ............ four numbered steps, dark band
+ *   7  can / cannot ....... two lists + the federal-law line, Lilac band
+ *   8  what to send ....... lead + list, no H2 in the note
+ *   9  FAQ ................ the shared FaqList + FAQPage schema
+ *  10  closing band ....... SiteCta from BaseLayout
+ *
+ * Nothing here is invented: every string is the note's, and the page carries no
+ * figure. The live page it replaces published a 76% success rate that is in no
+ * approved source and is identical to a competitor's page (see the note).
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArrowButton from '@/components/ArrowButton.astro';
+import CircleArrow from '@/components/CircleArrow.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import FaqList from '@/components/FaqList.astro';
+import Media from '@/components/Media.astro';
+import { PAGE_DISCLOSURE } from '@/data/disclosure';
+import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import '@/styles/pilot.css';
+import '@/styles/credit-repair.css';
+
+const TITLE = 'Credit repair and loan prep';
+const DESCRIPTION =
+  "Falcon's pre-application program: personal and business credit review, challenges on inaccurate items, and PAYDEX and FICO SBSS preparation.";
+
+const PHONE = 'tel:+19172455277';
+
+const HERO = {
+  eyebrow: 'Resources',
+  h1: 'Credit Repair & Loan Prep',
+  sub: 'A specialist reads both of your credit files, challenges what is wrong in them, and lines up the documents underwriting asks for — before the next application is the one that gets declined.',
+  cta: 'Talk to a specialist',
+  mediaIntent: 'A credit report and a pen on a desk beside a closed laptop, soft daylight, no people.',
+};
+
+const SITUATIONS = [
+  {
+    if: 'You applied, and the decline letter pointed at credit',
+    means: 'The application was judged on the file as it stood that day. The business did not have to change for the answer to change.',
+    does: 'Both files are read, the entry the decision turned on is identified, and the correction is sequenced ahead of the next application.',
+    linkLabel: 'Talk to a specialist',
+    href: PHONE,
+  },
+  {
+    if: 'The business is trading, but there is no business credit file to read',
+    means: 'Underwriting sees a personal score and a blank business profile, so the company looks newer than it is.',
+    does: 'Vendor accounts that report are set up, and payment history is built until PAYDEX has something to score.',
+    linkLabel: 'Business credit programs',
+    href: '#business-credit',
+  },
+  {
+    if: 'One personal entry is holding the whole file down',
+    means: 'A collection, a duplicate, an account that is not yours, or a balance reported at the wrong figure.',
+    does: 'That entry is challenged with the bureau reporting it, and the rest of the file is left alone.',
+    linkLabel: 'Personal credit programs',
+    href: '#personal-credit',
+  },
+  {
+    if: 'The goal is an SBA or bank application, not a Falcon product',
+    means: 'Those readers score the owner and the business together, and they read a prepared file very differently from a hopeful one.',
+    does: "The plan is built backwards from that lender's own underwriting list, starting with the score it actually uses.",
+    linkLabel: 'SBA & Term Loan Prep',
+    href: '#business-credit',
+  },
+  {
+    if: 'There are advances open and the payments are already stacked',
+    means: 'New credit is hard to place while existing positions absorb the deposits.',
+    does: 'The positions are listed and weighed, and the prep work is sequenced around the payment calendar rather than in front of it.',
+    linkLabel: 'Consolidation of Positions',
+    href: '/services/consolidation-of-positions',
+  },
+];
+
+const FILES = [
+  {
+    title: 'Personal credit report',
+    body: 'The three consumer bureaus — Experian, Equifax and TransUnion — each hold their own version. Payment history, balances against limits, account age, mix and recent inquiries are what get scored. A lender reads this because the owner usually guarantees the debt.',
+  },
+  {
+    title: 'Business credit file',
+    body: 'Dun & Bradstreet scores payment behaviour as PAYDEX, 0–100, where 80 means paid on time. Experian Business and Equifax Business keep their own files. These are built from vendors that report, which is why a business with revenue but no tradelines still looks empty.',
+  },
+  {
+    title: 'FICO SBSS',
+    body: 'The score SBA 7(a) lenders use as a prescreen. It weighs personal and business credit together with time in business, revenue and cash flow, on a 0–300 scale. A bank term loan committee usually reads the same inputs under its own model.',
+  },
+];
+
+const BUSINESS_PROGRAMS = [
+  {
+    name: 'Business Funding Prep',
+    body: 'Personal and business credit monitoring, challenge work and tradeline planning, sequenced around the date you actually need the money.',
+  },
+  {
+    name: 'Credit Ready Business',
+    body: 'A business credit plan run in-house: file set-up, vendor accounts that report, and the payment behaviour that moves PAYDEX.',
+  },
+  {
+    name: 'Startup Capital Prep',
+    body: 'Entity formation alongside personal credit work, for a venture with revenue ahead of it and no history behind it.',
+  },
+  {
+    name: 'SBA & Term Loan Prep',
+    body: 'Prep aimed at the two readers that score hardest: SBA 7(a) lenders and bank credit committees.',
+  },
+  {
+    name: 'MBE, Veteran & WOSB Prep',
+    body: 'Certification paperwork and credit preparation in one track, for owners selling to agencies and larger buyers.',
+  },
+  {
+    name: 'Federal Contracting Prep',
+    body: 'SAM registration and 8(a) guidance, paired with the credit file a federal award expects the business to hold.',
+  },
+];
+
+const PERSONAL_PROGRAMS = [
+  {
+    name: 'Mortgage & Loan Prep',
+    body: 'Personal credit work sequenced against a mortgage timetable, so the rate you are offered reflects the file you actually have on the day you apply.',
+  },
+  {
+    name: 'Student Loan & Credit Plan',
+    body: 'Refinance and consolidation options weighed alongside personal credit repair, in that order.',
+  },
+  {
+    name: 'The Inquirer',
+    body: 'Ongoing monitoring: continuous bureau tracking, alerts, and dispute support while the file is being worked.',
+  },
+];
+
+const STEPS = [
+  {
+    name: 'Free consultation',
+    body: 'One call, both files read out loud, and a straight answer about which one is the problem. No fee to talk and no obligation.',
+  },
+  {
+    name: 'Written plan',
+    body: 'What to challenge, what to build, in what order, and what it costs — set out in writing before any work begins.',
+  },
+  {
+    name: 'Active work',
+    body: 'Challenges, tradeline building and score work, with the specialist reporting what moved and what did not.',
+  },
+  {
+    name: 'Application',
+    body: "Once the file is ready it goes to the product that fits it, Falcon's or another lender's.",
+  },
+];
+
+const CAN_DO = [
+  'Challenges items that are inaccurate, duplicated, outdated or unverifiable, with each bureau that reports them.',
+  'Builds business credit where there is no history: vendor tradelines, payment reporting, PAYDEX.',
+  'Prepares the document set underwriting asks for, before an application goes in.',
+  'Tells you when a product is the wrong instrument for your file, and where to go instead.',
+];
+
+const CANNOT_DO = [
+  'It does not remove accurate, timely information. No legitimate program can.',
+  'It does not delete a late payment that really happened.',
+  'It does not promise a score, a timeline or an approval.',
+  'It does not create a second credit file, a CPN or a new identity.',
+];
+
+const LAW =
+  'Credit repair is regulated. Before you sign, you are entitled to a written contract that states the total you will pay, a separate written statement of your right to cancel, and three business days after signing to cancel. Ask any company for all three.';
+
+const SEND = [
+  'Government-issued photo ID',
+  'The credit reports you already have, if any',
+  'Recent business bank statements',
+  'A list of open accounts, advances and loans, with balances',
+  'The decline letter, if there was one',
+];
+
+const FAQS = [
+  {
+    q: 'Does this guarantee I get approved?',
+    a: 'No. Preparation changes what underwriting sees; it does not decide the outcome. A specialist will tell you when a product is wrong for your file rather than take an application that will fail.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'The consultation is free. If a program fits, the fee is set out in a written contract before any work starts, with the total you will pay and your three-day right to cancel stated in it.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'It depends on what needs correcting and how fast each bureau answers. A mortgage-timetable program is planned in months; business credit building takes longer because tradelines have to age. Nobody can give you a date in advance, and a specialist will say so.',
+  },
+  {
+    q: 'Will this remove a late payment that really happened?',
+    a: 'No. Accurate and timely items stay. Challenges target what is inaccurate, duplicated, outdated or unverifiable.',
+  },
+  {
+    q: 'Does checking my credit hurt my score?',
+    a: "Reading your own reports for a review does not. A lender's application can, which is one reason the review comes before the application.",
+  },
+  {
+    q: 'Do I have to be a Falcon funding client?',
+    a: 'No. Plenty of files go through prep because a bank or SBA application is next. If a Falcon product fits afterwards, a specialist will say so.',
+  },
+  {
+    q: 'Can I apply for funding while the prep is running?',
+    a: 'Yes, if a product fits the file you have today. Some do; the ones that do not are the reason the prep exists.',
+  },
+];
+
+/** `/resources` has no index page, so the crumb stops at the page — same shape as
+    the calculator's. A middle crumb pointing at a 404 would be worse than none. */
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Credit Repair & Loan Prep', path: '/resources/credit-repair-loan-prep' },
+];
+
+const schema = [breadcrumbSchema(crumbs), faqSchema(FAQS)];
+---
+
+<BaseLayout title={TITLE} description={DESCRIPTION} schema={schema} disclosure={PAGE_DISCLOSURE}>
+  <Fragment slot="head">
+    <script is:inline>
+      (function () {
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          document.documentElement.classList.add('has-js');
+          window.setTimeout(function () {
+            if (!window.__pilotRevealReady) document.documentElement.classList.remove('has-js');
+          }, 2500);
+        } catch (e) {}
+      })();
+    </script>
+  </Fragment>
+
+  <div class="cr-page">
+    {/* 1 hero — the industry hero, with the label the note asks for and a phone
+        CTA: prep is not a funding product, so the band does not say "Apply". */}
+    <section
+      class="cr-hero"
+      aria-labelledby="page-hero-heading"
+      data-band="light"
+      data-cr-section="header"
+      data-reveal-root
+      data-reveal-stagger="0"
+      data-reveal-duration="0.55"
+    >
+      <div class="container-site">
+        <div class="cr-grid cr-hero-grid">
+          <div class="cr-hero-head" data-reveal>
+            <Eyebrow>{HERO.eyebrow}</Eyebrow>
+            <h1 id="page-hero-heading" class="cr-h1">{HERO.h1}</h1>
+          </div>
+          <p class="cr-body cr-standfirst" data-reveal>{HERO.sub}</p>
+          <ArrowButton class="cr-hero-cta" href={PHONE} label={HERO.cta} data-reveal />
+          <div class="cr-hero-media">
+            <Media
+              intent={HERO.mediaIntent}
+              ratio="5 / 2"
+              labeled
+              sizes="(min-width: 90em) 1264px, (min-width: 64em) 1136px, 100vw"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 2 which situation — the industry pages' accordion. At most one row open
+        per list; the shared binder enforces it. */}
+    <section
+      class="cr-band cr-band--dark cr-case"
+      id="situations"
+      aria-labelledby="situations-heading"
+      data-band="dark"
+      data-cr-section="situations"
+      data-reveal-root
+      data-accordion
+    >
+      <div class="container-site">
+        <div class="cr-case-head" data-reveal>
+          <Eyebrow>What's your case?</Eyebrow>
+          <h2 id="situations-heading" class="cr-case-claim">Which situation are you in?</h2>
+        </div>
+
+        <ul class="cr-case-list" data-reveal>
+          {
+            SITUATIONS.map((item, i) => (
+              <li class="cr-case-item" data-acc-item>
+                <h3 class="cr-case-h">
+                  <button
+                    type="button"
+                    class="cr-case-trigger"
+                    id={`cr-case-trigger-${i}`}
+                    aria-expanded="false"
+                    aria-controls={`cr-case-panel-${i}`}
+                    data-acc-trigger
+                  >
+                    <span class="cr-case-question">{item.if}</span>
+                    <span class="cr-case-caret" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 18 10" fill="none">
+                        <path
+                          d="M1 1L9 9L17 1"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </h3>
+                <div
+                  class="cr-case-panel"
+                  id={`cr-case-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`cr-case-trigger-${i}`}
+                >
+                  <div class="cr-case-panel-inner">
+                    <p class="cr-case-means">
+                      <span class="cr-case-means-label">What it means</span>
+                      {item.means}
+                    </p>
+                    <div class="cr-case-does">
+                      <h4 class="cr-case-does-label">What the program does</h4>
+                      <p class="cr-case-does-body">{item.does}</p>
+                      <a class="cr-case-link" href={item.href}>
+                        <span>{item.linkLabel}</span>
+                        <CircleArrow />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* 3 the two files — three definition blocks on the home 3-up ratio. */}
+    <section
+      class="cr-band"
+      id="files"
+      aria-labelledby="files-heading"
+      data-band="light"
+      data-cr-section="files"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>The basics</Eyebrow>
+          <h2 id="files-heading">Two files, three scores, one decision</h2>
+        </div>
+        <div class="cr-cols-3" data-reveal>
+          {
+            FILES.map((file) => (
+              <article class="cr-file">
+                <h3 class="cr-file-title">{file.title}</h3>
+                <p class="cr-file-body">{file.body}</p>
+              </article>
+            ))
+          }
+        </div>
+        <p class="cr-note" data-reveal>
+          Which one is blocking you is the first thing a specialist works out — and it is rarely the one the
+          decline letter names.
+        </p>
+      </div>
+    </section>
+
+    {/* 4 business credit programs */}
+    <section
+      class="cr-band cr-band--top-only"
+      id="business-credit"
+      aria-labelledby="business-heading"
+      data-band="light"
+      data-cr-section="business-programs"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Business credit</Eyebrow>
+          <h2 id="business-heading">Business credit programs</h2>
+        </div>
+        <div class="cr-prog-grid" data-reveal>
+          {
+            BUSINESS_PROGRAMS.map((program) => (
+              <article class="cr-prog">
+                <h3 class="cr-prog-title">{program.name}</h3>
+                <p class="cr-prog-body">{program.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 5 personal credit programs — the same cards, on the Lilac band. */}
+    <section
+      class="cr-band cr-band--lilac"
+      id="personal-credit"
+      aria-labelledby="personal-heading"
+      data-band="light"
+      data-cr-section="personal-programs"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Personal credit</Eyebrow>
+          <h2 id="personal-heading">Personal credit programs</h2>
+        </div>
+        <div class="cr-prog-grid" data-reveal>
+          {
+            PERSONAL_PROGRAMS.map((program) => (
+              <article class="cr-prog">
+                <h3 class="cr-prog-title">{program.name}</h3>
+                <p class="cr-prog-body">{program.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 6 process — four steps, dark band. */}
+    <section
+      class="cr-band cr-band--dark cr-process"
+      id="process"
+      aria-labelledby="process-heading"
+      data-band="dark"
+      data-cr-section="process"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Process</Eyebrow>
+          <h2 id="process-heading">Four steps</h2>
+        </div>
+        <ol class="cr-steps" data-reveal>
+          {
+            STEPS.map((step, i) => (
+              <li class="cr-step">
+                <span class="cr-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h3 class="cr-step-title">{step.name}</h3>
+                <p class="cr-step-body">{step.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    {/* 7 what this can and cannot do — the page's compliance band. */}
+    <section
+      class="cr-band cr-band--lilac"
+      id="limits"
+      aria-labelledby="limits-heading"
+      data-band="light"
+      data-cr-section="limits"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>Straight answers</Eyebrow>
+          <h2 id="limits-heading">What we can do, and what nobody can</h2>
+        </div>
+        <div class="cr-limits" data-reveal>
+          <div class="cr-limits-col">
+            <h3 class="cr-limits-title">What the program does</h3>
+            <ul class="cr-limits-list">
+              {CAN_DO.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div class="cr-limits-col">
+            <h3 class="cr-limits-title">What it does not do</h3>
+            <ul class="cr-limits-list">
+              {CANNOT_DO.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div class="cr-law" data-reveal>
+          <h3 class="cr-law-title">What federal law gives you</h3>
+          <p class="cr-law-body">{LAW}</p>
+        </div>
+      </div>
+    </section>
+
+    {/* 8 what to send — the note carries a label and a lead, no H2, so the band
+        is labelled on the section itself. */}
+    <section class="cr-band cr-send" aria-label="What to send" data-band="light" data-cr-section="send" data-reveal-root>
+      <div class="container-site">
+        <div class="cr-send-grid" data-reveal>
+          <div class="cr-send-head">
+            <Eyebrow>What to send</Eyebrow>
+            <p class="cr-send-lead">Your specialist sends the exact list for your file. It usually starts here:</p>
+          </div>
+          <ul class="cr-send-list">
+            {SEND.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* 9 FAQ */}
+    <section
+      class="cr-band cr-faq-band"
+      id="faq"
+      aria-labelledby="faq-heading"
+      data-band="light"
+      data-cr-section="faq"
+      data-reveal-root
+    >
+      <div class="container-site">
+        <div class="cr-block-head" data-reveal>
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 id="faq-heading">Questions we get asked</h2>
+        </div>
+        <FaqList items={FAQS} idPrefix="cr" class="cr-faq-list" data-reveal />
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import { bindAccordions } from '@/scripts/accordion';
+  import '@/scripts/scroll-in';
+
+  bindAccordions();
+</script>

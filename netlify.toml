@@ -103,12 +103,6 @@
   to = "/apply"
   status = 301
 
-[[redirects]]
-  from = "/resources/credit-repair-loan-prep"
-  to = "/apply"
-  status = 301
-
-
 # Pretty URLs: rewrite /apply/ to apply.html (force beats Pretty URLs).
 [[redirects]]
   from = "/*/"

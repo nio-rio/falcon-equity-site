@@ -47,12 +47,23 @@ if (aboutH1 !== 'We’re more than a funding provider. We’re your partner.') {
 }
 
 /** Resource tools that are real pages, not redirects. */
-const toolPages = [['resources/business-loan-calculator', 'Business loan calculator']];
+const toolPages = [
+  [
+    'resources/business-loan-calculator',
+    'Business loan calculator',
+    'Business Loan Calculator | Falcon Equity Group',
+  ],
+  [
+    'resources/credit-repair-loan-prep',
+    'Credit Repair & Loan Prep',
+    'Credit repair and loan prep | Falcon Equity Group',
+  ],
+];
 
-for (const [route, h1Expected] of toolPages) {
+for (const [route, h1Expected, titleExpected] of toolPages) {
   const file = `dist/${route}.html`;
   const title = titleOf(file);
-  if (title !== 'Business Loan Calculator | Falcon Equity Group') {
+  if (title !== titleExpected) {
     throw new Error(`${file} <title> was ${JSON.stringify(title)}`);
   }
   const h1 = h1Of(file);

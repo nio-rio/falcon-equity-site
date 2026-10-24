@@ -12,7 +12,6 @@
 /blog/category/costs-and-rates       /blog                   301
 /blog/category/cash-flow-and-debt    /blog                   301
 /resources/loan-calculator           /apply                  301
-/resources/credit-repair-loan-prep   /apply                  301
 
 # Pretty URLs 301 /path/ → /path with a 98-byte "Document moved" body.
 # Crawlers that do not follow that (or resolve Location against /) then see
