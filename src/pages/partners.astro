@@ -3,29 +3,27 @@
  * `/partners` — brokers, ISOs, funding partners and service partners.
  *
  * Copy: the 23 Oct 2026 partners contract, verbatim, as Ling edited it in Notion that day.
- * Six bands, in its order:
+ * Five bands, in its order:
  *
  *    1  hero ............... TF-00 header + TF-01 still, no CTA, no eyebrow
  *    3  partner types ...... TF-05 3-up titled prose, no chrome
  *    8  our partners ....... PE-04 card row from src/data/partners.ts, plus the Become tile
  *    9  become a partner ... HOME-07 heading left, two text columns right (no form)
  *   10  FAQ ................ APM-08 / PWS-09 via the shared FaqList + FAQPage schema
- *   11  CTA ................ SiteCta, static variant (heading + email + direct line)
  *
  * The contract's bands 2, 4, 5, 6, 7 and 8b — answer-first, product shelf, submission,
  * shared client, speed and the dedicated Cardiff band — were deleted from the Notion
- * contract, so they are deleted from this page and its CSS. Nothing here publishes a rate,
- * the approval figure or a consolidation-savings figure. Contact comes from SITE.
+ * contract, so they are deleted from this page and its CSS. There is no closing CTA band:
+ * Ling deleted the last section above the footer, so the page now ends on the FAQ and the
+ * layout's default pre-footer band is switched off with `cta={false}`. Nothing here publishes
+ * a rate, the approval figure or a consolidation-savings figure. Contact comes from SITE.
  * Plan: docs/partners-structure-plan.md.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Media from '@/components/Media.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import Button040 from '@/components/Button040.astro';
-import ArrowCta from '@/components/ArrowCta.astro';
 import CircleArrow from '@/components/CircleArrow.astro';
 import FaqList from '@/components/FaqList.astro';
-import SiteCta from '@/components/SiteCta.astro';
 import { PAGE_DISCLOSURE } from '@/data/disclosure';
 import { SITE } from '@/data/site';
 import { PARTNERS, BECOME_A_PARTNER } from '@/data/partners';
@@ -92,6 +90,7 @@ const schema = [
   description="Send one file to one desk. Seven products from $5,000 to $5,000,000, no restricted-industry or restricted-state list, a 0% agreement fee, and a straight answer on whether a file is placeable."
   disclosure={PAGE_DISCLOSURE}
   schema={schema}
+  cta={false}
 >
   <Fragment slot="head">
     <script is:inline>
@@ -289,18 +288,6 @@ const schema = [
       <FaqList items={FAQS} idPrefix="ptn" class="ptn-faq-list" data-reveal />
     </div>
   </section>
-
-  <!-- 11. CTA — the sitewide band, static variant. Nothing sits beside the buttons. -->
-  <SiteCta
-    slot="cta"
-    heading="Send the first file."
-    body="One desk, seven products, and a straight answer on whether a file is placeable."
-  >
-    <Fragment slot="actions">
-      <Button040 href={PARTNER_MAILTO} label="Email the partner desk" variant="light" />
-      <ArrowCta href={DIRECT.href} label={`Direct line ${DIRECT.display}`} tone="light" />
-    </Fragment>
-  </SiteCta>
 
   <script>
     import { bindAccordions } from '@/scripts/accordion';

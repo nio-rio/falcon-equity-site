@@ -1,18 +1,6 @@
 ---
 import Button040 from './Button040.astro';
 
-interface Props {
-  /**
-   * Static variant: a visible H2 + one line, with the page's own buttons in the
-   * `actions` slot instead of the "Need funding to" wheel and Apply. Omit both
-   * props and the band renders exactly as before (every page but /partners).
-   */
-  heading?: string;
-  body?: string;
-}
-
-const { heading, body } = Astro.props;
-
 const phrases = [
   'purchase inventory',
   'cover payroll',
@@ -27,21 +15,6 @@ const lead = 'Need funding to';
 const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(-1)}`;
 ---
 
-{heading ? (
-<section class="site-cta site-cta--static" data-site-cta data-band="dark" aria-labelledby="site-cta-heading">
-  <div class="site-cta__inner container-site">
-    <div class="site-cta__content">
-      <div class="site-cta__text">
-        <h2 id="site-cta-heading" class="site-cta__heading">{heading}</h2>
-        {body && <p class="site-cta__body">{body}</p>}
-      </div>
-      <div class="site-cta__actions">
-        <slot name="actions" />
-      </div>
-    </div>
-  </div>
-</section>
-) : (
 <section class="site-cta" data-site-cta data-band="dark" aria-labelledby="site-cta-heading">
   <div class="site-cta__inner container-site">
     <div class="site-cta__content">
@@ -64,7 +37,6 @@ const srSentence = `${lead} ${phrases.slice(0, -1).join(', ')}, or ${phrases.at(
     </div>
   </div>
 </section>
-)}
 
 <script>
   const HOLD_MS = 1200;
