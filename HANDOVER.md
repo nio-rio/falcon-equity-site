@@ -1061,3 +1061,30 @@ the list with `overflow=0`. On the deploy preview all six pages and `/about` ser
 **Note:** the skyline and the six product stills are supplied stills, not commissioned Falcon
 photography. The skyline reads as New York, which matches "Based in NYC" in the lead, but all seven are
 swap candidates when Dwight supplies licensed photography.
+
+
+## 2026-10-23 — Design consistency pass + link/button audit (5fa1169)
+
+**Asked:** go through every page, remove unnecessary inconsistency (container, section pads, heading↔content spacing, page H1/H2 sizes, palette, link hover, scroll-in) and update the design system so new pages follow it; then check for broken links/buttons.
+
+**Measured before/after** at 390/768/1280/1440 on the local build (`/tmp/falcon-audit.mjs`, `probe5.mjs`).
+
+**New tokens** (`src/styles/tokens.css`): `--page-title-size` (40/48/56), `--page-title-lh` (1.1), `--page-header-pt` (40/48/48), `--page-header-pb` (80/96/120), `--white-a40`.
+
+| Slot | Before | After (all inner templates) |
+| --- | --- | --- |
+| H1 | 49/55 (services, about), 40→56 (industry), 40→48→56 (faq/blog), 56/84 index+calc | 40 / 48 / 56 at 1.1, weight 400 |
+| Page header pad | 50/80, 50/160, 40/64, 56/96 (varies per template) | 40/80 → 48/96 → 48/120 |
+| Section bands | 78/78, 80/75, 142, 144, 0-top followers | `--pilot-section-y`, follower top `--pilot-section-y-stack` |
+| H2 | faq 48/84 w300, claim 36/45 w300, faq-head 40 | `--type-h2-*` (32/40/48, 1.25), weight 400 |
+| Heading→content | 32/40/48 (faq), 120 (index) | `--space-head-to-content` (72/72/96/104) |
+| Underline draw | 300ms/0.3s in 9 places | 350ms ease everywhere |
+| Hero reveal | none on faq/blog/calc, 0.4/0.8 on about | 0 stagger / 0.55s, as the industry hero |
+
+**Bands that moved by design:** service hero 50/160 → 48/120, service bands 78/142/75 → 80/96/144/160, about 144 → 160 at 1440, page-header top 56 → 48 at 768+.
+
+**Links/buttons:** 58 docs, 2,479 internal links — 0 broken, 0 bad anchors; 697 buttons all `type="button"` with `data-*` or `aria-label`; no forms. Fixed: 17 posts pointed at `/resources/loan-calculator` (stub → `/apply`) now `/resources/business-loan-calculator`; 2 posts at `/services` + `#compare-heading` now `/#services`. Facebook `sharer.php` 400s to non-browser clients only — not a defect.
+
+**Open:** footer Privacy/Terms and nav Partners still point at `/#main`; `src/legal/*.md` unpublished — needs a legal-page build decision. `How It Works` is absent from the nav and its route is a redirect stub, although CLAUDE.md says to keep it.
+
+**Note:** the blog link fixes in 15 posts are in the working tree but uncommitted — those files also carry another agent's `draft: true → false` edits, so they were not staged.
